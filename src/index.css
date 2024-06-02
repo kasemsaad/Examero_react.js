@@ -1,3 +1,7 @@
+:root{
+  --gray:#CDCDCD;
+  --darkblue: #090631
+}
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -11,3 +15,83 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+/* ---------sidbar----------- */
+ul{
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.sidbar {
+  width: 241px !important;
+  height: 586px !important;
+  border-radius: 30px;
+  padding-top: 20px;
+  border: 7px solid var(--darkblue)  ;
+  background-color: var(--gray);
+}
+.sidbar .sidbarSidbar{
+  position: absolute;
+  background-image: url(../src/icons/sidebar/Vector\ 1.svg);
+  background-repeat: no-repeat;
+  width: 75px;
+  height: 645px;
+  margin-top: -20px;
+  margin-right: -35px;
+}
+.sidbar .sidbarSidbar ul{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100px;
+}
+.sidbar .sidbarSidbar ul li{
+ margin-top: 18px;
+ background-color: blue;
+ text-align: center;
+ border-radius: 50%;
+ width: 26px;
+ height: 26px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ display: block;
+
+}
+.sidbar .sidbarSidbar ul li a{
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: block;
+  display: flex;
+ align-items: center;
+ justify-content: center;
+}
+.sidbar .sidbarSidbar ul li a img{
+  width: 90%;
+  height: 90%;
+  border-radius: 50%;
+}
+.sidbar  .sidbarUl{
+  padding-right: 50px;
+  width: 120%;
+  height: 100%;
+}
+.sidbar  ul li {
+  padding: 0px;
+  text-align: right;
+}
+.sidbar  ul .sidbarli {
+margin-bottom: 20px;
+}
+
+.sidbar  ul li .Icon{
+  background-color: aquamarine;
+ font-weight: bold;
+ width: 100%;
+ height: 100%;
+ color: black;
+ text-decoration: none;
+ display: block;
+}
+
