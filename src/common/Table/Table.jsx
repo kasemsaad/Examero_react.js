@@ -10,31 +10,44 @@ function MyTable({ header, body, icons, button }) {
       <thead>
         <tr>
           <th>#</th>
-          {Object.values(header).map((element, index) => (
-            <th key={index}>{element}</th>
-          ))}
+          {header &&
+            Object.values(header).map((element, index) => (
+              <th key={index}>{element}</th>
+            ))}
         </tr>
       </thead>
       <tbody>
-        {body.map((row, rowIndex) => (
-          <tr key={rowIndex}>
-            {Object.values(row).map((value, cellIndex) => (
-              <td key={`${rowIndex}-${cellIndex}`}>{value}</td>
-            ))}
-            <td>
-              {trash && <img src={image} className="trash" alt="" />}
-              {edit && (
-                <MyButton className="square fa-regular fa-pen-to-square" />
-              )}
-              {eye && <MyButton className="eye fa-regular fa-eye" />}
-            </td>
-            <td>
-              {button && (
-                <MyButton className={"buttonOfTable"} content={"أرسل ملحوظه"} />
-              )}
-            </td>
-          </tr>
-        ))}
+        {body &&
+          body.map((row, rowIndex) => (
+            <tr key={rowIndex}>
+              {Object.values(row).map((value, cellIndex) => (
+                <td key={`${rowIndex}-${cellIndex}`}>{value}</td>
+              ))}
+              <td>
+                {trash && (
+                  <MyButton
+                    className="trash"
+                    style={{
+                      backgroundImage: `url(${image})`,
+                      backgroundRepeat: "no-repeat",
+                    }}
+                  />
+                )}
+                {edit && (
+                  <MyButton className="square fa-regular fa-pen-to-square" />
+                )}
+                {eye && <MyButton className="eye fa-regular fa-eye" />}
+              </td>
+              <td>
+                {button && (
+                  <MyButton
+                    className={"buttonOfTable"}
+                    content={"أرسل ملحوظه"}
+                  />
+                )}
+              </td>
+            </tr>
+          ))}
       </tbody>
     </table>
   );
