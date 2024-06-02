@@ -7,12 +7,13 @@ import { Outlet } from 'react-router-dom';
   return (
     <>
     <section className="all_page" style={{ backgroundColor: "#090631", position: "absolute",
-zIndex: -3333333333, height: "100vh", width: "100%",
-        border: "1px", }}>
+zIndex: -3333333333, height: "auto", width: "100%",
+        border: "1px",  }}>
          < Header/>
 
-        <div style={{maxWidth: "60%", color:"white",
-backgroundColor:"#0E0A43", marginLeft: "64px", borderRadius: "10px", position: "relative",top: "20px"}}>
+        <div className='container' style={{maxWidth: "65%", color:"white",
+backgroundColor:"#0E0A43", marginLeft: "64px", borderRadius: "10px", position: "relative",top: "20px",overflow:"auto",marginBottom:"115px"}}>
+
         <Outlet/>
         </div>
 
