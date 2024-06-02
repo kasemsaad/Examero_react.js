@@ -1,6 +1,8 @@
 :root{
   --gray:#CDCDCD;
-  --darkblue: #090631
+  --darkblue: #090631;
+  --black:black;
+  --white:white;
 }
 body {
   margin: 0;
@@ -22,10 +24,10 @@ ul{
   margin: 0;
 }
 .sidbar {
-  width: 241px !important;
+  width: 260px !important;
   height: 586px !important;
   border-radius: 30px;
-  padding-top: 20px;
+  padding-top: 10px;
   border: 7px solid var(--darkblue)  ;
   background-color: var(--gray);
 }
@@ -43,20 +45,21 @@ ul{
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  width: 100px;
+  width:100px;
 }
 .sidbar .sidbarSidbar ul li{
- margin-top: 18px;
- background-color: blue;
+ margin-top: 15.5px;
  text-align: center;
  border-radius: 50%;
- width: 26px;
- height: 26px;
+ width: 30px;
+ height: 30px;
  display: flex;
  align-items: center;
  justify-content: center;
- display: block;
-
+ /* display: block; */
+}
+.sidbar .sidbarSidbar ul .bgIcon{
+  background-color: var(--darkblue);
 }
 .sidbar .sidbarSidbar ul li a{
   width: 26px;
@@ -64,8 +67,8 @@ ul{
   border-radius: 50%;
   display: block;
   display: flex;
- align-items: center;
- justify-content: center;
+  align-items: center;
+  justify-content: center;
 }
 .sidbar .sidbarSidbar ul li a img{
   width: 90%;
@@ -75,23 +78,39 @@ ul{
 .sidbar  .sidbarUl{
   padding-right: 50px;
   width: 120%;
-  height: 100%;
 }
 .sidbar  ul li {
   padding: 0px;
   text-align: right;
 }
 .sidbar  ul .sidbarli {
-margin-bottom: 20px;
+margin-bottom: 11px;
 }
 
 .sidbar  ul li .Icon{
-  background-color: aquamarine;
- font-weight: bold;
+font-weight: bold;
  width: 100%;
- height: 100%;
- color: black;
+ height: 34px;
+ color: var(--black);
  text-decoration: none;
  display: block;
+ padding-right: 16px;
 }
+.sidbar  ul li .Id {
+background-image: url(../src/icons/sidebar/Rectangle\ 6.svg);
+background-repeat: no-repeat;
+background-position: center;
+background-size: cover;
+color: var(--white);
+padding-top: 2px;
+}
+.sidbar  ul li .Id::after {
+content: " ";
+background-color: aqua;
+width: 10px;
+height: 10px;
+display: inline-block; /* or block, depending on your layout needs */
+position: absolute;
+left: 20%;
+  }
 
