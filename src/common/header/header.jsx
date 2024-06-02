@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import "./header.css"
 import personal from "./../../assets/image/IMG_20231104_171844_696.jpg"
 import Examiro from "./../../assets/image/image 9.svg"
@@ -8,6 +8,8 @@ import logo from "./../../assets/image/لوجو examero-01 1.svg"
 
 
  function Header() {
+  const [toggled , setToggled] = useState(false)
+
   return (
     <>
       <div className="image" style={{   width: "100%",   position: "absolute",   zIndex: -44, }}>
@@ -67,9 +69,10 @@ import logo from "./../../assets/image/لوجو examero-01 1.svg"
                 </li>
 
                 <li className="nav-item dropdown">
-                  <button className="btn btn-light" style={{ margin: "6px" }}>
-                    mostafa
-                  </button>
+                <button style={{marginLeft:"6px"}} className={`toggle-btn ${toggled ? "toggled" : ""}`} onClick={()=>setToggled(!toggled)}>
+                <span className={toggled ? "white-text" : "whit"}>{toggled ? "On" : "Off"}</span>
+           <div className='thumb'></div>
+                </button>
                 </li>
               </div>
             </div>
