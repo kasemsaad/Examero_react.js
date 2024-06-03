@@ -29,7 +29,11 @@ function MyTable({ header, body, icons, button }) {
                     className="trash"
                     style={{
                       backgroundImage: `url(${image})`,
+                      backgroundSize: "cover",
                       backgroundRepeat: "no-repeat",
+                      backgroundPosition: "center",
+                      //width: "fit-content",
+                      //height: "fit-content",
                     }}
                   />
                 )}
