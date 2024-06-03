@@ -19,6 +19,7 @@ function App(props) {
         <Route index element={<Log/>} />
         <Route path='/login' element={<J/>}/>
         <Route path='/b' element={<AccountSetting/>}/>
+          </Route>
           </Routes>
         </div>
       </BrowserRouter>
