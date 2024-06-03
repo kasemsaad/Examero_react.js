@@ -5,7 +5,7 @@ import Examiro from "./../../assets/image/image 9.svg"
 import notifiy from "./../../assets/image/ic_baseline-notifications-none.svg"
 import moon from "./../../assets/image/solar_moon-line-duotone.svg"
 import logo from "./../../assets/image/لوجو examero-01 1.svg"
-import SidebarFullscreen from '../sidebar/structure'
+import SidebarFullscreen from '../sidebar/sidbarFullscreen'
 
 
  function Header() {
