@@ -18,20 +18,19 @@ function SidebarFullscreen() {
   };
   const id=localStorage.getItem("sidbarId");
   return (
-    <div className=" mt-4 ">
+    <>
 
         {/* --------------sidbar------------- */}
-      <div  dir="rtl" >
-        <div className="sidbar p-0 " >
-          <div className="sidbarSidbar mb-3">
-          <ul className="pt-4">
+        <div className="sidbar p-0 " dir="rtl" >
+          <div className="sidbarSidbar ">
+          <ul className="pt-4 ps-4">
             <li className={`Icon  ${id === "1" ? "bgIcon":" "}`}>
               <Link to="/log" onClick={() => setId(1)} >
               <img  src={homeIcon} alt="الرئيسية" />
               </Link>
             </li>
             <li className={`Icon  ${id === "2" ? "bgIcon":" "}`}>
-            <Link  to="/" onClick={() => setId(2)} >
+            <Link  to="/log" onClick={() => setId(2)} >
             <img style={{ width: 20 , height:20 }} src={manage_accounts_outline_rounded} alt="مديرو الموقع" />
               </Link>
             </li>
@@ -127,8 +126,7 @@ function SidebarFullscreen() {
           </ul>
         </div>
 
-      </div>
-    </div>
+            </>
   );
 }
 
