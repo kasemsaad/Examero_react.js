@@ -7,8 +7,7 @@
 
 .rounded-table {
   margin: auto;
-  width: 100%;
-  max-width: 55.6875rem; /* 891px */
+  width: 55.7rem; /* 891px */
   direction: rtl;
   text-align: center;
   border-collapse: separate;
@@ -16,7 +15,6 @@
 }
 
 .rounded-table thead tr td {
-  margin: 50px;
   height: 2rem;
 }
 
@@ -62,16 +60,12 @@ tbody tr:nth-child(odd) {
 tr:nth-child(even) {
   background-color: #090631;
 }
-th:nth-child(5),
-td:nth-child(5) {
+.icon {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-.rounded-table th {
-  font-weight: 700;
-  color: #fe4f60;
-  border-bottom: 0.5px solid #a6a0f4;
+  padding: 0;
+  margin: 0;
 }
 
 /* Apply border-radius to the entire row by targeting the first and last cells */
@@ -83,6 +77,8 @@ td:nth-child(5) {
 }
 
 .rounded-table tbody tr td:last-child {
+  margin: 0 0.625rem;
+
   border-top-left-radius: 0.875rem; /* 14px */
   border-bottom-left-radius: 0.875rem; /* 14px */
 }
@@ -136,9 +132,7 @@ td:nth-child(5) {
     height: 2rem; /* 32px */
     font-size: 0.875rem; /* 14px */
   }
-  .trash {
-    width: 1.5rem;
-  }
+
   .trash,
   .square,
   .eye {
@@ -163,10 +157,9 @@ td:nth-child(5) {
     height: 2rem; /* 30px */
     font-size: 1rem; /* 13px */
   }
-  .trash {
+  /* .trash {
     width: 100%;
-    padding: 4px;
-  }
+  } */
   .trash,
   .square,
   .eye {
@@ -233,9 +226,10 @@ td:nth-child(5) {
 }
 .buttonOfTable {
   border-radius: 20px;
-  width: 100%;
-  /* padding: 0px, 10px, 0px, 10px; */
-  gap: 10px;
+  width: 105px;
+  padding: 0;
+  padding: 5px, 10px, 0px, 10px;
+
   background-color: #4941a6;
   color: #ffff;
   border: none;

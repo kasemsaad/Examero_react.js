@@ -23,7 +23,7 @@ function MyTable({ header, body, icons, button }) {
               {Object.values(row).map((value, cellIndex) => (
                 <td key={`${rowIndex}-${cellIndex}`}>{value}</td>
               ))}
-              <td>
+              <td className="icon">
                 {trash && (
                   <MyButton
                     className="trash"
