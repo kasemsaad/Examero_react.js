@@ -1,5 +1,5 @@
 
-
+/*
 
 #svg_header{
   position: absolute;right: 60px; top: 8.125em;
@@ -77,7 +77,85 @@
 
 @media (min-width: 992px) and (max-width: 1250px) {
 
+} */
+
+
+
+.row_rev_{
+  width: 90%;
+  margin: auto;
 }
+
+.logo_width_small{
+  width: 18%;
+}
+.notify_btn_tog{
+  margin-left: 18px;
+}
+
+#svg_header{
+  position: absolute;right: 0; top: 50px;
+}
+
+
+@media (max-width: 599px) {
+  .left_burger{
+    justify-content: end !important;
+  }
+  #svg_header{
+    top: -13px;
+
+  }
+  .row_rev_{
+    flex-direction: row-reverse;
+    justify-content: flex-end !important;
+  }
+  .ul_resp_sm{
+    width: 50%;
+  }
+
+}
+@media (min-width: 600px) and (max-width: 767px) {
+  .left_burger{
+    justify-content: end !important;
+  }
+  #svg_header{
+    top: -2.3px;
+  }
+  .row_rev_{
+    flex-direction: row-reverse;
+    justify-content: flex-end !important;
+  }
+  .ul_resp_sm{
+    width: 40%;
+    margin-left: 10px;
+  }
+}
+
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .left_burger{
+    justify-content: end !important;
+  }
+  #svg_header{
+
+    top: 1.015em !important;
+  }
+  .ul_resp_sm{
+    width: 60%;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1250px) {
+  #svg_header{
+
+    top: 2.415em !important;
+  }
+}
+
+
+
+
 
 
 .toggle-btn{
@@ -120,4 +198,6 @@
 .white-text{
   color: #ffff;
 }
+
+
 

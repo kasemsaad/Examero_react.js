@@ -5,6 +5,7 @@ import Examiro from "./../../assets/image/image 9.svg"
 import notifiy from "./../../assets/image/ic_baseline-notifications-none.svg"
 import moon from "./../../assets/image/solar_moon-line-duotone.svg"
 import logo from "./../../assets/image/لوجو examero-01 1.svg"
+import SidebarFullscreen from '../sidebar/structure'
 
 
  function Header() {
@@ -16,22 +17,17 @@ import logo from "./../../assets/image/لوجو examero-01 1.svg"
         <img src={Examiro} alt="examiro" width="100%" />
       </div>
 
-   <div className="personal_image" style={{  position: "relative",}}>
-   <div id="svg_header" style={{ width: "3.437rem", height: "3.437rem", borderRadius: "50%", backgroundColor: "blue", overflow: "hidden",}}>
-        <img  style={{ objectFit: "cover" }} src={personal} width="100%"  height="100%" alt='presonal_img'/>
-        </div>
-     </div>
 
       <nav className="navbar-expand-lg navbar-light">
-      <div className="container-fluid left_burger">
-        <div  className="row row_rev_"  id="navbarSupportedContent"  style={{ justifyContent: "space-between",
-            alignItems: "center",}}>
+      <div className="container-fluid left_burger" style={{margin:"0",padding:"0"}}>
+      <div  className="row row_rev_"  id="navbarSupportedContent"  style={{ justifyContent: "space-between",
+       alignItems: "center",}}>
 
    <ul className="navbar-nav mb-lg-0 col-3 ul_resp_sm">
    <div className="d-flex"  style={{    alignItems: "center",    width: "100%",
-     justifyContent: "space-evenly",  }} >
+      }} >
 
-              <li className="nav-item">
+       <li className="nav-item">
        <div style={{ backgroundColor: "#0E0A43", width: "1.606rem", height: "1.606rem",
         borderRadius: "50%",  position: "relative", }} >
        <a href="#"> <img src={notifiy}  width="100%"  alt="notifaction"
@@ -54,11 +50,12 @@ import logo from "./../../assets/image/لوجو examero-01 1.svg"
                   </span>
                 </div>
               </li>
-              <div
+              <div className='notify_btn_tog'
                 style={{
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "space-between",
+
                 }}
               >
                 <li className="nav-item">
@@ -77,14 +74,41 @@ import logo from "./../../assets/image/لوجو examero-01 1.svg"
               </div>
             </div>
           </ul>
-          <div className="col-3 text-center">
-            <div  className="logo_examiro" style={{   width: "17.4vw",   height: "4.68vw", }}>
+          <div className="col-3 text-center logo_width_small" style={{margin:"0" , padding:'0'}}>
+            <div  className="logo_examiro">
               <img  className="r"  src={logo}  alt="examiro"  width="100%"  height="100%"/>
             </div>
           </div>
+
         </div>
       </div>
     </nav>
+
+
+    {/* <div className="personal_image" style={{  position: "relative",}}>
+   <div id="svg_header" style={{ width: "3.437rem", height: "3.437rem", borderRadius: "50%", backgroundColor: "blue", overflow: "hidden",}}>
+        <img  style={{ objectFit: "cover" }} src={personal} width="100%"  height="100%" alt='presonal_img'/>
+        </div>
+     </div> */}
+
+
+     <div className="personal_image" style={{ position: 'relative', width: '90%', margin: 'auto', height: '10px' }}>
+      <div id="svg_header" style={{ width: '55px', height: '55px', borderRadius: '50%', backgroundColor: 'blue', overflow: 'hidden', position: 'absolute' }}>
+        <img style={{ objectFit: 'cover' }} src={personal} width="100%" height="100%" alt="Personal" />
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
 
 {/*
 <div style={{maxWidth: "60%", color:"white",
