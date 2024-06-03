@@ -1,15 +1,20 @@
 import React from "react";
 import MyButton from "../Button/Button";
 import "./table.css";
-import image from "../../assets/image/fluent_delete-12-regular.svg";
+import image from "../../assets/icons/MyTable/trash.svg";
 function MyTable({ header, body, icons, button }) {
-  const { trash, edit, eye } = icons;
+  let trash;
+  let edit;
+  let eye;
+  if (icons) {
+    ({ trash, edit, eye } = icons);
+  }
 
   return (
     <table className="rounded-table">
       <thead>
         <tr>
-          <th>#</th>
+          {header && <th>#</th>}
           {header &&
             Object.values(header).map((element, index) => (
               <th key={index}>{element}</th>
