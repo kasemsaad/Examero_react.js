@@ -1,6 +1,8 @@
 import React from 'react'
 import Header from '../../common/header/header';
 import { Outlet } from 'react-router-dom';
+import AccountSetting from '../../dashboard/Account-settting/AccountSetting';
+import SidebarFullscreen from '../../common/sidebar/structure';
 
 
  function LayoutComp() {
@@ -18,6 +20,11 @@ backgroundColor:"#0E0A43", marginLeft: "64px", borderRadius: "10px", position: "
         </div>
 
 
+
+        <div style={{position:"relative",right:0}}>
+  <SidebarFullscreen/>
+
+  </div>
 </section>
     </>
   )
