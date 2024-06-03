@@ -6,22 +6,18 @@ import J from './common/j/j';
 import Log from './common/j/log';
 import AccountSetting from './dashboard/Account-settting/AccountSetting';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Strcture from './strcture';
 
 function App(props) {
   return (
     <div className="App">
       <BrowserRouter>
-        <div className='container'>
           <Routes>
-            <Route path="/Strcture" element={<Strcture />} />
-            <Route path='/' element={<LayoutComp/>}>
+        <Route path='/' element={<LayoutComp/>}>
         <Route index element={<Log/>} />
         <Route path='/login' element={<J/>}/>
         <Route path='/b' element={<AccountSetting/>}/>
           </Route>
           </Routes>
-        </div>
       </BrowserRouter>
     </div>
   );
