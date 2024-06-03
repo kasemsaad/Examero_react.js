@@ -10,20 +10,18 @@ import Strcture from './strcture';
 
 function App(props) {
   return (
-    <div className="App">
+    
+    
       <BrowserRouter>
-        <div className='container'>
-          <Routes>
-            <Route path="/Strcture" element={<Strcture />} />
-            <Route path='/' element={<LayoutComp/>}>
+    
+        <Routes>
+        <Route path='/' element={<LayoutComp/>}>
         <Route index element={<Log/>} />
         <Route path='/login' element={<J/>}/>
         <Route path='/b' element={<AccountSetting/>}/>
           </Route>
           </Routes>
-        </div>
       </BrowserRouter>
-    </div>
   );
 }
 
