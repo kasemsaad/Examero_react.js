@@ -1,0 +1,203 @@
+
+/*
+
+#svg_header{
+  position: absolute;right: 60px; top: 8.125em;
+}
+
+@media(max-width:1400px ) and (min-width:901px ){
+  #svg_header{
+    position: absolute;right: 60px; top: 5.125em;
+  }
+}
+
+@media(max-width:900px ) {
+  #svg_header{
+    position: absolute;
+    right: 60px;
+     top: 3.9em;
+  }
+}
+
+
+@media (max-width: 599px) {
+  .left_burger{
+    justify-content: end !important;
+  }
+  #svg_header{
+    position: absolute;
+    right: 88px;
+    top: 2em;
+    width: 55.4px !important;
+    height: 55.4px !important;
+  }
+  .row_rev_{
+    flex-direction: row-reverse;
+    justify-content: flex-end !important;
+  }
+  .ul_resp_sm{
+    width: 50%;
+  }
+  .r{
+    width: 17.4vw !important ; height: 4.68vw !important ;
+  }
+}
+
+
+@media (min-width: 600px) and (max-width: 767px) {
+  .left_burger{
+    justify-content: end !important;
+  }
+  #svg_header{
+    position: absolute;
+    right: 80px;
+    top: 2.25em;
+  }
+  .row_rev_{
+    flex-direction: row-reverse;
+    justify-content: flex-end !important;
+  }
+  .ul_resp_sm{
+    width: 40%;
+  }
+}
+
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .left_burger{
+    justify-content: end !important;
+  }
+  #svg_header{
+    position: absolute;right: 60px; top: 4.125em !important;
+  }
+  .ul_resp_sm{
+    width: 60%;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1250px) {
+
+} */
+
+
+
+.row_rev_{
+  width: 90%;
+  margin: auto;
+}
+
+.logo_width_small{
+  width: 18%;
+}
+.notify_btn_tog{
+  margin-left: 18px;
+}
+
+#svg_header{
+  position: absolute;right: 0; top: 50px;
+}
+
+
+@media (max-width: 599px) {
+  .left_burger{
+    justify-content: end !important;
+  }
+  #svg_header{
+    top: -13px;
+
+  }
+  .row_rev_{
+    flex-direction: row-reverse;
+    justify-content: flex-end !important;
+  }
+  .ul_resp_sm{
+    width: 50%;
+  }
+
+}
+@media (min-width: 600px) and (max-width: 767px) {
+  .left_burger{
+    justify-content: end !important;
+  }
+  #svg_header{
+    top: -2.3px;
+  }
+  .row_rev_{
+    flex-direction: row-reverse;
+    justify-content: flex-end !important;
+  }
+  .ul_resp_sm{
+    width: 40%;
+    margin-left: 10px;
+  }
+}
+
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .left_burger{
+    justify-content: end !important;
+  }
+  #svg_header{
+
+    top: 1.015em !important;
+  }
+  .ul_resp_sm{
+    width: 60%;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1250px) {
+  #svg_header{
+
+    top: 2.415em !important;
+  }
+}
+
+
+
+
+
+
+.toggle-btn{
+  background-color: #b7b7b7;
+  border: 1px solid #aaa;
+  border-radius: 99px;
+  width: 100.21px ;
+  /* which i change to make di minsion  */
+  height: 30.83px;
+  transition: background-color 0.1s ease, border-color 0.2s ease;
+  cursor: pointer;
+  box-shadow: 1px 1px 10px rgba(0,0,0,0.748);
+  position: relative;
+}
+.toggle-btn .thumb{
+  height: 20px;
+  width: 20px;
+  background-color: #ffff;
+  border-radius: 99px ;
+  transform: translateX(0);
+  transition: left 0.15s ease;
+  position: absolute;
+  /* which i change to make di minsion  */
+  left: 70px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.toggle-btn.toggled{
+  background-color:#FE4F60  ;
+}
+.toggled-btn:hover{
+  border-color: #6f6f6f;
+}
+
+.toggle-btn.toggled .thumb{
+  left :calc( 100.21px - 100px)
+}
+
+
+.white-text{
+  color: #ffff;
+}
+
+
+
