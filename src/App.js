@@ -10,8 +10,10 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App(props) {
   return (
-    <div className="App">
+    
+    
       <BrowserRouter>
+
           <Routes>
         <Route path='/' element={<LayoutComp/>}>
         <Route index element={<Log/>} />
@@ -20,7 +22,6 @@ function App(props) {
           </Route>
           </Routes>
       </BrowserRouter>
-    </div>
   );
 }
 

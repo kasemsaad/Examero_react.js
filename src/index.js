@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import mystore from './redux/store';
+import { Provider } from 'react-redux';
+
 <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
@@ -12,14 +15,13 @@ import reportWebVitals from './reportWebVitals';
     />
 
 
-    
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <Provider store={mystore}>
+  <App />
+</Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function
