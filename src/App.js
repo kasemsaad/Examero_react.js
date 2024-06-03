@@ -1,3 +1,4 @@
+
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from './common/header/header';
@@ -6,15 +7,14 @@ import J from './common/j/j';
 import Log from './common/j/log';
 import AccountSetting from './dashboard/Account-settting/AccountSetting';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Strcture from './strcture';
 
 function App(props) {
   return (
     
     
       <BrowserRouter>
-    
-        <Routes>
+
+          <Routes>
         <Route path='/' element={<LayoutComp/>}>
         <Route index element={<Log/>} />
         <Route path='/login' element={<J/>}/>

@@ -1,0 +1,36 @@
+.home{
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 2rem;
+}
+.block{
+    width: 98%;
+    display: flex;
+    justify-content: space-between;
+}
+.form{
+    width: 70%;
+}
+@media screen and (max-width: 1150px) and (min-width: 767px) {
+    .form{
+        width: 83%;
+    }  
+    
+}
+@media screen and (max-width: 767px)  {
+    .col-md-3{
+      display: none;
+    }
+    .form{
+        width: 100%;
+        margin-top: 3rem;
+    }
+    .block{
+        width: 99%;
+        display: flex;
+        justify-content: center;
+        margin-right: 3%;
+        
+    }
+  }

@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import "./Account.css"
-import SidebarFullscreen from '../../common/sidebar/structure';
+import SidebarFullscreen from '../../common/sidebar/sidbarFullscreen';
  function AccountSetting() {
   return (
     <>
+
 
     <div className='container container_edit' >
       <div style={{paddingTop:"6%" ,direction:"rtl"}}>
@@ -43,8 +44,8 @@ import SidebarFullscreen from '../../common/sidebar/structure';
   </tbody>
 </table> 
 </div>
-</div>
 
+ 
     </>
   )
 }
