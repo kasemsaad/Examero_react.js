@@ -11,8 +11,7 @@ import akar_icons_bank from '../../assets/icons/sidebar/akar-icons_bank.svg';
 import manage_accounts_outline_rounded from '../../assets/icons/sidebar/material-symbols_manage-accounts-outline-rounded.svg';
 import account_supervisor_outline from '../../assets/icons/sidebar/mdi_account-supervisor-outline.svg';
 import teacher from '../../assets/icons/sidebar/mdi_teacher.svg';
-
-function SidebarFullscreen() {
+function Sidmedscreen() {
   const setId = (id) => {
     localStorage.setItem("sidbarId", JSON.stringify(id));
   };
@@ -21,7 +20,7 @@ function SidebarFullscreen() {
     <>
 
         {/* --------------sidbar------------- */}
-        <div className="sidbar p-0 pe-3 " style={{paddingRight:"100px"}} dir="rtl" >
+        <div className="sidbarmed p-0 " dir="rtl" >
           <div className="sidbarSidbar ">
           <ul className="pt-4 ps-4">
             <li className={`Icon  ${id === "1" ? "bgIcon":" "}`}>
@@ -51,7 +50,7 @@ function SidebarFullscreen() {
             </li>
             <li className={`Icon  ${id === "6" ? "bgIcon":" "}`}>
             <Link to="/" onClick={() => setId(6)}>
-              <img style={{ width: 23 , height:23 }} src={akar_icons_bank} alt="وضع الاسئله"  />
+            <img style={{ width: 20 , height:20 }} src={account_supervisor_outline} alt="مشرفو الموقع" />
               </Link>
             </li>
             <li className={`Icon  ${id === "7" ? "bgIcon":" "}`}>
@@ -86,44 +85,7 @@ function SidebarFullscreen() {
             </li> */}
           </ul>
           </div>
-          <ul className="sidbarUl pt-4  " >
-            <li className="sidbarli">
-            <Link to="/" onClick={() => setId(1)} className={`Icon  ${id === "1" ? "Id":" "}`}>الرئيسية</Link>
-            </li>
-            <li className="sidbarli">
-              <Link to="/" onClick={() => setId(2)} className={`Icon  ${id === "2" ? "Id":" "}`}>مديرو الموقع</Link>
-            </li>
-            <li className="sidbarli">
-            <Link to="/" onClick={() => setId(3)} className={`Icon  ${id === "3" ? "Id":" "}`}>مشرفو الموقع</Link>
-            </li>
-            <li className="sidbarli">
-            <Link to="/" onClick={() => setId(4)} className={`Icon  ${id === "4" ? "Id":" "}`}>المعلمين</Link>
-            </li>
-            <li className="sidbarli">
-            <Link to="/" onClick={() => setId(5)} className={`Icon  ${id === "5" ? "Id":" "}`}>وضع الأسئلة</Link>
-            </li>
-            <li className="sidbarli">
-            <Link to="/" onClick={() => setId(6)} className={`Icon  ${id === "6" ? "Id":" "}`}>بنك الأسئلة</Link>
-            </li>
-            <li className="sidbarli">
-            <Link to="/" onClick={() => setId(7)} className={`Icon  ${id === "7" ? "Id":" "}`}>شهادات التقدير</Link>
-            </li>
-            <li className="sidbarli">
-            <Link to="/" onClick={() => setId(8)} className={`Icon  ${id === "8" ? "Id":" "}`}>إدخال علامات Open Emis</Link>
-            </li>
-            <li className="sidbarli">
-            <Link to="/" onClick={() => setId(9)} className={`Icon  ${id === "9" ? "Id":" "}`}>جدول المواصفات</Link>
-            </li>
-            <li className="sidbarli">
-            <Link to="/" onClick={() => setId(10)} className={`Icon  ${id === "10" ? "Id":" "}`}>إنشاء الامتحان</Link>
-            </li>
-            <li className="sidbarli">
-            <Link to="/" onClick={() => setId(11)} className={`Icon  ${id === "11" ? "Id":" "}`}>تسجيل الخروج</Link>
-            </li>
-            {/* <li className="sidbarli">
-            <Link to="/" onClick={() => setId(11)} className={`Icon  ${id === "11" ? "Id":" "}`}>تسجيل الخروج</Link>
-            </li> */}
-          </ul>
+      
         </div>
 
             </>
@@ -131,4 +93,4 @@ function SidebarFullscreen() {
 }
 
 
-export default SidebarFullscreen;
+export default Sidmedscreen;

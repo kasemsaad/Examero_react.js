@@ -5,12 +5,25 @@ import Examiro from "./../../assets/image/image 9.svg"
 import notifiy from "./../../assets/image/ic_baseline-notifications-none.svg"
 import moon from "./../../assets/image/solar_moon-line-duotone.svg"
 import logo from "./../../assets/image/لوجو examero-01 1.svg"
-import SidebarFullscreen from '../sidebar/structure'
+// import SidebarFullscreen from '../sidebar/structure'
+import { useDispatch, useSelector } from 'react-redux'
+import { CHANGE_THEME } from '../../redux/Types/types'
+import { Link } from 'react-router-dom'
 
 
  function Header() {
   const [toggled , setToggled] = useState(false)
+  const ReducerState = useSelector((state)=>state.dark);
+  const count = useSelector((state)=>state.dark.counter);
 
+  const dispatch = useDispatch()
+  const tog=()=>{
+    setToggled(!toggled)
+    dispatch({
+      type:CHANGE_THEME,
+    }
+    )
+  }
   return (
     <>
       <div className="image" style={{   width: "100%",   position: "absolute",   zIndex: -44, }}>
@@ -66,8 +79,8 @@ import SidebarFullscreen from '../sidebar/structure'
                 </li>
 
                 <li className="nav-item dropdown">
-                <button style={{marginLeft:"6px"}} className={`toggle-btn ${toggled ? "toggled" : ""}`} onClick={()=>setToggled(!toggled)}>
-                <span className={toggled ? "white-text" : "whit"}>{toggled ? "On" : "Off"}</span>
+                <button style={{marginLeft:"6px"}} className={`toggle-btn ${toggled ? "toggled" : ""}`} onClick={()=>tog()}>
+                <span className={toggled ? "white-text" : "whit"}>{toggled ? "Light" : "Dark"}</span>
            <div className='thumb'></div>
                 </button>
                 </li>

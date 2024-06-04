@@ -78,8 +78,13 @@
 @media (min-width: 992px) and (max-width: 1250px) {
 
 } */
+.r{
+  margin-left: 15px ;
 
-
+}
+#svg_header{
+  top: 41px !important;
+}
 
 .row_rev_{
   width: 90%;
@@ -95,6 +100,7 @@
 
 #svg_header{
   position: absolute;right: 0; top: 50px;
+  right: -10px ;
 }
 
 
@@ -148,9 +154,12 @@
 
 @media (min-width: 992px) and (max-width: 1250px) {
   #svg_header{
-
-    top: 2.415em !important;
+    top: 25px !important;
   }
+}
+
+@media (min-width: 1251px) and (max-width: 1440px) {
+
 }
 
 
