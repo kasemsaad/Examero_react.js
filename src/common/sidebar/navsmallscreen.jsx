@@ -14,6 +14,7 @@ import account_supervisor_outline from '../../assets/icons/sidebar/mdi_account-s
 import teacher from '../../assets/icons/sidebar/mdi_teacher.svg';
 import logo from '../../assets/image/لوجو examero-01 1.svg';
 import list_icon from '../../assets/icons/sidebar/Group 310.svg';
+import solar_moon_line_duotone from '../../assets/icons/sidebar/solar_moon-line-duotone.svg';
 import personal from "./../../assets/image/IMG_20231104_171844_696.jpg"
 import notifiy from "./../../assets/image/ic_baseline-notifications-none.svg"
 import { useDispatch, useSelector } from "react-redux";
@@ -131,7 +132,7 @@ function Navsmallscreen() {
                 <div>
 
                  <span>الوضع</span>
-                <img  style={{ width: 18 , height:18 }} src={iconamoon_exit_light} alt="تسجيل الخروج"  />
+                <img  style={{ width: 18 , height:18 }} src={solar_moon_line_duotone} alt="الوضع"  />
                 </div>
                 </div>
               </li>
