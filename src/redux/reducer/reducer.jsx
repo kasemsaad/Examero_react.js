@@ -9,8 +9,8 @@ const changeTheme = (state={color:"",lay:"",counter:0},action)=>{
        const  toggled =""
         return {
             ...state,
-            color:state.color === '#090631' ? "white" : "#090631",
-            lay:state.lay === '#090631' ? "#ECECEC" : "#090631"
+            color:state.color === "#090631" ? "white" : "#090631",
+            lay:state.lay === '#0E0A43' ? "#ECECEC" : "#0E0A43"
         }
     }
 

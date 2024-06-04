@@ -1,13 +1,232 @@
-.container_edit{
-  width:100% !important;
+/* .container_edit{ */
+
+
+  /* max-width: 90% !important;
   border-radius: 24px;
-  background-color: blue ;
-  /* margin: auto; */
+  /* background-color: blue ; */
+  /* margin: auto;
   margin-top: 76px;
-margin-bottom: 106px;
-overflow-x: auto;
+margin-bottom: 106px; */
+
+/* } */
+
+*{
+  font-family: Cairo;
+  
+}
+
+@media (min-width: 1251px) and (max-width: 1440px) {
+  .button_margin{
+    background-color: black;
+    padding: 0;
+  }
+
+}
+
+
+@media (min-width: 992px) and (max-width: 1200px) {
+ 
 
 }
 
 
 
+@media (min-width: 768px) and (max-width: 991px) {
+  .phone_input{
+    margin-right: 0 !important;
+
+  } 
+  .name_input{
+    margin-right: 23px !important;
+  }
+  .wrab_phone{
+    margin-top: 16px;
+  }
+  .family_input{
+    margin-right: 27px;
+  }
+  .email_inp_wraper{
+    margin-top:12px ;
+  }
+ .country_input
+ {
+  margin-right: 37px !important;
+ }
+ .wraber_birth{
+  margin-top:12px ;
+
+ }
+ .align_btn{
+  text-align: center;
+ }
+}
+
+
+
+@media (min-width: 600px) and (max-width: 767px) {
+  .phone_input{
+    margin-right: 0 !important;
+  } 
+
+  .wrab_phone{
+    margin-top: 16px;
+  }
+
+
+  .family_input{
+    margin-right: 27px;
+  }
+  .email_inp_wraper{
+    margin-top:12px ;
+  }
+ 
+  .country_input
+ {
+  margin-right: 35px !important;
+ }
+ .wraber_birth{
+  margin-top:12px ;
+
+ }
+
+ .align_btn{
+  text-align: center;
+ }
+
+}
+
+
+
+@media (min-width: 400px) and (max-width: 599px) {
+  .phone_input{
+    margin-right: 0 !important;
+    width: 300px !important;
+    
+  } 
+
+  .name_input{
+    margin-right: 23px !important;
+    width: 300px !important;
+  }
+
+  .wrab_phone{
+    margin-top: 16px;
+  }
+
+  .family_input{
+    margin-right: 27px;
+    width: 300px !important;
+
+  }
+  .email_input{
+    width: 300px !important;
+
+  }
+  .email_inp_wraper{
+    margin-top:12px ;
+  }
+
+
+   
+  .country_input
+ {
+  margin-right: 35px !important;
+  width: 300px;
+ }
+ .birth_input{
+  width: 300px;
+
+ }
+ .wraber_birth{
+  margin-top:12px ;
+
+ }
+
+ .align_btn{
+  text-align: center;
+ }
+
+ 
+}
+
+
+
+
+
+
+
+
+
+@media (max-width: 599px) {
+ 
+ 
+}
+
+
+@media (min-width: 300px) and (max-width: 450px) {
+  .phone_input{
+    margin-right: 0 !important;
+    width: 200px !important;
+  } 
+  .name_input{
+    margin-right: 23px !important;
+    width: 200px !important;
+  }
+  .wrab_phone{
+    margin-top: 16px;
+  }
+  .family_input{
+    margin-right: 27px;
+    width: 200px !important;
+
+  }
+  .email_input{
+    width: 200px !important;
+  }
+  .email_inp_wraper{
+    margin-top:12px ;
+
+  }
+
+
+    
+  .country_input
+ {
+  margin-right: 35px !important;
+  width: 200px;
+ }
+ .birth_input{
+  width: 200px;
+
+ }
+ .wraber_birth{
+  margin-top:12px ;
+
+ }
+
+ .align_btn{
+  text-align: center;
+ }
+
+}
+/* 
+.profile-card, .password-card {
+  background-color: #1a1a66;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+.btn-save {
+  background-color: #ff0055;
+  border: none;
+}
+.profile-img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: #444;
+  margin-bottom: 10px;
+}
+.form-group label {
+  color: white;
+} */

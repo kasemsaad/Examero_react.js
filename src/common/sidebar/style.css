@@ -1,5 +1,5 @@
 :root{
-  --gray:#CDCDCD;
+  --gray:#ECECEC;
   --darkblue: #090631;
   --black:black;
   --white:white;
@@ -29,7 +29,7 @@ ul{
   height: 586px !important;
   border-radius: 30px;
   padding-top: 10px;
-  border: 7px solid var(--darkblue)  ;
+  /* border: 7px solid var(--darkblue)  ; */
   background-color: var(--gray);
 }
 .sidbar .sidbarSidbar{
@@ -110,7 +110,7 @@ padding-top: 2px;
 .sidbar  ul li .Id::before {
   content: " ";
   background-color: var(---purple);
-  width: 20px;
+  width: 29px;
   height: 10px;
   display: inline-block; /* or block, depending on your layout needs */
   position: absolute;
@@ -123,10 +123,38 @@ padding-top: 2px;
       display: none;
 
     }
+    .navbar{
+      background-image: url(../../assets/icons/sidebar/image\ 9.svg);
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    .navbar-nav-small{
+      align-items: end;
+      background-color: var(---purple);
+      border-radius: 8px;
+      margin: 9px;
+      padding-right: 15px;
+      width: 300px;
+    }
+  
+    .nav-link{
+      color: white;
+    }
+    .nav-link img{
+      margin-left: 15px;
+    }
+    .navbar{
+      display: none;
+    }
     @media screen and (max-width: 1150px) and (min-width: 767px) {
       .sidbar{
         display: none;
       }
+      .navbar{
+        display: none;
+      }
+      
       .col-md-3 {
         /* flex: 0 0 100%; */
         width: 10vw;
@@ -228,4 +256,16 @@ padding-top: 2px;
       .sidbar{
         display: none;
       }
+      .navbar{
+       display: block;
+     }
+     .image,.left_burger,.personal_image{
+      display: none;
+     }
+     #svg_header{
+      top: -4px !important;
+    }
+    .nav-link:hover{
+      color: #7c76be !important;
+    }
     }

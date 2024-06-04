@@ -21,7 +21,7 @@ function SidebarFullscreen() {
     <>
 
         {/* --------------sidbar------------- */}
-        <div className="sidbar p-0 " dir="rtl" >
+        <div className="sidbar p-0 pe-3 " style={{paddingRight:"100px"}} dir="rtl" >
           <div className="sidbarSidbar ">
           <ul className="pt-4 ps-4">
             <li className={`Icon  ${id === "1" ? "bgIcon":" "}`}>

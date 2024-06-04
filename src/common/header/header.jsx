@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react'
 import "./header.css"
 import personal from "./../../assets/image/IMG_20231104_171844_696.jpg"
@@ -5,19 +6,14 @@ import Examiro from "./../../assets/image/image 9.svg"
 import notifiy from "./../../assets/image/ic_baseline-notifications-none.svg"
 import moon from "./../../assets/image/solar_moon-line-duotone.svg"
 import logo from "./../../assets/image/لوجو examero-01 1.svg"
-import SidebarFullscreen from '../sidebar/structure'
+// import SidebarFullscreen from '../sidebar/structure'
 import { useDispatch, useSelector } from 'react-redux'
-import { CHANGE_THEME, COUNTER } from '../../redux/Types/types'
+import { CHANGE_THEME } from '../../redux/Types/types'
 import { Link } from 'react-router-dom'
-import SidebarFullscreen from '../sidebar/sidbarFullscreen'
-
 
 
  function Header() {
   const [toggled , setToggled] = useState(false)
-
-
-
   const ReducerState = useSelector((state)=>state.dark);
   const count = useSelector((state)=>state.dark.counter);
 
@@ -29,21 +25,13 @@ import SidebarFullscreen from '../sidebar/sidbarFullscreen'
     }
     )
   }
-
-
-
-
-
-
-
-
-
-
   return (
     <>
       <div className="image" style={{   width: "100%",   position: "absolute",   zIndex: -44, }}>
         <img src={Examiro} alt="examiro" width="100%" />
       </div>
+
+
       <nav className="navbar-expand-lg navbar-light">
       <div className="container-fluid left_burger" style={{margin:"0",padding:"0"}}>
       <div  className="row row_rev_"  id="navbarSupportedContent"  style={{ justifyContent: "space-between",
@@ -72,7 +60,8 @@ import SidebarFullscreen from '../sidebar/sidbarFullscreen'
                       fontFamily: "'Times New Roman', Times, serif",
                       fontWeight: "800",
                     }}>
-144                  </span>
+                    122
+                  </span>
                 </div>
               </li>
               <div className='notify_btn_tog'
@@ -92,7 +81,7 @@ import SidebarFullscreen from '../sidebar/sidbarFullscreen'
 
                 <li className="nav-item dropdown">
                 <button style={{marginLeft:"6px"}} className={`toggle-btn ${toggled ? "toggled" : ""}`} onClick={()=>tog()}>
-                <span className={toggled ? "white-text" : "whit"}>{toggled ? "On" : "Off"}</span>
+                <span className={toggled ? "white-text" : "whit"}>{toggled ? "Light" : "Dark"}</span>
            <div className='thumb'></div>
                 </button>
                 </li>
