@@ -110,7 +110,7 @@ padding-top: 2px;
 .sidbar  ul li .Id::before {
   content: " ";
   background-color: var(---purple);
-  width: 25px;
+  width: 29px;
   height: 10px;
   display: inline-block; /* or block, depending on your layout needs */
   position: absolute;
