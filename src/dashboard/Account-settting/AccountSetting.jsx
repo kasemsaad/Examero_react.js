@@ -82,16 +82,16 @@ function AccountSetting() {
                     <label htmlFor="name">الاسم</label>
                   </div>
                   <div className="input_size">
-                    <input type="text" className="form-control" id="name" />
+                    <input type="text" className="form-control" id="name"  placeholder='هشام محمد' required/>
                   </div>
                 </div>
 
                 <div className="col-lg-6 top_input_margin row" style={{ alignItems: 'center' }}>
                   <div className="label_size">
-                    <label htmlFor="email">عنوان البريد</label>
+                    <label htmlFor="email"> رقم الهاتف</label>
                   </div>
                   <div className="input_size">
-                    <input type="text" className="form-control" id="email" />
+                    <input type="number" className="form-control" id="email" placeholder='01112222'/>
                   </div>
                 </div>
               </div>
@@ -102,7 +102,7 @@ function AccountSetting() {
                     <label htmlFor="familyName">اسم العائلة</label>
                   </div>
                   <div className="input_size">
-                    <input type="text" className="form-control" id="familyName" />
+                    <input type="text" className="form-control" id="familyName"  required placeholder='حسن'/>
                   </div>
                 </div>
 
@@ -111,7 +111,7 @@ function AccountSetting() {
                     <label htmlFor="email">البريد الألكتروني</label>
                   </div>
                   <div className="input_size">
-                    <input type="text" className="form-control" id="email" />
+                    <input type="email" className="form-control" id="email" placeholder='hesham@gmail.com' required/>
                   </div>
                 </div>
               </div>
@@ -122,7 +122,7 @@ function AccountSetting() {
                     <label htmlFor="governorate">المحافظة</label>
                   </div>
                   <div className="input_size col-md-10 col-sm-7">
-                    <input type="text" className="form-control" id="governorate" />
+                    <input type="text" className="form-control" id="governorate" required placeholder='المنيا'/>
                   </div>
                 </div>
 
@@ -131,7 +131,7 @@ function AccountSetting() {
                     <label htmlFor="birthDate">تاريخ الميلاد</label>
                   </div>
                   <div className="input_size">
-                    <input type="text" className="form-control" id="birthDate" />
+                    <input type="text" className="form-control" id="birthDate"  required placeholder='21/2/1800'/>
                   </div>
                 </div>
                 <div className="col-md-12 mt-3 button_wraper " style={{ direction: "ltr", marginLeft: "10px" }}>
@@ -173,15 +173,15 @@ function AccountSetting() {
         <div className="row mt-4">
           <div className="col-md-4 form-group">
             <label htmlFor="currentPassword" >كلمة المرور الحالية</label>
-            <input type="password" id="currentPassword" className="form-control" style={{marginTop:"7px"}}/>
+            <input type="password" id="currentPassword" className="form-control" style={{marginTop:"7px"}} required placeholder='***************'/>
           </div>
           <div className="col-md-4 form-group">
             <label htmlFor="newPassword">كلمة المرور الجديدة</label>
-            <input type="password" id="newPassword" className="form-control" style={{marginTop:"7px"}} />
+            <input type="password" id="newPassword" className="form-control" style={{marginTop:"7px"}}  required placeholder='***************'/>
           </div>
           <div className="col-md-4 form-group">
             <label htmlFor="confirmPassword">تأكيد كلمة المرور الجديدة</label>
-            <input type="password" id="confirmPassword" className="form-control" style={{marginTop:"7px"}} />
+            <input type="password" id="confirmPassword" className="form-control" style={{marginTop:"7px"}} placeholder='***************' required />
           </div>
           <div className="col-md-12 mt-3 " style={{ direction: "ltr" }}>
             <button type='submit' className="btn btn-danger">حفظ التغييرات</button>
