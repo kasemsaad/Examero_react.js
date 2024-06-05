@@ -1,0 +1,42 @@
+:root{
+    --gray:#ECECEC;
+    --darkblue: #090631;
+    --black:black;
+    --white:white;
+    ---purple:#4941A6;
+  }
+
+.collapse{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+width: -0px !important;
+}
+.classnav .navbar-nav .nav-item .actives{
+    color: #4941A6;
+    border-bottom: 3px solid #5b53af;
+}
+.classnav .navbar-nav .nav-item .nav-link:hover{
+    color: #4941A6;
+    border-bottom: 3px solid #5b53af;
+}
+@media screen and (max-width: 993px)  {
+    .classnav{
+        width: 99%;
+        justify-content: start !important;
+    }
+    .navbar{
+        background-color: #938ec9;
+    }
+    .navbar-nav{
+     text-align: start;
+    }
+    .collapse{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-direction: column;
+    width: -0px !important;
+  
+    }
+}
