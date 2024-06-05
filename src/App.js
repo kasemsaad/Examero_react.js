@@ -1,11 +1,12 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Header from './common/header/header';
+// import Header from './common/header/header';
 import LayoutComp from './layout/layoutComp/layoutComp';
 import J from './common/j/j';
 import Log from './common/j/log';
 import AccountSetting from './dashboard/Account-settting/AccountSetting';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Home from './websit/home';
 
 function App(props) {
   return (
@@ -16,8 +17,8 @@ function App(props) {
         <Route index element={<Log/>} />
         <Route path='/login' element={<J/>}/>
         <Route path='/b' element={<AccountSetting/>}/>
-        <Route path='/home' element={<AccountSetting/>}/>
           </Route>
+        <Route path='/Home' element={<Home/>}/>
           </Routes>
       </BrowserRouter>
     </div>
