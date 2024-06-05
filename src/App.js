@@ -6,19 +6,24 @@ import J from './common/j/j';
 import Log from './common/j/log';
 import AccountSetting from './dashboard/Account-settting/AccountSetting';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from './websit/home';
+import Home from './websit/Home/home.jsx';
 
 function App(props) {
   return (
     <div className="App">
       <BrowserRouter>
+
           <Routes>
-        <Route path='/' element={<LayoutComp/>}>
+      <Route path='/' element={<Home/>}/>
+
+      <Route path='/teacher/' element={<LayoutComp/>}>
+      
+      </Route>
+        <Route path='/dashboard/' element={<LayoutComp/>}>
         <Route index element={<Log/>} />
-        <Route path='/login' element={<J/>}/>
-        <Route path='/b' element={<AccountSetting/>}/>
+        <Route path='login' element={<J/>}/>
+        <Route path='b' element={<AccountSetting/>}/>
           </Route>
-        <Route path='/Home' element={<Home/>}/>
           </Routes>
       </BrowserRouter>
     </div>
