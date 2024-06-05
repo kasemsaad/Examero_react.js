@@ -1,5 +1,5 @@
 import React from "react";
-import notificationImage from "../../../assets/icons/NotificationPage/majesticons_home-line.svg";
+import notificationImage from "../../../../assets/icons/NotificationPage/majesticons_home-line.svg";
 
 const HeaderNotificaion = () => {
   return (

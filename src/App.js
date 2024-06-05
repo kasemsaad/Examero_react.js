@@ -8,7 +8,6 @@ import AccountSetting from "./dashboard/Account-settting/AccountSetting";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import FirstTriangle from "./dashboard/components/FirstTriangle/FirstTriangle";
 import Notification from "./dashboard/Notification/Notification";
-import Checkbox from "./dashboard/components/FirstTriangle/FirstTriangle";
 function App(props) {
   return (
     <div className="App">
@@ -16,11 +15,11 @@ function App(props) {
         <Routes>
           <Route path="/" element={<LayoutComp />}>
             <Route index element={<Log />} />
+            <Route path="/not" element={<Notification />} />
             <Route path="/login" element={<J />} />
             <Route path="/b" element={<AccountSetting />} />
             <Route path="/home" element={<AccountSetting />} />
-            <Route path="/h" element={<FirstTriangle />} />
-            <Route path="/not" element={<Notification />} />
+            {/* <Route path="/h" element={<FirstTriangle />} /> */}
             {/* <Route path="/not" element={<Checkbox />} /> */}
           </Route>
         </Routes>

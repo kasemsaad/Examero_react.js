@@ -56,7 +56,7 @@ function Header() {
                       position: "relative",
                     }}
                   >
-                    <a href="#">
+                    <Link to="/not">
                       {" "}
                       <img
                         src={notifiy}
@@ -64,7 +64,7 @@ function Header() {
                         alt="notifaction"
                         style={{ paddingBottom: "2px" }}
                       />
-                    </a>
+                    </Link>
                     <span
                       style={{
                         width: "auto",
