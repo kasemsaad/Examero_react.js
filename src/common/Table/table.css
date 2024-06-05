@@ -7,13 +7,15 @@
 
 .rounded-table {
   margin: auto;
-  width: 55.7rem; /* 891px */
+  width: 100%; /* 891px */
   direction: rtl;
   text-align: center;
   border-collapse: separate;
   border-spacing: 0 0.5rem; /* 10px */
 }
-
+.rounded-table thead tr th {
+  color: #fe4f60;
+}
 .rounded-table thead tr td {
   height: 2rem;
 }
