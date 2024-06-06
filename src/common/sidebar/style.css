@@ -123,7 +123,7 @@ padding-top: 2px;
       display: none;
 
     }
-    .navbar{
+    .navbarsidbar{
       background-image: url(../../assets/icons/sidebar/image\ 9.svg);
       background-position: center;
       background-repeat: no-repeat;
@@ -144,14 +144,14 @@ padding-top: 2px;
     .nav-link img{
       margin-left: 15px;
     }
-    .navbar{
+    .navbarsidbar{
       display: none;
     }
     @media screen and (max-width: 1150px) and (min-width: 767px) {
       .sidbar{
         display: none;
       }
-      .navbar{
+      .navbarsidbar{
         display: none;
       }
       
@@ -256,7 +256,7 @@ padding-top: 2px;
       .sidbar{
         display: none;
       }
-      .navbar{
+      .navbarsidbar{
        display: block;
      }
      .image,.left_burger,.personal_image{
