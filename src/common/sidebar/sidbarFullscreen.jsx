@@ -1,5 +1,4 @@
 import { Router,Link  } from "react-router-dom";
-import "./style.css";
 import homeIcon from '../../assets/icons/sidebar/majesticons_home-line.svg';
 import octiconIcon from '../../assets/icons/sidebar/octicon_question-16.svg';
 import ph_certificate from '../../assets/icons/sidebar/ph_certificate.svg';
@@ -11,6 +10,7 @@ import akar_icons_bank from '../../assets/icons/sidebar/akar-icons_bank.svg';
 import manage_accounts_outline_rounded from '../../assets/icons/sidebar/material-symbols_manage-accounts-outline-rounded.svg';
 import account_supervisor_outline from '../../assets/icons/sidebar/mdi_account-supervisor-outline.svg';
 import teacher from '../../assets/icons/sidebar/mdi_teacher.svg';
+import "./style.css";
 
 function SidebarFullscreen() {
   const setId = (id) => {
@@ -21,7 +21,7 @@ function SidebarFullscreen() {
     <>
 
         {/* --------------sidbar------------- */}
-        <div className="sidbar p-0 " dir="rtl" >
+        <div className="sidbar p-0 pe-3 " style={{paddingRight:"100px"}} dir="rtl" >
           <div className="sidbarSidbar ">
           <ul className="pt-4 ps-4">
             <li className={`Icon  ${id === "1" ? "bgIcon":" "}`}>
