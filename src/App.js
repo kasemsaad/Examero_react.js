@@ -8,6 +8,7 @@ import AccountSetting from './dashboard/Account-settting/AccountSetting';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from './websit/Home/home.jsx';
 import Notification from "./dashboard/Notification/Notification";
+import "@fontsource/cairo"; // Defaults to weight 400
 function App(props) {
   return (
     <div className="App">
