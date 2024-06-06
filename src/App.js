@@ -7,7 +7,7 @@ import Log from './common/j/log';
 import AccountSetting from './dashboard/Account-settting/AccountSetting';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from './websit/Home/home.jsx';
-
+import Notification from "./dashboard/Notification/Notification";
 function App(props) {
   return (
     <div className="App">
@@ -15,16 +15,16 @@ function App(props) {
 
           <Routes>
       <Route path='/' element={<Home/>}/>
-
-      <Route path='/teacher/' element={<LayoutComp/>}>
-      
+      <Route path='/teacher/' element={<LayoutComp/>
       </Route>
         <Route path='/dashboard/' element={<LayoutComp/>}>
         <Route index element={<Log/>} />
+        <Route path="/not" element={<Notification />} />
         <Route path='login' element={<J/>}/>
         <Route path='b' element={<AccountSetting/>}/>
+
           </Route>
-          </Routes>
+        </Routes>
       </BrowserRouter>
     </div>
   );
