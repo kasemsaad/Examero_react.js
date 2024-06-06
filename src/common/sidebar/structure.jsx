@@ -1,5 +1,4 @@
 import { Router,Link  } from "react-router-dom";
-import "./style.css";
 import homeIcon from '../../assets/icons/sidebar/majesticons_home-line.svg';
 import octiconIcon from '../../assets/icons/sidebar/octicon_question-16.svg';
 import ph_certificate from '../../assets/icons/sidebar/ph_certificate.svg';

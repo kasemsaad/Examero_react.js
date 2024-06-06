@@ -40,7 +40,7 @@ function Navsmallscreen() {
   return (
     <>
     
-      <nav className="navbar  navbar-expand-lg ">
+    <nav className="navbar navbarsidbar  navbar-expand-lg" >
         <div className="container-fluid ">
           <div className="d-flex" style={{alignItems:"center"}}>
           <Link className="navbar-brand" href="#"><img  src={logo} alt="Logo" /></Link>
