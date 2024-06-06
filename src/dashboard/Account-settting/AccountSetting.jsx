@@ -3,7 +3,6 @@ import "./Account.css"
 import MyTable from "./.././../common/Table/Table.jsx"
 import personal from "./../../assets/image/IMG_20231104_171844_696.jpg"
 import home from "./../../assets/image/material-symbols_person-outline (1).svg"
-import toast, { Toaster } from 'react-hot-toast';
 
 import success from "./../../assets/image/Vector (1).svg"
 import lock from "./../../assets/image/mdi_password-outline.svg"
@@ -22,7 +21,6 @@ function AccountSetting() {
   const HandleSubmit = (event) => {
     event.preventDefault();
     {
-      toast('Here is your toast.');
     }
     Setalert(true)
     setTimeout(()=>{

@@ -20,11 +20,7 @@ function Home() {
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="d-flex align-items-center justify-content-between" style={{ width: "100vw" }}>
-<<<<<<< HEAD
                         <div className="collapse navbar-collapse kasem" id="navbarNav" style={{ width: "80vw" }}>
-=======
-                        <div className="collapse navbar-collapse" id="navbarNav" style={{ width: "80vw" }}>
->>>>>>> 47a72796114aeff81615df5bd1af97644a4faa8e
                             <div className="classnav">
                                 <ul className="navbar-nav">
                                     <li className="nav-item">
