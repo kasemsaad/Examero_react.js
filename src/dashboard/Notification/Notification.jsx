@@ -30,15 +30,24 @@ const Notification = () => {
     },
     {
       id: 6,
-      message: " قام احمد باضافة لجروب",
+      message: " قام احمد باضاف",
+    },
+    {
+      id: 7,
+      message: " قام احمد باضاف",
+    },
+    {
+      id: 8,
+      message: " قام احمد باضاف",
     },
   ];
   ////
   const [isCheckedAll, setIsCheckedAll] = useState(false);
   const [isChecked, setIsChecked] = useState([]);
+  const [deleteCheckedItem, setDeleteChedItem] = useState([...messages]);
   const handleSelectAll = (e) => {
     setIsCheckedAll(!isCheckedAll);
-    console.log(isCheckedAll);
+    console.log(isChecked);
 
     setIsChecked(messages.map((li) => li.id));
 
@@ -49,10 +58,19 @@ const Notification = () => {
   const handleClick = (e) => {
     const { id, checked } = e.target;
     setIsChecked([...isChecked, id]);
+
     if (!checked) {
       setIsChecked(isChecked.filter((item) => item !== id));
     }
   };
+  const handeleDelete = (e) => {
+    const { id } = e.target;
+    setDeleteChedItem((prevMeseages) =>
+      prevMeseages.filter((message) => !isChecked.includes(message.id))
+    );
+    console.log(isChecked);
+  };
+  const check = isChecked.length;
 
   return (
     <>
@@ -61,30 +79,32 @@ const Notification = () => {
 
         <div className="parent">
           <ArrowNotification />
-          <div className="towButt " style={{ marginBottom: "10px" }}>
-            <MyButton
-              className={"btttn "}
-              style={{ backgroundColor: "#0E0A43" }}
-              onClick={handleSelectAll}
-              content={" تحديد الكل"}
-            />
-            <MyButton
-              className={"bttt"}
-              style={{ marginRight: "10px", backgroundColor: "#0E0A43" }}
-              content={"  حذف المحدد"}
-            />
-          </div>
+          {check > 0 && (
+            <div className="towButt " style={{ marginBottom: "10px" }}>
+              <MyButton
+                className={"btttn "}
+                style={{ backgroundColor: "#0E0A43" }}
+                onClick={handleSelectAll}
+                content={" تحديد الكل"}
+              />
+              <MyButton
+                className={"bttt"}
+                onClick={handeleDelete}
+                style={{ marginRight: "10px", backgroundColor: "#0E0A43" }}
+                content={"  حذف المحدد"}
+              />
+            </div>
+          )}
 
           <hr />
-          {messages.map(({ id, message }) => {
-            console.log(message);
+          {deleteCheckedItem.map(({ id, message }) => {
             return (
               <MessagesNotification
+                key={id}
                 id={id}
                 handleClick={handleClick}
-                message={message}
+                name={message}
                 isChecked={isChecked.includes(id)}
-                key={id}
               />
             );
           })}

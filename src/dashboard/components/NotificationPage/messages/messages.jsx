@@ -1,7 +1,7 @@
 import MyButton from "../../../../common/Button/Button";
 import Checkbox from "../Checkbox/Checkbox";
 
-const MessagesNotification = ({ message, id, handleClick, isChecked }) => {
+const MessagesNotification = ({ name, id, handleClick, isChecked }) => {
   return (
     <>
       <div className="message mb-1  d-flex justify-content-between ">
@@ -14,12 +14,12 @@ const MessagesNotification = ({ message, id, handleClick, isChecked }) => {
               id={id}
               key={id}
               isChecked={isChecked}
-              message={message}
+              name={name}
             />
             {/* <input type="checkbox" className="w-100 " /> */}
           </div>
           <div className="content col-10 ">
-            <p className=" col-12  d-flex d-flex ">{message}</p>
+            <p className=" col-12  d-flex d-flex ">{name}</p>
           </div>
         </div>
 
