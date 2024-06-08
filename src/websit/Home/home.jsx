@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Link } from "react-router-dom";
 import styled from 'styled-components';
 import './HomeStyle.css'; // Import your CSS file if needed
@@ -9,6 +9,7 @@ import fluent from"../../assets/icons/Home/fluent-mdl2_commitments.svg"
 import lucide_git from"../../assets/icons/Home/lucide_git-pull-request-create-arrow.svg"
 import ph_target from"../../assets/icons/Home/ph_target-bold.svg"
 function Home() {
+
     return (
         <>
             <link
@@ -31,7 +32,7 @@ function Home() {
                                         <Link className="nav-link active actives" aria-current="page" to="/">الرئيسية</Link>
                                     </li>
                                     <li className="nav-item">
-                                        <Link className="nav-link active" to="/features">من نحن</Link>
+                                        <Link className="nav-link active" href="#Section2">من نحن</Link>
                                     </li>
                                     <li className="nav-item">
                                         <Link className="nav-link active" to="/pricing">هدفنا</Link>
@@ -81,7 +82,7 @@ function Home() {
 
             {/* -----------endsection1--------- */}
             {/* -----------section2--------- */}
-            <Section2 className="Section2 ">
+            <Section2 className="Section2 " id="Section2">
                 <DivSection2 className="DivSection2  row p-0 m-1">
                     <SectionImage2 className="SectionImage2 col-md-4 p-0">
                         {/* <img className="d"  src={imgs1} alt="" /> */}
@@ -154,6 +155,90 @@ function Home() {
                 </DivSection3>
             </Section3>
             {/* -----------endsection--------- */}
+            {/* -----------section4--------- */}
+            <Section4 className="Section4 mt-5" >
+                <DivSection4 className="DivSection4 p-0 pb-4 text-center ">
+                <h3 className="Bold"><span style={{ color: "#4941A6" }}>لماذا نحن</span></h3><br />
+                <div className="row cards2 p-0 m-0 ">
+
+                   <div className="card2 p-0  col-3   m-4  shadow  " >
+                       <div className="boxmov">
+                        <p className="m-0 py-1 ">توفير نماذج الإجابات</p>
+                       </div>
+
+                       <div className="boxcontent  p-3" style={{fontSize:"14px", height:"11rem"}} align="end" >
+                       بالإضافة إلى إعداد الامتحان، يمكنك تحميل نماذج للإجابات الصحيحة لتوجيه الطلاب ومساعدتهم على الاستعداد بفعالية.</div>
+                       <div className="py-3">
+                                <MyButton  className="btn mx-2 py-0 rounded-4 mb-1" style={{ height: "1.8rem", border: "2px solid #4941A6" }} to={"/Home"} content={"تسجيل الدخول"}/>
+                                <MyButton className="btn mx-2 py-0 rounded-4 mb-1" style={{ height: "1.8rem", color: "white", backgroundColor: "#FF4C4C" ,color:"#ffff"}} to={"/Home"} content={"باقات الاشتراك"}/>
+                            </div>
+                       </div>
+
+                   <div className="card2 p-0  col-3 m-4  shadow  " >
+                       <div className="boxmov">
+                        <p className="m-0 py-1 ">تخصيص الأسئلة</p>
+                       </div>
+                       <div className="boxcontent p-3" style={{fontSize:"14px", height:"11rem"}} align="end" >
+                       يمكنك تحميل الأسئلة بتنسيقات متعددة مثل النص والصور وتنسيقها وترتيبها حسب الحاجة                       </div>
+                       <div className="py-3">
+                                <MyButton  className="btn mx-2 py-0 rounded-4 mb-1" style={{ height: "1.8rem", border: "2px solid #4941A6" }} to={"/Home"} content={"تسجيل الدخول"}/>
+                                <MyButton className="btn mx-2 py-0 rounded-4 mb-1" style={{ height: "1.8rem", color: "white", backgroundColor: "#FF4C4C" ,color:"#ffff"}} to={"/Home"} content={"باقات الاشتراك"}/>
+                            </div>
+                    </div>
+         
+                    <div className="card2 p-0  col-3 m-4  shadow " >
+                       <div className="boxmov">
+                        <p className="m-0 py-1 ">إنشاء امتحانات مخصصة</p>
+                       </div>
+                       <div className="boxcontent p-3" style={{fontSize:"14px", height:"11rem"}} align="end" >
+                       يمكن للمعلمين إنشاء امتحانات تتناسب مع المناهج الدراسية ومتطلبات الصفوف بكل سهولة. يمكنك تحديد عدد الأسئلة وأنواعها ودرجة صعوبتها ووقت الامتحان والمزيد.                       </div>
+                       <div className="py-3">
+                                <MyButton  className="btn mx-2 py-0 rounded-4 mb-1" style={{ height: "1.8rem", border: "2px solid #4941A6" }} to={"/Home"} content={"تسجيل الدخول"}/>
+                                <MyButton className="btn mx-2 py-0 rounded-4 mb-1" style={{ height: "1.8rem", color: "white", backgroundColor: "#FF4C4C" ,color:"#ffff"}} to={"/Home"} content={"باقات الاشتراك"}/>
+                            </div>
+                    </div> 
+                     <div className="card2 p-0  col-3 m-4 shadow " >
+                       <div className="boxmov">
+                        <p className="m-0 py-1 ">يمكن للمعلمين</p>
+                       </div>
+                       <div className="boxcontent p-3" style={{fontSize:"14px", height:"11rem"}} align="end" >
+                       تخصيص وإدارة الامتحانات بسهولة، وتوفير وسيلة فعالة لتقديم الاختبارات بشكل مهني وتنظيمي. يمكن للمعلمين أيضًا تحليل أداء الطلاب بسهولة لتحقيق أهداف التعليم بكفاءة أكبر. انضم إلينا اليوم لتجربة تسهيل عملية إعداد الامتحانات                                              </div>
+                       <div className="py-3">
+                                <MyButton  className="btn mx-2 py-0 rounded-4 mb-1" style={{ height: "1.8rem", border: "2px solid #4941A6" }} to={"/Home"} content={"تسجيل الدخول"}/>
+                                <MyButton className="btn mx-2 py-0 rounded-4 mb-1" style={{ height: "1.8rem", color: "white", backgroundColor: "#FF4C4C" ,color:"#ffff"}} to={"/Home"} content={"باقات الاشتراك"}/>
+                            </div>
+                    </div>
+                    <div className="card2 p-0  col-3 m-4  shadow  " >
+                       <div className="boxmov">
+                        <p className="m-0 py-1 ">تصدير الامتحان إلى PDF</p>
+                       </div>
+                       <div className="boxcontent p-3" style={{fontSize:"14px", height:"11rem"}} align="end" >
+                       بمجرد الانتهاء من إعداد الامتحان، يمكنك تصديره إلى ملف PDF جاهز للتوزيع على الطلاب.                       </div>
+                       <div className="py-3">
+                                <MyButton  className="btn mx-2 py-0 rounded-4 mb-1" style={{ height: "1.8rem", border: "2px solid #4941A6" }} to={"/Home"} content={"تسجيل الدخول"}/>
+                                <MyButton className="btn mx-2 py-0 rounded-4 mb-1" style={{ height: "1.8rem", color: "white", backgroundColor: "#FF4C4C" ,color:"#ffff"}} to={"/Home"} content={"باقات الاشتراك"}/>
+                            </div>
+                    </div>
+                    
+                    <div className="card2 p-0  col-3 m-4   shadow " >
+                       <div className="boxmov">
+                        <p className="m-0 py-1">تحديد درجة الصعوبة </p>
+                       </div>
+                       <div className="boxcontent p-3" style={{fontSize:"14px", height:"11rem"}} align="end" >
+                       بمجرد الانتهاء من إعداد الامتحان، يمكنك تصديره إلى ملف PDF جاهز للتوزيع على الطلاب.                       </div>
+                       <div className="py-3">
+                                <MyButton  className="btn mx-2 py-0 rounded-4 mb-1" style={{ height: "1.8rem", border: "2px solid #4941A6" }} to={"/Home"} content={"تسجيل الدخول"}/>
+                                <MyButton className="btn mx-2 py-0 rounded-4 mb-1" style={{ height: "1.8rem", color: "white", backgroundColor: "#FF4C4C" ,color:"#ffff"}} to={"/Home"} content={"باقات الاشتراك"}/>
+                            </div>
+                    </div> 
+                    </div>
+
+                    </DivSection4>
+            </Section4>
+            <Footer className="footer">
+
+            </Footer>
+            {/* -----------endsection--------- */}
         </>
     );
 }
@@ -170,4 +255,7 @@ const SectionImage2 = styled.div``;
 const Button2 = styled.button``;
 const Section3 = styled.section``;
 const DivSection3 = styled.div``;
+const Section4 = styled.section``;
+const DivSection4 = styled.div``;
+const Footer = styled.section``;
 export default Home;
