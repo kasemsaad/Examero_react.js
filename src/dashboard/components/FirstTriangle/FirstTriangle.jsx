@@ -1,11 +1,10 @@
-// import MyTable from "../../../common/Table/Table";
-// import "./FirstTriangle.css";
-// const FirstTriangle = () => {
-//   return (
-//     <>
-//       <div className="triangle-left ">
-//         <p>الكل</p>
-//       </div>
-//     </>
-//   );
-// };
+import MyButton from "../../../common/Button/Button";
+import "./FirstTriangle.css";
+const FirstTriangle = ({ content }) => {
+  return (
+    <>
+      <MyButton className={"triangle-left"} content={content} />
+    </>
+  );
+};
+export default FirstTriangle;

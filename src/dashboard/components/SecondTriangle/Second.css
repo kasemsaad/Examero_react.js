@@ -1,0 +1,13 @@
+.ques {
+  clip-path: polygon(24% 26%, 100% 24%, 76% 45%, 101% 66%, 24% 65%, 0 47%);
+  width: 9.25rem;
+  height: 63.62px;
+  padding: 0;
+  padding: 0;
+  border: none;
+  transform: translate(5px);
+}
+.ques p {
+  width: fit-content;
+  transform: translate(-36px, -5px);
+}

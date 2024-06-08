@@ -1,0 +1,47 @@
+.questionContainer {
+  width: 100%;
+  height: 100%;
+}
+/* .MyTable {
+  background-color: black;  
+  width: 60px;
+} */
+/* .question {
+  width: 0px;
+} */
+.question {
+  height: 80% !important;
+}
+.tr trai {
+  border: none !important;
+}
+.iddd {
+  transform: translate(18px, -3px);
+}
+.to {
+  transform: translate(39px, -2px);
+}
+.arrowfour {
+  transform: translate(59px, -1px);
+}
+.arrowfive {
+  transform: translate(78px, 0px);
+}
+@media (max-width: 620px) {
+  .MyForm {
+    width: 90%;
+  }
+  .imag-question {
+    margin: auto;
+    width: 100%;
+  }
+  .inner-image-question {
+    width: 100%;
+  }
+  .inner-image-question p {
+    margin-right: 3px;
+  }
+  .info-button {
+    width: 100%;
+  }
+}
