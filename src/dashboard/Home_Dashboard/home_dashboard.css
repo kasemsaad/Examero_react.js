@@ -1,0 +1,26 @@
+.react-calendar {
+  
+    background-color: #4941A6   !important;
+    border: 1px #4941A6 solid   !important  ;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+  }
+
+  .react-calendar__month-view__weekdays{
+    color:#FE4F60;
+  }
+
+  .react-calendar__navigation{
+    color: #ffff !important;
+  }
+
+
+.react-calendar__navigation__label__labelText{
+
+    color: #ffff !important;
+    font-weight: 800;
+
+}
+.react-calendar__month-view__days{
+    color: #ffff !important;
+}

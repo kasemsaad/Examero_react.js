@@ -10,10 +10,11 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from './websit/Home/home.jsx';
 import Notification from "./dashboard/Notification/Notification";
 import "@fontsource/cairo"; // Defaults to weight 400
+import Home_dashboard from './dashboard/Home_Dashboard/Home_dashboard.jsx';
 function App(props) {
   return (
-    
-    
+
+
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -23,6 +24,9 @@ function App(props) {
             <Route path="not" element={<Notification />} />
             <Route path="login" element={<J />} />
             <Route path="b" element={<AccountSetting />} />
+            <Route path="h" element={<Home_dashboard/>} />
+
+
           </Route>
         </Routes>
       </BrowserRouter>
