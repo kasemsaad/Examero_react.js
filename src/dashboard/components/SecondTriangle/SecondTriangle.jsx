@@ -1,16 +1,18 @@
 import MyButton from "../../../common/Button/Button";
-import "./FirstTriangle.css";
-const FirstTriangle = ({ content, className, onClick }) => {
+import "./Second.css";
+const SecondTriangle = ({ content, className, to, onClick }) => {
   return (
     <>
       <div className={className}>
         <MyButton
-          className={"triangle-left"}
+          className={"ques"}
           content={content}
+          to={to}
           onClick={onClick}
         />
       </div>
     </>
   );
 };
-export default FirstTriangle;
+
+export default SecondTriangle;
