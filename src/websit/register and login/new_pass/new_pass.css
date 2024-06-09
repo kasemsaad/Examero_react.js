@@ -1,0 +1,166 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.new_pass {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(180deg, #FFCF6B 0%, #C01F59 213.56%);
+}
+.new_password,.con_new_password{
+    font-family: Cairo;
+font-size: 17.76px;
+font-weight: 600;
+line-height: 33.29px;
+text-align: right;
+padding-top: 5%;
+
+}
+
+.header1 {
+    position: relative;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.between-borders1 {
+    position: absolute;
+    font-size: small;
+    text-align: center;
+    padding: 0 20px; /* استخدم padding بدلاً من margin */
+}
+
+.between-borders1::before, .between-borders1::after {
+    content: '';
+    position: absolute;
+    top: 50%; /* يوضع في منتصف ارتفاع العنصر الأب */
+    width: 50%;
+    height: 3px;
+    background-color: #0F0862A1;
+}
+
+.between-borders1::before {
+    right: 100%;
+}
+
+.between-borders1::after {
+    left: 100%;
+}
+
+@media (max-width: 576px) {
+    .between-borders1 {
+        font-size: smaller;
+        padding: 0 10px; 
+    }
+
+    .between-borders1::before, .between-borders1::after {
+        width: 40%; 
+    }
+}
+
+@media (max-width: 768px) {
+    .between-borders1::before, .between-borders1::after {
+        width:14%; 
+    }
+}
+
+@media (min-width: 1200px) {
+    .between-borders1::before, .between-borders1::after {
+        width: 40%; 
+    }
+}
+
+.new_pass_card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    direction: rtl;
+    text-align: center;
+}
+
+.card-title {
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 1.5rem;
+    direction: rtl;
+}
+.new_pass_btn {
+    color: white;
+    font-size: 14px!important ;
+    border: none !important;
+    font-family: Cairo;
+font-size: 14.87px!important;
+font-weight: 700!important;
+line-height: 27.86px!important;
+background-color: #0F0862 !important;
+padding: 11.84px 54.47px 11.84px 54.47px !important;
+gap: 5.92px;
+border-radius: 41.45px !important;
+margin-top: 5rem
+}
+
+
+
+.new_pass-form .form-group {
+    margin-bottom: 20px;
+    direction: rtl;
+}
+
+.new_pass-form .form-group .form-label {
+    font-size: 16px;
+    margin-bottom: .5rem;
+    direction: rtl;
+}
+
+.form-label {
+    display: flex;
+    margin-bottom: .5rem;
+    align-items: center;
+}
+
+.new_pass-form .form-control {
+    border-radius: 5px;
+    font-size: 16px;
+    padding: 10px;
+}
+
+
+.p_con_new_password, .p_new_pass {
+    width: 100%; 
+    height: 47.76px;
+    border-radius: 29.61px !important;
+    padding-right: 40px !important;
+}
+
+.relative1 {
+    position: relative;
+}
+
+.icon-container {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+
+.password-icon {
+    right: 10px;
+}
+
+.lock-icon {
+    left: 10px;
+}
