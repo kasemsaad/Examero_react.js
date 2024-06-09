@@ -17,7 +17,6 @@ function AccountSetting() {
   const [PasswordAlert , SetPasswordAlert]=useState(false)
 
   
-
   const HandleSubmit = (event) => {
     event.preventDefault();
     {
