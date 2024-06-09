@@ -1,11 +1,11 @@
 /* FormForAll.css */
-.form-container-putt {
+.form-container-puttt {
   display: flex;
   justify-content: space-around;
   height: 88%;
 }
 
-.form-group-putt {
+.form-group-puttt {
   flex: 1;
   margin: 0 1rem;
   display: flex;
@@ -13,20 +13,20 @@
   justify-content: flex-end;
 }
 
-.form-control-putt {
+.form-control-puttt {
   width: 100%;
 }
 
-.button-container-putt {
+.button-container-puttt {
   width: 34%;
   display: flex;
   align-items: flex-end;
   justify-content: center;
 }
 /* .form-group-putt label {
-  margin-bottom: 4px !important;
-} */
-.my-button {
+    margin-bottom: 4px !important;
+  } */
+.my-buttonn {
   width: 6rem;
   height: auto;
   color: white;
@@ -38,13 +38,13 @@
 @media (max-width: 610px) {
 }
 @media (max-width: 370px) {
-  .form-container-putt {
+  .form-container-puttt {
     width: 100%;
   }
-  .form-group-putt {
+  .form-group-puttt {
     width: 100%;
   }
-  .my-button {
+  .my-buttonn {
     width: 4rem;
   }
 }

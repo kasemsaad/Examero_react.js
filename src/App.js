@@ -8,7 +8,8 @@ import AccountSetting from "./dashboard/Account-settting/AccountSetting";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./websit/Home/home.jsx";
 import Notification from "./dashboard/Notification/Notification";
-import PuttingQuestions from "./dashboard/PuttingQussions/PuttingQuestions.jsx";
+import PuttingQuestions from "./dashboard/PuttingQussions/ForClasses/PuttingQuestions.jsx";
+import PuttingQForMab7as from "./dashboard/PuttingQussions/ForMab7s/PuttingQForMabhas.jsx";
 function App(props) {
   return (
     <div className="App">
@@ -20,6 +21,7 @@ function App(props) {
             <Route index element={<Log />} />
             <Route path="not" element={<Notification />} />
             <Route path="q" element={<PuttingQuestions />} />
+            <Route path="mab" element={<PuttingQForMab7as />} />
             <Route path="login" element={<J />} />
             <Route path="b" element={<AccountSetting />} />
           </Route>

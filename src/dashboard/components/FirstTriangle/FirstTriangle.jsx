@@ -1,9 +1,15 @@
 import MyButton from "../../../common/Button/Button";
 import "./FirstTriangle.css";
-const FirstTriangle = ({ content }) => {
+const FirstTriangle = ({ content, className, onClick }) => {
   return (
     <>
-      <MyButton className={"triangle-left"} content={content} />
+      <div className={className}>
+        <MyButton
+          className={"triangle-left"}
+          content={content}
+          onClick={onClick}
+        />
+      </div>
     </>
   );
 };

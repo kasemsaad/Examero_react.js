@@ -44,10 +44,9 @@ const Notification = () => {
   ////
   const [isCheckedAll, setIsCheckedAll] = useState(false);
   const [isChecked, setIsChecked] = useState([]);
-  const [deleteCheckedItem, setDeleteChedItem] = useState([...messages]);
+  const [deleteCheckedItem, setDeleteCheckedItem] = useState([...messages]);
   const handleSelectAll = (e) => {
     setIsCheckedAll(!isCheckedAll);
-    console.log(isChecked);
 
     setIsChecked(messages.map((li) => li.id));
 
@@ -57,21 +56,27 @@ const Notification = () => {
   };
   const handleClick = (e) => {
     const { id, checked } = e.target;
-    setIsChecked([...isChecked, id]);
+    console.log(e.target.checked);
+    setIsChecked([...isChecked, checked, id]);
+    console.log(" in the function" + isChecked);
 
-    if (!checked) {
-      setIsChecked(isChecked.filter((item) => item !== id));
+    if (checked) {
+      // Add the id to the array if it's checked
+      setIsChecked((prev) => [...prev, id]);
+    } else {
+      // Remove the id from the array if it's unchecked
+      setIsChecked((prev) => prev.filter((item) => item !== id));
     }
   };
   const handeleDelete = (e) => {
     const { id } = e.target;
-    setDeleteChedItem((prevMeseages) =>
+    setDeleteCheckedItem((prevMeseages) =>
       prevMeseages.filter((message) => !isChecked.includes(message.id))
     );
     console.log(isChecked);
   };
   const check = isChecked.length;
-
+  console.log(deleteCheckedItem);
   return (
     <>
       <div className="notification min-vh-100">
@@ -97,11 +102,13 @@ const Notification = () => {
           )}
 
           <hr />
+
           {deleteCheckedItem.map(({ id, message }) => {
             return (
               <MessagesNotification
                 key={id}
                 id={id}
+                Checkbox={"checkbox"}
                 handleClick={handleClick}
                 name={message}
                 isChecked={isChecked.includes(id)}
