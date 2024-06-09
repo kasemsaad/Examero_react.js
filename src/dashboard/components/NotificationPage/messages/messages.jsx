@@ -23,7 +23,7 @@ const MessagesNotification = ({ name, id, handleClick, isChecked }) => {
           </div>
         </div>
 
-        <div className=" h-100  text-center justify-content-center align-content-center icon">
+        <div className=" h-100  text-center justify-content-center align-content-center notificationIcon">
           <MyButton className={"fa-regular fa-eye m-auto  w-100 col-1 "} />
         </div>
       </div>

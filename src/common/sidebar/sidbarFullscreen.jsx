@@ -10,6 +10,7 @@ import akar_icons_bank from '../../assets/icons/sidebar/akar-icons_bank.svg';
 import manage_accounts_outline_rounded from '../../assets/icons/sidebar/material-symbols_manage-accounts-outline-rounded.svg';
 import account_supervisor_outline from '../../assets/icons/sidebar/mdi_account-supervisor-outline.svg';
 import teacher from '../../assets/icons/sidebar/mdi_teacher.svg';
+import "./style.css";
 
 function SidebarFullscreen() {
   const setId = (id) => {

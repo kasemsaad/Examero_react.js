@@ -68,7 +68,6 @@ function Navsmallscreen() {
           </div>
           <button className="btn btn-outline-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span > <img style={{ width: 20 , height:20 }} src={list_icon} alt="list_icon" /> </span>
-          <span ><i className="fas fa-bars text-white"></i></span>
           </button>
           <div className="collapse navbar-collapse"   dir="rtl" id="navbarNav">
             <ul className="navbar-nav navbar-nav-small"   dir="ltr" >
