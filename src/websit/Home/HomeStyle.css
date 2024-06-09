@@ -436,7 +436,7 @@ background-position: center;
         background-size: cover;
         background-image: url(../../assets/image/home/Group\ 3199.png);
         width: 100%;
-        height: 53vh;
+        height: 50vh;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -477,7 +477,7 @@ background-position: center;
     .boxpre::after {
         content: "";
         position: absolute;
-        top: 10%;
+        top: 17.5% !important;
         right: 11%;
         width: 10%;
         background-image: url(../../assets/icons/Home/Arrow\ 3.svg);
@@ -485,10 +485,14 @@ background-position: center;
         background-repeat: no-repeat;
         background-size: contain;
         border-radius: 15px;
-        padding: 10px !important;
+        padding: 30px !important;
         z-index: 9999;
         }
-        
+ .boxpre h3 {
+        padding-left: px;
+        padding-top:px;
+        font-size: 20px !important;
+    }
 }
 
 
@@ -517,7 +521,7 @@ background-position: center;
     }
 
     .Section {
-        min-height: 92vh;
+        min-height: 80vh;
 
     }
 
@@ -540,6 +544,7 @@ background-position: center;
     }
 
     .Sectioncontent2 {
+        
         padding-left: 0vw !important;
         padding-right: 0vw !important;
     }
@@ -556,7 +561,7 @@ background-position: center;
     }
 
     .Section2 {
-        height: 130vw;
+        height: 100vw;
     }
 
     .DivSection2 {
@@ -569,16 +574,16 @@ background-position: center;
     }
 
     .blockButtons {
-
-        margin-left: -20px;
+        /* display: flex; */
+        margin-left: -90px;
     }
 
     .Section3 {
-        padding-top: 4.5vw;
         background-repeat: no-repeat;
         background-size: 100%;
         display: flex;
         justify-content: contain;
+        height: 65vh;
     }
 
     .card {
@@ -591,7 +596,7 @@ background-position: center;
 
     .card2 {
         width: 300px !important;
-        height: 290px;
+        height: 210px;
     }
 
     .boxcontent {
@@ -605,7 +610,7 @@ background-position: center;
         background-size: cover;
         background-image: url(../../assets/image/home/Group\ 3199.png);
         width: 100%;
-        height: 58vh;
+        height: 48vh;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -653,10 +658,32 @@ background-position: center;
     .checkicone {
         margin: 0px 5px !important;
     }
+    .boxpre {
+        /* width: 200px; */
+        width: 90%;
+        /* background-image: url(../../assets/image/home/Rectangle\ smallpag.png); */
+        background-position: top;
+        background-repeat: no-repeat;
+        background-size: 500px 150px;
+        border-radius: 15px;
+        padding: 30px !important;
+        margin: 30px 0px;
+        position:relative;
+    }
+    .boxpre h3 {
+        padding-left: 25px;
+        padding-top: px;
+        font-size: 2.5vw;
+
+    }
+
+    .Bold{
+  font-size: 30px;
+    }
     .boxpre::after {
         content: "";
         position: absolute;
-        top: 18%;
+        top: 13%;
         right: 0;
         width: 10%;
         background-image: url(../../assets/icons/Home/Arrow\ 3.svg);
