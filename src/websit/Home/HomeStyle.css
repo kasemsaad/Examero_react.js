@@ -228,7 +228,7 @@
 
 .card2 {
     width: 100px;
-    height: 290px;
+    height: 270px !important;
     background-color: #ffff;
 
 }
