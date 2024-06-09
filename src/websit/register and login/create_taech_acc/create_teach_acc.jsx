@@ -16,7 +16,8 @@ function CreateTechAcc() {
     const currentYear = new Date().getFullYear();
     const years = Array.from({ length: 100 }, (_, i) => currentYear - i);
 //     async function getTrending()
-// let response = await axios.get('https://api console.log(response);
+// let response = await axios.get('http://127.0.0.1:8000/api/teachers/register);
+//console.log(response);
 // useEffect(() => {
 // getTrending();
 // //Call Api

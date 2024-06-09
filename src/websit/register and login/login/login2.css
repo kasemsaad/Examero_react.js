@@ -5,15 +5,20 @@
     margin: 0;
     box-sizing: border-box;
 }
+.collContainer{
+    height: 100vh;
+}
 .login-card{
     text-align: center;
+    background: linear-gradient(180deg, #FFCF6B 0%, #C01F59 213.56%)!important;   
+
 }
 .login-container {
     width: 100%;
     display: flex;
-    align-items: center;
+    /* align-items: center; */
     background: linear-gradient(180deg, #FFCF6B 0%, #C01F59 213.56%);   
-
+    height: 100vh;
 }
 .email,.password{
     font-family: Cairo;
@@ -119,7 +124,7 @@ padding-bottom: 5%;
 }
 .login_btn {
     color: white;
-    margin-top: 15px;
+    /* margin-top: 15px; */
     font-size: 14px!important ;
     border: none !important;
     font-family: Cairo;
@@ -175,7 +180,7 @@ border-radius: 41.45px !important;
     direction: rtl;
     text-decoration: none;  
     padding-top: 1%;
-    padding-bottom: 5%;
+    padding-bottom: 3%;
 }
 
 
