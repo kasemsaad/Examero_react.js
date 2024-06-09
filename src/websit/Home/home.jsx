@@ -1,4 +1,3 @@
-import React, { useRef } from "react";
 import { Link } from "react-router-dom";
 import styled from 'styled-components';
 import './HomeStyle.css'; // Import your CSS file if needed
@@ -9,8 +8,27 @@ import fluent from "../../assets/icons/Home/fluent-mdl2_commitments.svg"
 import lucide_git from "../../assets/icons/Home/lucide_git-pull-request-create-arrow.svg"
 import ph_target from "../../assets/icons/Home/ph_target-bold.svg"
 import park_check from "../../assets/icons/Home/icon-park_check-correct.svg"
+import React, { useState, useEffect,useRef} from "react";
+// import { useParams } from 'react-router-dom';
 function Home() {
-
+    const [product, setProduct] = useState(null);
+    useEffect(() => {
+        fetch(`http://127.0.0.1:8000/api/student-plan`)
+          .then(res => res.json())
+          .then(data => {
+            if (data) {
+              console.log("Product fetched:", data);
+              setProduct(data);
+            } else {
+              console.error("Data fetched is not a product:", data);
+            }
+          })
+          .catch(error => console.error("Error fetching product:", error));
+      }, []);
+    
+      if (!product) {
+        return <div>Loading...</div>;
+      }
     return (
         <>
             <link
@@ -346,7 +364,6 @@ function Home() {
 
             <Footer className="footer" dir="rtl">
                 <div className="row  footerrow  m-0">
-
                     <div className="col-md-4">
                         <h3><span className="" style={{ color: "#FFB419 " }} >Examero</span></h3>
                         <p style={{ color: "#ffff " }}>تقديم خدمات تعليمية وأكاديمية مميزة في مختلف المجالات لجميع الطلبة والباحثين في جميع المستويات التعليمية والأكاديمية</p>
@@ -373,9 +390,26 @@ function Home() {
 
                         </ul>
                     </div>
-
                 </div>
             </Footer>
+                {/* <div className=" d-flex align-items-center justify-content-between"  style={{ backgroundColor:"#4941A6"}}> */}
+
+            <div className="px-4 pt-1 " style={{ borderTop:"2px solid #ffff", backgroundColor:"#4941A6",color:"white" }} >
+            <div className="row p-0  m-0 d-flex align-items-center justify-content-center" dir="rtl" style={{width:"100%", display:"flex", alignItems:"center", justifyContent:"space-between"}}>
+            <div className="col-md-4 text-end"   >
+                <p>© 2024 Examero. All Rights Reserved</p>
+            </div>
+            <div className="col-md-4 text-center"  >
+                <p>© 2024 Examero. All Rights Reserved</p>
+            </div>
+            <div className="col-md-4 text-start"  >
+                <p>© 2024 Examero. All Rights Reserved</p>
+
+            </div>
+               
+            </div>
+            </div>
+                {/* </div> */}
             {/* -----------endsection--------- */}
         </>
     );
