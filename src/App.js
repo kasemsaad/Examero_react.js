@@ -23,7 +23,6 @@ function App(props) {
 
       <BrowserRouter>
         <Routes>
-
           <Route path="/" element={<Home />} />
           <Route path="/ct" element={<CreateTechAcc/>} />
           <Route path="/cs" element={<CreateStudentAcc/>} />
@@ -31,6 +30,7 @@ function App(props) {
           <Route path="/reset1" element={<Reset_page1/>} />
           <Route path="/reset2" element={<Reset_code_page/>} />
           <Route path="/newp" element={<New_pass/>} />
+
 
           <Route path="/teacher/" element={<LayoutComp />} />
           <Route path="/dashboard/" element={<LayoutComp />}>
