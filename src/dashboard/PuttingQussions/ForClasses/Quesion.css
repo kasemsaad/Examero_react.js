@@ -26,20 +26,39 @@
 .arrowfive {
   transform: translate(78px, 0px);
 }
-@media (max-width: 620px) {
+@media (max-width: 450px) {
   .MyForm {
     width: 100% !important;
+  }
+  .class-info-button {
+    width: 5.5rem !important;
+  }
+  .class-info-button {
+    height: 100%;
+    width: 100%;
+  }
+  .class-info-button p {
+    font-size: 8px;
+    /* margin-bottom: 20px; */
+    width: fit-content;
+    transform: translate(-6px, 10px);
+  }
+  .info-ma {
+    width: 76% !important;
   }
 }
 @media (max-width: 420px) {
   .MyForm {
     width: 100% !important;
   }
-  .class-info-button {
-    width: 13rem !important;
+  .class-info-button div {
   }
+
+  /* .class-info-button {
+    width: 5.5rem !important;
+  } */
   .class-info-button p {
-    font-size: 13px;
+    font-size: 8px;
   }
   .class-info-button {
     font-size: 13px;
@@ -58,7 +77,7 @@
   color: black;
   font-size: 1rem;
   font-weight: 600;
-  width: 10rem;
+  width: 9.5rem;
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
@@ -115,21 +134,4 @@
 
 .MyTable {
   width: 100%;
-}
-
-.nextButton {
-  height: 9rem;
-  display: flex;
-  align-items: center;
-  flex-direction: row-reverse;
-}
-
-.nextButton .MyButton {
-  background-color: #c01f59;
-  width: 7rem;
-  height: auto;
-  padding: 5px;
-  border: none;
-  color: white;
-  border-radius: 20px;
 }

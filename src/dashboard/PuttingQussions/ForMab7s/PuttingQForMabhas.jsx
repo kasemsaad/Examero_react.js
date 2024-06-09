@@ -7,7 +7,8 @@ import MyTable from "../../../common/Table/Table";
 import MyButton from "../../../common/Button/Button";
 import { useNavigate } from "react-router-dom";
 import FormForMaba7s from "../../components/PuttingQuesionsPage/FormForMbhas/FormForMaba7s ";
-import "./PuttingQForMabhas";
+import "./PuttingQForMahbas.css";
+import FooterFPuttingQ from "../../components/PFooter/FooterFPuttingQ";
 const PuttingQForMab7as = () => {
   let header = {
     name1: "اسم المبحث",
@@ -50,7 +51,7 @@ const PuttingQForMab7as = () => {
   let icon = { edit: true, trash: true, toggle: true };
   return (
     <>
-      <div className=" min-vh-100 ">
+      <div className=" min-vh-100 mab7asContainer">
         <HeaderOfPuttingQuestions />
 
         <div className="question" style={{ width: "80%", margin: "auto" }}>
@@ -70,17 +71,15 @@ const PuttingQForMab7as = () => {
             </div>
           </div>
 
-          <div className=" MyFormm bg-black col-8">
-            <FormForMaba7s />
-          </div>
+          <FormForMaba7s />
 
           <div
-            className="class-info-button-container d-flex align-items-center"
+            className="class-info-button-containerr d-flex align-items-center"
             style={{ height: "9rem" }}
           >
             <div className="col-12 d-flex align-items-center">
               <div className="class-info-button">
-                <div>
+                <div className="info-ma">
                   <p>بيانات المبحث</p>
                 </div>
               </div>
@@ -92,22 +91,7 @@ const PuttingQForMab7as = () => {
             <MyTable header={header} body={body} icons={icon} />
           </div>
         </div>
-
-        <div className="nextButton col-12">
-          <div className="col-sm-3 d-flex align-items-center justify-content-center">
-            <MyButton content={"التالي"} className="MyButton" />
-          </div>
-          <div
-            style={{}}
-            className=" col-sm-2 d-flex align-items-center justify-content-center"
-          >
-            <MyButton
-              style={{ backgroundColor: "#CDCDCD", color: "black" }}
-              content={"السابق"}
-              className="MyButton"
-            />
-          </div>
-        </div>
+        <FooterFPuttingQ />
       </div>
     </>
   );

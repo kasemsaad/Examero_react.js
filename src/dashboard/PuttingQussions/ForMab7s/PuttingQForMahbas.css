@@ -1,6 +1,10 @@
-.MyFormm {
-  height: 77px;
-  border-radius: 16.28px;
-  background-color: #1d195d !important;
-  width: 54% !important;
+@media (max-width: 450px) {
+  /* .MyFormm {
+    width: 100% !important;
+  } */
+  .mab7asContainer {
+    width: 100%;
+  }
+  .class-info-button-containerr {
+  }
 }
