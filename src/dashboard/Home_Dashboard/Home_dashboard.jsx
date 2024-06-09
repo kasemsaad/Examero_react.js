@@ -22,7 +22,7 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import delet from "./../../assets/image/fluent_delete-12-regular.svg"
 import edit from "./../../assets/image/uil_edit.svg"
-import Calender from './calender'
+import Calender from './Calender/calender'
 
 
 
@@ -32,6 +32,23 @@ import Calender from './calender'
 
 export default function Home_dashboard() {
   const [date, setDate] = useState(new Date());
+
+  const [formData, setFormData] = useState({ title: "", note: "" });
+  const [arrayContainer, setContainer] = useState([]);
+
+  const handleNotes = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setContainer(() => [...arrayContainer, formData]);
+  };
+
 
   const onChange = (newDate) => {
     setDate(newDate);
@@ -55,7 +72,7 @@ export default function Home_dashboard() {
             {/* bg-info */}
             <div className=' mt-3 ' style={{ display: "flex", textAlign: "center", justifyContent: 'space-between', flexWrap: "wrap" }}>
               {/* this first div purple which will repeated */}
-              <div className='col-sm-11' style={{ height: "148px", width: "174px", borderRadius: "17.18px", backgroundColor: '#4941A6', position: 'relative' }}>
+              <div className='col-sm-11 box_of_book' style={{ height: "148px", width: "174px", borderRadius: "17.18px", backgroundColor: '#4941A6', position: 'relative' }}>
                 <div style={{ position: "absolute", top: "0", right: "0" }}>
                   <img src={tringle} className="" alt="صورة شخصية" style={{ width: '53.83px', height: '57.62px' }} />
                 </div>
@@ -85,7 +102,7 @@ export default function Home_dashboard() {
                 </div>
               </div>
 
-              <div style={{ height: "148px", width: "174px", borderRadius: "17.18px", backgroundColor: '#C01F59', position: 'relative' }}>
+              <div className='box_of_book' style={{ height: "148px", width: "174px", borderRadius: "17.18px", backgroundColor: '#C01F59', position: 'relative' }}>
                 <div style={{ position: "absolute", top: "0", right: "0" }}>
                   <img src={purble_intersect} className="" alt="صورة شخصية" style={{ width: '53.83px', height: '57.62px' }} />
                 </div>
@@ -115,7 +132,7 @@ export default function Home_dashboard() {
                 </div>
               </div>
 
-              <div style={{ height: "148px", width: "174px", borderRadius: "17.18px", backgroundColor: '#C17011', position: 'relative' }}>
+              <div className='box_of_book' style={{ height: "148px", width: "174px", borderRadius: "17.18px", backgroundColor: '#C17011', position: 'relative' }}>
                 <div style={{ position: "absolute", top: "0", right: "0" }}>
                   <img src={sec_yellow_intersect} className="" alt="صورة شخصية" style={{ width: '53.83px', height: '57.62px' }} />
                 </div>
@@ -145,7 +162,7 @@ export default function Home_dashboard() {
                 </div>
               </div>
 
-              <div className='mt-2' style={{ height: "148px", width: "174px", borderRadius: "17.18px", backgroundColor: '#4941A6', position: 'relative' }}>
+              <div className='mt-2 box_of_book' style={{ height: "148px", width: "174px", borderRadius: "17.18px", backgroundColor: '#4941A6', position: 'relative' }}>
                 <div style={{ position: "absolute", top: "0", right: "0" }}>
                   <img src={tringle} className="" alt="صورة شخصية" style={{ width: '53.83px', height: '57.62px' }} />
                 </div>
@@ -176,7 +193,7 @@ export default function Home_dashboard() {
               </div>
 
 
-              <div className='mt-2' style={{ height: "148px", width: "174px", borderRadius: "17.18px", backgroundColor: '#C01F59', position: 'relative' }}>
+              <div className='mt-2 box_of_book' style={{ height: "148px", width: "174px", borderRadius: "17.18px", backgroundColor: '#C01F59', position: 'relative' }}>
                 <div style={{ position: "absolute", top: "0", right: "0" }}>
                   <img src={purble_intersect} className="" alt="صورة شخصية" style={{ width: '53.83px', height: '57.62px' }} />
                 </div>
@@ -207,7 +224,7 @@ export default function Home_dashboard() {
               </div>
 
 
-              <div className='mt-2' style={{ height: "148px", width: "174px", borderRadius: "17.18px", backgroundColor: '#4941A6', position: 'relative' }}>
+              <div className='mt-2 box_of_book' style={{ height: "148px", width: "174px", borderRadius: "17.18px", backgroundColor: '#4941A6', position: 'relative' }}>
                 <div style={{ position: "absolute", top: "0", right: "0" }}>
                   <img src={tringle} className="" alt="صورة شخصية" style={{ width: '53.83px', height: '57.62px' }} />
                 </div>
@@ -256,13 +273,13 @@ export default function Home_dashboard() {
 
 
 
-          <div className="col-xl-3  " style={{ marginTop: "64px", overflow: "hidden" }}>
+          <div className="col-xl-3 wraber_123 " style={{ marginTop: "64px", overflow: "hidden" }}>
             <div style={{ display: "flex", flexDirection: "column" }}>
 
-              <div className='labels_123 '>
+              <div className='labels_123'>
                 <div style={{ position: 'relative', height: "30px", backgroundColor: '#0E0A43', border: "1px solid #4941A6", borderRadius: '9.65px' }}>
                   <p style={{ margin: "0", direction: "ltr", paddingLeft: "2vw", paddingTop: "0.3vw", color: "#A6A0F4" }}>123</p>
-                  <div style={{ position: "absolute", top: "0", right: '0', width: "8vw", height: "30px", backgroundColor: "#4941A6", borderRadius: '9.65px' }}>
+                  <div className='layer_owner' style={{ position: "absolute", top: "0", right: '0', width: "8vw", height: "30px", backgroundColor: "#4941A6", borderRadius: '9.65px' }}>
 
                     <div style={{ position: "relative" }}>
                       <div style={{ position: "absolute", left: "5px", top: "0.3vw", display: "flex", alignItems: "center" }}>
@@ -271,7 +288,7 @@ export default function Home_dashboard() {
                     </div>
 
                     <div style={{ position: "relative" }}>
-                      <div style={{
+                      <div className='layer_friends' style={{
                         position: "absolute",
                         top: "0",
                         right: "0",
@@ -295,7 +312,7 @@ export default function Home_dashboard() {
 
                 <div className='mt-3' style={{ position: 'relative', height: "30px", backgroundColor: '#0E0A43', border: "1px solid #C01F59", borderRadius: '9.65px' }}>
                   <p style={{ margin: "0", direction: "ltr", paddingLeft: "2vw", paddingTop: "0.3vw", color: "#FE4F60" }}>123</p>
-                  <div style={{ position: "absolute", top: "0", right: '0', width: "8vw", height: "30px", backgroundColor: "#C01F59", borderRadius: '9.65px' }}>
+                  <div className='layer_owner' style={{ position: "absolute", top: "0", right: '0', width: "8vw", height: "30px", backgroundColor: "#C01F59", borderRadius: '9.65px' }}>
 
                     <div style={{ position: "relative" }}>
                       <div style={{ position: "absolute", left: "5px", top: "0.3vw", display: "flex", alignItems: "center" }}>
@@ -304,7 +321,7 @@ export default function Home_dashboard() {
                     </div>
 
                     <div style={{ position: "relative" }}>
-                      <div style={{
+                      <div className='layer_friends' style={{
                         position: "absolute",
                         top: "0",
                         right: "0",
@@ -328,7 +345,7 @@ export default function Home_dashboard() {
 
                 <div className='mt-3' style={{ position: 'relative', height: "30px", backgroundColor: '#0E0A43', border: "1px solid #FF8A00", borderRadius: '9.65px' }}>
                   <p style={{ margin: "0", direction: "ltr", paddingLeft: "2vw", paddingTop: "0.3vw", color: "#C17011" }}>123</p>
-                  <div style={{ position: "absolute", top: "0", right: '0', width: "8vw", height: "30px", backgroundColor: "#C17011", borderRadius: '9.65px' }}>
+                  <div className='layer_owner' style={{ position: "absolute", top: "0", right: '0', width: "8vw", height: "30px", backgroundColor: "#C17011", borderRadius: '9.65px' }}>
 
                     <div style={{ position: "relative" }}>
                       <div style={{ position: "absolute", left: "5px", top: "0.3vw", display: "flex", alignItems: "center" }}>
@@ -337,7 +354,7 @@ export default function Home_dashboard() {
                     </div>
 
                     <div style={{ position: "relative" }}>
-                      <div style={{
+                      <div className='layer_friends' style={{
                         position: "absolute",
                         top: "0",
                         right: "0",
@@ -361,7 +378,7 @@ export default function Home_dashboard() {
 
                 <div className='mt-3' style={{ position: 'relative', height: "30px", backgroundColor: '#0E0A43', border: "1px solid #FE4F60", borderRadius: '9.65px' }}>
                   <p style={{ margin: "0", direction: "ltr", paddingLeft: "2vw", paddingTop: "0.3vw", color: "#FE4F60" }}>123</p>
-                  <div style={{ position: "absolute", top: "0", right: '0', width: "8vw", height: "30px", backgroundColor: "#FE4F60", borderRadius: '9.65px' }}>
+                  <div className='layer_owner' style={{ position: "absolute", top: "0", right: '0', width: "8vw", height: "30px", backgroundColor: "#FE4F60", borderRadius: '9.65px' }}>
 
                     <div style={{ position: "relative" }}>
                       <div style={{ position: "absolute", left: "5px", top: "0.3vw", display: "flex", alignItems: "center" }}>
@@ -370,7 +387,7 @@ export default function Home_dashboard() {
                     </div>
 
                     <div style={{ position: "relative" }}>
-                      <div style={{
+                      <div className='layer_friends' style={{
                         position: "absolute",
                         top: "0",
                         right: "0",
@@ -401,19 +418,54 @@ export default function Home_dashboard() {
                 </div>
                 {/* end of first div  */}
               </div>
-              <Calender edit={edit} Calendar={Calendar} onChange={onChange} date={date} delet={delet} plus={plus} />
 
+              <Calender edit={edit}
+               Calendar={Calendar}
+                onChange={onChange}
+                 date={date}
+                  delet={delet}
+                   plus={plus} 
+                   handleNotes={handleNotes}
+                   formData={formData}
+                   arrayContainer={arrayContainer}
 
-             
-
+                   
+                   />
             </div>
           </div>
+
+
+
+          
 
 
 
           {/* end of wrabeer one of container and div which take flex to wrab to div which content i write */}
         </div>
       </div>
+      <form action="" onSubmit={(e)=>handleSubmit(e)}>
+<div class="modal fade" id="exampleModal"  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body ">
+      <input onChange={handleNotes}    width="50px" type="text" className="form-control" id="TASK" name='title'  value={formData.title}  />
+      <br />
+        <br />
+        <input onChange={handleNotes} width="50px" type="text" className="form-control" id="TASK"  name='note' value={formData.note} />
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div> 
+</form>
     </>
   )
 }

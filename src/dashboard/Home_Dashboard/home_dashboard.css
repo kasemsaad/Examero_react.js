@@ -14,13 +14,150 @@
     color: #ffff !important;
   }
 
-
+  
 .react-calendar__navigation__label__labelText{
-
     color: #ffff !important;
     font-weight: 800;
 
 }
 .react-calendar__month-view__days{
     color: #ffff !important;
+}
+.modal-backdrop.show{
+    opacity: 0;
+}
+.modal-backdrop {
+  position: absolute !important;
+}
+/* .modal-dialog{
+  z-index: 66;
+  top: 50%;
+} */
+
+@media (min-width: 992px) and (max-width: 1199px){
+  .wraber_123{
+    margin: auto;
+  }
+  .layer_owner{
+    width: 18vw !important;
+  }
+  .layer_friends{
+    width: 5vw !important;
+  }
+
+  
+  .box_of_book{
+    margin-top: 5px;
+  }
+  .wraber_delete{
+    width: 2.5vw !important;
+    height: 2.5vw !important;
+  }
+
+  
+
+
+}
+
+@media (min-width: 768px) and (max-width: 989px) {
+  .wraber_123{
+    margin: auto;
+  }
+  .layer_owner{
+    width: 18vw !important;
+  }
+  .layer_friends{
+    width: 5vw !important;
+  }
+  
+  .box_of_book{
+    margin-top: 5px;
+  }
+  .change_width_in_sm{
+    width: 95% !important;
+  }
+  .wraber_delete{
+    width: 3vw !important;
+    height: 3vw !important;
+  }
+
+
+}
+ @media (min-width: 600px) and (max-width: 767px){
+ 
+  .wraber_123{
+    margin: auto;
+  }
+  .layer_owner{
+    width: 18vw !important;
+  }
+  .layer_friends{
+    width: 5vw !important;
+  }
+
+  
+  .box_of_book{
+    margin-top: 5px;
+  }
+  .change_width_in_sm{
+    width: 95% !important;
+  }
+  .wraber_delete{
+    width: 4vw !important;
+    height: 4vw !important;
+  }
+
+} 
+
+@media (max-width: 599px){
+  .wraber_123{
+    margin: auto;
+  }
+  .layer_owner{
+    width: 30vw !important;
+  }
+  .layer_friends{
+    width: 7vw !important;
+  }
+
+  .box_of_book{
+    width: 100% !important;
+    margin-top: 5px;
+  }
+  .change_width_in_sm{
+    width: 95% !important;
+  }
+  .wraber_delete{
+    width: 6vw !important;
+    height: 6vw !important;
+  }
+
+
+}
+
+@media (min-width: 350px) and (max-width: 430px){
+  .wraber_123{
+    margin: auto;
+  }
+  .layer_owner{
+    width: 30vw !important;
+  }
+  .layer_friends{
+    width: 7vw !important;
+  }
+
+  .box_of_book{
+    width: 100% !important;
+    margin-top: 5px;
+  }
+
+  .change_width_in_sm{
+    width: 95% !important;
+  }
+  .wraber_delete{
+    width: 6vw !important;
+    height: 6vw !important;
+  }
+
+
 }
