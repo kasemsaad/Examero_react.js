@@ -1,34 +1,39 @@
+import React, { useState, useEffect, useRef } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
 import styled from 'styled-components';
 import './HomeStyle.css'; // Import your CSS file if needed
 // import douts from "../../assets/image/home/Group 54.svg";
 import MyButton from "../../common/Button/Button";
-import right from "../../assets/icons/Home/mdi_success-circle-outline.svg"
-import fluent from "../../assets/icons/Home/fluent-mdl2_commitments.svg"
-import lucide_git from "../../assets/icons/Home/lucide_git-pull-request-create-arrow.svg"
-import ph_target from "../../assets/icons/Home/ph_target-bold.svg"
-import park_check from "../../assets/icons/Home/icon-park_check-correct.svg"
-import React, { useState, useEffect,useRef} from "react";
-// import { useParams } from 'react-router-dom';
+import right from "../../assets/icons/Home/mdi_success-circle-outline.svg";
+import fluent from "../../assets/icons/Home/fluent-mdl2_commitments.svg";
+import lucide_git from "../../assets/icons/Home/lucide_git-pull-request-create-arrow.svg";
+import ph_target from "../../assets/icons/Home/ph_target-bold.svg";
+import park_check from "../../assets/icons/Home/icon-park_check-correct.svg";
+
 function Home() {
-    const [product, setProduct] = useState(null);
+    const [homdata, sethomdata] = useState(null);
+    const sec2 = useRef();
+    // Function to handle smooth scroll to section
+    const scrollHandler = (elmRef) => {
+        window.scrollTo({ top: elmRef.current.offsetTop, behavior: "smooth" });
+    }
+    // Fetching data using axios
     useEffect(() => {
-        fetch(`http://127.0.0.1:8000/api/student-plan`)
-          .then(res => res.json())
-          .then(data => {
-            if (data) {
-              console.log("Product fetched:", data);
-              setProduct(data);
-            } else {
-              console.error("Data fetched is not a product:", data);
-            }
-          })
-          .catch(error => console.error("Error fetching product:", error));
-      }, []);
-    
-      if (!product) {
+        axios.get('http://127.0.0.1:8000/api/student-plan')
+            .then(response => {
+                const data = response.data;
+                console.log("Product fetched:", data);
+                sethomdata(data);
+            })
+            .catch(error => {
+                console.error("Error fetching homdata:", error);
+            });
+    }, []);
+
+    if (!homdata) {
         return <div>Loading...</div>;
-      }
+    }
     return (
         <>
             <link
@@ -98,7 +103,6 @@ function Home() {
                 </DivSection1>
             </Section>
             <Douts className="Douts "></Douts>
-
             {/* -----------endsection1--------- */}
             {/* -----------section2--------- */}
             <Section2 className="Section2 " id="Section2">
