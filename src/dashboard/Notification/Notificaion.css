@@ -22,7 +22,7 @@ hr {
   font-size: 24px;
   font-weight: 700;
 }
-.not {
+.notificationIcon {
   height: 100%;
   display: flex;
   justify-content: center;
@@ -45,7 +45,7 @@ hr {
   background-color: rgb(0, 12, 22);
   height: 2rem;
 }
-.icon {
+.notificationIcon {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -53,7 +53,7 @@ hr {
   border-radius: 15px 0px 0px 15px;
   width: 3rem;
 }
-.icon button {
+.notificationIcon button {
   border-radius: 15px 0px 0px 15px;
 
   height: 100%;
@@ -101,7 +101,7 @@ hr {
 }
 
 @media (max-width: 380px) {
-  .icon {
+  .notificationIcon {
     width: 2.2rem;
   }
   .checkB {
