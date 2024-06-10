@@ -91,9 +91,9 @@ padding-top: 5%;
 }
 
 .card-title {
-    font-weight: bold;
+    /* font-weight: bold; */
     text-align: center;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
     font-family: 'Cairo', sans-serif;
     font-size: 1.5rem;
     direction: rtl;
