@@ -4,8 +4,8 @@ import notificationImage from "../../../../assets/icons/NotificationPage/majesti
 const HeaderNotificaion = () => {
   return (
     <>
-      <div className="header ">
-        <div className="not  col-sm-3">
+      <div className="header-notify ">
+        <div className="notify-ico  col-sm-3">
           <div className=" mx-2 ">
             <img className=" " src={notificationImage} alt="" />
           </div>

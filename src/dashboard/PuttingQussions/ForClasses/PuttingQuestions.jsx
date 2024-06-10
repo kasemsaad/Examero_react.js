@@ -6,10 +6,12 @@ import MyTable from "../../../common/Table/Table";
 import "./Quesion.css"; // Import the CSS file
 import { height, width } from "@fortawesome/free-solid-svg-icons/fa0";
 import SecondTriangle from "../../components/SecondTriangle/SecondTriangle";
-import FormForAll from "../../components/PuttingQuesionsPage/FormForAll";
+import FormForAll from "../../components/PuttingQuesionsPage/FormForClasses/FormForAll";
 // import image from "../../assets/icons/PuttingQuestion/octicon_question-16.svg";
 import HeaderOfPuttingQuestions from "../../components/PheaderOfButtingQuestion/HeaderOfButtingQuestions";
 import { useNavigate } from "react-router-dom";
+import AddComponent from "../../components/PuttingQuesionsPage/AddComoponentForPage/Add";
+import InfoComponent from "../../components/PuttingQuesionsPage/InfoComponentPq/InfoComponent";
 
 const PuttingQuestions = () => {
   const [toggled, setToggled] = useState(false);
@@ -67,15 +69,15 @@ const PuttingQuestions = () => {
           />
           <SecondTriangle content={"الوحدات"} className="to" />
           <SecondTriangle content={"الدروس"} className="arrowfour" />
-          <SecondTriangle content={"أنواع الأسئلة"} className="arrowfive" />
+          <SecondTriangle
+            content={"أنواع الأسئلة"}
+            className="arrowfive"
+            to="/dashboard/q"
+          />
         </div>
 
         <div>
-          <div className="add-class-button">
-            <div>
-              <p>أضافة مبحث</p>
-            </div>
-          </div>
+          <AddComponent content={"أضافة صف"} />
         </div>
 
         <div className="MyForm col-8">
@@ -86,14 +88,7 @@ const PuttingQuestions = () => {
           className="class-info-button-container d-flex align-items-center"
           style={{ height: "9rem" }}
         >
-          <div className="col-12 d-flex align-items-center">
-            <div className="class-info-button">
-              <div>
-                <p>بيانات الصفوف</p>
-              </div>
-            </div>
-            <div className="class-info-divider"></div>
-          </div>
+          <InfoComponent content={"بيانات الصفوف"} />
         </div>
 
         <div className="MyTable">

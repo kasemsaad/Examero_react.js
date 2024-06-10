@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Button.css";
+import { Link } from "react-router-dom";
 const MyButton = ({
   className,
   onClick,
@@ -8,20 +9,21 @@ const MyButton = ({
   type,
   name,
   value,
-  to,
+  linkTo,
 }) => {
   return (
-    <button
-      style={style}
-      onClick={onClick}
-      className={className}
-      type={type}
-      name={name}
-      value={value}
-      to={to}
-    >
-      <p className="bub">{content}</p>
-    </button>
+    <Link to={linkTo}>
+      <button
+        style={style}
+        onClick={onClick}
+        className={className}
+        type={type}
+        name={name}
+        value={value}
+      >
+        <p className="bub">{content}</p>
+      </button>
+    </Link>
   );
 };
 

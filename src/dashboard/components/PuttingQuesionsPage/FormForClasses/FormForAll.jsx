@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import MyButton from "../../../common/Button/Button";
+import MyButton from "../../../../common/Button/Button";
 import "./FormForAll.css";
-
 const FormForAll = () => {
   const [classData, setClassData] = useState("");
 

@@ -11,7 +11,7 @@
   height: 82px;
   border-radius: 16.28px;
   background-color: #1d195d !important;
-  width: 90% !important;
+  width: 80% !important;
 }
 .mab7asContainer {
   width: 100%;
@@ -48,10 +48,9 @@
   width: 24%;
 
   display: flex;
-  height: 53px !important;
+  height: 62px !important;
   align-items: flex-end;
   justify-content: center;
-  margin-top: 1rem;
 }
 
 .my-buttonn {

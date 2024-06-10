@@ -20,6 +20,7 @@
 .button-container-putt {
   width: 34%;
   display: flex;
+  height: 64px;
   align-items: flex-end;
   justify-content: center;
 }
@@ -35,7 +36,10 @@
   border-radius: 12.65px;
   padding: 5px;
 }
-@media (max-width: 610px) {
+@media (max-width: 630px) {
+  .MyForm {
+    width: 20rem;
+  }
 }
 @media (max-width: 370px) {
   .form-container-putt {

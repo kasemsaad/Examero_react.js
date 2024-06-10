@@ -15,10 +15,7 @@ import { Provider } from "react-redux";
   referrerpolicy="no-referrer"
 />;
 
-
-
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={mystore}>
     <App />

@@ -1,18 +1,13 @@
 import React from "react";
 import HeaderOfPuttingQuestions from "../../components/PheaderOfButtingQuestion/HeaderOfButtingQuestions";
-import FirstTriangle from "../../components/FirstTriangle/FirstTriangle";
-import SecondTriangle from "../../components/SecondTriangle/SecondTriangle";
-// import FormForAll from "../../components/PuttingQuesionsPage/FormForAll";
-import MyTable from "../../../common/Table/Table";
-import MyButton from "../../../common/Button/Button";
-import { useNavigate } from "react-router-dom";
-import FormForMaba7s from "../../components/PuttingQuesionsPage/FormForMaba7s/FormForMaba7s ";
-import "./PuttingQForMahbas.css";
-import FooterFPuttingQ from "../../components/PFooter/FooterFPuttingQ";
-import AddComponent from "../../components/PuttingQuesionsPage/AddComoponentForPage/Add";
 import PuttingQArrow from "../../components/PuttingQuesionsPage/PuttingArrow/PuttingQArrow";
+import AddComponent from "../../components/PuttingQuesionsPage/AddComoponentForPage/Add";
 import InfoComponent from "../../components/PuttingQuesionsPage/InfoComponentPq/InfoComponent";
-const PuttingQForMab7as = () => {
+import MyTable from "../../../common/Table/Table";
+import FooterFPuttingQ from "../../components/PFooter/FooterFPuttingQ";
+import { useNavigate } from "react-router-dom";
+import FormForPQUnits from "../../components/PuttingQuesionsPage/FormForUnites/FormForUnites";
+const PuttingQUnites = () => {
   let header = {
     name1: "اسم المبحث",
     name2: "الصفوف التي يدرس فيها",
@@ -57,25 +52,25 @@ const PuttingQForMab7as = () => {
       <div className=" min-vh-100 mab7asContainer">
         <HeaderOfPuttingQuestions />
         <div className="question" style={{ width: "80%", margin: "auto" }}>
-          <PuttingQArrow onClick={handelOnclick} />
+          <PuttingQArrow linkTo={"/dashboard/mab"} onClick={handelOnclick} />
           <div>
-            <AddComponent content={"اضافة مبحث"} />
+            <AddComponent content={"إضافة وحدة"} />
           </div>
-          <FormForMaba7s />
+          <FormForPQUnits />
           <div
             className="class-info-button-containerr d-flex align-items-center"
             style={{ height: "9rem" }}
           >
-            <InfoComponent content={"بيانات المبحث"} />
+            <InfoComponent content={"بيانات الأسئله"} />
           </div>
           <div className="MyTable">
             <MyTable header={header} body={body} icons={icon} />
           </div>
         </div>
         <FooterFPuttingQ />
-      </div>
+      </div>{" "}
     </>
   );
 };
 
-export default PuttingQForMab7as;
+export default PuttingQUnites;

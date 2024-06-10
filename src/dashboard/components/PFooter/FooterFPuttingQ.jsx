@@ -13,6 +13,7 @@ const FooterFPuttingQ = () => {
           className=" col-sm-2 d-flex align-items-center justify-content-center"
         >
           <MyButton
+            linkTo={"/dashboard/mab"}
             style={{ backgroundColor: "#CDCDCD", color: "black" }}
             content={"السابق"}
             className="MyButton"

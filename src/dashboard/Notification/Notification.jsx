@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import "./Notificaion.css";
-import HeaderNotificaion from "../components/NotificationPage/Header/Header";
-import ArrowNotification from "../components/NotificationPage/Arrow/Arrow";
-import MessagesNotification from "../components/NotificationPage/messages/messages";
-import Checkbox from "../components/NotificationPage/Checkbox/Checkbox";
-import MyButton from "../../common/Button/Button";
+import HeaderNotificaion from "../components/NotificationPage/Header/Header.jsx";
+import ArrowNotification from "../components/NotificationPage/Arrow/Arrow.jsx";
+import MessagesNotification from "../components/NotificationPage/messages/messages.jsx";
+import MyButton from "../../common/Button/Button.jsx";
 
 const Notification = () => {
   let messages = [

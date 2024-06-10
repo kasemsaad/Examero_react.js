@@ -18,12 +18,12 @@ const MessagesNotification = ({ name, id, handleClick, isChecked }) => {
             />
             {/* <input type="checkbox" className="w-100 " /> */}
           </div>
-          <div className="content col-10 ">
+          <div className="content-notify col-10 ">
             <p className=" col-12  d-flex d-flex ">{name}</p>
           </div>
         </div>
 
-        <div className=" h-100  text-center justify-content-center align-content-center notificationIcon">
+        <div className=" h-100  text-center justify-content-center align-content-center icon-notify">
           <MyButton className={"fa-regular fa-eye m-auto  w-100 col-1 "} />
         </div>
       </div>
