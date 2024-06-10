@@ -323,8 +323,6 @@ function Home() {
                             <MyButton className="btn mx-2 py-0 rounded-3 " style={{ height: "1.6rem", backgroundColor: "#4941A6", color: "#ffff" }} to={"/Home"} content={"اشترك الآن"} />
                             </div>
                              </div>
-
-                    
                       
                     </div>
                 </DivSection6>
