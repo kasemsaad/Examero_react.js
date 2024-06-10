@@ -56,7 +56,7 @@ function Header() {
                       position: "relative",
                     }}
                   >
-                    <Link to="/not">
+                    <Link to="/dashboard/not">
                       {" "}
                       <img
                         src={notifiy}

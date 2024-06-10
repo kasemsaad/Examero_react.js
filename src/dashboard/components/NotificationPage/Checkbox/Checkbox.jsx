@@ -9,6 +9,7 @@ const Checkbox = ({
   className,
   Checkbox,
 }) => {
+  console.log(isChecked);
   return (
     <input
       id={id}
