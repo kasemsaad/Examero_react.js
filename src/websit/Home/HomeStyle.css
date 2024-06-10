@@ -29,7 +29,9 @@
     z-index: 99999999999999999999999;
 
 }
-
+.navbarwidth{
+    width: 100%;
+}
 .Section {
     width: 100%;
     height: 50vw;
@@ -335,9 +337,14 @@ background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
     border-radius: 15px;
-    padding: 10px !important;
+    padding: 90px !important;
     margin: 10px 0px;
     position: relative;
+    }
+    .boxchil{
+    padding-top: 80px !important;
+    padding-bottom: 20px !important;
+
 }
 .boxpre::after {
     content: "";
@@ -390,6 +397,7 @@ background-position: center;
 
     .Section3 {
         width: 100%;
+        height: 84vh !important;
         padding-top: 4vw;
         background-size: contain !important;
         background-image: url(../../assets//image/home/Group\ 153.png);
@@ -596,7 +604,7 @@ background-position: center;
 
     .card2 {
         width: 300px !important;
-        height: 210px;
+        height: 200px !important;
     }
 
     .boxcontent {
@@ -671,14 +679,13 @@ background-position: center;
         position:relative;
     }
     .boxpre h3 {
-        padding-left: 25px;
         padding-top: px;
         font-size: 2.5vw;
 
     }
 
     .Bold{
-  font-size: 30px;
+  font-size: 25px !important;
     }
     .boxpre::after {
         content: "";

@@ -12,26 +12,38 @@ import ph_target from "../../assets/icons/Home/ph_target-bold.svg";
 import park_check from "../../assets/icons/Home/icon-park_check-correct.svg";
 
 function Home() {
-    const [homdata, sethomdata] = useState(null);
+    const sec1 = useRef();
     const sec2 = useRef();
+    const sec3 = useRef();
+    const sec4 = useRef();
+    const sec5 = useRef();
+    const sec6 = useRef();
     // Function to handle smooth scroll to section
     const scrollHandler = (elmRef) => {
         window.scrollTo({ top: elmRef.current.offsetTop, behavior: "smooth" });
     }
-    // Fetching data using axios
+    const [student_data, setStudent_data] = useState(null);
+    const [teacher_data, setTeacher_data] = useState(null);
     useEffect(() => {
-        axios.get('http://127.0.0.1:8000/api/student-plan')
+        // Fetching data using axios
+        axios.get('http://127.0.0.1:8000/api/teacher-plan')
             .then(response => {
-                const data = response.data;
-                console.log("Product fetched:", data);
-                sethomdata(data);
+                setTeacher_data(response.data);
             })
             .catch(error => {
-                console.error("Error fetching homdata:", error);
+                console.error("Error fetching teacher data:", error);
+            });
+
+        axios.get('http://127.0.0.1:8000/api/student-plan')
+            .then(response => {
+                setStudent_data(response.data);
+            })
+            .catch(error => {
+                console.error("Error fetching student data:", error);
             });
     }, []);
 
-    if (!homdata) {
+    if (!student_data || !teacher_data) {
         return <div>Loading...</div>;
     }
     return (
@@ -43,32 +55,32 @@ function Home() {
                 crossOrigin="anonymous"
             />
             {/* -----------Navbar--------- */}
-            <nav className="navbar navbarsss navbar-expand-lg position-fixed" dir="rtl">
-                <div className="container d-flex align-items-center" style={{ marginRight: "8.4vw" }}>
+            <nav className="navbar navbarsss navbar-expand-lg position-fixed d-flex align-items-center justify-content-center p-0" dir="rtl">
+                <div className="container p-0 navbarwidth d-flex align-items-center" style={{  }}>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
-                    <div className="d-flex align-items-center justify-content-between" style={{ width: "100vw" }}>
+                    <div className=" d-flex align-items-center justify-content-between" style={{ width: "100%" }}>
                         <div className="collapse navbar-collapse kasem" id="navbarNav" style={{ width: "80vw" }}>
                             <div className="classnav">
                                 <ul className="navbar-nav">
                                     <li className="nav-item">
-                                        <Link className="nav-link active actives" aria-current="page" to="/">الرئيسية</Link>
+                                        <Link className="nav-link active " aria-current="page" onClick={() => scrollHandler(sec1)}>الرئيسية</Link>
                                     </li>
                                     <li className="nav-item">
-                                        <Link className="nav-link active" href="#Section2">من نحن</Link>
+                                        <Link className="nav-link active" onClick={() => scrollHandler(sec2)}>من نحن</Link>
                                     </li>
                                     <li className="nav-item">
-                                        <Link className="nav-link active" to="/pricing">هدفنا</Link>
+                                        <Link className="nav-link active" onClick={() => scrollHandler(sec3)}>هدفنا</Link>
                                     </li>
                                     <li className="nav-item">
-                                        <Link className="nav-link active" to="/pricing">لماذا نحن</Link>
+                                        <Link className="nav-link active" onClick={() => scrollHandler(sec4)}>لماذا نحن</Link>
                                     </li>
                                     <li className="nav-item">
-                                        <Link className="nav-link active" to="/pricing">آراء العملاء</Link>
+                                        <Link className="nav-link active" onClick={() => scrollHandler(sec5)}>آراء العملاء</Link>
                                     </li>
                                     <li className="nav-item">
-                                        <Link className="nav-link active" to="/pricing">باقات الإشتراك</Link>
+                                        <Link className="nav-link active" onClick={() => scrollHandler(sec6)}>باقات الإشتراك</Link>
                                     </li>
                                 </ul>
                             </div>
@@ -84,7 +96,7 @@ function Home() {
             {/* -----------EndNavbar--------- */}
             {/* -----------section1--------- */}
             {/* <img className="d"  src={imgs1} alt="" /> */}
-            <Section className="Section pt-5">
+            <Section className="Section pt-5" ref={sec1}>
                 <DivSection1 className="DivSection1 container row p-0 m-1">
                     <SectionImage1 className="SectionImage1 col-md-6 p-0">
                     </SectionImage1>
@@ -105,7 +117,7 @@ function Home() {
             <Douts className="Douts "></Douts>
             {/* -----------endsection1--------- */}
             {/* -----------section2--------- */}
-            <Section2 className="Section2 " id="Section2">
+            <Section2 className="Section2 " id="Section2" ref={sec2}>
                 <DivSection2 className="DivSection2  row p-0 m-1">
                     <SectionImage2 className="SectionImage2 col-md-4 p-0">
                         {/* <img className="d"  src={imgs1} alt="" /> */}
@@ -127,40 +139,43 @@ function Home() {
             </Section2>
             {/* -----------endsection2--------- */}
             {/* -----------section3--------- */}
-            <Section3 className="Section3 mt-5" >
+            <Section3 className="Section3 mt-5" ref={sec3}>
                 <DivSection3 className="container DivSection3 p-0 pb-4 text-center ">
                     <h3 className="Bold "><span style={{ color: "#4941A6" }}>هدفنا</span></h3><br />
                     <p className=" fs-5 pt-5  " dir="rtl">هدفنا في موقع <span>'Examero'</span> هو تقديم دعم شامل للمعلمين. نسعى جاهدين لتوفير أدوات وموارد تساعدهم</p>
                     <p className="fs-6" dir="rtl">نحن نؤمن بأهمية دور المعلمين في بناء مستقبل مشرق للتعليم ونسعى لدعمهم في تحقيق هذا الهدف.</p>
-                    <div className="row cards pt-4 m-0 ">
+                    <div className="row cards pt-5 m-0 ">
+
                         <div className="card  col-md-2 p-0 m-3 shadow bg-white " >
                             <div className="parentCircleIcon  p-0">
                                 <div className="circleicone">
                                     <img style={{ width: "25px", paddingRight: "4px" }} src={right} alt="right" />
                                 </div>
                             </div>
-                            <div className="p-3">
+                            <div className="py-5 p-2"> 
                                 <p><span style={{ color: "#A63131" }}>غايتنا</span> هي تقديم مساعدة حقيقية للمعلمين وتحقيق النجاح في التعليم.</p>
                             </div>
                         </div>
+
                         <div className="card  col-md-2 p-0 m-3 shadow bg-white " >
                             <div className="parentCircleIcon  p-0">
                                 <div className="circleicone">
                                     <img style={{ width: "25px", paddingRight: "4px" }} src={fluent} alt="right" />
                                 </div>
                             </div>
-                            <div className="p-3">
+                            <div className="py-5  p-2">
                                 <p>نحن <span style={{ color: "#A63131" }}>ملتزمون</span> بتوفير أدوات مبتكرة لتقديم تجربة تعليمية
                                     ممتازة.</p>
                             </div>
                         </div>
+                        
                         <div className="card  col-md-2 p-0 m-3 shadow bg-white " >
                             <div className="parentCircleIcon  p-0">
                                 <div className="circleicone">
                                     <img style={{ width: "25px", paddingRight: "4px" }} src={lucide_git} alt="right" />
                                 </div>
                             </div>
-                            <div className="p-3">
+                            <div className="py-5  p-2">
                                 <p> <span style={{ color: "#A63131" }}>نسعى </span>لتوفير منصة تسهل عليك إنشاء أسئلة امتحانية بسرعة ودقة.</p>
                             </div>
                         </div>
@@ -170,7 +185,7 @@ function Home() {
                                     <img style={{ width: "25px", paddingRight: "4px" }} src={ph_target} alt="right" />
                                 </div>
                             </div>
-                            <div className="p-3">
+                            <div className="py-5  p-2">
                                 <p><span style={{ color: "#A63131" }}>هدفنا </span> هو دعم المعلمين في إعداد الامتحانات بطريقة ميسرة ومؤثرة.</p>
                             </div>
                         </div>
@@ -179,13 +194,13 @@ function Home() {
             </Section3>
             {/* -----------endsection--------- */}
             {/* -----------section4--------- */}
-            <Section4 className="Section4 mt-5" >
+            <Section4 className="Section4 mt-5" ref={sec4}>
                 <DivSection4 className="DivSection4 p-0 pb-4 text-center ">
                     <h3 className="Bold"><span style={{ color: "#4941A6" }}>لماذا نحن</span></h3><br />
                     <div className="row cards2 p-0 m-0 ">
 
                         <div className="card2 p-0  col-3   m-4  shadow  " >
-                            <div className="boxmov">
+                            <div className="boxmov ">
                                 <p className="m-0 py-1 ">توفير نماذج الإجابات</p>
                             </div>
 
@@ -193,7 +208,7 @@ function Home() {
                                 بالإضافة إلى إعداد الامتحان، يمكنك تحميل نماذج للإجابات الصحيحة لتوجيه الطلاب ومساعدتهم على الاستعداد بفعالية.</div>
                             <div className="py-3">
                                 <MyButton className="btn mx-2 py-0 rounded-4 mb-1" style={{ height: "1.8rem", border: "2px solid #4941A6" }} to={"/Home"} content={"تسجيل الدخول"} />
-                                <MyButton className="btn mx-2 py-0 rounded-4 mb-1" style={{ height: "1.8rem", color: "white", backgroundColor: "#FF4C4C", color: "#ffff" }} to={"/Home"} content={"باقات الاشتراك"} />
+                                <MyButton className="btn mx-2 py-0 rounded-4 mb-1" style={{ height: "1.8rem", backgroundColor: "#FF4C4C", color: "#ffff" }} to={"/Home"} content={"باقات الاشتراك"} />
                             </div>
                         </div>
 
@@ -205,7 +220,7 @@ function Home() {
                                 يمكنك تحميل الأسئلة بتنسيقات متعددة مثل النص والصور وتنسيقها وترتيبها حسب الحاجة                       </div>
                             <div className="py-3">
                                 <MyButton className="btn mx-2 py-0 rounded-4 mb-1" style={{ height: "1.8rem", border: "2px solid #4941A6" }} to={"/Home"} content={"تسجيل الدخول"} />
-                                <MyButton className="btn mx-2 py-0 rounded-4 mb-1" style={{ height: "1.8rem", color: "white", backgroundColor: "#FF4C4C", color: "#ffff" }} to={"/Home"} content={"باقات الاشتراك"} />
+                                <MyButton className="btn mx-2 py-0 rounded-4 mb-1" style={{ height: "1.8rem", backgroundColor: "#FF4C4C", color: "#ffff" }} to={"/Home"} content={"باقات الاشتراك"} />
                             </div>
                         </div>
 
@@ -217,7 +232,7 @@ function Home() {
                                 يمكن للمعلمين إنشاء امتحانات تتناسب مع المناهج الدراسية ومتطلبات الصفوف بكل سهولة. يمكنك تحديد عدد الأسئلة وأنواعها ودرجة صعوبتها ووقت الامتحان والمزيد.                       </div>
                             <div className="py-3">
                                 <MyButton className="btn mx-2 py-0 rounded-4 mb-1" style={{ height: "1.8rem", border: "2px solid #4941A6" }} to={"/Home"} content={"تسجيل الدخول"} />
-                                <MyButton className="btn mx-2 py-0 rounded-4 mb-1" style={{ height: "1.8rem", color: "white", backgroundColor: "#FF4C4C", color: "#ffff" }} to={"/Home"} content={"باقات الاشتراك"} />
+                                <MyButton className="btn mx-2 py-0 rounded-4 mb-1" style={{ height: "1.8rem", backgroundColor: "#FF4C4C", color: "#ffff" }} to={"/Home"} content={"باقات الاشتراك"} />
                             </div>
                         </div>
                         <div className="card2 p-0  col-3 m-4 shadow " >
@@ -228,7 +243,7 @@ function Home() {
                                 تخصيص وإدارة الامتحانات بسهولة، وتوفير وسيلة فعالة لتقديم الاختبارات بشكل مهني وتنظيمي. يمكن للمعلمين أيضًا تحليل أداء الطلاب بسهولة لتحقيق أهداف التعليم بكفاءة أكبر. انضم إلينا اليوم لتجربة تسهيل عملية إعداد الامتحانات                                              </div>
                             <div className="py-3">
                                 <MyButton className="btn mx-2 py-0 rounded-4 mb-1" style={{ height: "1.8rem", border: "2px solid #4941A6" }} to={"/Home"} content={"تسجيل الدخول"} />
-                                <MyButton className="btn mx-2 py-0 rounded-4 mb-1" style={{ height: "1.8rem", color: "white", backgroundColor: "#FF4C4C", color: "#ffff" }} to={"/Home"} content={"باقات الاشتراك"} />
+                                <MyButton className="btn mx-2 py-0 rounded-4 mb-1" style={{ height: "1.8rem", backgroundColor: "#FF4C4C", color: "#ffff" }} to={"/Home"} content={"باقات الاشتراك"} />
                             </div>
                         </div>
                         <div className="card2 p-0  col-3 m-4  shadow  " >
@@ -239,7 +254,7 @@ function Home() {
                                 بمجرد الانتهاء من إعداد الامتحان، يمكنك تصديره إلى ملف PDF جاهز للتوزيع على الطلاب.                       </div>
                             <div className="py-3">
                                 <MyButton className="btn mx-2 py-0 rounded-4 mb-1" style={{ height: "1.8rem", border: "2px solid #4941A6" }} to={"/Home"} content={"تسجيل الدخول"} />
-                                <MyButton className="btn mx-2 py-0 rounded-4 mb-1" style={{ height: "1.8rem", color: "white", backgroundColor: "#FF4C4C", color: "#ffff" }} to={"/Home"} content={"باقات الاشتراك"} />
+                                <MyButton className="btn mx-2 py-0 rounded-4 mb-1" style={{ height: "1.8rem", backgroundColor: "#FF4C4C", color: "#ffff" }} to={"/Home"} content={"باقات الاشتراك"} />
                             </div>
                         </div>
 
@@ -251,7 +266,7 @@ function Home() {
                                 بمجرد الانتهاء من إعداد الامتحان، يمكنك تصديره إلى ملف PDF جاهز للتوزيع على الطلاب.                       </div>
                             <div className="py-3">
                                 <MyButton className="btn mx-2 py-0 rounded-4 mb-1" style={{ height: "1.8rem", border: "2px solid #4941A6" }} to={"/Home"} content={"تسجيل الدخول"} />
-                                <MyButton className="btn mx-2 py-0 rounded-4 mb-1" style={{ height: "1.8rem", color: "white", backgroundColor: "#FF4C4C", color: "#ffff" }} to={"/Home"} content={"باقات الاشتراك"} />
+                                <MyButton className="btn mx-2 py-0 rounded-4 mb-1" style={{ height: "1.8rem", backgroundColor: "#FF4C4C", color: "#ffff" }} to={"/Home"} content={"باقات الاشتراك"} />
                             </div>
                         </div>
                     </div>
@@ -261,51 +276,51 @@ function Home() {
             {/* -----------endsection--------- */}
 
             {/* -----------section6--------- */}
-            <Section6 className="Section6 pt-4">
+            <Section6 className="Section6 pt-4" ref={sec6}>
                 <h3 className="Bold text-center"><span style={{ color: "#4941A6" }}>باقات الاشتراك</span></h3><br />
                 <DivSection6 className=" container d-flex align-items-center justify-content-center flex-column">
                     <h4 className="teacherbox Bold " ><span style={{ color: "#FE4F60" }}> ( المعلمين ) </span></h4><br />
                     <div className="boxrow row  d-flex align-items-center justify-content-evenly">
 
-                        <div className="boxpre p-2 col-sm-3 shadow  " style={{backgroundColor:"#8C57FB"}}>
+                        <div className="boxpre boxchil p-2 col-sm-3 shadow  " style={{backgroundColor:"#8C57FB"}}>
                             <h3 className="Bold" style={{ color: "#FE4F60" }}><span>BASIC</span></h3>
-                            <h3  style={{ color: "#FE4F60" }}><span className="fs-5">$ </span><span className="Bold" > 49</span></h3>
-                            <div className="pt-5  text-white" dir="rtl">
-                             <p><img className="checkicone" src={park_check} alt="check" />اسم الباقه</p>
-                             <p><img className="checkicone" src={park_check} alt="check" />وصف الباقه</p>
-                             <p><img className="checkicone" src={park_check} alt="check" />عدد الأسئلة</p>
-                             <p><img className="checkicone" src={park_check} alt="check" />عدد الامتحانات</p>
+                            <h3  style={{ color: "#FE4F60" }}><span className="fs-5">$ </span><span className="Bold" > {teacher_data.data[0].price}</span></h3>
+                            <div className="boxchil text-white" dir="rtl">
+                             <p><img className="checkicone" src={park_check} alt="check" />{teacher_data.data[0].name}</p>
+                             <pre><img className="checkicone text-truncate" src={park_check} alt="check" />{teacher_data.data[0].description}</pre>
+                             <p><img className="checkicone" src={park_check} alt="check" />عدد الأسئلة : {teacher_data.data[0].allow_question} </p>
+                             <p><img className="checkicone" src={park_check} alt="check" /> عدد الامتحانات : {teacher_data.data[0].allow_exam}</p>
                             </div>
                             <div className="d-flex align-items-center justify-content-center">
-                            <MyButton className="btn mx-2 py-0 rounded-3 " style={{ height: "1.6rem", color: "white", backgroundColor: "#4941A6", color: "#ffff" }} to={"/Home"} content={"اشترك الآن"} />
+                            <MyButton className="btn mx-2 py-0 rounded-3 " style={{ height: "1.6rem", backgroundColor: "#4941A6", color: "#ffff" }} to={"/Home"} content={"اشترك الآن"} />
                             </div>
                              </div>
 
-                        <div className="boxpre bac p-2 col-sm-3 shadow " style={{backgroundColor:"#4941A6"}}>
+                        <div className="boxpre boxchil bac p-2 col-sm-3 shadow  " style={{backgroundColor:"#4941A6"}}>
                             <h3 className="Bold" style={{ color: "#4941A6" }}><span>STANDARD</span></h3>
-                            <h3  style={{ color: "#FE4F60" }}><span className="fs-5">$ </span><span className="Bold" > 49</span></h3>
-                            <div className="pt-5  text-white" dir="rtl">
-                             <p><img className="checkicone " src={park_check} alt="check" />اسم الباقه</p>
-                             <p><img className="checkicone " src={park_check} alt="check" />وصف الباقه</p>
-                             <p><img className="checkicone " src={park_check} alt="check" />عدد الأسئلة</p>
-                             <p><img className="checkicone " src={park_check} alt="check" />عدد الامتحانات</p>
+                            <h3  style={{ color: "#FE4F60" }}><span className="fs-5">$ </span><span className="Bold" > {teacher_data.data[1].price}</span></h3>
+                            <div className="boxchil text-white" dir="rtl">
+                             <p><img className="checkicone" src={park_check} alt="check" />{teacher_data.data[1].name}</p>
+                             <pre><img className="checkicone text-truncate" src={park_check} alt="check" />{teacher_data.data[1].description}</pre>
+                             <p><img className="checkicone" src={park_check} alt="check" />عدد الأسئلة : {teacher_data.data[1].allow_question} </p>
+                             <p><img className="checkicone" src={park_check} alt="check" /> عدد الامتحانات : {teacher_data.data[1].allow_exam}</p>
                             </div>
                             <div className="d-flex align-items-center justify-content-center">
-                            <MyButton className="btn mx-2 py-0 rounded-3 " style={{ height: "1.6rem", color: "white", backgroundColor: "#C01F59", color: "#ffff" }} to={"/Home"} content={"اشترك الآن"} />
+                            <MyButton className="btn mx-2 py-0 rounded-3 " style={{ height: "1.6rem", backgroundColor: "#C01F59", color: "#ffff" }} to={"/Home"} content={"اشترك الآن"} />
                             </div>
                              </div>
 
-                        <div className="boxpre  p-2 col-sm-3 shadow " style={{backgroundColor:"#C01F59"}}>
-                            <h3 className="Bold" style={{ color: "#C01F59" }}><span>PREMIUM</span></h3>
-                            <h3  style={{ color: "#FE4F60" }}><span className="fs-5">$ </span><span className="Bold" > 39</span></h3>
-                            <div className="pt-5  text-white" dir="rtl">
-                            <p><img className="checkicone " src={park_check} alt="check" />اسم الباقه</p>
-                             <p><img className="checkicone " src={park_check} alt="check" />وصف الباقه</p>
-                             <p><img className="checkicone " src={park_check} alt="check" />عدد الأسئلة</p>
-                             <p><img className="checkicone " src={park_check} alt="check" />عددالامتحانات</p>
+                             <div className="boxpre boxchil p-2 col-sm-3 shadow  " style={{backgroundColor:"#C01F59"}}>
+                            <h3 className="Bold" style={{ color: "#FE4F60" }}><span>PREMIUM</span></h3>
+                            <h3  style={{ color: "#FE4F60" }}><span className="fs-5">$ </span><span className="Bold" > {teacher_data.data[0].price}</span></h3>
+                            <div className="boxchil text-white" dir="rtl">
+                             <p><img className="checkicone" src={park_check} alt="check" />{teacher_data.data[0].name}</p>
+                             <pre><img className="checkicone text-truncate" src={park_check} alt="check" />{teacher_data.data[0].description}</pre>
+                             <p><img className="checkicone" src={park_check} alt="check" />عدد الأسئلة : {teacher_data.data[0].allow_question} </p>
+                             <p><img className="checkicone" src={park_check} alt="check" /> عدد الامتحانات : {teacher_data.data[0].allow_exam}</p>
                             </div>
                             <div className="d-flex align-items-center justify-content-center">
-                            <MyButton className="btn mx-2 py-0 rounded-3 " style={{ height: "1.6rem", color: "white", backgroundColor: "#4941A6", color: "#ffff" }} to={"/Home"} content={"اشترك الآن"} />
+                            <MyButton className="btn mx-2 py-0 rounded-3 " style={{ height: "1.6rem", backgroundColor: "#4941A6", color: "#ffff" }} to={"/Home"} content={"اشترك الآن"} />
                             </div>
                              </div>
                       
@@ -315,49 +330,47 @@ function Home() {
                 <DivSection6 className=" container d-flex align-items-center justify-content-center flex-column pt-4">
                     <h4 className="teacherbox Bold " ><span style={{ color: "#FE4F60" }}> ( الطلاب ) </span></h4><br />
                     <div className="boxrow row  d-flex align-items-center justify-content-evenly">
-
-                        <div className="boxpre p-2 col-sm-3 shadow  " style={{backgroundColor:"#8C57FB"}}>
+                    <div className="boxpre boxchil p-2 col-sm-3 shadow  " style={{backgroundColor:"#8C57FB"}}>
                             <h3 className="Bold" style={{ color: "#FE4F60" }}><span>BASIC</span></h3>
-                            <h3  style={{ color: "#FE4F60" }}><span className="fs-5">$ </span><span className="Bold" > 49</span></h3>
-                            <div className="pt-5  text-white" dir="rtl">
-                             <p><img className="checkicone" src={park_check} alt="check" />اسم الباقه</p>
-                             <p><img className="checkicone" src={park_check} alt="check" />وصف الباقه</p>
-                             <p><img className="checkicone" src={park_check} alt="check" />عدد الأسئلة</p>
-                             <p><img className="checkicone" src={park_check} alt="check" />عدد الامتحانات</p>
+                            <h3  style={{ color: "#FE4F60" }}><span className="fs-5">$ </span><span className="Bold" > {student_data.data[0].price}</span></h3>
+                            <div className="boxchil text-white" dir="rtl">
+                             <p><img className="checkicone" src={park_check} alt="check" />{student_data.data[0].name}</p>
+                             <pre><img className="checkicone text-truncate" src={park_check} alt="check" />{student_data.data[0].description}</pre>
+                             <p><img className="checkicone" src={park_check} alt="check" />عدد الأسئلة : {student_data.data[0].allow_question} </p>
+                             <p><img className="checkicone" src={park_check} alt="check" /> عدد الامتحانات : {student_data.data[0].allow_exam}</p>
                             </div>
                             <div className="d-flex align-items-center justify-content-center">
-                            <MyButton className="btn mx-2 py-0 rounded-3 " style={{ height: "1.6rem", color: "white", backgroundColor: "#4941A6", color: "#ffff" }} to={"/Home"} content={"اشترك الآن"} />
+                            <MyButton className="btn mx-2 py-0 rounded-3 " style={{ height: "1.6rem", backgroundColor: "#4941A6", color: "#ffff" }} to={"/Home"} content={"اشترك الآن"} />
                             </div>
                              </div>
 
-                        <div className="boxpre bac p-2 col-sm-3 shadow " style={{backgroundColor:"#4941A6"}}>
+                        <div className="boxpre boxchil bac p-2 col-sm-3 shadow  " style={{backgroundColor:"#4941A6"}}>
                             <h3 className="Bold" style={{ color: "#4941A6" }}><span>STANDARD</span></h3>
-                            <h3  style={{ color: "#FE4F60" }}><span className="fs-5">$ </span><span className="Bold" > 49</span></h3>
-                            <div className="pt-5  text-white" dir="rtl">
-                             <p><img className="checkicone " src={park_check} alt="check" />اسم الباقه</p>
-                             <p><img className="checkicone " src={park_check} alt="check" />وصف الباقه</p>
-                             <p><img className="checkicone " src={park_check} alt="check" />عدد الأسئلة</p>
-                             <p><img className="checkicone " src={park_check} alt="check" />عدد الامتحانات</p>
+                            <h3  style={{ color: "#FE4F60" }}><span className="fs-5">$ </span><span className="Bold" > {student_data.data[1].price}</span></h3>
+                            <div className="boxchil text-white" dir="rtl">
+                             <p><img className="checkicone" src={park_check} alt="check" />{student_data.data[1].name}</p>
+                             <pre><img className="checkicone text-truncate" src={park_check} alt="check" />{student_data.data[1].description}</pre>
+                             <p><img className="checkicone" src={park_check} alt="check" />عدد الأسئلة : {student_data.data[1].allow_question} </p>
+                             <p><img className="checkicone" src={park_check} alt="check" /> عدد الامتحانات : {student_data.data[1].allow_exam}</p>
                             </div>
                             <div className="d-flex align-items-center justify-content-center">
-                            <MyButton className="btn mx-2 py-0 rounded-3 " style={{ height: "1.6rem", color: "white", backgroundColor: "#C01F59", color: "#ffff" }} to={"/Home"} content={"اشترك الآن"} />
+                            <MyButton className="btn mx-2 py-0 rounded-3 " style={{ height: "1.6rem", backgroundColor: "#C01F59", color: "#ffff" }} to={"/Home"} content={"اشترك الآن"} />
                             </div>
                              </div>
 
-                        <div className="boxpre p-2 col-sm-3 shadow " style={{backgroundColor:"#C01F59"}}>
-                            <h3 className="Bold" style={{ color: "#C01F59" }}><span>PREMIUM</span></h3>
-                            <h3  style={{ color: "#FE4F60" }}><span className="fs-5">$ </span><span className="Bold" > 39</span></h3>
-                            <div className="pt-5  text-white" dir="rtl">
-                            <p><img className="checkicone " src={park_check} alt="check" />اسم الباقه</p>
-                             <p><img className="checkicone " src={park_check} alt="check" />وصف الباقه</p>
-                             <p><img className="checkicone " src={park_check} alt="check" />عدد الأسئلة</p>
-                             <p><img className="checkicone " src={park_check} alt="check" />عددالامتحانات</p>
+                             <div className="boxpre boxchil p-2 col-sm-3 shadow  " style={{backgroundColor:"#C01F59"}}>
+                            <h3 className="Bold" style={{ color: "#FE4F60" }}><span>PREMIUM</span></h3>
+                            <h3  style={{ color: "#FE4F60" }}><span className="fs-5">$ </span><span className="Bold" > {student_data.data[0].price}</span></h3>
+                            <div className="boxchil text-white" dir="rtl">
+                             <p><img className="checkicone" src={park_check} alt="check" />{student_data.data[0].name}</p>
+                             <pre><img className="checkicone text-truncate" src={park_check} alt="check" />{student_data.data[0].description}</pre>
+                             <p><img className="checkicone" src={park_check} alt="check" />عدد الأسئلة : {student_data.data[0].allow_question} </p>
+                             <p><img className="checkicone" src={park_check} alt="check" /> عدد الامتحانات : {student_data.data[0].allow_exam}</p>
                             </div>
                             <div className="d-flex align-items-center justify-content-center">
-                            <MyButton className="btn mx-2 py-0 rounded-3 " style={{ height: "1.6rem", color: "white", backgroundColor: "#4941A6", color: "#ffff" }} to={"/Home"} content={"اشترك الآن"} />
+                            <MyButton className="btn mx-2 py-0 rounded-3 " style={{ height: "1.6rem", backgroundColor: "#4941A6", color: "#ffff" }} to={"/Home"} content={"اشترك الآن"} />
                             </div>
                              </div>
-                      
                     </div>
                 </DivSection6>
              
@@ -422,13 +435,13 @@ const Section = styled.section``;
 const DivSection1 = styled.div``;
 const Sectioncontent1 = styled.div``;
 const SectionImage1 = styled.div``;
-const Button = styled.button``;
+// const Button = styled.button``;
 const Section2 = styled.section``;
 const Douts = styled.div``;
 const DivSection2 = styled.div``;
 const Sectioncontent2 = styled.div``;
 const SectionImage2 = styled.div``;
-const Button2 = styled.button``;
+// const Button2 = styled.button``;
 const Section3 = styled.section``;
 const DivSection3 = styled.div``;
 const Section4 = styled.section``;
