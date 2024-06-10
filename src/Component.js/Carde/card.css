@@ -1,0 +1,92 @@
+:root {
+  --color-grey-primary: #f0f0f0;
+  --color-yellow-primary: goldenrod;
+  --color-orange-primary: darkorange;
+  --color-green-primary: mediumseagreen;
+}
+html {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* .App{
+    display: grid;
+    grid-template-columns: 350px 350px 350px ;
+    justify-content: center;
+} */
+.productList {
+  /* display: flex;*/
+}
+.productCard {
+  position: relative;
+  width: 250px;
+  background-color: var(--color-grey-primary);
+}
+.productCard {
+  /* transform: translateY(-.5rem); */
+  box-shadow: 0.5rem 0.75rem 1.5rem #bbbbbb;
+  height: 20rem;
+}
+.productImage {
+  margin-top: 0rem;
+  max-width: 100%;
+  height: 30%;
+}
+.productCard_cart {
+  position: absolute;
+  right: 0;
+  margin: 0rem;
+  font-size: 2rem;
+
+  cursor: pointer;
+}
+.productCard_wishlist {
+  position: absolute;
+  /* color: #2d2929; */
+  right: 3rem;
+  margin: 0rem;
+  font-size: 2rem;
+  transition: 0.2s;
+  cursor: pointer;
+}
+.star {
+  fill: var(--color-orange-primary);
+}
+.productCard_fastSelling {
+  position: absolute;
+  font-size: 2rem;
+  margin: 0.9rem;
+  left: 0rem;
+
+  fill: var(--color-orange-primary);
+}
+.productCard_content {
+  margin: 0;
+}
+.prodcutName {
+  font-size: 0;
+}
+
+/* .displayStack__1,
+.displayStack__2{
+    margin: 1rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+
+}  */
+
+.productPrice {
+  font-size: 1rem;
+  font-weight: bold;
+}
+.productSales,
+.productTime {
+  font-size: 1rem;
+}
+.cat {
+  position: absolute;
+  margin: 0.5rem;
+  top: 2.5rem;
+  left: 0rem;
+}
