@@ -18,6 +18,7 @@ import Reset_page1 from './websit/register and login/resetpage/resetpage.jsx'
 import Reset_code_page from './websit/register and login/reset_password/reset_password.jsx';
 import Login1 from'./websit/register and login/login/login2.jsx'
 import New_pass from './websit/register and login/new_pass/new_pass.jsx'
+
 function App(props) {
   return (
       <BrowserRouter>
