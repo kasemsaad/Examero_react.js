@@ -14,14 +14,14 @@ const FormForPQUnits = () => {
   return (
     <>
       <div className="formUnits container">
-        <form className="form-container-unite row" onSubmit={handelSubmit}>
+        <form className="form-container-unite row-fel" onSubmit={handelSubmit}>
           <div className="form-group-unite  mr-3  justify-content-end">
-            <div className="col-12">
+            <div className="col-12 wrape-inpu">
               <div
                 style={{ height: "75px" }}
                 className="col-12  raw-ques d-flex "
               >
-                <div className="col-10 inner-raw ">
+                <div className="col-10 inner-raw  ">
                   <div className="col-12 col-sm-6 col-md-3 col-sm-2 input-ques">
                     <label className="" htmlFor="exampleInputEmail1">
                       اسم الصف
@@ -30,7 +30,7 @@ const FormForPQUnits = () => {
                       style={{}}
                       onChange={handelValue}
                       type="text"
-                      className="form-control  "
+                      className="form-control  iput1"
                       id="exampleInput"
                       aria-describedby="emailHelp"
                       placeholder=" أدخل الوحده هنا"

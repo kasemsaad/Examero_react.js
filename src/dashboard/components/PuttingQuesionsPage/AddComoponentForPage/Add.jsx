@@ -1,7 +1,7 @@
-const AddComponent = ({ content }) => {
+const AddComponent = ({ content, addStyle }) => {
   return (
     <>
-      <div className="add-class-button">
+      <div className={`add-class-button ${addStyle}`}>
         <div>
           <p>{content}</p>
         </div>

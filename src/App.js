@@ -19,6 +19,7 @@ import Reset_code_page from "./websit/register and login/reset_password/reset_pa
 import Login1 from "./websit/register and login/login/login2.jsx";
 import New_pass from "./websit/register and login/new_pass/new_pass.jsx";
 import PuttingQUnites from "./dashboard/PuttingQussions/ForUnits/PuttingQUnits.jsx";
+import PuttingQFLessons from "./dashboard/PuttingQussions/ForLessons/PuttingQFLessons.jsx";
 function App(props) {
   return (
     <BrowserRouter>
@@ -37,6 +38,7 @@ function App(props) {
           <Route path="not" element={<Notification />} />
           <Route path="q" element={<PuttingQuestions />} />
           <Route path="unite" element={<PuttingQUnites />} />
+          <Route path="lesson" element={<PuttingQFLessons />} />
           <Route path="mab" element={<PuttingQForMab7as />} />
           <Route path="login" element={<J />} />
           <Route path="b" element={<AccountSetting />} />

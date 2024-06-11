@@ -66,20 +66,55 @@
 .raw-ques {
   flex-direction: row;
 }
-@media (max-width: 650px) {
+@media (max-width: 700px) {
   .form-container-unite {
     flex-direction: column;
   }
-
-  .row {
+  .formUnits {
+    height: 175px;
+  }
+  .select-ques1,
+  .select-ques2 {
+    font-size: 12px;
+    height: 28px;
+  }
+  .select-ques1,
+  .select-ques2,
+  .input-ques,
+  .iput1 {
+    font-size: 12px;
+    height: 41px;
+    display: flex;
+    flex-direction: row;
+  }
+  .div-ques2,
+  .div-ques1 {
+    display: flex !important;
+    flex-direction: row;
+  }
+  .inner-raw {
+    display: flex;
+    flex-wrap: wrap;
+    width: 75%;
+    margin-top: 15px;
+    gap: 10px;
+  }
+  .wrape-inpu {
+    display: block;
+  }
+  .row-fel {
     flex-direction: column;
   }
-
+  .button-container-quese {
+    display: flex;
+    align-items: center;
+    height: 157px !important;
+  }
   .input-ques,
   .div-ques1,
   .div-ques2,
   .button-container-ques {
-    width: 30%;
+    width: 94%;
   }
   .button-container-ques {
     display: flex;
