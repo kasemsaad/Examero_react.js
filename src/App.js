@@ -17,6 +17,11 @@ import Reset_page1 from './websit/register and login/resetpage/resetpage.jsx'
 import Reset_code_page from './websit/register and login/reset_password/reset_password.jsx';
 import Login1 from'./websit/register and login/login/login2.jsx'
 import New_pass from './websit/register and login/new_pass/new_pass.jsx'
+import HomeDashoardLogin from './dashboard/homeLogin/homeLogin.jsx';
+import CertificateGenerator from './dashboard/Certificate/Certificate.jsx';
+import Qbank from './dashboard/Qbank/Qbank.jsx';
+import Specification from './dashboard/Specifecation/Specification.jsx';
+
 function App(props) {
   return (
 
@@ -39,6 +44,18 @@ function App(props) {
             <Route path="login" element={<J />} />
             <Route path="b" element={<AccountSetting />} />
             <Route path="h" element={<Home_dashboard/>} />
+            <Route path="logindashboard" element={<HomeDashoardLogin/>} />
+            <Route path="certify" element={<CertificateGenerator/>} />
+            <Route path="qbank" element={<Qbank/>} />
+            <Route path="specify" element={<Specification/>} />
+
+
+
+            
+
+
+            
+
 
 
           </Route>

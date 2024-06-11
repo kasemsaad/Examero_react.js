@@ -34,7 +34,7 @@ function AccountSetting() {
   
   const HandleSavePassword = (event) => {
     event.preventDefault();
-   
+  
     SetPasswordAlert(true)
     setTimeout(()=>{
       SetPasswordAlert(false)
