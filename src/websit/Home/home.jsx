@@ -42,6 +42,7 @@ function Home() {
                 setStudent_data(response.data);
             })
             .catch(error => {
+
                 console.error("Error fetching student data:", error);
             });
     }, []);
@@ -59,6 +60,7 @@ function Home() {
             />
             {/* -----------Navbar--------- */}
             <nav className="navbar navbarsss navbar-expand-lg position-fixed d-flex align-items-center justify-content-center p-0 shadow" dir="rtl">
+
                 <div className="container p-0 navbarwidth d-flex align-items-center" style={{  }}>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
@@ -84,6 +86,7 @@ function Home() {
                                     </li>
                                     <li className="nav-item">
                                         <Link className="nav-link active px-3" onClick={() => scrollHandler(sec6)}>باقات الإشتراك</Link>
+
                                     </li>
                                 </ul>
                             </div>
@@ -202,6 +205,7 @@ function Home() {
             {/* -----------section4--------- */}
             <Section4 className="Section4 mt-5" ref={sec4}>
                 <DivSection4 className="DivSection4 p-0 pb-4 text-center d-flex align-items-center justify-content-center  flex-column ">
+
                     <h3 className="Bold"><span style={{ color: "#4941A6" }}>لماذا نحن</span></h3><br />
                     <div className="row cards2 p-0 m-0  ">
 
@@ -227,6 +231,7 @@ function Home() {
                             <div className="py-3">
                                 <MyButton className="btn mx-2 fontSizeBtn py-0 rounded-5 py- px-3" style={{ height: "1.8rem", border: "2px solid #4941A6" }} to={"/Home"} content={"تسجيل الدخول"} />
                                 <MyButton className="btn mx-2 fontSizeBtn py-0 rounded-5 py- px-3" style={{ height: "1.8rem", backgroundColor: "#FF4C4C", color: "#ffff" }} to={"/Home"} content={"باقات الاشتراك"} />
+
                             </div>
                         </div>
 
@@ -239,6 +244,7 @@ function Home() {
                             <div className="py-3">
                                 <MyButton className="btn mx-2 fontSizeBtn py-0 rounded-5 py- px-3" style={{ height: "1.8rem", border: "2px solid #4941A6" }} to={"/Home"} content={"تسجيل الدخول"} />
                                 <MyButton className="btn mx-2 fontSizeBtn py-0 rounded-5 py- px-3" style={{ height: "1.8rem", backgroundColor: "#FF4C4C", color: "#ffff" }} to={"/Home"} content={"باقات الاشتراك"} />
+
                             </div>
                         </div>
                         <div className="card2 p-0  col-3 m-4 shadow " >
@@ -250,6 +256,7 @@ function Home() {
                             <div className="py-3">
                                 <MyButton className="btn mx-2 fontSizeBtn py-0 rounded-5 py- px-3" style={{ height: "1.8rem", border: "2px solid #4941A6" }} to={"/Home"} content={"تسجيل الدخول"} />
                                 <MyButton className="btn mx-2 fontSizeBtn py-0 rounded-5 py- px-3" style={{ height: "1.8rem", backgroundColor: "#FF4C4C", color: "#ffff" }} to={"/Home"} content={"باقات الاشتراك"} />
+
                             </div>
                         </div>
                         <div className="card2 p-0  col-3 m-4  shadow  " >
@@ -261,6 +268,7 @@ function Home() {
                             <div className="py-3">
                                 <MyButton className="btn mx-2 fontSizeBtn py-0 rounded-5 py- px-3" style={{ height: "1.8rem", border: "2px solid #4941A6" }} to={"/Home"} content={"تسجيل الدخول"} />
                                 <MyButton className="btn mx-2 fontSizeBtn py-0 rounded-5 py- px-3" style={{ height: "1.8rem", backgroundColor: "#FF4C4C", color: "#ffff" }} to={"/Home"} content={"باقات الاشتراك"} />
+
                             </div>
                         </div>
 
@@ -273,6 +281,7 @@ function Home() {
                             <div className="py-3">
                                 <MyButton className="btn mx-2 fontSizeBtn py-0 rounded-5 py- px-3" style={{ height: "1.8rem", border: "2px solid #4941A6" }} to={"/Home"} content={"تسجيل الدخول"} />
                                 <MyButton className="btn mx-2 fontSizeBtn py-0 rounded-5 py- px-3" style={{ height: "1.8rem", backgroundColor: "#FF4C4C", color: "#ffff" }} to={"/Home"} content={"باقات الاشتراك"} />
+
                             </div>
                         </div>
                     </div>
@@ -295,6 +304,7 @@ function Home() {
             </Section5>
 
             {/* -----------endsection--------- */}
+            {/* -----------section6--------- */}
             <Section6 className="Section6 pt-4" ref={sec6}>
                 <h3 className="Bold text-center"><span style={{ color: "#4941A6" }}>باقات الاشتراك</span></h3><br />
                 <DivSection6 className=" container d-flex align-items-center justify-content-center flex-column">
@@ -309,6 +319,7 @@ function Home() {
                             <img className="checkicone" src={park_check} alt="check" />
                              <p>{teacher_data.data[0].description}</p>
                             </div>
+
                              <p><img className="checkicone" src={park_check} alt="check" />عدد الأسئلة : {teacher_data.data[0].allow_question} </p>
                              <p><img className="checkicone" src={park_check} alt="check" /> عدد الامتحانات : {teacher_data.data[0].allow_exam}</p>
                             </div>
@@ -325,6 +336,7 @@ function Home() {
                             <img className="checkicone" src={park_check} alt="check" />
                              <p>{teacher_data.data[1].description}</p>
                             </div>
+
                              <p><img className="checkicone" src={park_check} alt="check" />عدد الأسئلة : {teacher_data.data[1].allow_question} </p>
                              <p><img className="checkicone" src={park_check} alt="check" /> عدد الامتحانات : {teacher_data.data[1].allow_exam}</p>
                             </div>
@@ -341,11 +353,13 @@ function Home() {
                             <img className="checkicone" src={park_check} alt="check" />
                              <p>{teacher_data.data[0].description}</p>
                             </div>
+
                              <p><img className="checkicone" src={park_check} alt="check" />عدد الأسئلة : {teacher_data.data[0].allow_question} </p>
                              <p><img className="checkicone" src={park_check} alt="check" /> عدد الامتحانات : {teacher_data.data[0].allow_exam}</p>
                             </div>
                             <div className="d-flex align-items-center justify-content-center">
                             <MyButton className="btn mx-2 py-0 rounded-3 " style={{ height: "3rem",width:"100%",  backgroundColor: "#4941A6", color: "#ffff" }} to={"/Home"} content={"اشترك الآن"} />
+
                             </div>
                              </div>
                       
@@ -363,6 +377,7 @@ function Home() {
                             <img className="checkicone" src={park_check} alt="check" />
                              <p>{student_data.data[0].description}</p>
                             </div>
+
                              <p><img className="checkicone" src={park_check} alt="check" />عدد الأسئلة : {student_data.data[0].allow_question} </p>
                              <p><img className="checkicone" src={park_check} alt="check" /> عدد الامتحانات : {student_data.data[0].allow_exam}</p>
                             </div>
@@ -371,7 +386,7 @@ function Home() {
                             </div>
                              </div>
 
-                        <div className="boxpre  bac p-2 col-sm-3 shadow  " style={{backgroundColor:"#4941A6"}}>
+                            <div className="boxpre  bac p-2 col-sm-3 shadow  " style={{backgroundColor:"#4941A6"}}>
                             <h3 className="Bold" style={{ color: "#4941A6" }}><span>{student_data.data[1].name}</span></h3>
                             <h3  style={{ color: "black" }}><span className="fs-5">$ </span><span className="Bold" > {student_data.data[1].price}</span></h3>
                             <div className="boxchil text-white" dir="rtl">
@@ -379,6 +394,7 @@ function Home() {
                             <img className="checkicone" src={park_check} alt="check" />
                              <p>{student_data.data[0].description}</p>
                             </div>
+
                              <p><img className="checkicone" src={park_check} alt="check" />عدد الأسئلة : {student_data.data[1].allow_question} </p>
                              <p><img className="checkicone" src={park_check} alt="check" /> عدد الامتحانات : {student_data.data[1].allow_exam}</p>
                             </div>
@@ -395,11 +411,13 @@ function Home() {
                             <img className="checkicone" src={park_check} alt="check" />
                              <p>{student_data.data[0].description}</p>
                             </div>
+
                              <p><img className="checkicone" src={park_check} alt="check" />عدد الأسئلة : {student_data.data[0].allow_question} </p>
                              <p><img className="checkicone" src={park_check} alt="check" /> عدد الامتحانات : {student_data.data[0].allow_exam}</p>
                             </div>
                             <div className="d-flex align-items-center justify-content-center">
                             <MyButton className="btn mx-2 py-0 rounded-3  " style={{ height: "3rem",width:"100%",  backgroundColor: "#4941A6", color: "#ffff" }} to={"/Home"} content={"اشترك الآن"} />
+
                             </div>
                              </div>
                     </div>

@@ -8,7 +8,7 @@
 
 .create_student_acc {
     width: 100%;
-    min-height: 100vh;
+    height: 100vh;
     display: flex;
     align-items:start;
     background: linear-gradient(180deg, #FFCF6B 0%, #C01F59 213.56%);
@@ -73,7 +73,7 @@
     font-family: Cairo;
     font-size: 17.76px;
     font-weight: 600;
-    line-height: 33.29px;
+    /* line-height: 33.29px; */
     text-align: right;
 }
 
@@ -81,18 +81,25 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 40px;
+    /* padding: 40px; */
+    /* padding-top: 1rem; */
+    /* padding-bottom: 1rem; */
+    padding-left: 40px;
+    padding-right: 40px;
     background: transparent;
     border: none;
     box-shadow: none;
     direction: rtl;
     text-align: center;
+    background: linear-gradient(180deg, #FFCF6B 0%, #C01F59 213.56%)!important;
+    height: 100vh;
+
 }
 
 .card-title {
-    font-weight: bold;
+    /* font-weight: bold; */
     text-align: center;
-    margin-bottom: 10px;
+    /* margin-bottom: 10px; */
     font-family: 'Cairo', sans-serif;
     font-size: 1.5rem;
     direction: rtl;
@@ -109,7 +116,7 @@
 } */
 
 .create_student_acc-form .form-group {
-    margin-bottom: 20px;
+    /* margin-bottom: 10px; */
     direction: rtl;
 }
 
@@ -127,7 +134,7 @@
 .create_student_acc-form .form-control {
     border-radius: 5px;
     font-size: 16px;
-    padding: 10px;
+    /* padding: 10px; */
 }
 
 .p_con_createstudentacc_pass, .p_createstudentacc_pass, .p_creatstudentacc_email, .p_createstudentacc_phone, .p_create_student_acc_username {
@@ -199,7 +206,7 @@
 
 
 .policy-container {
-    margin: 2%;
+    margin: 1%;
     text-align: right; 
 }
 
@@ -209,7 +216,7 @@
     font-family: Cairo;
     font-size: 14px;
     font-weight: 600;
-    line-height: 26.24px;
+    /* line-height: 26.24px; */
     text-decoration: none;
     position: relative;
 }
@@ -228,13 +235,13 @@
 
 .create_student_acc_btn, .back_create_student_acc_btn {
     color: white;
-    margin-top: 15px;
+    margin-top: 10px;
     font-size: 14px!important ;
     border: none !important;
     font-family: Cairo;
 font-size: 14.87px!important;
 font-weight: 700!important;
-line-height: 27.86px!important;
+/* line-height: 27.86px!important; */
 }
 .create_student_acc_btn {
     background-color: #0F0862 !important;
@@ -268,22 +275,24 @@ line-height: 27.86px!important;
     width: 100%;
     justify-content: center;
     align-items: center;
-    margin: 2rem;
+    margin: 1rem;
 }
 .di_1, .di_2 {
+    margin-top: 1rem;
     text-align: center;
     direction: rtl;
     width: 80%;
     color: #4941A6;
     font-family: Cairo;
     font-size: 12px;
-        line-height: 22.49px;
+        /* line-height: 22.49px; */
 font-weight: 700;
 letter-spacing: 0.03em;
 }
 .studentimg {
+    height: 100vh;
     position: relative;
 }
 .studentimg img {
-    width: 100%;
+    width:50%;
 }
