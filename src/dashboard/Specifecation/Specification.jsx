@@ -8,7 +8,7 @@ export default function Specification() {
 <div className="container  pb-4 " style={{ overflow: 'auto', marginTop: '18px', direction: 'rtl', height: 'auto', border: "2px solid purble", borderRadius: "10px", width: "90%", margin: "auto" }}>
 
 
-             <div className='col-12  mt-3 d-flex bg-dark' style={{ alignItems: "center", }}>
+             <div className='col-12  mt-3 d-flex ' style={{ alignItems: "center", }}>
                 <div className="" style={{ width: "5.333333%" }}>
                     <img src={SpecificationMain} className="img-fluid rounded-circle" alt="صورة شخصية" />
                 </div>
@@ -17,7 +17,7 @@ export default function Specification() {
                 </div>
             </div>
 
-            <div className="wraper_input_spesify bg-danger mt-4">
+            <div className="wraper_input_spesify x mt-4">
 
                 <div className='col-12 ' style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
 
@@ -55,10 +55,10 @@ export default function Specification() {
 
 
 
-            <div className='table_wrabber mt-3 col-12 bg-danger ' style={{textAlign:"center",overflowX:'auto',height:'100vh'}}>
+            <div className='table_wrabber mt-3 col-12  ' style={{textAlign:"center",overflowX:'auto',height:'100vh'}}>
 
-<table className="table table-bordered mt-4 table-dark" >
-        <thead className='table-info'>
+<table className="table table-bordered mt-4 " >
+        <thead className=''>
             <tr>
                 <th rowspan="2">الرقم</th>
                 <th rowspan="2">الوحدة</th>
@@ -76,7 +76,7 @@ export default function Specification() {
         </thead>
         <tbody>
             <tr>
-                <td><input type="text" style={{width:"100%",border:"none",borderRadius:'none'}} className='form-control bg-info' /></td>
+                <td>1</td>
                 <td>وحدة 1</td>
                 <td>10</td>
                 <td>10%</td>

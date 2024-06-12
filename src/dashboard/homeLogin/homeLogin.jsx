@@ -10,6 +10,7 @@ import Imgcom from './../../websit/register and login/imgcom/imgcom.jsx';
 import Create_acc from './.././../websit/register and login/create_acc/create_acc.jsx';
 import axios, { Axios } from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Api_Dashboard from '../../interceptor/interceptorDashboard.jsx';
 
 
 function HomeDashoardLogin() {
@@ -30,19 +31,13 @@ function HomeDashoardLogin() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await axios.post("http://127.0.0.1:8000/api_dashboard/login", formData, {
-            Headers: {
-                'Accept': 'application/json',
-            }
-        }).then((response) => {
-            if (response.data.user.role_name === "owner") {
-                setAlertForm(false)
-
-                navigate('/dashboard/h')
-            } else {
-            }
+        await Api_Dashboard.post("/login", formData, ).then((response) => {
+            localStorage.setItem('token', response.data.access_token);
+            navigate('/dashboard')
         }).catch((err) => {
+            console.log("يرجي ادخال الايميل والباسورد بشكل صحيح",err)
             setAlertForm(true)
+            setTimeout(()=> setAlertForm(false),3000)
         })
     }
 
@@ -54,8 +49,20 @@ function HomeDashoardLogin() {
                     <p className='card-title-l1 '>أدخل معلومات تسجيل الدخول </p>
                     <div className="header1-l1">
                         <p className='card-title between-borders1-l1'> لتحصل على جميع الخدمات</p>
-                        {erroralertform ? < p style={{color:"red"}}>erorsssssssssssssssssssssss</p> : ""}
                     </div>
+
+{
+erroralertform?
+                    <div class=" alert-primary " style={{ backgroundColor: "#F68C8C", height: "41px", display: "flex", alignItems: "center", borderRadius: "10px" }}>
+                  <div className='d-flex ' style={{ alignItems: "center", marginRight: "17px", width: '30vw' }}>
+                    <div>
+                      <p style={{ margin: "0", padding: "0", color: "#000000", fontSize: "14px", fontWeight: "600px",marginRight:"10px" }}>يرجي ادخال الايميل و الباسورد بشكل صحيح</p>
+                    </div>
+                  </div>
+                </div>
+                :""
+            }
+
                     <Form onSubmit={handleSubmit} className="login-form">
                         <Form.Group controlId="email">
                             <Form.Label className='email'>البريد الإلكتروني</Form.Label>
@@ -95,15 +102,15 @@ function HomeDashoardLogin() {
                         </Form.Group>
 
                         <Form.Group controlId="remember" className="d-flex justify-content-between align-items-center">
-                            <Form.Switch
-                                id="custom-switch"
-                                label="تذكرني"
-                                className="rem_login"
-                            />
-                            <a href="#" className="forgot-password">نسيت كلمة المرور؟</a>
+                            {/* <Form.Switch */}
+                                {/* id="custom-switch"
+                                label=""
+                                className="rem_login" */}
+                            {/* /> */}
+                            {/* <a href="#" className="forgot-password">نسيت كلمة المرور؟</a> */}
                         </Form.Group>
-                        <Button type="submit" className="btn login_btn">تسجيل الدخول</Button>
-                        <Create_acc />
+                        <Button style={{marginTop:"20px"}} type="submit" className="btn login_btn">تسجيل الدخول</Button>
+                        {/* <Create_acc /> */}
                     </Form>
                 </Col>
             </div>

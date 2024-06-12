@@ -28,10 +28,6 @@ function AccountSetting() {
   };
 
 
-
-
-
-  
   const HandleSavePassword = (event) => {
     event.preventDefault();
   
