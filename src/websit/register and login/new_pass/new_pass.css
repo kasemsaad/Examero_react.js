@@ -8,9 +8,9 @@
 
 .new_pass {
     width: 100%;
-    min-height: 100vh;
+    height: 100vh;
     display: flex;
-    align-items: center;
+    /* align-items: center; */
     background: linear-gradient(180deg, #FFCF6B 0%, #C01F59 213.56%);
 }
 .new_password,.con_new_password{
@@ -88,6 +88,8 @@ padding-top: 5%;
     box-shadow: none;
     direction: rtl;
     text-align: center;
+    background: linear-gradient(180deg, #FFCF6B 0%, #C01F59 213.56%);
+
 }
 
 .card-title {
