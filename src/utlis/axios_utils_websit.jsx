@@ -6,7 +6,7 @@ const client = axios.create({
     // Optionally, you can set other default configurations here
     timeout: 10000, // 10 seconds timeout
     headers: {
-        'Content-Type': 'application/json',
+   'Content-Type': 'application/json',
     }
 });
 
