@@ -44,7 +44,7 @@ function App(props) {
               <Home_dashboard />
             </ProtectedRoute>
           } />
-          <Route path="not" element={<Notification />} />
+          <Route path="not" element={ <Notification />} />
           <Route path="b" element={<AccountSetting />} />
           <Route path="certify" element={<CertificateGenerator />} />
           <Route path="qbank" element={<Qbank />} />
