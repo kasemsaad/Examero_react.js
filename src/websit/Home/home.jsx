@@ -10,28 +10,44 @@ import fluent from "../../assets/icons/Home/fluent-mdl2_commitments.svg";
 import lucide_git from "../../assets/icons/Home/lucide_git-pull-request-create-arrow.svg";
 import ph_target from "../../assets/icons/Home/ph_target-bold.svg";
 import park_check from "../../assets/icons/Home/icon-park_check-correct.svg";
+// import { width } from "@fortawesome/free-solid-svg-icons/fa0";
+// import request from "../../utlis/axios_utils_websit.jsx";
+import request from "../../utlis/axios_utils_websit.jsx";
 
 function Home() {
-    const [homdata, sethomdata] = useState(null);
+    const sec1 = useRef();
     const sec2 = useRef();
+    const sec3 = useRef();
+    const sec4 = useRef();
+    const sec5 = useRef();
+    const sec6 = useRef();
     // Function to handle smooth scroll to section
     const scrollHandler = (elmRef) => {
         window.scrollTo({ top: elmRef.current.offsetTop, behavior: "smooth" });
     }
-    // Fetching data using axios
+    const [student_data, setStudent_data] = useState(null);
+    const [teacher_data, setTeacher_data] = useState(null);
     useEffect(() => {
-        axios.get('http://127.0.0.1:8000/api/student-plan')
+        // Fetching data using axios
+        // axios.get('http://127.0.0.1:8000/api/teacher-plan')
+       request({url:'/teacher-plan'})
             .then(response => {
-                const data = response.data;
-                console.log("Product fetched:", data);
-                sethomdata(data);
+                setTeacher_data(response.data);
             })
             .catch(error => {
-                console.error("Error fetching homdata:", error);
+                console.error("Error fetching teacher data:", error);
+            });
+        request({url:'/student-plan'})
+            .then(response => {
+                setStudent_data(response.data);
+            })
+            .catch(error => {
+
+                console.error("Error fetching student data:", error);
             });
     }, []);
 
-    if (!homdata) {
+    if (!student_data || !teacher_data) {
         return <div>Loading...</div>;
     }
     return (
@@ -43,38 +59,40 @@ function Home() {
                 crossOrigin="anonymous"
             />
             {/* -----------Navbar--------- */}
-            <nav className="navbar navbarsss navbar-expand-lg position-fixed" dir="rtl">
-                <div className="container d-flex align-items-center" style={{ marginRight: "8.4vw" }}>
+            <nav className="navbar navbarsss navbar-expand-lg position-fixed d-flex align-items-center justify-content-center p-0 shadow" dir="rtl">
+
+                <div className="container p-0 navbarwidth d-flex align-items-center" style={{  }}>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
-                    <div className="d-flex align-items-center justify-content-between" style={{ width: "100vw" }}>
+                    <div className=" d-flex align-items-center justify-content-between" style={{ width: "100%" }}>
                         <div className="collapse navbar-collapse kasem" id="navbarNav" style={{ width: "80vw" }}>
                             <div className="classnav">
                                 <ul className="navbar-nav">
                                     <li className="nav-item">
-                                        <Link className="nav-link active actives" aria-current="page" to="/">الرئيسية</Link>
+                                        <Link className="nav-link active " aria-current="page" onClick={() => scrollHandler(sec1)}>الرئيسية</Link>
                                     </li>
                                     <li className="nav-item">
-                                        <Link className="nav-link active" href="#Section2">من نحن</Link>
+                                        <Link className="nav-link active px-3" onClick={() => scrollHandler(sec2)}>من نحن</Link>
                                     </li>
                                     <li className="nav-item">
-                                        <Link className="nav-link active" to="/pricing">هدفنا</Link>
+                                        <Link className="nav-link active px-3" onClick={() => scrollHandler(sec3)}>هدفنا</Link>
                                     </li>
                                     <li className="nav-item">
-                                        <Link className="nav-link active" to="/pricing">لماذا نحن</Link>
+                                        <Link className="nav-link active px-3" onClick={() => scrollHandler(sec4)}>لماذا نحن</Link>
                                     </li>
                                     <li className="nav-item">
-                                        <Link className="nav-link active" to="/pricing">آراء العملاء</Link>
+                                        <Link className="nav-link active px-3" onClick={() => scrollHandler(sec5)}>آراء العملاء</Link>
                                     </li>
                                     <li className="nav-item">
-                                        <Link className="nav-link active" to="/pricing">باقات الإشتراك</Link>
+                                        <Link className="nav-link active px-3" onClick={() => scrollHandler(sec6)}>باقات الإشتراك</Link>
+
                                     </li>
                                 </ul>
                             </div>
                             <div>
-                                <MyButton className="btn mx-2 py-0" style={{ height: "1.8rem", color: "white", backgroundColor: "#4941A6" }} to={"/Home"} content={"انشاء حساب"} />
-                                <MyButton className="btn mx-2 py-0" style={{ height: "1.8rem", border: "2px solid #4941A6" }} to={"/Home"} content={"تسجيل الدخول"} />
+                                <MyButton className="btn mx-3 py-0" style={{ height: "2.5rem", width:"8rem", color: "white", backgroundColor: "#4941A6" }} to={"/Home"} content={"انشاء حساب"} />
+                                <MyButton className="btn mx-3 py-0" style={{ height: "2.5rem", width:"8rem" , border: "2px solid #4941A6" }} to={"/Home"} content={"تسجيل الدخول"} />
 
                             </div>
                         </div>
@@ -84,20 +102,20 @@ function Home() {
             {/* -----------EndNavbar--------- */}
             {/* -----------section1--------- */}
             {/* <img className="d"  src={imgs1} alt="" /> */}
-            <Section className="Section pt-5">
+            <Section className="Section pt-5" ref={sec1}>
                 <DivSection1 className="DivSection1 container row p-0 m-1">
                     <SectionImage1 className="SectionImage1 col-md-6 p-0">
                     </SectionImage1>
                     <Sectioncontent1 className="Sectioncontent col-md-6  p-0">
-                        <div className="box p-2" dir="rtl">
+                        <div className="box p-2 " dir="rtl">
                             <h3 className="Bold">امتحانك في متناول يدك</h3><br />
-                            <div>
+                            <div className="fontSizeText ps-1">
                                 منصة <span style={{ color: "#B33E68" }}>Examero</span> هي منصة مخصصة لمساعدة المعلمين والطلاب على إعداد الامتحانات بكل أنواعها التشخيصية و الشهرية والنهائية بكل سهولة وفعالية .
                             </div>
-                            <div className="py-4">
+                            <div className="fontSizeText py-4 ps-1 mb-4">
                                 نحن نقدم منصة رائدة تساعد المعلمين والطلاب <span style={{ color: "#B33E68" }}>(  المدارس الحكومية و الخاصة و دروس  التقوية ) </span> على تصميم امتحانات مخصصة وتحمليها<span style={{ color: "#B33E68" }}> بصيغة pdf</span> مع خيار توفير نماذج الإجابة النموذجية وتحديد درجة صعوبة الامتحان اثناء إنشائه  .
                             </div>
-                            <Link to="/" className="Button">اشترك الآن</Link>
+                            <Link to="/" className="Button py-2  px-5 rounded-5 ">اشترك الآن</Link>
                         </div>
                     </Sectioncontent1>
                 </DivSection1>
@@ -105,7 +123,7 @@ function Home() {
             <Douts className="Douts "></Douts>
             {/* -----------endsection1--------- */}
             {/* -----------section2--------- */}
-            <Section2 className="Section2 " id="Section2">
+            <Section2 className="Section2 " id="Section2" ref={sec2}>
                 <DivSection2 className="DivSection2  row p-0 m-1">
                     <SectionImage2 className="SectionImage2 col-md-4 p-0">
                         {/* <img className="d"  src={imgs1} alt="" /> */}
@@ -114,9 +132,9 @@ function Home() {
                         <div className="p-2" dir="rtl">
                             <h3 className="Bold"><span style={{ color: "#4941A6" }}>من نحن </span></h3><br />
                             <h3>منصة متكاملة لمساعدة المعلمين والطلاب في إعداد الامتحانات بكل أنواعها</h3><br />
-                            <div className="pb-5">
+                            <div className="fontSizeText pb-5" style={{ lineHeight: '2' }}>
                                 نحن في موقع  "Examero " ملتزمون بدعم المعلمين والطلاب في إعداد الامتحانات بسهولة وفعالية.
-                                نقدم منصة سهلة الإستخدام تتيح لك إنشاء الامتحان بسرعة ودقة كمعلم أو طالب .  دعنا نساعدك في توفير الوقت والجهد في عملية إعداد امتحانك .                        </div>
+                                نقدم منصة سهلة الإستخدام تتيح لك إنشاء الامتحان بسرعة ودقة كمعلم أو طالب .  دعنا نساعدك في توفير الوقت والجهد في عملية إعداد امتحانك .   </div>
                         </div>
                         <div className="blockButtons" dir="rtl">
                             <Link to="/" className="Button2">استكشف باقاتنا</Link>
@@ -127,40 +145,46 @@ function Home() {
             </Section2>
             {/* -----------endsection2--------- */}
             {/* -----------section3--------- */}
-            <Section3 className="Section3 mt-5" >
+            <Section3 className="Section3 mt-5" ref={sec3}>
                 <DivSection3 className="container DivSection3 p-0 pb-4 text-center ">
-                    <h3 className="Bold "><span style={{ color: "#4941A6" }}>هدفنا</span></h3><br />
-                    <p className=" fs-5 pt-5  " dir="rtl">هدفنا في موقع <span>'Examero'</span> هو تقديم دعم شامل للمعلمين. نسعى جاهدين لتوفير أدوات وموارد تساعدهم</p>
+                    <h3 className="Bold  "><span style={{ color: "#4941A6" }}>هدفنا</span></h3><br />
+                    <p className=" fs-5 pt-5 fontSizeText " dir="rtl">هدفنا في موقع <span>'Examero'</span>هو تقديم دعم شامل للمعلمين.
+                    <span style={{backgroundColor:"#FFDC96"}}> نسعى جاهدين لتوفير أدوات وموارد تساعدهم
+                    </span>
+                    </p>
                     <p className="fs-6" dir="rtl">نحن نؤمن بأهمية دور المعلمين في بناء مستقبل مشرق للتعليم ونسعى لدعمهم في تحقيق هذا الهدف.</p>
-                    <div className="row cards pt-4 m-0 ">
+                    <div className="row cards pt-5 m-0 ">
+
                         <div className="card  col-md-2 p-0 m-3 shadow bg-white " >
                             <div className="parentCircleIcon  p-0">
                                 <div className="circleicone">
                                     <img style={{ width: "25px", paddingRight: "4px" }} src={right} alt="right" />
                                 </div>
                             </div>
-                            <div className="p-3">
+                            <div className="py-5 p-2"> 
                                 <p><span style={{ color: "#A63131" }}>غايتنا</span> هي تقديم مساعدة حقيقية للمعلمين وتحقيق النجاح في التعليم.</p>
                             </div>
                         </div>
+
                         <div className="card  col-md-2 p-0 m-3 shadow bg-white " >
                             <div className="parentCircleIcon  p-0">
                                 <div className="circleicone">
                                     <img style={{ width: "25px", paddingRight: "4px" }} src={fluent} alt="right" />
                                 </div>
                             </div>
-                            <div className="p-3">
+                            <div className="py-5  p-2">
                                 <p>نحن <span style={{ color: "#A63131" }}>ملتزمون</span> بتوفير أدوات مبتكرة لتقديم تجربة تعليمية
                                     ممتازة.</p>
                             </div>
                         </div>
+                        
                         <div className="card  col-md-2 p-0 m-3 shadow bg-white " >
                             <div className="parentCircleIcon  p-0">
                                 <div className="circleicone">
                                     <img style={{ width: "25px", paddingRight: "4px" }} src={lucide_git} alt="right" />
                                 </div>
                             </div>
-                            <div className="p-3">
+                            <div className="py-5  p-2">
                                 <p> <span style={{ color: "#A63131" }}>نسعى </span>لتوفير منصة تسهل عليك إنشاء أسئلة امتحانية بسرعة ودقة.</p>
                             </div>
                         </div>
@@ -170,7 +194,7 @@ function Home() {
                                     <img style={{ width: "25px", paddingRight: "4px" }} src={ph_target} alt="right" />
                                 </div>
                             </div>
-                            <div className="p-3">
+                            <div className="py-5  p-2">
                                 <p><span style={{ color: "#A63131" }}>هدفنا </span> هو دعم المعلمين في إعداد الامتحانات بطريقة ميسرة ومؤثرة.</p>
                             </div>
                         </div>
@@ -179,21 +203,22 @@ function Home() {
             </Section3>
             {/* -----------endsection--------- */}
             {/* -----------section4--------- */}
-            <Section4 className="Section4 mt-5" >
-                <DivSection4 className="DivSection4 p-0 pb-4 text-center ">
+            <Section4 className="Section4 mt-5" ref={sec4}>
+                <DivSection4 className="DivSection4 p-0 pb-4 text-center d-flex align-items-center justify-content-center  flex-column ">
+
                     <h3 className="Bold"><span style={{ color: "#4941A6" }}>لماذا نحن</span></h3><br />
-                    <div className="row cards2 p-0 m-0 ">
+                    <div className="row cards2 p-0 m-0  ">
 
                         <div className="card2 p-0  col-3   m-4  shadow  " >
-                            <div className="boxmov">
+                            <div className="boxmov ">
                                 <p className="m-0 py-1 ">توفير نماذج الإجابات</p>
                             </div>
 
                             <div className="boxcontent  p-3" style={{ fontSize: "14px", height: "11rem" }} align="end" >
                                 بالإضافة إلى إعداد الامتحان، يمكنك تحميل نماذج للإجابات الصحيحة لتوجيه الطلاب ومساعدتهم على الاستعداد بفعالية.</div>
                             <div className="py-3">
-                                <MyButton className="btn mx-2 py-0 rounded-4 mb-1" style={{ height: "1.8rem", border: "2px solid #4941A6" }} to={"/Home"} content={"تسجيل الدخول"} />
-                                <MyButton className="btn mx-2 py-0 rounded-4 mb-1" style={{ height: "1.8rem", color: "white", backgroundColor: "#FF4C4C", color: "#ffff" }} to={"/Home"} content={"باقات الاشتراك"} />
+                                <MyButton className="btn mx-2 fontSizeBtn py-0 rounded-5 py- px-3" style={{ height: "1.8rem", border: "2px solid #4941A6" }} to={"/Home"} content={"تسجيل الدخول"} />
+                                <MyButton className="btn mx-2 fontSizeBtn py-0 rounded-5 py- px-3" style={{ height: "1.8rem", backgroundColor: "#FF4C4C", color: "#ffff" }} to={"/Home"} content={"باقات الاشتراك"} />
                             </div>
                         </div>
 
@@ -204,8 +229,9 @@ function Home() {
                             <div className="boxcontent p-3" style={{ fontSize: "14px", height: "11rem" }} align="end" >
                                 يمكنك تحميل الأسئلة بتنسيقات متعددة مثل النص والصور وتنسيقها وترتيبها حسب الحاجة                       </div>
                             <div className="py-3">
-                                <MyButton className="btn mx-2 py-0 rounded-4 mb-1" style={{ height: "1.8rem", border: "2px solid #4941A6" }} to={"/Home"} content={"تسجيل الدخول"} />
-                                <MyButton className="btn mx-2 py-0 rounded-4 mb-1" style={{ height: "1.8rem", color: "white", backgroundColor: "#FF4C4C", color: "#ffff" }} to={"/Home"} content={"باقات الاشتراك"} />
+                                <MyButton className="btn mx-2 fontSizeBtn py-0 rounded-5 py- px-3" style={{ height: "1.8rem", border: "2px solid #4941A6" }} to={"/Home"} content={"تسجيل الدخول"} />
+                                <MyButton className="btn mx-2 fontSizeBtn py-0 rounded-5 py- px-3" style={{ height: "1.8rem", backgroundColor: "#FF4C4C", color: "#ffff" }} to={"/Home"} content={"باقات الاشتراك"} />
+
                             </div>
                         </div>
 
@@ -216,8 +242,9 @@ function Home() {
                             <div className="boxcontent p-3" style={{ fontSize: "14px", height: "11rem" }} align="end" >
                                 يمكن للمعلمين إنشاء امتحانات تتناسب مع المناهج الدراسية ومتطلبات الصفوف بكل سهولة. يمكنك تحديد عدد الأسئلة وأنواعها ودرجة صعوبتها ووقت الامتحان والمزيد.                       </div>
                             <div className="py-3">
-                                <MyButton className="btn mx-2 py-0 rounded-4 mb-1" style={{ height: "1.8rem", border: "2px solid #4941A6" }} to={"/Home"} content={"تسجيل الدخول"} />
-                                <MyButton className="btn mx-2 py-0 rounded-4 mb-1" style={{ height: "1.8rem", color: "white", backgroundColor: "#FF4C4C", color: "#ffff" }} to={"/Home"} content={"باقات الاشتراك"} />
+                                <MyButton className="btn mx-2 fontSizeBtn py-0 rounded-5 py- px-3" style={{ height: "1.8rem", border: "2px solid #4941A6" }} to={"/Home"} content={"تسجيل الدخول"} />
+                                <MyButton className="btn mx-2 fontSizeBtn py-0 rounded-5 py- px-3" style={{ height: "1.8rem", backgroundColor: "#FF4C4C", color: "#ffff" }} to={"/Home"} content={"باقات الاشتراك"} />
+
                             </div>
                         </div>
                         <div className="card2 p-0  col-3 m-4 shadow " >
@@ -227,8 +254,9 @@ function Home() {
                             <div className="boxcontent p-3" style={{ fontSize: "14px", height: "11rem" }} align="end" >
                                 تخصيص وإدارة الامتحانات بسهولة، وتوفير وسيلة فعالة لتقديم الاختبارات بشكل مهني وتنظيمي. يمكن للمعلمين أيضًا تحليل أداء الطلاب بسهولة لتحقيق أهداف التعليم بكفاءة أكبر. انضم إلينا اليوم لتجربة تسهيل عملية إعداد الامتحانات                                              </div>
                             <div className="py-3">
-                                <MyButton className="btn mx-2 py-0 rounded-4 mb-1" style={{ height: "1.8rem", border: "2px solid #4941A6" }} to={"/Home"} content={"تسجيل الدخول"} />
-                                <MyButton className="btn mx-2 py-0 rounded-4 mb-1" style={{ height: "1.8rem", color: "white", backgroundColor: "#FF4C4C", color: "#ffff" }} to={"/Home"} content={"باقات الاشتراك"} />
+                                <MyButton className="btn mx-2 fontSizeBtn py-0 rounded-5 py- px-3" style={{ height: "1.8rem", border: "2px solid #4941A6" }} to={"/Home"} content={"تسجيل الدخول"} />
+                                <MyButton className="btn mx-2 fontSizeBtn py-0 rounded-5 py- px-3" style={{ height: "1.8rem", backgroundColor: "#FF4C4C", color: "#ffff" }} to={"/Home"} content={"باقات الاشتراك"} />
+
                             </div>
                         </div>
                         <div className="card2 p-0  col-3 m-4  shadow  " >
@@ -238,8 +266,9 @@ function Home() {
                             <div className="boxcontent p-3" style={{ fontSize: "14px", height: "11rem" }} align="end" >
                                 بمجرد الانتهاء من إعداد الامتحان، يمكنك تصديره إلى ملف PDF جاهز للتوزيع على الطلاب.                       </div>
                             <div className="py-3">
-                                <MyButton className="btn mx-2 py-0 rounded-4 mb-1" style={{ height: "1.8rem", border: "2px solid #4941A6" }} to={"/Home"} content={"تسجيل الدخول"} />
-                                <MyButton className="btn mx-2 py-0 rounded-4 mb-1" style={{ height: "1.8rem", color: "white", backgroundColor: "#FF4C4C", color: "#ffff" }} to={"/Home"} content={"باقات الاشتراك"} />
+                                <MyButton className="btn mx-2 fontSizeBtn py-0 rounded-5 py- px-3" style={{ height: "1.8rem", border: "2px solid #4941A6" }} to={"/Home"} content={"تسجيل الدخول"} />
+                                <MyButton className="btn mx-2 fontSizeBtn py-0 rounded-5 py- px-3" style={{ height: "1.8rem", backgroundColor: "#FF4C4C", color: "#ffff" }} to={"/Home"} content={"باقات الاشتراك"} />
+
                             </div>
                         </div>
 
@@ -250,8 +279,9 @@ function Home() {
                             <div className="boxcontent p-3" style={{ fontSize: "14px", height: "11rem" }} align="end" >
                                 بمجرد الانتهاء من إعداد الامتحان، يمكنك تصديره إلى ملف PDF جاهز للتوزيع على الطلاب.                       </div>
                             <div className="py-3">
-                                <MyButton className="btn mx-2 py-0 rounded-4 mb-1" style={{ height: "1.8rem", border: "2px solid #4941A6" }} to={"/Home"} content={"تسجيل الدخول"} />
-                                <MyButton className="btn mx-2 py-0 rounded-4 mb-1" style={{ height: "1.8rem", color: "white", backgroundColor: "#FF4C4C", color: "#ffff" }} to={"/Home"} content={"باقات الاشتراك"} />
+                                <MyButton className="btn mx-2 fontSizeBtn py-0 rounded-5 py- px-3" style={{ height: "1.8rem", border: "2px solid #4941A6" }} to={"/Home"} content={"تسجيل الدخول"} />
+                                <MyButton className="btn mx-2 fontSizeBtn py-0 rounded-5 py- px-3" style={{ height: "1.8rem", backgroundColor: "#FF4C4C", color: "#ffff" }} to={"/Home"} content={"باقات الاشتراك"} />
+
                             </div>
                         </div>
                     </div>
@@ -259,105 +289,137 @@ function Home() {
                 </DivSection4>
             </Section4>
             {/* -----------endsection--------- */}
+            {/* -----------section5--------- */}
+            <Section5 className="d-flex align-items-center justify-content-center flex-column" ref={sec6}> 
+                <h3 className="Bold"><span style={{ color: "#4941A6" }}>آراء العملاء</span></h3><br />
 
+                <DivSection5 className="container containerbox">    
+                    <div className="d-flex align-items-center justify-content-center">
+                        <p className="animationBox animationBox1">lsdkfklsdjfsdjfkjdsklfjsdkjflksdjfksdjflks</p>
+                        <p className="animationBox animationBox2">lsdkfklsdjfsdjfkjdsklfjsdkjflksdjfksdjflks</p>
+                        <p className="animationBox animationBox3">lsdkfklsdjfsdjfkjdsklfjsdkjflksdjfksdjflks</p>
+                        <p className="animationBox animationBox4" >lsdkfklsdjfsdjfkjdsklfjsdkjflksdjfksdjflks</p>
+                    </div>
+                </DivSection5>
+            </Section5>
+
+            {/* -----------endsection--------- */}
             {/* -----------section6--------- */}
-            <Section6 className="Section6 pt-4">
+            <Section6 className="Section6 pt-4" ref={sec6}>
                 <h3 className="Bold text-center"><span style={{ color: "#4941A6" }}>باقات الاشتراك</span></h3><br />
                 <DivSection6 className=" container d-flex align-items-center justify-content-center flex-column">
                     <h4 className="teacherbox Bold " ><span style={{ color: "#FE4F60" }}> ( المعلمين ) </span></h4><br />
                     <div className="boxrow row  d-flex align-items-center justify-content-evenly">
 
                         <div className="boxpre p-2 col-sm-3 shadow  " style={{backgroundColor:"#8C57FB"}}>
-                            <h3 className="Bold" style={{ color: "#FE4F60" }}><span>BASIC</span></h3>
-                            <h3  style={{ color: "#FE4F60" }}><span className="fs-5">$ </span><span className="Bold" > 49</span></h3>
-                            <div className="pt-5  text-white" dir="rtl">
-                             <p><img className="checkicone" src={park_check} alt="check" />اسم الباقه</p>
-                             <p><img className="checkicone" src={park_check} alt="check" />وصف الباقه</p>
-                             <p><img className="checkicone" src={park_check} alt="check" />عدد الأسئلة</p>
-                             <p><img className="checkicone" src={park_check} alt="check" />عدد الامتحانات</p>
+                            <h3 className="Bold" style={{ color: "#FE4F60" }}><span>{teacher_data.data[0].name}</span></h3>
+                            <h3  style={{ color: "black" }}><span className="fs-5">$ </span><span className="Bold" > {teacher_data.data[0].price}</span></h3>
+                            <div className="boxchil text-white" dir="rtl">
+                            <div className="d-flex align-items-start">
+                            <img className="checkicone" src={park_check} alt="check" />
+                             <p>{teacher_data.data[0].description}</p>
+                            </div>
+
+                             <p><img className="checkicone" src={park_check} alt="check" />عدد الأسئلة : {teacher_data.data[0].allow_question} </p>
+                             <p><img className="checkicone" src={park_check} alt="check" /> عدد الامتحانات : {teacher_data.data[0].allow_exam}</p>
                             </div>
                             <div className="d-flex align-items-center justify-content-center">
-                            <MyButton className="btn mx-2 py-0 rounded-3 " style={{ height: "1.6rem", color: "white", backgroundColor: "#4941A6", color: "#ffff" }} to={"/Home"} content={"اشترك الآن"} />
+                            <MyButton className="btn mx-2 py-0 rounded-3 " style={{ height: "3rem",width:"100%",  backgroundColor: "#4941A6", color: "#ffff" }} to={"/Home"} content={"اشترك الآن"} />
                             </div>
                              </div>
 
-                        <div className="boxpre bac p-2 col-sm-3 shadow " style={{backgroundColor:"#4941A6"}}>
-                            <h3 className="Bold" style={{ color: "#4941A6" }}><span>STANDARD</span></h3>
-                            <h3  style={{ color: "#FE4F60" }}><span className="fs-5">$ </span><span className="Bold" > 49</span></h3>
-                            <div className="pt-5  text-white" dir="rtl">
-                             <p><img className="checkicone " src={park_check} alt="check" />اسم الباقه</p>
-                             <p><img className="checkicone " src={park_check} alt="check" />وصف الباقه</p>
-                             <p><img className="checkicone " src={park_check} alt="check" />عدد الأسئلة</p>
-                             <p><img className="checkicone " src={park_check} alt="check" />عدد الامتحانات</p>
+                        <div className="boxpre  bac p-2 col-sm-3 shadow  " style={{backgroundColor:"#4941A6"}}>
+                            <h3 className="Bold" style={{ color: "#4941A6" }}><span>{teacher_data.data[1].name}</span></h3>
+                            <h3  style={{ color: "black" }}><span className="fs-5">$ </span><span className="Bold" > {teacher_data.data[1].price}</span></h3>
+                            <div className="boxchil text-white" dir="rtl">
+                            <div className="d-flex align-items-start">
+                            <img className="checkicone" src={park_check} alt="check" />
+                             <p>{teacher_data.data[1].description}</p>
+                            </div>
+
+                             <p><img className="checkicone" src={park_check} alt="check" />عدد الأسئلة : {teacher_data.data[1].allow_question} </p>
+                             <p><img className="checkicone" src={park_check} alt="check" /> عدد الامتحانات : {teacher_data.data[1].allow_exam}</p>
                             </div>
                             <div className="d-flex align-items-center justify-content-center">
-                            <MyButton className="btn mx-2 py-0 rounded-3 " style={{ height: "1.6rem", color: "white", backgroundColor: "#C01F59", color: "#ffff" }} to={"/Home"} content={"اشترك الآن"} />
+                            <MyButton className="btn mx-2 py-0 rounded-3 " style={{ height: "3rem",width:"100%", backgroundColor: "#C01F59", color: "#ffff" }} to={"/Home"} content={"اشترك الآن"} />
                             </div>
                              </div>
 
-                        <div className="boxpre  p-2 col-sm-3 shadow " style={{backgroundColor:"#C01F59"}}>
-                            <h3 className="Bold" style={{ color: "#C01F59" }}><span>PREMIUM</span></h3>
-                            <h3  style={{ color: "#FE4F60" }}><span className="fs-5">$ </span><span className="Bold" > 39</span></h3>
-                            <div className="pt-5  text-white" dir="rtl">
-                            <p><img className="checkicone " src={park_check} alt="check" />اسم الباقه</p>
-                             <p><img className="checkicone " src={park_check} alt="check" />وصف الباقه</p>
-                             <p><img className="checkicone " src={park_check} alt="check" />عدد الأسئلة</p>
-                             <p><img className="checkicone " src={park_check} alt="check" />عددالامتحانات</p>
+                             <div className="boxpre p-2 col-sm-3 shadow  " style={{backgroundColor:"#C01F59"}}>
+                            <h3 className="Bold" style={{ color: "#FE4F60" }}><span>{teacher_data.data[0].name}</span></h3>
+                            <h3  style={{ color: "black" }}><span className="fs-5">$ </span><span className="Bold" > {teacher_data.data[0].price}</span></h3>
+                            <div className="boxchil text-white" dir="rtl">
+                            <div className="d-flex align-items-start">
+                            <img className="checkicone" src={park_check} alt="check" />
+                             <p>{teacher_data.data[0].description}</p>
+                            </div>
+
+                             <p><img className="checkicone" src={park_check} alt="check" />عدد الأسئلة : {teacher_data.data[0].allow_question} </p>
+                             <p><img className="checkicone" src={park_check} alt="check" /> عدد الامتحانات : {teacher_data.data[0].allow_exam}</p>
                             </div>
                             <div className="d-flex align-items-center justify-content-center">
-                            <MyButton className="btn mx-2 py-0 rounded-3 " style={{ height: "1.6rem", color: "white", backgroundColor: "#4941A6", color: "#ffff" }} to={"/Home"} content={"اشترك الآن"} />
+                            <MyButton className="btn mx-2 py-0 rounded-3 " style={{ height: "3rem",width:"100%",  backgroundColor: "#4941A6", color: "#ffff" }} to={"/Home"} content={"اشترك الآن"} />
+
                             </div>
                              </div>
                       
                     </div>
                 </DivSection6>
 
-                <DivSection6 className=" container d-flex align-items-center justify-content-center flex-column pt-4">
+                <DivSection6 className=" container mt-3 d-flex align-items-center justify-content-center flex-column pt-4">
                     <h4 className="teacherbox Bold " ><span style={{ color: "#FE4F60" }}> ( الطلاب ) </span></h4><br />
                     <div className="boxrow row  d-flex align-items-center justify-content-evenly">
+                    <div className="boxpre  p-2 col-sm-3 shadow  " style={{backgroundColor:"#8C57FB"}}>
+                            <h3 className="Bold" style={{ color: "#FE4F60" }}><span>{student_data.data[0].name}</span></h3>
+                            <h3  style={{ color: "black" }}><span className="fs-5">$ </span><span className="Bold" > {student_data.data[0].price}</span></h3>
+                            <div className="boxchil text-white" dir="rtl">
+                            <div className="d-flex align-items-start">
+                            <img className="checkicone" src={park_check} alt="check" />
+                             <p>{student_data.data[0].description}</p>
+                            </div>
 
-                        <div className="boxpre p-2 col-sm-3 shadow  " style={{backgroundColor:"#8C57FB"}}>
-                            <h3 className="Bold" style={{ color: "#FE4F60" }}><span>BASIC</span></h3>
-                            <h3  style={{ color: "#FE4F60" }}><span className="fs-5">$ </span><span className="Bold" > 49</span></h3>
-                            <div className="pt-5  text-white" dir="rtl">
-                             <p><img className="checkicone" src={park_check} alt="check" />اسم الباقه</p>
-                             <p><img className="checkicone" src={park_check} alt="check" />وصف الباقه</p>
-                             <p><img className="checkicone" src={park_check} alt="check" />عدد الأسئلة</p>
-                             <p><img className="checkicone" src={park_check} alt="check" />عدد الامتحانات</p>
+                             <p><img className="checkicone" src={park_check} alt="check" />عدد الأسئلة : {student_data.data[0].allow_question} </p>
+                             <p><img className="checkicone" src={park_check} alt="check" /> عدد الامتحانات : {student_data.data[0].allow_exam}</p>
                             </div>
                             <div className="d-flex align-items-center justify-content-center">
-                            <MyButton className="btn mx-2 py-0 rounded-3 " style={{ height: "1.6rem", color: "white", backgroundColor: "#4941A6", color: "#ffff" }} to={"/Home"} content={"اشترك الآن"} />
+                            <MyButton className="btn mx-2 py-0 rounded-3 " style={{ height: "3rem",width:"100%",  backgroundColor: "#4941A6", color: "#ffff" }} to={"/Home"} content={"اشترك الآن"} />
                             </div>
                              </div>
 
-                        <div className="boxpre bac p-2 col-sm-3 shadow " style={{backgroundColor:"#4941A6"}}>
-                            <h3 className="Bold" style={{ color: "#4941A6" }}><span>STANDARD</span></h3>
-                            <h3  style={{ color: "#FE4F60" }}><span className="fs-5">$ </span><span className="Bold" > 49</span></h3>
-                            <div className="pt-5  text-white" dir="rtl">
-                             <p><img className="checkicone " src={park_check} alt="check" />اسم الباقه</p>
-                             <p><img className="checkicone " src={park_check} alt="check" />وصف الباقه</p>
-                             <p><img className="checkicone " src={park_check} alt="check" />عدد الأسئلة</p>
-                             <p><img className="checkicone " src={park_check} alt="check" />عدد الامتحانات</p>
+                            <div className="boxpre  bac p-2 col-sm-3 shadow  " style={{backgroundColor:"#4941A6"}}>
+                            <h3 className="Bold" style={{ color: "#4941A6" }}><span>{student_data.data[1].name}</span></h3>
+                            <h3  style={{ color: "black" }}><span className="fs-5">$ </span><span className="Bold" > {student_data.data[1].price}</span></h3>
+                            <div className="boxchil text-white" dir="rtl">
+                            <div className="d-flex align-items-start">
+                            <img className="checkicone" src={park_check} alt="check" />
+                             <p>{student_data.data[0].description}</p>
+                            </div>
+
+                             <p><img className="checkicone" src={park_check} alt="check" />عدد الأسئلة : {student_data.data[1].allow_question} </p>
+                             <p><img className="checkicone" src={park_check} alt="check" /> عدد الامتحانات : {student_data.data[1].allow_exam}</p>
                             </div>
                             <div className="d-flex align-items-center justify-content-center">
-                            <MyButton className="btn mx-2 py-0 rounded-3 " style={{ height: "1.6rem", color: "white", backgroundColor: "#C01F59", color: "#ffff" }} to={"/Home"} content={"اشترك الآن"} />
+                            <MyButton className="btn mx-2 py-0 rounded-3 " style={{ height: "3rem",width:"100%",  backgroundColor: "#C01F59", color: "#ffff" }} to={"/Home"} content={"اشترك الآن"} />
                             </div>
                              </div>
 
-                        <div className="boxpre p-2 col-sm-3 shadow " style={{backgroundColor:"#C01F59"}}>
-                            <h3 className="Bold" style={{ color: "#C01F59" }}><span>PREMIUM</span></h3>
-                            <h3  style={{ color: "#FE4F60" }}><span className="fs-5">$ </span><span className="Bold" > 39</span></h3>
-                            <div className="pt-5  text-white" dir="rtl">
-                            <p><img className="checkicone " src={park_check} alt="check" />اسم الباقه</p>
-                             <p><img className="checkicone " src={park_check} alt="check" />وصف الباقه</p>
-                             <p><img className="checkicone " src={park_check} alt="check" />عدد الأسئلة</p>
-                             <p><img className="checkicone " src={park_check} alt="check" />عددالامتحانات</p>
+                             <div className="boxpre  p-2 col-sm-3 shadow  " style={{backgroundColor:"#C01F59"}}>
+                            <h3 className="Bold" style={{ color: "#FE4F60" }}><span>{student_data.data[0].name}</span></h3>
+                            <h3  style={{ color: "black" }}><span className="fs-5">$ </span><span className="Bold" > {student_data.data[0].price}</span></h3>
+                            <div className="boxchil text-white" dir="rtl">
+                            <div className="d-flex align-items-start">
+                            <img className="checkicone" src={park_check} alt="check" />
+                             <p>{student_data.data[0].description}</p>
+                            </div>
+
+                             <p><img className="checkicone" src={park_check} alt="check" />عدد الأسئلة : {student_data.data[0].allow_question} </p>
+                             <p><img className="checkicone" src={park_check} alt="check" /> عدد الامتحانات : {student_data.data[0].allow_exam}</p>
                             </div>
                             <div className="d-flex align-items-center justify-content-center">
-                            <MyButton className="btn mx-2 py-0 rounded-3 " style={{ height: "1.6rem", color: "white", backgroundColor: "#4941A6", color: "#ffff" }} to={"/Home"} content={"اشترك الآن"} />
+                            <MyButton className="btn mx-2 py-0 rounded-3  " style={{ height: "3rem",width:"100%",  backgroundColor: "#4941A6", color: "#ffff" }} to={"/Home"} content={"اشترك الآن"} />
+
                             </div>
                              </div>
-                      
                     </div>
                 </DivSection6>
              
@@ -367,10 +429,10 @@ function Home() {
             {/* ----------Footer--------- */}
 
             <Footer className="footer" dir="rtl">
-                <div className="row  footerrow  m-0">
+                <div className="row  footerrow d-flex  justify-content-center m-0">
                     <div className="col-md-4">
-                        <h3><span className="" style={{ color: "#FFB419 " }} >Examero</span></h3>
-                        <p style={{ color: "#ffff " }}>تقديم خدمات تعليمية وأكاديمية مميزة في مختلف المجالات لجميع الطلبة والباحثين في جميع المستويات التعليمية والأكاديمية</p>
+                        <h3><span className=" cgg" style={{ color: "#FFB419 " }} >Examero</span></h3>
+                        <p className="cgg" style={{ color: "#ffff " }}>تقديم خدمات تعليمية وأكاديمية مميزة في مختلف المجالات لجميع الطلبة والباحثين في جميع المستويات التعليمية والأكاديمية</p>
                     </div>
 
                     <div className="colrow col-md-4"  >
@@ -385,9 +447,9 @@ function Home() {
                             </div>
                         </div>
                     </div>
-                    <div className="col-md-4 py-3" style={{ display: "flex", flexDirection: "column" }} >
-                        <h3><span className=" " style={{ color: "#FFB419", }}  >أرقامنا وعناوننا</span></h3>
-                        <ul className="listfoter">
+                    <div className="col-md-4 py-3 " style={{ display: "flex", flexDirection: "column" }} >
+                        <h3><span className="cgg" style={{ color: "#FFB419", }}  >أرقامنا وعناوننا</span></h3>
+                        <ul className="listfoter cgg">
                             <li className="bulits">عنوان : في قلب كل معلم</li>
                             <li className="bulits">هاتف : 00962781466490</li>
                             <li className="bulits">الايميل : examero.123@Support.Com</li>
@@ -422,17 +484,19 @@ const Section = styled.section``;
 const DivSection1 = styled.div``;
 const Sectioncontent1 = styled.div``;
 const SectionImage1 = styled.div``;
-const Button = styled.button``;
+// const Button = styled.button``;
 const Section2 = styled.section``;
 const Douts = styled.div``;
 const DivSection2 = styled.div``;
 const Sectioncontent2 = styled.div``;
 const SectionImage2 = styled.div``;
-const Button2 = styled.button``;
+// const Button2 = styled.button``;
 const Section3 = styled.section``;
 const DivSection3 = styled.div``;
 const Section4 = styled.section``;
 const DivSection4 = styled.div``;
+const Section5 = styled.section``;
+const DivSection5 = styled.div``;
 const Section6 = styled.section``;
 const DivSection6 = styled.div``;
 const Footer = styled.section``;

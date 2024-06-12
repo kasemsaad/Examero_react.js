@@ -29,6 +29,7 @@ function CreateTechAcc() {
     const currentYear = new Date().getFullYear();
     const years = Array.from({ length: 100 }, (_, i) => currentYear - i);
 
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({
@@ -118,7 +119,7 @@ function CreateTechAcc() {
                         <p className='card-title between-borders'>إنشاء حساب المعلم</p>
                     </div>
                     <p className='card-title'>يرجى إدخال المعلومات لإكمال عملية التسجيل</p>
-                    <Form className="create_tech_acc-form" onSubmit={handleSubmit}>
+                                <Form className="create_tech_acc-form" onSubmit={handleSubmit}>
                         {error && <Alert variant="danger">{error}</Alert>}
                         {success && <Alert variant="success">{success}</Alert>}
                         <Form.Group controlId="firstname">
@@ -159,6 +160,7 @@ function CreateTechAcc() {
                                 </div>
                             </div>
                         </Form.Group>
+                   
                         <Form.Group controlId="email">
                             <Form.Label className='creattchacc_email'>البريد الإلكتروني</Form.Label>
                             <div className='relative1'>
@@ -198,6 +200,8 @@ function CreateTechAcc() {
                             </div>
                         </Form.Group>
                         <Form.Group controlId="date_of_birth">
+
+
                             <Form.Label className='birthdate_create_tech_acc'>تاريخ الميلاد</Form.Label>
                             <div className='date-input-container'>
                                 <div className='dropdown-container'>
@@ -255,6 +259,7 @@ function CreateTechAcc() {
                             </div>
                         </Form.Group>
                         <Form.Group controlId="password_confirmation">
+               
                             <Form.Label className='con_createteachacc_pass'>تأكيد كلمة المرور الجديدة</Form.Label>
                             <div className='relative1'>
                                 <Form.Control
@@ -264,6 +269,8 @@ function CreateTechAcc() {
                                     name="password_confirmation"
                                     value={formData.password_confirmation}
                                     onChange={handleChange}
+                                
+
                                 />
                                 <div className='icon-container password-icon'>
                                     <img src={passIcon} alt="password icon" />
@@ -280,6 +287,7 @@ function CreateTechAcc() {
                             <Row className="justify-content-center">
                                 <Col xs={12} sm={6} md={6} lg={6} xl={6} xxl={6}>
                                     <Button type="submit" className="create_tech_acc_btn">إنشاء الحساب</Button>
+
                                 </Col>
                                 <Col xs={12} sm={6} md={6} lg={6} xl={6} xxl={6}>
                                     <Button type="button" className="back_creat_tech_acc_btn">رجوع</Button>

@@ -2,61 +2,72 @@ import React from "react";
 import MyButton from "../Button/Button";
 import "./table.css";
 import image from "../../assets/icons/MyTable/trash.svg";
-function MyTable({ header, body, icons, button }) {
-  let trash;
-  let edit;
-  let eye;
-  if (icons) {
-    ({ trash, edit, eye } = icons);
-  }
+import ToggledButton from "../../dashboard/components/ToggledButton/ToggledButton";
+function MyTable({
+  header,
+  body,
+  icons,
+  button,
+  handelDelete,
+  handelEdit,
+  handelEye,
+  handelNot,
+}) {
+  const { trash, edit, eye, toggle } = icons;
 
   return (
     <table className="rounded-table">
       <thead>
         <tr>
-          {header && <th>#</th>}
-          {header &&
-            Object.values(header).map((element, index) => (
-              <th key={index}>{element}</th>
-            ))}
+          <th>#</th>
+          {Object.values(header).map((element, index) => (
+            <th key={index}>{element}</th>
+          ))}
         </tr>
       </thead>
       <tbody>
-        {body &&
-          body.map((row, rowIndex) => (
-            <tr key={rowIndex}>
-              {Object.values(row).map((value, cellIndex) => (
-                <td key={`${rowIndex}-${cellIndex}`}>{value}</td>
-              ))}
-              <td className="icon">
-                {trash && (
-                  <MyButton
-                    className="trash"
-                    style={{
-                      backgroundImage: `url(${image})`,
-                      backgroundSize: "cover",
-                      backgroundRepeat: "no-repeat",
-                      backgroundPosition: "center",
-                      //width: "fit-content",
-                      //height: "fit-content",
-                    }}
-                  />
-                )}
-                {edit && (
-                  <MyButton className="square fa-regular fa-pen-to-square" />
-                )}
-                {eye && <MyButton className="eye fa-regular fa-eye" />}
-              </td>
+        {body.map((row, rowIndex) => (
+          <tr key={rowIndex}>
+            {Object.values(row).map((value, cellIndex) => (
+              <td key={`${rowIndex}-${cellIndex}`}>{value}</td>
+            ))}
+            {toggle && (
               <td>
-                {button && (
-                  <MyButton
-                    className={"buttonOfTable"}
-                    content={"أرسل ملحوظه"}
-                  />
-                )}
+                <ToggledButton />
               </td>
-            </tr>
-          ))}
+            )}
+            <td>
+              {trash && (
+                <button onClick={handelDelete} className="trash">
+                  <img src={image} className="trash" alt="" />
+                </button>
+              )}
+              {edit && (
+                <MyButton
+                  onClick={handelEdit}
+                  className="square fa-regular fa-pen-to-square"
+                />
+              )}
+              {eye && (
+                <MyButton
+                  onClick={handelEye}
+                  className="eye fa-regular fa-eye"
+                />
+              )}
+            </td>
+            {button && (
+              <td>
+                (
+                <MyButton
+                  onClick={handelNot}
+                  className={"buttonOfTable"}
+                  content={"أرسل ملحوظه"}
+                />
+                )
+              </td>
+            )}
+          </tr>
+        ))}
       </tbody>
     </table>
   );

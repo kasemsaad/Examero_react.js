@@ -135,6 +135,8 @@
     /* padding: 10px; */
 
     padding-right: 10px;
+
+   
 }
 
 .p_con_createstudentacc_pass, .p_createstudentacc_pass, .p_creatstudentacc_email, .p_createstudentacc_phone, .p_create_student_acc_firstName,.p_create_student_acc_lastName {
@@ -294,4 +296,5 @@ letter-spacing: 0.03em;
 }
 .studentimg img {
     width:46%;
+
 }
