@@ -18,6 +18,7 @@ import Reset_page1 from './websit/register and login/resetpage/resetpage.jsx'
 import Reset_code_page from './websit/register and login/reset_password/reset_password.jsx';
 import Login1 from'./websit/register and login/login/login2.jsx'
 import New_pass from './websit/register and login/new_pass/new_pass.jsx'
+
 function App(props) {
   return (
       <BrowserRouter>
@@ -26,7 +27,8 @@ function App(props) {
            <Route path="/ct" element={<CreateTechAcc/>} />
           <Route path="/cs" element={<CreateStudentAcc/>} /> 
           <Route path="/l1" element={<Login1/>} />
-          {/* <Route path="/reset1" element={<Reset_page1/>} />
+          <Route path="/reset1" element={<Reset_page1/>} />
+
           <Route path="/reset2" element={<Reset_code_page/>} />
 
           <Route path="/newp" element={<New_pass/>} />
