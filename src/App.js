@@ -18,6 +18,7 @@ import Reset_page1 from './websit/register and login/resetpage/resetpage.jsx'
 import Reset_code_page from './websit/register and login/reset_password/reset_password.jsx';
 import Login1 from'./websit/register and login/login/login2.jsx'
 import New_pass from './websit/register and login/new_pass/new_pass.jsx'
+import HomeStudentview from './websit/Student_View/homeStudentView.jsx'
 
 function App(props) {
   return (
@@ -26,17 +27,16 @@ function App(props) {
           <Route path="/" element={<Home />} />
 
           <Route path="/cs" element={<CreateStudentAcc/>} /> 
-            <Route path="/ct" element={<CreateTechAcc/>} />
-     
+          <Route path="/ct" element={<CreateTechAcc/>} />
           <Route path="/l1" element={<Login1/>} />
-           <Route path="/newp" element={<New_pass/>} /> 
-
+          <Route path="/newp" element={<New_pass/>} /> 
           <Route path="/reset2" element={<Reset_code_page/>} />
           <Route path="/reset1" element={<Reset_page1/>} /> 
-
-          
           <Route path="/newp" element={<New_pass/>} />
-          <Route path="/teacher/" element={<LayoutComp />} />
+          <Route path="/student/" element={<LayoutComp />} >
+          <Route path="homeStudentview" element={<HomeStudentview/>} />
+           </Route>
+
           <Route path="/dashboard/" element={<LayoutComp />}>
           <Route index element={<Log />} />
           <Route path="not" element={<Notification />} />
@@ -45,9 +45,8 @@ function App(props) {
           <Route path="login" element={<J />} />
           <Route path="b" element={<AccountSetting />} />
           <Route path="h" element={<Home_dashboard/>} />
-
-
           </Route>
+
         </Routes>
       </BrowserRouter>
   );

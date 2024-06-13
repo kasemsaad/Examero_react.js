@@ -1,0 +1,19 @@
+.shadow-box {
+box-shadow: 0px -3px 10px rgba(0, 0, 0, .6); /* Shadow definition */
+background-repeat: no-repeat;
+background-position: center;
+margin: px px;
+font-size: 11px;
+padding-top: 10px;
+text-align: center;
+width: 11rem;
+height: 8rem;
+}
+.Bold{
+    font-weight: bold;
+}
+.boxday{
+    background-image: url(../../assets/icons/home_student_view/undraw_social_update_re_xhjr\ 1.svg);
+    background-repeat: no-repeat;
+    background-position:bottom;
+}

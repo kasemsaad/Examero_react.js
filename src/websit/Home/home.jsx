@@ -30,7 +30,7 @@ function Home() {
     useEffect(() => {
         // Fetching data using axios
         // axios.get('http://127.0.0.1:8000/api/teacher-plan')
-       request({url:'/teacher-plan'})
+       request({url:'/teacher-plan', method:"get"})
             .then(response => {
                 setTeacher_data(response.data);
             })
@@ -302,8 +302,8 @@ function Home() {
                     </div>
                 </DivSection5>
             </Section5>
-
             {/* -----------endsection--------- */}
+
             {/* -----------section6--------- */}
             <Section6 className="Section6 pt-4" ref={sec6}>
                 <h3 className="Bold text-center"><span style={{ color: "#4941A6" }}>باقات الاشتراك</span></h3><br />
@@ -424,8 +424,8 @@ function Home() {
                 </DivSection6>
              
             </Section6>
-
             {/* -----------endsection--------- */}
+
             {/* ----------Footer--------- */}
 
             <Footer className="footer" dir="rtl">
