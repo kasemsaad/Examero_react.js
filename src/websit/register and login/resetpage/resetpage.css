@@ -6,10 +6,12 @@
      margin: 0;
      box-sizing: border-box;
  }
- 
+ .reset1-form{
+    padding-top: 6rem;
+ }
  .req_code_container {
      width: 100%;
-     min-height: 100vh;
+     height: 100vh;
      display: flex;
      align-items: center;
      justify-content: center;
@@ -31,7 +33,14 @@ border-radius: 41.45px !important;
 margin-top: 5rem
     
    }
-
+   .p_email_reset_page_1{
+    width: 100%;
+    height: 47.76px;
+    border-radius: 29.61px !important;
+    padding-right: 40px !important;
+    padding-left: 15px;
+   }
+   
    .req_code_email {
     font-family: 'Cairo';
     font-size: 17.76px;
@@ -46,7 +55,7 @@ margin-top: 5rem
  .reset1-card {
      display: flex;
      flex-direction: column;
-     justify-content: center;
+     justify-content: start;
      align-items: center;
      font-size: 24px;
      background: transparent;
@@ -54,18 +63,20 @@ margin-top: 5rem
      box-shadow: none;
      direction: rtl;
      text-align: center;
-     padding: 40px;
-
+     /* padding: 40px; */
+     padding-top: 40px;
+     background: linear-gradient(180deg, #FFCF6B 0%, #C01F59 213.56%);
+     height: 100vh;
+     padding-right: 40px;
+     padding-left: 40px;
  }
- 
+
  .card-title-l2 {
-    font-weight: bold;
+    font-family: Cairo;
+    font-size: 24px;
+    font-weight: 600;
     text-align: center;
-        font-family: 'Cairo';
-font-size: 24px;
-font-weight: 600;
-text-align: center;
-direction: rtl;
+    
 
 }
 
@@ -115,7 +126,7 @@ direction: rtl;
     align-items: center;
     display: flex;
     justify-content: center;
-    padding: 1rem;
+    /* padding: 1rem; */
 }
 
 .between-borders1-l {

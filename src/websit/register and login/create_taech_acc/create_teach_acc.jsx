@@ -1,6 +1,7 @@
-import React from 'react';
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Container, Row, Col, Form, Button, Alert } from 'react-bootstrap';
 import './create_tech_acc.css';
+import axios from 'axios';
 import emailIcon from '../../../assets/icons/register and login icon/mail-email-icon-template-black-color-editable-mail-email-icon-symbol-flat-illustration-for-graphic-and-web-design-free-vector 2.svg';
 import passIcon from '../../../assets/icons/register and login icon/pngtree-password-vector-icon-design-illustration-png-image_6597553 3.svg';
 import rightCheck from '../../../assets/icons/register and login icon/check-mark-vector-free-1 1.svg';
@@ -11,17 +12,83 @@ import vector from '../../../assets/icons/register and login icon/Vector 58.svg'
 import techimg from '../../../assets/image/register and login image/Frame 26.png';
 
 function CreateTechAcc() {
+    const [formData, setFormData] = useState({
+        first_name: '',
+        last_name: '',
+        email: '',
+        phone_number: '',
+        date_of_birth: '',
+        password: '',
+        password_confirmation: '',
+    });
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
+
     const days = Array.from({ length: 31 }, (_, i) => i + 1);
     const months = Array.from({ length: 12 }, (_, i) => i + 1);
     const currentYear = new Date().getFullYear();
     const years = Array.from({ length: 100 }, (_, i) => currentYear - i);
-//     async function getTrending()
-// let response = await axios.get('http://127.0.0.1:8000/api/teachers/register);
-//console.log(response);
-// useEffect(() => {
-// getTrending();
-// //Call Api
-// }, [])
+
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: value,
+        });
+    };
+
+    const handleDateChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prevData) => ({
+            ...prevData,
+            date_of_birth: {
+                ...prevData.date_of_birth,
+                [name]: value,
+            }
+        }));
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setError('');
+        setSuccess('');
+        if (formData.password !== formData.password_confirmation) {
+            setError('Passwords do not match.');
+            setTimeout(() => {
+                setError('');
+            }, 3000);
+            return;
+        }
+
+        const fullDateOfBirth = `${formData.date_of_birth.year}-${formData.date_of_birth.month}-${formData.date_of_birth.day}`;
+
+        try {
+            const response = await axios.post('http://127.0.0.1:8000/api/teachers/register', {
+                ...formData,
+                date_of_birth: fullDateOfBirth,
+            }, {
+                headers: {
+                    Accept: 'application/json',
+                },
+            });
+            console.log(response.data);
+            setSuccess('Account created successfully!');
+            setTimeout(() => {
+                setSuccess('');
+            }, 3000);
+        } catch (error) {
+            console.error(error);
+            if (error.response && error.response.data) {
+                setError(error.response.data.message || 'An error occurred during registration.');
+            } else {
+                setError('An error occurred during registration.');
+            }
+            setTimeout(() => {
+                setError('');
+            }, 3000);
+        }
+    };
 
     return (
         <div className='create_tech_acc'>
@@ -52,7 +119,9 @@ function CreateTechAcc() {
                         <p className='card-title between-borders'>إنشاء حساب المعلم</p>
                     </div>
                     <p className='card-title'>يرجى إدخال المعلومات لإكمال عملية التسجيل</p>
-                    <Form className="create_tech_acc-form">
+                                <Form className="create_tech_acc-form" onSubmit={handleSubmit}>
+                        {error && <Alert variant="danger">{error}</Alert>}
+                        {success && <Alert variant="success">{success}</Alert>}
                         <Form.Group controlId="firstname">
                             <Form.Label className='create_tech_acc_firstname'> اسم المعلمـ \ ـــة   (  اسمك الأول)</Form.Label>
                             <div className='relative1'>
@@ -60,7 +129,9 @@ function CreateTechAcc() {
                                     className='p_create_tech_acc_firstname'
                                     type="text"
                                     placeholder="أدخل الاسم الأول هنا"
-                                    name="firstname"
+                                    name="first_name"
+                                    value={formData.first_name}
+                                    onChange={handleChange}
                                 />
                                 <div className='icon-container techIcon'>
                                     <img src={techIcon} alt="firstname icon" />
@@ -77,7 +148,9 @@ function CreateTechAcc() {
                                     className='p_create_tech_acc_lastname'
                                     type="text"
                                     placeholder="أدخل اسم العائلة هنا"
-                                    name="lastname"
+                                    name="last_name"
+                                    value={formData.last_name}
+                                    onChange={handleChange}
                                 />
                                 <div className='icon-container techIcon'>
                                     <img src={techIcon} alt="lastname icon" />
@@ -87,6 +160,7 @@ function CreateTechAcc() {
                                 </div>
                             </div>
                         </Form.Group>
+                   
                         <Form.Group controlId="email">
                             <Form.Label className='creattchacc_email'>البريد الإلكتروني</Form.Label>
                             <div className='relative1'>
@@ -95,6 +169,8 @@ function CreateTechAcc() {
                                     type="email"
                                     placeholder="أدخل بريدك الإلكتروني"
                                     name="email"
+                                    value={formData.email}
+                                    onChange={handleChange}
                                 />
                                 <div className='icon-container email-icon'>
                                     <img src={emailIcon} alt="email icon" />
@@ -104,14 +180,16 @@ function CreateTechAcc() {
                                 </div>
                             </div>
                         </Form.Group>
-                        <Form.Group controlId="phone">
+                        <Form.Group controlId="phone_number">
                             <Form.Label className='phone_createteachacc-label'>رقم الهاتف</Form.Label>
                             <div className='relative1'>
                                 <Form.Control
                                     className='p_createteachacc_phone'
                                     type="text"
                                     placeholder="أدخل رقم الهاتف هنا"
-                                    name="phone"
+                                    name="phone_number"
+                                    value={formData.phone_number}
+                                    onChange={handleChange}
                                 />
                                 <div className='icon-container phoneIcon'>
                                     <img src={phoneIcon} alt="phone icon" />
@@ -121,40 +199,42 @@ function CreateTechAcc() {
                                 </div>
                             </div>
                         </Form.Group>
-                        <Form.Group controlId="birthdate">
+                        <Form.Group controlId="date_of_birth">
+
+
                             <Form.Label className='birthdate_create_tech_acc'>تاريخ الميلاد</Form.Label>
                             <div className='date-input-container'>
                                 <div className='dropdown-container'>
-                                    <Form.Control as="select" className='dropdown'>
+                                    <Form.Control as="select" className='dropdown' name="day" onChange={handleDateChange}>
                                         <option value="" disabled selected>اليوم</option>
                                         {days.map(day => (
                                             <option key={day} value={day}>{day}</option>
                                         ))}
                                     </Form.Control>
-                                    <div className='iconv '>
-                                        <img src={vector} alt="dropdown iconv" />
+                                    <div className='iconv'>
+                                        <img src={vector} alt="dropdown icon" />
                                     </div>
                                 </div>
                                 <div className='dropdown-container'>
-                                    <Form.Control as="select" className='dropdown'>
+                                    <Form.Control as="select" className='dropdown' name="month" onChange={handleDateChange}>
                                         <option value="" disabled selected>الشهر</option>
                                         {months.map(month => (
                                             <option key={month} value={month}>{month}</option>
                                         ))}
                                     </Form.Control>
                                     <div className='iconv'>
-                                        <img src={vector} alt="dropdown iconv" />
+                                        <img src={vector} alt="dropdown icon" />
                                     </div>
                                 </div>
                                 <div className='dropdown-container'>
-                                    <Form.Control as="select" className='dropdown'>
+                                    <Form.Control as="select" className='dropdown' name="year" onChange={handleDateChange}>
                                         <option value="" disabled selected>السنة</option>
                                         {years.map(year => (
                                             <option key={year} value={year}>{year}</option>
                                         ))}
                                     </Form.Control>
                                     <div className='iconv'>
-                                        <img src={vector} alt="dropdown iconv" />
+                                        <img src={vector} alt="dropdown icon" />
                                     </div>
                                 </div>
                             </div>
@@ -167,6 +247,8 @@ function CreateTechAcc() {
                                     type="password"
                                     placeholder="أدخل كلمة السر الخاصة بك"
                                     name="password"
+                                    value={formData.password}
+                                    onChange={handleChange}
                                 />
                                 <div className='icon-container password-icon'>
                                     <img src={passIcon} alt="password icon" />
@@ -176,14 +258,19 @@ function CreateTechAcc() {
                                 </div>
                             </div>
                         </Form.Group>
-                        <Form.Group controlId="confirmPassword">
+                        <Form.Group controlId="password_confirmation">
+               
                             <Form.Label className='con_createteachacc_pass'>تأكيد كلمة المرور الجديدة</Form.Label>
                             <div className='relative1'>
                                 <Form.Control
                                     className='p_con_createteachacc_pass'
                                     type="password"
                                     placeholder="أدخل كلمة السر الخاصة بك"
-                                    name="confirmPassword"
+                                    name="password_confirmation"
+                                    value={formData.password_confirmation}
+                                    onChange={handleChange}
+                                
+
                                 />
                                 <div className='icon-container password-icon'>
                                     <img src={passIcon} alt="password icon" />
@@ -199,7 +286,8 @@ function CreateTechAcc() {
                         <Row className="acc">
                             <Row className="justify-content-center">
                                 <Col xs={12} sm={6} md={6} lg={6} xl={6} xxl={6}>
-                                    <Button type="button" className="create_tech_acc_btn">إنشاء الحساب</Button>
+                                    <Button type="submit" className="create_tech_acc_btn">إنشاء الحساب</Button>
+
                                 </Col>
                                 <Col xs={12} sm={6} md={6} lg={6} xl={6} xxl={6}>
                                     <Button type="button" className="back_creat_tech_acc_btn">رجوع</Button>
