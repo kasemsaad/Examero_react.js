@@ -1,0 +1,142 @@
+.content-kind {
+  display: flex;
+  width: 100%;
+  height: auto;
+  border-radius: 14.92px;
+  background-color: #1d195d;
+  border-radius: 14px;
+  align-items: center;
+}
+.container-kind {
+  height: 130px;
+}
+.kind-qu {
+  display: flex;
+  background-color: #4941a6;
+  margin-right: 10px;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  height: auto;
+}
+.inputs-kind {
+  display: flex;
+  margin-right: 10px;
+  width: 77%;
+  height: auto;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.input-kind {
+  flex-direction: column;
+  color: white;
+  width: 9.5rem;
+  display: flex;
+  height: auto;
+}
+.inputs {
+  display: flex;
+  height: auto;
+  width: 135px;
+}
+
+.label-kind {
+  margin-right: 8px;
+}
+.mybutton-kind {
+  width: 25%;
+  font-size: 16px;
+  font-weight: 600;
+}
+.button-content {
+  width: 50px;
+  height: 34;
+  border-radius: 10px;
+  padding: 6px, 10px, 6px, 10px;
+  border: #c01f59 1px;
+  background-color: aliceblue;
+  columns: #c01f59;
+}
+.button-kind-2 {
+  color: #c01f59;
+  border-radius: 8px;
+  border: #c01f59 solid 1px;
+  height: 34px;
+  width: 100%;
+}
+.button-container-kind {
+  width: 11%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.head-kind {
+  display: flex;
+  height: 29px;
+  margin-right: 12px;
+  align-items: flex-end;
+}
+
+.container-kind {
+  height: 130px;
+  border-radius: 14.92px;
+  background-color: #1d195d;
+}
+.button-kind-2 p {
+  width: 100%;
+  font-size: 13px;
+}
+.p-kind {
+  margin: 0;
+}
+@media (max-width: 900px) {
+  .content-kind {
+    display: flex;
+    width: 100%;
+    height: auto;
+    background-color: #1d195d;
+    border-radius: 14px;
+    flex-wrap: wrap;
+    align-items: center;
+    flex-direction: column;
+  }
+  .form-kind {
+    margin-bottom: 14px;
+  }
+  .kind-qu {
+    display: flex;
+    flex-direction: column;
+    display: flex;
+  }
+  .button-kind-2 {
+    width: 160px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+  }
+  .mybutton-kind {
+    width: 100%;
+    margin: 0 10px 5px 0;
+  }
+
+  .mybutton-kind a {
+    text-decoration: none;
+  }
+
+  .button-container-kind {
+    width: 50px;
+  }
+  .my-button-kind {
+    width: 122px !important;
+  }
+}
+.my-button-kind {
+  width: 70px !important;
+  margin: 5px;
+  height: auto;
+  color: white;
+  border: none;
+  background-color: #c01f59;
+  border-radius: 10.65px !important;
+  padding: 5px;
+}

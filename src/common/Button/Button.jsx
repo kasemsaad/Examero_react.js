@@ -12,7 +12,7 @@ const MyButton = ({
   linkTo,
 }) => {
   return (
-    <Link to={linkTo}>
+    <Link className="lin-b" to={linkTo}>
       <button
         style={style}
         onClick={onClick}

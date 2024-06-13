@@ -7,13 +7,13 @@ function MyTable({
   header,
   body,
   icons,
-  button,
+
   handelDelete,
   handelEdit,
   handelEye,
   handelNot,
 }) {
-  const { trash, edit, eye, toggle } = icons;
+  const { trash, edit, eye, toggle, butt } = icons;
 
   return (
     <table className="rounded-table">
@@ -55,15 +55,13 @@ function MyTable({
                 />
               )}
             </td>
-            {button && (
+            {butt && (
               <td>
-                (
                 <MyButton
                   onClick={handelNot}
                   className={"buttonOfTable"}
                   content={"أرسل ملحوظه"}
                 />
-                )
               </td>
             )}
           </tr>

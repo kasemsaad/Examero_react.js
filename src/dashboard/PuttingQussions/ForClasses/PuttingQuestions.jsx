@@ -12,6 +12,7 @@ import HeaderOfPuttingQuestions from "../../components/PheaderOfButtingQuestion/
 import { useNavigate } from "react-router-dom";
 import AddComponent from "../../components/PuttingQuesionsPage/AddComoponentForPage/Add";
 import InfoComponent from "../../components/PuttingQuesionsPage/InfoComponentPq/InfoComponent";
+import PuttingQArrow from "../../components/PuttingQuesionsPage/PuttingArrow/PuttingQArrow";
 
 const PuttingQuestions = () => {
   const [toggled, setToggled] = useState(false);
@@ -51,22 +52,15 @@ const PuttingQuestions = () => {
     setToggled(!toggled);
   };
   const navigate = useNavigate();
-  const handelClick = () => {
-    navigate("/dashboard/mab");
-  };
 
   return (
     <div className="questionContainer min-vh-100 w-100">
       <HeaderOfPuttingQuestions />
 
       <div className="question" style={{ width: "80%", margin: "auto" }}>
-        <div style={{ height: "7rem", display: "flex" }}>
+        {/* <div style={{ height: "7rem", display: "flex" }}>
           <FirstTriangle content={"الصفوف"} />
-          <SecondTriangle
-            onClick={handelClick}
-            content={"المباحث"}
-            className="iddd"
-          />
+          <SecondTriangle content={"المباحث"} className="iddd" />
           <SecondTriangle content={"الوحدات"} className="to" />
           <SecondTriangle content={"الدروس"} className="arrowfour" />
           <SecondTriangle
@@ -74,10 +68,10 @@ const PuttingQuestions = () => {
             className="arrowfive"
             to="/dashboard/q"
           />
-        </div>
-
+        </div> */}
+        <PuttingQArrow />
         <div>
-          <AddComponent content={"أضافة صف"} />
+          <AddComponent content={"إضافة سؤال"} />
         </div>
 
         <div className="MyForm col-8">
@@ -98,7 +92,14 @@ const PuttingQuestions = () => {
 
       <div className="nextButton col-12">
         <div className="col-sm-3 d-flex align-items-center justify-content-center">
-          <MyButton content={"التالي"} className="MyButton" />
+          <MyButton
+            linkTo={""}
+            // onClick={() => {
+            //   navigate(1);
+            // }}
+            content={"التالي"}
+            className="MyButton"
+          />
         </div>
       </div>
     </div>

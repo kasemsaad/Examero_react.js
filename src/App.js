@@ -20,6 +20,8 @@ import Login1 from "./websit/register and login/login/login2.jsx";
 import New_pass from "./websit/register and login/new_pass/new_pass.jsx";
 import PuttingQUnites from "./dashboard/PuttingQussions/ForUnits/PuttingQUnits.jsx";
 import PuttingQFLessons from "./dashboard/PuttingQussions/ForLessons/PuttingQFLessons.jsx";
+import PuttingKindOfQ from "./dashboard/PuttingQussions/ForKindOfQuestions/PuttingKOQuestions.jsx";
+import Mangers from "./dashboard/Users/mangers.jsx";
 function App(props) {
   return (
     <BrowserRouter>
@@ -36,10 +38,22 @@ function App(props) {
         <Route path="/dashboard/" element={<LayoutComp />}>
           <Route index element={<Log />} />
           <Route path="not" element={<Notification />} />
-          <Route path="q" element={<PuttingQuestions />} />
-          <Route path="unite" element={<PuttingQUnites />} />
-          <Route path="lesson" element={<PuttingQFLessons />} />
-          <Route path="mab" element={<PuttingQForMab7as />} />
+          <Route
+            path="putting/questions/levels"
+            element={<PuttingQuestions />}
+          />
+          <Route
+            path="putting/questions/subjects"
+            element={<PuttingQForMab7as />}
+          />
+          <Route path="putting/questions/units" element={<PuttingQUnites />} />
+          <Route
+            path="putting/questions/lessons"
+            element={<PuttingQFLessons />}
+          />
+
+          <Route path="kinds" element={<PuttingKindOfQ />} />
+          <Route path="mangers" element={<Mangers />} />
           <Route path="login" element={<J />} />
           <Route path="b" element={<AccountSetting />} />
           <Route path="h" element={<Home_dashboard />} />

@@ -79,7 +79,7 @@ const Notification = () => {
   return (
     <>
       <div className="notification min-vh-100">
-        <HeaderNotificaion />
+        <HeaderNotificaion content={"الإشعارات"} />
 
         <div className="parent">
           <ArrowNotification />

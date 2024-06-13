@@ -1,7 +1,7 @@
 import React from "react";
 import notificationImage from "../../../../assets/icons/NotificationPage/majesticons_home-line.svg";
 
-const HeaderNotificaion = () => {
+const HeaderNotificaion = ({ content }) => {
   return (
     <>
       <div className="header-notify ">
@@ -10,7 +10,7 @@ const HeaderNotificaion = () => {
             <img className=" " src={notificationImage} alt="" />
           </div>
           <div>
-            <h4>الإشعارات</h4>
+            <h4>{content}</h4>
           </div>
         </div>
       </div>

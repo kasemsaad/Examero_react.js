@@ -7,12 +7,13 @@ const Checkbox = ({
   handleClick,
   isChecked,
   className,
+  value,
   Checkbox,
 }) => {
-  console.log(isChecked);
   return (
     <input
       id={id}
+      value={value}
       className={className}
       name={name}
       type={Checkbox}
