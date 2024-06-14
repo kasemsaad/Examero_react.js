@@ -93,7 +93,7 @@ const PuttingQuestions = () => {
       <div className="nextButton col-12">
         <div className="col-sm-3 d-flex align-items-center justify-content-center">
           <MyButton
-            linkTo={""}
+            linkTo={"/dashboard/putting/questions/subjects"}
             // onClick={() => {
             //   navigate(1);
             // }}

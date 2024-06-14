@@ -54,7 +54,7 @@ function App(props) {
             element={<PuttingQFLessons />}
           />
 
-          <Route path="kinds" element={<PuttingKindOfQ />} />
+          <Route path="putting/questions/kinds" element={<PuttingKindOfQ />} />
           <Route path="mangers" element={<Mangers />} />
           <Route path="emis" element={<ReceivedEmis />} />
           <Route path="teacher" element={<Teacher />} />

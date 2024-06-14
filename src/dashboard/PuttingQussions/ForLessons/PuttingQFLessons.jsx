@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import "./ForLessons.css";
 import FormForPQUnits from "../../components/PuttingQuesionsPage/FormForUnites/FormForUnites";
 import FormFPLessons from "../../components/PuttingQuesionsPage/FormFPLessons/FormFPLessons";
+import MyButton from "../../../common/Button/Button";
 const PuttingQFLessons = () => {
   let header = {
     name1: "اسم المبحث",
@@ -72,8 +73,28 @@ const PuttingQFLessons = () => {
             <MyTable header={header} body={body} icons={icon} />
           </div>
         </div>
-        <FooterFPuttingQ />
-      </div>{" "}
+        <div className="nextButton col-12">
+          <div className="col-sm-2 d-flex align-items-center justify-content-center">
+            <MyButton
+              id={2}
+              // onClick={handleNext}
+              content={"التالي"}
+              className="MyButton"
+              linkTo={"/dashboard/putting/questions/kinds"}
+            />
+          </div>
+          <div className="col-sm-2 d-flex align-items-center justify-content-center">
+            <MyButton
+              id={5}
+              // onClick={handlePrev}
+              style={{ backgroundColor: "#CDCDCD", color: "black" }}
+              content={"السابق"}
+              className="MyButton"
+              linkTo={"/dashboard/putting/questions/units"}
+            />
+          </div>
+        </div>
+      </div>
     </>
   );
 };

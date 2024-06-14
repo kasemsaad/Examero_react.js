@@ -72,7 +72,25 @@ const PuttingQForMab7as = () => {
             <MyTable header={header} body={body} icons={icon} />
           </div>
         </div>
-        <FooterFPuttingQ />
+        <div className="nextButton col-12">
+          <div className="col-sm-2 d-flex align-items-center justify-content-center">
+            <MyButton
+              // onClick={handleNext}
+              content={"التالي"}
+              className="MyButton"
+              linkTo={"/dashboard/putting/questions/units"}
+            />
+          </div>
+          <div className="col-sm-2 d-flex align-items-center justify-content-center">
+            <MyButton
+              // onClick={handlePrev}
+              style={{ backgroundColor: "#CDCDCD", color: "black" }}
+              content={"السابق"}
+              className="MyButton"
+              linkTo={"/dashboard/putting/questions/levels"}
+            />
+          </div>
+        </div>{" "}
       </div>
     </>
   );

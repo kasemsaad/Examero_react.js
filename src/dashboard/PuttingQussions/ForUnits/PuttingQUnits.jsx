@@ -7,6 +7,7 @@ import MyTable from "../../../common/Table/Table";
 import FooterFPuttingQ from "../../components/PFooter/FooterFPuttingQ";
 import { useNavigate } from "react-router-dom";
 import FormForPQUnits from "../../components/PuttingQuesionsPage/FormForUnites/FormForUnites";
+import MyButton from "../../../common/Button/Button";
 const PuttingQUnites = () => {
   let header = {
     name1: "اسم المبحث",
@@ -67,7 +68,25 @@ const PuttingQUnites = () => {
             <MyTable header={header} body={body} icons={icon} />
           </div>
         </div>
-        <FooterFPuttingQ />
+        <div className="nextButton col-12">
+          <div className="col-sm-2 d-flex align-items-center justify-content-center">
+            <MyButton
+              // onClick={handleNext}
+              content={"التالي"}
+              className="MyButton"
+              linkTo={"/dashboard/putting/questions/lessons"}
+            />
+          </div>
+          <div className="col-sm-2 d-flex align-items-center justify-content-center">
+            <MyButton
+              // onClick={handlePrev}
+              style={{ backgroundColor: "#CDCDCD", color: "black" }}
+              content={"السابق"}
+              className="MyButton"
+              linkTo={"/dashboard/putting/questions/subjects"}
+            />
+          </div>
+        </div>{" "}
       </div>{" "}
     </>
   );

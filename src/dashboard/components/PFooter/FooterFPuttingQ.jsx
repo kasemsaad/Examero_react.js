@@ -2,68 +2,64 @@ import React from "react";
 import MyButton from "../../../common/Button/Button";
 import "./FooterForPuttingQ.css";
 import { useLocation, useNavigate } from "react-router-dom";
+
 const FooterFPuttingQ = () => {
   const pages = [
     "/dashboard/putting/questions/levels",
-    "putting/questions/units",
-    "putting/questions/subjects",
-    "putting/questions/lessons",
-    "putting/questions/kinds",
+    "/dashboard/putting/questions/units",
+    "/dashboard/putting/questions/subjects",
+    "/dashboard/putting/questions/lessons",
+    "/dashboard/putting/questions/kinds",
   ];
 
   const navigate = useNavigate();
   const location = useLocation();
   const { pathname } = location;
-  // console.log(pathname + "my path");
   const currentIndex = pages.indexOf(pathname);
 
-  const handelNext = () => {
-    console.log(currentIndex + "is her");
-    console.log(pages.length + "pages");
-    navigate("/dashboard/putting/questions/levels", { replace: true });
+  const handleNext = () => {
+    console.log(`Current Index: ${currentIndex}`);
+    console.log(`Total Pages: ${pages.length}`);
 
-    if (currentIndex <= 0 && currentIndex < pages.length - 1) {
-      navigate("units");
-      navigate("/dashboard/putting/questions/levels", { replace: true });
-      // navigate(pages[currentIndex + 1]);
-      console.log();
-      console.log(currentIndex);
-      console.log(pages[currentIndex + 1] + "  iam her in if");
+    if (currentIndex >= 0 && currentIndex < pages.length - 1) {
+      const nextPath = pages[currentIndex + 1];
+      console.log(`Navigating to: ${nextPath}`);
+      window.open(nextPath);
+    } else {
+      console.log("No next page to navigate to.");
     }
   };
 
-  const handelPrev = () => {
-    console.log("dsfdfs");
+  const handlePrev = () => {
+    console.log(`Current Index: ${currentIndex}`);
+
     if (currentIndex > 0) {
-      navigate(pages[currentIndex - 1]);
-      console.log("read");
+      const prevPath = pages[currentIndex - 1];
+      console.log(`Navigating to: ${prevPath}`);
+      navigate(prevPath);
+    } else {
+      console.log("No previous page to navigate to.");
     }
   };
 
   return (
-    <>
-      <div className="nextButton col-12">
-        <div className="col-sm-2 d-flex align-items-center justify-content-center">
-          <MyButton
-            onClick={handelNext}
-            content={"التالي"}
-            className="MyButton"
-          />
-        </div>
-        <div
-          style={{}}
-          className=" col-sm-2 d-flex align-items-center justify-content-center"
-        >
-          <MyButton
-            onClick={handelPrev}
-            // linkTo={"/dashboard/mab"}
-            style={{ backgroundColor: "#CDCDCD", color: "black" }}
-            content={"السابق"}
-            className="MyButton"
-          />
-        </div>
+    <div className="nextButton col-12">
+      <div className="col-sm-2 d-flex align-items-center justify-content-center">
+        <MyButton
+          onClick={handleNext}
+          content={"التالي"}
+          className="MyButton"
+        />
       </div>
-    </>
+      <div className="col-sm-2 d-flex align-items-center justify-content-center">
+        <MyButton
+          onClick={handlePrev}
+          style={{ backgroundColor: "#CDCDCD", color: "black" }}
+          content={"السابق"}
+          className="MyButton"
+        />
+      </div>
+    </div>
   );
 };
 
