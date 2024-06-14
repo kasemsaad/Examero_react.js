@@ -48,6 +48,42 @@ const Mangers = () => {
       email: "mrady8085@gmail.coom",
       phone: "01201562254",
     },
+    {
+      id: 1,
+      name1: "اسم الصف",
+      email: "mrady8085@gmail.coom",
+      phone: "01201562254",
+    },
+    {
+      id: 1,
+      name1: "اسم الصف",
+      email: "mrady8085@gmail.coom",
+      phone: "01201562254",
+    },
+    {
+      id: 1,
+      name1: "اسم الصف",
+      email: "mrady8085@gmail.coom",
+      phone: "01201562254",
+    },
+    {
+      id: 1,
+      name1: "اسم الصف",
+      email: "mrady8085@gmail.coom",
+      phone: "01201562254",
+    },
+    {
+      id: 1,
+      name1: "اسم الصف",
+      email: "mrady8085@gmail.coom",
+      phone: "01201562254",
+    },
+    {
+      id: 1,
+      name1: "اسم الصف",
+      email: "mrady8085@gmail.coom",
+      phone: "01201562254",
+    },
   ];
   const icon = { eye: true, edit: true, trash: true, butt: true };
 
@@ -92,7 +128,7 @@ const Mangers = () => {
                   borderRadius: "9.47px",
                   border: "#4941A6 solid 1px",
                 }}
-                placeholder="    جدول البحث هنا"
+                placeholder="            جدول البحث هنا"
               />
               <div
                 style={{
@@ -146,8 +182,48 @@ const Mangers = () => {
               </div>
             </div>
           </div>
+
           <div style={{ width: "100%", overflow: "auto" }}>
             <MyTable header={header} body={body} icons={icon} />
+          </div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row-reverse",
+              height: " 74px",
+              alignItems: "center",
+            }}
+            className="footer-manger"
+          >
+            <div
+              style={{
+                backgroundColor: "#120E4D",
+                height: "26px",
+                width: "26px",
+                display: "flex",
+                fontSize: "18px",
+                fontWeight: "700",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <p style={{ margin: "0" }}>&gt;</p>
+            </div>
+            <div
+              style={{
+                marginLeft: "5px",
+                backgroundColor: "#120E4D",
+                height: "26px",
+                width: "26px",
+                display: "flex",
+                fontSize: "18px",
+                fontWeight: "700",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <p style={{ margin: "0" }}>&lt;</p>
+            </div>
           </div>
         </div>
       </div>

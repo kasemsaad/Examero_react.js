@@ -3,18 +3,19 @@ import MyButton from "../Button/Button";
 import "./table.css";
 import image from "../../assets/icons/MyTable/trash.svg";
 import ToggledButton from "../../dashboard/components/ToggledButton/ToggledButton";
+import { Link } from "react-router-dom";
 function MyTable({
   header,
   body,
   icons,
-
+  other,
   handelDelete,
   handelEdit,
   handelEye,
   handelNot,
 }) {
-  const { trash, edit, eye, toggle, butt } = icons;
-
+  const { trash, edit, eye } = icons || {};
+  const { toggle, butt, imag, checkbox } = other || {};
   return (
     <table className="rounded-table">
       <thead>
@@ -31,30 +32,33 @@ function MyTable({
             {Object.values(row).map((value, cellIndex) => (
               <td key={`${rowIndex}-${cellIndex}`}>{value}</td>
             ))}
+
             {toggle && (
               <td>
                 <ToggledButton />
               </td>
             )}
-            <td>
-              {trash && (
-                <button onClick={handelDelete} className="trash">
-                  <img src={image} className="trash" alt="" />
-                </button>
-              )}
-              {edit && (
-                <MyButton
-                  onClick={handelEdit}
-                  className="square fa-regular fa-pen-to-square"
-                />
-              )}
-              {eye && (
-                <MyButton
-                  onClick={handelEye}
-                  className="eye fa-regular fa-eye"
-                />
-              )}
-            </td>
+            {icons && (
+              <td>
+                {trash && (
+                  <button onClick={handelDelete} className="trash">
+                    <img src={image} className="trash" alt="" />
+                  </button>
+                )}
+                {edit && (
+                  <MyButton
+                    onClick={handelEdit}
+                    className="square fa-regular fa-pen-to-square"
+                  />
+                )}
+                {eye && (
+                  <MyButton
+                    onClick={handelEye}
+                    className="eye fa-regular fa-eye"
+                  />
+                )}
+              </td>
+            )}
             {butt && (
               <td>
                 <MyButton
@@ -62,6 +66,23 @@ function MyTable({
                   className={"buttonOfTable"}
                   content={"أرسل ملحوظه"}
                 />
+              </td>
+            )}
+            {imag && (
+              <td>
+                <Link style={{ textDecoration: "underline", color: "#FE4F60" }}>
+                  تحميل
+                </Link>
+              </td>
+            )}
+            {checkbox && (
+              <td>
+                <input type="checkbox" />
+              </td>
+            )}
+            {checkbox && (
+              <td>
+                <input type="checkbox" />
               </td>
             )}
           </tr>
