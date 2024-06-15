@@ -190,7 +190,7 @@
 
 }
 
-.card {
+.card1 {
     overflow: hidden;
     position: relative;
     border-radius: 40px;
@@ -208,7 +208,7 @@
     z-index: 9;
 }
 
-.card::before {
+.card1::before {
     content: "";
     width: 70px;
     height: 70px;
@@ -534,7 +534,7 @@ min-height: 90vh !important;
 .cards {
     width: 100% !important;
 }
-    .card {
+    .card1 {
         overflow: hidden;
         position: relative;
         border-radius: 40px;
@@ -542,7 +542,7 @@ min-height: 90vh !important;
         height: 500px !important;
     }
 
-    .card::before {
+    .card1::before {
         content: "";
         width: 70px;
         height: 70px;
@@ -736,7 +736,7 @@ min-height: 90vh !important;
         /* height: 65vh; */
     }
 
-    .card {
+    .card1 {
         overflow: hidden;
         position: relative;
         border-radius: 40px;
@@ -877,7 +877,7 @@ min-height: 90vh !important;
         height: 220vh !important;
         background-image: none;
     }
-    .card {
+    .card1::before {
         overflow: hidden;
         position: relative;
         border-radius: 40px;

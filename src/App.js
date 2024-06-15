@@ -18,7 +18,8 @@ import Reset_page1 from './websit/register and login/resetpage/resetpage.jsx'
 import Reset_code_page from './websit/register and login/reset_password/reset_password.jsx';
 import Login1 from'./websit/register and login/login/login2.jsx'
 import New_pass from './websit/register and login/new_pass/new_pass.jsx'
-import HomeStudentview from './websit/Student_View/homeStudentView.jsx'
+import HomeStudentView from './websit/Student/Student_View/homeStudentView.jsx'
+import CreateExam from './websit/Student/createExam/createExam.jsx';
 
 function App(props) {
   return (
@@ -34,7 +35,8 @@ function App(props) {
           <Route path="/reset1" element={<Reset_page1/>} /> 
           <Route path="/newp" element={<New_pass/>} />
           <Route path="/student/" element={<LayoutComp />} >
-          <Route path="homeStudentview" element={<HomeStudentview/>} />
+          <Route path="homeStudentView" element={<HomeStudentView/>} />
+          <Route path="createExam" element={<CreateExam/>} />
            </Route>
 
           <Route path="/dashboard/" element={<LayoutComp />}>
