@@ -12,18 +12,16 @@ const MyButton = ({
   linkTo,
 }) => {
   return (
-    <Link className="lin-b" to={linkTo}>
-      <button
-        style={style}
-        onClick={onClick}
-        className={className}
-        type={type}
-        name={name}
-        value={value}
-      >
-        <p className="bub">{content}</p>
-      </button>
-    </Link>
+    <button
+      style={style}
+      onClick={onClick}
+      className={className}
+      type={type}
+      name={name}
+      value={value}
+    >
+      <p className="bub">{content}</p>
+    </button>
   );
 };
 

@@ -31,14 +31,13 @@
     width: 100% !important;
   }
   .class-info-button {
-    width: 5.5rem !important;
   }
   .class-info-button {
     height: 100%;
     width: 100%;
   }
   .class-info-button p {
-    font-size: 8px;
+    font-size: 11px;
     /* margin-bottom: 20px; */
     width: fit-content;
     transform: translate(-6px, 10px);
@@ -58,7 +57,7 @@
     width: 5.5rem !important;
   } */
   .class-info-button p {
-    font-size: 8px;
+    font-size: 12px;
   }
   .class-info-button {
     font-size: 13px;
@@ -77,14 +76,14 @@
   color: black;
   font-size: 1rem;
   font-weight: 600;
-  width: 9.5rem;
+  width: 127px;
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
 
 .add-class-button div {
   height: 100%;
-  width: 70%;
+  width: 93%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -110,7 +109,7 @@
   color: black;
   font-size: 1rem;
   font-weight: 600;
-  width: 10rem;
+  width: 134px;
 }
 
 .class-info-button div {
@@ -127,7 +126,7 @@
 }
 
 .class-info-divider {
-  width: 79%;
+  width: 84%;
   height: 1px;
   background-color: #ff919c;
 }

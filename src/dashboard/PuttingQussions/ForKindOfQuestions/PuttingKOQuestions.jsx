@@ -1,13 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import HeaderOfPuttingQuestions from "../../components/PheaderOfButtingQuestion/HeaderOfButtingQuestions";
 import PuttingQArrow from "../../components/PuttingQuesionsPage/PuttingArrow/PuttingQArrow";
 import AddComponent from "../../components/PuttingQuesionsPage/AddComoponentForPage/Add";
 import MyTable from "../../../common/Table/Table";
 import FooterFPuttingQ from "../../components/PFooter/FooterFPuttingQ";
-import { useNavigate } from "react-router-dom";
 import FormFPkindOfQ from "../../components/PuttingQuesionsPage/FormForKindOfQ/FormFPKindOfQ";
 import "./ForKindOfQuestions.css";
-import MyButton from "../../../common/Button/Button";
 const PuttingKindOfQ = () => {
   let header = {
     name1: "اسم المبحث",
@@ -43,10 +41,7 @@ const PuttingKindOfQ = () => {
       name5: "اسم الصف",
     },
   ];
-  const navegate = useNavigate();
-  const handelOnclick = () => {
-    navegate("/dashboard/q");
-  };
+
   let icon = { edit: true, trash: true, toggle: true };
   return (
     <>
@@ -56,16 +51,16 @@ const PuttingKindOfQ = () => {
           className="lessons-quessions"
           style={{ width: "90%", margin: "auto" }}
         >
-          <PuttingQArrow linkTo={"/dashboard/mab"} onClick={handelOnclick} />
+          <PuttingQArrow />
           <div>
             <AddComponent addStyle={"add-lesson"} content={"إضافة نوع سؤال"} />
           </div>
           <FormFPkindOfQ />
           <div
-            className=" d-flex align-items-center"
+            className=" d-flex align-items-center my-info-kind"
             style={{ height: "9rem" }}
           >
-            <div className="col-12 d-flex align-items-center ">
+            <div className="col-12 d-flex align-items-center  ">
               <div className="my-ifo-kind">
                 <div>
                   <p>بيانات الأسئلة</p>
@@ -78,25 +73,7 @@ const PuttingKindOfQ = () => {
             <MyTable header={header} body={body} icons={icon} />
           </div>
         </div>
-        <div className="nextButton col-12">
-          <div className="col-sm-2 d-flex align-items-center justify-content-center">
-            <MyButton
-              // onClick={handleNext}
-              content={"التالي"}
-              linkTo={"/dashboard/putting/questions/kinds"}
-              className="MyButton"
-            />
-          </div>
-          <div className="col-sm-2 d-flex align-items-center justify-content-center">
-            <MyButton
-              // onClick={}
-              style={{ backgroundColor: "#CDCDCD", color: "black" }}
-              content={"السابق"}
-              linkTo={"/dashboard/putting/questions/lessons"}
-              className="MyButton"
-            />
-          </div>
-        </div>{" "}
+        <FooterFPuttingQ next={"التالي"} prev={"السابق"} />
       </div>
     </>
   );

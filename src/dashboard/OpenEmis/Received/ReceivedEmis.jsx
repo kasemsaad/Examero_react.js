@@ -2,9 +2,8 @@ import React from "react";
 import EimsImage from "../../../assets/icons/Eims/lucide_file-input.svg";
 import FirstTriangle from "../../components/FirstTriangle/FirstTriangle";
 import SecondTriangle from "../../components/SecondTriangle/SecondTriangle";
-import MyButton from "../../../common/Button/Button";
 import MyTable from "../../../common/Table/Table";
-import Checkbox from "../../components/NotificationPage/Checkbox/Checkbox";
+// import { useLocation } from "react-router-dom";
 const ReceivedEmis = () => {
   let header = {
     name1: "اسم المستخدم",
@@ -60,7 +59,7 @@ const ReceivedEmis = () => {
     },
   ];
   const other = { checkbox: true, image: true };
-
+  // const { pathname } = useLocation;
   //   let icon = {};
   return (
     <>
@@ -85,7 +84,12 @@ const ReceivedEmis = () => {
             }}
           >
             <div className=" mx-2 ">
-              <img className=" " src={EimsImage} alt="" />
+              <img
+                style={{ marginLeft: "5px" }}
+                className=" "
+                src={EimsImage}
+                alt=""
+              />
             </div>
             <div>
               <div>
@@ -94,7 +98,7 @@ const ReceivedEmis = () => {
             </div>
           </div>
         </div>
-        <div style={{ width: "90%", margin: "auto" }}>
+        <div style={{ width: "88%", margin: "auto" }}>
           <div style={{ display: "flex" }} className="Arrows-emis ">
             <div>
               <FirstTriangle content={"المستلمة"} />
@@ -113,12 +117,19 @@ const ReceivedEmis = () => {
                   backgroundColor: "#FF7380",
                 }}
               >
-                <p style={{ margin: "10px", padding: "4px" }}>
+                <p
+                  style={{
+                    margin: "10px",
+                    padding: "6px",
+                    color: "black",
+                    fontWeight: "600",
+                  }}
+                >
                   تحميل بيانات دفتر العلامات
                 </p>
               </div>
             </div>
-            <div>
+            <div style={{ overflow: "auto" }}>
               <MyTable header={header} body={body} other={other} />
             </div>
           </div>

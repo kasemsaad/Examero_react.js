@@ -5,16 +5,25 @@
 }
 .my-ifo-kind {
   width: 134.09px;
-  height: 29.9px;
-  border-radius: 14.92px;
+  height: 33.63px;
+  border-radius: 32.92px;
   background-color: #ff7380;
   display: flex;
   justify-items: center;
   align-items: center;
+  font-size: 1rem;
+  font-weight: 600;
 }
 
 .my-ifo-kind p {
+  font-weight: 600;
+  font-size: 1rem;
   transform: translate(-19px, 1px) !important;
-
+  color: black;
   margin: auto;
+}
+@media (max-width: 400px) {
+  .my-info-kind {
+    margin-top: 140px;
+  }
 }

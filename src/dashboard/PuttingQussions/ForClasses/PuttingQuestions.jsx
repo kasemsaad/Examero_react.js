@@ -47,28 +47,15 @@ const PuttingQuestions = () => {
   ];
 
   let icon = { edit: true, trash: true, toggle: true };
-
-  const tog = () => {
-    setToggled(!toggled);
+  const navegiate = useNavigate();
+  const handelNav = () => {
+    navegiate("/dashboard/putting/questions/subjects");
   };
-  const navigate = useNavigate();
-
   return (
     <div className="questionContainer min-vh-100 w-100">
       <HeaderOfPuttingQuestions />
 
       <div className="question" style={{ width: "80%", margin: "auto" }}>
-        {/* <div style={{ height: "7rem", display: "flex" }}>
-          <FirstTriangle content={"الصفوف"} />
-          <SecondTriangle content={"المباحث"} className="iddd" />
-          <SecondTriangle content={"الوحدات"} className="to" />
-          <SecondTriangle content={"الدروس"} className="arrowfour" />
-          <SecondTriangle
-            content={"أنواع الأسئلة"}
-            className="arrowfive"
-            to="/dashboard/q"
-          />
-        </div> */}
         <PuttingQArrow />
         <div>
           <AddComponent content={"إضافة سؤال"} />
@@ -93,7 +80,7 @@ const PuttingQuestions = () => {
       <div className="nextButton col-12">
         <div className="col-sm-3 d-flex align-items-center justify-content-center">
           <MyButton
-            linkTo={"/dashboard/putting/questions/subjects"}
+            onClick={handelNav}
             // onClick={() => {
             //   navigate(1);
             // }}

@@ -1,11 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import HeaderOfPuttingQuestions from "../../components/PheaderOfButtingQuestion/HeaderOfButtingQuestions";
-import FirstTriangle from "../../components/FirstTriangle/FirstTriangle";
-import SecondTriangle from "../../components/SecondTriangle/SecondTriangle";
 // import FormForAll from "../../components/PuttingQuesionsPage/FormForAll";
 import MyTable from "../../../common/Table/Table";
-import MyButton from "../../../common/Button/Button";
-import { useNavigate } from "react-router-dom";
 import FormForMaba7s from "../../components/PuttingQuesionsPage/FormForMaba7s/FormForMaba7s ";
 import "./PuttingQForMahbas.css";
 import FooterFPuttingQ from "../../components/PFooter/FooterFPuttingQ";
@@ -47,17 +43,15 @@ const PuttingQForMab7as = () => {
       name5: "اسم الصف",
     },
   ];
-  const navegate = useNavigate();
-  const handelOnclick = () => {
-    navegate("/dashboard/q");
-  };
+
   let icon = { edit: true, trash: true, toggle: true };
+
   return (
     <>
       <div className=" min-vh-100 mab7asContainer">
         <HeaderOfPuttingQuestions />
         <div className="question" style={{ width: "80%", margin: "auto" }}>
-          <PuttingQArrow onClick={handelOnclick} />
+          <PuttingQArrow />
           <div>
             <AddComponent content={"اضافة مبحث"} />
           </div>
@@ -73,24 +67,8 @@ const PuttingQForMab7as = () => {
           </div>
         </div>
         <div className="nextButton col-12">
-          <div className="col-sm-2 d-flex align-items-center justify-content-center">
-            <MyButton
-              // onClick={handleNext}
-              content={"التالي"}
-              className="MyButton"
-              linkTo={"/dashboard/putting/questions/units"}
-            />
-          </div>
-          <div className="col-sm-2 d-flex align-items-center justify-content-center">
-            <MyButton
-              // onClick={handlePrev}
-              style={{ backgroundColor: "#CDCDCD", color: "black" }}
-              content={"السابق"}
-              className="MyButton"
-              linkTo={"/dashboard/putting/questions/levels"}
-            />
-          </div>
-        </div>{" "}
+          <FooterFPuttingQ next={"التالي"} prev={"السابق"} />
+        </div>
       </div>
     </>
   );

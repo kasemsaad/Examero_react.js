@@ -24,6 +24,8 @@ import PuttingKindOfQ from "./dashboard/PuttingQussions/ForKindOfQuestions/Putti
 import Mangers from "./dashboard/Users/mangers.jsx";
 import ReceivedEmis from "./dashboard/OpenEmis/Received/ReceivedEmis.jsx";
 import Teacher from "./dashboard/Plans/Teachers.jsx";
+import AddOrEditModal from "./dashboard/components/Modal/AddOrEditModal/AddOrEdite.jsx";
+import DeleteAnItem from "./dashboard/components/Modal/DeleteAnItemmodal/DeleteAnItem.jsx";
 function App(props) {
   return (
     <BrowserRouter>
@@ -56,8 +58,10 @@ function App(props) {
 
           <Route path="putting/questions/kinds" element={<PuttingKindOfQ />} />
           <Route path="mangers" element={<Mangers />} />
+          <Route path="delete" element={<DeleteAnItem />} />
           <Route path="emis" element={<ReceivedEmis />} />
           <Route path="teacher" element={<Teacher />} />
+          <Route path="add" element={<AddOrEditModal />} />
 
           <Route path="login" element={<J />} />
           <Route path="b" element={<AccountSetting />} />

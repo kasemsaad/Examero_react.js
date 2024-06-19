@@ -62,7 +62,7 @@
   border-radius: 8px;
   border: #c01f59 solid 1px;
   height: 34px;
-  width: 100%;
+  width: fit-content;
 }
 .button-container-kind {
   width: 11%;
@@ -83,6 +83,7 @@
   background-color: #1d195d;
 }
 .button-kind-2 p {
+  padding: 0 9px;
   width: 100%;
   font-size: 13px;
 }

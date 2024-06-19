@@ -3,57 +3,68 @@ import MyButton from "../../../../common/Button/Button";
 import "./FormFPMaba7s.css";
 
 const FormForMaba7s = () => {
-  const [classData, setClassData] = useState("");
+  const [formData, setFormData] = useState({ name: "", choice: "" });
 
-  const handelValue = (e) => {
-    console.log(e.target.value);
-    setClassData(e.target.value);
-  };
-  const handelSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(classData);
+    if (!formData.name || !formData.choice) {
+      return;
+    }
+    console.log(formData);
   };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
   return (
-    <>
-      <div className=" MyFormm  col-8">
-        <form
-          className="form-container-put  d-flex w-100 "
-          onSubmit={handelSubmit}
-        >
-          <div className="form-group-puttt  d-flex flex-column justify-content-end">
-            <label className="mb-2  lab1" htmlFor="exampleInputEmail1">
-              اسم المبحث
-            </label>
-            <input
-              style={{ fontSize: "1.3" }}
-              onChange={handelValue}
-              type="text"
-              className="form-control inp1  "
-              id="exampleInput"
-              aria-describedby="nameHelp"
-              placeholder=" أدخل أسم المبحث الجديد هنا"
-            />
-          </div>
-          <div className="form-group-putt">
-            <label className=" mb-2 lab2" htmlFor="exampleInputEmail1">
-              اختر الصفوف التى يدرس بها
-            </label>
-            <input
-              style={{ fontSize: "1.3" }}
-              onChange={handelValue}
-              type="text"
-              className="form-control inp2 col-6"
-              id="exampleInput"
-              aria-describedby="emailHelp"
-              placeholder=" اختر اسم الصف"
-            />
-          </div>
-          <div className="button-container-puttt">
-            <MyButton className="my-buttonn" content="إضافة" type={"submit"} />
-          </div>
-        </form>
+    <form className="form-container-puttt" onSubmit={handleSubmit}>
+      <div className="MyFormm">
+        <div className="form-group-puttt">
+          <label className="mb-2 lab1" htmlFor="exampleInputEmail1">
+            اسم المبحث
+          </label>
+          <input
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            type="text"
+            className="form-control inp1"
+            id="exampleInput"
+            aria-describedby="nameHelp"
+            placeholder="أدخل أسم المبحث الجديد هنا"
+          />
+        </div>
+        <div className="form-group-puttt">
+          <label className="mb-2 lab2" htmlFor="">
+            اختر الصفوف التى يدرس بها
+          </label>
+          <select
+            name="choice"
+            value={formData.choice}
+            onChange={handleChange}
+            className="form-select inp2"
+            aria-label="example"
+          >
+            <option value="">اختر اسم الصف</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+        </div>
+        <div className="butt-mabhas">
+          <MyButton
+            className="my-button-mabhas"
+            content="إضافة"
+            type="submit"
+          />
+        </div>
       </div>
-    </>
+    </form>
   );
 };
 

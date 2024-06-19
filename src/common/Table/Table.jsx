@@ -4,6 +4,7 @@ import "./table.css";
 import image from "../../assets/icons/MyTable/trash.svg";
 import ToggledButton from "../../dashboard/components/ToggledButton/ToggledButton";
 import { Link } from "react-router-dom";
+import AddOrEditModal from "../../dashboard/components/Modal/AddOrEditModal/AddOrEdite";
 function MyTable({
   header,
   body,
@@ -16,8 +17,10 @@ function MyTable({
 }) {
   const { trash, edit, eye } = icons || {};
   const { toggle, butt, imag, checkbox } = other || {};
+
   return (
     <table className="rounded-table">
+      <AddOrEditModal />
       <thead>
         <tr>
           <th>#</th>
@@ -41,9 +44,18 @@ function MyTable({
             {icons && (
               <td>
                 {trash && (
-                  <button onClick={handelDelete} className="trash">
+                  <button
+                    type="button"
+                    className=" trash"
+                    data-toggle="modal"
+                    data-target="#exampleModal"
+                    data-whatever="@mdo"
+                  >
                     <img src={image} className="trash" alt="" />
                   </button>
+                  // <button className="trash">
+
+                  // </button>
                 )}
                 {edit && (
                   <MyButton
