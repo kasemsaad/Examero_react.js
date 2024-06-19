@@ -20,6 +20,7 @@ import CertificateGenerator from './dashboard/Certificate/Certificate.jsx';
 import Qbank from './dashboard/Qbank/Qbank.jsx';
 import Specification from './dashboard/Specifecation/Specification.jsx';
 import ProtectedRoute from './dashboard/protectedRouteDashboard.jsx/protectedRouteDashboard.jsx';
+import Plans from './dashboard/Plans/Plans.jsx';
 
 function App(props) {
   return (
@@ -49,6 +50,12 @@ function App(props) {
           <Route path="certify" element={<CertificateGenerator />} />
           <Route path="qbank" element={<Qbank />} />
           <Route path="specify" element={<Specification />} />
+          <Route path="specify" element={<Specification />} />
+          <Route path="plans" element={<Plans />} />
+
+
+
+
         </Route>
       </Routes>
     </BrowserRouter>

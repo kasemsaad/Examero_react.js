@@ -1,4 +1,4 @@
-import { Router,Link  } from "react-router-dom";
+import { Router,Link, useNavigate  } from "react-router-dom";
 import homeIcon from '../../assets/icons/sidebar/majesticons_home-line.svg';
 import octiconIcon from '../../assets/icons/sidebar/octicon_question-16.svg';
 import ph_certificate from '../../assets/icons/sidebar/ph_certificate.svg';
@@ -11,11 +11,20 @@ import manage_accounts_outline_rounded from '../../assets/icons/sidebar/material
 import account_supervisor_outline from '../../assets/icons/sidebar/mdi_account-supervisor-outline.svg';
 import teacher from '../../assets/icons/sidebar/mdi_teacher.svg';
 import "./style.css";
+import Api_Dashboard from "../../dashboard/interceptor/interceptorDashboard";
 
 function SidebarFullscreen() {
+  const navigate = useNavigate()
   const setId = (id) => {
     localStorage.setItem("sidbarId", JSON.stringify(id));
   };
+
+  const logout = (id)=>{
+    localStorage.setItem("sidbarId", JSON.stringify(id));
+    // Api_Dashboard.get('/logout').post
+    // localStorage.removeItem("token")
+  //  return navigate("/login_dashboard")
+  }
   const id=localStorage.getItem("sidbarId");
   return (
     <>
@@ -75,7 +84,7 @@ function SidebarFullscreen() {
               </Link>
             </li>
             <li className={`Icon  ${id === "11" ? "bgIcon":" "}`}>
-            <Link to="/" onClick={() => setId(11)}>
+            <Link   onClick={() => logout(11)}>
               <img  src={iconamoon_exit_light} alt="وضع الاسئله"  />
               </Link>
             </li>
@@ -125,6 +134,7 @@ function SidebarFullscreen() {
             </li> */}
           </ul>
         </div>
+
 
             </>
   );

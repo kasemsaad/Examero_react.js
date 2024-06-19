@@ -10,7 +10,7 @@ import Imgcom from './../../websit/register and login/imgcom/imgcom.jsx';
 import Create_acc from './.././../websit/register and login/create_acc/create_acc.jsx';
 import axios, { Axios } from 'axios';
 import { useNavigate } from 'react-router-dom';
-import Api_Dashboard from '../../interceptor/interceptorDashboard.jsx';
+import Api_Dashboard from '../interceptor/interceptorDashboard.jsx';
 
 
 function HomeDashoardLogin() {

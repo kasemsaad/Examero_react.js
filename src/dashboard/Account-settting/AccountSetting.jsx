@@ -6,7 +6,7 @@ import home from "./../../assets/image/material-symbols_person-outline (1).svg"
 
 import success from "./../../assets/image/Vector (1).svg"
 import lock from "./../../assets/image/mdi_password-outline.svg"
-import Api_Dashboard from '../../interceptor/interceptorDashboard.jsx'
+import Api_Dashboard from '../interceptor/interceptorDashboard.jsx'
 
 
 

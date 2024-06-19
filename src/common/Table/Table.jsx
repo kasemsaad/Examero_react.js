@@ -2,61 +2,108 @@ import React from "react";
 import MyButton from "../Button/Button";
 import "./table.css";
 import image from "../../assets/icons/MyTable/trash.svg";
-function MyTable({ header, body, icons, button }) {
-  let trash;
-  let edit;
-  let eye;
-  if (icons) {
-    ({ trash, edit, eye } = icons);
-  }
+import { Link } from "react-router-dom";
+function MyTable({
+  header,
+  body,
+  icons,
+  other,
+  handelDelete,
+  handelEdit,
+  handelEye,
+  handelNot,
+  delet,
+  delteModalName,
+  editButtonName
+}) {
+  const { trash, edit, eye } = icons || {};
+  const { toggle, butt, imag, checkbox } = other || {};
 
   return (
     <table className="rounded-table">
+      {/* <DeleteAnItem /> */}
+      {/* <AddOrEditModal /> */}
+
       <thead>
         <tr>
-          {header && <th>#</th>}
-          {header &&
-            Object.values(header).map((element, index) => (
-              <th key={index}>{element}</th>
-            ))}
+          <th>#</th>
+          {Object.values(header).map((element, index) => (
+            <th key={index}>{element}</th>
+          ))}
         </tr>
       </thead>
       <tbody>
-        {body &&
-          body.map((row, rowIndex) => (
-            <tr key={rowIndex}>
-              {Object.values(row).map((value, cellIndex) => (
-                <td key={`${rowIndex}-${cellIndex}`}>{value}</td>
-              ))}
-              <td className="icon">
+        {body.map((row, rowIndex) => (
+          <tr key={rowIndex}>
+            {Object.values(row).map((value, cellIndex) => (
+              <td key={`${rowIndex}-${cellIndex}`}>{value}</td>
+            ))}
+
+            {toggle && (
+              <td>
+              </td>
+            )}
+            {icons && (
+              <td>
                 {trash && (
-                  <MyButton
-                    className="trash"
-                    style={{
-                      backgroundImage: `url(${image})`,
-                      backgroundSize: "cover",
-                      backgroundRepeat: "no-repeat",
-                      backgroundPosition: "center",
-                      //width: "fit-content",
-                      //height: "fit-content",
-                    }}
-                  />
+                  <button
+                    type="button"
+                    className=" trash"
+                    data-bs-toggle="modal"
+                    data-bs-target={delteModalName}
+                    data-whatever="@mdo"
+                  >
+                    <img src={image} className="trash" alt="" />
+                  </button>
+                  // <button className="trash">
+
+                  // </button>
                 )}
                 {edit && (
-                  <MyButton className="square fa-regular fa-pen-to-square" />
+                  <button
+                  type="button"
+                  data-bs-toggle="modal"
+                  data-bs-target={editButtonName}
+
+                    className="square fa-regular fa-pen-to-square"
+                  ></button>
                 )}
-                {eye && <MyButton className="eye fa-regular fa-eye" />}
-              </td>
-              <td>
-                {button && (
+                {eye && (
                   <MyButton
-                    className={"buttonOfTable"}
-                    content={"أرسل ملحوظه"}
+                    onClick={handelEye}
+                    className="eye fa-regular fa-eye"
                   />
                 )}
               </td>
-            </tr>
-          ))}
+            )}
+            {butt && (
+              <td>
+                <MyButton
+                  onClick={handelNot}
+                  className={"buttonOfTable"}
+                  content={"أرسل ملحوظه"}
+                />
+              </td>
+            )}
+            {imag && (
+              <td>
+                <Link style={{ textDecoration: "underline", color: "#FE4F60" }}>
+                  تحميل
+                </Link>
+              </td>
+            )}
+            {checkbox && (
+              <td>
+                <input type="checkbox" />
+              </td>
+            )}
+            {checkbox && (
+              <td>
+                <input type="checkbox" />
+              </td>
+            )}
+          </tr>
+        ))}
       </tbody>
     </table>
   );
