@@ -21,6 +21,8 @@ import Qbank from './dashboard/Qbank/Qbank.jsx';
 import Specification from './dashboard/Specifecation/Specification.jsx';
 import ProtectedRoute from './dashboard/protectedRouteDashboard.jsx/protectedRouteDashboard.jsx';
 import Plans from './dashboard/Plans/Plans.jsx';
+import PlansStudent from './dashboard/Plans/PlansStudent/PlansStudent.jsx';
+import PlansTeacher from './dashboard/Plans/PlansTeacher/PlansTeacher.jsx';
 
 function App(props) {
   return (
@@ -51,7 +53,9 @@ function App(props) {
           <Route path="qbank" element={<Qbank />} />
           <Route path="specify" element={<Specification />} />
           <Route path="specify" element={<Specification />} />
-          <Route path="plans" element={<Plans />} />
+          <Route path="PlansTeacher" element={<PlansTeacher />} />
+          <Route path="planstudent" element={<PlansStudent />} />
+
 
 
 

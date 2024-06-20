@@ -1,9 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Button.css";
-const MyButton = ({ className, onClick, content, style,to }) => {
+import { Link } from "react-router-dom";
+const MyButton = ({
+  className,
+  onClick,
+  content,
+  style,
+  type,
+  name,
+  value,
+  linkTo,
+  stylep,
+}) => {
   return (
-    <button style={style} onClick={onClick} to={to} className={className}>
-      {content}
+    <button
+      style={style}
+      onClick={onClick}
+      className={className}
+      type={type}
+      name={name}
+      value={value}
+    >
+      <p style={stylep} className="bub">
+        {content}
+      </p>
     </button>
   );
 };
