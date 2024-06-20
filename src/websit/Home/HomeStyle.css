@@ -189,7 +189,7 @@
 
 }
 
-.card {
+.card1 {
     overflow: hidden;
     position: relative;
     border-radius: 40px;
@@ -207,7 +207,7 @@
     z-index: 9;
 }
 
-.card::before {
+.card1::before {
     content: "";
     width: 70px;
     height: 70px;
@@ -585,7 +585,7 @@ font-size: 16px;
         padding-top: 5vw;
    
     }
-    .card::before {
+    .card1::before {
         content: "";
         width: 70px;
         height: 70px;

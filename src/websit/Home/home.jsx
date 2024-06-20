@@ -179,7 +179,7 @@ function Home() {
                     <p className="fs-6" dir="rtl">نحن نؤمن بأهمية دور المعلمين في بناء مستقبل مشرق للتعليم ونسعى لدعمهم في تحقيق هذا الهدف.</p>
                     <div className="row cards pt-5 m-0 ">
 
-                        <div className="card  col-md-2 p-0 m-3 shadow bg-white " >
+                        <div className="card card1  col-md-2 p-0 m-3 shadow bg-white " >
                             <div className="parentCircleIcon  p-0">
                                 <div className="circleicone">
                                     <img style={{ width: "25px", paddingRight: "4px" }} src={right} alt="right" />
@@ -190,7 +190,7 @@ function Home() {
                             </div>
                         </div>
 
-                        <div className="card  col-md-2 p-0 m-3 shadow bg-white " >
+                        <div className="card card1 col-md-2 p-0 m-3 shadow bg-white " >
                             <div className="parentCircleIcon  p-0">
                                 <div className="circleicone">
                                     <img style={{ width: "25px", paddingRight: "4px" }} src={fluent} alt="right" />
@@ -202,7 +202,7 @@ function Home() {
                             </div>
                         </div>
                         
-                        <div className="card  col-md-2 p-0 m-3 shadow bg-white " >
+                        <div className="card card1 col-md-2 p-0 m-3 shadow bg-white " >
                             <div className="parentCircleIcon  p-0">
                                 <div className="circleicone">
                                     <img style={{ width: "25px", paddingRight: "4px" }} src={lucide_git} alt="right" />
@@ -212,7 +212,7 @@ function Home() {
                                 <p> <span style={{ color: "#A63131" }}>نسعى </span>لتوفير منصة تسهل عليك إنشاء أسئلة امتحانية بسرعة ودقة.</p>
                             </div>
                         </div>
-                        <div className="card  col-md-2 p-0 m-3 shadow bg-white " >
+                        <div className="card card1 col-md-2 p-0 m-3 shadow bg-white " >
                             <div className="parentCircleIcon  p-0">
                                 <div className="circleicone">
                                     <img style={{ width: "25px", paddingRight: "4px" }} src={ph_target} alt="right" />
