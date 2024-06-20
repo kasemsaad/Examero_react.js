@@ -48,6 +48,8 @@ function Home() {
         request({ url: '/teacher-plan', method: "get" })
             .then(response => {
                 setTeacher_data(response.data);
+                console.log(setTeacher_data)
+
             })
             .catch(error => {
                 console.error("Error fetching teacher data:", error);
