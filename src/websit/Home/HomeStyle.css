@@ -43,22 +43,23 @@
 }
 .Section {
     width: 100%;
-    height: 45vw;
     background-color: #ECF2F4;
-    display: flex;
-    justify-content: center;
-}
+    padding: 6rem 0rem;
+    }
 
-.DivSection1 {
-    width: 100%;
-    align-items: center;
+    
+    .DivSection1 {
+        width: 100%;
+        align-items: center;
+        margin: 19rem 0rem !important;
+    
 
 }
 
 .SectionImage1 {
     /* background-image: url(../../assets/image/home/hero.png); */
     width: 100%;
-    height: 100%;
+    height: 70vh;
     display: flex;
     justify-content: center;
     background-position: center;
@@ -95,8 +96,6 @@
 
 .Section2 {
     width: 100%;
-    height: 47vw;
-    display: flex;
     justify-content: center;
     background-image: url(../../assets/image/home/Group\ 314.svg);
     background-repeat: no-repeat;
@@ -108,27 +107,28 @@
 .DivSection2 {
     width: 100%;
     align-items: center;
-    justify-content: start;
+    margin: 7rem 0rem !important;
+  
 }
 
 .SectionImage2 {
     width: 100%;
-    height: 100%;
+    height: 60vh;
+    /* padding-right: 10rem; */
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     background-position: center;
-    background-size: contain;
+    background-size: 100%;
     background-repeat: no-repeat;
     background-image: url(../../assets/image/home/Group\ 313.png);
-}
-
-.Sectioncontent2 {
+    }
+    
+    .Sectioncontent2 {
     width: 100%;
-    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-left: 50px !important;
+    margin-left: 20px;
 }
 
 .Button2 {
@@ -163,7 +163,6 @@
 
 .Section3 {
     width: 100%;
-    height: 90vh;
     background-image: url(../../assets//image/home/Group\ 153.png);
     background-repeat: no-repeat;
     background-size: cover;
@@ -201,7 +200,7 @@
 
 .parentCircleIcon {
     width: 100%;
-    /* height: 50px; */
+    height: 50px;
     /* position: relative; */
     display: flex;
     justify-content: end;
@@ -225,7 +224,7 @@
     background-repeat: no-repeat;
     background-image: url(../../assets/image/home/Group\ 316.png);
     width: 100%;
-    height: 100vh;
+
 
 }
 
@@ -233,16 +232,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0px !important;
-    margin: 0px !important;
-    width: 80%;
-}
+    /* width: 80%; */
 
-.card2 {
-    width: 250px !important;
-    height: 230px !important;
+    }
+    
+    .card2 {
+    direction: rtl;
     background-color: #ffff;
-
+    text-align: center;
 }
 
 .boxmov {
@@ -253,6 +250,10 @@
     align-items: center;
     margin: 0px !important;
     color: #ffff;
+}
+.boxcontent{
+    font-size: 1rem;
+    height: 18vh;
 }
 
 .footer {
@@ -299,88 +300,128 @@
     align-items: start !important;
     justify-content: start !important;
 }
-/* ////////animationBox//////////////////////////////////// */
-/* Container styles for alignment and layout */
-.containerbox {
+.Section5{
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-image: url(../../assets/image/home/Vector\ 52.svg);
+    }
+    /* ////////animationBox//////////////////////////////////// */
+    /* Container styles for alignment and layout */
+    .containerbox {
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
     width: 100%;
-    height: 200px; /* Adjust as needed */
+    height: 44vh;
+    font-size: 12vw;
     }
     
     /* Base styles for each p element */
-    .animationBox {
+    .animationBoxltr {
     position: absolute;
-    margin: 0px 10px;
     background-image: url(../../assets/image/home/Vector\ 47.svg);
     text-align: center;
+    background-position: center;
     background-repeat: no-repeat;
-    background-size: contain;
-    width: 20vw; /* Reduced width for better visibility */
-    height: 6vw;
-    background-color: #B33E68;
-    /* position: relative; Allow z-index and positioning */
-    transition: transform 3s ease, z-index 3s ease;
+    background-size:100% 100%;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 15px;
+    opacity: 0;
+    transform: scale(0.8); /* Scale down */
+    /* transition: transform 0.5s ease-out, opacity 0.5s ease-out; */
 }
-
-/* Hover effect on a specific p element */
-.animationBox:hover {
-    transform: scale(1.1) translateY(-90px); 
-    z-index: 10; /* Bring to front */
+.animationBoxltrimg {
+    opacity: 0;
+    transform: scale(0.8); /* Scale down */
+    /* transition: transform 0.5s ease-out, opacity 0.5s ease-out; */
 }
-
-
-/* Define the keyframes for moving the other elements aside */
-@keyframes moveAside {
-    to {
-        transform: translateX(20px) translateY(50px); /* Move to the side and down slightly */
-        }
-        }
-        
-        /* Reset the animation on hover for the specific element */
-        .container .animationBox:hover ~ .animationBox {
-            animation: moveAsideBack 3s forwards;
-}
-
-/* Define the keyframes for resetting the moved elements */
-@keyframes moveAsideBack {
-    to {
-        transform: translateX(10px) translateY(90px); 
-        }
-        }
-        .animationBox1{
-            margin-top: 300px;
-            }
-            .animationBox2{
-                margin-bottom: 300px;
-                }
-                .animationBox3{
-                    margin-left: 300px;
-                    
-                    }
-                    .animationBox4{
-                        margin-right: 300px;
-                        
-                        }
-                        /* Animation effect for non-hovered elements */
-                        /* .containerbox .animationBox:not(:hover) {
-                            animation: moveAside 3s forwards;
-                        } */
-
-/* .animationBox::after{
-    content: "";
-    width: 30px;
-    height: 30px;
-    background-color: #4941A6;
+    .animationBoxrtl {
     position: absolute;
-    right: 100%;
-	border-top: 25px solid transparent;
-	border-left: 50px solid #555;
-	border-bottom: 25px solid transparent;
-} */
+    background-image: url(../../assets/image/home/Vector\ 48.svg);
+    text-align: center;
+    background-repeat: no-repeat;
+    background-size:100% 88%;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 15px;
+    opacity: 0;
+    transform: scale(0.2); /* Scale down */
+    /* transition: transform 0.5s ease-out, opacity 0.5s ease-out; */
+    }
+    
+   
+.animationBox1{
+    margin-left: 35vw;
+    width: 40vw; 
+    min-height: 16vw;
+    z-index: 99999999;
+    padding-bottom: 3vw;
+    transition: transform 2s ease-out .5s, opacity 0.5s ease-out .5s; /* Delay the transition by 3 seconds */
 
+    }
+    .animationBox2{
+        margin-right:  35vw;
+        margin-bottom: 10vw;
+        width: 40vw; 
+        height: 12vw;
+        z-index: 9999;
+        padding-bottom: 2vw;
+        transition: transform 3.5s ease-out 1s, opacity 0.5s ease-out 1s; /* Delay the transition by 3 seconds */
+
+        }
+
+        .animationBox3{
+            margin-top: 15vw;
+            margin-left: 30vw;
+            width: 30vw; 
+            height: 12vw;
+            z-index: 99999;
+            padding-bottom:3vw;
+            font-size: 10px;
+            transition: transform 5.5s ease-out 2s, opacity 0.5s ease-out 2s; /* Delay the transition by 3 seconds */
+
+            }
+            .animationBox4{
+                margin-top: 5vw;
+                margin-right:20vw;
+                width: 29vw; 
+                height: 12vw;
+                font-size: 10px;
+                transition: transform 8.5s ease-out 1s, opacity 0.5s ease-out 1s; /* Delay the transition by 3 seconds */
+
+                } 
+                .animationBoximg1{
+                    width: 29vw; 
+                    height: 12vw;
+                    transition: transform 2.5s ease-out 1.5s, opacity 0.5s ease-out 1.5s; /* Delay the transition by 3 seconds */
+                } 
+                .animationBoximg2{
+                    width: 29vw; 
+                    height: 12vw;
+                    transition: transform 4.5s ease-out 2s, opacity 0.5s ease-out 2s; /* Delay the transition by 3 seconds */
+                } 
+                .animationBoximg3{
+                    width: 29vw; 
+                    height: 12vw;
+                    transition: transform 3.5s ease-out 1s, opacity 0.5s ease-out 1s; /* Delay the transition by 3 seconds */
+                    } 
+                .animationBoximg4{
+                    width: 29vw; 
+                    height: 12vw;
+                    transition: transform 5.5s ease-out .5s, opacity 0.5s ease-out .5s; /* Delay the transition by 3 seconds */
+                    } 
+                .visible {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+               
 .Section6{
     background-image: url(../../assets/image/home/Group\ 317.svg);
 background-size: cover;
@@ -447,8 +488,7 @@ background-position: center;
     /* padding-bottom: 20px !important; */
     
     }
-    .boxpre::after {
-    }
+  
     .boxchil{
     padding-top: 80px !important;
     padding-bottom: 20px !important;
@@ -487,61 +527,64 @@ background-position: center;
 .fontSizeText{
 font-size: 16px;
 }
-@media screen and (max-width:1023px) {
-.Section {
-/* height: 2vh !important; */
-min-height: 90vh !important;
-}
-.DivSection3 {
-    margin-top: 12px !important;
-    /* background-color: red; */
-}
-    .Sectioncontent2 {
-        /* padding-left: 10vw !important; */
-        padding-right: -12vw !important;
-        min-height: 10vh !important;
-
-    }
-    .boxpre  {
-        height:35vh;
-        /* width: 333px; */
-    }
-    .boxchil{
-        height: 25vh;
-        padding-top:33px !important;
-        margin: 0px !important;
-    }
-    .SectionImage2 {
+@media screen and (max-width: 1135px) and (min-width: 768px) {
+    .boxpre {
         width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        background-position: left;
+        height: auto !important;
+        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASIAAADHCAYAAAC9QF4zAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAACxMAAAsTAQCanBgAAAWrSURBVHhe7d1fbhNXGMbhGSJwnIiqSCDFFSnitpfdQZfSnZQdJDuwd5AFcMESsoFK3HKH1AVM8dTjBkiI/8zMd+ac55GQIuf+J3TyvXLdfHrfVABBmmcvPjzZ/AwQRoiAcEIEhBMiIJwQAeGECAgnREA4IQLCCREQToiAcEIEhBMiIJwQAeGECAgnREA4IQLCCREQToiAcEIEhBMiIJwQAeGECAgnREA4IQLCCREQToiAcEIEhBMiIJwQAeGECAgnREA4IQLCCREQToiAcEIEhBMiIJwQAeGECAgnREA4IQLCCREQToiAcEIEhBMiIJwQAeGECAgnREA4IQLCCREQToiAcEIEhBMiIJwQAeGECAgnREA4IQLCCREQToiAcEIExHpy+lGIgBDNsxcfqp9//6P+6bc/hQgY1TZAX/5V65+/qJtP75v2twADak4Xy/r87bvqZP5x89GWEAGDaeqTz/X81+tqvljeF6COEAG92wbo7PKqevL08+bjBwkR0Jt9A9QRIuBohwaoI0TAwY4NUEeIgL01J6cf67O376r5L8vNR0cRImBn6xugenax6itAHSECHtUGaP0/oM0BYt9cVgMPuu8KeghCBHxnrAB1hAjYGjtAHW9EwA93YGMQIijU+gaoml2s6vM3V1EB6ggRFKavI8Q+CREUIsUAdYQIMpdygDpCBJmaQoA6QgSZ2e7AZq9uUg9QR4ggE0PtwMYgRDBxQ+/AxuCyGiYq6gp6CEIEE5NTgDpCBBORY4A63oggce0O7HSxyi0+dwkRJCilHdgYhAgSMqUjxD4JESSg1AB1hAgClR6gjhBBAAH6mhDBiNod2PzyujpdLAXof0IEI2hOnt/WZ6+vp7gDG4MQwYBy2IGNwWU1DCDnK+ghCBH0SIAOI0TQAwE6jjciOEIJO7AxCBEcIPoLCXMjRLAjR4jDESJ4hAANT4jgAQI0HiGCbwjQ+IQINuzA4ggRxdt+IaEdWBgholh2YOlwWU1xXEGnR4gohgClS4jIngClzxsR2WpmL2/aP8OLT/KEiOzYgU2PEJEFR4jTJkRMmgDlQYiYJAHKixAxKQKUJyFiEgQob0JE0uzAyiBEJMkOrCwuq0mKK+gyCRFJEKCyCRGhBIg1ISKEAHGXx2pGZQfGfYSIwW1vgOaLpQBxHyFiMI4Q2ZUQ0TsBYl9CRG8EiEMJEUcTII4lRBzMDoy+CBF7a3dgs4uVANEXIWJnbYAMURmAy2oe5QqaoQkRDxIgxiJEfEeAGJs3IrbswIgiRIVb3wBVs4tVff7mSoCIIkSFcoRISoSoMAJEioSoEAJEyoQocwLEFAhRprY7sNmrGwEidUKUGTswpkiIMmEHxpS5rJ44V9DkQIgmSoDIiRBNjACRI29EE9HuwE4XK/EhR0KUMDswSiFECXKESGmEKCECRKmEKAECROmEKJAAwX+EKEC7A5tfXleni6UAgRCNqjl5flufvb62A4OvCdEI7MDgx1xWD8gVNOxGiAYgQLAfIeqRAMFhvBH1wA4MjiNER/CFhNAPIdqTI0TonxDtSIBgOEL0CAGC4QnRAwQIxiNE32h3YLPFSoBgPEK0sf1CQjswGF3xIbIDg3jFXla7goZ0FBciAYL0FBMiAYJ0Zf9G1Mxe3rR/hhcfSFa2IbIDg+nIKkSOEGGasgiRAMG0TTpEAgR5mGSIBAjyMqkQCRDkaRIhsgODvCUdIjswKEOSl9WuoKEsSYVIgKBMSYRIgKBsoSESIGAt5LHaDgy4a7QQbW+A5oulAAF3DR4iR4jAYwYLkQABu+o9RAIE7Ku3EAkQcKijQ2QHBhzr4BC1O7DZxUqAgGPtHaI2QIaoQI92vqx2BQ0M5dEQCRAwtAdDJEDAWL57I2p3YPPL6+rp89vNRwCDakO0vgGqZher+vzNlR0YMLa6+efvvxwhAnGq6l8O1JLJwWOsNwAAAABJRU5ErkJggg==);
+        background-position: top;
+        background-repeat: no-repeat;
         background-size: contain;
+        border-radius: 15px;
+        padding: 90px !important;
+        margin: 10px 0px;
+        position: relative;
+        bottom: 4%;
+    }
+    .boxchil {
+        margin-top: 0px !important;
+        padding: 0px !important;
+        padding-top: 25px !important;
+        height: auto;
+    }
+    .boxpre::after {
+        content: "";
+        position: absolute;
+        top: 5%;
+        right: 1%;
+        width: 10%;
+        background-position: center;
+        background-repeat: no-repeat;
+    } 
+    
+}
+ @media screen and (max-width:780px) {
+    .SectionImage2 {
+        height: 50vh;
+        background-size: contain;
+        background-position: cover ;
         background-repeat: no-repeat;
         background-image: url(../../assets/image/home/Group\ 154.png);
+        }
+        
+        .Sectioncontent2 {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: 0px;
     }
-
     .Section3 {
         width: 100%;
-        height: 84vh !important;
-        padding-top: 4vw;
-        font-size: 20px;
         background-image: url(../../assets//image/home/Group\ 153.png);
-        background-size: contain;
         background-repeat: no-repeat;
+        background-size: 100% 40% ;
+        /* background-color: #FFE9BC; */
+        display: flex;
+        justify-content: center;
+        padding-top: 5vw;
+   
     }
-.cards {
-    width: 100% !important;
-}
-    .card1 {
-        overflow: hidden;
-        position: relative;
-        border-radius: 40px;
-        width: 100% !important;
-        height: 500px !important;
-    }
-
     .card1::before {
         content: "";
         width: 70px;
@@ -549,465 +592,70 @@ min-height: 90vh !important;
         background-color: #FF5A5A;
         border-radius: 50%;
         position: absolute;
-        left: 93%;
-        top: -33px;
-    }
-
-    .boxcontent {
-        height: 11rem !important;
-        padding: 0px !important ;
-    }
-
-    .card2 {
-        width: 100px;
-        height: 380px;
-    }
-    .cards2 {
-       width: 95%;
-    }
-
-    .cgg {
-        align-items: start !important;
-        justify-content: start !important;
-    }
-.Section4{
-    height: 55vh;
-}
-    .footer {
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-image: url(../../assets/image/home/Group\ 3199.png);
-        width: 100%;
-        height: 50vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0px !important;
-        margin: 0px !important;
-        overflow: hidden;
-        /* padding-top: 4rem; */
-    }
-
-    .footerrow {
-        display: flex;
-        justify-content: space-between;
-        padding: 0px !important;
-        margin: 0px !important;
-        /* padding-right: -90px !important; */
-        padding-top: 130px !important;
-        /* align-items: center; */
-    }
-
-    .stylelink {
-        padding: 0px !important;
-        color: #ffff;
-        text-decoration: none;
-    }
-
-    .bulits {
-        list-style-type: square;
-        color: #ffff;
-    }
-
-    .colrow {
-        display: flex;
-    }
-
-    .checkicone {
-        margin: 0px 5px !important;
-    }
-    .boxpre::after {
-        content: "";
-        position: absolute;
-        top: 17.5% !important;
-        right: 11%;
-        width: 10%;
-        background-image: url(../../assets/icons/Home/Arrow\ 3.svg);
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: contain;
-        border-radius: 15px;
-        padding: 30px !important;
-        z-index: 9999;
-        }
- .boxpre h3 {
-        padding-left: px;
-        padding-top:px;
-        font-size: 20px !important;
-    }
-    .boxpre::after {
-        content: "";
-        top: 7.5% !important;
-        right: 2%;
-        width: 10%;   
-    }
-}
-
-
-
-@media screen and (max-width:819px) {
-    .classnav {
-        width: 99%;
-        justify-content: start !important;
-    }
-
-    .navbarsss {
-        background-color: #ECF2F4;
-    }
-
-    .navbar-nav {
-        text-align: start;
-    }
-
-    .kasem {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        flex-direction: column;
-        width: -0px !important;
-
-    }
-
-    .Section {
-        min-height: 80vh;
-
-    }
-
-    .DivSection1 {
-        width: 100%;
-        height: 50vh;
-        display: flex;
-        align-items: center;
-    }
-
-    .Section2 {
-        width: 100%;
-        height: 100vh !important;
-        display: flex;
-        justify-content: center;
-        background-image: url(../../assets/image/home/Group\ 314.svg);
-        background-repeat: no-repeat;
-        background-position: 100% 120vw;
-        background-size: 30vw;
-    }
-
-    .Sectioncontent2 {
-        
-        padding-left: 0vw !important;
-        padding-right: 0vw !important;
-    }
-
-    .SectionImage2 {
-        background-size: 85%;
-        background-repeat: no-repeat;
-        background-image: url(../../assets/image/home/Group\ 154.png);
-    }
-
-    .box {
-        margin-top: 15px;
-
-    }
-
-    .Section2 {
-        height: 100vw;
-    }
-
-    .DivSection2 {
-
-        width: 100%;
-        height: 50vh;
-        display: flex;
-        align-items: center;
-
-    }
-
-
-    .blockButtons {
-        /* display: flex; */
-        margin-left: -90px;
-    }
-
-    .Section3 {
-        background-repeat: no-repeat;
-        background-size: 100%;
-        display: flex;
-        justify-content: contain;
-        /* height: 65vh; */
-    }
-
-    .card1 {
-        overflow: hidden;
-        position: relative;
-        border-radius: 40px;
-        width: 300px important;
-        height: 500px important;
-    }
-
-    .card2 {
-        width: 300px !important;
-        height: 200px !important;
-    }
-
-    .boxrow{
-        width: 100%;
-    }
-
-
-    .footer {
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-image: url(../../assets/image/home/Group\ 3199.png);
-        width: 100%;
-        height: 48vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0px !important;
-        margin: 0px !important;
-        overflow: hidden;
-        /* padding-top: 4rem; */
-    }
-
-    .footerrow {
-        display: flex;
-        justify-content: space-between;
-        padding: 0px !important;
-        margin: 0px !important;
-        /* padding-right: 90px !important; */
-        padding-top: 90px !important;
-        padding-bottom: 30px;
-        margin-bottom: 120px;
-        /* align-items: center; */
-    }
-
-    .stylelink {
-        padding: 0px !important;
-        color: #ffff;
-        text-decoration: none;
-    }
-
-    .bulits {
-        list-style-type: square;
-        color: #ffff;
-    }
-
-    .colrow {
-        display: flex;
-    }
-
-    .sd {
-        display: block;
-    }
-
-    .cgg {
-        padding-right: 0;
-    }
-
-    .checkicone {
-        margin: 0px 5px !important;
-    }
-    .boxpre {
-        width: 90%;
-        height: 38vh ;
-        background-position: top;
-        background-repeat: no-repeat;
-        background-size: 500px 150px;
-        border-radius: 15px;
-        padding: 30px !important;
-        position:relative;
-        }
-        .boxpre h3 {
-        font-size: 2.5vw;
-
-    }
-    .boxchil{
-        height: 27vh;
-    }
-
-    .Bold{
-  font-size: 25px !important;
-    }
-    .boxpre::after {
-        content: "";
-        position: absolute;
-        top: 13%;
-        right: 0;
-        width: 10%;
-        background-image: url(../../assets/icons/Home/Arrow\ 3.svg);
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: contain;
-        border-radius: 15px;
-        padding: 30px !important;
-        z-index: 9999;
+        left: 93% !important;
+        top: -30px;
     }
     .Section4 {
-    height: 75vh;
-    }
-    .DivSection4 {
-        /* height: 100vh; */
-        padding: 0px !important;
-        }
-        .Section6 {
-            padding: 0px !important;
-            margin: 0px important;
-
-    }
-
-}
-@media screen and (max-width:500px) {
-
-.Section {
-    height: 100vh;
-}
-    .Section3  {
-        
-        height: 123vh !important;
-        }
-        
-        .blockButtons{
-            margin-left: -50px;
-            }
-            .DivSection3  pt-5{
-            padding-top:9rem !important;
-    }
-    .Section4{
-        height: 220vh !important;
         background-image: none;
     }
-    .card1::before {
-        overflow: hidden;
-        position: relative;
-        border-radius: 40px;
-        width: 300px important;
-        height: 500px important;
-    }
-
     .card2 {
-        width: 300px !important;
-        height: 250px !important;
+    font-size: 2vw !important;
     }
+    .boxcontent {
+        font-size: 1.5vw !important;
+        height: 20vw;
 
-    .boxrow{
-        width: 90%;
-        height: 170vh; 
     }
+    .animationBoxltr,.animationBoxrtl {
+        font-size: .8vw;
+        /* width: 80%; */
 
-    .boxpre  {
-        width: 90%;
-        height: 45vh!important; 
-        margin-top: 60px !important;
+        
     }
-.boxchil {
-    padding-top: 80px !important;
-    padding-bottom: 90px !important;
-}
-    .footer {
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-image: url(../../assets/image/home/Group\ 3199.png);
+    .bub{
+        font-size: 2vw;
+    }
+    .containerbox {
         width: 100%;
-        height: 48vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0px !important;
-        margin: 0px !important;
-        overflow: hidden;
-        /* padding-top: 4rem; */
-    }
-
-    .footerrow {
-        display: flex;
-        justify-content: space-between;
-        padding: 0px !important;
-        margin: 0px !important;
-        /* padding-right: 90px !important; */
-        padding-top: 90px !important;
-        padding-bottom: 30px;
-        margin-bottom: 120px;
-        /* align-items: center; */
-    }
-
-    .stylelink {
-        padding: 0px !important;
-        color: #ffff;
-        text-decoration: none;
-    }
-
-    .bulits {
-        list-style-type: square;
-        color: #ffff;
-    }
-
-    .colrow {
-        display: flex;
-    }
-
-    .sd {
-        display: block;
-    }
-
-    .cgg {
-        padding-right: 0;
-    }
-
-    .checkicone {
-        margin: 0px 5px !important;
-    }
-    .boxpre {
-        width: 90%;
-        height: 38vh ;
-        background-position: top;
-        background-repeat: no-repeat;
-        background-size: 500px 150px;
-        border-radius: 15px;
-        padding: 30px !important;
-        position:relative;
+        height: 14vh;
+        font-size: 12vw;
         }
-        .boxpre h3 {
+        .animationBoxltrimg{
+      display: none;
         }
-    .boxpre h3 {
-        padding-top: px;
-
-        font-size: 2.5vw;
-
-    }
-    .boxchil{
-        height: 27vh;
-    }
-
-    .Bold{
-  font-size: 25px !important;
-    }
-    .boxpre::after {
-        content: "";
-        position: absolute;
-        top: 13%;
-        right: 0;
-        width: 10%;
-        background-image: url(../../assets/icons/Home/Arrow\ 3.svg);
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: contain;
-        border-radius: 15px;
-        padding: 30px !important;
-        z-index: 9999;
-    }
-    .Section4 {
-    height: 75vh;
-    }
-    .DivSection4 {
-        /* height: 100vh; */
-        padding: 0px !important;
+        .animationBox4 {
+         
+            width: 33vw;
+            height: 12vw;
+            transition: transform 8.5s ease-out 1s, opacity 0.5s ease-out 1s;
         }
-        .Section6 {
-            padding: 0px !important;
-            margin: 0px important;
-
+        .boxchil {
+            padding-top: 165px !important;
+            padding-bottom: 20px !important;
+        }  
+        .boxpre {
+            width: 100%;
+            height: 58vh;
+            background-image: url(data:image/png;base64,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);
+            background-position: top;
+            background-repeat: no-repeat;
+            background-size: contain;
+            border-radius: 15px;
+            padding: 98px !important;
+            margin: 10px 0px;
+            position: relative;
+            bottom: 4%;
+        }
+        .boxpre::after {
+            content: "";
+            position: absolute;
+            top: 18%;
+            right: 11%;
+            width: 10%;
+            background-position: center;
+            background-repeat: no-repeat;
+        } 
+     .footer {    
+        height: 45vh;
     }
-
-}
+ }  

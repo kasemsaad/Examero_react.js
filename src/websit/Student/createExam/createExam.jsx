@@ -156,7 +156,7 @@ function CreateExam(props) {
             {/* <MyButton className="btn mx-3 py-0" style={{ height: "2.5rem", width:"8rem", color: "white", backgroundColor: "#4941A6" }} to={"/Home"} content={"انشاء حساب"} /> */}
 {/* /////////////////endbutton///////////////////////////////////////////////// */}
 {/* /////////////////exam///////////////////////////////////////////////// */}
-            {/* <div className="collapse" id="collapseExample2" >
+            <div className="collapse" id="collapseExample2" >
 
               <div className="card card-body rounded-5" style={{ backgroundColor: "#1D195D" }}>
                
@@ -215,7 +215,7 @@ function CreateExam(props) {
                 </div>
 
               </div>
-            </div> */}
+            </div>
             
                   {/* /////////////////endexam///////////////////////////////////////////////// */}
                   {/* ////////////////الوقت  انتهي  ///////////////////////////////////////////////// */}
