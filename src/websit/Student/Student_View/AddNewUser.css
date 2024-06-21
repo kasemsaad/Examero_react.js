@@ -1,0 +1,414 @@
+
+:root {
+    font-size: 16px;
+}
+
+.managerFGroup input {
+    border-radius: 6px;
+}
+
+.managerForm {
+    direction: rtl;
+}
+.parent1 {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.child1, .child3 {
+    position: relative;
+    margin: auto; 
+    margin-top: 1rem;
+    /* width: 45%; */
+}
+
+
+.form-text {
+    display: block;
+    height: 2rem;
+}
+
+.managerBody {
+    display: flex;
+    flex-direction: column;
+}
+
+body {
+    margin: 0;
+    background-color: #FFFFFF;
+    color: white;
+    flex-wrap: wrap;
+}
+
+.managergDialog {
+    position: relative;
+}
+
+.managerContent {
+    width: 790px !important;
+    /* height: 30.1875rem;  */
+    /* height: 485px !important; */
+    background-color: #1D195D;
+    color: white; 
+    position: relative; 
+}
+
+.managerHeader {
+    text-align: center;
+    justify-content: center;
+    border-color: #A6A0F4;
+    width: 100% !important;
+  
+}
+
+.managerTitle {
+    margin: 0;
+    font-size: 1.5rem; 
+    font-weight: bold;
+    color: #FF8A00;
+    display: flex;
+    justify-content: center;
+}
+
+small {
+    color: #FF3A3A !important;
+}
+
+/* .kh {
+    position: relative;
+    width: 1em;
+    height: 1em;
+    padding: 0;
+    background-color: #FFFFFF;
+    color: white; 
+    border: none;
+    appearance: none;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 10px;
+    right: 10px;
+} */
+
+.kh::before,
+.kh::after {
+content: '';
+position: absolute;
+}
+
+.kh::before {
+    transform: rotate(45deg);
+}
+
+.kh::after {
+    transform: rotate(-45deg);
+}
+
+.kh {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color:  #FFFFFF;
+    color: red;
+    border-radius: 50% !important;
+    padding: 0 !important;
+}
+.kh,.kh:hover{
+    background-color:  #FFFFFF;
+
+}
+.managerControl {
+    width: 100%;
+    padding: 0.625rem; 
+    border-radius: 0;
+    border: none;
+    margin-top: 0.625rem; 
+    background-color: #D9D9D9;
+    color: #0E0A43;
+}
+
+.form-text {
+    color: #A6A0F4;
+}
+
+.managerFooter{
+    border-top: none;
+    justify-content: center;
+    align-items: center;
+    /* margin-right: 33px; */
+    padding: 0px;
+    margin-bottom: 50px;
+}
+
+.managerCancel,.managerCancel:hover,.managerCancel:active {
+    /* background-color: transparent; */
+    border: 1px solid #FE4F60 !important;
+    color: #FE4F60;
+    border-radius: 0.625rem; 
+
+    width: 120px !important;
+    height: 40px !important;
+
+    font-weight: bold;
+    border-radius: 30px !important;
+}
+.managerButton{
+    background-color: #A6A0F4;
+    border-radius: 10px;
+}
+#firstbutt {
+    width: 8.75rem;
+    height: 2.875rem;
+}
+
+#second {
+    width: 140px;
+    height: 46px;
+    background-color: #C01F59;
+    border-radius: 30px;
+}
+.managerSave {
+    width: 120px !important;
+    height: 40px !important;
+    font-weight: bold;
+    border-radius: 30px !important;
+    border: none;
+    background-color: #FE4F60;
+    color: white;
+    font-weight: bold;
+} 
+
+input {
+    color: #FFFFFF;
+}
+
+label {
+    color: #FFFFFF;
+}
+
+.managerSave:hover {
+    background-color: #FE4F60;
+}
+@media (max-width: 24.625rem) { 
+    .managerContent {
+        padding: 1rem; 
+        
+    }
+
+    .managerTitle {
+        font-size: 1.25rem; /* 20px */
+    }
+
+    .managerControl {
+        margin-top: 0.5rem; 
+    }
+
+    .managerFGroup {
+        margin-bottom: 0.75rem; /* 12px */
+    }
+    .managerCancel{
+        margin-top: -1rem;
+    }
+    .managerSave{
+        margin-top: -9rem;
+    }
+    .managerCancel,
+    .managerSave {
+        width: 100%;
+        height: 2rem; /* 40px */
+        font-size: 1rem; /* 16px */
+        /* margin-top: -1rem; */
+    }
+    .managerContent{
+        padding: 10rem;
+        /*  */
+    }
+}
+
+@media (max-width: 200px) {
+    .managerContent {
+        padding: 0.75rem; 
+        /* height: 500px; */
+    }
+    .managerFooter{
+        margin-bottom: 2rem;
+    }
+}
+@media (min-width:100px) {
+    .managerSave{
+        margin-bottom: -0.6rem;
+    }
+    .managerCancel{
+        margin-bottom: -0.5rem;
+    }
+    
+}
+@media screen and (max-width:1500px) and (min-width:1200px){
+    .managerContent{
+        
+        width: 790px;
+        margin: auto;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+@media screen and (max-width:1200px) and (min-width:992px){
+    .managerContent{
+        
+        width: 700px;
+        margin: auto;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+@media screen and (max-width:1500px) and (min-width:1200px){
+    .managerContent{
+        
+        /* height: 100vh; */
+        margin: auto;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+@media screen and (max-width:1200px) and (min-width:1000px){
+    .managerContent{
+        width: 700px;
+        /* padding-top: 200px; */
+        /* height: 80%; */
+        margin: auto;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .managerFooter{
+        padding-bottom: 0px;
+    }
+}
+@media screen and (max-width:992px) and (min-width:800px){
+    .managerContent{
+        
+        width: 700px;
+        /* height: 75%;  */
+        margin: auto;
+        position: absolute;
+        padding-top: 0px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .managerFooter{
+        padding-bottom: 0px;
+    }
+}
+@media screen and (max-width:800px) and (min-width:700px){
+    .managerContent{
+        width: 700px !important;
+        /* height: 78%;  */
+        margin: auto;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .managerFooter{
+        padding-bottom: 0px;
+    }
+}
+@media screen and (max-width:700px) and (min-width:500px){
+    .managerContent{
+        width: 500px !important;
+        margin: auto;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        
+    }
+}
+@media screen and (max-width:500px) and (min-width:400px){
+    .managerContent{
+/* background-color: #FF3A3A; */
+ width: 400px !important;
+ /* height: 80%; */
+ margin: auto;
+ top: 50%;
+ left: 50%;
+ position: absolute;
+ transform: translate(-50%, -50%);
+    }
+    .managerFooter{
+        padding-bottom: 0px;
+    }
+}
+ @media screen and (max-width:400px) and (min-width:350px){
+.managerContent{
+/* background-color: #FF3A3A; */
+ width: 200px !important;
+ /* height: 75%; */
+ margin: auto;
+ top: 50%;
+ left: 50%;
+ position: absolute;
+ transform: translate(-50%, -50%);
+        
+    }
+    .managerFooter{
+        padding-bottom: 0px;
+    }
+} 
+@media screen and (max-width:380px) and (min-width:350px){
+    .managerContent{
+        width: 360px;
+        /* height: 90%; */
+        margin: auto;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        padding-top: 10px;
+        transform: translate(-50%, -50%);
+        
+    }
+    .managerFooter{
+        padding-bottom: 0px;
+    }
+}
+@media screen and (max-width:350px) and (min-width:300px){
+    .managerContent{
+        width: 300px;
+        /* height:   75%; */
+        margin: auto;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        
+    }
+}
+/* ////////////////////////////// */
+@media(max-width:400px){
+    .managerHeader{
+        width: 300px !important;
+        transform: translateX(-50%);
+    }
+   .parent1{
+    width: 300px;
+    transform: translateX(40%);
+   }
+   .managerFooter{
+    transform: translateY(60px);
+   }
+}
+.kh{
+
+}
