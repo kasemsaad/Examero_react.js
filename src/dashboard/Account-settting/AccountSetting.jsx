@@ -35,7 +35,6 @@ function AccountSetting() {
     let USER={...inputUser}
     USER[e.target.name]=e.target.value
     setInputUser(USER)
-
   }
 
   useEffect(()=>{

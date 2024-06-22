@@ -32,9 +32,37 @@ import Calender from './Calender/calender'
 
 export default function Home_dashboard() {
   const [date, setDate] = useState(new Date());
+  const [showPassword, setShowPassword] = useState(false);
 
   const [formData, setFormData] = useState({ title: "", note: "" });
   const [arrayContainer, setContainer] = useState([]);
+
+
+
+  // *******************************************************
+
+  const [packageName, setPackageName] = useState('');
+  const [packageDescription, setPackageDescription] = useState('');
+  const [packagePrice, setPackagePrice] = useState(1);
+  const [availableExams, setAvailableExams] = useState(1);
+  const [availableQuestions, setAvailableQuestions] = useState(1);
+
+  const increment = (setter, value) => setter(value + 1);
+  const decrement = (setter, value) => {
+    if (value > 1) setter(value - 1);
+  };
+  const handlemodal = (event) => {
+    event.preventDefault();
+    // Handle form submission logic
+    console.log({
+      packageName,
+      packageDescription,
+      packagePrice,
+      availableExams,
+      availableQuestions,
+    });
+  };
+//**********************************************************************8 */
 
   const handleNotes = (e) => {
     const { name, value } = e.target;
@@ -54,6 +82,14 @@ export default function Home_dashboard() {
     setDate(newDate);
   };
 
+
+
+
+
+
+
+
+  
   return (
     <>
       <div className="container " style={{ overflow: 'auto', marginTop: '18px', direction: 'rtl', height: 'auto', border: "2px solid purble", borderRadius: "10px", width: "90%", margin: "auto" }}>
@@ -439,29 +475,160 @@ export default function Home_dashboard() {
           {/* end of wrabeer one of container and div which take flex to wrab to div which content i write */}
         </div>
       </div>
-      <form action="" onSubmit={(e)=>handleSubmit(e)}>
-<div class="modal fade" id="exampleModal"  aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body ">
-      <input onChange={handleNotes}    width="50px" type="text" className="form-control" id="TASK" name='title'  value={formData.title}  />
-      <br />
-        <br />
-        <input onChange={handleNotes} width="50px" type="text" className="form-control" id="TASK"  name='note' value={formData.note} />
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        
-        <button type="submit" class="btn btn-primary">Save changes</button>
+      <div
+      className="modal fade"
+      id="add-manger-dash"
+      tabIndex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+    >
+      <div className="modal-dialog" >
+        <div className="modal-content" style={{backgroundColor:"#1D195D",borderRadius:"20px"}}>
+          <div className="modal-header" >
+            <h5 style={{color:'#FF8A00',margin:"auto"}} className="modal-title" id="exampleModalLabel">إضافة باقة جديدة</h5>
+          </div>
+
+          <div className="modal-body">
+            <div className="container  text-white">
+              <form onSubmit={handleSubmit}>
+                
+
+                <div className="form-group">
+                  <label htmlFor="packageName">اسم الباقة</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="packageName"
+                    placeholder="أدخل اسم الباقة"
+                    value={packageName}
+                    onChange={(e) => setPackageName(e.target.value)}
+                  />
+                </div>
+
+
+
+                <div className="form-group mt-4">
+                  <label htmlFor="packageDescription">وصف الباقة</label>
+                  <textarea
+                    className="form-control"
+                    id="packageDescription"
+                    rows="3"
+                    placeholder="أدخل وصف الباقة"
+                    value={packageDescription}
+                    onChange={(e) => setPackageDescription(e.target.value)}
+                  />
+                </div>
+
+
+
+                <div className="mt-4" style={{display:"flex"}}>
+                  <div className="form-group col-md-4">
+                    <label htmlFor="packagePrice">سعر الباقة</label>
+                    <div className="input-group">
+                      <div className="input-group-prepend">
+                        <button
+                          type="button"
+                          className="btn input-group-text side_inc_dec "
+                          onClick={() => decrement(setPackagePrice, packagePrice)}
+                        >
+                          -
+                        </button>
+                      </div>
+                      <input
+                        type="text"
+                        className="form-control text-center"
+                        id="packagePrice"
+                        value={packagePrice}
+                        readOnly
+                      />
+                      <div className="input-group-append">
+                        <button
+                          type="button"
+                          className="btn input-group-text side_inc_dec"
+                          onClick={() => increment(setPackagePrice, packagePrice)}
+                        >
+                          +
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="form-group col-md-4">
+                    <label htmlFor="availableExams">عدد الامتحانات المتاحة</label>
+                    <div className="input-group">
+                      <div className="input-group-prepend">
+                        <button
+                          type="button"
+                          className="btn input-group-text side_inc_dec"
+                          onClick={() => decrement(setAvailableExams, availableExams)}
+                        >
+                          -
+                        </button>
+                      </div>
+                      <input
+                        type="text"
+                        className="form-control text-center"
+                        id="availableExams"
+                        value={availableExams}
+                        readOnly
+                      />
+                      <div className="input-group-append">
+                        <button
+                          type="button"
+                          className="btn input-group-text side_inc_dec"
+                          onClick={() => increment(setAvailableExams, availableExams)}
+                        >
+                          +
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="form-group col-md-4">
+                    <label htmlFor="availableQuestions">عدد الأسئلة المتاحة</label>
+                    <div className="input-group">
+                      <div className="input-group-prepend">
+                        <button
+                          type="button"
+                          className="btn input-group-text side_inc_dec"
+                          onClick={() => decrement(setAvailableQuestions, availableQuestions)}
+                        >
+                          -
+                        </button>
+                      </div>
+                      <input
+                        type="text"
+                        className="form-control text-center"
+                        id="availableQuestions"
+                        value={availableQuestions}
+                        readOnly
+                      />
+                      <div className="input-group-append">
+                        <button
+                          type="button"
+                          className="btn input-group-text side_inc_dec"
+                          onClick={() => increment(setAvailableQuestions, availableQuestions)}
+                        >
+                          +
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className='mt-5' style={{textAlign:"center",display:"flex",justifyContent:"center"}}>
+                  <div className='submitButton'>
+                <button type="submit" className="btn btn-primary">حفظ</button>
+                  </div>
+                <div style={{marginRight:"30px"}}>
+                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div> 
-</form>
     </>
   )
 }
