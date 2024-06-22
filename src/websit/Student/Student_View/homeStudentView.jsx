@@ -18,12 +18,16 @@ function onSelect(id) {
   useId = id
 }
 function HomeStudentview(props) {
-  const getToken = () => { return "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL3N0dWRlbnRzL2xvZ2luIiwiaWF0IjoxNzE4OTgzOTA2LCJleHAiOjE3MTg5ODc1MDYsIm5iZiI6MTcxODk4MzkwNiwianRpIjoiVEpBd05LTUZPZHdXUUJ5QSIsInN1YiI6IjExIiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.QTdGDoolv59gN2QuiJKCsMMZ7L4E1I-6I6gUdwCo7Qg"; };
+  const getToken = () => { return "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL3N0dWRlbnRzL2xvZ2luIiwiaWF0IjoxNzE5MDUzMjU2LCJleHAiOjE3MTkwNTY4NTYsIm5iZiI6MTcxOTA1MzI1NiwianRpIjoiWTNPVXN3RXlLd2pCQnVtVCIsInN1YiI6IjExIiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.lDcfnicHaBeh9ZVmpjv8alJhf8fnoZXUj3qewd0sbjs"; };
   const layoutBackground = useSelector((state) => state.dark.lay);
 
+  useEffect(() => {
+    getAllNotes();
+  }, []);
   //////////////////////////Get All Note///////////////////////////////////////////////////
   const [allNotes, setAllNotes] = useState("");
-  useEffect(() => {
+  // const [AllExam, setAllExam] = useState("");
+  const getAllNotes=()=>{
     request({
       url: '/students/notes',
       method: 'get',
@@ -37,7 +41,22 @@ function HomeStudentview(props) {
       .catch(error => {
         console.error("Error fetching notes data:", error);
       });
-  }, []);
+  }
+  // const getExam=()=>{
+  //   request({
+  //     url: '/students/exams',
+  //     method: 'get',  
+  //     headers: {
+  //     'Authorization': `Bearer ${getToken()}`
+  //     }
+  //   })
+  //     .then(response => {
+  //       setAllExam(response.data.data);
+  //     })
+  //     .catch(error => {
+  //       console.error("Error fetching notes data:", error);
+  //     });
+  // }
   //////////////////////////End Get All Note///////////////////////////////////////////////////
   //////////////////////////Delete Note///////////////////////////////////////////////////
   const deleteNote = (id) => {
@@ -50,6 +69,7 @@ function HomeStudentview(props) {
     })
       .then(response => {
         console.log('Note deleted successfully');
+        getAllNotes()
       })
       .catch(error => {
         console.error('Error deleting note:');
@@ -108,6 +128,8 @@ function HomeStudentview(props) {
         console.log('Note added successfully:');
         const modalElement = document.getElementById('addManagerModal');
         modalElement.style.display = "none"
+        getAllNotes()
+
       })
       .catch(error => {
         console.error('Error adding note:');
@@ -129,6 +151,8 @@ function HomeStudentview(props) {
       .then(response => {
         setgetDataUpdateNote(response.data.data.note);
         setgetDataUpdateAddress(response.data.data.address);
+        getAllNotes()
+
 
               })
       .catch(error => {
@@ -190,6 +214,8 @@ function HomeStudentview(props) {
         console.log('Note update successfully:');
         const modalElement = document.getElementById('UpdateManagerModal');
         modalElement.style.display = "none"
+        getAllNotes()
+
       })
       .catch(error => {
         console.error('Error update note:');
@@ -264,10 +290,10 @@ function HomeStudentview(props) {
                 {allNotes.length > 0 && (
                   <div className="mt-4 todo_app_wrapper d-flex justify-content-center" style={{ height: "30vh", overflow: "auto" }}>
                     <div className="todo_app" style={{ overflow: "auto" }}>
-                      {allNotes.map(({ id, note }) => (
+                      {allNotes.map(({ id, address }) => (
                         <div className="mb-3 mt-2 change_width_in_sm" style={{ display: "flex", alignItems: "center", width: "100%", justifyContent: "space-between" }} key={id}>
                           <div className="input_contain_value">
-                            <input type="text" className="form-control" value={note} readOnly />
+                            <input type="text" className="form-control" value={address} readOnly />
                           </div>
                           <div className="wraber_delete d-flex justify-content-center align-items-center" style={{ backgroundColor: "#1D195D", width: "2vw", height: "2vw", borderRadius: "8px" }}>
                             <img src={delet} alt="Delete" width="17px" height="17px" data-bs-toggle="modal" data-bs-target="#deleteElementModal" onClick={() => onSelect(id)} />
