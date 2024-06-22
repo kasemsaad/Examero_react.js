@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap');
+
+.header_putting_exam1{
+    background-color:#FE4F60;
+   
+border-radius: 13.97px ;
+
+padding-left: 3rem;
+padding-right: 3rem;
+/* margin: 2rem; */
+margin-right: 4rem;
+border-radius: 13.97px ;
+font-family: Cairo;
+font-size: 12.57px;
+font-weight: 700;
+line-height: 23.56px;
+text-align: right;
+color: black;
+
+}
+.header1teacherview-icon{
+    padding-right: 2rem;
+    padding-left: 1rem;
+}
+.header1_enter_data_teach_view{
+    font-family: Cairo;
+font-size: 18px;
+font-weight: 600;
+line-height: 33.73px;
+text-align: right;
+padding-left: 3rem;
+
+
+}
+.form_enter_data_teach_view{
+    background-color: #1D195D;
+    padding: 2rem;
+    margin: 2rem;
+ 
+
+gap: 0px;
+border-radius: 13.97px ;
+
+
+}
+.btn_enter_data_teach_view{
+    background-color: #C01F59;
+border-radius: 10px ;
+border: none!important;
+padding-left: 3rem;
+padding-right: 3rem;
+
+}
+.header-container1{
+    margin-top: 2rem;
+
+}
+.header-container {
+    display: flex;
+    align-items: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    width: 96%;
+  }
+  
+  .header-line {
+    flex-grow: 1;
+    height: 1px;
+    background-color:#C01F59; 
+   
+  }
+  .custom-file-input-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    
+  }
+  
+
+
+  
+  .file-input {
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    position: absolute;
+  
+  }
+  
+  .custom-file-label {
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    padding: .375rem .75rem;
+    width: 100%;
+    box-sizing: border-box;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  .custom-file-label {
+   
+    font-size: 10px;
+    background: white;
+    color:#495057;
+    display: flex;
+    justify-content: space-between;
+    }
+  

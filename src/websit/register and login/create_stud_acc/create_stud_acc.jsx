@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Form, Button, Alert } from 'react-bootstrap';
-import axios from 'axios';
 import './create_stud_acc.css';
 import emailIcon from '../../../assets/icons/register and login icon/mail-email-icon-template-black-color-editable-mail-email-icon-symbol-flat-illustration-for-graphic-and-web-design-free-vector 2.svg';
 import passIcon from '../../../assets/icons/register and login icon/pngtree-password-vector-icon-design-illustration-png-image_6597553 3.svg';
@@ -8,9 +7,16 @@ import rightCheck from '../../../assets/icons/register and login icon/check-mark
 import lockIcon from '../../../assets/icons/register and login icon/padlock-icon-lock-and-unlock-icon-design-free-vector 1.svg';
 import phoneIcon from '../../../assets/icons/register and login icon/depositphotos_380535678-stock-illustration-phone-icon-vector-call-icon 1.svg';
 import studentIcon from '../../../assets/icons/register and login icon/360_F_377139493_Vta4MPTZUsQK6p5TXUkL3Xc6pqFYRxHm 1.svg';
-import vector from  '../../../assets/icons/register and login icon/Vector 58.svg';
+import vector from '../../../assets/icons/register and login icon/Vector 58.svg';
 import studentimg from '../../../assets/image/register and login image/Rectangle 4198.png';
+import request from '../../../utlis/axios_utils_websit';
+const days = Array.from({ length: 31 }, (_, i) => i + 1);
+const months = Array.from({ length: 12 }, (_, i) => i + 1);
+const currentYear = new Date().getFullYear();
+const years = Array.from({ length: 100 }, (_, i) => currentYear - i);
 
+const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+const isValidPhoneNumber = (phoneNumber) => /^\d{10}$/.test(phoneNumber);
 function CreateStudentAcc() {
     const [formData, setFormData] = useState({
         first_name: '',
@@ -27,11 +33,8 @@ function CreateStudentAcc() {
     });
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
-
-    const days = Array.from({ length: 31 }, (_, i) => i + 1);
-    const months = Array.from({ length: 12 }, (_, i) => i + 1);
-    const currentYear = new Date().getFullYear();
-    const years = Array.from({ length: 100 }, (_, i) => currentYear - i);
+    const [loading, setLoading] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -54,30 +57,33 @@ function CreateStudentAcc() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (formData.password !== formData.password_confirmation) {
+            setError('Passwords do not match');
+            setTimeout(() => setError(''), 3000);
+            return;
+        }
+
         const dateOfBirth = `${formData.date_of_birth.year}-${formData.date_of_birth.month}-${formData.date_of_birth.day}`;
         const dataToSubmit = {
             ...formData,
             date_of_birth: dateOfBirth,
         };
 
+        setLoading(true);
         try {
-            const response = await axios.post('http://127.0.0.1:8000/api/students/register', dataToSubmit, {
-                headers: {
-                    Accept: 'application/json',
-                },
+            const response = await request({
+                method: 'post',
+                url: '/students/register',
+                data: dataToSubmit,
             });
-            console.log(response.data); // Handle success
-            setSuccess('Registration successful!'); // Set success message
-            setError(''); // Clear any previous errors
-            setTimeout(() => setSuccess(''), 3000); // Clear success message after 3 seconds
+            setSuccess('Registration successful!');
+            setError('');
+            setTimeout(() => setSuccess(''), 3000);
         } catch (error) {
-            console.error(error); // Handle error
-            if (error.response && error.response.data) {
-                setError(error.response.data.message || 'An error occurred while registering.');
-            } else {
-                setError('An error occurred while registering.');
-            }
-            setTimeout(() => setError(''), 3000); // Clear error message after 3 seconds
+            setError(error.response?.data?.message || 'An error occurred while registering.');
+            setTimeout(() => setError(''), 3000);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -106,7 +112,7 @@ function CreateStudentAcc() {
                         <p className='card-title between-borders'>إنشاء حساب الطالب</p>
                     </div>
                     <p className='card-title'>يرجى إدخال المعلومات لإكمال عملية التسجيل</p>
-                    
+
                     <Form className="create_student_acc-form" onSubmit={handleSubmit}>
                         {error && <Alert variant="danger">{error}</Alert>}
                         {success && <Alert variant="success">{success}</Alert>}
@@ -124,9 +130,11 @@ function CreateStudentAcc() {
                                 <div className='icon-container studentIcon'>
                                     <img src={studentIcon} alt="first name icon" />
                                 </div>
-                                <div className='icon-container check-icon'>
-                                    <img src={rightCheck} alt="check icon" />
-                                </div>
+                                {formData.first_name && (
+                                    <div className='icon-container check-icon'>
+                                        <img src={rightCheck} alt="check icon" />
+                                    </div>
+                                )}
                             </div>
                         </Form.Group>
                         <Form.Group controlId="lastName">
@@ -143,9 +151,11 @@ function CreateStudentAcc() {
                                 <div className='icon-container studentIcon'>
                                     <img src={studentIcon} alt="last name icon" />
                                 </div>
-                                <div className='icon-container check-icon'>
-                                    <img src={rightCheck} alt="check icon" />
-                                </div>
+                                {formData.last_name && (
+                                    <div className='icon-container check-icon'>
+                                        <img src={rightCheck} alt="check icon" />
+                                    </div>
+                                )}
                             </div>
                         </Form.Group>
                         <Form.Group controlId="email">
@@ -162,9 +172,11 @@ function CreateStudentAcc() {
                                 <div className='icon-container email-icon'>
                                     <img src={emailIcon} alt="email icon" />
                                 </div>
-                                <div className='icon-container check-icon'>
-                                    <img src={rightCheck} alt="check icon" />
-                                </div>
+                                {isValidEmail(formData.email) && (
+                                    <div className='icon-container check-icon'>
+                                        <img src={rightCheck} alt="check icon" />
+                                    </div>
+                                )}
                             </div>
                         </Form.Group>
                         <Form.Group controlId="phone">
@@ -181,16 +193,18 @@ function CreateStudentAcc() {
                                 <div className='icon-container phoneIcon'>
                                     <img src={phoneIcon} alt="phone icon" />
                                 </div>
-                                <div className='icon-container check-icon'>
-                                    <img src={rightCheck} alt="check icon" />
-                                </div>
+                                {isValidPhoneNumber(formData.phone_number) && (
+                                    <div className='icon-container check-icon'>
+                                        <img src={rightCheck} alt="check icon" />
+                                    </div>
+                                )}
                             </div>
                         </Form.Group>
                         <Form.Group controlId="birthdate">
                             <Form.Label className='birthdate_create_std_acc'>تاريخ الميلاد</Form.Label>
                             <div className='date-input-container'>
                                 <div className='dropdown-container'>
-                                    <Form.Control as="select" className='dropdown' name="day" value={formData.date_of_birth.day} onChange={handleDateChange}>
+                                    <Form.Control as="select" className='dropdownn' name="day" value={formData.date_of_birth.day} onChange={handleDateChange}>
                                         <option value="" disabled selected>اليوم</option>
                                         {days.map(day => (
                                             <option key={day} value={day}>{day}</option>
@@ -201,7 +215,7 @@ function CreateStudentAcc() {
                                     </div>
                                 </div>
                                 <div className='dropdown-container'>
-                                    <Form.Control as="select" className='dropdown' name="month" value={formData.date_of_birth.month} onChange={handleDateChange}>
+                                    <Form.Control as="select" className='dropdownn' name="month" value={formData.date_of_birth.month} onChange={handleDateChange}>
                                         <option value="" disabled selected>الشهر</option>
                                         {months.map(month => (
                                             <option key={month} value={month}>{month}</option>
@@ -212,7 +226,7 @@ function CreateStudentAcc() {
                                     </div>
                                 </div>
                                 <div className='dropdown-container'>
-                                    <Form.Control as="select" className='dropdown' name="year" value={formData.date_of_birth.year} onChange={handleDateChange}>
+                                    <Form.Control as="select" className='dropdownn' name="year" value={formData.date_of_birth.year} onChange={handleDateChange}>
                                         <option value="" disabled selected>السنة</option>
                                         {years.map(year => (
                                             <option key={year} value={year}>{year}</option>
@@ -229,7 +243,7 @@ function CreateStudentAcc() {
                             <div className='relative1'>
                                 <Form.Control
                                     className='p_createstudentacc_pass'
-                                    type="password"
+                                    type={showPassword ? "text" : "password"}
                                     placeholder="أدخل كلمة السر الخاصة بك"
                                     name="password"
                                     value={formData.password}
@@ -238,7 +252,7 @@ function CreateStudentAcc() {
                                 <div className='icon-container password-icon'>
                                     <img src={passIcon} alt="password icon" />
                                 </div>
-                                <div className='icon-container lock-icon'>
+                                <div className='icon-container lock-icon' onClick={() => setShowPassword(!showPassword)}>
                                     <img src={lockIcon} alt="lock icon" />
                                 </div>
                             </div>
@@ -248,7 +262,7 @@ function CreateStudentAcc() {
                             <div className='relative1'>
                                 <Form.Control
                                     className='p_con_createstudentacc_pass'
-                                    type="password"
+                                    type={showPassword ? "text" : "password"}
                                     placeholder="أدخل كلمة السر الخاصة بك"
                                     name="password_confirmation"
                                     value={formData.password_confirmation}
@@ -257,7 +271,7 @@ function CreateStudentAcc() {
                                 <div className='icon-container password-icon'>
                                     <img src={passIcon} alt="password icon" />
                                 </div>
-                                <div className='icon-container lock-icon'>
+                                <div className='icon-container lock-icon' onClick={() => setShowPassword(!showPassword)}>
                                     <img src={lockIcon} alt="lock icon" />
                                 </div>
                             </div>
@@ -268,7 +282,7 @@ function CreateStudentAcc() {
                         <Row className="acc">
                             <Row className="justify-content-center">
                                 <Col xs={12} sm={6} md={6} lg={6} xl={6} xxl={6}>
-                                    <Button type="submit" className="create_student_acc_btn">إنشاء حساب</Button>
+                                    <Button type="submit" className="create_student_acc_btn" disabled={loading}>إنشاء حساب</Button>
                                 </Col>
                                 <Col xs={12} sm={6} md={6} lg={6} xl={6} xxl={6}>
                                     <Button type="button" className="back_create_student_acc_btn">رجوع</Button>

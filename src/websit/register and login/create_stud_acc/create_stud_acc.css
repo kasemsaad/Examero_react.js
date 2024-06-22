@@ -73,8 +73,9 @@
     font-family: Cairo;
     font-size: 15px;
     font-weight: 600;
-    /* line-height: 33.29px; */
     text-align: right;
+    margin-bottom: 0rem!important;
+    display: flex;
 }
 
 .create_student_acc_card {
@@ -117,19 +118,8 @@
 
 
 
-.create_student_acc-form .form-group .form-label {
-    font-size: 16px;
-    direction: rtl;
-    padding-right: 10px;
-}
 
-.form-label {
-    display: flex;
-    margin-bottom: -0.5rem!important;
-        align-items: center;
-}
-
-.create_student_acc-form .form-control {
+.create_student_acc-form  {
     border-radius: 5px;
     font-size: 11px;
     /* padding: 10px; */
@@ -144,6 +134,7 @@
     height: 40.76px;
     border-radius: 29.61px !important;
     padding-right: 40px !important;
+  
 }
 
 .relative1 {
@@ -186,9 +177,8 @@
     width: 100%;
 }
 
-.dropdown {
+.dropdownn {
     width: 100%;
-    padding-right: 40px;
     border-radius: 29.61px !important;
 }
 
@@ -200,10 +190,10 @@
     pointer-events: none;
 }
 
-.form-label {
+.create_tech_acc_firstname,.create_tech_acc_lastname,.creattchacc_email,.phone_createteachacc-label,.birthdate_create_tech_acc,.createteachacc_pass,.con_createteachacc_pass {
     font-size: 14px;
-    padding-top: 1%;
-    padding-bottom: 1%;
+    display: flex!important;
+    margin-bottom: 0rem!important;
 }
 
 
