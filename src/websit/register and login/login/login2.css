@@ -26,7 +26,6 @@ font-size: 17.76px;
 font-weight: 600;
 line-height: 33.29px;
 text-align: right;
-padding-top: 5%;
 
 }
 .header1-l1 {
@@ -140,24 +139,20 @@ border-radius: 41.45px !important;
 
 
 
-.login-form .form-group {
-    margin-bottom: 20px;
-    direction: rtl;
-}
 
-.login-form .form-group .form-label {
+.login-form  {
     font-size: 16px;
     margin-bottom: .5rem;
     direction: rtl;
 }
 
-.form-label {
+.email ,.password  {
     display: flex;
     margin-bottom: .5rem;
     align-items: center;
 }
 
-.login-form .form-control {
+.login-form .p_email,.p_paas {
     border-radius: 5px;
     font-size: 16px;
     padding: 10px;
@@ -224,4 +219,8 @@ border-radius: 41.45px !important;
     margin-left: -4.5em;
    
     margin-top: 10px;
+}
+.green-bg {
+    background-color: rgba(172, 234, 223, 0.3) !important;
+   
 }

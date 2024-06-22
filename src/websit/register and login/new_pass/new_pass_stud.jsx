@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { Col, Form, Button, Alert } from 'react-bootstrap';
-import axios from 'axios';
+import request from "../../../utlis/axios_utils_websit.jsx";
 import './new_pass.css';
 import passIcon from '../../../assets/icons/register and login icon/pngtree-password-vector-icon-design-illustration-png-image_6597553 3.svg';
 import lockIcon from '../../../assets/icons/register and login icon/padlock-icon-lock-and-unlock-icon-design-free-vector 1.svg';
-import Create_acc from '../create_acc/create_acc';
-import Imgcom from '../imgcom/imgcom';
-
+import Create_acc from '../create_acc/create_acc.jsx';
+import Imgcom from '../imgcom/imgcom.jsx';
+import SuccessMessage from './updatepass.jsx'; // Adjust the path as per your file structure
+import { useNavigate } from 'react-router-dom';
 function NewPass() {
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
@@ -19,31 +19,33 @@ function NewPass() {
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  try {
-    await axios.post('http://127.0.0.1:8000/api/students/reset-password', {
-      email,
-      token,
-      password,
-      password_confirmation: passwordConfirmation,
-    }, {
-      headers: {
-        Accept: 'application/json',
-      },
-    });
-    setSuccess('Password reset successfully.');
-    setError('');
-    setTimeout(() => {
-      navigate('/l1');
-    }, 3000);
-  } catch (error) {
-    console.error(error);
-    setError(error.response.data.message); 
-    setSuccess('');
-    setTimeout(() => setError(''), 3000);
-  }
-};
+    e.preventDefault();
+    try {
+      const response = await request({
+        method: 'post',
+        url: '/students/reset-password',
+        data: {
+          email,
+          token,
+          password,
+          password_confirmation: passwordConfirmation,
+        },
+      });
 
+      setSuccess('تم إعادة تعيين كلمة المرور بنجاح.');
+      setError('');
+   
+    } catch (error) {
+      console.error('An error occurred while resetting password:', error);
+      setError(error.response?.data?.message || 'فشل إعادة تعيين كلمة المرور.');
+      setSuccess('');
+      setTimeout(() => setError(''), 3000);
+    }
+  };
+
+  if (success) {
+    return <SuccessMessage message={success} />;
+  }
 
   return (
     <div className='new_pass'>
@@ -56,7 +58,6 @@ function NewPass() {
           </div>
           <Form className="new_pass-form" onSubmit={handleSubmit}>
             {error && <Alert variant="danger">{error}</Alert>}
-            {success && <Alert variant="success">{success}</Alert>}
             <Form.Group controlId="password">
               <Form.Label className='new_password'>كلمة المرور الجديدة</Form.Label>
               <div className='relative1'>
