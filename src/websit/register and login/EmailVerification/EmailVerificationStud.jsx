@@ -18,7 +18,7 @@ const EmailVerificationStud = () => {
         try {
             const response = await request({
                 method: 'GET',
-                url: `/students/verify/${token}`, 
+                url: `/teachers/verify/${token}`, 
             });
             console.log('تم التحقق من البريد الإلكتروني بنجاح', response.data);
             setVerificationStatus('تم التحقق من البريد الإلكتروني بنجاح');

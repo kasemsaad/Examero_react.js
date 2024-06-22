@@ -11,12 +11,15 @@ import techIcon from '../../../assets/icons/register and login icon/75-754013_fi
 import vector from '../../../assets/icons/register and login icon/Vector 58.svg';
 import techimg from '../../../assets/image/register and login image/Frame 26.png';
 import request from '../../../utlis/axios_utils_websit';
+import { useNavigate } from 'react-router-dom';
 const days = Array.from({ length: 31 }, (_, i) => i + 1);
 const months = Array.from({ length: 12 }, (_, i) => i + 1);
 const currentYear = new Date().getFullYear();
 const years = Array.from({ length: 100 }, (_, i) => currentYear - i);
 
 function CreateTechAcc() {
+    const navigate = useNavigate();
+
     const [formData, setFormData] = useState({
         first_name: '',
         last_name: '',
@@ -107,6 +110,10 @@ function CreateTechAcc() {
             setLoading(false);
         }
     };
+    const handlebackhome = () => {
+        navigate('/'); 
+    };
+
 
     return (
         <div className='create_tech_acc'>
@@ -310,8 +317,9 @@ function CreateTechAcc() {
                                         {loading ? 'إنشاء الحساب...' : 'إنشاء الحساب'}
                                     </Button>
                                 </Col>
+                           
                                 <Col xs={12} sm={6} md={6} lg={6} xl={6} xxl={6}>
-                                    <Button type="button" className="back_creat_tech_acc_btn">رجوع</Button>
+                                    <Button type="button" className="back_creat_tech_acc_btn" onClick={handlebackhome}>رجوع</Button>
                                 </Col>
                             </Row>
                         </Row>
