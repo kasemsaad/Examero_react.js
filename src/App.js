@@ -35,8 +35,8 @@ function App(props) {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/verify-account-teacher" element={<EmailVerificationTech />} />
-          <Route path="/verify-account-student" element={<EmailVerificationStud />} />
+          <Route path="/verify-account" element={<EmailVerificationTech />} />
+          <Route path="/verify-account" element={<EmailVerificationStud />} />
 
           <Route path="/CreateStudentAccount" element={<CreateStudentAcc/>} /> 
           <Route path="/CreateTecherAccount" element={<CreateTechAcc/>} />

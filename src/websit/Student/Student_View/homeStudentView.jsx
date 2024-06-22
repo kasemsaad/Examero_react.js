@@ -18,7 +18,7 @@ function onSelect(id) {
   useId = id
 }
 function HomeStudentview(props) {
-  const getToken = () => { return "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL3N0dWRlbnRzL2xvZ2luIiwiaWF0IjoxNzE5MDUzMjU2LCJleHAiOjE3MTkwNTY4NTYsIm5iZiI6MTcxOTA1MzI1NiwianRpIjoiWTNPVXN3RXlLd2pCQnVtVCIsInN1YiI6IjExIiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.lDcfnicHaBeh9ZVmpjv8alJhf8fnoZXUj3qewd0sbjs"; };
+  const getToken = () => { return "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL3N0dWRlbnRzL2xvZ2luIiwiaWF0IjoxNzE5MDYwNDU5LCJleHAiOjE3MTkwNjQwNTksIm5iZiI6MTcxOTA2MDQ1OSwianRpIjoiQVV1VDFzcE9STFV0TTRaTyIsInN1YiI6IjExIiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.szWrq3S7NslwxFgwWe1YBKdJFc_JWfwBl5zD6MlSR_A"; };
   const layoutBackground = useSelector((state) => state.dark.lay);
 
   useEffect(() => {

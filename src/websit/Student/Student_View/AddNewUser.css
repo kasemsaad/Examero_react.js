@@ -1,7 +1,4 @@
 
-:root {
-    font-size: 16px;
-}
 
 .managerFGroup input {
     border-radius: 6px;
@@ -67,9 +64,7 @@
     justify-content: center;
 }
 
-small {
-    color: #FF3A3A !important;
-}
+
 
 /* .kh {
     position: relative;
@@ -177,9 +172,7 @@ position: absolute;
     font-weight: bold;
 } 
 
-input {
-    color: #FFFFFF;
-}
+
 
 .managerSave:hover {
     background-color: #FE4F60;

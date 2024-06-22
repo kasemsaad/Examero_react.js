@@ -385,7 +385,7 @@
             z-index: 99999;
             padding-bottom:3vw;
             font-size: 10px;
-            transition: transform 5.5s ease-out 2s, opacity 0.5s ease-out 2s; /* Delay the transition by 3 seconds */
+            transition: transform 2.5s ease-out 1s, opacity 0.5s ease-out 1s; /* Delay the transition by 3 seconds */
 
             }
             .animationBox4{
