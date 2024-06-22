@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import "./Button.css";
-import { Link } from "react-router-dom";
 const MyButton = ({
   className,
   onClick,
@@ -9,8 +8,6 @@ const MyButton = ({
   type,
   name,
   value,
-  linkTo,
-  stylep,
 }) => {
   return (
     <button

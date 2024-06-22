@@ -51,9 +51,13 @@ function Sidmedscreen() {
             <li className={`Icon  ${id === "6" ? "bgIcon":" "}`}>
             <Link to="/" onClick={() => setId(6)}>
               <img style={{ width: 23 , height:23 }} src={akar_icons_bank} alt="وضع الاسئله"  />
-            <img style={{ width: 20 , height:20 }} src={account_supervisor_outline} alt="مشرفو الموقع" />
               </Link>
             </li>
+              <li>
+            <Link to="/" onClick={() => setId(6)}>
+            <img style={{ width: 20 , height:20 }} src={account_supervisor_outline} alt="مشرفو الموقع" />
+              </Link>
+              </li>
             <li className={`Icon  ${id === "7" ? "bgIcon":" "}`}>
             <Link to="/" onClick={() => setId(7)}>
               <img style={{ width: 23 , height:23 }} src={ph_certificate } alt="وضع الاسئله"  />

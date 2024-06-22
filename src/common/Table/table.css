@@ -6,19 +6,15 @@
 
 .rounded-table {
   margin: auto;
-  width: 100%; /* 891px */
-
+  width: 100%;
+  max-width: 100%; /* 891px */
   direction: rtl;
   text-align: center;
   border-collapse: separate;
   border-spacing: 0 0.5rem; /* 10px */
 }
 
-.rounded-table thead tr th {
-  color: #fe4f60;
-}
-
-/* .rounded-table thead tr td {
+.rounded-table thead tr td {
   margin: 50px;
   height: 2rem;
 } */
@@ -213,8 +209,7 @@ tr:nth-child(even) {
   .square,
   .eye {
     margin-left: 4px;
-    width: 1.6rem; /* 14px */
-    margin: 0;
+    width: 1.875rem; /* 14px */
     font-size: 1rem;
     height: 100%;
   }
@@ -261,10 +256,10 @@ tr:nth-child(even) {
   }
 }
 .buttonOfTable {
-  border-radius: 15px;
-  width: fit-content;
-  /* padding: 0px, 10px, 0px, 10px; */
-
+  border-radius: 20px;
+  width: 105px;
+  padding: 0px, 10px, 0px, 10px;
+  gap: 10px;
   background-color: #4941a6;
   color: #ffff;
   border: none;

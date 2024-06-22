@@ -1,70 +1,70 @@
 .triangle-left {
+  clip-path: polygon(28% 19%, 115% 17%, 130% 60%, 28% 60%, 1% 38%);
+  background-color: #4941a6;
+  width: 9.25rem;
+  height: 66.62px;
+  padding: 0;
+  padding: 0;
+  border: none;
+}
+.triangle-left p {
+  transform: translate(-12px, -8px);
+  width: fit-content;
+  color: white;
+  font-size: 18px;
+  font-weight: 700;
+}
+@media (max-width: 620px) {
+  .triangle-left {
+    clip-path: polygon(28% 19%, 115% 17%, 130% 60%, 28% 60%, 1% 38%);
+
+    width: 8.25rem;
+  }
+}
+@media (max-width: 535px) {
+  .form-group-putt {
+    font-size: 11px;
+  }
+}
+@media (max-width: 555px) {
+  .triangle-left p {
+    font-size: 10px;
+  }
+  .triangle-left {
     clip-path: polygon(28% 19%, 115% 17%, 130% 60%, 28% 60%, 1% 38%);
     background-color: #4941a6;
-    width: 10.25rem;
+    width: 6.25rem;
     height: 66.62px;
     padding: 0;
     padding: 0;
     border: none;
   }
+}
+@media (max-width: 400px) {
   .triangle-left p {
-    transform: translate(-12px, -8px);
-    width: fit-content;
-    color: white;
-    font-size: 16px;
-    font-weight: 600;
+    font-size: 9.5px;
   }
-  @media (max-width: 620px) {
-    .triangle-left {
-      clip-path: polygon(28% 19%, 115% 17%, 130% 60%, 28% 60%, 1% 38%);
-  
-      width: 8.25rem;
-    }
+  .triangle-left {
+    clip-path: polygon(28% 19%, 115% 17%, 130% 60%, 28% 60%, 1% 38%);
+    background-color: #4941a6;
+    width: 5.7rem;
+    height: 66.62px;
+    padding: 0;
+    padding: 0;
+    border: none;
   }
-  @media (max-width: 535px) {
-    .form-group-putt {
-      font-size: 11px;
-    }
+}
+@media (max-width: 370px) {
+  .triangle-left p {
+    font-size: 9.5px;
   }
-  @media (max-width: 555px) {
-    .triangle-left p {
-      font-size: 10px;
-    }
-    .triangle-left {
-      clip-path: polygon(28% 19%, 115% 17%, 130% 60%, 28% 60%, 1% 38%);
-      background-color: #4941a6;
-      width: 6.25rem;
-      height: 66.62px;
-      padding: 0;
-      padding: 0;
-      border: none;
-    }
+  .triangle-left {
+    clip-path: polygon(28% 19%, 115% 17%, 130% 60%, 28% 60%, 1% 38%);
+    background-color: #4941a6;
+    width: 4.5rem;
+    height: 63.62px;
+    padding: 0;
+    padding: 0;
+    border: none;
   }
-  @media (max-width: 400px) {
-    .triangle-left p {
-      font-size: 9.5px;
-    }
-    .triangle-left {
-      clip-path: polygon(28% 19%, 115% 17%, 130% 60%, 28% 60%, 1% 38%);
-      background-color: #4941a6;
-      width: 5.7rem;
-      height: 66.62px;
-      padding: 0;
-      padding: 0;
-      border: none;
-    }
-  }
-  @media (max-width: 370px) {
-    .triangle-left p {
-      font-size: 9.5px;
-    }
-    .triangle-left {
-      clip-path: polygon(28% 19%, 115% 17%, 130% 60%, 28% 60%, 1% 38%);
-      width: 4.5rem;
-      height: 63.62px;
-      padding: 0;
-      padding: 0;
-      border: none;
-    }
-  }
-  
+}
