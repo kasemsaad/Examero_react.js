@@ -18,7 +18,7 @@ function onSelect(id) {
   useId = id
 }
 function HomeStudentview(props) {
-  const getToken = () => { return "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL3N0dWRlbnRzL2xvZ2luIiwiaWF0IjoxNzE5MDUzMjU2LCJleHAiOjE3MTkwNTY4NTYsIm5iZiI6MTcxOTA1MzI1NiwianRpIjoiWTNPVXN3RXlLd2pCQnVtVCIsInN1YiI6IjExIiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.lDcfnicHaBeh9ZVmpjv8alJhf8fnoZXUj3qewd0sbjs"; };
+  const getToken = () => { return "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL3N0dWRlbnRzL2xvZ2luIiwiaWF0IjoxNzE5MDY5MzAyLCJleHAiOjE3MTkwNzI5MDIsIm5iZiI6MTcxOTA2OTMwMiwianRpIjoiSDNNNXNic3E3Z01DOTZVNiIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.EdzjisiKGqzcz8RT8z0_Qc6vO387o6gQ4jIPViOzpF4"; };
   const layoutBackground = useSelector((state) => state.dark.lay);
 
   useEffect(() => {
@@ -287,7 +287,7 @@ function HomeStudentview(props) {
                   <Calendar onChange={props.onChange} value={props.date} />
                 </div>
 
-                {allNotes.length > 0 && (
+                {/* {allNotes.length > 0 && (
                   <div className="mt-4 todo_app_wrapper d-flex justify-content-center" style={{ height: "30vh", overflow: "auto" }}>
                     <div className="todo_app" style={{ overflow: "auto" }}>
                       {allNotes.map(({ id, address }) => (
@@ -305,7 +305,7 @@ function HomeStudentview(props) {
                       ))}
                     </div>
                   </div>
-                )}
+                )} */}
 
                 <div style={{ textAlign: "center", display: 'flex', justifyContent: "center", marginTop: "10px" }}>
                   <button
