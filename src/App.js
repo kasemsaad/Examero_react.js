@@ -18,19 +18,19 @@ import Login from'./websit/register and login/login/login1.jsx'
 import CreateTechAcc from './websit/register and login/create_taech_acc/create_teach_acc.jsx';
 import Reset_page1 from './websit/register and login/resetpage/resetpage_stud.jsx'
 import Reset_code_page from './websit/register and login/reset_password/reset_password_stud.jsx';
-
-
 import New_pass from './websit/register and login/new_pass/new_pass_stud.jsx'
 import HomeStudentview from './websit/Student_View/homeStudentView.jsx'
 import Hometeacherview from './websit/teacher_view/teacher_enter_openmis/Hometeacherview.jsx';
 import PuttingExam1 from './websit/teacher_view/PuttingExam1/PuttingExam1.jsx';
-
 import PuttingExam2 from './websit/teacher_view/PuttingExam1/PuttingExam2.jsx';
 import PuttingExam3 from './websit/teacher_view/PuttingExam1/PuttingExam3.jsx';
 import PuttingExam4 from './websit/teacher_view/PuttingExam1/PuttingExam4.jsx';
 import Certified_exam from './websit/teacher_view/PuttingExam1/Certified_exam.jsx';
 import EmailVerificationTech from './websit/register and login/EmailVerification/EmailVerificationtech.jsx';
 import EmailVerificationStud from './websit/register and login/EmailVerification/EmailVerificationStud.jsx';
+import New_pass from './websit/register and login/new_pass/new_pass.jsx'
+import HomeStudentView from './websit/Student/Student_View/homeStudentView.jsx'
+import CreateExam from './websit/Student/createExam/createExam.jsx';
 
 function App(props) {
   return (
@@ -49,7 +49,8 @@ function App(props) {
           <Route path="/StudentEnterCode" element={<Reset_code_page/>} />
           <Route path="/StudentSendEmail" element={<Reset_page1/>} /> 
           <Route path="/student/" element={<LayoutComp />} >
-          <Route path="homeStudentview" element={<HomeStudentview/>} />
+          <Route path="homeStudentView" element={<HomeStudentView/>} />
+          <Route path="createExam" element={<CreateExam/>} />
            </Route>
            <Route path="/teacher/" element={<LayoutComp />} >
           <Route path="homeTeacherview" element={<Hometeacherview/>} />

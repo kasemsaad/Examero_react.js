@@ -2,16 +2,17 @@ import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import styled from 'styled-components';
-import './HomeStyle.css'; // Import your CSS file if needed
-// import douts from "../../assets/image/home/Group 54.svg";
+import './HomeStyle.css';
 import MyButton from "../../common/Button/Button";
 import right from "../../assets/icons/Home/mdi_success-circle-outline.svg";
 import fluent from "../../assets/icons/Home/fluent-mdl2_commitments.svg";
 import lucide_git from "../../assets/icons/Home/lucide_git-pull-request-create-arrow.svg";
 import ph_target from "../../assets/icons/Home/ph_target-bold.svg";
 import park_check from "../../assets/icons/Home/icon-park_check-correct.svg";
-// import { width } from "@fortawesome/free-solid-svg-icons/fa0";
-// import request from "../../utlis/axios_utils_websit.jsx";
+import ImgProfile from "../../assets/image/home/Group 322.svg";
+import ImgProfile2 from "../../assets/image/home/Group 323.svg";
+import ImgProfile3 from "../../assets/image/home/Group 320.svg";
+import ImgProfile4 from "../../assets/image/home/Group 323.svg";
 import request from "../../utlis/axios_utils_websit.jsx";
 
 function Home() {
@@ -21,36 +22,61 @@ function Home() {
     const sec4 = useRef();
     const sec5 = useRef();
     const sec6 = useRef();
+
     // Function to handle smooth scroll to section
     const scrollHandler = (elmRef) => {
         window.scrollTo({ top: elmRef.current.offsetTop, behavior: "smooth" });
     }
+
+    const handleScroll = () => {
+        const sections = document.querySelectorAll('.animationBoxltr, .animationBoxrtl, .animationBoxltrimg, .animationBoxrtlimg  ');
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+        sections.forEach(section => {
+            const rect = section.getBoundingClientRect();
+            if (rect.top + window.pageYOffset < scrollTop + window.innerHeight) {
+                section.classList.add('visible');
+            }
+        });
+    };
+
     const [student_data, setStudent_data] = useState(null);
     const [teacher_data, setTeacher_data] = useState(null);
+
     useEffect(() => {
         // Fetching data using axios
-        // axios.get('http://127.0.0.1:8000/api/teacher-plan')
-       request({url:'/teacher-plan', method:"get"})
+        request({ url: '/teacher-plan', method: "get" })
             .then(response => {
                 setTeacher_data(response.data);
+                console.log(setTeacher_data)
+
             })
             .catch(error => {
                 console.error("Error fetching teacher data:", error);
             });
-        request({url:'/student-plan'})
+
+        request({ url: '/student-plan' })
             .then(response => {
                 setStudent_data(response.data);
             })
             .catch(error => {
-
                 console.error("Error fetching student data:", error);
             });
-    }, []);
+
+        window.addEventListener('scroll', handleScroll);
+
+        handleScroll();
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []); 
 
     if (!student_data || !teacher_data) {
         return <div>Loading...</div>;
     }
-    return (
+
+    return(
         <>
             <link
                 rel="stylesheet"
@@ -102,8 +128,8 @@ function Home() {
             {/* -----------EndNavbar--------- */}
             {/* -----------section1--------- */}
             {/* <img className="d"  src={imgs1} alt="" /> */}
-            <Section className="Section pt-5" ref={sec1}>
-                <DivSection1 className="DivSection1 container row p-0 m-1">
+            <Section className="Section d-flex pt-5  justify-content-center pt-5" ref={sec1}>
+                <DivSection1 className="DivSection1 mt-1 container row p-0 m-1">
                     <SectionImage1 className="SectionImage1 col-md-6 p-0">
                     </SectionImage1>
                     <Sectioncontent1 className="Sectioncontent col-md-6  p-0">
@@ -123,13 +149,13 @@ function Home() {
             <Douts className="Douts "></Douts>
             {/* -----------endsection1--------- */}
             {/* -----------section2--------- */}
-            <Section2 className="Section2 " id="Section2" ref={sec2}>
-                <DivSection2 className="DivSection2  row p-0 m-1">
+            <Section2 className="Section2 d-flex " id="Section2" ref={sec2}>
+                <DivSection2 className="DivSection2  row p-0 m">
                     <SectionImage2 className="SectionImage2 col-md-4 p-0">
                         {/* <img className="d"  src={imgs1} alt="" /> */}
                     </SectionImage2>
                     <Sectioncontent2 className="Sectioncontent2 col-md-7  flex-column -5 ">
-                        <div className="p-2" dir="rtl">
+                        <div className="" dir="rtl">
                             <h3 className="Bold"><span style={{ color: "#4941A6" }}>من نحن </span></h3><br />
                             <h3>منصة متكاملة لمساعدة المعلمين والطلاب في إعداد الامتحانات بكل أنواعها</h3><br />
                             <div className="fontSizeText pb-5" style={{ lineHeight: '2' }}>
@@ -155,7 +181,7 @@ function Home() {
                     <p className="fs-6" dir="rtl">نحن نؤمن بأهمية دور المعلمين في بناء مستقبل مشرق للتعليم ونسعى لدعمهم في تحقيق هذا الهدف.</p>
                     <div className="row cards pt-5 m-0 ">
 
-                        <div className="card  col-md-2 p-0 m-3 shadow bg-white " >
+                        <div className="card card1  col-md-2 p-0 m-3 shadow bg-white " >
                             <div className="parentCircleIcon  p-0">
                                 <div className="circleicone">
                                     <img style={{ width: "25px", paddingRight: "4px" }} src={right} alt="right" />
@@ -166,7 +192,7 @@ function Home() {
                             </div>
                         </div>
 
-                        <div className="card  col-md-2 p-0 m-3 shadow bg-white " >
+                        <div className="card card1 col-md-2 p-0 m-3 shadow bg-white " >
                             <div className="parentCircleIcon  p-0">
                                 <div className="circleicone">
                                     <img style={{ width: "25px", paddingRight: "4px" }} src={fluent} alt="right" />
@@ -178,7 +204,7 @@ function Home() {
                             </div>
                         </div>
                         
-                        <div className="card  col-md-2 p-0 m-3 shadow bg-white " >
+                        <div className="card card1 col-md-2 p-0 m-3 shadow bg-white " >
                             <div className="parentCircleIcon  p-0">
                                 <div className="circleicone">
                                     <img style={{ width: "25px", paddingRight: "4px" }} src={lucide_git} alt="right" />
@@ -188,7 +214,7 @@ function Home() {
                                 <p> <span style={{ color: "#A63131" }}>نسعى </span>لتوفير منصة تسهل عليك إنشاء أسئلة امتحانية بسرعة ودقة.</p>
                             </div>
                         </div>
-                        <div className="card  col-md-2 p-0 m-3 shadow bg-white " >
+                        <div className="card card1 col-md-2 p-0 m-3 shadow bg-white " >
                             <div className="parentCircleIcon  p-0">
                                 <div className="circleicone">
                                     <img style={{ width: "25px", paddingRight: "4px" }} src={ph_target} alt="right" />
@@ -209,12 +235,12 @@ function Home() {
                     <h3 className="Bold"><span style={{ color: "#4941A6" }}>لماذا نحن</span></h3><br />
                     <div className="row cards2 p-0 m-0  ">
 
-                        <div className="card2 p-0  col-3   m-4  shadow  " >
+                        <div className="card2 p-0  col-3  m-4  shadow  " >
                             <div className="boxmov ">
                                 <p className="m-0 py-1 ">توفير نماذج الإجابات</p>
                             </div>
 
-                            <div className="boxcontent  p-3" style={{ fontSize: "14px", height: "11rem" }} align="end" >
+                            <div className="boxcontent  p-3"  >
                                 بالإضافة إلى إعداد الامتحان، يمكنك تحميل نماذج للإجابات الصحيحة لتوجيه الطلاب ومساعدتهم على الاستعداد بفعالية.</div>
                             <div className="py-3">
                                 <MyButton className="btn mx-2 fontSizeBtn py-0 rounded-5 py- px-3" style={{ height: "1.8rem", border: "2px solid #4941A6" }} to={"/Home"} content={"تسجيل الدخول"} />
@@ -226,7 +252,7 @@ function Home() {
                             <div className="boxmov">
                                 <p className="m-0 py-1 ">تخصيص الأسئلة</p>
                             </div>
-                            <div className="boxcontent p-3" style={{ fontSize: "14px", height: "11rem" }} align="end" >
+                            <div className="boxcontent p-3"  >
                                 يمكنك تحميل الأسئلة بتنسيقات متعددة مثل النص والصور وتنسيقها وترتيبها حسب الحاجة                       </div>
                             <div className="py-3">
                                 <MyButton className="btn mx-2 fontSizeBtn py-0 rounded-5 py- px-3" style={{ height: "1.8rem", border: "2px solid #4941A6" }} to={"/Home"} content={"تسجيل الدخول"} />
@@ -239,7 +265,7 @@ function Home() {
                             <div className="boxmov">
                                 <p className="m-0 py-1 ">إنشاء امتحانات مخصصة</p>
                             </div>
-                            <div className="boxcontent p-3" style={{ fontSize: "14px", height: "11rem" }} align="end" >
+                            <div className="boxcontent p-3"  >
                                 يمكن للمعلمين إنشاء امتحانات تتناسب مع المناهج الدراسية ومتطلبات الصفوف بكل سهولة. يمكنك تحديد عدد الأسئلة وأنواعها ودرجة صعوبتها ووقت الامتحان والمزيد.                       </div>
                             <div className="py-3">
                                 <MyButton className="btn mx-2 fontSizeBtn py-0 rounded-5 py- px-3" style={{ height: "1.8rem", border: "2px solid #4941A6" }} to={"/Home"} content={"تسجيل الدخول"} />
@@ -251,7 +277,7 @@ function Home() {
                             <div className="boxmov">
                                 <p className="m-0 py-1 ">يمكن للمعلمين</p>
                             </div>
-                            <div className="boxcontent p-3" style={{ fontSize: "14px", height: "11rem" }} align="end" >
+                            <div className="boxcontent p-3"  >
                                 تخصيص وإدارة الامتحانات بسهولة، وتوفير وسيلة فعالة لتقديم الاختبارات بشكل مهني وتنظيمي. يمكن للمعلمين أيضًا تحليل أداء الطلاب بسهولة لتحقيق أهداف التعليم بكفاءة أكبر. انضم إلينا اليوم لتجربة تسهيل عملية إعداد الامتحانات                                              </div>
                             <div className="py-3">
                                 <MyButton className="btn mx-2 fontSizeBtn py-0 rounded-5 py- px-3" style={{ height: "1.8rem", border: "2px solid #4941A6" }} to={"/Home"} content={"تسجيل الدخول"} />
@@ -263,7 +289,7 @@ function Home() {
                             <div className="boxmov">
                                 <p className="m-0 py-1 ">تصدير الامتحان إلى PDF</p>
                             </div>
-                            <div className="boxcontent p-3" style={{ fontSize: "14px", height: "11rem" }} align="end" >
+                            <div className="boxcontent p-3"  >
                                 بمجرد الانتهاء من إعداد الامتحان، يمكنك تصديره إلى ملف PDF جاهز للتوزيع على الطلاب.                       </div>
                             <div className="py-3">
                                 <MyButton className="btn mx-2 fontSizeBtn py-0 rounded-5 py- px-3" style={{ height: "1.8rem", border: "2px solid #4941A6" }} to={"/Home"} content={"تسجيل الدخول"} />
@@ -276,7 +302,7 @@ function Home() {
                             <div className="boxmov">
                                 <p className="m-0 py-1">تحديد درجة الصعوبة </p>
                             </div>
-                            <div className="boxcontent p-3" style={{ fontSize: "14px", height: "11rem" }} align="end" >
+                            <div className="boxcontent p-3" >
                                 بمجرد الانتهاء من إعداد الامتحان، يمكنك تصديره إلى ملف PDF جاهز للتوزيع على الطلاب.                       </div>
                             <div className="py-3">
                                 <MyButton className="btn mx-2 fontSizeBtn py-0 rounded-5 py- px-3" style={{ height: "1.8rem", border: "2px solid #4941A6" }} to={"/Home"} content={"تسجيل الدخول"} />
@@ -290,15 +316,20 @@ function Home() {
             </Section4>
             {/* -----------endsection--------- */}
             {/* -----------section5--------- */}
-            <Section5 className="d-flex align-items-center justify-content-center flex-column" ref={sec6}> 
+            <Section5 className="Section5 py-5 d-flex align-items-center justify-content-center flex-column" ref={sec5}> 
                 <h3 className="Bold"><span style={{ color: "#4941A6" }}>آراء العملاء</span></h3><br />
+                <h6 className="Bold"><span style={{ color: "black" }}>اراء مهمه نعتز بها وتدفعنا للامام والابداع </span></h6><br />
 
-                <DivSection5 className="container containerbox">    
-                    <div className="d-flex align-items-center justify-content-center">
-                        <p className="animationBox animationBox1">lsdkfklsdjfsdjfkjdsklfjsdkjflksdjfksdjflks</p>
-                        <p className="animationBox animationBox2">lsdkfklsdjfsdjfkjdsklfjsdkjflksdjfksdjflks</p>
-                        <p className="animationBox animationBox3">lsdkfklsdjfsdjfkjdsklfjsdkjflksdjfksdjflks</p>
-                        <p className="animationBox animationBox4" >lsdkfklsdjfsdjfkjdsklfjsdkjflksdjfksdjflks</p>
+                <DivSection5 className="container containerbox ">    
+                    <div className="d-flex align-items-center justify-content-center text-white">
+                        <div className="animationBoxltr" style={{backgroundImage:"none"}}><h3 className="animationBox2 animationBoxltr px-3 flex-column" dir="rtl"> 
+                            " لقد ساعدني منصة  Examero 
+                             على توفير الوقت والجهد في إنشاء الامتحانات .
+                              إنه يوفر مجموعة متنوعة من الميزات التي تجعل من السهل إنشاء امتحانات عالية الجودة. " <span style={{color:"#FFC03F"}}>محمد كساسبه </span>
+                              </h3> <img className="animationBoxltrimg animationBoximg1" style={{marginTop:"5vw", marginLeft:"-74vw",width:"4vw"}} src={ImgProfile3} alt="img1" /></div>
+                        <div className="animationBoxltr" style={{backgroundImage:"none"}}><h3 className="animationBoxltr animationBox4 px-3 flex-column" dir="rtl">" لقد ساعدني منصة  Examero  على توفير الوقت والجهد في إنشاء االختبارات.   إنه يوفر مجموعة متنوعة من الميزات التي تجعل من السهل إنشاء اختبارات عالية الجودة. "<span style={{color:"#FFC03F"}}>محمد كساسبه </span></h3><img className="animationBoxltrimg animationBoximg2" style={{marginTop:"16vw", marginLeft:"-48vw",width:"3vw"}} src={ImgProfile2} alt="img1" /></div>
+                        <div className="animationBoxrtl" style={{backgroundImage:"none"}}><h3 className="animationBoxrtl animationBox1 px-3 flex-column" dir="rtl">” لقد استخدمت منصة  Examero  لانشاء الامتحانات لطلابي. إنه سهل الاستخدام للغاية ويوفّر مجموعة متنوعة من أنواع الاسئله التي تلبي احتياجاتي. أنا أوصي به بشدة لجميع معلمي المملكة  "<span style={{color:"#FFC03F"}}>كريم العليان </span></h3><img className="animationBoxltrimg animationBoximg3" style={{marginTop:"14vw", marginLeft:"74vw",width:"5vw"}} src={ImgProfile} alt="img1" /></div>
+                        <div className="animationBoxrtl" style={{backgroundImage:"none"}}><h3 className="animationBoxrtl animationBox3 px-3 flex-column" dir="rtl">" لقد ساعدني منصة  Examero  على توفير الوقت والجهد في إنشاء االختبارات.   إنه يوفر مجموعة متنوعة من الميزات التي تجعل من السهل إنشاء اختبارات عالية الجودة. "<span style={{color:"#FFC03F"}}>دانا درابسة</span></h3><img className="animationBoxltrimg animationBoximg4" style={{marginBottom:"-25vw", marginLeft:"59vw",width:"3.5vw"}} src={ImgProfile4} alt="img1" /></div>
                     </div>
                 </DivSection5>
             </Section5>
@@ -329,16 +360,16 @@ function Home() {
                              </div>
 
                         <div className="boxpre  bac p-2 col-sm-3 shadow  " style={{backgroundColor:"#4941A6"}}>
-                            <h3 className="Bold" style={{ color: "#4941A6" }}><span>{teacher_data.data[1].name}</span></h3>
-                            <h3  style={{ color: "black" }}><span className="fs-5">$ </span><span className="Bold" > {teacher_data.data[1].price}</span></h3>
+                            <h3 className="Bold" style={{ color: "#4941A6" }}><span>{teacher_data.data[0].name}</span></h3>
+                            <h3  style={{ color: "black" }}><span className="fs-5">$ </span><span className="Bold" > {teacher_data.data[0].price}</span></h3>
                             <div className="boxchil text-white" dir="rtl">
                             <div className="d-flex align-items-start">
                             <img className="checkicone" src={park_check} alt="check" />
-                             <p>{teacher_data.data[1].description}</p>
+                             <p>{teacher_data.data[0].description}</p>
                             </div>
 
-                             <p><img className="checkicone" src={park_check} alt="check" />عدد الأسئلة : {teacher_data.data[1].allow_question} </p>
-                             <p><img className="checkicone" src={park_check} alt="check" /> عدد الامتحانات : {teacher_data.data[1].allow_exam}</p>
+                             <p><img className="checkicone" src={park_check} alt="check" />عدد الأسئلة : {teacher_data.data[0].allow_question} </p>
+                             <p><img className="checkicone" src={park_check} alt="check" /> عدد الامتحانات : {teacher_data.data[0].allow_exam}</p>
                             </div>
                             <div className="d-flex align-items-center justify-content-center">
                             <MyButton className="btn mx-2 py-0 rounded-3 " style={{ height: "3rem",width:"100%", backgroundColor: "#C01F59", color: "#ffff" }} to={"/Home"} content={"اشترك الآن"} />
@@ -387,16 +418,16 @@ function Home() {
                              </div>
 
                             <div className="boxpre  bac p-2 col-sm-3 shadow  " style={{backgroundColor:"#4941A6"}}>
-                            <h3 className="Bold" style={{ color: "#4941A6" }}><span>{student_data.data[1].name}</span></h3>
-                            <h3  style={{ color: "black" }}><span className="fs-5">$ </span><span className="Bold" > {student_data.data[1].price}</span></h3>
+                            <h3 className="Bold" style={{ color: "#4941A6" }}><span>{student_data.data[0].name}</span></h3>
+                            <h3  style={{ color: "black" }}><span className="fs-5">$ </span><span className="Bold" > {student_data.data[0].price}</span></h3>
                             <div className="boxchil text-white" dir="rtl">
                             <div className="d-flex align-items-start">
                             <img className="checkicone" src={park_check} alt="check" />
                              <p>{student_data.data[0].description}</p>
                             </div>
 
-                             <p><img className="checkicone" src={park_check} alt="check" />عدد الأسئلة : {student_data.data[1].allow_question} </p>
-                             <p><img className="checkicone" src={park_check} alt="check" /> عدد الامتحانات : {student_data.data[1].allow_exam}</p>
+                             <p><img className="checkicone" src={park_check} alt="check" />عدد الأسئلة : {student_data.data[0].allow_question} </p>
+                             <p><img className="checkicone" src={park_check} alt="check" /> عدد الامتحانات : {student_data.data[0].allow_exam}</p>
                             </div>
                             <div className="d-flex align-items-center justify-content-center">
                             <MyButton className="btn mx-2 py-0 rounded-3 " style={{ height: "3rem",width:"100%",  backgroundColor: "#C01F59", color: "#ffff" }} to={"/Home"} content={"اشترك الآن"} />
