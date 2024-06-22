@@ -7,7 +7,7 @@
      box-sizing: border-box;
  }
  .reset1-form{
-    padding-top: 6rem;
+    padding-top: 3rem;
  }
  .req_code_container {
      width: 100%;
@@ -83,23 +83,14 @@ margin-top: 5rem
  
  
  
- .reset1-form .form-group {
+ .reset1-form {
      direction: rtl;
-     text-align: right;
+     text-align: center;
  }
  
- .reset1-form .form-group .form-label {
+ .reset1-form  {
      font-size: 16px;
  }
- 
- .form-label {
-     display: flex;
-     align-items: center;
-
-     margin-bottom: -0.5rem!important;
- }
- 
-
  
  .relative1 {
      position: relative;

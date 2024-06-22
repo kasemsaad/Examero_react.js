@@ -4,7 +4,7 @@ import axios from 'axios';
 const client = axios.create({
     baseURL: 'http://127.0.0.1:8000/api',
     // Optionally, you can set other default configurations here
-    timeout: 10000, // 10 seconds timeout
+    timeout: 40000, // 10 seconds timeout
     headers: {
    'Content-Type': 'application/json',
     }

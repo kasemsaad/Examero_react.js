@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Col, Form, Button, Alert } from 'react-bootstrap';
-import axios from 'axios';
-import { setEmail } from '../../../redux/reducer/user';
+import request from "../../../utlis/axios_utils_websit.jsx";
+import { setEmail } from '../../../redux/reducer/user.jsx';
 import './resetpage.css';
-import Imgcom from '../imgcom/imgcom';
-import Create_acc from '../create_acc/create_acc';
+import Imgcom from '../imgcom/imgcom.jsx';
+import Create_acc from '../create_acc/create_acc.jsx';
 import emailIcon from '../../../assets/icons/register and login icon/mail-email-icon-template-black-color-editable-mail-email-icon-symbol-flat-illustration-for-graphic-and-web-design-free-vector 2.svg';
 import rightCheck from '../../../assets/icons/register and login icon/check-mark-vector-free-1 1.svg';
 
@@ -20,19 +20,27 @@ function ResetPage1() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://127.0.0.1:8000/api/students/sendmail', { email }, {
+      // Use the request function to make the API call
+      const response = await request({
+        method: 'post', // Specify the HTTP method
+        url: '/students/sendmail', // Specify the API endpoint
+        data: { email }, // Provide the request body
         headers: {
           Accept: 'application/json',
         },
       });
+
+      // Handle success response
+      console.log('Request Successful:', response);
       setSuccess('Verification code sent to your email.');
       setError('');
       dispatch(setEmail(email)); // Save email in Redux
       setTimeout(() => {
-        navigate('/reset2');
+        navigate('/StudentEnterCode');
       }, 3000);
     } catch (error) {
-      console.error(error);
+      // Handle error
+      console.error('An error occurred while sending the email:', error);
       setError('An error occurred while sending the email.');
       setSuccess('');
       setTimeout(() => setError(''), 3000);

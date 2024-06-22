@@ -82,65 +82,49 @@ text-align: right;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    /* padding: 40px; */
+    padding-top: 1rem;
+    padding-bottom: 1rem;
     padding-left: 40px;
     padding-right: 40px;
-    
+    background: transparent;
+    border: none;
+    box-shadow: none;
     direction: rtl;
     text-align: center;
+    background: linear-gradient(180deg, #FFCF6B 0%, #C01F59 213.56%) !important;
     height: 100vh;
-    background: linear-gradient(180deg, #FFCF6B 0%, #C01F59 213.56%);
-
 }
 
+
+
 .card-title {
-    /* font-weight: bold; */
-    text-align: center;
-    /* margin-bottom: 10px; */
-    font-family: 'Cairo', sans-serif;
-    font-size: 11rem;
-    direction: rtl;
+      text-align: center;
+      font-family: 'Cairo', sans-serif;
+      font-size: 1.5rem;
+      direction: rtl;
   
 
 }
-/* 
-.new_pass_btn {
-    width: 50%;
-    background-color: #0F0862 !important;
-    color: white;
-    border: none;
-    padding: 11.84px 54.47px 11.84px 54.47px !important;
-    gap: 5.92px;
-    border-radius: 41.45px !important;
-margin-top: 3rem;margin-bottom: 3rem;
-}
- */
 
 
-.create_tech_acc-form .form-group {
-    margin-bottom: 20px;
-    direction: rtl;
-}
 
-.create_tech_acc-form .form-group .form-label {
-    font-size: 10px;
-        direction: rtl;
-}
-
-.form-label {
+.create_tech_acc_firstname,.create_tech_acc_lastname,.creattchacc_email,.phone_createteachacc-label,.birthdate_create_tech_acc,.createteachacc_pass,.con_createteachacc_pass  {
     display: flex;
     align-items: center;
-    /* margin-bottom: 0.5rem!important; */
+    font-size: 14px;
+    margin-bottom: 0rem!important;
 }
 
-.create_tech_acc-form .form-control {
+.create_tech_acc-form {
     border-radius: 5px;
-    font-size: 10px;
-    padding-right: 10px;
+    font-size: 14px;
+
 }
 
 
 .p_con_createteachacc_pass, .p_createteachacc_pass ,.p_creattchacc_email ,.p_createteachacc_phone,.p_create_tech_acc_firstname,.p_create_tech_acc_lastname{
-    width: 100%; 
+    width: 100%;
     height: 40.76px;
     border-radius: 29.61px !important;
     padding-right: 40px !important;
@@ -188,9 +172,8 @@ margin-top: 3rem;margin-bottom: 3rem;
     width: 100%;
 }
 
-.dropdown {
+.dropdownn {
     width: 100%;
-    padding-right: 40px;
     border-radius: 29.61px !important;
 }
 
@@ -202,12 +185,6 @@ margin-top: 3rem;margin-bottom: 3rem;
     transform: translateY(-50%);
     pointer-events: none;
 }
-
-.form-label {
-    font-size: 8px;
-}
-
-
 
 .policy-container {
     margin: 1%;
@@ -238,22 +215,22 @@ margin-top: 3rem;margin-bottom: 3rem;
 
 .create_tech_acc_btn, .back_creat_tech_acc_btn {
     color: white;
-    margin-top: 3px;
+    margin-top: 5px;
     border: none !important;
     font-family: Cairo;
 font-size: 10.87px!important;
 font-weight: 700!important;
 }
 .create_tech_acc_btn {
-    background-color: #0F0862    !important;
-    padding: 11.84px 54.47px !important;
+    background-color: #0F0862 !important;
+    padding: 9.84px 54.47px !important;
     gap: 5.92px !important;
     border-radius: 41.45px !important;
 }
 
 .back_creat_tech_acc_btn {
-    background-color: #F60909!important;
-        padding: 11.84px 54.47px !important;
+    background-color: #F60909 !important;
+    padding: 9.84px 54.47px !important;
     gap: 5.92px !important;
     border-radius: 41.45px !important;
 
@@ -293,5 +270,5 @@ letter-spacing: 0.03em;
     position: relative;
 }
 .techim img{
-    width: 44%;
+    width: 43%;
 }

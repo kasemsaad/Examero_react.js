@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Col, Form, Button, Alert } from 'react-bootstrap';
-import axios from 'axios';
-import { setToken } from '../../../redux/reducer/user';
+import request from "../../../utlis/axios_utils_websit.jsx";
+import { setToken } from '../../../redux/reducer/user.jsx';
 import './reset_password.css';
-import Imgcom from '../imgcom/imgcom';
-import Create_acc from '../create_acc/create_acc';
+import Imgcom from '../imgcom/imgcom.jsx';
+import Create_acc from '../create_acc/create_acc.jsx';
 import emailIcon from '../../../assets/icons/register and login icon/mail-email-icon-template-black-color-editable-mail-email-icon-symbol-flat-illustration-for-graphic-and-web-design-free-vector 2.svg';
 import rightCheck from '../../../assets/icons/register and login icon/check-mark-vector-free-1 1.svg';
 
@@ -21,19 +21,24 @@ function ResetCodePage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://127.0.0.1:8000/api/students/verify-token', { token: code }, {
+      const response = await request({
+        method: 'post', 
+        url: '/students/verify-token',
+        data: { token: code },
         headers: {
           Accept: 'application/json',
         },
       });
+
+      console.log('Token verified:', response);
       setSuccess('Token verified.');
       setError('');
       dispatch(setToken(code)); 
       setTimeout(() => {
-        navigate('/newp');
+        navigate('/StudentNewPassword');
       }, 3000);
     } catch (error) {
-      console.error(error);
+      console.error('Invalid token:', error);
       setError('Invalid token.');
       setSuccess('');
       setTimeout(() => setError(''), 3000);
