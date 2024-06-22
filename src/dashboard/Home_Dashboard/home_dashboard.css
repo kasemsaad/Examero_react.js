@@ -179,3 +179,6 @@
   background-color: #4941A6 !important;
   color: #ffff;
 }
+.inputGroupWraping{
+  flex-wrap: nowrap !important;
+}

@@ -14,7 +14,9 @@ function MyTable({
   handelNot,
   delet,
   delteModalName,
-  editButtonName
+  editButtonName,
+  handel,
+  Deletehandel
 }) {
   const { trash, edit, eye } = icons || {};
   const { toggle, butt, imag, checkbox } = other || {};
@@ -65,6 +67,7 @@ function MyTable({
               <td>
                 {trash && (
                   <button
+                  onClick={()=>Deletehandel(row)}
                     type="button"
                     className=" trash"
                     data-bs-toggle="modal"
@@ -79,7 +82,9 @@ function MyTable({
                 )}
                 {edit && (
                   <button
+                  onClick={()=>handel(row)}
                   type="button"
+                  
                   data-bs-toggle="modal"
                   data-bs-target={editButtonName}
 

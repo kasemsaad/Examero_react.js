@@ -526,7 +526,7 @@ export default function Home_dashboard() {
                 <div className="mt-4" style={{display:"flex"}}>
                   <div className="form-group col-md-4">
                     <label htmlFor="packagePrice">سعر الباقة</label>
-                    <div className="input-group">
+                    <div className="input-group" style={{flexWrap:"noWrap"}}>
                       <div className="input-group-prepend">
                         <button
                           type="button"

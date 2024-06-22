@@ -79,9 +79,11 @@ function TablePlan({
                 )}
                 {edit && (
                   <button
+
                   type="button"
                   data-bs-toggle="modal"
                   data-bs-target={editButtonName}
+                  
 
                     className="square fa-regular fa-pen-to-square"
                   ></button>

@@ -5,3 +5,10 @@
     transform: translate(14px, -3px) !important;
 }
 }
+.modal-backdrop.show{
+    opacity: 0;
+}
+.modal-backdrop {
+  position: absolute !important;
+  width: 0;
+}
