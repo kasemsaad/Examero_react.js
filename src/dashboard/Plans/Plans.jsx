@@ -63,8 +63,8 @@ export default function Plans(props) {
 
                                 {
                                     location.pathname === '/dashboard/planstudent' ?
-                                    <SecondTriangle content={"الطلاب"} style={{ backgroundColor: localStorage.getItem("SpinColor") }} /> :
-                                    <SecondTriangle content={"الطلاب"} style={{ backgroundColor: "#1D195D" }} />
+                                    <SecondTriangle stylep={{color:"#ffff"}} content={"الطلاب"} style={{ backgroundColor: localStorage.getItem("SpinColor") }} /> :
+                                    <SecondTriangle stylep={{color:"#ffff"}} content={"الطلاب"} style={{ backgroundColor: "#1D195D" }} />
                                 }
                             </Link>
                         </div>

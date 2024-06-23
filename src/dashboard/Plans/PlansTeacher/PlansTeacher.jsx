@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import Api_Dashboard from '../../interceptor/interceptorDashboard'
 import Plans from '../Plans'
 import image from "./../../../assets/image/High Importance.svg"
@@ -6,20 +6,38 @@ import './PlansTeacher.css'
 
 export default function PlansTeacher() {
     const [allTeacherPlanData,SetallTeacherPlanData]=useState([])
-
-
     const [editId,SetId]=useState("")
     const [deleteId,SetdeleteId]=useState("")
+    const [toggled, setToggled] = useState(false);
+
+    
 
     const [InputEditTeacher,SetInputEditTeacher]=useState({
       name:'',
       description:'',
       price:1,
-      allow_exam:4,
-      allow_question:4,
-      for_student:0
+      allow_exam:1,
+      allow_question:1,
+      for_student:0,
+      status:''
 
     })
+
+    // const tog = () => {
+
+    //   setToggled(!toggled);
+    //   SetInputEditTeacher({...InputEditTeacher,
+    //     status:1})
+    // };
+
+    const tog = () => {
+      setToggled(!toggled);
+      SetInputEditTeacher({
+        ...InputEditTeacher,
+        status: InputEditTeacher.status === 1 ? 0 : 1
+      });
+       
+    };
 
 
 
@@ -56,9 +74,11 @@ export default function PlansTeacher() {
       price:InputEditTeacher.price,
       allow_exam:InputEditTeacher.allow_exam,
       allow_question:InputEditTeacher.allow_question,
+      status:InputEditTeacher.status,
       for_student:0  
       }).then((response)=>{
 console.log(response);
+getAllTeacherPlan()
       }).catch((err)=>{
         console.log(err);
       })
@@ -66,38 +86,21 @@ console.log(response);
 
 
 
-    // add connect post 
-
-    const addConnect =async(event)=>{
-      event.preventDefault();
-
-    await  Api_Dashboard.post('/plans',{
-      name:InputEditTeacher.name,
-      description:InputEditTeacher.description,
-      price:InputEditTeacher.price,
-      allow_exam:InputEditTeacher.allow_exam,
-      allow_question:InputEditTeacher.allow_question,
-      for_student:0  
-      }).then((response)=>{
-        console.log(response);
-      }).catch((err)=>{
-        console.log(err);
-      })
-    }
+  
 
 // ****** edit and update ******************8 
-  
     const handeledit = async(row)=>{
       console.log(row.id);
       await Api_Dashboard.get(`/plans/${row.id}`).then((response)=>{
-       // console.log(response.data.data);
       SetId(row.id)
+      getAllTeacherPlan()
       SetInputEditTeacher(response.data.data)
-        // console.log(response)
        }).catch((err)=>{
         console.log(err);
        })
     }
+
+    // get values which write in inputs 
 
     const getEditingInputs=(e)=>{
       let editTeacher={...InputEditTeacher}
@@ -106,40 +109,59 @@ console.log(response);
     }
 
     // delete connect 
-
     const getDeletedObject = (row)=>{
       SetdeleteId(row.id)
       console.log(deleteId)
-    
     }
 
-
+// delete api _________________________
     const deleteConnect=async()=>{
       await Api_Dashboard.delete(`/plans/${deleteId}`).then((response)=>{
         console.log(response);
+        getAllTeacherPlan()
       }).catch((err)=>{
         console.log(err);
       })
     }
+// ____________________________________________
 
 
 
-
-    useEffect(()=>{
-        getAllTeacherPlan()
-    },[])
     const getAllTeacherPlan = async ()=>{
       await Api_Dashboard.get('/plans/teacher').then((response)=>{
         SetallTeacherPlanData(response.data.data)
-            // console.log(response.data);
         }).catch((err)=>{
             console.log(err);
         })
     }
+
+      //********* */ add connect post *************8
+      const addConnect =async(event)=>{
+        event.preventDefault();
+      await  Api_Dashboard.post('/plans',{
+        name:InputEditTeacher.name,
+        description:InputEditTeacher.description,
+        price:InputEditTeacher.price,
+        allow_exam:InputEditTeacher.allow_exam,
+        allow_question:InputEditTeacher.allow_question,
+        for_student:0  ,
+        }).then((response)=>{
+          // const newPlan = response.data; // Assuming the new plan data is here
+          // SetallTeacherPlanData(prevState => [...prevState, newPlan]);
+          getAllTeacherPlan()
+
+        }).catch((err)=>{
+          console.log(err);
+        })
+      }
+
+    useEffect(()=>{
+        getAllTeacherPlan()
+    },[])
   return (
     <>
         <Plans dataRender={allTeacherPlanData} dataConnect={"البيانات الباقات المعلمين"} edit={"#add_connect_Teacher"} delete={"#deleteElementModal_teacher_dash"}  handel={(row)=>handeledit(row)} Deletehandel={(row)=>getDeletedObject(row)} nameOfPageModalTarget={"#add_connect_Teacher_add"}/>
-
+{/* edit modal */}
         <div
       className="modal fade"
       id="add_connect_Teacher"
@@ -207,13 +229,13 @@ console.log(response);
                         </button>
                       </div>
                       <input
-                        type="text"
+                        type="number"
                         className="form-control text-center"
                         id="price"
                         name='price'
                         value={InputEditTeacher.price}
                         onChange={(e)=>getEditingInputs(e)}
-                        readOnly
+                        
                       />
                       <div className="input-group-append">
                         <button
@@ -239,12 +261,12 @@ console.log(response);
                         </button>
                       </div>
                       <input
-                        type="text"
+                        type="number"
                         className="form-control text-center"
                         id="allow_exam"
                         name='allow_exam'
                         value={InputEditTeacher.allow_exam}
-                        readOnly
+                        
                         onChange={(e)=>getEditingInputs(e)}
 
                       />
@@ -272,12 +294,11 @@ console.log(response);
                         </button>
                       </div>
                       <input
-                        type="text"
+                        type="number"
                         className="form-control text-center"
                         id="allow_question"
                         name='allow_question'
                         value={InputEditTeacher.allow_question}
-                        readOnly
                         onChange={(e)=>getEditingInputs(e)}
 
                       />
@@ -295,6 +316,36 @@ console.log(response);
                     </div>
                   </div>
                 </div>
+
+        <div className='input_toogle mt-4 ' style={{display:"flex",alignItems:"center"}}>
+          <input type="text" name='status'
+           value={InputEditTeacher.status} 
+           onChange={(e)=>getEditingInputs(e)}
+           style={{display:"none"}}
+
+           />
+        <label htmlFor="">الحالة</label>
+              <button type="button"
+        style={{ marginLeft: "6px",marginRight:"20px" ,backgroundColor: InputEditTeacher.status === 0 ? 'red' : 'green'}}
+        className={`toggle-btnn ${toggled ? "toggled" : ""}`}
+        onClick={() => tog()}
+
+      >
+        <span
+          style={{
+            marginTop: "-6px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+          className={toggled ? "white-text" : "whit"}
+        >
+        {InputEditTeacher.status === 1 ? 'مفعل' : 'معطل'}
+        </span>
+        <div className="thumb"></div>
+      </button>
+                </div>
+
                 <div className='mt-5' style={{textAlign:"center",display:"flex",justifyContent:"center"}}>
                   <div className='submitButton'>
                 <button data-bs-dismiss="modal" type="submit" className="btn btn-primary">حفظ</button>
@@ -309,14 +360,10 @@ console.log(response);
         </div>
       </div>
     </div>
-
-
+    
 
     
     {/* delete modal  */}
-
-
-          
             <div
                 className="modal fade DElementFade"
                 id="deleteElementModal_teacher_dash"
@@ -350,36 +397,8 @@ console.log(response);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <div
+{/* modal add connect */}
+      <div
       className="modal fade"
       id="add_connect_Teacher_add"
       tabIndex="-1"
