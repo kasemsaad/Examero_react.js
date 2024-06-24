@@ -1,6 +1,7 @@
 import React from 'react'
 import Calendar from 'react-calendar'
 import "./../home_dashboard.css"
+import { Link } from 'react-router-dom'
 
 export default function Calender(props) {
   return (
@@ -31,9 +32,9 @@ export default function Calender(props) {
 
     : "" }
       <div style={{ textAlign: "center", display: 'flex', justifyContent: "center",marginTop:"10px" }}>
-                    <button data-bs-toggle="modal" data-bs-target="#exampleModal" type="submit" className="btn  mx-2 " style={{ backgroundColor: "#FE4F60", color: '#FFFFFF' }}>
+                    <Link data-bs-toggle="modal" data-bs-target="#exampleModal" type="submit" className="btn  mx-2 " style={{ backgroundColor: "#FE4F60", color: '#FFFFFF' }}>
                       <span style={{ marginLeft: "10px", backgroundColor: "", width: '', backgroundColor: "" }}><img src={props.plus} alt="" /></span>
-                      Add Task</button>
+                      Add Task</Link>
                   </div>
               </div>
 

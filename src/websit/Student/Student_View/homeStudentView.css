@@ -1,4 +1,4 @@
-.shadow-box {
+.shadow-boxxx {
 box-shadow: 0px -3px 10px rgba(0, 0, 0, .6); /* Shadow definition */
 background-repeat: no-repeat;
 background-position: center;
@@ -18,6 +18,15 @@ margin-bottom: 10px;
     background-repeat: no-repeat;
     background-position:bottom;
     /* background-color: aqua; */
+}
+.boximgbackground1{
+background-image: url(../../../assets/icons/home_student_view/Group\ 325.svg);
+}
+.boximgbackground2{
+background-image: url(../../../assets/icons/home_student_view/Group\ 326.svg);
+}
+.boximgbackground3{
+background-image: url(../../../assets/icons/home_student_view/Group\ 327.svg);
 }
 @media screen and (max-width:450px) {
     .rowHomestudent{

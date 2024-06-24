@@ -1,10 +1,9 @@
-
 import axios from 'axios';
-const Api_website = axios.create({
-  baseURL: 'http://127.0.0.1:8000/api',
+const Api_Dashboard = axios.create({
+  baseURL: 'http://127.0.0.1:8000/api_dashboard',
 });
 
-Api_website.interceptors.request.use(
+Api_Dashboard.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
     if (token) {
@@ -16,7 +15,7 @@ Api_website.interceptors.request.use(
     return Promise.reject(error);
   }
 );
-Api_website.interceptors.response.use(
+Api_Dashboard.interceptors.response.use(
   (response) => {
     return response;
   },
@@ -27,4 +26,6 @@ Api_website.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-export default Api_website;
+
+
+export default Api_Dashboard;

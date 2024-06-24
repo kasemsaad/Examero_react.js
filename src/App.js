@@ -2,8 +2,6 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import Header from './common/header/header';
 import LayoutComp from "./layout/layoutComp/layoutComp";
-import J from "./common/j/j";
-import Log from "./common/j/log";
 import AccountSetting from "./dashboard/Account-settting/AccountSetting";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./websit/Home/home.jsx";
@@ -36,6 +34,17 @@ import HomeStudentView from './websit/Student/Student_View/homeStudentView.jsx'
 import CreateExam from './websit/Student/createExam/createExam.jsx';
 import TeacherProfile from './websit/teacher_view/teacher profile/teacherProfile.jsx';
 
+
+import HomeDashoardLogin from './dashboard/homeLogin/homeLogin.jsx';
+import CertificateGenerator from './dashboard/Certificate/Certificate.jsx';
+import Qbank from './dashboard/Qbank/Qbank.jsx';
+import Specification from './dashboard/Specifecation/Specification.jsx';
+import ProtectedRoute from './dashboard/protectedRouteDashboard.jsx/protectedRouteDashboard.jsx';
+import Plans from './dashboard/Plans/Plans.jsx';
+import PlansStudent from './dashboard/Plans/PlansStudent/PlansStudent.jsx';
+import PlansTeacher from './dashboard/Plans/PlansTeacher/PlansTeacher.jsx';
+
+
 function App(props) {
   return (
       <BrowserRouter>
@@ -60,33 +69,36 @@ function App(props) {
           <Route path="createExam" element={<CreateExam/>} />
            </Route>
            <Route path="/teacher/" element={<LayoutComp />} >
-           <Route path="TeacherProfile" element={<TeacherProfile/>} />
-          <Route path="InsertingOpenEmisTags" element={<InsertingOpenEmisTags/>} />
+            <Route path="TeacherProfile" element={<TeacherProfile/>} />
+            <Route path="InsertingOpenEmisTags" element={<InsertingOpenEmisTags/>} />
+            <Route path="PuttingExam1" element={<PuttingExam1/>} />
+            <Route path="PuttingExam2" element={<PuttingExam2/>} />
+            <Route path="PuttingExam3" element={<PuttingExam3/>} />
+            <Route path="PuttingExam4" element={<PuttingExam4/>} />
+            <Route path="Certified_exam" element={<Certified_exam/>} />
+
            </Route>
-           <Route path="/teacher/" element={<LayoutComp />} >
-          <Route path="PuttingExam1" element={<PuttingExam1/>} />
-           </Route>
-           <Route path="/teacher/" element={<LayoutComp />} >
-          <Route path="PuttingExam2" element={<PuttingExam2/>} />
-           </Route>
-           <Route path="/teacher/" element={<LayoutComp />} >
-          <Route path="PuttingExam3" element={<PuttingExam3/>} />
-           </Route>
-           <Route path="/teacher/" element={<LayoutComp />} >
-          <Route path="PuttingExam4" element={<PuttingExam4/>} />
-           </Route>
-           <Route path="/teacher/" element={<LayoutComp />} >
-          <Route path="Certified_exam" element={<Certified_exam/>} />
-           </Route>
-          <Route path="/dashboard/" element={<LayoutComp />}>
-          <Route index element={<Log />} />
-          <Route path="not" element={<Notification />} />
-          <Route path="q" element={<PuttingQuestions />} />
-          <Route path="mab" element={<PuttingQForMab7as />} />
-          <Route path="login" element={<J />} />
+         
+        
+           
+           <Route path="login_dashboard" element={<HomeDashoardLogin />} />
+        <Route path="/dashboard/" element={<LayoutComp />}>
+          <Route index element={
+            <ProtectedRoute>
+              <Home_dashboard />
+            </ProtectedRoute>
+          } />
+          <Route path="not" element={ <Notification />} />
           <Route path="b" element={<AccountSetting />} />
-          <Route path="h" element={<Home_dashboard/>} />
-          </Route>
+          <Route path="certify" element={<CertificateGenerator />} />
+          <Route path="qbank" element={<Qbank />} />
+          <Route path="specify" element={<Specification />} />
+          <Route path="PlansTeacher" element={<PlansTeacher />} />
+          <Route path="planstudent" element={<PlansStudent />} />
+
+
+
+           </Route>
 
         </Routes>
       </BrowserRouter>

@@ -109,8 +109,7 @@ function CreateTechAcc() {
                 setLoading(false);
             });
     };
-
-
+ 
     const handlebackhome = () => {
         navigate('/login_teacher'); 
     };

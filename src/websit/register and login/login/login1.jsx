@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Form, Button, Alert } from 'react-bootstrap';
+import {  Col, Form, Button, Alert } from 'react-bootstrap';
 import Api_website from "../../../utlis/axios_utils_websit.jsx";
 import './login2.css';
 import emailIcon from '../../../assets/icons/register and login icon/mail-email-icon-template-black-color-editable-mail-email-icon-symbol-flat-illustration-for-graphic-and-web-design-free-vector 2.svg';
@@ -51,9 +51,7 @@ function Login() {
             });
     };
 
-    const handleResetPassword = () => {
-        navigate('/TeacherSendEmail');
-    };
+  
 
     useEffect(() => {
         let successTimer, errorTimer;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Button.css";
 const MyButton = ({
   className,
@@ -8,7 +8,6 @@ const MyButton = ({
   type,
   name,
   value,
-  to,
 }) => {
   return (
     <button
@@ -18,9 +17,10 @@ const MyButton = ({
       type={type}
       name={name}
       value={value}
-      to={to}
     >
-      <p className="bub">{content}</p>
+      <p style={stylep} className="bub">
+        {content}
+      </p>
     </button>
   );
 };
