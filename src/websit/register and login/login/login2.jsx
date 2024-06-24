@@ -34,9 +34,10 @@ function Login1() {
     };
     const handleSubmit = (e) => {
         e.preventDefault();
-        Api_website.post('/teachers/login', formData)
+        Api_website.post('/students/login', formData)
             .then((response) => {
                 setLoginSuccess(true);
+                localStorage.setItem('token', response.data.access_token);
                 setError('');
                 navigate('/student/homeStudentView'); 
             })

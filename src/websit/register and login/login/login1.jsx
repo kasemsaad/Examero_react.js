@@ -38,6 +38,7 @@ function Login() {
         Api_website.post('/teachers/login', formData)
             .then((response) => {
                 setLoginSuccess(true);
+                localStorage.setItem('token', response.data.access_token);
                 setError('');
                 navigate('/teacher/TeacherProfile'); 
             })
