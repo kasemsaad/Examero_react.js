@@ -8,6 +8,7 @@ const MyButton = ({
   type,
   name,
   value,
+  stylep
 }) => {
   return (
     <button
