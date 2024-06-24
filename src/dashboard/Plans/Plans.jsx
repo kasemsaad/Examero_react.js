@@ -104,7 +104,10 @@ export default function Plans(props) {
                     }}
                     className="footer-manger"
                 >
-                    <button
+                    <button 
+                    type='button'
+
+                    onClick={()=>props.next()}
                         style={{
                             backgroundColor: "#4941A6",
                             height: "26px",
@@ -120,6 +123,8 @@ export default function Plans(props) {
                         <p style={{ margin: "0", color: "white" }}>&gt;</p>
                     </button>
                     <button
+                    type='button'
+                    onClick={()=>props.handelPrev()}
                         style={{
                             marginLeft: "5px",
                             backgroundColor: "#120E4D",

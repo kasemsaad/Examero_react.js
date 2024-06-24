@@ -57,7 +57,7 @@ function MyTable({
               }
             </td>
             <td>
-              {row.status}
+              {row.status  == 1 ?<button className="btn btn-success">مفعل</button>:<button className="btn btn-danger" style={{backgroundColor:"#FE4F60"}}> غير مفعل</button>}
             </td>
             {toggle && (
               <td>

@@ -9,6 +9,23 @@ export default function PlansTeacher() {
     const [editId,SetId]=useState("")
     const [deleteId,SetdeleteId]=useState("")
     const [toggled, setToggled] = useState(false);
+    const [pagination,Setpagination]=useState('')
+    const [current_page,SetcurrentPage]=useState(1)
+    // const [totalPages,Set]
+    const totalPages=pagination.last_page
+
+    
+
+    const handelNext = () => {
+      if (current_page === totalPages) return;
+      SetcurrentPage((prev) => prev + 1);
+    };
+    
+    const handelPrev = () => {
+      if (current_page === 1) return;
+      SetcurrentPage((prev) => prev - 1);
+    };
+    
 
     
 
@@ -22,13 +39,9 @@ export default function PlansTeacher() {
       status:''
 
     })
+    
 
-    // const tog = () => {
-
-    //   setToggled(!toggled);
-    //   SetInputEditTeacher({...InputEditTeacher,
-    //     status:1})
-    // };
+  
 
     const tog = () => {
       setToggled(!toggled);
@@ -128,8 +141,12 @@ getAllTeacherPlan()
 
 
     const getAllTeacherPlan = async ()=>{
-      await Api_Dashboard.get('/plans/teacher').then((response)=>{
+      await Api_Dashboard.get(`/plans/teacher?page=${current_page}`).then((response)=>{
+        console.log(response.data.meta.pagination);
+        Setpagination(response.data.meta.pagination)
         SetallTeacherPlanData(response.data.data)
+
+
         }).catch((err)=>{
             console.log(err);
         })
@@ -157,10 +174,10 @@ getAllTeacherPlan()
 
     useEffect(()=>{
         getAllTeacherPlan()
-    },[])
+    },[current_page])
   return (
     <>
-        <Plans dataRender={allTeacherPlanData} dataConnect={"البيانات الباقات المعلمين"} edit={"#add_connect_Teacher"} delete={"#deleteElementModal_teacher_dash"}  handel={(row)=>handeledit(row)} Deletehandel={(row)=>getDeletedObject(row)} nameOfPageModalTarget={"#add_connect_Teacher_add"}/>
+        <Plans next={handelNext} handelPrev={handelPrev}  dataRender={allTeacherPlanData} dataConnect={"البيانات الباقات المعلمين"} edit={"#add_connect_Teacher"} delete={"#deleteElementModal_teacher_dash"}  handel={(row)=>handeledit(row)} Deletehandel={(row)=>getDeletedObject(row)} nameOfPageModalTarget={"#add_connect_Teacher_add"}/>
 {/* edit modal */}
         <div
       className="modal fade"
@@ -360,7 +377,7 @@ getAllTeacherPlan()
         </div>
       </div>
     </div>
-    
+
 
     
     {/* delete modal  */}
