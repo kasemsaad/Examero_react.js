@@ -3,7 +3,7 @@ import MyButton from "../Button/Button";
 import "./table.css";
 import image from "../../assets/icons/MyTable/trash.svg";
 import { Link } from "react-router-dom";
-function MyTable({
+function TablePlan({
   header,
   body,
   icons,
@@ -127,4 +127,4 @@ function MyTable({
   );
 }
 
-export default MyTable;
+export default TablePlan;

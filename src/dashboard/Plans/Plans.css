@@ -1,0 +1,9 @@
+.rady{
+    clip-path: polygon(24% 26%, 100% 24%, 76% 45%, 101% 66%, 24% 65%, 0 47%);
+}
+
+@media (min-width: 350px) and (max-width: 550px){
+.wraber_student_div{
+    transform: translate(14px, -3px) !important;
+}
+}

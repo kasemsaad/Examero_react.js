@@ -10,6 +10,7 @@ import studentIcon from '../../../assets/icons/register and login icon/360_F_377
 import vector from '../../../assets/icons/register and login icon/Vector 58.svg';
 import studentimg from '../../../assets/image/register and login image/Rectangle 4198.png';
 import request from '../../../utlis/axios_utils_websit';
+import { useNavigate } from 'react-router-dom';
 const days = Array.from({ length: 31 }, (_, i) => i + 1);
 const months = Array.from({ length: 12 }, (_, i) => i + 1);
 const currentYear = new Date().getFullYear();
@@ -53,6 +54,11 @@ function CreateStudentAcc() {
                 [name]: value,
             },
         });
+    }; 
+    const navigate = useNavigate();
+
+     const handlebackhome = () => {
+        navigate('/'); 
     };
 
     const handleSubmit = async (e) => {
@@ -284,8 +290,9 @@ function CreateStudentAcc() {
                                 <Col xs={12} sm={6} md={6} lg={6} xl={6} xxl={6}>
                                     <Button type="submit" className="create_student_acc_btn" disabled={loading}>إنشاء حساب</Button>
                                 </Col>
+                             
                                 <Col xs={12} sm={6} md={6} lg={6} xl={6} xxl={6}>
-                                    <Button type="button" className="back_create_student_acc_btn">رجوع</Button>
+                                    <Button type="button" className="back_create_student_acc_btn" onClick={handlebackhome}>رجوع</Button>
                                 </Col>
                             </Row>
                         </Row>

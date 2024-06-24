@@ -8,12 +8,18 @@ import rightCheck from '../../../assets/icons/register and login icon/check-mark
 import lockIcon from '../../../assets/icons/register and login icon/padlock-icon-lock-and-unlock-icon-design-free-vector 1.svg';
 import Create_acc from '../create_acc/create_acc';
 import Imgcom from '../imgcom/imgcom';
+import { Link, useNavigate } from 'react-router-dom';
 
-function Login() {
+
+function Login1() {
+    const navigate = useNavigate(); 
     const [formData, setFormData] = useState({
         email: '',
         password: '',
     });
+    const [showPassword, setShowPassword] = useState(false);
+    const [isValidEmail, setIsValidEmail] = useState(false);
+    const [loginSuccess, setLoginSuccess] = useState(false);
     const [error, setError] = useState('');
 
     const handleChange = (e) => {
@@ -22,6 +28,10 @@ function Login() {
             ...formData,
             [name]: value,
         });
+        if (name === 'email') {
+            const isValid = /\S+@\S+\.\S+/.test(value);
+            setIsValidEmail(isValid);
+        }
     };
 
     const handleSubmit = async (e) => {
@@ -33,32 +43,44 @@ function Login() {
                 data: formData,
            
             });
-            localStorage.setItem('token', response.data.access_token);
-            console.log(response.data); 
-            setError(''); 
 
-        } 
-    
-        
-        catch (error) {
-            console.error(error); 
+            console.log(response.data);
+            setLoginSuccess(true);
+            setError('');
+        } catch (error) {
+            console.error(error);
+            setLoginSuccess(false);
             if (error.response && error.response.data) {
-                setError(error.response.data.message || 'An error occurred while logging in.');
+                setError(error.response.data.message || 'حدث خطأ أثناء تسجيل الدخول');
             } else {
-                setError('An error occurred while logging in.');
+                setError('حدث خطأ أثناء تسجيل الدخول');
             }
         }
     };
-
+  const handleResetPassword = () => {
+        // Navigate to the reset password page
+        navigate('/TeacherSendEmail'); 
+    };
     useEffect(() => {
+        let successTimer, errorTimer;
+
+        if (loginSuccess) {
+            successTimer = setTimeout(() => {
+                setLoginSuccess(false);
+            }, 3000);
+        }
+
         if (error) {
-            const timer = setTimeout(() => {
+            errorTimer = setTimeout(() => {
                 setError('');
             }, 3000);
-
-            return () => clearTimeout(timer);
         }
-    }, [error]);
+
+        return () => {
+            clearTimeout(successTimer);
+            clearTimeout(errorTimer);
+        };
+    }, [loginSuccess, error]);
 
     return (
         <div className='collContainer'>
@@ -70,7 +92,18 @@ function Login() {
                         <p className='card-title between-borders1-l1'> لتحصل على جميع الخدمات</p>
                     </div>
                     <Form className="login-form" onSubmit={handleSubmit}>
-                        {error && <Alert variant="danger">{error}</Alert>}
+                        <div className="message-container">
+                            {loginSuccess && (
+                                <Alert variant="success" className="green-bg">
+                                    تم تسجيل الدخول بنجاح! جارٍ التوجيه إلى الصفحة الرئيسية...
+                                </Alert>
+                            )}
+                            {error && (
+                                <Alert variant="danger" className="transparent-bg">
+                                    {error}
+                                </Alert>
+                            )}
+                        </div>
                         <Form.Group controlId="email">
                             <Form.Label className='email'>البريد الإلكتروني</Form.Label>
                             <div className='relative1'>
@@ -85,9 +118,11 @@ function Login() {
                                 <div className='icon-container email-icon'>
                                     <img src={emailIcon} alt="email icon" />
                                 </div>
-                                <div className='icon-container check-icon'>
-                                    <img src={rightCheck} alt="check icon" />
-                                </div>
+                                {isValidEmail && (
+                                    <div className='icon-container check-icon'>
+                                        <img src={rightCheck} alt="check icon" />
+                                    </div>
+                                )}
                             </div>
                         </Form.Group>
                         <Form.Group controlId="password">
@@ -95,16 +130,16 @@ function Login() {
                             <div className='relative1'>
                                 <Form.Control
                                     className='p_pass'
-                                    type="password"
+                                    type={showPassword ? 'text' : 'password'}
                                     placeholder="أدخل كلمة السر الخاصة بك"
                                     name="password"
                                     value={formData.password}
                                     onChange={handleChange}
                                 />
-                                <div className='icon-container password-icon'>
+                                <div className='icon-container password-icon' onClick={() => setShowPassword(!showPassword)}>
                                     <img src={passIcon} alt="password icon" />
                                 </div>
-                                <div className='icon-container lock-icon'>
+                                <div className='icon-container lock-icon' onClick={() => setShowPassword(!showPassword)}>
                                     <img src={lockIcon} alt="lock icon" />
                                 </div>
                             </div>
@@ -116,8 +151,8 @@ function Login() {
                                 label="تذكرني"
                                 className="rem_login"
                             />
-                            <a href="#" className="forgot-password">نسيت كلمة المرور؟</a>
-                        </Form.Group>
+                            <Link to="/TeacherSendEmail" className="forgot-password">نسيت كلمة المرور؟</Link>
+                            </Form.Group>
                         <Button type="submit" className="btn login_btn">تسجيل الدخول</Button>
                         <Create_acc />
                     </Form>
@@ -127,4 +162,4 @@ function Login() {
     );
 }
 
-export default Login;
+export default Login1;
