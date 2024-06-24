@@ -9,6 +9,37 @@ export default function PlansStudent() {
     const [editId,SetId]=useState("")
     const [deleteId,SetdeleteId]=useState("")
 
+    const [pagination,Setpagination]=useState('')
+    const [current_page,SetcurrentPage]=useState(1)
+    // const [totalPages,Set]
+    const totalPages=pagination.last_page
+    const [toggled, setToggled] = useState(false);
+
+
+
+
+    const handelNext = () => {
+      if (current_page === totalPages) return;
+      SetcurrentPage((prev) => prev + 1);
+    };
+    
+    const handelPrev = () => {
+      if (current_page === 1) return;
+      SetcurrentPage((prev) => prev - 1);
+    };
+
+
+
+     const tog = () => {
+      setToggled(!toggled);
+      SetInputEditTeacher({
+        ...InputEditTeacher,
+        status: InputEditTeacher.status === 1 ? 0 : 1
+      });
+    };
+
+    
+
     const [InputEditTeacher,SetInputEditTeacher]=useState({
       name:'',
       description:'',
@@ -135,11 +166,14 @@ export default function PlansStudent() {
     <>
     <Plans dataRender={allStudentPlanData} 
     dataConnect={"البيانات الباقات الطلاب"}
-     edit={"#add_connect_Student"} 
-      delete={"#deleteElementModal_student_dash"}
-       handel={(row)=>handeledit(row)}
-        Deletehandel={(row)=>getDeletedObject(row)} 
-    nameOfPageModalTarget={"#add_connect_student_add"} />
+    edit={"#add_connect_Student"} 
+    delete={"#deleteElementModal_student_dash"}
+    handel={(row)=>handeledit(row)}
+    Deletehandel={(row)=>getDeletedObject(row)} 
+    nameOfPageModalTarget={"#add_connect_student_add"} 
+    next={handelNext} handelPrev={handelPrev}
+    
+    />
    
 
 
@@ -510,6 +544,34 @@ export default function PlansStudent() {
                       </div>
                     </div>
                   </div>
+                </div>
+                <div className='input_toogle mt-4 ' style={{display:"flex",alignItems:"center"}}>
+          <input type="text" name='status'
+           value={InputEditTeacher.status} 
+           onChange={(e)=>getEditingInputs(e)}
+           style={{display:"none"}}
+
+           />
+        <label htmlFor="">الحالة</label>
+              <button type="button"
+        style={{ marginLeft: "6px",marginRight:"20px" ,backgroundColor: InputEditTeacher.status === 0 ? 'red' : 'green'}}
+        className={`toggle-btnn ${toggled ? "toggled" : ""}`}
+        onClick={() => tog()}
+
+      >
+        <span
+          style={{
+            marginTop: "-6px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+          className={toggled ? "white-text" : "whit"}
+        >
+        {InputEditTeacher.status === 1 ? 'مفعل' : 'معطل'}
+        </span>
+        <div className="thumb"></div>
+      </button>
                 </div>
                 <div className='mt-5' style={{textAlign:"center",display:"flex",justifyContent:"center"}}>
                   <div className='submitButton'>

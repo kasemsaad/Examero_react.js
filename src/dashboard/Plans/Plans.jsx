@@ -7,6 +7,7 @@ import SecondTriangle from '../components/SecondTriangl/SecondTriangle'
 import './Plans.css'
 import Api_Dashboard from '../interceptor/interceptorDashboard'
 import { Link, useLocation } from 'react-router-dom'
+import TableOpenEmis from '../../common/Table/tableOpenEmis/tableOpenEmes'
 
 export default function Plans(props) {
     const [colorSpin, SetColorSpin] = useState('grey')
@@ -90,7 +91,7 @@ export default function Plans(props) {
                 </div>
 
                 <div className='mt-5'>
-                    <TablePlan header={header} body={props.dataRender} icons={icon} editButtonName={props.edit} delteModalName={props.delete} handel={props.handel}  Deletehandel={props.Deletehandel}/>
+                    <TableOpenEmis header={header} body={props.dataRender} icons={icon} editButtonName={props.edit} delteModalName={props.delete} handel={props.handel}  Deletehandel={props.Deletehandel}/>
                 </div>
 
 

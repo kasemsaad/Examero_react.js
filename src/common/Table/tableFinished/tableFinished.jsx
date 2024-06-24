@@ -1,9 +1,10 @@
 import React from "react";
-import MyButton from "../Button/Button";
-import "./table.css";
-import image from "../../assets/icons/MyTable/trash.svg";
+// import MyButton from "../../Button/Button";
+import MyButton from "../../Button/Button";
+import image from "../../../assets/icons/MyTable/trash.svg";
 import { Link } from "react-router-dom";
-function TablePlan({
+// import './tableOpenEmis.css'
+function TableFinishedEmis({
   header,
   body,
   icons,
@@ -14,7 +15,9 @@ function TablePlan({
   handelNot,
   delet,
   delteModalName,
-  editButtonName
+  editButtonName,
+  handel,
+  Deletehandel
 }) {
   const { trash, edit, eye } = icons || {};
   const { toggle, butt, imag, checkbox } = other || {};
@@ -33,30 +36,42 @@ function TablePlan({
         </tr>
       </thead>
       <tbody>
-        {body&&body.map((row, rowIndex) => (
+        {body.map((row, rowIndex) => (
           <tr key={rowIndex}>
             {/* {Object.values(row).map((value, cellIndex) => (
               <td key={`${rowIndex}-${cellIndex}`}>{value}</td>
             ))} */}
+
             <td>
-             { row.id}
+                <input type="checkbox" name="" id="" />
+             
+            </td>
+
+            <td>
+             { row.user_name
+             }
             </td>
             <td>
-             { row.name}
+              {row.password}
             </td>
             <td>
-              {row.price}
+              {row.teacher.phone_number}
             </td>
             <td>
-              {row.allow_exam}
+              {row.group}
             </td>
             <td>
-              {row.allow_question
+              {row.subject
               }
             </td>
+            {/* <td>
+              {row.status  == 1 ?<button className="btn btn-success">مفعل</button>:<button className="btn btn-danger" style={{backgroundColor:"#FE4F60"}}> غير مفعل</button>}
+            </td> */}
+
             <td>
-              {row.status}
+              {row.ImagePath === null ? <p style={{margin:"0",padding:"0"}}>لا يوجد مستند</p>: row.ImagePath}
             </td>
+
             {toggle && (
               <td>
               </td>
@@ -65,6 +80,7 @@ function TablePlan({
               <td>
                 {trash && (
                   <button
+                  onClick={()=>Deletehandel(row)}
                     type="button"
                     className=" trash"
                     data-bs-toggle="modal"
@@ -79,11 +95,11 @@ function TablePlan({
                 )}
                 {edit && (
                   <button
-
+                  onClick={()=>handel(row)}
                   type="button"
+                  
                   data-bs-toggle="modal"
                   data-bs-target={editButtonName}
-                  
 
                     className="square fa-regular fa-pen-to-square"
                   ></button>
@@ -129,4 +145,4 @@ function TablePlan({
   );
 }
 
-export default TablePlan;
+export default TableFinishedEmis;

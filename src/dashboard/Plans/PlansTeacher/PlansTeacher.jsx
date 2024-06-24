@@ -49,7 +49,6 @@ export default function PlansTeacher() {
         ...InputEditTeacher,
         status: InputEditTeacher.status === 1 ? 0 : 1
       });
-       
     };
 
 
@@ -210,6 +209,7 @@ getAllTeacherPlan()
                     value={InputEditTeacher.name}
                     // onChange={(e) => setname(e.target.value)}
                     onChange={(e)=>getEditingInputs(e)}
+                    required
                   />
                 </div>
 
@@ -226,6 +226,7 @@ getAllTeacherPlan()
                     value={InputEditTeacher.description}
                     // onChange={(e) => setdescription(e.target.value)}
                     onChange={(e)=>getEditingInputs(e)}
+                    required
 
                   />
                 </div>
@@ -462,6 +463,7 @@ getAllTeacherPlan()
                     // value={InputEditTeacher.description}
                     // onChange={(e) => setdescription(e.target.value)}
                     onChange={(e)=>getEditingInputs(e)}
+                    required
 
                   />
                 </div>
@@ -482,13 +484,13 @@ getAllTeacherPlan()
                         </button>
                       </div>
                       <input
-                        type="text"
+                        type="number"
                         className="form-control text-center"
                         id="price"
                         name='price'
                         value={InputEditTeacher.price}
                         onChange={(e)=>getEditingInputs(e)}
-                        readOnly
+                        
                       />
                       <div className="input-group-append">
                         <button
@@ -514,12 +516,12 @@ getAllTeacherPlan()
                         </button>
                       </div>
                       <input
-                        type="text"
+                        type="number"
                         className="form-control text-center"
                         id="allow_exam"
                         name='allow_exam'
                         value={InputEditTeacher.allow_exam}
-                        readOnly
+                        
                         onChange={(e)=>getEditingInputs(e)}
 
                       />
@@ -547,12 +549,12 @@ getAllTeacherPlan()
                         </button>
                       </div>
                       <input
-                        type="text"
+                        type="number"
                         className="form-control text-center"
                         id="allow_question"
                         name='allow_question'
                         value={InputEditTeacher.allow_question}
-                        readOnly
+                        
                         onChange={(e)=>getEditingInputs(e)}
 
                       />

@@ -36,12 +36,15 @@ import CertificateGenerator from './dashboard/Certificate/Certificate.jsx';
 import Qbank from './dashboard/Qbank/Qbank.jsx';
 import Specification from './dashboard/Specifecation/Specification.jsx';
 import ProtectedRoute from './dashboard/protectedRouteDashboard.jsx/protectedRouteDashboard.jsx';
-import Plans from './dashboard/Plans/Plans.jsx';
 import PlansStudent from './dashboard/Plans/PlansStudent/PlansStudent.jsx';
 import PlansTeacher from './dashboard/Plans/PlansTeacher/PlansTeacher.jsx';
 import Notification from "./dashboard/Notification/Notification";
 import PuttingQuestions from "./dashboard/PuttingQussions/ForClasses/PuttingQuestions.jsx";
 import PuttingQForMab7as from "./dashboard/PuttingQussions/ForMab7s/PuttingQForMabhas.jsx";
+import OpenEmis from './dashboard/open_Emis/openEmis.jsx';
+import WaitingEmis from './dashboard/open_Emis/waitingEmis/waitingEmis.jsx';
+import RecivedEmis from './dashboard/open_Emis/recivedEmis/recivedEmis.jsx';
+import FinishedEmis from './dashboard/open_Emis/finishedEmis/finishedEmis.jsx';
 
 function App(props) {
   return (
@@ -98,6 +101,15 @@ function App(props) {
           <Route path="specify" element={<Specification />} />
           <Route path="PlansTeacher" element={<PlansTeacher />} />
           <Route path="planstudent" element={<PlansStudent />} />
+          <Route path="waitingemis" element={<WaitingEmis />} />
+          <Route path="recivedemis" element={<RecivedEmis />} />
+          <Route path="finishedEmis" element={<FinishedEmis />} />
+
+
+
+
+          
+
 
 
 

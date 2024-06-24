@@ -106,12 +106,12 @@ export default function Specification() {
                             <input type="text" placeholder='أدخل اسم المدرسة' className='form-control' />
                         </div>
 
-
                         <div className='col-5'>
                             <label htmlFor="">اسم المبحث</label>
                             <input type="text" placeholder='أدخل اسم المدرسة' className='form-control' />
                         </div>
                     </div>
+
 
 
 
