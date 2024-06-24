@@ -1,0 +1,89 @@
+
+*{
+    font-family: Cairo;
+    
+  }
+  
+  .label_size{
+    width: 114px !important;
+    font-size: 16px;
+    font-family: Cairo ;
+    font-weight: 600px;
+  }
+  .personal_inf{
+    font-size: 16px;
+    font-family: Cairo ;
+    font-weight: 600px;
+  }
+  .input_size{
+    width: 20vw !important;
+  }
+  @media (min-width: 992px) and (max-width: 1100px){
+    .button_wraper{
+      text-align: center;
+    }
+  
+  }
+  
+  @media (min-width: 768px) and (max-width: 989px) {
+  .input_size{
+    width: 50vw !important;
+  }
+  .top_input_margin{
+    margin-top: 12px !important;
+  }
+  .Wraber_ele{
+    margin-top: 10px !important;
+  }
+  .button_wraper{
+    text-align: center;
+  }
+  
+  }
+   @media (min-width: 600px) and (max-width: 767px){
+    .input_size{
+      width: 49vw !important;
+    }
+    .top_input_margin{
+      margin-top: 12px !important;
+    }
+    .Wraber_ele{
+      margin-top: 10px !important;
+    }
+    .button_wraper{
+      text-align: center;
+    }
+  
+  
+  } 
+  
+  @media (max-width: 599px){
+    .input_size{
+      width: 55vw !important;
+    }
+    .top_input_margin{
+      margin-top: 12px !important;
+    }
+    .Wraber_ele{
+      margin-top: 10px !important;
+    }
+    .button_wraper{
+      text-align: center;
+    }
+  }
+  
+  @media (min-width: 350px) and (max-width: 430px){
+    .input_size{
+      width: 79vw !important;
+    }
+    .top_input_margin{
+      margin-top: 12px !important;
+    }
+    .Wraber_ele{
+      margin-top: 10px !important;
+    }
+    .button_wraper{
+      text-align: center;
+    }
+  
+  }

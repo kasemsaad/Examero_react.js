@@ -269,6 +269,8 @@ letter-spacing: 0.03em;
 .techim{
     position: relative;
 }
-.techim img{
-    width: 42%;
+.techim img {
+    width: 50%;
+    height: auto;
+    margin: auto;
 }

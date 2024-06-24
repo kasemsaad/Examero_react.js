@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Form, Button, Alert } from 'react-bootstrap';
-import request from "../../../utlis/axios_utils_websit.jsx";
+import Api_website from "../../../utlis/axios_utils_websit.jsx";
 import './login2.css';
 import emailIcon from '../../../assets/icons/register and login icon/mail-email-icon-template-black-color-editable-mail-email-icon-symbol-flat-illustration-for-graphic-and-web-design-free-vector 2.svg';
 import passIcon from '../../../assets/icons/register and login icon/pngtree-password-vector-icon-design-illustration-png-image_6597553 3.svg';
@@ -10,8 +10,7 @@ import Create_acc from '../create_acc/create_acc';
 import Imgcom from '../imgcom/imgcom';
 import { Link, useNavigate } from 'react-router-dom';
 
-
-function Login1() {
+function Login() {
     const navigate = useNavigate(); 
     const [formData, setFormData] = useState({
         email: '',
@@ -34,34 +33,28 @@ function Login1() {
         }
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-        try {
-            const response = await request({
-                method: 'post',
-                url: '/teachers/login',
-                data: formData,
-                headers: {
-                    Accept: 'application/json',
-                },
+        Api_website.post('/teachers/login', formData)
+            .then((response) => {
+                setLoginSuccess(true);
+                setError('');
+                navigate('/teacher/TeacherProfile'); 
+            })
+            .catch((error) => {
+                setLoginSuccess(false);
+                if (error.response && error.response.data) {
+                    setError(error.response.data.message || 'حدث خطأ أثناء تسجيل الدخول');
+                } else {
+                    setError('حدث خطأ أثناء تسجيل الدخول');
+                }
             });
-            console.log(response.data);
-            setLoginSuccess(true);
-            setError('');
-        } catch (error) {
-            console.error(error);
-            setLoginSuccess(false);
-            if (error.response && error.response.data) {
-                setError(error.response.data.message || 'حدث خطأ أثناء تسجيل الدخول');
-            } else {
-                setError('حدث خطأ أثناء تسجيل الدخول');
-            }
-        }
     };
-  const handleResetPassword = () => {
-        // Navigate to the reset password page
-        navigate('/TeacherSendEmail'); 
+
+    const handleResetPassword = () => {
+        navigate('/TeacherSendEmail');
     };
+
     useEffect(() => {
         let successTimer, errorTimer;
 
@@ -153,7 +146,7 @@ function Login1() {
                                 className="rem_login"
                             />
                             <Link to="/TeacherSendEmail" className="forgot-password">نسيت كلمة المرور؟</Link>
-                            </Form.Group>
+                        </Form.Group>
                         <Button type="submit" className="btn login_btn">تسجيل الدخول</Button>
                         <Create_acc />
                     </Form>
@@ -163,4 +156,4 @@ function Login1() {
     );
 }
 
-export default Login1;
+export default Login;

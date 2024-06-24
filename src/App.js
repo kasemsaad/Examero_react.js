@@ -24,7 +24,7 @@ import ResetPage1Teacher from './websit/register and login/resetpage/resetpage_t
 import ResetCodePageTech from './websit/register and login/reset_password/reset_password_tech.jsx';
 import NewPassTeach from './websit/register and login/new_pass/new_pass_tech.jsx'
 
-import Hometeacherview from './websit/teacher_view/teacher_enter_openmis/Hometeacherview.jsx';
+import InsertingOpenEmisTags from './websit/teacher_view/teacher_enter_openmis/InsertingOpenEmisTags.jsx';
 import PuttingExam1 from './websit/teacher_view/PuttingExam1/PuttingExam1.jsx';
 import PuttingExam2 from './websit/teacher_view/PuttingExam1/PuttingExam2.jsx';
 import PuttingExam3 from './websit/teacher_view/PuttingExam1/PuttingExam3.jsx';
@@ -34,14 +34,15 @@ import EmailVerificationTech from './websit/register and login/EmailVerification
 import EmailVerificationStud from './websit/register and login/EmailVerification/EmailVerificationStud.jsx';
 import HomeStudentView from './websit/Student/Student_View/homeStudentView.jsx'
 import CreateExam from './websit/Student/createExam/createExam.jsx';
+import TeacherProfile from './websit/teacher_view/teacher profile/teacherProfile.jsx';
 
 function App(props) {
   return (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/verify-account" element={<EmailVerificationTech />} />
-          {/* <Route path="/verify-account-student" element={<EmailVerificationStud />} /> */}
+          <Route path="/verify-account-teacher" element={<EmailVerificationTech />} />
+          <Route path="/verify-account-student" element={<EmailVerificationStud />} />
           <Route path="/CreateStudentAccount" element={<CreateStudentAcc/>} /> 
           <Route path="/CreateTecherAccount" element={<CreateTechAcc/>} />
           <Route path="/login_student" element={<Login1/>} />
@@ -59,7 +60,8 @@ function App(props) {
           <Route path="createExam" element={<CreateExam/>} />
            </Route>
            <Route path="/teacher/" element={<LayoutComp />} >
-          <Route path="homeTeacherview" element={<Hometeacherview/>} />
+           <Route path="TeacherProfile" element={<TeacherProfile/>} />
+          <Route path="InsertingOpenEmisTags" element={<InsertingOpenEmisTags/>} />
            </Route>
            <Route path="/teacher/" element={<LayoutComp />} >
           <Route path="PuttingExam1" element={<PuttingExam1/>} />
