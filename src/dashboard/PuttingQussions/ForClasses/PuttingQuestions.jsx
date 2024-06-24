@@ -1,5 +1,5 @@
 // export default PuttingQuestions;
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import FirstTriangle from "../../components/FirstTriangle/FirstTriangle";
 import MyButton from "../../../common/Button/Button";
 import MyTable from "../../../common/Table/Table";
@@ -13,9 +13,16 @@ import { useNavigate } from "react-router-dom";
 import AddComponent from "../../components/PuttingQuesionsPage/AddComoponentForPage/Add";
 import InfoComponent from "../../components/PuttingQuesionsPage/InfoComponentPq/InfoComponent";
 import PuttingQArrow from "../../components/PuttingQuesionsPage/PuttingArrow/PuttingQArrow";
+import Api_Dashboard from "../../interceptor/interceptorDashboard";
+import DeleteUserModal from "../../components/UsersPages/DeletUserModal/DeleteUserModal";
 
 const PuttingQuestions = () => {
   const [toggled, setToggled] = useState(false);
+  const [groupsData, setGroupsData] = useState("");
+  const [metaData, setMetaData] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [DeletedItem, setDeletedItem] = useState("");
+  const totalPages = metaData.last_page;
 
   let header = {
     name1: "اسم الصف",
@@ -45,11 +52,38 @@ const PuttingQuestions = () => {
       name1: "اسم الصف",
     },
   ];
+  useEffect(() => {
+    fetchAllData();
+  }, []);
+  const fetchAllData = async () => {
+    const respons = await Api_Dashboard.get("/groups")
+      .then((response) => {
+        console.log(response);
+        console.log("radppy");
+        setGroupsData(response.data.data);
+        setMetaData(response.data.meta.pagination);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const newData = useMemo(() => {
+    if (Array.isArray(groupsData)) {
+      return groupsData.map(({ id, name }) => ({
+        id,
+        name,
+      }));
+    } else {
+      return [];
+    }
+  }, [groupsData]);
 
+  console.log("rady");
+  let other = { toggle: true };
   let icon = { edit: true, trash: true, toggle: true };
   const navegiate = useNavigate();
   const handelNav = () => {
-    navegiate("/dashboard/putting/questions/subjects");
+    navegiate("/dashboard/putting/questions/subjects=2");
   };
   return (
     <div className="questionContainer min-vh-100 w-100">
@@ -62,7 +96,7 @@ const PuttingQuestions = () => {
         </div>
 
         <div className="MyForm col-8">
-          <FormForAll />
+          <FormForAll fetchAllData={fetchAllData} />
         </div>
 
         <div
@@ -73,7 +107,16 @@ const PuttingQuestions = () => {
         </div>
 
         <div className="MyTable">
-          <MyTable header={header} body={body} icons={icon} />
+          <MyTable
+            deleteModalName={"#deleteElementModal_users-dash"}
+            handelDeleteItem={(id) => {
+              setDeletedItem(id);
+            }}
+            other={other}
+            header={header}
+            body={newData}
+            icons={icon}
+          />
         </div>
       </div>
 
@@ -89,6 +132,11 @@ const PuttingQuestions = () => {
           />
         </div>
       </div>
+      <DeleteUserModal
+        fetchAllData={fetchAllData}
+        api={"groups"}
+        idOfDeleteItem={DeletedItem}
+      />
     </div>
   );
 };

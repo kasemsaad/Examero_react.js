@@ -4,23 +4,23 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 const FooterFPuttingQ = ({ next, prev }) => {
   const pages = [
-    "/dashboard/putting/questions/levels",
-    "/dashboard/putting/questions/subjects",
-    "/dashboard/putting/questions/units",
-    "/dashboard/putting/questions/lessons",
-    "/dashboard/putting/questions/kinds",
+    "/dashboard/putting/questions/levels=1",
+    "/dashboard/putting/questions/subjects=2",
+    "/dashboard/putting/questions/units=3",
+    "/dashboard/putting/questions/lessons=4",
+    "/dashboard/putting/questions/kinds=5",
   ];
 
   const navigate = useNavigate();
   const location = useLocation();
   const { pathname } = location;
-  const co = 0;
+
   const currentIndex = pages.indexOf(pathname);
 
   const handleNext = () => {
     if (currentIndex >= 0 && currentIndex < pages.length - 1) {
       const nextPath = pages[currentIndex + 1];
-      console.log(`Navigating to: ${nextPath}`);
+
       navigate(nextPath);
     } else {
       console.log("error not found 404.");
@@ -28,11 +28,8 @@ const FooterFPuttingQ = ({ next, prev }) => {
   };
 
   const handlePrev = () => {
-    console.log(`Current Index: ${currentIndex}`);
-
     if (currentIndex > 0) {
       const prevPath = pages[currentIndex - 1];
-      console.log(`Navigating to: ${prevPath}`);
       navigate(prevPath);
     } else {
       console.log("No previous page to navigate to.");

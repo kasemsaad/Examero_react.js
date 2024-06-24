@@ -4,7 +4,7 @@
   font-weight: 600;
 }
 
-.rounded-table {
+.my-rounded-table-all {
   margin: auto;
   width: 100%; /* 891px */
 
@@ -14,11 +14,11 @@
   border-spacing: 0 0.5rem; /* 10px */
 }
 
-.rounded-table thead tr th {
+.my-rounded-table-all thead tr th {
   color: #fe4f60;
 }
 
-/* .rounded-table thead tr td {
+/* .my-rounded-table-all thead tr td {
   margin: 50px;
   height: 2rem;
 } */
@@ -26,7 +26,7 @@
 .trash,
 .square,
 .eye {
-  height: 100%;
+  height: 99%;
   width: 1.875rem; /* 30px */
   padding: 0;
   border: none;
@@ -36,7 +36,7 @@
 
 .trash {
   color: #fe4f60;
-  height: 100%;
+  height: 99%;
   background-color: #120e4d;
 }
 
@@ -50,10 +50,10 @@
   background-color: #120e4d;
 }
 
-.rounded-table th,
-.rounded-table td {
+.my-rounded-table-all th,
+.my-rounded-table-all td {
   padding: 0;
-  height: 1.9rem; /* 30px */
+  height: 2rem; /* 30px */
   color: aliceblue;
 }
 
@@ -65,7 +65,7 @@ tr:nth-child(even) {
   background-color: #090631;
 }
 
-.rounded-table th {
+.my-rounded-table-all th {
   font-weight: 700;
   color: #fe4f60;
   border-bottom: 0.5px solid #a6a0f4;
@@ -73,7 +73,7 @@ tr:nth-child(even) {
 }
 
 /* Apply border-radius to the entire row by targeting the first and last cells */
-.rounded-table tbody tr td:first-child {
+.my-rounded-table-all tbody tr td:first-child {
   border-top-left-radius: 0rem; /* 8px */
   border-bottom-left-radius: 0rem; /* 0px */
   border-top-right-radius: 1rem; /* 0px */
@@ -82,7 +82,7 @@ tr:nth-child(even) {
   width: 3.5rem;
 }
 
-.rounded-table tbody tr td:last-child {
+.my-rounded-table-all tbody tr td:last-child {
   border-top-left-radius: 1rem; /* 8px */
   border-bottom-left-radius: 1rem; /* 0px */
   border-top-right-radius: 0; /* 0px */
@@ -97,8 +97,8 @@ tr:nth-child(even) {
     font-size: 13px;
   }
 
-  .rounded-table th,
-  .rounded-table td {
+  .my-rounded-table-all th,
+  .my-rounded-table-all td {
     height: 2rem; /* 28px */
   }
 
@@ -111,13 +111,15 @@ tr:nth-child(even) {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 890px) {
   :root {
     font-size: 12px;
   }
-
-  .rounded-table th,
-  .rounded-table td {
+  .buttonOfTable {
+    font-size: 11px;
+  }
+  .my-rounded-table-all th,
+  .my-rounded-table-all td {
     height: 2rem; /* 26px */
   }
 
@@ -130,13 +132,15 @@ tr:nth-child(even) {
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 580px) {
   :root {
     font-size: 11px;
   }
-
-  .rounded-table th,
-  .rounded-table td {
+  .buttonOfTable {
+    font-size: 11px;
+  }
+  .my-rounded-table-all th,
+  .my-rounded-table-all td {
     height: 2rem; /* 32px */
     font-size: 0.875rem; /* 14px */
   }
@@ -149,13 +153,13 @@ tr:nth-child(even) {
     height: 100%;
   }
 
-  .rounded-table tbody tr td:first-child {
+  .my-rounded-table-all tbody tr td:first-child {
     border-top-left-radius: 0rem; /* 8px */
     border-bottom-left-radius: 0rem; /* 0px */
     border-top-right-radius: 1rem; /* 0px */
     border-bottom-right-radius: 1rem; /* 0px */
   }
-  .rounded-table tbody tr td:last-child {
+  .my-rounded-table-all tbody tr td:last-child {
     border-top-left-radius: 1rem; /* 8px */
     border-bottom-left-radius: 1rem; /* 0px */
     border-top-right-radius: 0; /* 0px */
@@ -163,13 +167,19 @@ tr:nth-child(even) {
   }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 500px) {
   :root {
-    font-size: 14px;
+    font-size: 11px;
+  }
+  .my-rounded-table-all {
+    width: 100%;
   }
 
-  .rounded-table th,
-  .rounded-table td {
+  .buttonOfTable {
+    font-size: 0.7rem;
+  }
+  .my-rounded-table-all th,
+  .my-rounded-table-all td {
     height: 2rem; /* 30px */
     font-size: 0.8125rem; /* 13px */
   }
@@ -182,27 +192,38 @@ tr:nth-child(even) {
     height: 100%;
   }
 
-  .rounded-table tbody tr td:first-child {
+  .my-rounded-table-all tbody tr td:first-child {
     border-top-left-radius: 0rem; /* 8px */
     border-bottom-left-radius: 0rem; /* 0px */
     border-top-right-radius: 1rem; /* 0px */
     border-bottom-right-radius: 1rem; /* 0px */
   }
-  .rounded-table tbody tr td:last-child {
+  .my-rounded-table-all tbody tr td:last-child {
     border-top-left-radius: 1rem; /* 8px */
     border-bottom-left-radius: 1rem; /* 0px */
     border-top-right-radius: 0; /* 0px */
     border-bottom-right-radius: 0; /* 0px */
   }
+  .buttonOfTable {
+    border-radius: 12px;
+    width: fit-content;
+    /* padding: 0px, 10px, 0px, 10px; */
+
+    background-color: #4941a6;
+    color: #ffff;
+    border: none;
+  }
 }
 
-@media (max-width: 375px) {
+@media (max-width: 450px) {
   :root {
-    font-size: 14px;
+    font-size: 9px;
   }
-
-  .rounded-table th,
-  .rounded-table td {
+  .my-rounded-table-all {
+    width: 100%;
+  }
+  .my-rounded-table-all th,
+  .my-rounded-table-all td {
     height: 1.75rem; /* 28px */
     font-size: 1rem; /* 12px */
   }
@@ -218,7 +239,7 @@ tr:nth-child(even) {
     font-size: 1rem;
     height: 100%;
   }
-  .rounded-table tbody tr td:last-child {
+  .my-rounded-table-all tbody tr td:last-child {
     margin: 0 0.625rem;
 
     border-top-left-radius: 1rem; /* 8px */
@@ -226,7 +247,7 @@ tr:nth-child(even) {
     border-top-right-radius: 0; /* 0px */
     border-bottom-right-radius: 0; /* 0px */
   }
-  .rounded-table tbody tr td:first-child {
+  .my-rounded-table-all tbody tr td:first-child {
     border-top-right-radius: 1rem; /* 8px */
     border-bottom-right-radius: 1rem; /* 0px */
     border-top-left-radius: 0; /* 0px */
@@ -234,15 +255,24 @@ tr:nth-child(even) {
     margin: 0 0.625rem; /* 10px */
     width: 3.5rem;
   }
+  .buttonOfTable {
+    border-radius: 8px;
+    width: fit-content;
+    /* padding: 0px, 10px, 0px, 10px; */
+
+    background-color: #4941a6;
+    color: #ffff;
+    border: none;
+  }
 }
 
-@media (max-width: 355px) {
+@media (max-width: 450px) {
   :root {
-    font-size: 8px;
+    font-size: 12px;
   }
 
-  .rounded-table th,
-  .rounded-table td {
+  .my-rounded-table-all th,
+  .my-rounded-table-all td {
     height: 2rem; /* 26px */
     font-size: 0.6875rem; /* 11px */
   }
@@ -255,9 +285,21 @@ tr:nth-child(even) {
     height: 100%;
   }
 
-  .rounded-table tbody tr td:first-child,
-  .rounded-table tbody tr td:last-child {
-    border-radius: 0.25rem; /* 4px */
+  .my-rounded-table-all tbody tr td:last-child {
+    margin: 0 0.625rem;
+
+    border-top-left-radius: 1rem; /* 8px */
+    border-bottom-left-radius: 1rem; /* 0px */
+    border-top-right-radius: 0; /* 0px */
+    border-bottom-right-radius: 0; /* 0px */
+  }
+  .my-rounded-table-all tbody tr td:first-child {
+    border-top-right-radius: 1rem; /* 8px */
+    border-bottom-right-radius: 1rem; /* 0px */
+    border-top-left-radius: 0; /* 0px */
+    border-bottom-left-radius: 0; /* 0px */
+    margin: 0 0.625rem; /* 10px */
+    width: 3.5rem;
   }
 }
 .buttonOfTable {

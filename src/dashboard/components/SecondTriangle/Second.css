@@ -10,7 +10,7 @@
 .ques p {
   width: fit-content;
   color: black;
-  font-weight: 700;
+  font-weight: 600;
   font-size: 16px;
 
   transform: translate(-29px, -5px);
@@ -74,7 +74,7 @@
     font-weight: 400;
     font-size: 11px;
     width: 3rem;
-    transform: translate(-29px, -5px);
+    transform: translate(-16px, -4px);
   }
 }
 @media (max-width: 400px) {

@@ -1,6 +1,5 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-// import Header from './common/header/header';
 import LayoutComp from "./layout/layoutComp/layoutComp";
 import J from "./common/j/j";
 import Log from "./common/j/log";
@@ -18,14 +17,18 @@ import Reset_page1 from "./websit/register and login/resetpage/resetpage.jsx";
 import Reset_code_page from "./websit/register and login/reset_password/reset_password.jsx";
 import Login1 from "./websit/register and login/login/login2.jsx";
 import New_pass from "./websit/register and login/new_pass/new_pass.jsx";
+// import HomeDashoardLogin from "./dashboard/homeLogin/homeLogin.jsx";
+import ProtectedRoute from "./dashboard/protectedRouteDashboard.jsx/protectedRouteDashboard.jsx";
+
 import PuttingQUnites from "./dashboard/PuttingQussions/ForUnits/PuttingQUnits.jsx";
 import PuttingQFLessons from "./dashboard/PuttingQussions/ForLessons/PuttingQFLessons.jsx";
 import PuttingKindOfQ from "./dashboard/PuttingQussions/ForKindOfQuestions/PuttingKOQuestions.jsx";
-import Mangers from "./dashboard/Users/mangers.jsx";
 import ReceivedEmis from "./dashboard/OpenEmis/Received/ReceivedEmis.jsx";
 import Teacher from "./dashboard/Plans/Teachers.jsx";
-import AddOrEditModal from "./dashboard/components/Modal/AddOrEditModal/AddOrEdite.jsx";
-import DeleteAnItem from "./dashboard/components/Modal/DeleteAnItemmodal/DeleteAnItem.jsx";
+import HomeDashoardLogin from "./dashboard/homeLogin/homeLogin.jsx";
+import Mangers from "./dashboard/Users/Mangers/mangers.jsx";
+import Supervisors from "./dashboard/Users/supervisors/supervisors.jsx";
+import ShowUserModal from "./dashboard/components/UsersPages/ShowUserModal/ShowUser.jsx";
 function App(props) {
   return (
     <BrowserRouter>
@@ -39,29 +42,45 @@ function App(props) {
         <Route path="/reset2" element={<Reset_code_page />} />
         <Route path="/newp" element={<New_pass />} />
         <Route path="/teacher/" element={<LayoutComp />} />
+        <Route path="login_dashboard" element={<HomeDashoardLogin />} />
         <Route path="/dashboard/" element={<LayoutComp />}>
-          <Route index element={<Log />} />
+          <Route
+            index
+            element={
+              <ProtectedRoute>
+                <Home_dashboard />
+              </ProtectedRoute>
+            }
+          />
+
           <Route path="not" element={<Notification />} />
           <Route
-            path="putting/questions/levels"
+            path="putting/questions/levels=1"
             element={<PuttingQuestions />}
           />
           <Route
-            path="putting/questions/subjects"
+            path="putting/questions/subjects=2"
             element={<PuttingQForMab7as />}
           />
-          <Route path="putting/questions/units" element={<PuttingQUnites />} />
           <Route
-            path="putting/questions/lessons"
+            path="putting/questions/units=3"
+            element={<PuttingQUnites />}
+          />
+          <Route
+            path="putting/questions/lessons=4"
             element={<PuttingQFLessons />}
           />
 
-          <Route path="putting/questions/kinds" element={<PuttingKindOfQ />} />
+          <Route
+            path="putting/questions/kinds=5"
+            element={<PuttingKindOfQ />}
+          />
+
           <Route path="mangers" element={<Mangers />} />
-          <Route path="delete" element={<DeleteAnItem />} />
+          <Route path="supervisors" element={<Supervisors />} />
           <Route path="emis" element={<ReceivedEmis />} />
+          <Route path="show" element={<ShowUserModal />} />
           <Route path="teacher" element={<Teacher />} />
-          <Route path="add" element={<AddOrEditModal />} />
 
           <Route path="login" element={<J />} />
           <Route path="b" element={<AccountSetting />} />

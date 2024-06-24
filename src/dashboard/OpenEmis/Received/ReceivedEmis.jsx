@@ -4,6 +4,7 @@ import FirstTriangle from "../../components/FirstTriangle/FirstTriangle";
 import SecondTriangle from "../../components/SecondTriangle/SecondTriangle";
 import MyTable from "../../../common/Table/Table";
 // import { useLocation } from "react-router-dom";
+import "./Received.css";
 const ReceivedEmis = () => {
   let header = {
     name1: "اسم المستخدم",
@@ -58,7 +59,7 @@ const ReceivedEmis = () => {
       name5: "اسم المبحث",
     },
   ];
-  const other = { checkbox: true, image: true };
+  const other = { checkbox: true, image: true, imag: true };
   // const { pathname } = useLocation;
   //   let icon = {};
   return (
@@ -98,7 +99,7 @@ const ReceivedEmis = () => {
             </div>
           </div>
         </div>
-        <div style={{ width: "88%", margin: "auto" }}>
+        <div className="conain-emis" style={{ width: "88%", margin: "auto" }}>
           <div style={{ display: "flex" }} className="Arrows-emis ">
             <div>
               <FirstTriangle content={"المستلمة"} />

@@ -9,7 +9,10 @@ const MyButton = ({
   type,
   name,
   value,
-  linkTo,
+
+  stylep,
+  databstoggle,
+  databstarget,
 }) => {
   return (
     <button
@@ -19,8 +22,12 @@ const MyButton = ({
       type={type}
       name={name}
       value={value}
+      data-bs-toggle={databstoggle}
+      data-bs-target={databstarget}
     >
-      <p className="bub">{content}</p>
+      <p style={stylep} className="bub">
+        {content}
+      </p>
     </button>
   );
 };

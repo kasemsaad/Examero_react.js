@@ -18,13 +18,17 @@ const FormFPkindOfQ = () => {
               <div className="inputs-kind">
                 <div className="input-kind">
                   <div className="inputs">
-                    <Checkbox Checkbox={"radio"} />
+                    <Checkbox
+                      name={"option"}
+                      id={"option1"}
+                      Checkbox={"radio"}
+                    />
                     <label className="label-kind" htmlFor="kind1">
                       صح/خطأ
                     </label>
                   </div>
                   <div className="inputs">
-                    <Checkbox Checkbox={"radio"} />
+                    <Checkbox name={"option"} Checkbox={"radio"} />
                     <label className="label-kind" htmlFor="kind2">
                       توصيل بين عمودين
                     </label>
@@ -32,13 +36,21 @@ const FormFPkindOfQ = () => {
                 </div>
                 <div className="input-kind">
                   <div className="inputs">
-                    <Checkbox Checkbox={"radio"} />
+                    <Checkbox
+                      id={"option2"}
+                      name={"option"}
+                      Checkbox={"radio"}
+                    />
                     <label className="label-kind" htmlFor="kind3">
                       متعدد الاختيارات
                     </label>
                   </div>
                   <div className="inputs">
-                    <Checkbox Checkbox={"radio"} />
+                    <Checkbox
+                      id={"option3"}
+                      name={"option"}
+                      Checkbox={"radio"}
+                    />
                     <label className="label-kind" htmlFor="kind2">
                       تحديد فى الصور
                     </label>
@@ -46,13 +58,21 @@ const FormFPkindOfQ = () => {
                 </div>
                 <div className="input-kind">
                   <div className="inputs">
-                    <Checkbox Checkbox={"radio"} />
+                    <Checkbox
+                      id={"option4"}
+                      name={"option"}
+                      Checkbox={"radio"}
+                    />
                     <label className="label-kind" htmlFor="kind2">
                       سؤال إنشائي
                     </label>
                   </div>
                   <div className="inputs">
-                    <Checkbox Checkbox={"radio"} />
+                    <Checkbox
+                      id={"option5"}
+                      name={"option"}
+                      Checkbox={"radio"}
+                    />
                     <label className="label-kind" htmlFor="kind2">
                       املأ الفراغات
                     </label>
@@ -60,13 +80,21 @@ const FormFPkindOfQ = () => {
                 </div>
                 <div className="input-kind">
                   <div className="inputs">
-                    <Checkbox Checkbox={"radio"} />
+                    <Checkbox
+                      id={"option6"}
+                      name={"option"}
+                      Checkbox={"radio"}
+                    />
                     <label className="label-kind" htmlFor="kind2">
                       سؤال المحتوى
                     </label>
                   </div>
                   <div className="inputs">
-                    <Checkbox Checkbox={"radio"} />
+                    <Checkbox
+                      id={"option7"}
+                      name={"option"}
+                      Checkbox={"radio"}
+                    />
                     <label className="label-kind" htmlFor="kind2">
                       سؤال مرفق
                     </label>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./ToggleButton.css";
 const ToggledButton = () => {
-  const [toggled, setToggled] = useState(false);
+  const [toggled, setToggled] = useState(true);
 
   const tog = () => {
     setToggled(!toggled);
