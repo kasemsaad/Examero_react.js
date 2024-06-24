@@ -208,7 +208,7 @@ function CreateStudentAcc() {
                         <Form.Group controlId="birthdate">
                             <Form.Label className='birthdate_create_std_acc'>تاريخ الميلاد</Form.Label>
                             <div className='date-input-container'>
-                                <div className='dropdown-container'>
+                                <div className='dropdown-container1'>
                                     <Form.Control as="select" className='dropdownn' name="day" value={formData.date_of_birth.day} onChange={handleDateChange}>
                                         <option value="" disabled selected>اليوم</option>
                                         {days.map(day => (
@@ -219,7 +219,7 @@ function CreateStudentAcc() {
                                         <img src={vector} alt="dropdown iconv" />
                                     </div>
                                 </div>
-                                <div className='dropdown-container'>
+                                <div className='dropdown-container1'>
                                     <Form.Control as="select" className='dropdownn' name="month" value={formData.date_of_birth.month} onChange={handleDateChange}>
                                         <option value="" disabled selected>الشهر</option>
                                         {months.map(month => (
@@ -230,7 +230,7 @@ function CreateStudentAcc() {
                                         <img src={vector} alt="dropdown iconv" />
                                     </div>
                                 </div>
-                                <div className='dropdown-container'>
+                                <div className='dropdown-container1'>
                                     <Form.Control as="select" className='dropdownn' name="year" value={formData.date_of_birth.year} onChange={handleDateChange}>
                                         <option value="" disabled selected>السنة</option>
                                         {years.map(year => (

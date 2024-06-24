@@ -232,7 +232,7 @@ function CreateTechAcc() {
                         <Form.Group controlId="date_of_birth">
                             <Form.Label className='birthdate_create_tech_acc'>تاريخ الميلاد</Form.Label>
                             <div className='date-input-container'>
-                                <div className='dropdown-container'>
+                                <div className='dropdown-container1'>
                                     <Form.Control as="select" className='dropdownn' name="day" onChange={handleDateChange}>
                                         <option value="" disabled selected>اليوم</option>
                                         {days.map(day => (
@@ -243,7 +243,7 @@ function CreateTechAcc() {
                                         <img src={vector} alt="dropdown icon" />
                                     </div>
                                 </div>
-                                <div className='dropdown-container'>
+                                <div className='dropdown-container1'>
                                     <Form.Control as="select" className='dropdownn' name="month" onChange={handleDateChange}>
                                         <option value="" disabled selected>الشهر</option>
                                         {months.map(month => (
@@ -254,7 +254,7 @@ function CreateTechAcc() {
                                         <img src={vector} alt="dropdown icon" />
                                     </div>
                                 </div>
-                                <div className='dropdown-container'>
+                                <div className='dropdown-container1'>
                                     <Form.Control as="select" className='dropdownn' name="year" onChange={handleDateChange}>
                                         <option value="" disabled selected>السنة</option>
                                         {years.map(year => (
