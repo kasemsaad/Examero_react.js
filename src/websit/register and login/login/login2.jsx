@@ -38,13 +38,14 @@ function Login1() {
         e.preventDefault();
         try {
             const response = await request({
+
                 method: 'post',
                 url: '/students/login',
                 data: formData,
-                headers: {
-                    Accept: 'application/json',
-                },
+              
             });
+            localStorage.setItem('token', response.data.access_token);
+
             console.log(response.data);
             setLoginSuccess(true);
             setError('');

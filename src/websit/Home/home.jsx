@@ -87,44 +87,44 @@ function Home() {
             {/* -----------Navbar--------- */}
             <nav className="navbar navbarsss navbar-expand-lg position-fixed d-flex align-items-center justify-content-center p-0 shadow" dir="rtl">
 
-                <div className="container p-0 navbarwidth d-flex align-items-center" style={{  }}>
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
-                    <div className=" d-flex align-items-center justify-content-between" style={{ width: "100%" }}>
-                        <div className="collapse navbar-collapse kasem" id="navbarNav" style={{ width: "80vw" }}>
-                            <div className="classnav">
-                                <ul className="navbar-nav">
-                                    <li className="nav-item">
-                                        <Link className="nav-link active " aria-current="page" onClick={() => scrollHandler(sec1)}>الرئيسية</Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        <Link className="nav-link active px-3" onClick={() => scrollHandler(sec2)}>من نحن</Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        <Link className="nav-link active px-3" onClick={() => scrollHandler(sec3)}>هدفنا</Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        <Link className="nav-link active px-3" onClick={() => scrollHandler(sec4)}>لماذا نحن</Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        <Link className="nav-link active px-3" onClick={() => scrollHandler(sec5)}>آراء العملاء</Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        <Link className="nav-link active px-3" onClick={() => scrollHandler(sec6)}>باقات الإشتراك</Link>
+<div className="container p-0 navbarwidth d-flex align-items-center" style={{  }}>
+    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span className="navbar-toggler-icon"></span>
+    </button>
+    <div className=" d-flex align-items-center justify-content-between" style={{ width: "100%" }}>
+        <div className="collapse navbar-collapse kasem" id="navbarNav" style={{ width: "80vw" }}>
+            <div className="classnav">
+                <ul className="navbar-nav">
+                    <li className="nav-item">
+                        <Link className="nav-link active " aria-current="page" onClick={() => scrollHandler(sec1)}>الرئيسية</Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link className="nav-link active px-3" onClick={() => scrollHandler(sec2)}>من نحن</Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link className="nav-link active px-3" onClick={() => scrollHandler(sec3)}>هدفنا</Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link className="nav-link active px-3" onClick={() => scrollHandler(sec4)}>لماذا نحن</Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link className="nav-link active px-3" onClick={() => scrollHandler(sec5)}>آراء العملاء</Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link className="nav-link active px-3" onClick={() => scrollHandler(sec6)}>باقات الإشتراك</Link>
 
-                                    </li>
-                                </ul>
-                            </div>
-                            <div>
-                                <MyButton className="btn mx-3 py-0" style={{ height: "2.5rem", width:"8rem", color: "white", backgroundColor: "#4941A6" }} to={"/Home"} content={"انشاء حساب"} />
-                                <MyButton className="btn mx-3 py-0" style={{ height: "2.5rem", width:"8rem" , border: "2px solid #4941A6" }} to={"/Home"} content={"تسجيل الدخول"} />
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <Link className="btn mx-3  " style={{ height: "2.5rem", width:"8rem", color: "white", backgroundColor: "#4941A6" }}  to={"/CreateStudentAccount"}>انشاء حساب</Link>
+                <Link className="btn mx-3 " style={{ height: "2.5rem", width:"8rem" , border: "2px solid #4941A6" }} to={"/login_student"} >تسجيل الدخول</Link>
+            </div>
+            </div>
+            </div>
+    </div>
+</nav>
 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </nav>
             {/* -----------EndNavbar--------- */}
             {/* -----------section1--------- */}
             {/* <img className="d"  src={imgs1} alt="" /> */}
@@ -141,7 +141,7 @@ function Home() {
                             <div className="fontSizeText py-4 ps-1 mb-4">
                                 نحن نقدم منصة رائدة تساعد المعلمين والطلاب <span style={{ color: "#B33E68" }}>(  المدارس الحكومية و الخاصة و دروس  التقوية ) </span> على تصميم امتحانات مخصصة وتحمليها<span style={{ color: "#B33E68" }}> بصيغة pdf</span> مع خيار توفير نماذج الإجابة النموذجية وتحديد درجة صعوبة الامتحان اثناء إنشائه  .
                             </div>
-                            <Link to="/" className="Button py-2  px-5 rounded-5 ">اشترك الآن</Link>
+                            <Link onClick={() => scrollHandler(sec6)} className="Button py-2  px-5 rounded-5 ">اشترك الآن</Link>
                         </div>
                     </Sectioncontent1>
                 </DivSection1>
@@ -163,7 +163,7 @@ function Home() {
                                 نقدم منصة سهلة الإستخدام تتيح لك إنشاء الامتحان بسرعة ودقة كمعلم أو طالب .  دعنا نساعدك في توفير الوقت والجهد في عملية إعداد امتحانك .   </div>
                         </div>
                         <div className="blockButtons" dir="rtl">
-                            <Link to="/" className="Button2">استكشف باقاتنا</Link>
+                            <Link to="/" className="Button2"  onClick={() => scrollHandler(sec6)}>استكشف باقاتنا</Link>
                             <Link to="/" className="Button3 mx-2 ">تواصل عبر الواتساب</Link>
                         </div>
                     </Sectioncontent2>
@@ -242,9 +242,9 @@ function Home() {
 
                             <div className="boxcontent  p-3"  >
                                 بالإضافة إلى إعداد الامتحان، يمكنك تحميل نماذج للإجابات الصحيحة لتوجيه الطلاب ومساعدتهم على الاستعداد بفعالية.</div>
-                            <div className="py-3">
-                                <MyButton className="btn mx-2 fontSizeBtn py-0 rounded-5 py- px-3" style={{ height: "1.8rem", border: "2px solid #4941A6" }} to={"/Home"} content={"تسجيل الدخول"} />
-                                <MyButton className="btn mx-2 fontSizeBtn py-0 rounded-5 py- px-3" style={{ height: "1.8rem", backgroundColor: "#FF4C4C", color: "#ffff" }} to={"/Home"} content={"باقات الاشتراك"} />
+                                <div className="py-3">
+                            <Link  className="btn mx-2 py-0 my-2   rounded-5 px-3" style={{ height: "1.8rem", border: "2px solid #4941A6" }} to={"/login_teacher"} >تسجيل الدخول</Link>
+                            <Link className="btn mx-2 py-0  rounded-5 px-3" style={{ height: "1.8rem", backgroundColor: "#FF4C4C", color: "#ffff" }} onClick={() => scrollHandler(sec6)} >باقات الاشتراك</Link>
                             </div>
                         </div>
 
@@ -254,10 +254,9 @@ function Home() {
                             </div>
                             <div className="boxcontent p-3"  >
                                 يمكنك تحميل الأسئلة بتنسيقات متعددة مثل النص والصور وتنسيقها وترتيبها حسب الحاجة                       </div>
-                            <div className="py-3">
-                                <MyButton className="btn mx-2 fontSizeBtn py-0 rounded-5 py- px-3" style={{ height: "1.8rem", border: "2px solid #4941A6" }} to={"/Home"} content={"تسجيل الدخول"} />
-                                <MyButton className="btn mx-2 fontSizeBtn py-0 rounded-5 py- px-3" style={{ height: "1.8rem", backgroundColor: "#FF4C4C", color: "#ffff" }} to={"/Home"} content={"باقات الاشتراك"} />
-
+                                <div className="py-3">
+                            <Link  className="btn mx-2 py-0 my-2   rounded-5 px-3" style={{ height: "1.8rem", border: "2px solid #4941A6" }} to={"/login_teacher"} >تسجيل الدخول</Link>
+                            <Link className="btn mx-2 py-0  rounded-5 px-3" style={{ height: "1.8rem", backgroundColor: "#FF4C4C", color: "#ffff" }} onClick={() => scrollHandler(sec6)} >باقات الاشتراك</Link>
                             </div>
                         </div>
 
@@ -267,10 +266,9 @@ function Home() {
                             </div>
                             <div className="boxcontent p-3"  >
                                 يمكن للمعلمين إنشاء امتحانات تتناسب مع المناهج الدراسية ومتطلبات الصفوف بكل سهولة. يمكنك تحديد عدد الأسئلة وأنواعها ودرجة صعوبتها ووقت الامتحان والمزيد.                       </div>
-                            <div className="py-3">
-                                <MyButton className="btn mx-2 fontSizeBtn py-0 rounded-5 py- px-3" style={{ height: "1.8rem", border: "2px solid #4941A6" }} to={"/Home"} content={"تسجيل الدخول"} />
-                                <MyButton className="btn mx-2 fontSizeBtn py-0 rounded-5 py- px-3" style={{ height: "1.8rem", backgroundColor: "#FF4C4C", color: "#ffff" }} to={"/Home"} content={"باقات الاشتراك"} />
-
+                                <div className="py-3">
+                            <Link  className="btn mx-2 py-0 my-2   rounded-5 px-3" style={{ height: "1.8rem", border: "2px solid #4941A6" }} to={"/login_teacher"} >تسجيل الدخول</Link>
+                            <Link className="btn mx-2 py-0  rounded-5 px-3" style={{ height: "1.8rem", backgroundColor: "#FF4C4C", color: "#ffff" }} onClick={() => scrollHandler(sec6)} >باقات الاشتراك</Link>
                             </div>
                         </div>
                         <div className="card2 p-0  col-3 m-4 shadow " >
@@ -280,8 +278,8 @@ function Home() {
                             <div className="boxcontent p-3"  >
                                 تخصيص وإدارة الامتحانات بسهولة، وتوفير وسيلة فعالة لتقديم الاختبارات بشكل مهني وتنظيمي. يمكن للمعلمين أيضًا تحليل أداء الطلاب بسهولة لتحقيق أهداف التعليم بكفاءة أكبر. انضم إلينا اليوم لتجربة تسهيل عملية إعداد الامتحانات                                              </div>
                             <div className="py-3">
-                                <MyButton className="btn mx-2 fontSizeBtn py-0 rounded-5 py- px-3" style={{ height: "1.8rem", border: "2px solid #4941A6" }} to={"/Home"} content={"تسجيل الدخول"} />
-                                <MyButton className="btn mx-2 fontSizeBtn py-0 rounded-5 py- px-3" style={{ height: "1.8rem", backgroundColor: "#FF4C4C", color: "#ffff" }} to={"/Home"} content={"باقات الاشتراك"} />
+                            <Link  className="btn mx-2 py-0 my-2   rounded-5 px-3" style={{ height: "1.8rem", border: "2px solid #4941A6" }} to={"/login_teacher"} >تسجيل الدخول</Link>
+                            <Link className="btn mx-2 py-0  rounded-5 px-3" style={{ height: "1.8rem", backgroundColor: "#FF4C4C", color: "#ffff" }} onClick={() => scrollHandler(sec6)} >باقات الاشتراك</Link>
 
                             </div>
                         </div>
@@ -291,10 +289,9 @@ function Home() {
                             </div>
                             <div className="boxcontent p-3"  >
                                 بمجرد الانتهاء من إعداد الامتحان، يمكنك تصديره إلى ملف PDF جاهز للتوزيع على الطلاب.                       </div>
-                            <div className="py-3">
-                                <MyButton className="btn mx-2 fontSizeBtn py-0 rounded-5 py- px-3" style={{ height: "1.8rem", border: "2px solid #4941A6" }} to={"/Home"} content={"تسجيل الدخول"} />
-                                <MyButton className="btn mx-2 fontSizeBtn py-0 rounded-5 py- px-3" style={{ height: "1.8rem", backgroundColor: "#FF4C4C", color: "#ffff" }} to={"/Home"} content={"باقات الاشتراك"} />
-
+                                <div className="py-3">
+                            <Link  className="btn mx-2 py-0 my-2   rounded-5 px-3" style={{ height: "1.8rem", border: "2px solid #4941A6" }} to={"/login_teacher"} >تسجيل الدخول</Link>
+                            <Link className="btn mx-2 py-0  rounded-5 px-3" style={{ height: "1.8rem", backgroundColor: "#FF4C4C", color: "#ffff" }} onClick={() => scrollHandler(sec6)} >باقات الاشتراك</Link>
                             </div>
                         </div>
 
@@ -304,10 +301,9 @@ function Home() {
                             </div>
                             <div className="boxcontent p-3" >
                                 بمجرد الانتهاء من إعداد الامتحان، يمكنك تصديره إلى ملف PDF جاهز للتوزيع على الطلاب.                       </div>
-                            <div className="py-3">
-                                <MyButton className="btn mx-2 fontSizeBtn py-0 rounded-5 py- px-3" style={{ height: "1.8rem", border: "2px solid #4941A6" }} to={"/Home"} content={"تسجيل الدخول"} />
-                                <MyButton className="btn mx-2 fontSizeBtn py-0 rounded-5 py- px-3" style={{ height: "1.8rem", backgroundColor: "#FF4C4C", color: "#ffff" }} to={"/Home"} content={"باقات الاشتراك"} />
-
+                                <div className="py-3">
+                            <Link  className="btn mx-2 py-0 my-2   rounded-5 px-3" style={{ height: "1.8rem", border: "2px solid #4941A6" }} to={"/login_teacher"} >تسجيل الدخول</Link>
+                            <Link className="btn mx-2 py-0  rounded-5 px-3" style={{ height: "1.8rem", backgroundColor: "#FF4C4C", color: "#ffff" }} onClick={() => scrollHandler(sec6)} >باقات الاشتراك</Link>
                             </div>
                         </div>
                     </div>
@@ -355,7 +351,7 @@ function Home() {
                              <p><img className="checkicone" src={park_check} alt="check" /> عدد الامتحانات : {teacher_data.data[0].allow_exam}</p>
                             </div>
                             <div className="d-flex align-items-center justify-content-center">
-                            <MyButton className="btn mx-2 py-0 rounded-3 " style={{ height: "3rem",width:"100%",  backgroundColor: "#4941A6", color: "#ffff" }} to={"/Home"} content={"اشترك الآن"} />
+                            <MyButton className="btn mx-2 py-0 rounded-3 " style={{ height: "3rem",width:"100%",  backgroundColor: "#4941A6", color: "#ffff" }}  onClick={() => scrollHandler(sec6)} content={"اشترك الآن"} />
                             </div>
                              </div>
 
@@ -474,7 +470,7 @@ function Home() {
                                 <Link className="stylelink" to="/" >منصة الموظفين</Link>
                                 <Link className="stylelink" to="/" >منصة تدريب المعلمين</Link>
                                 <Link className="stylelink" to="/" >openeims منصة</Link>
-                                <Link className="stylelink" to="/" >إنشاء حساب</Link>
+                                <Link className="stylelink" to="/CreateTecherAccount" >إنشاء حساب</Link>
                             </div>
                         </div>
                     </div>

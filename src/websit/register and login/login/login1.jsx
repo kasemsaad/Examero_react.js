@@ -41,10 +41,9 @@ function Login1() {
                 method: 'post',
                 url: '/teachers/login',
                 data: formData,
-                headers: {
-                    Accept: 'application/json',
-                },
+           
             });
+
             console.log(response.data);
             setLoginSuccess(true);
             setError('');

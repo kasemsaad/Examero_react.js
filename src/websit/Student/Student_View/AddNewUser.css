@@ -1,7 +1,4 @@
 
-:root {
-    font-size: 16px;
-}
 
 .managerFGroup input {
     border-radius: 6px;
@@ -67,9 +64,7 @@
     justify-content: center;
 }
 
-small {
-    color: #FF3A3A !important;
-}
+
 
 /* .kh {
     position: relative;
@@ -125,17 +120,18 @@ position: absolute;
     color: #0E0A43;
 }
 
-.form-text {
+/* .form-text {
     color: #A6A0F4;
-}
+} */
 
 .managerFooter{
     border-top: none;
+    display: flex;
     justify-content: center;
     align-items: center;
     /* margin-right: 33px; */
     padding: 0px;
-    margin-bottom: 50px;
+    margin-bottom: 0px;
     width: 100%;
 }
 
@@ -177,9 +173,7 @@ position: absolute;
     font-weight: bold;
 } 
 
-input {
-    color: #FFFFFF;
-}
+
 
 .managerSave:hover {
     background-color: #FE4F60;

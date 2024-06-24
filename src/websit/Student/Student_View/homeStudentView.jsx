@@ -5,20 +5,19 @@ import { Link } from 'react-router-dom';
 import Homeicon from '../../../assets/icons/home_student_view/majesticons_home-line copy.svg';
 import delet from '../../../assets/image/fluent_delete-12-regular.svg';
 import edit from '../../../assets/image/uil_edit.svg';
-import imagee from '../../../assets/image/Group 30.svg';
+import imagee from '../../../assets/icons/create_Exam/High Importance.svg';
 import plus from '../../../assets/image/+.svg';
-import request from '../../../utlis/axios_utils_websit.jsx';
 import '../Student_View/homeStudentView.css';
 import "../../../dashboard/Home_Dashboard/home_dashboard.css";
 import "./DeleteElement.css";
 import "./AddNewUser.css";
+import Api_Website from '../../../utlis/axios_utils_websit.jsx';
 
 let useId;
 function onSelect(id) {
   useId = id
 }
 function HomeStudentview(props) {
-  const getToken = () => { return "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL3N0dWRlbnRzL2xvZ2luIiwiaWF0IjoxNzE5MDUzMjU2LCJleHAiOjE3MTkwNTY4NTYsIm5iZiI6MTcxOTA1MzI1NiwianRpIjoiWTNPVXN3RXlLd2pCQnVtVCIsInN1YiI6IjExIiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.lDcfnicHaBeh9ZVmpjv8alJhf8fnoZXUj3qewd0sbjs"; };
   const layoutBackground = useSelector((state) => state.dark.lay);
 
   useEffect(() => {
@@ -28,19 +27,16 @@ function HomeStudentview(props) {
   const [allNotes, setAllNotes] = useState("");
   // const [AllExam, setAllExam] = useState("");
   const getAllNotes=()=>{
-    request({
-      url: '/students/notes',
-      method: 'get',
-      headers: {
-        'Authorization': `Bearer ${getToken()}`
-      }
-    })
+    
+      Api_Website.get(`/students/notes`)
       .then(response => {
         setAllNotes(response.data.data);
       })
       .catch(error => {
         console.error("Error fetching notes data:", error);
       });
+
+   
   }
   // const getExam=()=>{
   //   request({
@@ -60,20 +56,15 @@ function HomeStudentview(props) {
   //////////////////////////End Get All Note///////////////////////////////////////////////////
   //////////////////////////Delete Note///////////////////////////////////////////////////
   const deleteNote = (id) => {
-    request({
-      url: `/students/notes/${id}`,
-      method: 'delete',
-      headers: {
-        Authorization: `Bearer ${getToken()}`
-      }
-    })
+      Api_Website.delete(`/students/notes/${id}`)
       .then(response => {
         console.log('Note deleted successfully');
         getAllNotes()
-      })
+            })
       .catch(error => {
         console.error('Error deleting note:');
       });
+
   };
   //////////////////////////End Delete Note///////////////////////////////////////////////////
   //////////////////////////add Note///////////////////////////////////////////////////
@@ -83,7 +74,6 @@ function HomeStudentview(props) {
   const [noteValidationMessage, setNoteValidationMessage] = useState('');
   const handleAddressChange = (event) => {
     const value = event.target.value;
-
     if (value.trim() === '') {
       setAddressValidationMessage('لا يجب ان يكون فارغ');
     } else if (value.length > 15) {
@@ -118,22 +108,16 @@ function HomeStudentview(props) {
       note: note
     };
 
-    request({
-      url: 'students/notes', method: 'post', data,
-      headers: {
-        Authorization: `Bearer ${getToken()}`
-      }
-    })
+      Api_Website.post(`students/notes`, data)
       .then(response => {
-        console.log('Note added successfully:');
         const modalElement = document.getElementById('addManagerModal');
         modalElement.style.display = "none"
         getAllNotes()
-
-      })
+            })
       .catch(error => {
         console.error('Error adding note:');
       });
+
   };
 
   //////////////////////////End add Note///////////////////////////////////////////////////
@@ -142,22 +126,16 @@ function HomeStudentview(props) {
   const [getDataUpdateAddress , setgetDataUpdateAddress]=useState("");
   const [getDataUpdateNote , setgetDataUpdateNote]=useState("");
   const handleGetUpdate = (id) => {
-    request({
-      url: `students/notes/${id}`, method: 'get',
-      headers: {
-        Authorization: `Bearer ${getToken()}`
-      }
-    })
+      Api_Website.get(`students/notes/${id}`)
       .then(response => {
         setgetDataUpdateNote(response.data.data.note);
         setgetDataUpdateAddress(response.data.data.address);
         getAllNotes()
-
-
-              })
+            })
       .catch(error => {
         console.error('Error get note:');
       });
+
   };
   ////////////////////////////////////add update//////////////////////////////////////////////////////////////
   const [DataAfterUpdateAddress, setDataAfterUpdateAddress] = useState("");
@@ -203,26 +181,28 @@ function HomeStudentview(props) {
       address: DataAfterUpdateAddress,
       note: DataAfterUpdateNote
     };
-
-    request({
-      url: `students/notes/${useId}`, method: 'post', data,
-      headers: {
-        Authorization: `Bearer ${getToken()}`
-      }
-    })
+      Api_Website.post(`students/notes/${useId}`,data)
       .then(response => {
         console.log('Note update successfully:');
         const modalElement = document.getElementById('UpdateManagerModal');
         modalElement.style.display = "none"
         getAllNotes()
-
-      })
+            })
       .catch(error => {
         console.error('Error update note:');
       });
   };
   //////////////////////////End add Note///////////////////////////////////////////////////
-
+  const [inputUser,setInputUser]=useState({
+    address: "",
+    note: "",
+   
+  })
+const getUsersFromInput=(e)=>{
+  let USER={...inputUser}
+  USER[e.target.name]=e.target.value
+  setInputUser(USER)
+  }
   if (!allNotes) {
     return <div>Loading...</div>;
   }
@@ -246,17 +226,17 @@ function HomeStudentview(props) {
 
         <div className="row m-0 Bold" style={{ width: "88%", paddingTop: "4.25px" }}>
           <div className="row rowHomestudent pt-2 m-0 col-md-8 d-flex align-items-start justify-content-evenly">
-            <div className="col-3 rounded-4 shadow-box" style={{ backgroundColor: "#4941A6", width: "10rem" }}>
+            <div className="col-3 rounded-4 shadow-box shadow-boxxx boximgbackground1" style={{ backgroundColor: "#4941A6", width: "10rem" }}>
               <p>عدد الامتحانات المستخدمة</p>
               <p className="fs-6">17</p>
             </div>
 
-            <div className="col-3 rounded-4 shadow-box" style={{ backgroundColor: "#C01F59", width: "10rem" }}>
+            <div className="col-3 rounded-4 shadow-boxxx boximgbackground2" style={{ backgroundColor: "#C01F59", width: "10rem" }}>
               <p>عدد الامتحانات المتبقية</p>
               <p className="fs-6">2</p>
             </div>
 
-            <div className="col-3 rounded-4 shadow-box" style={{ backgroundColor: "#C17011", width: "10rem" }}>
+            <div className="col-3 rounded-4 shadow-boxxx boximgbackground3" style={{ backgroundColor: "#C17011", width: "10rem" }}>
               <p>متوسط الدرجات</p>
               <p className="fs-6">70%</p>
             </div>
@@ -412,10 +392,12 @@ function HomeStudentview(props) {
                         value={note}
                         onChange={handleNoteChange} />
                       {noteValidationMessage && <p style={{ color: 'red' }}>{noteValidationMessage}</p>}
-
                     </div>
 
-                    <div className="modal-footer managerFooter ms-4 ">
+                  </div>
+
+                </div>
+                    <div className="modal-footer managerFooter pt-4 ">
                       <button
                         type="button"
                         className="btn canceled managerCancel"
@@ -424,11 +406,8 @@ function HomeStudentview(props) {
                       >
                         إلغاء
                       </button>
-                      <button type="submit" className="btn save managerSave">إضافة</button>
+                      <button type="submit" className="btn save managerSave" >إضافة</button>
                     </div>
-                  </div>
-
-                </div>
               </form>
             </div>
           </div>
@@ -454,8 +433,11 @@ function HomeStudentview(props) {
                         className="form-control managerControl"
                         id="address"
                         placeholder="أدخل العنوان"
-                        value={getDataUpdateAddress}
-                        onChange={handleAddressChangeUpdate}
+                        // value={getDataUpdateAddress}
+                        // onChange={handleAddressChangeUpdate}
+                        value={inputUser.address}
+                        name='address'
+                       onChange={(e)=>getUsersFromInput(e)}
                       />
                       {addressUpdateValidationMessage && <p style={{ color: 'red' }}>{addressUpdateValidationMessage}</p>}
                     </div>
@@ -466,16 +448,15 @@ function HomeStudentview(props) {
                         className="form-control managerControl"
                         id="note"
                         placeholder="أدخل الملحوظة"
-                        value={getDataUpdateNote}
-
-                        onChange={handleNoteChangeUpdate}
-                      />
+                        value={inputUser.note}
+                        name='note'
+                       onChange={(e)=>getUsersFromInput(e)}                      />
                       {noteUpdateValidationMessage && <p style={{ color: 'red' }}>{noteUpdateValidationMessage}</p>}
                     </div>
                   </div>
                 </div>
-                <div className="modal-footer managerFooter ms-4 pt-3" >
-                  <button type="button" className="btn canceled managerCancel" data-bs-dismiss="modal" id="firstbutt">
+                <div className="modal-footer managerFooter pt-4 ">
+                <button type="button" className="btn canceled managerCancel" data-bs-dismiss="modal" id="firstbutt">
                     إلغاء
                   </button>
                   <button type="submit" className="btn save managerSave">تعديل</button>
