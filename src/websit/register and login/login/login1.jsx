@@ -31,13 +31,16 @@ function Login() {
                 method: 'post',
                 url: '/teachers/login',
                 data: formData,
-                headers: {
-                    Accept: 'application/json',
-                },
+           
             });
+            localStorage.setItem('token', response.data.access_token);
             console.log(response.data); 
             setError(''); 
-        } catch (error) {
+
+        } 
+    
+        
+        catch (error) {
             console.error(error); 
             if (error.response && error.response.data) {
                 setError(error.response.data.message || 'An error occurred while logging in.');
