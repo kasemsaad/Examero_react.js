@@ -281,10 +281,10 @@ font-weight: 700;
 letter-spacing: 0.03em;
 }
 .studentimg {
-    height: 100vh;
     position: relative;
 }
-.studentimg img {
-    width:46%;
-
+.studentimg img  {
+    width: 50%;
+    height: auto;
+    margin: auto;
 }

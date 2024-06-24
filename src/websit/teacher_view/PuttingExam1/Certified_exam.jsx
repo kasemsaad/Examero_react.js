@@ -4,6 +4,7 @@ import putting from '../../../assets/icons/teacherview/wpf_create-new.svg';
 import dropdownIcon from '../../../assets/icons/teacherview/Vector 13.svg';
 
 import './PuttingExam1.css';
+import { useSelector } from 'react-redux';
 
 function Certified_exam(props) {
   const [examFormat, setExamFormat] = useState('');
@@ -14,6 +15,7 @@ function Certified_exam(props) {
   const [examName, setExamName] = useState('');
   const [progress, setProgress] = useState(75); 
   const [activeQuestion, setActiveQuestion] = useState(0); 
+  const layoutBackground = useSelector((state) => state.dark.lay);
 
   const handleSelect = (e) => {
     setExamFormat(e);
@@ -38,7 +40,11 @@ function Certified_exam(props) {
 
   return (
     <>
-      <div className='header-container1'>
+      <div className='header-container1' style={{
+        backgroundColor: layoutBackground === "#0E0A43" ? "#0E0A43" : "#ECECEC",
+        color: layoutBackground === "#0E0A43" ? "white" : "black",
+        fontSize: "18px"
+      }}>
         <img src={putting} alt="Icon" className='header1teacherview-icon' />
         <span className='header1_putting_exam1'> انشاء الامتحان </span>
       </div>
@@ -47,11 +53,19 @@ function Certified_exam(props) {
         <div className='header-line'></div>
       </div>
 
-      <Form onSubmit={handleSubmit} className='form_Certified_exam'>
+      <Form onSubmit={handleSubmit} className='form_Certified_exam'style={{
+        backgroundColor: layoutBackground === "#0E0A43" ? "#0E0A43" : "#DADADA",
+        color: layoutBackground === "#0E0A43" ? "white" : "black",
+        fontSize: "18px"
+      }}>
         <ProgressBar now={progress} />
 
         <div className='header-container'>
-          <span className='header3_putting_exam1'> إعداد اسئلة الامتحان</span>
+          <span className='header3_putting_exam1'style={{
+        backgroundColor: layoutBackground === "#0E0A43" ? "#4941A6" : "#ECECEC",
+        color: layoutBackground === "#0E0A43" ? "white" : "black",
+        fontSize: "18px"
+      }}> إعداد اسئلة الامتحان</span>
         </div>
         <Row className="mb-3 question">
           {["السؤال الأول", "السؤال الثاني", "السؤال الثالث", "السؤال الرابع", "السؤال الخامس", "السؤال السادس"].map((question, index) => (

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import request from '../../../utlis/axios_utils_websit';
+import Api_website from '../../../utlis/axios_utils_websit';
 
 import doneImage from '../../../assets/icons/register and login icon/Done.png'; 
 const EmailVerificationStud = () => {
@@ -14,18 +14,16 @@ const EmailVerificationStud = () => {
         }
     }, [location.search]);
 
-    const verifyEmail = async (token) => {
-        try {
-            const response = await request({
-                method: 'GET',
-                url: `/teachers/verify/${token}`, 
+    const verifyEmail = (token) => {
+        Api_website.get(`/students/verify/${token}`)
+            .then((response) => {
+                console.log('تم التحقق من البريد الإلكتروني بنجاح', response.data);
+                setVerificationStatus('تم التحقق من البريد الإلكتروني بنجاح');
+            })
+            .catch((error) => {
+                console.error('فشل التحقق من البريد الإلكتروني:', error);
+                setVerificationStatus('فشل التحقق من البريد الإلكتروني. يرجى المحاولة مرة أخرى');
             });
-            console.log('تم التحقق من البريد الإلكتروني بنجاح', response.data);
-            setVerificationStatus('تم التحقق من البريد الإلكتروني بنجاح');
-        } catch (error) {
-            console.error('فشل التحقق من البريد الإلكتروني:', error);
-            setVerificationStatus('فشل التحقق من البريد الإلكتروني. يرجى المحاولة مرة أخرى');
-        }
     };
 
     return (

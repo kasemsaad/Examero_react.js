@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Col, Form, Button, Alert } from 'react-bootstrap';
-import request from "../../../utlis/axios_utils_websit.jsx";
+import Api_website from "../../../utlis/axios_utils_websit.jsx";
 import { setToken } from '../../../redux/reducer/user.jsx';
 import './reset_password.css';
 import Imgcom from '../imgcom/imgcom.jsx';
@@ -17,33 +17,26 @@ function ResetCodePageTech() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const email = useSelector((state) => state.user.email);
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      const response = await request({
-        method: 'post', 
-        url: '/teachers/verify-token',
-        data: { token: code },
-        headers: {
-          Accept: 'application/json',
-        },
+    Api_website.post('/teachers/verify-token', { token: code })
+      .then((response) => {
+        console.log('Token verified:', response);
+        setSuccess('تم التحقق من الكود.');
+        setError('');
+        dispatch(setToken(code)); 
+        setTimeout(() => {
+          navigate('/TeacherNewPassword');
+        }, 3000);
+      })
+      .catch((error) => {
+        console.error('Invalid token:', error);
+        setError('كود غير صحيح.');
+        setSuccess('');
+        setTimeout(() => setError(''), 3000);
       });
-
-      console.log('Token verified:', response);
-      setSuccess('Token verified.');
-      setError('');
-      dispatch(setToken(code)); 
-      setTimeout(() => {
-        navigate('/TeacherNewPassword');
-      }, 3000);
-    } catch (error) {
-      console.error('Invalid token:', error);
-      setError('Invalid token.');
-      setSuccess('');
-      setTimeout(() => setError(''), 3000);
-    }
   };
+
 
   return (
     <div className='reset_code_page'>

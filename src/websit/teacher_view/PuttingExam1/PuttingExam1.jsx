@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 import { Form, Button, Row, Col ,Dropdown,DropdownButton,ProgressBar} from 'react-bootstrap';
 import putting from '../../../assets/icons/teacherview/wpf_create-new.svg';
 import dropdownIcon from '../../../assets/icons/teacherview/Vector 13.svg'; 
-
+import { useSelector } from 'react-redux';
 
 import './PuttingExam1.css';
 
 
+
 function PuttingExam1(props) {
+    const layoutBackground = useSelector((state) => state.dark.lay);
+
   const [examFormat, setExamFormat] = useState('');
   const [curriculum, setCurriculum] = useState('');
   const [directorate, setDirectorate] = useState('');
@@ -35,7 +38,11 @@ function PuttingExam1(props) {
 
   return (
       <>
-          <div className='header-container1'>
+          <div className='header-container1' style={{
+        backgroundColor: layoutBackground === "#0E0A43" ? "#0E0A43" : "#ECECEC",
+        color: layoutBackground === "#0E0A43" ? "white" : "black",
+        fontSize: "18px"
+      }}>
               <img src={putting} alt="Icon" className='header1teacherview-icon' />
               <span className='header1_putting_exam1'> انشاء الامتحان  </span>
           </div>
@@ -46,11 +53,19 @@ function PuttingExam1(props) {
           </div>
        
          
-          <Form onSubmit={handleSubmit} className='form_putting_exam1'>
+          <Form onSubmit={handleSubmit} className='form_putting_exam1'style={{
+        backgroundColor: layoutBackground === "#0E0A43" ? "#1D195D" : "#DADADA",
+        color: layoutBackground === "#0E0A43" ? "white" : "black",
+        fontSize: "18px"
+      }}>
          <ProgressBar now={progress} />
 
          <div className='header-container'>
-              <span className='header3_putting_exam1'>بيانات ترويسة الامتحان</span>
+              <span className='header3_putting_exam1'style={{
+        backgroundColor: layoutBackground === "#0E0A43" ? "#4941A6" : "#ECECEC",
+        color: layoutBackground === "#0E0A43" ? "white" : "black",
+        fontSize: "18px"
+      }}>بيانات ترويسة الامتحان</span>
               </div>
               <Row className="mb-3">
                   <Col xs={12} sm={6}>

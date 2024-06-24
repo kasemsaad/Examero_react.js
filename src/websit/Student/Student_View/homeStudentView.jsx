@@ -18,6 +18,7 @@ function onSelect(id) {
   useId = id
 }
 function HomeStudentview(props) {
+  const getToken = () => { return "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL3N0dWRlbnRzL2xvZ2luIiwiaWF0IjoxNzE5MTYwNDAxLCJleHAiOjE3MTkxNjQwMDEsIm5iZiI6MTcxOTE2MDQwMSwianRpIjoidVRFN2hZSE43aEViTEd3NiIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.TrhHEQ5x9U0i1dQK9S0zevvbKeU65KS2KwpxJxmoIc8"; };
   const layoutBackground = useSelector((state) => state.dark.lay);
 
   useEffect(() => {

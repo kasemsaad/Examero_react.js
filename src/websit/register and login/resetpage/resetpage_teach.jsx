@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Col, Form, Button, Alert } from 'react-bootstrap';
-import request from "../../../utlis/axios_utils_websit.jsx";
+import Api_website from "../../../utlis/axios_utils_websit.jsx";
 import { setEmail } from '../../../redux/reducer/user.jsx';
 import './resetpage.css';
 import Imgcom from '../imgcom/imgcom.jsx';
@@ -17,33 +17,26 @@ function ResetPage1Teacher() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      const response = await request({
-        method: 'post', 
-        url: '/teachers/sendmail', 
-        data: { email }, 
-        headers: {
-          Accept: 'application/json',
-        },
+    Api_website.post('/teachers/sendmail', { email })
+      .then((response) => {
+        console.log('Request Successful:', response);
+        setSuccess('تم إرسال كود التحقق إلى بريدك الإلكتروني.');
+        setError('');
+        dispatch(setEmail(email)); // Save email in Redux
+        setTimeout(() => {
+          navigate('/TeacherEnterCode');
+        }, 3000);
+      })
+      .catch((error) => {
+        console.error('An error occurred while sending the email:', error);
+        setError('حدث خطأ أثناء إرسال البريد الإلكتروني.');
+        setSuccess('');
+        setTimeout(() => setError(''), 3000);
       });
-
-      // Handle success response
-      console.log('Request Successful:', response);
-      setSuccess('Verification code sent to your email.');
-      setError('');
-      dispatch(setEmail(email));
-      setTimeout(() => {
-        navigate('/TeacherEnterCode');
-      }, 3000);
-    } catch (error) {
-      console.error('An error occurred while sending the email:', error);
-      setError('An error occurred while sending the email.');
-      setSuccess('');
-      setTimeout(() => setError(''), 3000);
-    }
   };
+
 
   return (
     <div className='resetpage1'>

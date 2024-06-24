@@ -1,22 +1,26 @@
 import React, { useState } from 'react';
 import { Form, Button, Row, Col } from 'react-bootstrap';
+import Api_website from '../../../utlis/axios_utils_websit.jsx';
 import enter from '../../../assets/icons/teacherview/lucide_file-input.svg';
 import loadIcon from '../../../assets/icons/teacherview/material-symbols_upload-sharp.svg';
-import './Hometeacherview.css';
+import './InsertingOpenEmisTags.css';
+import { useSelector } from 'react-redux';
 
-function HomeStudentview(props) {
+function InsertingOpenEmisTags(props) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [researcherName, setResearcherName] = useState('');
   const [className, setClassName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [fileLabel, setFileLabel] = useState('قم بتحميل دفتر العلامات الخاص بالصف الذي ادخلته');
+  const [selectedFile, setSelectedFile] = useState(null);
+  const layoutBackground = useSelector((state) => state.dark.lay);
 
-  // Handle file change event
   const handleFileChange = (e) => {
-    const selectedFile = e.target.files[0];
-    if (selectedFile) {
-      setFileLabel(selectedFile.name);
+    const file = e.target.files[0];
+    setSelectedFile(file);
+    if (file) {
+      setFileLabel(file.name);
     } else {
       setFileLabel('قم بتحميل دفتر العلامات الخاص بالصف الذي ادخلته');
     }
@@ -24,20 +28,32 @@ function HomeStudentview(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const formData = {
-      username,
-      password,
-      researcherName,
-      className,
-      phoneNumber,
-      // Include additional form data if needed
-    };
-    console.log(formData); // Handle form data submission
+    const formData = new FormData();
+    formData.append('user_name', username);
+    formData.append('password_site', password);
+    formData.append('group', className);
+    formData.append('subject', researcherName);
+    formData.append('phone_number', phoneNumber);
+    if (selectedFile) {
+      formData.append('document', selectedFile);
+    }
+
+    Api_website.post('/teachers/open-emis', formData)
+      .then(response => {
+        console.log('تم إرسال البيانات بنجاح:', response.data);
+      })
+      .catch(error => {
+        console.error('حدث خطأ أثناء إرسال البيانات:', error);
+      });
   };
 
   return (
     <>
-      <div className='header-container1'>
+      <div className='header-container1' style={{
+        backgroundColor: layoutBackground === "#0E0A43" ? "#0E0A43" : "#ECECEC",
+        color: layoutBackground === "#0E0A43" ? "white" : "black",
+        fontSize: "18px"
+      }}>
         <img src={enter} alt="Icon" className='header1teacherview-icon' />
         <span className='header1_enter_data_teach_view'>إدخال علامات Open Emis</span>
       </div>
@@ -45,7 +61,11 @@ function HomeStudentview(props) {
         <span className='header_enter_data_teach_view'>إدخال بيانات دفتر العلامات</span>
         <div className='header-line'></div>
       </div>
-      <Form onSubmit={handleSubmit} className='form_enter_data_teach_view p-6'>
+      <Form onSubmit={handleSubmit} className='form_enter_data_teach_view p-6' style={{
+        backgroundColor: layoutBackground === "#0E0A43" ? "#0E0A43" : "#DADADA",
+        color: layoutBackground === "#0E0A43" ? "white" : "black",
+        fontSize: "18px"
+      }}>
         <Row className="mb-3 mt-3">
           <Col xs={12} sm={6}>
             <Form.Group controlId="formUsername">
@@ -65,7 +85,7 @@ function HomeStudentview(props) {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="إدخل كلمة السر الخاصة بك في موقع   Open Emis "
+                placeholder="إدخل كلمة السر الخاصة بك في موقع Open Emis"
               />
             </Form.Group>
           </Col>
@@ -78,7 +98,7 @@ function HomeStudentview(props) {
                 type="text"
                 value={className}
                 onChange={(e) => setClassName(e.target.value)}
-                placeholder="أدخل اسم الصف  هنا (  مثال : الصف السادس ب  )  "
+                placeholder="أدخل اسم الصف هنا (مثال: الصف السادس ب)"
               />
             </Form.Group>
           </Col>
@@ -102,7 +122,7 @@ function HomeStudentview(props) {
                 type="phone"
                 value={phoneNumber}
                 onChange={(e) => setPhoneNumber(e.target.value)}
-                placeholder="  أدخل رقم الهاتف  هنا (  مثال : 0785860423 ) "
+                placeholder="أدخل رقم الهاتف هنا (مثال: 0785860423)"
               />
             </Form.Group>
           </Col>
@@ -118,9 +138,8 @@ function HomeStudentview(props) {
                   className="file-input"
                 />
                 <div className="custom-file-label">
-                 <div>{fileLabel}</div> 
-                 <div> <img src={loadIcon} alt="Upload Icon" className="load-icon" /></div>   
-
+                  <div>{fileLabel}</div>
+                  <div><img src={loadIcon} alt="Upload Icon" className="load-icon" /></div>
                 </div>
               </div>
             </Form.Group>
@@ -138,4 +157,4 @@ function HomeStudentview(props) {
   );
 }
 
-export default HomeStudentview;
+export default InsertingOpenEmisTags;

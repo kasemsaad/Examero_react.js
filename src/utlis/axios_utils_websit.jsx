@@ -1,9 +1,10 @@
+
 import axios from 'axios';
-const Api_Website = axios.create({
-  baseURL: 'http://127.0.0.1:8000/api/',
+const Api_website = axios.create({
+  baseURL: 'http://127.0.0.1:8000/api',
 });
 
-Api_Website.interceptors.request.use(
+Api_website.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
     if (token) {
@@ -15,7 +16,7 @@ Api_Website.interceptors.request.use(
     return Promise.reject(error);
   }
 );
-Api_Website.interceptors.response.use(
+Api_website.interceptors.response.use(
   (response) => {
     return response;
   },
@@ -26,6 +27,4 @@ Api_Website.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-
-
-export default Api_Website;
+export default Api_website;
