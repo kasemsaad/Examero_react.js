@@ -23,6 +23,7 @@ import 'react-calendar/dist/Calendar.css';
 import delet from "./../../assets/image/fluent_delete-12-regular.svg"
 import edit from "./../../assets/image/uil_edit.svg"
 import Calender from './Calender/calender'
+import { Link } from 'react-router-dom'
 
 
 
@@ -446,12 +447,16 @@ export default function Home_dashboard() {
                 </div>
 
 
+                 <Link to='/dashboard/reward' style={{textDecoration:"none"}}>
                 <div className='achive_gift mt-3' style={{ height: "36px", backgroundColor: '#3E369B', border: "1px solid #4941A6", borderRadius: '9.65px', textAlign: "center", display: "flex", justifyContent: "space-evenly", alignItems: "center" }}>
                   <div style={{ display: "flex", justifyContent: "space-evenly", alignItems: "center", width: "80%" }}>
                     <img src={achives} className="" alt=" شخصية" />
+
                     <p style={{ margin: "0", padding: "0", color: '#FFFFFF', fontWeight: "700" }}>المكافآت والعقوبات</p>
+
                   </div>
                 </div>
+                </Link>
                 {/* end of first div  */}
               </div>
 
@@ -475,15 +480,25 @@ export default function Home_dashboard() {
           {/* end of wrabeer one of container and div which take flex to wrab to div which content i write */}
         </div>
       </div>
+
+     
+
+
+
+
+
+
+
       <div
       className="modal fade"
-      id="add-manger-dash"
+      id="reward_modal_on_home"
       tabIndex="-1"
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
       data-bs-backdrop="static"
       data-bs-keyboard="false"
     >
+   <div className="container pb-4" style={{ overflow: 'auto', marginTop: '18px', direction: 'rtl', border: "2px solid purble", borderRadius: "10px", width: "90%", margin: "auto" ,height:"100vh"}}>
       <div className="modal-dialog" >
         <div className="modal-content" style={{backgroundColor:"#1D195D",borderRadius:"20px"}}>
           <div className="modal-header" >
@@ -492,133 +507,34 @@ export default function Home_dashboard() {
 
           <div className="modal-body">
             <div className="container  text-white">
-              <form onSubmit={handleSubmit}>
-                
-
+              <form >
                 <div className="form-group">
-                  <label htmlFor="packageName">اسم الباقة</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="packageName"
-                    placeholder="أدخل اسم الباقة"
-                    value={packageName}
-                    onChange={(e) => setPackageName(e.target.value)}
-                  />
+                  <label htmlFor="name">النوته</label>
+                  <textarea class="form-control"
+                   id="exampleFormControlTextarea1" 
+                   rows="3"> </textarea>
                 </div>
 
 
 
                 <div className="form-group mt-4">
-                  <label htmlFor="packageDescription">وصف الباقة</label>
-                  <textarea
-                    className="form-control"
-                    id="packageDescription"
-                    rows="3"
-                    placeholder="أدخل وصف الباقة"
-                    value={packageDescription}
-                    onChange={(e) => setPackageDescription(e.target.value)}
-                  />
+                <select class="form-select" aria-label="Default select example">
+             <option value="1" name="status">المستلمة</option>
+             </select>
                 </div>
 
 
 
-                <div className="mt-4" style={{display:"flex"}}>
-                  <div className="form-group col-md-4">
-                    <label htmlFor="packagePrice">سعر الباقة</label>
-                    <div className="input-group" style={{flexWrap:"noWrap"}}>
-                      <div className="input-group-prepend">
-                        <button
-                          type="button"
-                          className="btn input-group-text side_inc_dec "
-                          onClick={() => decrement(setPackagePrice, packagePrice)}
-                        >
-                          -
-                        </button>
-                      </div>
-                      <input
-                        type="text"
-                        className="form-control text-center"
-                        id="packagePrice"
-                        value={packagePrice}
-                        readOnly
-                      />
-                      <div className="input-group-append">
-                        <button
-                          type="button"
-                          className="btn input-group-text side_inc_dec"
-                          onClick={() => increment(setPackagePrice, packagePrice)}
-                        >
-                          +
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="form-group col-md-4">
-                    <label htmlFor="availableExams">عدد الامتحانات المتاحة</label>
-                    <div className="input-group">
-                      <div className="input-group-prepend">
-                        <button
-                          type="button"
-                          className="btn input-group-text side_inc_dec"
-                          onClick={() => decrement(setAvailableExams, availableExams)}
-                        >
-                          -
-                        </button>
-                      </div>
-                      <input
-                        type="text"
-                        className="form-control text-center"
-                        id="availableExams"
-                        value={availableExams}
-                        readOnly
-                      />
-                      <div className="input-group-append">
-                        <button
-                          type="button"
-                          className="btn input-group-text side_inc_dec"
-                          onClick={() => increment(setAvailableExams, availableExams)}
-                        >
-                          +
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="form-group col-md-4">
-                    <label htmlFor="availableQuestions">عدد الأسئلة المتاحة</label>
-                    <div className="input-group">
-                      <div className="input-group-prepend">
-                        <button
-                          type="button"
-                          className="btn input-group-text side_inc_dec"
-                          onClick={() => decrement(setAvailableQuestions, availableQuestions)}
-                        >
-                          -
-                        </button>
-                      </div>
-                      <input
-                        type="text"
-                        className="form-control text-center"
-                        id="availableQuestions"
-                        value={availableQuestions}
-                        readOnly
-                      />
-                      <div className="input-group-append">
-                        <button
-                          type="button"
-                          className="btn input-group-text side_inc_dec"
-                          onClick={() => increment(setAvailableQuestions, availableQuestions)}
-                        >
-                          +
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+
+
+             
+
+      
+
                 <div className='mt-5' style={{textAlign:"center",display:"flex",justifyContent:"center"}}>
                   <div className='submitButton'>
-                <button type="submit" className="btn btn-primary">حفظ</button>
-                  </div>
+                <button data-bs-dismiss="modal" type="submit" className="btn btn-primary">حفظ</button>
+                </div>
                 <div style={{marginRight:"30px"}}>
                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
                 </div>
@@ -628,6 +544,7 @@ export default function Home_dashboard() {
           </div>
         </div>
       </div>
+    </div>
     </div>
     </>
   )

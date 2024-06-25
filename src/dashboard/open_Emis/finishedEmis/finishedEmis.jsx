@@ -1,16 +1,79 @@
 import React, { useEffect, useState } from 'react'
 import Api_Dashboard from '../../interceptor/interceptorDashboard'
 import OpenEmis from '../openEmis'
+import image from "./../../../assets/image/High Importance.svg"
+
 
 export default function FinishedEmis() {
     const [openEmisAllData,SetopenEmisAllData]=useState([])
     const [editId,SeteditId]=useState('')
+
+    const [pagination,Setpagination]=useState('')
+    const [current_page,SetcurrentPage]=useState(1)
+    // const [totalPages,Set]
+    const totalPages=pagination.last_page
+
+
+    const handelNext = () => {
+      if (current_page === totalPages) return;
+      SetcurrentPage((prev) => prev + 1);
+    };
+    
+    const handelPrev = () => {
+      if (current_page === 1) return;
+      SetcurrentPage((prev) => prev - 1);
+    };
+
+
 
 
     const [InputEditWaitinOpenEmis,SetInputEditWaitinOpenEmis]=useState({
         note:'',
         status:'',
       })
+
+      // varible to store all ids which will remove 
+  const [selectedItems,SetselectedItems]=useState([])
+      
+//function to get value which selected 
+    const Checkouthandler = (e) => {
+      const isSelected = e.target.checked;
+      const value = parseInt(e.target.value);
+
+      if (isSelected) {
+        SetselectedItems((prevData) => {
+              return [...selectedItems, value];
+          });
+      } else {
+        SetselectedItems((prevData) => {
+              return prevData.filter((id) => id !== value);
+          });
+      }
+  };
+    
+  // function which get all value and vicavesra
+      const checkAllHandler=()=>{
+        if(openEmisAllData.length === selectedItems.length){
+          SetselectedItems([])
+        }else{
+        const Ids =  openEmisAllData.map((item)=>{
+          console.log(item.id);
+          return item.id
+
+        }) 
+        SetselectedItems(Ids)}
+      }
+
+      const deleteEmis= async()=>{
+        await Api_Dashboard.put('open-emis',{
+         ids: selectedItems
+        }).then((response)=>{
+          waitingEmisAllData()
+
+        }).catch((err)=>{
+          console.log(err);
+        })
+      }
   
 
       const getEditingInputs=(e)=>{
@@ -51,12 +114,12 @@ export default function FinishedEmis() {
 
     useEffect(()=>{
         waitingEmisAllData()
-    },[])
+    },[current_page])
     // getting ALL DATA OF WAIITING_OPENING_EMIS
     const waitingEmisAllData = async ()=>{
-        await Api_Dashboard.get('/open-emis?status=3').then((response)=>{
+        await Api_Dashboard.get(`/open-emis?status=3&page=${current_page}`).then((response)=>{
             SetopenEmisAllData(response.data.data)
-            console.log(response.data.data);
+            Setpagination(response.data.meta.pagination);
         }).catch((err)=>{
             console.log(err);
         })
@@ -73,16 +136,19 @@ export default function FinishedEmis() {
 <OpenEmis
 
 flag={true}
-
-//  next={handelNext}
-//   handelPrev={handelPrev}  
+checkboxHandler={Checkouthandler}
+dataCheckedRender={selectedItems}
+checkallFn={checkAllHandler}
+deleteEmis={deleteEmis}
+next={handelNext}
+handelPrev={handelPrev}
 dataRender={openEmisAllData} 
-// dataConnect={"البيانات الباقات المعلمين"}
  edit={"#finished_open_ems"}
 //   delete={"#deleteElementModal_teacher_dash"} 
    handel={(row)=>handeledit(row)} 
 //    Deletehandel={(row)=>getDeletedObject(row)}
 //  nameOfPageModalTarget={"#add_connect_Teacher_add"}
+deleteModalFinished={"#delete_finished_emis"}
  
  />
 
@@ -144,6 +210,41 @@ dataRender={openEmisAllData}
 
 
 
+
+
+
+           <div
+                className="modal fade DElementFade"
+                id="delete_finished_emis"
+                tabIndex="-1"
+                aria-labelledby="deleteElementModalLabel"
+                aria-hidden="true"
+            >
+                <div className="modal-dialog DElementDialog modal-dialog-centered ele_2">
+                    <div className="modal-content DElementContent">
+                        <div className="modal-body DElementBody text-center">
+                            <img src={image} alt="Warning Icon" className="warning-icon" />
+                            <p className="modal-title DElementTitle" id="deleteElementModalLabel">هل أنت متأكد ؟</p>
+                            <p className="parag" >  سيتم حذف هذه الباقه </p>
+                        </div>
+                        <div className="modal-footer DElementFooter">
+                            <button
+                                type="button"
+                                className="btn-secondary cancel-btn DElementCancel"
+                                data-bs-dismiss="modal"
+                            >
+                                لا
+                            </button>
+                            <button    
+                        data-bs-dismiss="modal" 
+                        onClick={deleteEmis}
+                          type="button" className="btn-danger save-btn DElementSave">
+                                نعم
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
 

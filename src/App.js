@@ -45,6 +45,7 @@ import OpenEmis from './dashboard/open_Emis/openEmis.jsx';
 import WaitingEmis from './dashboard/open_Emis/waitingEmis/waitingEmis.jsx';
 import RecivedEmis from './dashboard/open_Emis/recivedEmis/recivedEmis.jsx';
 import FinishedEmis from './dashboard/open_Emis/finishedEmis/finishedEmis.jsx';
+import Reward from './dashboard/Reward/reward.jsx';
 
 function App(props) {
   return (
@@ -104,6 +105,8 @@ function App(props) {
           <Route path="waitingemis" element={<WaitingEmis />} />
           <Route path="recivedemis" element={<RecivedEmis />} />
           <Route path="finishedEmis" element={<FinishedEmis />} />
+          <Route path="reward" element={<Reward />} />
+
 
 
 

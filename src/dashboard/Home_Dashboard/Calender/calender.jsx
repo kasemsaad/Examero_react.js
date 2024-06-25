@@ -10,7 +10,6 @@ export default function Calender(props) {
                 <div className='calender' style={{ height: "50%" }}>
                   <Calendar onChange={props.onChange} value={props.date} />
                 </div>
-
                 {
                   props.arrayContainer.length > 0 ? 
                 <div className='mt-4 todo_app_wrapper' style={{ backgroundColor: " ", height: "30vh", paddingBottom: "0px", overflow: "auto" }}>

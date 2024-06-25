@@ -18,12 +18,17 @@ function TableOpenEmis({
   editButtonName,
   handel,
   Deletehandel,
-  flag
+  flag,
+  checkboxHandler,
+  dataCheckedRender,
+  checkAllBoxHandler
+
 }) {
   const { trash, edit, eye } = icons || {};
   const { toggle, butt, imag, checkbox } = other || {};
 
   return (
+    <form>
     <table className="rounded-table">
       {/* <DeleteAnItem /> */}
       {/* <AddOrEditModal /> */}
@@ -44,7 +49,7 @@ function TableOpenEmis({
             ))} */}
             {
               flag ? <td>
-<input type="checkbox" name="" id="" />
+<input type="checkbox" name="ids" id=""  value={row.id} checked={dataCheckedRender.includes(row.id)}  onChange={checkboxHandler}  />
               </td>  : <td>
               { row.id}
              </td>
@@ -145,6 +150,7 @@ function TableOpenEmis({
         ))}
       </tbody>
     </table>
+    </form>
   );
 }
 

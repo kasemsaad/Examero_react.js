@@ -91,7 +91,7 @@ export default function Plans(props) {
                 </div>
 
                 <div className='mt-5'>
-                    <TableOpenEmis header={header} body={props.dataRender} icons={icon} editButtonName={props.edit} delteModalName={props.delete} handel={props.handel}  Deletehandel={props.Deletehandel}/>
+                    <TablePlan header={header} body={props.dataRender} icons={icon} editButtonName={props.edit} delteModalName={props.delete} handel={props.handel}  Deletehandel={props.Deletehandel}/>
                 </div>
 
 

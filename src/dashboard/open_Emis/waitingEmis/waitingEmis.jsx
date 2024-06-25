@@ -1,35 +1,64 @@
 import React, { useEffect, useState } from 'react'
 import Api_Dashboard from '../../interceptor/interceptorDashboard'
 import OpenEmis from '../openEmis'
+import Confetti from 'react-confetti'
 
 export default function WaitingEmis() {
     const [openEmisAllData,SetopenEmisAllData]=useState([])
     const [editId,SeteditId]=useState('')
+    const [showConfetti, setShowConfetti] = useState(false);
+
 
 
     const [InputEditWaitinOpenEmis,SetInputEditWaitinOpenEmis]=useState({
         note:'',
-        status:'',
+        status:"2",
       })
+
+      
+    const [pagination,Setpagination]=useState('')
+    const [current_page,SetcurrentPage]=useState(1)
+    // const totalPages=Math.round(pagination.total/pagination.per_page)
+    const totalPages = pagination.last_page
+    
+
+    console.log(totalPages);
+
+    const handelNext = () => {
+
+      if (current_page  === totalPages) return;
+      SetcurrentPage((prev) => prev + 1);
+    };
+    
+    const handelPrev = () => {
+      if (current_page === 1) return;
+      SetcurrentPage((prev) => prev - 1);
+    };
+
   
+      const getEditingInputs = (e) => {
+        let editWitOpenEmis = { ...InputEditWaitinOpenEmis };
+        const { name, value, type, checked } = e.target;
+        editWitOpenEmis[name] = type === 'checkbox' ? (checked ? "2" : "") : value;
+        SetInputEditWaitinOpenEmis(editWitOpenEmis);
+    }
 
-      const getEditingInputs=(e)=>{
-        let editWitOpenEmis={...InputEditWaitinOpenEmis}
-        editWitOpenEmis[e.target.name]=e.target.value
-        console.log(editWitOpenEmis.status)
-        SetInputEditWaitinOpenEmis(editWitOpenEmis)
-      }
-
-
+// post request
       const handlemodal = async(event) => {
         event.preventDefault();
-        console.log(InputEditWaitinOpenEmis)
-        await Api_Dashboard.post(`/open-emis/${editId}`,{
-            note:InputEditWaitinOpenEmis.note,
-            status:InputEditWaitinOpenEmis.status    
-        }).then((response)=>{
-        //    console.log(response); 
-            waitingEmisAllData()
+        const dataToSend = { ...InputEditWaitinOpenEmis };
+        if (dataToSend.note == undefined || dataToSend.note == null || dataToSend.note == "") {
+          delete dataToSend.note;
+        }
+        await Api_Dashboard.post(`/open-emis/${editId}`,
+         dataToSend   
+        ).then((response)=>{
+          setShowConfetti(true);
+          setTimeout(() => {
+            setShowConfetti(false);
+          }, 3000);
+          
+          waitingEmisAllData()
         }).catch((err)=>{
           console.log(err);
         })
@@ -51,12 +80,12 @@ export default function WaitingEmis() {
 
     useEffect(()=>{
         waitingEmisAllData()
-    },[])
+    },[current_page])
     // getting ALL DATA OF WAIITING_OPENING_EMIS
     const waitingEmisAllData = async ()=>{
-        await Api_Dashboard.get('/open-emis?status=1').then((response)=>{
+        await Api_Dashboard.get(`/open-emis?status=1&page=${current_page}`).then((response)=>{
             SetopenEmisAllData(response.data.data)
-            console.log(response.data.data);
+           Setpagination(response.data.meta.pagination);
         }).catch((err)=>{
             console.log(err);
         })
@@ -73,8 +102,8 @@ export default function WaitingEmis() {
 <OpenEmis
 icon={"true"}
 col7={"تعديل"}
-//  next={handelNext}
-//   handelPrev={handelPrev}  
+ next={handelNext}
+  handelPrev={handelPrev}  
 dataRender={openEmisAllData} 
 // dataConnect={"البيانات الباقات المعلمين"}
  edit={"#waiting_open_ems"}
@@ -86,6 +115,18 @@ dataRender={openEmisAllData}
  />
 
 
+{showConfetti && (
+                        <Confetti
+                            style={{
+                                position: 'absolute',
+                                top: 0,
+                                left: 0,
+                                width: '100%',
+                                height: '100%',
+                                zIndex: 9999
+                            }}
+                        />
+                    )}
 
 <div
       className="modal fade"
@@ -117,15 +158,22 @@ dataRender={openEmisAllData}
                 </div>
                 <div className="form-group mt-4">
                     <label htmlFor="">الحالة</label>
-                <select aria-label="Default select example"  className="form-select"
-                    name="status"
-                    onChange={getEditingInputs}
-                    >
-             <option value="2" 
-             >المستلمة</option>
-            <option value="1">مستلمه</option>
+             
+             <input  class="form-check-input" 
+             type="checkbox" 
+             id="flexCheckDefault"                  
+             name="status"
+             onChange={getEditingInputs}
+              checked={InputEditWaitinOpenEmis.status === "2"}
 
-             </select>
+  
+
+               />
+                
+
+
+
+
                 </div>
                 <div className='mt-5' style={{textAlign:"center",display:"flex",justifyContent:"center"}}>
                   <div className='submitButton'>
@@ -139,7 +187,9 @@ dataRender={openEmisAllData}
             </div>
           </div>
         </div>
+        
       </div>
+
     </div>
 
 

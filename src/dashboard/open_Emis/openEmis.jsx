@@ -46,7 +46,7 @@ function OpenEmis(props) {
 
     return (
         <>
-            <div className="container pb-4" style={{ overflow: 'auto', marginTop: '18px', direction: 'rtl', border: "2px solid purble", borderRadius: "10px", width: "90%", margin: "auto" ,height:"70vh"}}>
+            <div className="container pb-4" style={{ overflow: 'auto', marginTop: '18px', direction: 'rtl', border: "2px solid purble", borderRadius: "10px", width: "90%", margin: "auto" ,height:"auto"}}>
               
 
             <div className='col-12  mt-3 d-flex  ' style={{ alignItems: "center", }}>
@@ -127,11 +127,12 @@ function OpenEmis(props) {
 
               <div className='mt-4'>
 
-                <button className='btn btn-outline-dark' style={{color:"#A6A0F4"}}>
+                <button className='btn btn-outline-dark' style={{color:"#A6A0F4"}} onClick={props.checkallFn}>
                     تحديد الكل 
                 </button>
 
-                <button className='btn btn-outline-danger' style={{marginRight:"20px"}}>
+                <button  className='btn btn-outline-danger' data-bs-target={props.deleteModalFinished}                   data-bs-toggle="modal"
+               style={{marginRight:"20px"}}>
                     حذف المحدد
 
                 </button>
@@ -153,6 +154,10 @@ function OpenEmis(props) {
                     editButtonName={props.edit}
                     //  delteModalName={props.delete}
                       handel={props.handel} 
+
+                      checkboxHandler={props.checkboxHandler}
+                      dataCheckedRender={props.dataCheckedRender}
+                      checkallFn={props.checkAllHandler}
                     //    Deletehandel={props.Deletehandel}
                     
 
@@ -161,7 +166,52 @@ function OpenEmis(props) {
                 
 
 
+                <div
+                    style={{
+                        display: "flex",
+                        flexDirection: "row-reverse",
+                        height: " 74px",
+                        alignItems: "center",
+                    }}
+                    className="footer-manger"
+                >
+                    <button 
+                    type='button'
 
+                    onClick={()=>props.next()}
+                        style={{
+                            backgroundColor: "#4941A6",
+                            height: "26px",
+                            width: "26px",
+                            display: "flex",
+                            fontSize: "18px",
+                            fontWeight: "700",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            border: "none",
+                        }}
+                    >
+                        <p style={{ margin: "0", color: "white" }}>&gt;</p>
+                    </button>
+                    <button
+                    type='button'
+                    onClick={()=>props.handelPrev()}
+                        style={{
+                            marginLeft: "5px",
+                            backgroundColor: "#120E4D",
+                            height: "26px",
+                            width: "26px",
+                            display: "flex",
+                            fontSize: "18px",
+                            fontWeight: "700",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            border: "none",
+                        }}
+                    >
+                        <p style={{ margin: "0", color: "white" }}>&lt;</p>
+                    </button>
+                </div>
 
 
 
