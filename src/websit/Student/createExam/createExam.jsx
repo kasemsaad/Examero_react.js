@@ -238,9 +238,7 @@ function CreateExam(props) {
         
               setError("");
               
-            }
-            
-            
+            }            
           };
           const [selectedOptions, setSelectedOptions] = useState({}); // Map of questionId to selected optionIds
           const [data, setData] = useState("");
