@@ -13,14 +13,14 @@ function CreateExam(props) {
   const [duration, setDuration] = useState('');  // User input for duration
   const [timeLeft, setTimeLeft] = useState(0);   // Time left in seconds
   const [isActive, setIsActive] = useState(false); // Timer state
-
+  const [timeValidationMessage,setTimeValidationMessage] = useState('');
   // Function to start the timer
   const startTimer = () => {
+    
       const parsedDuration = parseInt(duration);
 
       if (isNaN(parsedDuration) || parsedDuration <= 0) {
-          alert('Please enter a valid duration.');
-          return;
+        return;
       }
 
       setTimeLeft(parsedDuration * 60);  // Convert minutes to seconds
@@ -30,25 +30,32 @@ function CreateExam(props) {
   // Handle the countdown logic using useEffect
   useEffect(() => {
       let interval = null;
-
       if (isActive && timeLeft > 0) {
           interval = setInterval(() => {
               setTimeLeft(prevTime => prevTime - 1);
           }, 1000);
       } else if (timeLeft === 0 && isActive) {
           clearInterval(interval);
-          alert('Time is up!');
+          setTimeout(() => {
+            
+            const modalElementExams = document.getElementById('Exam');
+          modalElementExams.style.display = "none"
+            const modalElementFinishTimer = document.getElementById('FinishTimer');
+          modalElementFinishTimer.style.display = "block"
+          setData("")
+          setSelectedOptions("")
+          }, 9000);
           setIsActive(false);
-      }
-
-      return () => clearInterval(interval);
-  }, [isActive, timeLeft]);
+        }
+        
+        return () => clearInterval(interval);
+      }, [isActive, timeLeft]);
+    
 
   // Convert timeLeft to minutes and seconds for display
   const minutes = Math.floor(timeLeft / 60);
   const seconds = timeLeft % 60;
   //////////////////////////Get All Note///////////////////////////////////////////////////
-  // const [privousExams, setPrivousExams] = useState("");
   const [AllGroup, setAllGroup] = useState("");
   const [AllSubject, setAllSubject] = useState("");
   const [AllUnit, setAllUnit] = useState("");
@@ -138,7 +145,8 @@ function CreateExam(props) {
   const [unit_id, setUnit_id] = useState('');
   const [lesson_id, setLesson_id] = useState('');
   const [QusetionExam, setQusetionExam] = useState('');
-  // const [timeExam, setTimeExam] = useState('');
+  // const [fadyyy, setfadyyy] = useState('');
+  const [LastObject, setLastObject] = useState('');
   const handleGroupChange = (id) => {
     setGroup_id(id);
   };
@@ -157,11 +165,7 @@ function CreateExam(props) {
   const handleLesson_idChange = (id) => {
     setLesson_id(id);
   };
-  // const handleTimeExamChange = (id) => {
-  //   setTimeExam(id);
-  // };
 
-  // timeExam:2,
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = {
@@ -197,18 +201,6 @@ function CreateExam(props) {
     };
     if (!unit_id) delete data.unit_id;
     if (!lesson_id) delete data.lesson_id;
-    Api_Website.post(`/students/genrate-exam`, data)
-      .then(response => {
-        console.log('generat successfuly exam', data);
-        setQusetionExam(response.data.data)
-        startTimer()
-        // console.log(response.data.data.questions)
-
-      })
-      .catch(error => {
-        console.error('Error generat exam', error);
-      });
-
     if (!group_id) {
       setError('الرجاء اختيار الصف');
     } else
@@ -224,48 +216,77 @@ function CreateExam(props) {
           } else
             if (lesson_id && !unit_id) {
               setError('الرجاء اختيار الوحده');
+            
+          } else
+            if (duration<=0) {
+              setError('مدة الامتحان يجب ان تكون دقيقة عالاقل');
             }
             else {
-              setError('');
-            }
+    Api_Website.post(`/students/genrate-exam`, data)
+      .then(response => {
+        console.log('generat successfuly exam');
+        const modalElementExam = document.getElementById('Exam');
+        modalElementExam.style.display = "block"
+        setQusetionExam(response.data.data)
+        startTimer()
+        const modalElementFinishTimer = document.getElementById('FinishTimer');
+        modalElementFinishTimer.style.display = "none"
+        })
+        .catch(error => {
+          console.error('Error generat exam', error);
+        });
+        
+              setError("");
+              
+            }            
+          };
+          const [selectedOptions, setSelectedOptions] = useState({}); // Map of questionId to selected optionIds
+          const [data, setData] = useState("");
+          const [result, setResult] = useState("");
+          
+          
+          const handleSubmitExam = (event) => {
+            event.preventDefault();
+          
+    call(data)
+
+    Api_Website.post(`/students/submit-exam`, LastObject)
+      .then(response => {
+        console.log('submit exam' );
+           const modalElementSubit = document.getElementById('FinishExam');
+           modalElementSubit.style.display = "block"
+           const modalElementExam = document.getElementById('Exam');
+           modalElementExam.style.display = "none"
+           setResult(response.data.data)
+
+           setTimeout(() => {
+           const modalElementSubit = document.getElementById('FinishExam');
+           modalElementSubit.style.display = "none"  
+          setData("")
+          setSelectedOptions("")
+           }, 8000);
+   
+      })
+      .catch(error => {
+        console.error('Error submit exam', error);
+      });
+
+
   };
-
-  // const handleSubmitExam = (event) => {
-  //   event.preventDefault();
-  //   const data =
-  //   {
-  //     answers: {
-  //       "": [293, 295],
-  //       "9": [33, 34, 35, 36],
-  //       "10": [37]
-  //     },
-  //     group_id: group_id,
-  //     subject_id: subject_id,
-  //     semster: semster,
-  //   }
-  //   Api_Website.post(`/students/submit-exam`, data)
-  //     .then(response => {
-  //       console.log('submit exam', data);
-  //       // setQusetionExam(response.data.data)
-  //       console.log(response.data.data.questions)
-  //     })
-  //     .catch(error => {
-  //       console.error('Error submit exam', error);
-  //     });
-
-
-  // };
 
   /////////////////////////////getexam////////////////////////////////////////////
   // ///////////pagenation///////////////////
   const [currentPage, setCurrentPage] = useState(0);
   const questionsPerPage = 1;
   const questions = Array.isArray(QusetionExam?.questions) ? QusetionExam.questions : [];
+
   const indexOfLastQuestion = (currentPage + 1) * questionsPerPage;
   const indexOfFirstQuestion = indexOfLastQuestion - questionsPerPage;
   const currentQuestions = questions.slice(indexOfFirstQuestion, indexOfLastQuestion);
+
   const isPreviousDisabled = currentPage === 0;
   const isNextDisabled = indexOfLastQuestion >= questions.length;
+
   const handleNext = () => {
     if (!isNextDisabled) setCurrentPage(currentPage + 1);
   };
@@ -274,57 +295,122 @@ function CreateExam(props) {
     if (!isPreviousDisabled) setCurrentPage(currentPage - 1);
   };
 
-
-
-
   ////////////////////////////////questions///////////////////////////////////////////////////////////////
-  const [selectedIds, setSelectedIds] = useState([]);
-  const arrIdQuestions = [];
-  const id = arrIdQuestions;
-  const [data, setData] = useState({ answers: {} });
+  const handleCheckboxChange = (questionId, optionId) => {
+    // console.log(questionId,optionId)
+    setSelectedOptions(prevSelected => {
+      const newSelected = { ...prevSelected };
 
-  const idQusetionsss = () => {
-    (QusetionExam.questions).forEach
-      (question => {
-        arrIdQuestions.push(question.id);
-      });
-  }
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////    
-  const handleCheckboxChange = (id) => {
-    setSelectedIds(prevIds => {
-      if (prevIds.includes(id)) {
-        return prevIds.filter(item => item !== id);
-      } else {
-        return [...prevIds, id];
+      if (!newSelected[questionId]) {
+        newSelected[questionId] = [];
       }
+      if (newSelected[questionId].includes(optionId)) {
+        newSelected[questionId] = newSelected[questionId].filter(id => id !== optionId);
+      } else {
+        newSelected[questionId].push(optionId);
+      }
+        return newSelected;
     });
   };
-  /////////////////////////////////////////////////////////////////////////////////
-  // console.log(selectedIds)
-  // console.log(selectedIds)
+//////////////////////compa//////////////////////////////////////////////////////////////// // 
+// const extractAllIds = (QusetionExam) => {
+//   const answers = {};
+//   // Use forEach to iterate over the questions array
+//  (QusetionExam.questions).forEach(({ id }) => {
+//     answers[id] = [];  // Initialize an empty array for each id
+//   });
+//   const obj = {
+//          answers
+//         //  group_id: group_id,              //required
+//         // subject_id: subject_id,          //required
+//         // semster: semster,
+//        };
+//         setfadyyy(obj);
+//   console.log("oobj:", obj); // Use a comma instead of '+' for logging objects
+// };
+//   const answers = {};
 
-  const prevIdRef = useRef([]);
-  useEffect(() => {
-    const idsChanged = JSON.stringify(prevIdRef.current) !== JSON.stringify(id);
-    if (idsChanged) {
-      idQuestion(id);
-      prevIdRef.current = id; // Update reference to current id array
-    }
-    console.log("--" + JSON.stringify(data));
-  }, [id]);
-  //////////////////////////////////////////////////////////////////////////
-  // const x={selectedIds}
-  const x = [1, 2, 3, 4, 5]
-  // console.log("ee"+x)
-  const idQuestion = (ids) => {
-    setData((prevData) => {
-      const newAnswers = { ...prevData.answers };
-      ids.forEach(id => {
-        newAnswers[id] = x;
-      });
-      return { answers: newAnswers };
-    });
+//   (QusetionExam.questions).forEach(question => {
+//       answers[question.id] = [];
+//   });
+//   const obj = {
+//      answers,
+//      group_id: group_id,              //required
+//     subject_id: subject_id,          //required
+//     semster: semster, };
+//     setfadyyy(obj);
+//   console.log(JSON.stringify(obj)+"fadyyy");
+
+
+const call=(d)=>{
+  //////////////////////compa//////////////////////////////////////////////////////////////// // 
+  const answers = {};
+  // Use forEach to iterate over the questions array
+ (QusetionExam.questions).forEach(({ id }) => {
+    answers[id] = [];  // Initialize an empty array for each id
+  });
+
+  let obj1 =  d;
+  
+  let obj2 = {
+         answers
+       };
+  
+  // Initialize obj3 with obj2's structure
+  let obj3 = {
+    "answers": {}
+    ,
+         group_id: group_id,              //required
+        subject_id: subject_id,          //required
+        semster: semster,
   };
+  
+  // Add all IDs from obj2 to obj3
+  for (let id in obj2.answers) {
+    obj3.answers[id] = []
+  }
+  
+  // Compare obj1 and obj2 based on IDs
+  for (let id in obj1.answers) {
+    
+    if (obj2.answers.hasOwnProperty(id)) {
+        // If the IDs match, add obj1's array to obj3
+        obj3.answers[id] = obj1.answers[id];
+    }
+  }
+  // setLastObject( {"answers":{"40":[158],"41":[],"42":[]},"group_id":1,"subject_id":1,"semster":1})
+  setLastObject(obj3)
+//   setLastObject( {
+//     "answers":{
+//         "74":[293,295],
+//         "9":[33,34,35,36],
+//         "10":[37]
+//     },
+//     "group_id":1,
+//     "subject_id":1,
+//     "semster":1
+// })
+      // console.log(JSON.stringify(fadyyy)+"fadyyysssss");
+      // console.log(JSON.stringify(obj2)+"o2");
+      // console.log(JSON.parse(obj3)+"o3");
+      // console.log(LastObject+"last");
+  }
+ 
+useEffect(() => {
+  // Log the selectedOptions state for debugging
+  setData({
+      answers: selectedOptions, 
+      group_id: group_id,              //required
+      subject_id: subject_id,          //required
+      semster: semster, 
+    });
+    // console.log(selectedOptions);
+  }, [selectedOptions]);
+  
+  useEffect(() => {
+
+    // console.log(data);
+  }, [data]);
 
   return (
     <>
@@ -416,7 +502,7 @@ function CreateExam(props) {
                         >
                           إختر المبحث
                         </Dropdown.Toggle>
-                        <Dropdown.Menu required>
+                        <Dropdown.Menu >
                           {Array.isArray(AllSubject) && AllSubject.length > 0 ? (
                             AllSubject.map(({ id, name }) => (
                               <Dropdown.Item
@@ -543,13 +629,15 @@ function CreateExam(props) {
                     <div className="px-2 d-flex flex-column">
                       <label>مدة الامتحان</label>
                       <input type='number' className=' py-2 rounded-3'
-                       required 
-                       placeholder='إختر مدة الامتحان'
-                       value={duration} 
-                       onChange={(e) => setDuration(e.target.value)} 
+                        
+                        placeholder='إختر مدة الامتحان'
+                         value={duration} 
+                         onChange={(e) => setDuration(e.target.value)} 
                         style={{ color: "black", backgroundColor: "white", border: "none" }} id="dropdown-basic" />
+                                        {timeValidationMessage && <p style={{ color: 'red' }}>{timeValidationMessage}</p>}
+
                     </div>
-                   
+
 
                     <div className="px-2">
                       <label> الأسئلة </label>
@@ -603,40 +691,42 @@ function CreateExam(props) {
 
                   </div>
                   <div className=" mt-5" dir='ltr'>
-                    <button  className=' text-bold rounded-4 px-4 py-2' style={{ backgroundColor: "#C01F59", color: "white" }}>إنشاء الامتحان</button>
+                    <button type="submit" className=' text-bold rounded-4 px-4 py-2' style={{ backgroundColor: "#C01F59", color: "white" }}>إنشاء الامتحان</button>
                   </div>
                 </div>
 
               </div>
             </form>
           </div>
+          <form className="modal-body managerForm" onSubmit={handleSubmitExam} id="Exam">
           <div className="  ">
             {/* /////////////////button///////////////////////////////////////////////// */}
             <div className="lineButton " style={{}}>
-              <button className=" fs-4 rounded-5 p-0  px-4  my-2" algin="center" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample"
+              <button className=" fs-4 rounded-5 p-0  px-4  my-2" algin="center" type="button" 
                 style={{ backgroundColor: "#FE4F60", color: "", width: "", border: "none" }} >
                 الامتحان   </button>
             </div>
             {/* <MyButton className="btn mx-3 py-0" style={{ height: "2.5rem", width:"8rem", color: "white", backgroundColor: "#4941A6" }} to={"/Home"} content={"انشاء حساب"} /> */}
             {/* /////////////////endbutton///////////////////////////////////////////////// */}
             {/* /////////////////exam///////////////////////////////////////////////// */}
-            <div className="collapse" id="collapseExample2">
-              {Array.isArray(QusetionExam.questions) && currentQuestions.map(({ id, name, point, options }, index) => (
-                <div key={id} className="card card-body rounded-5" style={{ backgroundColor: "#1D195D" }}>
+            <div id="collapseExample2">
+              {Array.isArray(QusetionExam.questions) && currentQuestions.map((question, index) => (
+
+                <div  key={question.id} className="card card-body rounded-5" style={{ backgroundColor: "#1D195D" }}>
                   <div className="d-flex align-items-center justify-content-between">
                     <div className="d-flex px-3">
-                      <h3 onLoad={idQusetionsss(id)}>السؤال /{indexOfFirstQuestion + index + 1}</h3>
+                      <h3 >السؤال /{indexOfFirstQuestion + index + 1}</h3>
                       {/* <h3>السؤال /{indexOfFirstQuestion + index + 1}</h3> */}
                       <button className='me-3 text-bold rounded-3 px-4' style={{ border: "none", backgroundColor: "#C01F59", color: "white", height: "2.5rem" }}>
-                        علامة السؤال ({point})
+                        علامة السؤال ({question.point})
                       </button>
                     </div>
                     <div className="d-flex align-items-center justify-content-center">
                       <div className="timerexam p-3 d-flex align-items-center justify-content-center" style={{ border: "2px solid #FFFFFF", borderRadius: "50%", width: "80px", height: "80px" }}>
                         <div className='fontsizexam' style={{ color: "#FE4F60" }}>
-                        <div id="timer-display" className="timer-display" >
-                {`${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`}
-            </div>
+                          <div id="timer-display" className="timer-display" >
+                            {`${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`}
+                          </div>
 
                         </div>
                       </div>
@@ -644,8 +734,8 @@ function CreateExam(props) {
                   </div>
                   <div>
                     <div>
-                      <li className='bulits fontsizexam py-2'>{name}</li>
-                      {Array.isArray(options) && options.map(({ id, option }) => (
+                      <li className='bulits fontsizexam py-2'>{question.name}</li>
+                      {Array.isArray(question.options) && question.options.map(({ id, option }) => (
                         <div key={id}>
                           <div className='pt-2 pe-4 py-3'>
                             <input
@@ -653,16 +743,19 @@ function CreateExam(props) {
                               id={`vehicle-${id}-1`}
                               name={`vehicle-${id}-1`}
                               value="Bike"
-                              onChange={() => handleCheckboxChange(id)}
-                              checked={selectedIds.includes(id)}
+                              checked={selectedOptions[question.id]?.includes(id)||false}
+                              data-question-id={question.id} 
+                              data-option-id={id}
+                              onChange={() => handleCheckboxChange(question.id, id)}
                             />
                             <label
-                              className='btn rounded-3 px-4'
-                              style={{ color: "white", border: "2px solid #C01F59" }}
+                              className='btn rounded-3 px-4 me-3'
+                              style={{ color: "white", border: "2px solid #C01F59" ,width:"10vw"}}
                               htmlFor={`vehicle-${id}-1`}
                             >
                               {option}
-                            </label>                          </div>
+                            </label> 
+                            </div>
                         </div>
                       ))}
                     </div>
@@ -676,16 +769,18 @@ function CreateExam(props) {
                     </button>
                   </div>
                   <div className="mt-5 d-flex align-items-center justify-content-center">
-                    <button className='text-bold rounded-4 px-4 py-2' style={{ backgroundColor: "#C01F59", color: "white" }}>تسليم الامتحان</button>
+                    <button type="submit" className='text-bold rounded-4 px-4 py-2' style={{ backgroundColor: "#C01F59", color: "white" }}>تسليم الامتحان</button>
                   </div>
                 </div>
               ))}
             </div>
+            </div>
+            </form>
 
             {/* /////////////////endexam///////////////////////////////////////////////// */}
             {/* ////////////////الوقت  انتهي  ///////////////////////////////////////////////// */}
 
-            <div className="collapse" id="collapseExample2" >
+            <div className="collapse mt-3" id="FinishTimer" style={{display:"none"}} >
 
               <div className="card card-body rounded-5" style={{ backgroundColor: "#1D195D" }}>
 
@@ -714,7 +809,7 @@ function CreateExam(props) {
             {/* -------------------الوقت  انتهي  -------------------------------- */}
             {/* /////////////////تم مراجعة النتائج ///////////////////////////////////////////////// */}
 
-            <div className="collapse" id="collapseExample2" >
+            <div className="collapse  mt-3" style={{display:"none"}} id="FinishExam">
 
               <div className="card card-body rounded-5" style={{ backgroundColor: "#1D195D" }}>
 
@@ -734,7 +829,7 @@ function CreateExam(props) {
                   <i className='fas fa-check-double pt-1 text-center' style={{ width: "40px", height: "40px", fontSize: "29px", color: "#A6A0F4 ", borderRadius: "50%", border: "3px solid #A6A0F4" }}></i>
                   <h2 style={{ color: layoutBackground === "#0E0A43" ? "#FE4F60" : "#4941A6", }}>تم مراجعة النتائج </h2>
                   <h3 style={{ color: layoutBackground === "#0E0A43" ? "white" : "black" }}>حصلت على</h3>
-                  <h3><span className='fontsizexam' style={{ color: "white" }}>8</span> /<span className='fontsizexam' style={{ color: "#FE4F60" }}>7</span></h3>
+                  <h3><span className='fontsizexam' style={{ color: "white" }}>{result.total_score}</span> /<span className='fontsizexam' style={{ color: "#FE4F60" }}>{result.result}</span></h3>
                 </div>
 
               </div>
@@ -743,8 +838,6 @@ function CreateExam(props) {
             {/* --------------------تم مراجعة النتائج -------------------------------- */}
           </div>
         </div>
-
-      </div>
     </>
   )
 }
