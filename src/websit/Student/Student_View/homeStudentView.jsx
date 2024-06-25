@@ -433,11 +433,8 @@ const getUsersFromInput=(e)=>{
                         className="form-control managerControl"
                         id="address"
                         placeholder="أدخل العنوان"
-                        // value={getDataUpdateAddress}
-                        // onChange={handleAddressChangeUpdate}
-                        value={inputUser.address}
-                        name='address'
-                       onChange={(e)=>getUsersFromInput(e)}
+                        value={"asd"}
+                        onChange={handleAddressChangeUpdate}
                       />
                       {addressUpdateValidationMessage && <p style={{ color: 'red' }}>{addressUpdateValidationMessage}</p>}
                     </div>
@@ -448,15 +445,16 @@ const getUsersFromInput=(e)=>{
                         className="form-control managerControl"
                         id="note"
                         placeholder="أدخل الملحوظة"
-                        value={inputUser.note}
-                        name='note'
-                       onChange={(e)=>getUsersFromInput(e)}                      />
+                        value={getDataUpdateNote}
+
+                        onChange={handleNoteChangeUpdate}
+                      />
                       {noteUpdateValidationMessage && <p style={{ color: 'red' }}>{noteUpdateValidationMessage}</p>}
                     </div>
                   </div>
                 </div>
-                <div className="modal-footer managerFooter pt-4 ">
-                <button type="button" className="btn canceled managerCancel" data-bs-dismiss="modal" id="firstbutt">
+                <div className="modal-footer managerFooter ms-4 pt-3" >
+                  <button type="button" className="btn canceled managerCancel" data-bs-dismiss="modal" id="firstbutt">
                     إلغاء
                   </button>
                   <button type="submit" className="btn save managerSave">تعديل</button>
