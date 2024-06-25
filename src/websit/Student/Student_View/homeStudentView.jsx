@@ -18,7 +18,6 @@ function onSelect(id) {
   useId = id
 }
 function HomeStudentview(props) {
-  const getToken = () => { return "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL3N0dWRlbnRzL2xvZ2luIiwiaWF0IjoxNzE5MTYwNDAxLCJleHAiOjE3MTkxNjQwMDEsIm5iZiI6MTcxOTE2MDQwMSwianRpIjoidVRFN2hZSE43aEViTEd3NiIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.TrhHEQ5x9U0i1dQK9S0zevvbKeU65KS2KwpxJxmoIc8"; };
   const layoutBackground = useSelector((state) => state.dark.lay);
 
   useEffect(() => {
@@ -434,11 +433,8 @@ const getUsersFromInput=(e)=>{
                         className="form-control managerControl"
                         id="address"
                         placeholder="أدخل العنوان"
-                        // value={getDataUpdateAddress}
-                        // onChange={handleAddressChangeUpdate}
-                        value={inputUser.address}
-                        name='address'
-                       onChange={(e)=>getUsersFromInput(e)}
+                        value={"asd"}
+                        onChange={handleAddressChangeUpdate}
                       />
                       {addressUpdateValidationMessage && <p style={{ color: 'red' }}>{addressUpdateValidationMessage}</p>}
                     </div>
@@ -449,15 +445,16 @@ const getUsersFromInput=(e)=>{
                         className="form-control managerControl"
                         id="note"
                         placeholder="أدخل الملحوظة"
-                        value={inputUser.note}
-                        name='note'
-                       onChange={(e)=>getUsersFromInput(e)}                      />
+                        value={getDataUpdateNote}
+
+                        onChange={handleNoteChangeUpdate}
+                      />
                       {noteUpdateValidationMessage && <p style={{ color: 'red' }}>{noteUpdateValidationMessage}</p>}
                     </div>
                   </div>
                 </div>
-                <div className="modal-footer managerFooter pt-4 ">
-                <button type="button" className="btn canceled managerCancel" data-bs-dismiss="modal" id="firstbutt">
+                <div className="modal-footer managerFooter ms-4 pt-3" >
+                  <button type="button" className="btn canceled managerCancel" data-bs-dismiss="modal" id="firstbutt">
                     إلغاء
                   </button>
                   <button type="submit" className="btn save managerSave">تعديل</button>
