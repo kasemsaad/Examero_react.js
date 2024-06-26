@@ -1,14 +1,15 @@
 // import MyButton from "../../common/Button/Button";
-import { Link, json } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './createExam.css'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import plus from '../../../assets/image/+.svg';
 import Dropdown from 'react-bootstrap/Dropdown';
 import CreateExamIcon from '../../../assets/icons/Home/wpf_create-new.svg'
 import Api_Website from '../../../utlis/axios_utils_websit';
-
 function CreateExam(props) {
+   
+
   const layoutBackground = useSelector((state) => state.dark.lay);
   const [duration, setDuration] = useState('');  // User input for duration
   const [timeLeft, setTimeLeft] = useState(0);   // Time left in seconds
@@ -145,8 +146,7 @@ function CreateExam(props) {
   const [unit_id, setUnit_id] = useState('');
   const [lesson_id, setLesson_id] = useState('');
   const [QusetionExam, setQusetionExam] = useState('');
-  // const [fadyyy, setfadyyy] = useState('');
-  const [LastObject, setLastObject] = useState('');
+  const [answerss, setAnswers] = useState([{}]);
   const handleGroupChange = (id) => {
     setGroup_id(id);
   };
@@ -165,7 +165,6 @@ function CreateExam(props) {
   const handleLesson_idChange = (id) => {
     setLesson_id(id);
   };
-
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = {
@@ -224,13 +223,26 @@ function CreateExam(props) {
             else {
     Api_Website.post(`/students/genrate-exam`, data)
       .then(response => {
-        console.log('generat successfuly exam');
+        console.log(response);
+        
+        // console.log('generat successfuly exam');
         const modalElementExam = document.getElementById('Exam');
         modalElementExam.style.display = "block"
         setQusetionExam(response.data.data)
         startTimer()
         const modalElementFinishTimer = document.getElementById('FinishTimer');
         modalElementFinishTimer.style.display = "none"
+      //   const transformedAnswers = response.data.data.questions.map(question => ({
+      //     question.id: [],
+      // }));
+      const transformedAnswers = response.data.data.questions.reduce((acc, question) => {
+        acc.answers[question.id] = [];
+        return acc;
+    }, { answers: {} });
+
+       setAnswers(transformedAnswers)
+              
+        
         })
         .catch(error => {
           console.error('Error generat exam', error);
@@ -247,10 +259,10 @@ function CreateExam(props) {
           
           const handleSubmitExam = (event) => {
             event.preventDefault();
-          
-    call(data)
+            call(data)
 
-    Api_Website.post(`/students/submit-exam`, LastObject)
+const lastobject=call(data)
+    Api_Website.post(`/students/submit-exam`, lastobject )
       .then(response => {
         console.log('submit exam' );
            const modalElementSubit = document.getElementById('FinishExam');
@@ -312,58 +324,21 @@ function CreateExam(props) {
         return newSelected;
     });
   };
-//////////////////////compa//////////////////////////////////////////////////////////////// // 
-// const extractAllIds = (QusetionExam) => {
-//   const answers = {};
-//   // Use forEach to iterate over the questions array
-//  (QusetionExam.questions).forEach(({ id }) => {
-//     answers[id] = [];  // Initialize an empty array for each id
-//   });
-//   const obj = {
-//          answers
-//         //  group_id: group_id,              //required
-//         // subject_id: subject_id,          //required
-//         // semster: semster,
-//        };
-//         setfadyyy(obj);
-//   console.log("oobj:", obj); // Use a comma instead of '+' for logging objects
-// };
-//   const answers = {};
-
-//   (QusetionExam.questions).forEach(question => {
-//       answers[question.id] = [];
-//   });
-//   const obj = {
-//      answers,
-//      group_id: group_id,              //required
-//     subject_id: subject_id,          //required
-//     semster: semster, };
-//     setfadyyy(obj);
-//   console.log(JSON.stringify(obj)+"fadyyy");
-
 
 const call=(d)=>{
   //////////////////////compa//////////////////////////////////////////////////////////////// // 
-  const answers = {};
-  // Use forEach to iterate over the questions array
- (QusetionExam.questions).forEach(({ id }) => {
-    answers[id] = [];  // Initialize an empty array for each id
-  });
-
   let obj1 =  d;
   
-  let obj2 = {
-         answers
-       };
+  let obj2 = answerss
   
-  // Initialize obj3 with obj2's structure
   let obj3 = {
-    "answers": {}
+    "answers": { }
     ,
          group_id: group_id,              //required
         subject_id: subject_id,          //required
         semster: semster,
   };
+  console.log(obj3);
   
   // Add all IDs from obj2 to obj3
   for (let id in obj2.answers) {
@@ -378,33 +353,18 @@ const call=(d)=>{
         obj3.answers[id] = obj1.answers[id];
     }
   }
-  // setLastObject( {"answers":{"40":[158],"41":[],"42":[]},"group_id":1,"subject_id":1,"semster":1})
-  setLastObject(obj3)
-//   setLastObject( {
-//     "answers":{
-//         "74":[293,295],
-//         "9":[33,34,35,36],
-//         "10":[37]
-//     },
-//     "group_id":1,
-//     "subject_id":1,
-//     "semster":1
-// })
-      // console.log(JSON.stringify(fadyyy)+"fadyyysssss");
-      // console.log(JSON.stringify(obj2)+"o2");
-      // console.log(JSON.parse(obj3)+"o3");
-      // console.log(LastObject+"last");
+ 
+  return obj3
+
   }
  
 useEffect(() => {
-  // Log the selectedOptions state for debugging
   setData({
       answers: selectedOptions, 
       group_id: group_id,              //required
       subject_id: subject_id,          //required
       semster: semster, 
     });
-    // console.log(selectedOptions);
   }, [selectedOptions]);
   
   useEffect(() => {
@@ -471,7 +431,7 @@ useEffect(() => {
                           إختر الصف
                         </Dropdown.Toggle>
 
-                        <Dropdown.Menu>
+                        <Dropdown.Menu style={{backgroundColor:"white"}}>
                           {Array.isArray(AllGroup) && AllGroup.length > 0 ? (
                             AllGroup.map(({ id, name }) => (
                               <Dropdown.Item
@@ -489,7 +449,7 @@ useEffect(() => {
                           ) : (
                             <Dropdown.Item disabled>لا توجد مجموعات</Dropdown.Item>
                           )}
-                        </Dropdown.Menu>
+                        </Dropdown.Menu >
                       </Dropdown>
                     </div>
                     <div>
@@ -502,7 +462,7 @@ useEffect(() => {
                         >
                           إختر المبحث
                         </Dropdown.Toggle>
-                        <Dropdown.Menu >
+                        <Dropdown.Menu  style={{backgroundColor:"white"}}>
                           {Array.isArray(AllSubject) && AllSubject.length > 0 ? (
                             AllSubject.map(({ id, name }) => (
                               <Dropdown.Item
@@ -526,7 +486,7 @@ useEffect(() => {
                           إختر الوحدة
                         </Dropdown.Toggle>
 
-                        <Dropdown.Menu>
+                        <Dropdown.Menu style={{backgroundColor:"white"}}>
                           {Array.isArray(AllUnit) && AllUnit.length > 0 ? (
                             AllUnit.map(({ id, name }) => (
                               <Dropdown.Item
@@ -553,7 +513,7 @@ useEffect(() => {
                           إختر الدرس
                         </Dropdown.Toggle>
 
-                        <Dropdown.Menu>
+                        <Dropdown.Menu style={{backgroundColor:"white"}}>
                           {Array.isArray(AllLesson) && AllLesson.length > 0 ? (
                             AllLesson.map(({ id, name }) => (
                               <Dropdown.Item
@@ -586,7 +546,7 @@ useEffect(() => {
                           إختر الفصل الدراسي
                         </Dropdown.Toggle>
 
-                        <Dropdown.Menu>
+                        <Dropdown.Menu style={{backgroundColor:"white"}}>
                           <Dropdown.Item onClick={() => handleSemesterChange(1)}>
                             الاول
                           </Dropdown.Item>
@@ -605,7 +565,7 @@ useEffect(() => {
                           إختر الباقه
                         </Dropdown.Toggle>
 
-                        <Dropdown.Menu>
+                        <Dropdown.Menu style={{backgroundColor:"white"}}>
                           {Array.isArray(Allplans) && Allplans.length > 0 ? (
                             Allplans.map(({ id, name }) => (
                               <Dropdown.Item
@@ -646,9 +606,9 @@ useEffect(() => {
                           إختر الأسئلة
                         </Dropdown.Toggle>
 
-                        <Dropdown.Menu>
+                        <Dropdown.Menu style={{backgroundColor:"white"}}    >
                           <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                          <div className="dropdown-container">
+                          <div className="drocontainer">
                             <div className="question-row">
                               <button className="control-button" onClick={() => decrement(setEasyCount, easyCount)}>-</button>
                               <span className="countQuestion">{easyCount}</span>
@@ -828,7 +788,7 @@ useEffect(() => {
                 <div className=' d-flex align-items-center justify-content-center flex-column' >
                   <i className='fas fa-check-double pt-1 text-center' style={{ width: "40px", height: "40px", fontSize: "29px", color: "#A6A0F4 ", borderRadius: "50%", border: "3px solid #A6A0F4" }}></i>
                   <h2 style={{ color: layoutBackground === "#0E0A43" ? "#FE4F60" : "#4941A6", }}>تم مراجعة النتائج </h2>
-                  <h3 style={{ color: layoutBackground === "#0E0A43" ? "white" : "black" }}>حصلت على</h3>
+                  <h3 style={{ color: layoutBackground === "#0E0A43" ? "white " : "black" }}>حصلت على</h3>
                   <h3><span className='fontsizexam' style={{ color: "white" }}>{result.total_score}</span> /<span className='fontsizexam' style={{ color: "#FE4F60" }}>{result.result}</span></h3>
                 </div>
 
