@@ -46,6 +46,9 @@ import WaitingEmis from './dashboard/open_Emis/waitingEmis/waitingEmis.jsx';
 import RecivedEmis from './dashboard/open_Emis/recivedEmis/recivedEmis.jsx';
 import FinishedEmis from './dashboard/open_Emis/finishedEmis/finishedEmis.jsx';
 import Reward from './dashboard/Reward/reward.jsx';
+import RewardManger from './dashboard/Reward/rewardManager/rewardManger.jsx';
+import RewardMoshref from './dashboard/Reward/rewardMoshref/rewardMoshref.jsx';
+import RewardTeacher from './dashboard/Reward/rewardTeacher/rewardTeacher.jsx';
 
 function App(props) {
   return (
@@ -105,9 +108,14 @@ function App(props) {
           <Route path="waitingemis" element={<WaitingEmis />} />
           <Route path="recivedemis" element={<RecivedEmis />} />
           <Route path="finishedEmis" element={<FinishedEmis />} />
-          <Route path="reward" element={<Reward />} />
+          <Route path="rewardManger" element={<RewardManger />} />
+          <Route path="rewardSupervisor" element={<RewardMoshref />} />
+          <Route path="rewardteacher" element={<RewardTeacher />} />
 
 
+
+
+          
 
 
 
