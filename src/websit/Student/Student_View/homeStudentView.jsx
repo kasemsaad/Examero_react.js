@@ -463,7 +463,7 @@ const getUsersFromInput=(e)=>{
                         placeholder="أدخل العنوان"
                         value={values.address}
                         onChange={handleInputChangeAddress}
-                      />
+
                       {/* {addressUpdateValidationMessage && <p style={{ color: 'red' }}>{addressUpdateValidationMessage}</p>} */}
                       {addressUpdateValidationMessage && <p style={{ color: 'red' }}>{addressUpdateValidationMessage}</p>}
 
@@ -477,6 +477,7 @@ const getUsersFromInput=(e)=>{
                         placeholder="أدخل الملحوظة"
                         value={values.note}
                         onChange={handleInputChangeNote}
+
 
                       />
                       {noteUpdateValidationMessage && <p style={{ color: 'red' }}>{noteUpdateValidationMessage}</p>}
