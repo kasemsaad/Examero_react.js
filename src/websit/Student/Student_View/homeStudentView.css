@@ -1,3 +1,11 @@
+.react-calendar__tile--now{
+    background-color: #0E0A43;
+    border-radius: 45%;
+
+}
+.react-calendar__tile{
+    color: aliceblue;
+}
 .shadow-boxxx {
 box-shadow: 0px -3px 10px rgba(0, 0, 0, .6); /* Shadow definition */
 background-repeat: no-repeat;
@@ -21,12 +29,14 @@ margin-bottom: 10px;
 }
 .boximgbackground1{
 background-image: url(../../../assets/icons/home_student_view/Group\ 325.svg);
+background-position: center;
+background-size: cover;
 }
-.boximgbackground2{
-background-image: url(../../../assets/icons/home_student_view/Group\ 326.svg);
-}
+
 .boximgbackground3{
 background-image: url(../../../assets/icons/home_student_view/Group\ 327.svg);
+background-position: center;
+background-size: cover;
 }
 @media screen and (max-width:450px) {
     .rowHomestudent{
