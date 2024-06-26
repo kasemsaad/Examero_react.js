@@ -41,6 +41,7 @@ const PuttingKindOfQ = () => {
       name5: "اسم الصف",
     },
   ];
+  let other = { toggle: true };
 
   let icon = { edit: true, trash: true, toggle: true };
   return (

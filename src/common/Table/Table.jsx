@@ -3,6 +3,7 @@ import "./table.css";
 import image from "../../assets/icons/MyTable/trash.svg";
 import ToggledButton from "../../dashboard/components/ToggledButton/ToggledButton";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 function MyTable({
   header,
   body,
@@ -11,12 +12,12 @@ function MyTable({
   deleteModalName,
   editButtonName,
 
+  togellValue,
   handelEdit,
   handelDeleteItem,
 }) {
   const { trash, edit, eye } = icons || {};
   const { toggle, butt, imag, checkbox } = other || {};
-
   return (
     <table className="my-rounded-table-all">
       <thead>
@@ -36,9 +37,9 @@ function MyTable({
                 <td key={`${rowIndex}-${cellIndex}`}>{value}</td>
               ))}
 
-              {toggle && (
+              {toggle && togellValue && (
                 <td>
-                  <ToggledButton />
+                  <ToggledButton togel={togellValue[rowIndex].status} />
                 </td>
               )}
               {icons && (

@@ -79,7 +79,6 @@ function App(props) {
           <Route path="mangers" element={<Mangers />} />
           <Route path="supervisors" element={<Supervisors />} />
           <Route path="emis" element={<ReceivedEmis />} />
-          <Route path="show" element={<ShowUserModal />} />
           <Route path="teacher" element={<Teacher />} />
 
           <Route path="login" element={<J />} />

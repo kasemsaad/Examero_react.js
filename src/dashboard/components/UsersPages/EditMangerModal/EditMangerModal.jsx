@@ -13,18 +13,20 @@ const EditMangerModal = ({ api, fetchAllData, rowData, content }) => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm({
-    defaultValues: {
-      first_name: rowData.firstName,
-      last_name: rowData.lastName,
-      phone_number: rowData.phone_number,
-      governorate: rowData.governorate,
-      date_of_birth: rowData.date_of_birth,
-      email: rowData.email,
-    },
-  });
+  } = useForm(
+    rowData && {
+      defaultValues: {
+        first_name: rowData.firstName,
+        last_name: rowData.lastName,
+        phone_number: rowData.phone_number,
+        governorate: rowData.governorate,
+        date_of_birth: rowData.date_of_birth,
+        email: rowData.email,
+      },
+    }
+  );
   useEffect(() => {
-    if (data) {
+    if (rowData) {
       reset({
         first_name: rowData.firstName,
         last_name: rowData.lastName,
@@ -39,7 +41,7 @@ const EditMangerModal = ({ api, fetchAllData, rowData, content }) => {
     console.log(JSON.stringify(mangerData) + "form edit");
     await Api_Dashboard.post(`/${api}/${rowData.id}`, mangerData)
       .then((response) => {
-        console.log(response.data);
+        console.log(response.data.data);
         fetchAllData();
       })
       .catch((err) => {
@@ -60,7 +62,17 @@ const EditMangerModal = ({ api, fetchAllData, rowData, content }) => {
         message: " يرجى كتابة الإيميل بطريقة صحيحة",
       },
     },
-    phone_number: { required: "يرجى ادخال رقم الهاتف" },
+    phone_number: {
+      required: "يرجى ادخال رقم الهاتف",
+      minLength: {
+        value: 10,
+        message: "يرجي استخدام 10 أرقام",
+      },
+      maxLength: {
+        value: 10,
+        message: "يرجي استخدام 10 أرقام",
+      },
+    },
     password: {
       required: "يرجى ادخال كلمة المرور ",
       minLength: {
@@ -72,7 +84,6 @@ const EditMangerModal = ({ api, fetchAllData, rowData, content }) => {
         message: "يرجي استخدام حروف وأرقام",
       },
     },
-    phone_number: { required: "يرجى ادخال الهاتف" },
     date_of_birth: { required: "يرجى ادخال تاريخ الميلاد" },
     governorate: { required: "يرجى ادخال البلد" },
   };
@@ -182,9 +193,9 @@ const EditMangerModal = ({ api, fetchAllData, rowData, content }) => {
                       className="form-control text-end"
                       id="edit-first_name"
                       name="first_name"
-                      {...register("first_name", registerOptions.first_name)}
                       autoComplete="current-userName"
                       style={{ direction: "rtl" }}
+                      {...register("first_name", registerOptions.first_name)}
                     />
                     <span style={{ color: "red" }}>
                       {errors?.first_name && errors.first_name.message}
@@ -282,7 +293,9 @@ const EditMangerModal = ({ api, fetchAllData, rowData, content }) => {
                         className="form-control text-end"
                         id="edit-password"
                         name="password"
-                        {...register("password", registerOptions.password)}
+                        {...register("password", {
+                          required: "ادخلكلمة المرور",
+                        })}
                         style={{ direction: "rtl", position: "relative" }}
                         autoComplete="current-password"
                       />
@@ -456,6 +469,7 @@ const EditMangerModal = ({ api, fetchAllData, rowData, content }) => {
                   <button
                     type="submit"
                     className="btn btn-primary"
+                    data-bs-dismiss="modal"
                     style={{
                       borderRadius: "30px",
                       border: "none",

@@ -3,7 +3,8 @@ import { useForm } from "react-hook-form";
 import Api_Dashboard from "../../../interceptor/interceptorDashboard";
 import LadingComponent from "../../../LoadingComponent/LodingComponent";
 import { json } from "react-router-dom";
-
+import "./SowUser.css";
+import { width } from "@fortawesome/free-solid-svg-icons/fa0";
 const ShowUserModal = ({ fetchAllData, content, api }) => {
   return (
     <>
@@ -27,14 +28,18 @@ const ShowUserModal = ({ fetchAllData, content, api }) => {
         <div className="modal-dialog my-mod-add" role="document">
           <div
             className="modal-content"
-            style={{ backgroundColor: "#1D195D", borderRadius: "13.97px" }}
+            style={{
+              backgroundColor: "#1D195D",
+              borderRadius: "13.97px",
+              width: "100%",
+            }}
           >
             <div
               className="modal-header-new"
               style={{
                 flexDirection: "row-reverse",
                 width: "100%",
-                height: "86px",
+                height: "80px",
                 color: "#FF8A00",
                 fontSize: "20px",
                 fontWeight: "700",
@@ -43,7 +48,7 @@ const ShowUserModal = ({ fetchAllData, content, api }) => {
               }}
             >
               <h5 className="modal-title m-auto" id="exampleModalLabel">
-                {content}
+                عرض بيانات{content}
               </h5>
               <button
                 type="button"
@@ -66,80 +71,98 @@ const ShowUserModal = ({ fetchAllData, content, api }) => {
             <div
               style={{
                 margin: "auto",
-                width: "581px",
-                backgroundColor: "#A6A0F4",
+                width: "81%",
                 height: "1px",
+                border: "red",
+                backgroundColor: "#A6A0F4",
               }}
             ></div>
             <div
               className="modal-body-new p-0 d-flex"
-              style={{ height: "500px" }}
+              style={{ height: "288px", flexDirection: "column " }}
             >
-              <form style={{ width: "95%", margin: "auto" }} className="w-95">
-                <div
-                  className="d-flex col-12 p-0"
+              <div
+                className="d-flex col-12 p-0"
+                style={{
+                  width: "81%",
+                  margin: "auto",
+                  display: "flex",
+                  justifyContent: "space-evenly",
+                  height: "180px",
+                }}
+              >
+                {/*////////////// first name ////////////////// */}
+
+                <table
                   style={{
-                    width: "91%",
-                    margin: "auto",
-                    display: "flex",
-                    justifyContent: "space-evenly",
-                    height: "85px",
+                    height: "fit-content",
+                    border: "#A6A0F4 solid 1px",
+                    color: "white",
+                    marginTop: "15px",
+                  }}
+                  className="table text-white"
+                >
+                  <thead>
+                    <tr>
+                      <th className="td-show-mod" scope="col">
+                        First
+                      </th>
+                      <th className="td-show-mod2" scope="col">
+                        Handle
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td className="td-show-mod">Mark</td>
+                      <td className="td-show-mod2">@mdo</td>
+                    </tr>
+                    <tr>
+                      <td className="td-show-mod">Mark</td>
+                      <td className="td-show-mod2">@mdo</td>
+                    </tr>
+                    <tr>
+                      <td className="td-show-mod">Jacob</td>
+                      <td className="td-show-mod2">@fat</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div
+                style={{ alignItems: "flex-start" }}
+                className="modal-footer-new new-footer"
+              >
+                <button
+                  type="submit"
+                  className="btn btn-primary"
+                  style={{
+                    borderRadius: "30px",
+                    border: "none",
+                    backgroundColor: "#C01F59",
+                    width: "96px",
+                    height: "40px",
+                    marginLeft: "12px",
                   }}
                 >
-                  {/*////////////// first name ////////////////// */}
-
-                  <table class="table">
-                    <thead>
-                      <tr>
-                        <th scope="col">First</th>
-                        <th scope="col">Handle</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>Mark</td>
-                        <td>@mdo</td>
-                      </tr>
-                      <tr>
-                        <td>Jacob</td>
-                        <td>@fat</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-
-                <div className="modal-footer-new new-footer">
-                  <button
-                    type="submit"
-                    className="btn btn-primary"
-                    style={{
-                      borderRadius: "30px",
-                      border: "none",
-                      backgroundColor: "#C01F59",
-                      width: "96px",
-                      height: "40px",
-                      marginLeft: "12px",
-                    }}
-                  >
-                    إضافة
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                    style={{
-                      borderRadius: "30px",
-                      color: "#FE4F60",
-                      border: "#FE4F60 solid 2px",
-                      backgroundColor: "#1D195D",
-                      width: "96px",
-                      height: "40px",
-                    }}
-                  >
-                    إلغاء
-                  </button>
-                </div>
-              </form>
+                  إضافة
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                  style={{
+                    borderRadius: "30px",
+                    color: "#FE4F60",
+                    border: "#FE4F60 solid 2px",
+                    backgroundColor: "#1D195D",
+                    width: "96px",
+                    height: "40px",
+                  }}
+                >
+                  إلغاء
+                </button>
+              </div>
             </div>
           </div>
         </div>

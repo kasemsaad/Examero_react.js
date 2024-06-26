@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./ToggleButton.css";
-const ToggledButton = () => {
-  const [toggled, setToggled] = useState(true);
+const ToggledButton = ({ togel }) => {
+  const [toggled, setToggled] = useState(togel);
 
   const tog = () => {
     setToggled(!toggled);
@@ -10,8 +10,7 @@ const ToggledButton = () => {
     <>
       <button
         style={{ marginLeft: "6px" }}
-        className={`toggle-btnn ${toggled ? "toggled" : ""}`}
-        onClick={() => tog()}
+        className={`toggle-btnn ${togel === 0 ? "toggled" : ""}`}
       >
         <span
           style={{
@@ -20,9 +19,9 @@ const ToggledButton = () => {
             justifyContent: "center",
             alignItems: "center",
           }}
-          className={toggled ? "white-text" : "whit"}
+          className={togel === 0 ? "white-text" : "whit"}
         >
-          {toggled ? "معطل" : "مفعل"}
+          {togel === 0 ? "معطل" : "مفعل"}
         </span>
         <div className="thumb"></div>
       </button>

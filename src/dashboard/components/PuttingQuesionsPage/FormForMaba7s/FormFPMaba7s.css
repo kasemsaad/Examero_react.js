@@ -19,14 +19,15 @@
   width: 8rem;
   text-align: center;
   justify-content: center;
-  height: 6%;
+  height: 16%;
 }
 .mab7asContainer {
   width: 100%;
 }
 .inp1,
 .inp2 {
-  width: 12rem;
+  width: 13rem;
+  height: 51px;
 }
 .my-button-mabhas {
   width: 6rem;
@@ -56,7 +57,7 @@
 
 .form-group-puttt {
   width: 13rem;
-  height: 68px !important;
+  height: 60px !important;
   padding: 3px;
   display: flex;
   flex-direction: column;
@@ -86,4 +87,10 @@
   .form-container-puttt {
     max-width: 100%;
   }
+}
+.multi-select-lib {
+  color: #1d195d;
+  width: 13rem;
+  height: 34px;
+  background-color: #1d195d !important;
 }

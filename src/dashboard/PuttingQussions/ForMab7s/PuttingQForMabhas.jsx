@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import HeaderOfPuttingQuestions from "../../components/PheaderOfButtingQuestion/HeaderOfButtingQuestions";
 // import FormForAll from "../../components/PuttingQuesionsPage/FormForAll";
 import MyTable from "../../../common/Table/Table";
@@ -8,6 +8,9 @@ import FooterFPuttingQ from "../../components/PFooter/FooterFPuttingQ";
 import AddComponent from "../../components/PuttingQuesionsPage/AddComoponentForPage/Add";
 import PuttingQArrow from "../../components/PuttingQuesionsPage/PuttingArrow/PuttingQArrow";
 import InfoComponent from "../../components/PuttingQuesionsPage/InfoComponentPq/InfoComponent";
+import Api_Dashboard from "../../interceptor/interceptorDashboard";
+import DeleteUserModal from "../../components/UsersPages/DeletUserModal/DeleteUserModal";
+import EditSubjectModal from "../../components/PuttingQuesionsPage/editSubjectModal/EditSubjectModal";
 const PuttingQForMab7as = () => {
   let header = {
     name1: "اسم المبحث",
@@ -16,36 +19,86 @@ const PuttingQForMab7as = () => {
     name4: "الخصائص",
   };
 
-  let body = [
-    {
-      id: 2,
-      name1: "اسم الصف",
-      name2: "اسم الصف",
-    },
-    {
-      id: 3,
-      name1: "اسم الصف",
-      name3: "اسم الصف",
-    },
-    {
-      id: 4,
-      name1: "اسم الصف",
-      name4: "اسم الصف",
-    },
-    {
-      id: 6,
-      name1: "اسم الصف",
-      name4: "اسم الصف",
-    },
-    {
-      id: 1,
-      name1: "اسم الصف",
-      name5: "اسم الصف",
-    },
-  ];
-
   let icon = { edit: true, trash: true, toggle: true };
+  let other = { toggle: true };
+  const togellValue = [{ status: "5" }];
+  const [DeletedItem, setDeletedItem] = useState("");
+  const [rowDataOfSubjects, setRowDataOfSubjects] = useState("");
+  const [classData, setClassData] = useState(false);
+  const [errorss, setErrors] = useState("");
 
+  useEffect(() => {
+    fetchDataForClass();
+  }, []);
+  const fetchDataForClass = async (Data) => {
+    setClassData(Data);
+
+    if (Data) {
+      await Api_Dashboard.get(`/subjects/${Data.id}`)
+        .then((response) => {
+          setRowDataOfSubjects(response.data.data);
+          console.log(response.data.data);
+        })
+        .catch((err) => {
+          console.log(err.response.errors);
+          setErrors(err);
+        });
+    }
+  };
+
+  useEffect(() => {
+    fetchAllActiveClasse();
+  }, []);
+  const fetchAllActiveClasse = async () => {
+    const respons = await Api_Dashboard.get("/groups/selection")
+      .then((response) => {
+        setActiveClasses(response.data.data);
+        console.log(response.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log(err.response.errors);
+      });
+  };
+  const [subjects, setSubjects] = useState("");
+  const [activeClasses, setActiveClasses] = useState("");
+
+  useEffect(() => {
+    fetchAllSubjects();
+  }, []);
+  const fetchAllSubjects = async () => {
+    const respons = await Api_Dashboard.get("/subjects")
+      .then((response) => {
+        setSubjects(response.data.data);
+        console.log(response.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log(err.response.errors);
+      });
+  };
+  const newSubjects = useMemo(() => {
+    if (Array.isArray(subjects)) {
+      return subjects.map((item) => ({
+        id: item.id,
+        name: item.name,
+        groups: item.groups.map((group) => group.name),
+      }));
+    } else {
+      return [];
+    }
+  }, [subjects]);
+
+  console.log(JSON.stringify(subjects) + "by subject");
+  const togellValues = useMemo(() => {
+    if (Array.isArray(subjects)) {
+      return subjects.map(({ status }) => ({
+        status,
+      }));
+    } else {
+      return [];
+    }
+  }, [subjects]);
   return (
     <>
       <div className=" min-vh-100 mab7asContainer">
@@ -55,7 +108,10 @@ const PuttingQForMab7as = () => {
           <div>
             <AddComponent content={"اضافة مبحث"} />
           </div>
-          <FormForMaba7s />
+          <FormForMaba7s
+            fetchAllData={fetchAllSubjects}
+            activeClasses={activeClasses}
+          />
           <div
             className="class-info-button-containerr d-flex align-items-center"
             style={{ height: "9rem" }}
@@ -63,12 +119,36 @@ const PuttingQForMab7as = () => {
             <InfoComponent content={"بيانات المبحث"} />
           </div>
           <div className="MyTable">
-            <MyTable header={header} body={body} icons={icon} />
+            <MyTable
+              editButtonName={"#editSubjectModal"}
+              deleteModalName={"#deleteElementModal_users-dash"}
+              handelDeleteItem={(id) => {
+                setDeletedItem(id);
+              }}
+              handelEdit={(row) => {
+                fetchDataForClass(row);
+              }}
+              other={other}
+              header={header}
+              body={newSubjects}
+              icons={icon}
+              togellValue={togellValues}
+            />
           </div>
         </div>
         <div className="nextButton col-12">
           <FooterFPuttingQ next={"التالي"} prev={"السابق"} />
         </div>
+        <DeleteUserModal
+          fetchAllData={fetchAllSubjects}
+          api={"subjects"}
+          idOfDeleteItem={DeletedItem}
+        />
+        <EditSubjectModal
+          fetchAllData={fetchAllSubjects}
+          rowDataOfSubjects={rowDataOfSubjects}
+          activeClasses={activeClasses}
+        />
       </div>
     </>
   );

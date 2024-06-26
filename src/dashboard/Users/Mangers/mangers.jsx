@@ -33,7 +33,7 @@ const Mangers = () => {
     const response = await Api_Dashboard.get(`/managers/${row.id}`)
       .then((response) => {
         setRowData(response.data.data);
-        console.log(rowData + "iam her");
+        console.log(JSON.stringify(rowData) + "iam her");
       })
       .catch((err) => {
         console.log(err);
@@ -43,6 +43,7 @@ const Mangers = () => {
   useEffect(() => {
     fetchAllData();
   }, [currentPage]);
+
   const fetchAllData = async () => {
     const response = await Api_Dashboard.get(`/managers?page=${currentPage}`)
       .then((response) => {

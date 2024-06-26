@@ -1,11 +1,7 @@
 // export default PuttingQuestions;
 import React, { useEffect, useMemo, useState } from "react";
-import FirstTriangle from "../../components/FirstTriangle/FirstTriangle";
 import MyButton from "../../../common/Button/Button";
 import MyTable from "../../../common/Table/Table";
-import "./Quesion.css"; // Import the CSS file
-import { height, width } from "@fortawesome/free-solid-svg-icons/fa0";
-import SecondTriangle from "../../components/SecondTriangle/SecondTriangle";
 import FormForAll from "../../components/PuttingQuesionsPage/FormForClasses/FormForAll";
 // import image from "../../assets/icons/PuttingQuestion/octicon_question-16.svg";
 import HeaderOfPuttingQuestions from "../../components/PheaderOfButtingQuestion/HeaderOfButtingQuestions";
@@ -15,58 +11,57 @@ import InfoComponent from "../../components/PuttingQuesionsPage/InfoComponentPq/
 import PuttingQArrow from "../../components/PuttingQuesionsPage/PuttingArrow/PuttingQArrow";
 import Api_Dashboard from "../../interceptor/interceptorDashboard";
 import DeleteUserModal from "../../components/UsersPages/DeletUserModal/DeleteUserModal";
+import EditClassModal from "../../components/PuttingQuesionsPage/editClassModal/editClassModal";
 
 const PuttingQuestions = () => {
-  const [toggled, setToggled] = useState(false);
+  const [classData, setClassData] = useState(false);
   const [groupsData, setGroupsData] = useState("");
   const [metaData, setMetaData] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [DeletedItem, setDeletedItem] = useState("");
   const totalPages = metaData.last_page;
-
+  const [errorss, setErrors] = useState("");
+  const [rowDataOfClass, setRowDataOfClass] = useState([]);
   let header = {
     name1: "اسم الصف",
     name2: "حالة الصف",
     name3: "الخصائص",
   };
-
-  let body = [
-    {
-      id: 1,
-      name1: "اسم الصف",
-    },
-    {
-      id: 1,
-      name1: "اسم الصف",
-    },
-    {
-      id: 1,
-      name1: "اسم الصف",
-    },
-    {
-      id: 1,
-      name1: "اسم الصف",
-    },
-    {
-      id: 1,
-      name1: "اسم الصف",
-    },
-  ];
+  let other = { toggle: true };
+  let icon = { edit: true, trash: true, toggle: true };
+  useEffect(() => {
+    fetchDataForClass();
+  }, []);
+  const fetchDataForClass = async (Data) => {
+    console.log(Data);
+    setClassData(Data);
+    if (Data) {
+      await Api_Dashboard.get(`/groups/${Data.id}`)
+        .then((response) => {
+          setRowDataOfClass(response.data.data);
+          console.log(response.data.data);
+        })
+        .catch((err) => {
+          console.log(err.response.errors);
+          setErrors(err);
+        });
+    }
+  };
   useEffect(() => {
     fetchAllData();
   }, []);
   const fetchAllData = async () => {
     const respons = await Api_Dashboard.get("/groups")
       .then((response) => {
-        console.log(response);
-        console.log("radppy");
         setGroupsData(response.data.data);
-        setMetaData(response.data.meta.pagination);
+        console.log(response.data.data);
       })
       .catch((err) => {
         console.log(err);
+        console.log(err.response.errors);
       });
   };
+
   const newData = useMemo(() => {
     if (Array.isArray(groupsData)) {
       return groupsData.map(({ id, name }) => ({
@@ -78,9 +73,16 @@ const PuttingQuestions = () => {
     }
   }, [groupsData]);
 
-  console.log("rady");
-  let other = { toggle: true };
-  let icon = { edit: true, trash: true, toggle: true };
+  const togellValue = useMemo(() => {
+    if (Array.isArray(groupsData)) {
+      return groupsData.map(({ status }) => ({
+        status,
+      }));
+    } else {
+      return [];
+    }
+  }, [groupsData]);
+
   const navegiate = useNavigate();
   const handelNav = () => {
     navegiate("/dashboard/putting/questions/subjects=2");
@@ -88,7 +90,6 @@ const PuttingQuestions = () => {
   return (
     <div className="questionContainer min-vh-100 w-100">
       <HeaderOfPuttingQuestions />
-
       <div className="question" style={{ width: "80%", margin: "auto" }}>
         <PuttingQArrow />
         <div>
@@ -96,7 +97,7 @@ const PuttingQuestions = () => {
         </div>
 
         <div className="MyForm col-8">
-          <FormForAll fetchAllData={fetchAllData} />
+          <FormForAll classErrors={errorss} fetchAllData={fetchAllData} />
         </div>
 
         <div
@@ -108,14 +109,20 @@ const PuttingQuestions = () => {
 
         <div className="MyTable">
           <MyTable
+            editButtonName={"#editClassModal"}
             deleteModalName={"#deleteElementModal_users-dash"}
             handelDeleteItem={(id) => {
               setDeletedItem(id);
             }}
+            handelEdit={(row) => {
+              fetchDataForClass(row);
+            }}
             other={other}
             header={header}
             body={newData}
+            tog={groupsData}
             icons={icon}
+            togellValue={togellValue}
           />
         </div>
       </div>
@@ -136,6 +143,10 @@ const PuttingQuestions = () => {
         fetchAllData={fetchAllData}
         api={"groups"}
         idOfDeleteItem={DeletedItem}
+      />
+      <EditClassModal
+        fetchAllData={fetchAllData}
+        rowDataOfClass={rowDataOfClass}
       />
     </div>
   );

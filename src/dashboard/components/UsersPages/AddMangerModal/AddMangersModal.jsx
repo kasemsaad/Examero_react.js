@@ -462,6 +462,7 @@ const AddMangerModel = ({ fetchAllData, content, api }) => {
                 <div className="modal-footer-new new-footer">
                   <button
                     type="submit"
+                    data-bs-dismiss="modal"
                     className="btn btn-primary"
                     style={{
                       borderRadius: "30px",

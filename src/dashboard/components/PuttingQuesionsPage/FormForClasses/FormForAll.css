@@ -4,7 +4,12 @@
   justify-content: space-around;
   height: 88%;
 }
-
+.MyForm {
+  height: 77px;
+  border-radius: 16.28px;
+  background-color: #1d195d;
+  width: 54%;
+}
 .form-group-putt {
   flex: 1;
   margin: 0 1rem;

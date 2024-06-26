@@ -1,9 +1,10 @@
 import React from "react";
+import "./info.css";
 const InfoComponent = ({ content }) => {
   return (
     <>
       <div className="col-12 d-flex align-items-center">
-        <div className="class-info-button">
+        <div className="class-info-button-co">
           <div>
             <p>{content}</p>
           </div>

@@ -9,7 +9,7 @@ const FormForAll = ({ fetchAllData }) => {
   //   console.log(e.target.value);
   //   setClassData(e.target.value);
   // };
-
+  const [classErrors, setClassErrors] = useState("");
   const {
     register,
     handleSubmit,
@@ -19,17 +19,15 @@ const FormForAll = ({ fetchAllData }) => {
   const handleRegistration = async (data) => {
     await Api_Dashboard.post("/groups", data)
       .then((response) => {
-        console.log(JSON.stringify(response));
         fetchAllData();
       })
       .catch((err) => {
-        console.log(err);
-        console.log(err.response.data);
+        setClassErrors(err.response.data.errors);
       });
     console.log();
   };
   const registerOptions = {
-    name: { required: "يرجى ادخال اسم الصف" },
+    name: { required: "يرجى ادخال اسم الصف", classErrors },
   };
   const handleError = (errors) => {};
 
@@ -52,9 +50,9 @@ const FormForAll = ({ fetchAllData }) => {
             aria-describedby="emailHelp"
             placeholder=" أدخل أسم الصف الجديد هنا"
           />
-          <span style={{ color: "red" }}>
-            {errors?.name && errors.name.message}
-          </span>{" "}
+          <span style={{ color: "red", font: "8px" }}>
+            {(errors?.name && errors.name.message) || classErrors.name}
+          </span>
         </div>
         <div className="button-container-putt">
           <MyButton className="my-button" content="إضافة" type={"submit"} />

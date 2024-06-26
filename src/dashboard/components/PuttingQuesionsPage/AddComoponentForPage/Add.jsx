@@ -1,3 +1,5 @@
+import React from "react";
+import "./add.css";
 const AddComponent = ({ content, addStyle }) => {
   return (
     <>

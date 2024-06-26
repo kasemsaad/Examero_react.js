@@ -92,45 +92,6 @@
   margin: 0%;
 }
 
-.MyForm {
-  height: 77px;
-  border-radius: 16.28px;
-  background-color: #1d195d;
-  width: 54%;
-}
-
-.class-info-button {
-  border: none;
-
-  height: 32.63px;
-  background-color: #ff7380;
-  border-radius: 32.63px;
-  align-items: center;
-  color: black;
-  font-size: 1rem;
-  font-weight: 600;
-  width: 134px;
-}
-
-.class-info-button div {
-  height: 100%;
-  width: 68%;
-  display: flex;
-  justify-content: center;
-}
-
-.class-info-button p {
-  transform: translate(-11px, 6px);
-  margin: 0;
-  width: fit-content;
-}
-
-.class-info-divider {
-  width: 84%;
-  height: 1px;
-  background-color: #ff919c;
-}
-
 .MyTable {
   width: 100%;
 }
