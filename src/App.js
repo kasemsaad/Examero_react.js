@@ -49,6 +49,9 @@ import Reward from './dashboard/Reward/reward.jsx';
 import RewardManger from './dashboard/Reward/rewardManager/rewardManger.jsx';
 import RewardMoshref from './dashboard/Reward/rewardMoshref/rewardMoshref.jsx';
 import RewardTeacher from './dashboard/Reward/rewardTeacher/rewardTeacher.jsx';
+import ForgetPassDashBoard from './dashboard/Forget_password/forget_pass.jsx';
+import EnterCodeDashBoard from './dashboard/Forget_password/enterCodeOfReset/enterCode.jsx';
+import NewPassDashBoard from './dashboard/Forget_password/DashboardNewPassword/NewPassword.jsx';
 
 function App(props) {
   return (
@@ -92,6 +95,8 @@ function App(props) {
           <Route path="Certified_exam" element={<Certified_exam/>} />
            </Route>
            <Route path="login_dashboard" element={<HomeDashoardLogin />} />
+           <Route path="forget_password" element={<ForgetPassDashBoard />} />
+
         <Route path="/dashboard/" element={<LayoutComp />}>
           <Route index element={
             <ProtectedRoute>
@@ -111,24 +116,24 @@ function App(props) {
           <Route path="rewardManger" element={<RewardManger />} />
           <Route path="rewardSupervisor" element={<RewardMoshref />} />
           <Route path="rewardteacher" element={<RewardTeacher />} />
-
-
-
-
-          
-
+          <Route path="dashBoardEnterCode" element={<EnterCodeDashBoard />} />
+          <Route path="DashboardNewPassword" element={<NewPassDashBoard />} />
 
 
           
 
 
+          
 
 
            </Route>
-
         </Routes>
       </BrowserRouter>
   );
 }
 
 export default App;
+
+
+
+

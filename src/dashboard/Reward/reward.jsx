@@ -8,11 +8,15 @@ import html2pdf from 'html2pdf.js'; // استيراد مكتبة html2pdf.js
 
 export default function Reward(props) {
     let header = {
-        col1: " اسم المدير  ",
+        col1: props.TittleName,
         col2: "   رقم الهاتف ",
         col3: "      نقاط المكافأة        ",
         col5: "نقاط العقوبة",
         col6: "  عدد التحذيرات ",
+    }
+
+    if(props.teacherTableHead){
+        delete header.col5
     }
 
     const location = useLocation()
@@ -26,8 +30,8 @@ export default function Reward(props) {
         <>
             <div className="container  pb-4" style={{ overflow: 'auto', marginTop: '18px', direction: 'rtl', border: "2px solid purble", borderRadius: "10px", width: "90%", margin: "auto", height: "auto" }}>
 
-                <div className=" mt-4" >
-                    <h5 style={{ color: '#FF8A00', margin: "auto" }} className="modal-title" id="exampleModalLabel">إضافة باقة جديدة</h5>
+                <div className=" modal-header mt-4" >
+                    <h5 style={{ color: '#FF8A00', margin: "auto" }} className="modal-title" id="exampleModalLabel">المكافآت والعقوبات</h5>
                 </div>
                 <div style={{ width: "100%", height: "10px", borderBottom: "1px solid #A6A0F4", margin: "auto" }}>
                 </div>
@@ -92,7 +96,7 @@ export default function Reward(props) {
                         style={{ marginRight: "20px" }}>  حذف المحدد
                     </button>
                 </div>
-                <div className='mt-2'>
+                <div className='mt-2' id={props.documenDownlowd}>
                     <TableReward header={header}
                         body={props.dataRender}
                         flag={props.flag}

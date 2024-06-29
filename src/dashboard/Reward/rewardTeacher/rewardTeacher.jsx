@@ -80,7 +80,7 @@ export default function RewardTeacher() {
 
     return (
         <>
-        <div id='RewardTeacher'>
+        {/* <div id='RewardTeacher'> */}
 
        
 
@@ -95,6 +95,8 @@ export default function RewardTeacher() {
                 dataRender={Teacher}
                 deleteModalFinished={"#delete_Teacher_modal_"}
                 documenDownlowd={"RewardTeacher"}
+                teacherTableHead={true}
+                TittleName={"اسم المعلم"}
             />
 
 
@@ -136,7 +138,7 @@ export default function RewardTeacher() {
 
 
 
-            </div>
+            {/* </div> */}
 
 
         </>)

@@ -60,6 +60,7 @@ margin-bottom: 106px; */
   text-align: center;
  }
 }
+ 
 
 
 
@@ -305,4 +306,89 @@ margin-bottom: 106px; */
     text-align: center;
   }
 
+}
+/* 
+
+.user-img{
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+}
+#photo{
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+}
+#file{
+  display: none;
+}
+#uploadbtn{
+  position: absolute;
+  height: 30px;
+  width: 30px;
+  padding: 6px 6px;
+  border-radius: 50%;
+  cursor: pointer;
+  color: #ffff;
+  transform: translateX(-90%);
+  background-color: rgb(173, 172, 0,802);
+  box-shadow: 2px 4px 4px rgb(0, 0, 0.644);
+} */
+
+
+
+.upload{
+  width: 140px;
+  position: relative;
+  /* margin: auto;
+  text-align: center; */
+  right: 38px;
+  top: -53px;
+}
+
+.upload img{
+  border-radius: 50%;
+  border: 8px solid #DCDCDC;
+  width: 125px;
+  height: 125px;
+}
+.upload .rightRound{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: #00B4FF;
+  width: 32px;
+  height: 32px;
+  line-height: 33px;
+  text-align: center;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+}
+.upload .leftRound{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: red;
+  width: 32px;
+  height: 32px;
+  line-height: 33px;
+  text-align: center;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+}
+.upload .fa{
+  color: white;
+}
+.upload input{
+  position: absolute;
+  transform: scale(2);
+  opacity: 0;
+}
+.upload input::-webkit-file-upload-button, .upload input[type=submit]{
+  cursor: pointer;
 }

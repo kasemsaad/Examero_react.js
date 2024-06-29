@@ -64,11 +64,19 @@ function CertificateGenerator() {
 
                 <div className='wraber_input_certify mt-3' style={{ display: "flex" }}>
 
-                    <div className='col-4 ' style={{ height: "30vh" }}>
+                    <div className='col-4 ' style={{ height: "" }}>
                         <label htmlFor="student">اسم الطالب</label>
                         <input type="text" name="student_name" id="" className='form-control' />
                         <div className='mt-3'>
                             <label htmlFor="student">اسم المعلم</label>
+                            <input type="text" name="teacher_name" id="" className='form-control' />
+                        </div>
+                        <div className='mt-3'>
+                            <label htmlFor="student">اسم المعلم</label>
+                            <input type="text" name="teacher_name" id="" className='form-control' />
+                        </div>
+                        <div className='mt-3'>
+                            <label htmlFor="student">اسم الباقة</label>
                             <input type="text" name="teacher_name" id="" className='form-control' />
                         </div>
                         <div className='mt-3'>

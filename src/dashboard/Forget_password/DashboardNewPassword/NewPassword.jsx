@@ -1,15 +1,14 @@
+
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Col, Form, Button, Alert } from 'react-bootstrap';
 import Api_website from "../../../utlis/axios_utils_websit.jsx";
 import passIcon from '../../../assets/icons/register and login icon/pngtree-password-vector-icon-design-illustration-png-image_6597553 3.svg';
 import lockIcon from '../../../assets/icons/register and login icon/padlock-icon-lock-and-unlock-icon-design-free-vector 1.svg';
-import Create_acc from '../create_acc/create_acc.jsx';
-import Imgcom from '../imgcom/imgcom.jsx';
-// import SuccessMessage from './updatepass.jsx';
+import Imgcom from '../../../websit/register and login/imgcom/imgcom.jsx';
 import { useNavigate } from 'react-router-dom';
-import Api_Dashboard from '../../../dashboard/interceptor/interceptorDashboard.jsx';
-function NewPassDashpoard() {
+import Api_Dashboard from '../../interceptor/interceptorDashboard.jsx';
+function NewPassDashBoard() {
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [error, setError] = useState('');
@@ -39,9 +38,9 @@ function NewPassDashpoard() {
   };
 
 
-  // if (success) {
-  //   return <SuccessMessage message={success} />;
-  // }
+//   if (success) {
+//     return <SuccessMessage message={success} />;
+//   }
 
   return (
     <div className='new_pass'>
@@ -91,7 +90,6 @@ function NewPassDashpoard() {
               </div>
             </Form.Group>
             <Button type="submit" className="new_pass_btn">تم</Button>
-            <Create_acc />
           </Form>
         </Col>
       </div>
@@ -99,4 +97,4 @@ function NewPassDashpoard() {
   );
 }
 
-export default NewPassDashpoard;
+export default NewPassDashBoard;

@@ -9,9 +9,12 @@ import html2pdf from 'html2pdf.js'; // استيراد مكتبة html2pdf.js
 export default function Specification() {
 
     const [data, setData] = useState([]);
+    const [activePlanData, SetactivePlanData] = useState([]);
+
     const [selectedItem, SetSelected] = useState('')
     const [AlertPoint, SetAlertPoint] = useState('')
     const [AlertPointSuccess, SetAlertPointSuccess] = useState('')
+    
 
 
     const notify = () => {
@@ -43,36 +46,60 @@ export default function Specification() {
 
     useEffect(() => {
         getTeacher()
-
     }, [])
 
-    const getTeacherInselection = (e) => {
-        SetSelected(e.target.value)
+    // get from input teacher in select to detect connect and points
+    const getTeacherInselection =async (e) => {
+        const selectedValue = e.target.value;
+        SetSelected(selectedValue);
+        if (selectedValue) {
+            await getConnect(selectedValue);
+        }
     }
 
+    // get all teacher data 
     const getTeacher = async () => {
         await Api_Dashboard.get('/teachers/selection').then((response) => {
             setData(response.data.data)
         }).catch((err) => {
+            console.log(err);
         })
     }
 
+
+    const getConnect = async (selectedItem) => {
+        await Api_Dashboard.get(`/plans/${selectedItem}/teacher`).then((response) => {
+            SetactivePlanData(response.data.data)
+            console.log(response.data.data);
+        }).catch((err) => {
+            console.log(err);
+        })
+    }
+    
+    
+
     const SendSpecification = (e) => {
         e.preventDefault();
+        // const payload = {
+        //     teacher_id: selectedItem
+        // }
+        // if(selectedItem){
+        //     payload.plan_id=selectedItem  
+        // }
         Api_Dashboard.post('/specification', {
             teacher_id: selectedItem
 
         }).then((response) => {
-            console.log(response.data.message);
-            SetAlertPointSuccess(response.data.message)
+            let x=response.data.message
+            SetAlertPointSuccess(x)
             notify()
             downloadPDF()
 
 
 
         }).catch((err) => {
-            // console.log(err);
-            SetAlertPoint(err.response.data.message);
+            let x=err.response.data.message
+            SetAlertPoint(x);
             Errornotify()
         })
     }
@@ -140,7 +167,7 @@ export default function Specification() {
                                     >
                                         <option value="" disabled selected>اختر اسم المعلم</option>
                                         {data.map((item, index) => (
-                                            <option key={index} value={item.id}>
+                                            <option onClick={()=>getConnect()} key={index} value={item.id}>
                                                 {item.email}
                                             </option>
                                         ))}
@@ -150,8 +177,20 @@ export default function Specification() {
 
                                 <div className='col-5'>
                                     <label htmlFor="">اسم الباقه</label>
-                                    <input type="text" placeholder='أدخل اسم المدرسة' className='form-control' />
-                                </div>
+                                    <select
+                                        id="dataSelect"
+                                        className="form-select"
+                                        // value=""
+                                        onChange={getTeacherInselection}
+                                        
+                                    >
+                                        <option value="" disabled selected>اختر اسم الباقه</option>
+                                        {activePlanData.map((item, index) => (
+                                            <option  key={index} value={item.id}>
+                                                {item.plan.name}
+                                            </option>
+                                        ))}
+                                    </select>                                </div>
 
                             </div>
 
@@ -166,11 +205,11 @@ export default function Specification() {
                             <table className="table table-bordered mt-4 " >
                                 <thead className=''>
                                     <tr>
-                                        <th rowspan="2">الرقم</th>
-                                        <th rowspan="2">الوحدة</th>
-                                        <th rowspan="2">عدد النتاجات</th>
-                                        <th colspan="2">وزن الوحدة</th>
-                                        <th colspan="3">القدرات العقلية</th>
+                                        <th rowSpan="2">الرقم</th>
+                                        <th rowSpan="2">الوحدة</th>
+                                        <th rowSpan="2">عدد النتاجات</th>
+                                        <th colSpan="2">وزن الوحدة</th>
+                                        <th colSpan="3">القدرات العقلية</th>
                                     </tr>
                                     <tr>
                                         <th>عدد النتاجات للوحدة/ مجموع نتاجات الوحده %</th>

@@ -76,7 +76,6 @@ function TableReward({
                   <td>{row.teacher.phone_number}</td>
                   <td>{row.reward_points}</td>
                   <td>{row.warning_points}</td>
-                  <td>{row.warning_points}</td>
                 </>
               )}
 

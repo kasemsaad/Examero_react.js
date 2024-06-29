@@ -81,7 +81,7 @@ export default function RewardManger() {
     return (
         <>
 
-<div id='rewardManager'>
+{/* <div id='rewardManager'> */}
 
             <Reward
 
@@ -97,6 +97,7 @@ export default function RewardManger() {
                 deleteModalFinished={"#delete_manager_modal"}
                 flagAdmin={true}
                 documenDownlowd={"rewardManager"}
+                TittleName={"اسم المدير"}
 
             />
 
@@ -136,7 +137,7 @@ export default function RewardManger() {
                 </div>
             </div>
 
-</div>
+{/* </div> */}
 
 
 

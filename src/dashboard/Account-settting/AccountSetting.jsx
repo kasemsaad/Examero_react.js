@@ -8,6 +8,11 @@ import success from "./../../assets/image/Vector (1).svg"
 import lock from "./../../assets/image/mdi_password-outline.svg"
 import Api_Dashboard from '../interceptor/interceptorDashboard.jsx'
 
+import photo from "./../../assets/image/man 2.svg"
+import editPencil from "./../../assets/image/Ellipse 202.svg"
+
+
+
 
 
 
@@ -25,7 +30,7 @@ function AccountSetting() {
     governorate: "",
     date_of_birth: '',
     phone_number: "",
-    image: "" 
+    ImagePath: "" ,
   })
 
   const [errormesssage,Seterrormessage]=useState('')
@@ -43,17 +48,28 @@ function AccountSetting() {
   // get userfrom api and render data in useffect when page load direct 
   const getRefreshUser = async ()=>{
     await Api_Dashboard.get('/refresh').then((response)=>{
-      // console.log(response)
       let user= response.data.User
       setInputUser(user)
      }).catch((err)=>{
-      // console.log(err);
+      console.log(err);
      })
   }
 
 //  fn to post object which take from inputs 
   const HandleSubmit =async (event) => {
     event.preventDefault();
+    // const payload = {
+    //   first_name: inputUser.firstName,
+    //   last_name: inputUser.lastName,
+    //   date_of_birth: inputUser.date_of_birth,
+    //   phone_number: inputUser.phone_number,
+    //   governorate: inputUser.governorate,
+    //   email: inputUser.email
+    // };
+
+    // if (inputUser.ImagePath) {
+    //   payload.ImagePath = inputUser.ImagePath;
+    // }
 
     await Api_Dashboard.post('/update',{
       first_name:inputUser.firstName,
@@ -61,7 +77,11 @@ function AccountSetting() {
       date_of_birth:inputUser.date_of_birth,
       phone_number:inputUser.phone_number,
       governorate:inputUser.governorate,
-      email:inputUser.email
+      email:inputUser.email ,
+      // ImagePath ? ImagePath :inputUser.ImagePath :""
+
+     
+
     }).then((response)=>{
       // console.log(response)
       Setalert(true)
@@ -120,11 +140,28 @@ const getInputPasswor=(e)=>{
     <>
       <div className="container" style={{ overflow: 'auto', marginTop: '10px', direction: 'rtl', height: 'auto' }}>
         <div className=" w-100 h-100 pb-4" style={{ height: '60vh', marginTop: '80px', position: 'relative', borderRadius: '24px', border: '1px #4941A6 solid' }}>
-          <div style={{ position: 'absolute', top: '-12px', right: '20px', width: '40px', height: '40px', borderRadius: '50%', overflow: 'hidden' }}>
-            <img style={{ objectFit: 'cover' }} src={personal} width="100%" height="100%" alt="Profile" />
-          </div>
-          <form onSubmit={(e) => HandleSubmit(e)}>
-            <div style={{ paddingTop: '100px' }} className="container">
+        <form onSubmit={(e) => HandleSubmit(e)}>
+
+        <div>
+      <input type="hidden" name="id" />
+      <div className="upload">
+        <img src={photo} id="image" alt="Upload Preview" />
+
+        <div className="rightRound" id="upload">
+          <input type="file" name="fileImg" id="fileImg" accept=".jpg, .jpeg, .png" />
+          <i className="fa fa-camera"></i>
+        </div>
+
+        <div className="leftRound" id="cancel" style={{ display: 'none' }}>
+          <i className="fa fa-times"></i>
+        </div>
+        
+        <div className="rightRound" id="confirm" style={{ display: 'none' }}>
+          <i className="fa fa-check"></i>
+        </div>
+      </div>
+    </div>         
+            <div style={{ paddingTop: '50px' }} className="container">
               <div className="d-flex align-items-center" style={{ direction: 'rtl', marginBottom: '20px' }}>
                 <div className="d-flex align-items-center " style={{width:"13vw"}}>
                   <img src={home} className="img-fluid rounded-circle" alt="صورة شخصية" style={{ width: '30px', height: '30px' }} />
@@ -223,6 +260,9 @@ const getInputPasswor=(e)=>{
           </form>
         </div>
       </div>
+
+
+
 
       <form  onSubmit={(e)=>HandleSavePassword(e)}>
       <div className="password-card p-4 " style={{

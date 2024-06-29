@@ -80,7 +80,7 @@ export default function RewardMoshref() {
 
     return (
         <>
-        <div id='rewardSuperVisor'>
+        {/* <div id='rewardSuperVisor'> */}
 
    
 
@@ -99,6 +99,7 @@ export default function RewardMoshref() {
              
                 deleteModalFinished={"#delete_superVisor_modal"}
                 documenDownlowd={"rewardSuperVisor"}
+                TittleName={"اسم المشرف"}
 
             />
 
@@ -140,7 +141,7 @@ export default function RewardMoshref() {
 
 
 
-            </div>
+            {/* </div> */}
 
 
 

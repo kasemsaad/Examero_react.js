@@ -101,6 +101,8 @@ export default function Home_dashboard() {
               <div className="" style={{ width: "7.333333%" }}>
                 <img src={main} className="img-fluid rounded-circle" alt="صورة شخصية" style={{ width: '16px', height: '16px' }} />
               </div>
+
+              
               <div className='col-1'>
                 <p style={{ margin: '0', padding: "0", color: "#FFFFFF", fontWeight: "700", fontSize: '24px' }}>الرئيسية</p>
               </div>
@@ -290,7 +292,6 @@ export default function Home_dashboard() {
                   </div>
                 </div>
               </div>
-
             </div>
 
 
@@ -303,9 +304,9 @@ export default function Home_dashboard() {
               </div>
             </div>
 
+
+
           </div>
-
-
 
 
 
@@ -317,12 +318,15 @@ export default function Home_dashboard() {
                 <div style={{ position: 'relative', height: "30px", backgroundColor: '#0E0A43', border: "1px solid #4941A6", borderRadius: '9.65px' }}>
                   <p style={{ margin: "0", direction: "ltr", paddingLeft: "2vw", paddingTop: "0.3vw", color: "#A6A0F4" }}>123</p>
                   <div className='layer_owner' style={{ position: "absolute", top: "0", right: '0', width: "8vw", height: "30px", backgroundColor: "#4941A6", borderRadius: '9.65px' }}>
-
+                   
                     <div style={{ position: "relative" }}>
                       <div style={{ position: "absolute", left: "5px", top: "0.3vw", display: "flex", alignItems: "center" }}>
                         <p style={{ margin: "0", top: "0", direction: 'ltr', fontSize: "10px", fontWeight: '500', paddingTop: "2px", marginLeft: "10px", color: "#FFFFFF" }}>عدد المديرين</p>
                       </div>
                     </div>
+
+                    
+
 
                     <div style={{ position: "relative" }}>
                       <div className='layer_friends' style={{
