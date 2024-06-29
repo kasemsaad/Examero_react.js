@@ -38,7 +38,7 @@ const FormForAll = ({ fetchAllData }) => {
         onSubmit={handleSubmit(handleRegistration, handleError)}
       >
         <div className="form-group-putt col-8 mx-3 d-flex flex-column justify-content-end">
-          <label className="mb-2" htmlFor="exampleInputEmail1">
+          <label className="mb-2 mt-2" htmlFor="exampleInputEmail1">
             اسم الصف
           </label>
           <input
@@ -50,9 +50,10 @@ const FormForAll = ({ fetchAllData }) => {
             aria-describedby="emailHelp"
             placeholder=" أدخل أسم الصف الجديد هنا"
           />
-          <span style={{ color: "red", font: "8px" }}>
-            {(errors?.name && errors.name.message) || classErrors.name}
-          </span>
+          <span style={{ color: "red", fontSize: "13px", height: "21px" }}>
+            {(errors?.name && errors.name.message) ||
+              (classErrors && classErrors?.name)}
+          </span>{" "}
         </div>
         <div className="button-container-putt">
           <MyButton className="my-button" content="إضافة" type={"submit"} />

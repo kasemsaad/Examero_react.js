@@ -3,17 +3,12 @@ import MyButton from "../../../../common/Button/Button";
 import "./FormFPMaba7s.css";
 import Api_Dashboard from "../../../interceptor/interceptorDashboard";
 import { MultiSelect } from "react-multi-select-component";
-import Select from "react-select";
-import DeleteUserModal from "../../UsersPages/DeletUserModal/DeleteUserModal";
-
 const FormForMaba7s = ({ activeClasses, fetchAllData }) => {
   const [formData, setFormData] = useState({ name: "", groupIds: "" });
   const [subjectErrors, setSubjectErrors] = useState("");
   const [selectedFlavors, setSelectedFlavors] = useState([]);
 
-  const [selected, setSelected] = useState([]);
-  if (activeClasses) {
-  }
+  console.log(activeClasses);
   const newData = useMemo(() => {
     if (Array.isArray(activeClasses)) {
       return activeClasses.map((option) => ({
@@ -22,33 +17,36 @@ const FormForMaba7s = ({ activeClasses, fetchAllData }) => {
       }));
     }
   }, [activeClasses]);
-
+  const [x, setX] = useState("");
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!formData.name || !formData.groupIds) {
+    if (!formData.name) {
+      setX("يرجى كتابة اسم المبحث");
+      return;
+    }
+    if (!formData.groupIds) {
+      setX("يرجى اختيار اسم الصف");
       return;
     }
 
-    const handleRegistration = async (dat) => {
-      if (dat) {
-        await Api_Dashboard.post("/subjects", dat)
+    const handleRegistration = async (data) => {
+      if (data) {
+        await Api_Dashboard.post("/subjects", data)
           .then((response) => {
-            console.log(dat);
+            console.log(data);
             console.log(response);
 
             fetchAllData();
           })
           .catch((err) => {
-            console.log(err);
-            setSubjectErrors(err);
+            console.log(err.response.data.errors);
+            setSubjectErrors(err.response.data.errors);
           });
       }
-      console.log(formData);
     };
-
     handleRegistration(formData);
   };
-  const [x, stx] = useState([]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -58,15 +56,24 @@ const FormForMaba7s = ({ activeClasses, fetchAllData }) => {
   };
 
   const handleMultiSelectChange = (selectedOptions) => {
-    setSelectedFlavors(selectedOptions);
-    setFormData((prevData) => ({
-      ...prevData,
-      groupIds: selectedOptions.map((option) => option.value),
-    }));
+    if (selectedOptions !== selectedFlavors) {
+      setSelectedFlavors(selectedOptions);
+      setFormData((prevData) => ({
+        ...prevData,
+        groupIds: selectedOptions.map((option) => option.value),
+      }));
+    }
   };
 
   return (
     <form className="form-container-puttt" onSubmit={handleSubmit}>
+      <div style={{ margin: "auto", color: "red", whiteSpace: "pre-wrap" }}>
+        {x}
+      </div>
+      <span style={{ margin: "auto", color: "red", whiteSpace: "pre-wrap" }}>
+        {subjectErrors.name}
+      </span>
+
       <div className="MyFormm">
         <div className="form-group-puttt">
           <label className="mb-2 lab1" htmlFor="exampleInputEmail1">
@@ -84,7 +91,7 @@ const FormForMaba7s = ({ activeClasses, fetchAllData }) => {
           />
         </div>
 
-        <div style={{ height: 79, marginRight: "10px" }}>
+        <div style={{ height: 79, marginRight: "10px", width: "191px" }}>
           <label className="mb-2 lab2" htmlFor="">
             اختر الصفوف التى يدرس بها
           </label>

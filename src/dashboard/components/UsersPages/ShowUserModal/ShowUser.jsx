@@ -5,16 +5,17 @@ import LadingComponent from "../../../LoadingComponent/LodingComponent";
 import { json } from "react-router-dom";
 import "./SowUser.css";
 import { width } from "@fortawesome/free-solid-svg-icons/fa0";
-const ShowUserModal = ({ fetchAllData, content, api }) => {
+const ShowUserModal = ({ fetchAllData, content, api, userData }) => {
+  console.log(userData);
   return (
     <>
-      <button
+      {/* <button
         className="btn btn-primary"
         data-bs-toggle="modal"
         data-bs-target="#show-manger-dash"
       >
         Rady
-      </button>
+      </button> */}
 
       <div
         className="modal fade"
@@ -48,7 +49,7 @@ const ShowUserModal = ({ fetchAllData, content, api }) => {
               }}
             >
               <h5 className="modal-title m-auto" id="exampleModalLabel">
-                عرض بيانات{content}
+                عرض بيانات {content}
               </h5>
               <button
                 type="button"
@@ -105,25 +106,25 @@ const ShowUserModal = ({ fetchAllData, content, api }) => {
                   <thead>
                     <tr>
                       <th className="td-show-mod" scope="col">
-                        First
+                        الاسم
                       </th>
                       <th className="td-show-mod2" scope="col">
-                        Handle
+                        {userData.fullName}{" "}
                       </th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <td className="td-show-mod">Mark</td>
-                      <td className="td-show-mod2">@mdo</td>
+                      <td className="td-show-mod">البلد</td>
+                      <td className="td-show-mod2">{userData.governorate}</td>
                     </tr>
                     <tr>
-                      <td className="td-show-mod">Mark</td>
-                      <td className="td-show-mod2">@mdo</td>
+                      <td className="td-show-mod">البريد</td>
+                      <td className="td-show-mod2">{userData.email}</td>
                     </tr>
                     <tr>
-                      <td className="td-show-mod">Jacob</td>
-                      <td className="td-show-mod2">@fat</td>
+                      <td className="td-show-mod">رقم الهاتف</td>
+                      <td className="td-show-mod2">{userData.phone_number}</td>
                     </tr>
                   </tbody>
                 </table>

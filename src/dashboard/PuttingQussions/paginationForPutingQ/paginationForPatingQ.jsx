@@ -1,19 +1,32 @@
 import React from "react";
-import MyButton from "../../../../common/Button/Button";
-const FooterOfUserFP = ({
-  handelNext,
-  handelPrev,
+import MyButton from "../../../common/Button/Button";
+import "./paginationFPQ.css";
+const PaginationForPuttingQ = ({
   totalPages,
   currentPage,
   className,
+  setCurrentPage,
 }) => {
+  const handelNext = () => {
+    if (currentPage === totalPages) return;
+    console.log(currentPage);
+    setCurrentPage((currentPage) => currentPage + 1);
+  };
+
+  // handel prev page
+  const handelPrev = () => {
+    if (currentPage === 1) return;
+    console.log(currentPage);
+
+    setCurrentPage((currentPage) => currentPage - 1);
+  };
   return (
     <>
       <div
         style={{
           display: "flex",
           flexDirection: "row-reverse",
-          height: " 74px",
+          height: " 41px",
           alignItems: "center",
         }}
         className={`footer-manger${className} `}
@@ -57,4 +70,4 @@ const FooterOfUserFP = ({
   );
 };
 
-export default FooterOfUserFP;
+export default PaginationForPuttingQ;

@@ -12,14 +12,16 @@ import PuttingQArrow from "../../components/PuttingQuesionsPage/PuttingArrow/Put
 import Api_Dashboard from "../../interceptor/interceptorDashboard";
 import DeleteUserModal from "../../components/UsersPages/DeletUserModal/DeleteUserModal";
 import EditClassModal from "../../components/PuttingQuesionsPage/editClassModal/editClassModal";
-
+import FooterOfUserFP from "../../components/UsersPages/FooterOfUsers/FooterOfUsers";
+import PaginationForPuttingQ from "../paginationForPutingQ/paginationForPatingQ";
+import "./Quesion.css";
 const PuttingQuestions = () => {
   const [classData, setClassData] = useState(false);
   const [groupsData, setGroupsData] = useState("");
-  const [metaData, setMetaData] = useState("");
+  const [metaFPagination, setMetaFPagination] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [DeletedItem, setDeletedItem] = useState("");
-  const totalPages = metaData.last_page;
+  const totalPages = metaFPagination.last_page;
   const [errorss, setErrors] = useState("");
   const [rowDataOfClass, setRowDataOfClass] = useState([]);
   let header = {
@@ -49,12 +51,15 @@ const PuttingQuestions = () => {
   };
   useEffect(() => {
     fetchAllData();
-  }, []);
+  }, [currentPage]);
   const fetchAllData = async () => {
-    const respons = await Api_Dashboard.get("/groups")
+    console.log(currentPage);
+    const respons = await Api_Dashboard.get(`/groups?page=${currentPage}`)
       .then((response) => {
         setGroupsData(response.data.data);
         console.log(response.data.data);
+        setMetaFPagination(response.data.meta.pagination);
+        console.log(response.data.meta.pagination);
       })
       .catch((err) => {
         console.log(err);
@@ -87,6 +92,7 @@ const PuttingQuestions = () => {
   const handelNav = () => {
     navegiate("/dashboard/putting/questions/subjects=2");
   };
+
   return (
     <div className="questionContainer min-vh-100 w-100">
       <HeaderOfPuttingQuestions />
@@ -125,18 +131,24 @@ const PuttingQuestions = () => {
             togellValue={togellValue}
           />
         </div>
+        <PaginationForPuttingQ
+          totalPages={totalPages}
+          currentPage={currentPage}
+          setCurrentPage={(page) => setCurrentPage(page)}
+        />
       </div>
-
-      <div className="nextButton col-12">
-        <div className="col-sm-3 d-flex align-items-center justify-content-center">
-          <MyButton
-            onClick={handelNav}
-            // onClick={() => {
-            //   navigate(1);
-            // }}
-            content={"التالي"}
-            className="MyButton"
-          />
+      <div className="nextButton-que  col-12">
+        <div className="nexB2">
+          <div className="col-sm-3 d-flex align-items-center justify-content-center">
+            <MyButton
+              onClick={handelNav}
+              // onClick={() => {
+              //   navigate(1);
+              // }}
+              content={"التالي"}
+              className="MyButton-qu"
+            />
+          </div>
         </div>
       </div>
       <DeleteUserModal

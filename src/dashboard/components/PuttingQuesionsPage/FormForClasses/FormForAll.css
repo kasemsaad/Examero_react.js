@@ -2,10 +2,10 @@
 .form-container-putt {
   display: flex;
   justify-content: space-around;
-  height: 88%;
+  height: auto;
 }
 .MyForm {
-  height: 77px;
+  height: auto;
   border-radius: 16.28px;
   background-color: #1d195d;
   width: 54%;
@@ -25,7 +25,7 @@
 .button-container-putt {
   width: 34%;
   display: flex;
-  height: 64px;
+  height: 67px;
   align-items: flex-end;
   justify-content: center;
 }
@@ -42,8 +42,15 @@
   padding: 5px;
 }
 @media (max-width: 630px) {
+  .button-container-putt {
+    height: 52px;
+    width: 34%;
+  }
+  .my-button {
+    width: 5rem;
+  }
   .MyForm {
-    width: 20rem;
+    width: 23rem;
   }
 }
 @media (max-width: 370px) {

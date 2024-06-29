@@ -75,6 +75,7 @@
   height: 29px;
   margin-right: 12px;
   align-items: flex-end;
+  margin-bottom: 7px;
 }
 
 .container-kind {
@@ -125,7 +126,7 @@
   }
 
   .button-container-kind {
-    width: 50px;
+    width: 85px;
   }
   .my-button-kind {
     width: 122px !important;

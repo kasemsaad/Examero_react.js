@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import HeaderOfPuttingQuestions from "../../components/PheaderOfButtingQuestion/HeaderOfButtingQuestions";
 import PuttingQArrow from "../../components/PuttingQuesionsPage/PuttingArrow/PuttingQArrow";
 import AddComponent from "../../components/PuttingQuesionsPage/AddComoponentForPage/Add";
@@ -6,12 +6,13 @@ import MyTable from "../../../common/Table/Table";
 import FooterFPuttingQ from "../../components/PFooter/FooterFPuttingQ";
 import FormFPkindOfQ from "../../components/PuttingQuesionsPage/FormForKindOfQ/FormFPKindOfQ";
 import "./ForKindOfQuestions.css";
+import PaginationForPuttingQ from "../paginationForPutingQ/paginationForPatingQ";
+import Api_Dashboard from "../../interceptor/interceptorDashboard";
 const PuttingKindOfQ = () => {
   let header = {
-    name1: "اسم المبحث",
-    name2: "الصفوف التي يدرس فيها",
-    name3: "حالة المبحث",
-    name4: "الخصائص",
+    name1: "نوع السؤال",
+    name2: "حالة الؤال",
+    name3: "الخصائص",
   };
 
   let body = [
@@ -41,9 +42,52 @@ const PuttingKindOfQ = () => {
       name5: "اسم الصف",
     },
   ];
-  let other = { toggle: true };
 
-  let icon = { edit: true, trash: true, toggle: true };
+  let icon = { trash: true };
+  let other = { toggle: true };
+  const [metaFPagination, setMetaFPagination] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = metaFPagination.last_page;
+  const [typeOfQuesions, setTypeOfQuesions] = useState("");
+  const fetchAllUnits = async () => {
+    const respons = await Api_Dashboard.get(
+      `/questions-type?page=${currentPage}`
+    )
+      .then((response) => {
+        setTypeOfQuesions(response.data.data);
+        console.log(response);
+        setMetaFPagination(response.data.meta.pagination);
+
+        console.log(response.data.meta.pagination);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  useEffect(() => {
+    fetchAllUnits();
+  }, [currentPage]);
+
+  const newTypes = useMemo(() => {
+    if (typeOfQuesions) {
+      return typeOfQuesions.map((typeOfQuesion) => ({
+        id: typeOfQuesion.id,
+        name: typeOfQuesion.name,
+      }));
+    } else {
+      return [];
+    }
+  }, [typeOfQuesions]);
+
+  const toggelValues = useMemo(() => {
+    if (Array.isArray(typeOfQuesions)) {
+      return typeOfQuesions.map(({ status }) => ({
+        status,
+      }));
+    } else {
+      return [];
+    }
+  }, [typeOfQuesions]);
   return (
     <>
       <div className=" min-vh-100 lessons-Container">
@@ -71,8 +115,19 @@ const PuttingKindOfQ = () => {
             </div>
           </div>
           <div className="MyTable">
-            <MyTable header={header} body={body} icons={icon} />
+            <MyTable
+              other={other}
+              togellValue={toggelValues}
+              header={header}
+              body={newTypes}
+              icons={icon}
+            />
           </div>
+          <PaginationForPuttingQ
+            totalPages={totalPages}
+            currentPage={currentPage}
+            setCurrentPage={(page) => setCurrentPage(page)}
+          />
         </div>
         <FooterFPuttingQ next={"التالي"} prev={"السابق"} />
       </div>

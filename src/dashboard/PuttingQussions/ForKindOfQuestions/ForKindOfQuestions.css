@@ -22,7 +22,7 @@
   color: black;
   margin: auto;
 }
-@media (max-width: 400px) {
+@media (max-width: 900px) {
   .my-info-kind {
     margin-top: 140px;
   }

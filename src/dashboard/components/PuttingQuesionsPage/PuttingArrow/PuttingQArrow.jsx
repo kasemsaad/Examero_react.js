@@ -1,7 +1,7 @@
 import { useLocation } from "react-router-dom";
 import FirstTriangle from "../../FirstTriangle/FirstTriangle";
 import SecondTriangle from "../../SecondTriangle/SecondTriangle";
-
+import "./PuttinQArrow.css";
 // Inside your component
 
 const PuttingQArrow = ({ myColor }) => {

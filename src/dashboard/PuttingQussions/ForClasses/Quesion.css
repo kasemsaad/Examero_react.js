@@ -7,25 +7,6 @@
   height: 80% !important;
 } */
 
-.tr trai {
-  border: none !important;
-}
-
-.iddd {
-  transform: translate(8px, -3px);
-}
-
-.to-arr-put {
-  transform: translate(18px, -2px);
-}
-
-.arrowfour {
-  transform: translate(28px, -1px);
-}
-
-.arrowfive {
-  transform: translate(38px, 0px);
-}
 @media (max-width: 450px) {
   .MyForm {
     width: 100% !important;
@@ -45,6 +26,11 @@
   .info-ma {
     width: 76% !important;
   }
+}
+.foot-puttinQuetion {
+  height: 10px;
+
+  background-color: blue;
 }
 @media (max-width: 420px) {
   .MyForm {
@@ -94,4 +80,26 @@
 
 .MyTable {
   width: 100%;
+  height: 388px;
+}
+.nextButton-que {
+  height: 9rem;
+  display: flex;
+  align-items: center;
+}
+.nexB2 {
+  display: flex;
+  flex-direction: row-reverse;
+  height: 72px;
+  align-items: flex-start;
+  width: 100%;
+}
+.nexB2 .MyButton-qu {
+  background-color: #c01f59;
+  width: 7rem;
+  height: auto;
+  padding: 5px;
+  border: none;
+  color: white;
+  border-radius: 20px;
 }

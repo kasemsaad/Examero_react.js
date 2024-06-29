@@ -11,6 +11,7 @@ import InfoComponent from "../../components/PuttingQuesionsPage/InfoComponentPq/
 import Api_Dashboard from "../../interceptor/interceptorDashboard";
 import DeleteUserModal from "../../components/UsersPages/DeletUserModal/DeleteUserModal";
 import EditSubjectModal from "../../components/PuttingQuesionsPage/editSubjectModal/EditSubjectModal";
+import PaginationForPuttingQ from "../paginationForPutingQ/paginationForPatingQ";
 const PuttingQForMab7as = () => {
   let header = {
     name1: "اسم المبحث",
@@ -19,13 +20,16 @@ const PuttingQForMab7as = () => {
     name4: "الخصائص",
   };
 
-  let icon = { edit: true, trash: true, toggle: true };
+  let icon = { edit: true, trash: true };
   let other = { toggle: true };
   const togellValue = [{ status: "5" }];
   const [DeletedItem, setDeletedItem] = useState("");
   const [rowDataOfSubjects, setRowDataOfSubjects] = useState("");
   const [classData, setClassData] = useState(false);
   const [errorss, setErrors] = useState("");
+  const [metaFPagination, setMetaFPagination] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = metaFPagination.last_page;
 
   useEffect(() => {
     fetchDataForClass();
@@ -37,7 +41,6 @@ const PuttingQForMab7as = () => {
       await Api_Dashboard.get(`/subjects/${Data.id}`)
         .then((response) => {
           setRowDataOfSubjects(response.data.data);
-          console.log(response.data.data);
         })
         .catch((err) => {
           console.log(err.response.errors);
@@ -65,16 +68,16 @@ const PuttingQForMab7as = () => {
 
   useEffect(() => {
     fetchAllSubjects();
-  }, []);
+  }, [currentPage]);
   const fetchAllSubjects = async () => {
-    const respons = await Api_Dashboard.get("/subjects")
+    const respons = await Api_Dashboard.get(`/subjects?page=${currentPage}`)
       .then((response) => {
         setSubjects(response.data.data);
         console.log(response.data.data);
+        setMetaFPagination(response.data.meta.pagination);
       })
       .catch((err) => {
         console.log(err);
-        console.log(err.response.errors);
       });
   };
   const newSubjects = useMemo(() => {
@@ -89,7 +92,6 @@ const PuttingQForMab7as = () => {
     }
   }, [subjects]);
 
-  console.log(JSON.stringify(subjects) + "by subject");
   const togellValues = useMemo(() => {
     if (Array.isArray(subjects)) {
       return subjects.map(({ status }) => ({
@@ -99,6 +101,7 @@ const PuttingQForMab7as = () => {
       return [];
     }
   }, [subjects]);
+
   return (
     <>
       <div className=" min-vh-100 mab7asContainer">
@@ -135,6 +138,11 @@ const PuttingQForMab7as = () => {
               togellValue={togellValues}
             />
           </div>
+          <PaginationForPuttingQ
+            totalPages={totalPages}
+            currentPage={currentPage}
+            setCurrentPage={(page) => setCurrentPage(page)}
+          />
         </div>
         <div className="nextButton col-12">
           <FooterFPuttingQ next={"التالي"} prev={"السابق"} />

@@ -1,21 +1,71 @@
-import React from "react";
+import React, { useState } from "react";
 import MyButton from "../../../../common/Button/Button";
 import "./FormFLessons.css";
-const FormFPLessons = () => {
-  const using = () => {
-    console.log("READ");
+import Api_Dashboard from "../../../interceptor/interceptorDashboard";
+const FormFPLessons = ({
+  activeClasses,
+  fetchSubjectByIdOfClass,
+  fetchUnitsBySubjectId,
+  activeSubjects,
+  activeUnits,
+  fechAlllessons,
+}) => {
+  console.log(activeUnits);
+  const [formData, setFormData] = useState({
+    name: "",
+    unit_id: "",
+  });
+  const handelChange = (e) => {
+    const { name, value } = e.target;
+    console.log(name);
+    console.log(value);
+
+    if (name === "group_id") {
+      fetchSubjectByIdOfClass(value);
+    }
+    if (name === "subject_id") {
+      fetchUnitsBySubjectId(value);
+    }
+    if (name === "unit_id" || name === "name") {
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    }
   };
+  const handelSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData);
+    const handleAddLesson = async (data) => {
+      if (data) {
+        await Api_Dashboard.post("/lessons", data)
+          .then((response) => {
+            console.log(data);
+            console.log(response);
+
+            fechAlllessons();
+          })
+          .catch((err) => {
+            console.log(err.response.data.errors);
+          });
+      }
+    };
+    handleAddLesson(formData);
+  };
+
   return (
     <>
       <div className="container">
-        <form action="">
+        <form action="" onSubmit={handelSubmit}>
           <div className="row form-content-lessons">
             <div className="col-5 col-md-6 col-lg-3 ">
               <label htmlFor="exampleInput" className="form-label mb-3">
                 اسم الدرس
               </label>
               <input
+                onChange={handelChange}
                 type="text"
+                name="name"
                 className="form-control select-lesson"
                 id="exampleInput"
                 aria-describedby="emailHelp"
@@ -27,39 +77,53 @@ const FormFPLessons = () => {
                 اختر الوحده
               </label>
               <select
+                onChange={handelChange}
+                name="unit_id"
+                defaultValue="1"
                 className="form-select select-lesson"
                 id="select1"
                 aria-label="example"
               >
-                <option selected>اختر اسم الوحده</option>
-                <option
-                  style={{ background: "#4941A6", color: "white" }}
-                  value="1"
-                >
-                  One
-                </option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+                <option value="1">اختر اسم الوحده</option>
+                {activeUnits &&
+                  activeUnits.map((activeUnit) => {
+                    return (
+                      <option
+                        key={activeUnit.id}
+                        style={{ background: "#4941A6", color: "white" }}
+                        value={activeUnit.id}
+                      >
+                        {activeUnit.name}
+                      </option>
+                    );
+                  })}
               </select>
             </div>
             <div className="col-5 col-md-6 col-lg-3 ">
               <label htmlFor="select2" className="form-label mb-2">
                 اخترالمبحث
               </label>
+
               <select
-                className="form-select select-lesson"
-                id="select2"
+                defaultValue="1"
+                name="subject_id"
+                className="form-select select-lesson rmsc multi-select-lib-les"
                 aria-label="example"
+                onChange={handelChange}
               >
-                <option selected>اختر الصف</option>
-                <option
-                  style={{ background: "#4941A6", color: "white" }}
-                  value="1"
-                >
-                  One
-                </option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+                <option value="1">اختر المبحث</option>
+                {activeSubjects &&
+                  activeSubjects.map((activeSubject) => {
+                    return (
+                      <option
+                        key={activeSubject.id}
+                        style={{ background: "#4941A6", color: "white" }}
+                        value={activeSubject.id}
+                      >
+                        {activeSubject.name}
+                      </option>
+                    );
+                  })}
               </select>
             </div>
             <div className="col-5 col-md-6 col-lg-3 ">
@@ -67,24 +131,30 @@ const FormFPLessons = () => {
                 اختر الصف
               </label>
               <select
+                defaultValue="1"
+                name="group_id"
                 className="form-select select-lesson"
-                id="select3"
+                onChange={handelChange}
                 aria-label="example"
               >
-                <option selected>اختر الصف</option>
-                <option
-                  style={{ background: "#4941A6", color: "white" }}
-                  value="1"
-                >
-                  One
-                </option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+                <option value="1">اختر الصف</option>
+                {activeClasses &&
+                  activeClasses.map((activeClass) => {
+                    return (
+                      <option
+                        key={activeClass.id}
+                        style={{ background: "#4941A6", color: "white" }}
+                        value={activeClass.id}
+                      >
+                        {activeClass.name}
+                      </option>
+                    );
+                  })}
               </select>
             </div>
             <div className="col-12  button-lesson ">
               <MyButton
-                onClick={using}
+                // onClick={}
                 className=" mt-2 my-button"
                 content="إضافة"
                 type={"submit"}

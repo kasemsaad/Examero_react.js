@@ -10,12 +10,12 @@ const EditSubjectModal = ({
 }) => {
   const [formData, setFormData] = useState({ name: "", groupIds: [] });
   const [subjectErrors, setSubjectErrors] = useState("");
-  const [selectedFlavors, setSelectedFlavors] = useState([]);
 
   const [editClass, setEditClass] = useState({
     name: "",
     status: "",
-    groupIds: [],
+    group_id: "",
+    subject_id: "",
   });
 
   // Initialize the state with the values from rowDataOfSubjects
@@ -28,11 +28,6 @@ const EditSubjectModal = ({
       });
       console.log(rowDataOfSubjects);
       setSelectedFlavors();
-      // (rowDataOfSubjects.groupIds || []).map((id) => {
-      //   const group = activeClasses.find((group) => group.id === id);
-      //   return { value: group.id, label: group.name };
-      // })
-      // rowDataOfSubjects.groupIds
     }
   }, [rowDataOfSubjects, activeClasses]);
   console.log();
@@ -43,8 +38,9 @@ const EditSubjectModal = ({
       [name]: value,
     }));
   };
+  console.log(editClass);
   const newData0 = useMemo(() => {
-    if (Array.isArray(rowDataOfSubjects)) {
+    if (rowDataOfSubjects && rowDataOfSubjects.groups) {
       return rowDataOfSubjects.groups.map((option) => ({
         value: option.id,
         label: option.name,
@@ -52,9 +48,8 @@ const EditSubjectModal = ({
     }
     return [];
   }, [rowDataOfSubjects]);
-
   const newData = useMemo(() => {
-    if (Array.isArray(activeClasses)) {
+    if (activeClasses) {
       return activeClasses.map((option) => ({
         value: option.id,
         label: option.name,
@@ -62,10 +57,19 @@ const EditSubjectModal = ({
     }
     return [];
   }, [activeClasses]);
-  console.log(newData);
+  const [selectedFlavors, setSelectedFlavors] = useState([]);
+
+  // Initialize selectedFlavors with newData0 when the component mounts
+  useEffect(() => {
+    setEditClass((prevData) => ({
+      ...prevData,
+      groupIds: newData0.map((option) => option.value),
+    }));
+    setSelectedFlavors(newData0);
+  }, [newData0]);
+
   const handelEdit = async (editClass) => {
     if (rowDataOfSubjects) {
-      console.log(editClass);
       await Api_Dashboard.post(`/subjects/${rowDataOfSubjects.id}`, editClass)
         .then((response) => {
           console.log(response);
@@ -73,9 +77,11 @@ const EditSubjectModal = ({
         })
         .catch((err) => {
           console.log(err);
+          setSubjectErrors(err.response.data.errors);
         });
     }
   };
+  const [x, setx] = useState(true);
 
   const handleMultiSelectChange = (selectedOptions) => {
     setSelectedFlavors(selectedOptions);
@@ -87,8 +93,7 @@ const EditSubjectModal = ({
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(rowDataOfSubjects);
-    console.log(editClass);
+
     handelEdit(editClass);
   };
 
@@ -167,10 +172,10 @@ const EditSubjectModal = ({
                         <MultiSelect
                           style={{ width: "50px" }}
                           name="groups"
-                          value={newData0}
+                          value={selectedFlavors}
                           options={newData}
                           onChange={handleMultiSelectChange}
-                          className="multi-select-lib"
+                          className="multi-select-lib-2"
                         />
                       )}
                     </div>

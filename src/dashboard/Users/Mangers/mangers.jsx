@@ -9,6 +9,7 @@ import AddMangerModel from "../../components/UsersPages/AddMangerModal/AddManger
 import EditMangerModal from "../../components/UsersPages/EditMangerModal/EditMangerModal";
 import DeleteUserModal from "../../components/UsersPages/DeletUserModal/DeleteUserModal";
 import FooterOfUserFP from "../../components/UsersPages/FooterOfUsers/FooterOfUsers";
+import ShowUserModal from "../../components/UsersPages/ShowUserModal/ShowUser";
 const Mangers = () => {
   // header of the table
   let header = {
@@ -28,11 +29,22 @@ const Mangers = () => {
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [idOfDeleteItem, setIdOfDeleteItem] = useState("");
+  const [showMangerData, setShowMangerData] = useState("");
   // console.log(idOfDeleteItem);
   const handelFetchId = async (row) => {
     const response = await Api_Dashboard.get(`/managers/${row.id}`)
       .then((response) => {
         setRowData(response.data.data);
+        console.log(JSON.stringify(rowData) + "iam her");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const handelShowMangerById = async (row) => {
+    const response = await Api_Dashboard.get(`/managers/${row.id}`)
+      .then((response) => {
+        setShowMangerData(response.data.data);
         console.log(JSON.stringify(rowData) + "iam her");
       })
       .catch((err) => {
@@ -116,6 +128,10 @@ const Mangers = () => {
               handelDeleteItem={(row) => {
                 setIdOfDeleteItem(row);
               }}
+              handelShow={(row) => {
+                handelShowMangerById(row);
+              }}
+              showItem={"#show-manger-dash"}
               deleteModalName={"#deleteElementModal_users-dash"}
               editButtonName={"#edit-manger-dash"}
               handelEdit={(row) => {
@@ -149,6 +165,7 @@ const Mangers = () => {
             fetchAllData={fetchAllData}
             idOfDeleteItem={idOfDeleteItem}
           />
+          <ShowUserModal content={"المدير"} userData={showMangerData} />
         </div>
       </div>
     </>

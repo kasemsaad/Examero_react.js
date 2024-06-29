@@ -110,7 +110,7 @@ const EditClassModal = ({ rowDataOfClass, fetchAllData }) => {
                   <div>
                     <button
                       type="button"
-                      style={{ marginLeft: "6px" }}
+                      style={{ marginLeft: "12px" }}
                       className={`toggle-btnn ${
                         editClass.status === 0 ? "toggled" : ""
                       }`}

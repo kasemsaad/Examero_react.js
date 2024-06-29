@@ -9,7 +9,7 @@
   max-width: 69%;
 }
 .MyFormm {
-  height: 82px;
+  height: 88px;
   display: flex;
   align-items: center;
   width: 100%;
@@ -26,7 +26,7 @@
 }
 .inp1,
 .inp2 {
-  width: 13rem;
+  width: 191px;
   height: 51px;
 }
 .my-button-mabhas {
@@ -56,7 +56,7 @@
 }
 
 .form-group-puttt {
-  width: 13rem;
+  width: 198px;
   height: 60px !important;
   padding: 3px;
   display: flex;
@@ -90,7 +90,7 @@
 }
 .multi-select-lib {
   color: #1d195d;
-  width: 13rem;
+  width: 191px;
   height: 34px;
   background-color: #1d195d !important;
 }

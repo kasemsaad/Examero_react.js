@@ -1,15 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import MyButton from "../../../../common/Button/Button";
 import Checkbox from "../../NotificationPage/Checkbox/Checkbox";
 import "./FornFPkindOfQ.css";
-const FormFPkindOfQ = () => {
-  const using = () => {
-    console.log("READ");
+import Api_Dashboard from "../../../interceptor/interceptorDashboard";
+const FormFPkindOfQ = ({ fetchAllData }) => {
+  const [selctedQ, setSelectedQ] = useState({
+    name: "",
+  });
+  const handelChange = (e) => {
+    console.log(e.target.value);
+
+    console.log();
+    setSelectedQ({
+      ...selctedQ,
+      name: e.target.value,
+    });
   };
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    const handelEdit = async (selctedQ) => {
+      console.log(selctedQ);
+      await Api_Dashboard.post("questions-type", selctedQ)
+        .then((response) => {
+          console.log(response);
+          fetchAllData();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+    handelEdit(selctedQ);
+  };
+
   return (
     <>
       <div className="container-kind">
-        <form action="" className="form-kind">
+        <form onSubmit={onSubmit} action="" className="form-kind">
           <div className="head-kind">
             <p className="p-kind">نوع السؤال</p>
           </div>
@@ -18,17 +45,25 @@ const FormFPkindOfQ = () => {
               <div className="inputs-kind">
                 <div className="input-kind">
                   <div className="inputs">
-                    <Checkbox
+                    <input
+                      onChange={handelChange}
+                      value={"صح/خطأ"}
                       name={"option"}
-                      id={"option1"}
-                      Checkbox={"radio"}
-                    />
+                      id={"option2"}
+                      type="radio"
+                    ></input>
                     <label className="label-kind" htmlFor="kind1">
                       صح/خطأ
                     </label>
                   </div>
                   <div className="inputs">
-                    <Checkbox name={"option"} Checkbox={"radio"} />
+                    <input
+                      onChange={handelChange}
+                      name={"option"}
+                      id={"option1"}
+                      type="radio"
+                      value={"توصيل بين عمودين"}
+                    ></input>
                     <label className="label-kind" htmlFor="kind2">
                       توصيل بين عمودين
                     </label>
@@ -36,21 +71,27 @@ const FormFPkindOfQ = () => {
                 </div>
                 <div className="input-kind">
                   <div className="inputs">
-                    <Checkbox
-                      id={"option2"}
+                    <input
+                      onChange={handelChange}
+                      value="  متعدد الاختيارات"
                       name={"option"}
-                      Checkbox={"radio"}
-                    />
+                      id={"option1"}
+                      type="radio"
+                    ></input>
+
                     <label className="label-kind" htmlFor="kind3">
                       متعدد الاختيارات
                     </label>
                   </div>
                   <div className="inputs">
-                    <Checkbox
-                      id={"option3"}
+                    <input
+                      onChange={handelChange}
+                      value="تحديد فى الصور"
                       name={"option"}
-                      Checkbox={"radio"}
-                    />
+                      id={"option1"}
+                      type="radio"
+                    ></input>
+
                     <label className="label-kind" htmlFor="kind2">
                       تحديد فى الصور
                     </label>
@@ -58,21 +99,27 @@ const FormFPkindOfQ = () => {
                 </div>
                 <div className="input-kind">
                   <div className="inputs">
-                    <Checkbox
-                      id={"option4"}
+                    <input
+                      onChange={handelChange}
+                      value="سؤال إنشائي"
                       name={"option"}
-                      Checkbox={"radio"}
-                    />
+                      id={"option1"}
+                      type="radio"
+                    ></input>
+
                     <label className="label-kind" htmlFor="kind2">
                       سؤال إنشائي
                     </label>
                   </div>
                   <div className="inputs">
-                    <Checkbox
-                      id={"option5"}
+                    <input
+                      onChange={handelChange}
+                      value="املأ الفراغات "
                       name={"option"}
-                      Checkbox={"radio"}
-                    />
+                      id={"option1"}
+                      type="radio"
+                    ></input>
+
                     <label className="label-kind" htmlFor="kind2">
                       املأ الفراغات
                     </label>
@@ -80,21 +127,27 @@ const FormFPkindOfQ = () => {
                 </div>
                 <div className="input-kind">
                   <div className="inputs">
-                    <Checkbox
-                      id={"option6"}
+                    <input
+                      onChange={handelChange}
+                      value={"سؤال المحتوى"}
                       name={"option"}
-                      Checkbox={"radio"}
-                    />
+                      id={"option1"}
+                      type="radio"
+                    ></input>
+
                     <label className="label-kind" htmlFor="kind2">
                       سؤال المحتوى
                     </label>
                   </div>
                   <div className="inputs">
-                    <Checkbox
-                      id={"option7"}
+                    <input
+                      onChange={handelChange}
+                      value={"سؤال مرفق"}
                       name={"option"}
-                      Checkbox={"radio"}
-                    />
+                      id={"option1"}
+                      type="radio"
+                    ></input>
+
                     <label className="label-kind" htmlFor="kind2">
                       سؤال مرفق
                     </label>

@@ -11,15 +11,18 @@ function MyTable({
   other,
   deleteModalName,
   editButtonName,
-
+  handelShow,
+  showItem,
   togellValue,
   handelEdit,
   handelDeleteItem,
+  classIds,
 }) {
   const { trash, edit, eye } = icons || {};
   const { toggle, butt, imag, checkbox } = other || {};
+
   return (
-    <table className="my-rounded-table-all">
+    <table className="my-rounded-table-ta">
       <thead>
         <tr>
           <th>#</th>
@@ -71,7 +74,17 @@ function MyTable({
                       className="square fa-regular fa-pen-to-square"
                     ></button>
                   )}
-                  {eye && <MyButton className="eye fa-regular fa-eye" />}
+
+                  {eye && (
+                    <MyButton
+                      databstoggle="modal"
+                      databstarget={showItem}
+                      onClick={() => {
+                        handelShow(row);
+                      }}
+                      className="eye fa-regular fa-eye"
+                    />
+                  )}
                 </td>
               )}
               {butt && (
