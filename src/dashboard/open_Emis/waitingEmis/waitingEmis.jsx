@@ -157,7 +157,7 @@ dataRender={openEmisAllData}
                    > </textarea>
                 </div>
                 <div className="form-group mt-4">
-                    <label htmlFor="">الحالة</label>
+                    <label htmlFor="">الحالة مستلمة</label>
              
              <input  class="form-check-input" 
              type="checkbox" 
@@ -165,9 +165,7 @@ dataRender={openEmisAllData}
              name="status"
              onChange={getEditingInputs}
               checked={InputEditWaitinOpenEmis.status === "2"}
-
-  
-
+              style={{marginRight:"15px"}}
                />
                 
 

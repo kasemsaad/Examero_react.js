@@ -28,7 +28,7 @@ function ForgetPassDashBoard() {
         setError('');
         dispatch(setEmail(email)); // Save email in Redux
         setTimeout(() => {
-          navigate('/dashboard/dashBoardEnterCode');
+          navigate('/dashBoardEnterCode');
         }, 3000);
       })
       .catch((error) => {
@@ -48,7 +48,7 @@ function ForgetPassDashBoard() {
           <div className="header1-l">
             <p className='card-title between-borders1-l'>لتحصل على جميع الخدمات</p>
           </div>
-          <Form className="reset1-form" onSubmit={handleSubmit}>
+          <Form className="reset1-form" onSubmit={handleSubmit} style={{width:"100%"}}>
             {error && <Alert variant="danger">{error}</Alert>}
             {success && <Alert variant="success">{success}</Alert>}
             <Form.Group controlId="email">

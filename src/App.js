@@ -96,6 +96,10 @@ function App(props) {
            </Route>
            <Route path="login_dashboard" element={<HomeDashoardLogin />} />
            <Route path="forget_password" element={<ForgetPassDashBoard />} />
+           <Route path="dashBoardEnterCode" element={<EnterCodeDashBoard />} />
+           <Route path="DashboardNewPassword" element={<NewPassDashBoard />} />
+
+
 
         <Route path="/dashboard/" element={<LayoutComp />}>
           <Route index element={
@@ -116,8 +120,6 @@ function App(props) {
           <Route path="rewardManger" element={<RewardManger />} />
           <Route path="rewardSupervisor" element={<RewardMoshref />} />
           <Route path="rewardteacher" element={<RewardTeacher />} />
-          <Route path="dashBoardEnterCode" element={<EnterCodeDashBoard />} />
-          <Route path="DashboardNewPassword" element={<NewPassDashBoard />} />
 
 
           

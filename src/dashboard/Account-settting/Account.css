@@ -348,6 +348,9 @@ margin-bottom: 106px; */
   right: 38px;
   top: -53px;
 }
+#pp{
+  display: none;
+}
 
 .upload img{
   border-radius: 50%;

@@ -457,13 +457,13 @@ export default function PlansStudent() {
                         </button>
                       </div>
                       <input
-                        type="text"
+                        type="number"
                         className="form-control text-center"
                         id="price"
                         name='price'
                         value={InputEditTeacher.price}
                         onChange={(e)=>getEditingInputs(e)}
-                        readOnly
+                        
                       />
                       <div className="input-group-append">
                         <button
@@ -489,12 +489,12 @@ export default function PlansStudent() {
                         </button>
                       </div>
                       <input
-                        type="text"
+                        type="number"
                         className="form-control text-center"
                         id="allow_exam"
                         name='allow_exam'
                         value={InputEditTeacher.allow_exam}
-                        readOnly
+                        
                         onChange={(e)=>getEditingInputs(e)}
 
                       />
@@ -522,12 +522,12 @@ export default function PlansStudent() {
                         </button>
                       </div>
                       <input
-                        type="text"
+                        type="number"
                         className="form-control text-center"
                         id="allow_question"
                         name='allow_question'
                         value={InputEditTeacher.allow_question}
-                        readOnly
+                        
                         onChange={(e)=>getEditingInputs(e)}
 
                       />

@@ -14,6 +14,8 @@ export default function Specification() {
     const [selectedItem, SetSelected] = useState('')
     const [AlertPoint, SetAlertPoint] = useState('')
     const [AlertPointSuccess, SetAlertPointSuccess] = useState('')
+    const [idOfPointSelected, SetidOfPointSelected] = useState('')
+
     
 
 
@@ -57,6 +59,14 @@ export default function Specification() {
         }
     }
 
+    const getPoint = (e) => {
+        const selectedValue = e.target.value;
+        console.log(selectedValue);
+        SetidOfPointSelected(selectedValue);
+    }
+
+
+
     // get all teacher data 
     const getTeacher = async () => {
         await Api_Dashboard.get('/teachers/selection').then((response) => {
@@ -70,26 +80,24 @@ export default function Specification() {
     const getConnect = async (selectedItem) => {
         await Api_Dashboard.get(`/plans/${selectedItem}/teacher`).then((response) => {
             SetactivePlanData(response.data.data)
-            console.log(response.data.data);
         }).catch((err) => {
             console.log(err);
         })
     }
     
-    
 
     const SendSpecification = (e) => {
-        e.preventDefault();
-        // const payload = {
-        //     teacher_id: selectedItem
-        // }
-        // if(selectedItem){
-        //     payload.plan_id=selectedItem  
-        // }
-        Api_Dashboard.post('/specification', {
-            teacher_id: selectedItem
 
-        }).then((response) => {
+        e.preventDefault();
+        const payload = {
+            teacher_id: selectedItem
+        }
+        if(idOfPointSelected){
+            payload.plan_id=idOfPointSelected  
+        }
+        console.log(payload);
+
+        Api_Dashboard.post('/specification', payload).then((response) => {
             let x=response.data.message
             SetAlertPointSuccess(x)
             notify()
@@ -98,6 +106,7 @@ export default function Specification() {
 
 
         }).catch((err) => {
+            console.log(err);
             let x=err.response.data.message
             SetAlertPoint(x);
             Errornotify()
@@ -181,12 +190,12 @@ export default function Specification() {
                                         id="dataSelect"
                                         className="form-select"
                                         // value=""
-                                        onChange={getTeacherInselection}
+                                        onChange={getPoint}
                                         
                                     >
                                         <option value="" disabled selected>اختر اسم الباقه</option>
                                         {activePlanData.map((item, index) => (
-                                            <option  key={index} value={item.id}>
+                                            <option  key={index} value={item.plan.id}>
                                                 {item.plan.name}
                                             </option>
                                         ))}

@@ -29,7 +29,7 @@ function EnterCodeDashBoard() {
         setError('');
         dispatch(setToken(code)); 
         setTimeout(() => {
-          navigate('/dashboard/DashboardNewPassword');
+          navigate('/DashboardNewPassword');
         }, 3000);
       })
       .catch((error) => {

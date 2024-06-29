@@ -106,7 +106,7 @@ erroralertform?
                                 label=""
                                 className="rem_login" 
                              /> 
-                             <Link to="/dashboard/forget_password" className="forgot-password">نسيت كلمة المرور؟</Link>
+                             <Link to="/forget_password" className="forgot-password">نسيت كلمة المرور؟</Link>
                             {/* <a href="#" className="forgot-password">نسيت كلمة المرور؟</a> */}
                         </Form.Group>
                         <Button style={{marginTop:"20px"}} type="submit" className="btn login_btn">تسجيل الدخول</Button>

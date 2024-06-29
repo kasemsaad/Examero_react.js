@@ -19,6 +19,9 @@ function NewPassDashBoard() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(  email,
+        token,
+        password);
     Api_Dashboard.post('/reset-password', {
       email,
       token,
@@ -26,6 +29,7 @@ function NewPassDashBoard() {
       password_confirmation: passwordConfirmation,
     })
       .then((response) => {
+        console.log("khaiiiiiiiiiiiiiii");
         setSuccess('تم إعادة تعيين كلمة المرور بنجاح.');
         setError('');
       })

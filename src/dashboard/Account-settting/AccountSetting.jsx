@@ -18,7 +18,6 @@ import editPencil from "./../../assets/image/Ellipse 202.svg"
 
 
 function AccountSetting() {
-
   const [alert , Setalert]=useState(false)
   const [alerterror , Setalerterror]=useState(false)
 
@@ -30,7 +29,7 @@ function AccountSetting() {
     governorate: "",
     date_of_birth: '',
     phone_number: "",
-    ImagePath: "" ,
+    image: "" ,
   })
 
   const [errormesssage,Seterrormessage]=useState('')
@@ -41,7 +40,14 @@ function AccountSetting() {
     USER[e.target.name]=e.target.value
     setInputUser(USER)
   }
+  
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setInputUser({ ...inputUser, image: file });
+    }
+  }
   useEffect(()=>{
     getRefreshUser()
   },[])
@@ -55,49 +61,72 @@ function AccountSetting() {
      })
   }
 
+
 //  fn to post object which take from inputs 
   const HandleSubmit =async (event) => {
+
     event.preventDefault();
-    // const payload = {
-    //   first_name: inputUser.firstName,
-    //   last_name: inputUser.lastName,
-    //   date_of_birth: inputUser.date_of_birth,
-    //   phone_number: inputUser.phone_number,
-    //   governorate: inputUser.governorate,
-    //   email: inputUser.email
-    // };
+    const payload = {
+      first_name: inputUser.firstName,
+      last_name: inputUser.lastName,
+      date_of_birth: inputUser.date_of_birth,
+      phone_number: inputUser.phone_number,
+      governorate: inputUser.governorate,
+      email: inputUser.email
+    };
 
-    // if (inputUser.ImagePath) {
-    //   payload.ImagePath = inputUser.ImagePath;
-    // }
+    if (inputUser.image) {
+      payload.image = inputUser.image;
+    }
 
-    await Api_Dashboard.post('/update',{
-      first_name:inputUser.firstName,
-      last_name:inputUser.lastName,
-      date_of_birth:inputUser.date_of_birth,
-      phone_number:inputUser.phone_number,
-      governorate:inputUser.governorate,
-      email:inputUser.email ,
-      // ImagePath ? ImagePath :inputUser.ImagePath :""
 
-     
-
-    }).then((response)=>{
-      // console.log(response)
-      Setalert(true)
-    setTimeout(()=>{
-      Setalert(false)
-    },2000)
-
-    }).catch((err)=>{
-
-      Seterrormessage(err.response.data.message)
-      Setalerterror(true)
-      setTimeout(()=>{
-        Seterrormessage(false)
-      },2000)
-    }) 
+    await Api_Dashboard.post('/update', payload, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        }).then((response) => {
+          Setalert(true);
+          setTimeout(() => {
+            Setalert(false);
+          }, 2000);
+        }).catch((err) => {
+          Seterrormessage(err.response.data.message);
+          Setalerterror(true);
+          setTimeout(() => {
+            Seterrormessage(false);
+          }, 2000);
+        });
   };
+
+  // const HandleSubmit = async (event) => {
+  //   event.preventDefault();
+  //   const formData = new FormData();
+  //   formData.append('first_name', inputUser.firstName);
+  //   formData.append('last_name', inputUser.lastName);
+  //   formData.append('date_of_birth', inputUser.date_of_birth);
+  //   formData.append('phone_number', inputUser.phone_number);
+  //   formData.append('governorate', inputUser.governorate);
+  //   formData.append('email', inputUser.email);
+  //   if (inputUser.image) {
+  //     formData.append('image', inputUser.image);
+  //   }  
+  //   await Api_Dashboard.post('/update', formData, {
+  //     headers: {
+  //       'Content-Type': 'multipart/form-data'
+  //     }
+  //   }).then((response) => {
+  //     Setalert(true);
+  //     setTimeout(() => {
+  //       Setalert(false);
+  //     }, 2000);
+  //   }).catch((err) => {
+  //     Seterrormessage(err.response.data.message);
+  //     Setalerterror(true);
+  //     setTimeout(() => {
+  //       Seterrormessage(false);
+  //     }, 2000);
+  //   });
+  // };
 //********This all about showing data in inputs and get user and showing it in inputs ************************* */
 
 const [paswwordInputs,SetpasswordInput]=useState({
@@ -140,15 +169,16 @@ const getInputPasswor=(e)=>{
     <>
       <div className="container" style={{ overflow: 'auto', marginTop: '10px', direction: 'rtl', height: 'auto' }}>
         <div className=" w-100 h-100 pb-4" style={{ height: '60vh', marginTop: '80px', position: 'relative', borderRadius: '24px', border: '1px #4941A6 solid' }}>
-        <form onSubmit={(e) => HandleSubmit(e)}>
+        <form onSubmit={(e) => HandleSubmit(e)} encType="multipart/form-data">
 
         <div>
-      <input type="hidden" name="id" />
       <div className="upload">
-        <img src={photo} id="image" alt="Upload Preview" />
+  
+      <img src={`http://127.0.0.1:8000/assets/Admin/${inputUser.media?.name}`} id="image" alt="Upload Preview" />
+
 
         <div className="rightRound" id="upload">
-          <input type="file" name="fileImg" id="fileImg" accept=".jpg, .jpeg, .png" />
+          <input type="file"   accept=".jpg, .jpeg, .png" name='image' onChange={handleImageChange} />
           <i className="fa fa-camera"></i>
         </div>
 
