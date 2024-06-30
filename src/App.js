@@ -52,6 +52,7 @@ import RewardTeacher from './dashboard/Reward/rewardTeacher/rewardTeacher.jsx';
 import ForgetPassDashBoard from './dashboard/Forget_password/forget_pass.jsx';
 import EnterCodeDashBoard from './dashboard/Forget_password/enterCodeOfReset/enterCode.jsx';
 import NewPassDashBoard from './dashboard/Forget_password/DashboardNewPassword/NewPassword.jsx';
+import ErrorPage from './dashboard/Error/errorPage.jsx';
 
 function App(props) {
   return (
@@ -72,10 +73,12 @@ function App(props) {
           <Route path="/TeacherEnterCode" element={<ResetCodePageTech/>} />
           <Route path="/TeacherSendEmail" element={<ResetPage1Teacher/>} /> 
 
+
           <Route path="/student/" element={<LayoutComp />} >
           <Route path="homeStudentView" element={<HomeStudentView/>} />
           <Route path="createExam" element={<CreateExam/>} />
            </Route>
+
            <Route path="/teacher/" element={<LayoutComp />} >
           <Route path="homeTeacherview" element={<Hometeacherview/>} />
            </Route>
@@ -93,6 +96,7 @@ function App(props) {
            </Route>
            <Route path="/teacher/" element={<LayoutComp />} >
           <Route path="Certified_exam" element={<Certified_exam/>} />
+
            </Route>
            <Route path="login_dashboard" element={<HomeDashoardLogin />} />
            <Route path="forget_password" element={<ForgetPassDashBoard />} />
@@ -128,7 +132,12 @@ function App(props) {
           
 
 
+          
+
+
            </Route>
+           <Route path="/*" element={<ErrorPage />} />
+
         </Routes>
       </BrowserRouter>
   );
