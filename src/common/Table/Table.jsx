@@ -20,7 +20,7 @@ function MyTable({
   const { toggle, butt, imag, checkbox } = other || {};
 
   return (
-    <table className="rounded-table">
+    <table className="rounded-table-ta">
       {/* <DeleteAnItem /> */}
       {/* <AddOrEditModal /> */}
 

@@ -8,50 +8,50 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import CreateExamIcon from '../../../assets/icons/Home/wpf_create-new.svg'
 import Api_Website from '../../../utlis/axios_utils_websit';
 function CreateExam(props) {
-   
+
 
   const layoutBackground = useSelector((state) => state.dark.lay);
   const [duration, setDuration] = useState('');  // User input for duration
   const [timeLeft, setTimeLeft] = useState(0);   // Time left in seconds
   const [isActive, setIsActive] = useState(false); // Timer state
-  const [timeValidationMessage,setTimeValidationMessage] = useState('');
+  const [timeValidationMessage, setTimeValidationMessage] = useState('');
   // Function to start the timer
   const startTimer = () => {
-    
-      const parsedDuration = parseInt(duration);
 
-      if (isNaN(parsedDuration) || parsedDuration <= 0) {
-        return;
-      }
+    const parsedDuration = parseInt(duration);
 
-      setTimeLeft(parsedDuration * 60);  // Convert minutes to seconds
-      setIsActive(true);  // Start the timer
+    if (isNaN(parsedDuration) || parsedDuration <= 0) {
+      return;
+    }
+
+    setTimeLeft(parsedDuration * 60);  // Convert minutes to seconds
+    setIsActive(true);  // Start the timer
   };
 
   // Handle the countdown logic using useEffect
   useEffect(() => {
-      let interval = null;
-      if (isActive && timeLeft > 0) {
-          interval = setInterval(() => {
-              setTimeLeft(prevTime => prevTime - 1);
-          }, 1000);
-      } else if (timeLeft === 0 && isActive) {
-          clearInterval(interval);
-          setTimeout(() => {
-            
-            const modalElementExams = document.getElementById('Exam');
-          modalElementExams.style.display = "none"
-            const modalElementFinishTimer = document.getElementById('FinishTimer');
-          modalElementFinishTimer.style.display = "block"
-          setData("")
-          setSelectedOptions("")
-          }, 9000);
-          setIsActive(false);
-        }
-        
-        return () => clearInterval(interval);
-      }, [isActive, timeLeft]);
-    
+    let interval = null;
+    if (isActive && timeLeft > 0) {
+      interval = setInterval(() => {
+        setTimeLeft(prevTime => prevTime - 1);
+      }, 1000);
+    } else if (timeLeft === 0 && isActive) {
+      clearInterval(interval);
+      setTimeout(() => {
+
+        const modalElementExams = document.getElementById('Exam');
+        modalElementExams.style.display = "none"
+        const modalElementFinishTimer = document.getElementById('FinishTimer');
+        modalElementFinishTimer.style.display = "block"
+        setData("")
+        setSelectedOptions("")
+      }, 9000);
+      setIsActive(false);
+    }
+
+    return () => clearInterval(interval);
+  }, [isActive, timeLeft]);
+
 
   // Convert timeLeft to minutes and seconds for display
   const minutes = Math.floor(timeLeft / 60);
@@ -150,21 +150,61 @@ function CreateExam(props) {
   const handleGroupChange = (id) => {
     setGroup_id(id);
   };
+  const handleChangeGroup = (event) => {
+    const selectedId = event.target.value; // Get the selected value
+    getSubject(selectedId); // Call the getSubject function with the selected id
+    handleGroupChange(selectedId); // Call the handleGroupChange function with the selected id
+  }
+
   const handleSubjectChange = (id) => {
     setSubject_id(id);
   };
+  const handleChangesubject = (event) => {
+    const selectedId = event.target.value;
+    getUnit(selectedId); // Call getUnit with the selected subject id
+    handleSubjectChange(selectedId); // Handle the subject change
+  };
+
   const handleSemesterChange = (id) => {
     setSemster(id);
+  };
+  // const [selectedSemester, setSelectedSemester] = useState('');
+
+  // Handle change event for the select element
+  const [selectedSemester, setSelectedSemester] = useState('');
+
+  // Handle change event for the select element
+  const handlesemesterChanges = (event) => {
+    const selectedId = event.target.value;
+    // setSelectedSemester(selectedId); // Update state with the selected value
+    getLesson(selectedId);           // Call the provided function with the selected id
+    handleSemesterChange(selectedId); // Call another provided function with the selected id
   };
   const handlePlansChange = (id) => {
     setPlansid(id);
   };
+  const handleChangeplas = (event) => {
+    const selectedId = event.target.value;
+    getPlans(selectedId);
+    handlePlansChange(selectedId);
+    setError('');
+  }
   const handleUnit_idChange = (id) => {
     setUnit_id(id);
+  };
+  const handleChange = (event) => {
+    const selectedId = event.target.value;
+    getLesson(selectedId);
+    handleUnit_idChange(selectedId);
   };
   const handleLesson_idChange = (id) => {
     setLesson_id(id);
   };
+  const handleLessonsChange = (event) => {
+    const selectedId = event.target.value; // Get the selected lesson ID
+    handleLesson_idChange(selectedId);
+    setError('');
+  }
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = {
@@ -215,69 +255,69 @@ function CreateExam(props) {
           } else
             if (lesson_id && !unit_id) {
               setError('الرجاء اختيار الوحده');
-            
-          } else
-            if (duration<=0) {
-              setError('مدة الامتحان يجب ان تكون دقيقة عالاقل');
-            }
-            else {
-    Api_Website.post(`/students/genrate-exam`, data)
+
+            } else
+              if (duration <= 0) {
+                setError('مدة الامتحان يجب ان تكون دقيقة عالاقل');
+              }
+              else {
+                Api_Website.post(`/students/genrate-exam`, data)
+                  .then(response => {
+                    console.log(response);
+
+                    // console.log('generat successfuly exam');
+                    const modalElementExam = document.getElementById('Exam');
+                    modalElementExam.style.display = "block"
+                    setQusetionExam(response.data.data)
+                    startTimer()
+                    const modalElementFinishTimer = document.getElementById('FinishTimer');
+                    modalElementFinishTimer.style.display = "none"
+                    //   const transformedAnswers = response.data.data.questions.map(question => ({
+                    //     question.id: [],
+                    // }));
+                    const transformedAnswers = response.data.data.questions.reduce((acc, question) => {
+                      acc.answers[question.id] = [];
+                      return acc;
+                    }, { answers: {} });
+
+                    setAnswers(transformedAnswers)
+
+
+                  })
+                  .catch(error => {
+                    console.error('Error generat exam', error);
+                  });
+
+                setError("");
+
+              }
+  };
+  const [selectedOptions, setSelectedOptions] = useState({}); // Map of questionId to selected optionIds
+  const [data, setData] = useState("");
+  const [result, setResult] = useState("");
+
+
+  const handleSubmitExam = (event) => {
+    event.preventDefault();
+    call(data)
+
+    const lastobject = call(data)
+    Api_Website.post(`/students/submit-exam`, lastobject)
       .then(response => {
-        console.log(response);
-        
-        // console.log('generat successfuly exam');
+        console.log('submit exam');
+        const modalElementSubit = document.getElementById('FinishExam');
+        modalElementSubit.style.display = "block"
         const modalElementExam = document.getElementById('Exam');
-        modalElementExam.style.display = "block"
-        setQusetionExam(response.data.data)
-        startTimer()
-        const modalElementFinishTimer = document.getElementById('FinishTimer');
-        modalElementFinishTimer.style.display = "none"
-      //   const transformedAnswers = response.data.data.questions.map(question => ({
-      //     question.id: [],
-      // }));
-      const transformedAnswers = response.data.data.questions.reduce((acc, question) => {
-        acc.answers[question.id] = [];
-        return acc;
-    }, { answers: {} });
+        modalElementExam.style.display = "none"
+        setResult(response.data.data)
 
-       setAnswers(transformedAnswers)
-              
-        
-        })
-        .catch(error => {
-          console.error('Error generat exam', error);
-        });
-        
-              setError("");
-              
-            }            
-          };
-          const [selectedOptions, setSelectedOptions] = useState({}); // Map of questionId to selected optionIds
-          const [data, setData] = useState("");
-          const [result, setResult] = useState("");
-          
-          
-          const handleSubmitExam = (event) => {
-            event.preventDefault();
-            call(data)
-
-const lastobject=call(data)
-    Api_Website.post(`/students/submit-exam`, lastobject )
-      .then(response => {
-        console.log('submit exam' );
-           const modalElementSubit = document.getElementById('FinishExam');
-           modalElementSubit.style.display = "block"
-           const modalElementExam = document.getElementById('Exam');
-           modalElementExam.style.display = "none"
-           setResult(response.data.data)
-
-           setTimeout(() => {
-           const modalElementSubit = document.getElementById('FinishExam');
-           modalElementSubit.style.display = "none"  
+        setTimeout(() => {
+          const modalElementSubit = document.getElementById('FinishExam');
+          modalElementSubit.style.display = "none"
           setData("")
           setSelectedOptions("")
-           }, 8000);
-   
+        }, 8000);
+
       })
       .catch(error => {
         console.error('Error submit exam', error);
@@ -321,52 +361,52 @@ const lastobject=call(data)
       } else {
         newSelected[questionId].push(optionId);
       }
-        return newSelected;
+      return newSelected;
     });
   };
 
-const call=(d)=>{
-  //////////////////////compa//////////////////////////////////////////////////////////////// // 
-  let obj1 =  d;
-  
-  let obj2 = answerss
-  
-  let obj3 = {
-    "answers": { }
-    ,
-         group_id: group_id,              //required
-        subject_id: subject_id,          //required
-        semster: semster,
-  };
-  console.log(obj3);
-  
-  // Add all IDs from obj2 to obj3
-  for (let id in obj2.answers) {
-    obj3.answers[id] = []
-  }
-  
-  // Compare obj1 and obj2 based on IDs
-  for (let id in obj1.answers) {
-    
-    if (obj2.answers.hasOwnProperty(id)) {
-        // If the IDs match, add obj1's array to obj3
-        obj3.answers[id] = obj1.answers[id];
-    }
-  }
- 
-  return obj3
+  const call = (d) => {
+    //////////////////////compa//////////////////////////////////////////////////////////////// // 
+    let obj1 = d;
 
-  }
- 
-useEffect(() => {
-  setData({
-      answers: selectedOptions, 
+    let obj2 = answerss
+
+    let obj3 = {
+      "answers": {}
+      ,
       group_id: group_id,              //required
       subject_id: subject_id,          //required
-      semster: semster, 
+      semster: semster,
+    };
+    console.log(obj3);
+
+    // Add all IDs from obj2 to obj3
+    for (let id in obj2.answers) {
+      obj3.answers[id] = []
+    }
+
+    // Compare obj1 and obj2 based on IDs
+    for (let id in obj1.answers) {
+
+      if (obj2.answers.hasOwnProperty(id)) {
+        // If the IDs match, add obj1's array to obj3
+        obj3.answers[id] = obj1.answers[id];
+      }
+    }
+
+    return obj3
+
+  }
+
+  useEffect(() => {
+    setData({
+      answers: selectedOptions,
+      group_id: group_id,              //required
+      subject_id: subject_id,          //required
+      semster: semster,
     });
   }, [selectedOptions]);
-  
+
   useEffect(() => {
 
     // console.log(data);
@@ -420,184 +460,142 @@ useEffect(() => {
 
                 <div className="card card-body rounded-3" style={{ backgroundColor: "#1D195D" }}>
                   <div className=" d-flex justify-content-start flex-wrap" style={{ width: "100%" }}>
-                    <div className="px-2">
-                      <label>الصف </label>
-                      <Dropdown className='p-0'>
-                        <Dropdown.Toggle
-                          className='px-5 rounded-3'
-                          style={{ color: 'black', backgroundColor: 'white', border: 'none' }}
-                          id='dropdown-basic'
-                        >
-                          إختر الصف
-                        </Dropdown.Toggle>
-
-                        <Dropdown.Menu style={{backgroundColor:"white"}}>
-                          {Array.isArray(AllGroup) && AllGroup.length > 0 ? (
-                            AllGroup.map(({ id, name }) => (
-                              <Dropdown.Item
-                                key={id}
-                                onClick={() => {
-                                  getSubject(id);
-                                  handleGroupChange(id);
-                                  setError('');
-                                }
-                                }
-                              >
-                                {name}
-                              </Dropdown.Item>
-                            ))
-                          ) : (
-                            <Dropdown.Item disabled>لا توجد مجموعات</Dropdown.Item>
-                          )}
-                        </Dropdown.Menu >
-                      </Dropdown>
-                    </div>
-                    <div>
+                    
+                        <div className='mx-2'>
                       <label>المبحث</label>
-                      <Dropdown className='p-0'>
-                        <Dropdown.Toggle
-                          className='px-5 rounded-3'
-                          style={{ color: "black", backgroundColor: "white", border: "none" }}
-                          id="dropdown-basic"
-                        >
-                          إختر المبحث
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu  style={{backgroundColor:"white"}}>
-                          {Array.isArray(AllSubject) && AllSubject.length > 0 ? (
-                            AllSubject.map(({ id, name }) => (
-                              <Dropdown.Item
-                                key={id}
-                                onClick={() => {
-                                  getUnit(id);
-                                  handleSubjectChange(id);
-                                }}
-                              >{name}</Dropdown.Item>
-                            ))
-                          ) : (
-                            <Dropdown.Item disabled>لا توجد مجموعات</Dropdown.Item>
-                          )}
-                        </Dropdown.Menu>
-                      </Dropdown>
+                      <select
+                        className="px-2 py-1 rounded-3"
+                        style={{ color: 'black', backgroundColor: 'white', border: 'none', padding: '8px', width: '100%' }}
+                        defaultValue="" // Ensures the default 'إختر المبحث' option is displayed initially
+                        onChange={handleChangesubject} // Event handler for change
+                      >
+                        <option value="" disabled>إختر المبحث</option> {/* Default placeholder option */}
+                        {Array.isArray(AllSubject) && AllSubject.length > 0 ? (
+                          AllSubject.map(({ id, name }) => (
+                            <option
+                              key={id}
+                              value={id}
+                              style={{ backgroundColor: "white", color: "black" }}
+                            >
+                              {name}
+                            </option>
+                          ))
+                        ) : (
+                          <option disabled>لا توجد مجموعات</option> // Fallback if no subjects are available
+                        )}
+                      </select>
                     </div>
-                    <div className="px-2">
-                      <label>الوحدة</label>
-                      <Dropdown className=' p-0'>
-                        <Dropdown.Toggle className='px-5 rounded-3' style={{ color: "black", backgroundColor: "white", border: "none" }} id="dropdown-basic">
-                          إختر الوحدة
-                        </Dropdown.Toggle>
-
-                        <Dropdown.Menu style={{backgroundColor:"white"}}>
-                          {Array.isArray(AllUnit) && AllUnit.length > 0 ? (
-                            AllUnit.map(({ id, name }) => (
-                              <Dropdown.Item
-                                key={id}
-                                onClick={() => {
-                                  getLesson(id);
-                                  handleUnit_idChange(id);
-                                }
-                                }
-                              >
-                                {name}
-                              </Dropdown.Item>
-                            ))
-                          ) : (
-                            <Dropdown.Item disabled>لا توجد مجموعات</Dropdown.Item>
-                          )}
-                        </Dropdown.Menu>
-                      </Dropdown>
+                    <div className='mx-2'>
+                      <label>الصف</label>
+                      <select
+                        className="px-2 py-1 rounded-3"
+                        style={{ color: 'black', backgroundColor: 'white', border: 'none', padding: '8px', width: '100%' }}
+                        value=""
+                        onChange={handleChangeGroup}
+                      >
+                        <option value="" disabled>إختر الصف</option> {/* Placeholder option */}
+                        {Array.isArray(AllGroup) && AllGroup.length > 0 ? (
+                          AllGroup.map(({ id, name }) => (
+                            <option key={id} value={id}>{name}</option> // Create an option for each group
+                          ))
+                        ) : (
+                          <option disabled>لا توجد مجموعات</option> // Fallback option if no groups are available
+                        )}
+                      </select>
                     </div>
-                    <div className="px-2">
-                      <label>الدرس</label>
-                      <Dropdown className=' p-0'>
-                        <Dropdown.Toggle className='px-5 rounded-3' style={{ color: "black", backgroundColor: "white", border: "none" }} id="dropdown-basic2">
-                          إختر الدرس
-                        </Dropdown.Toggle>
-
-                        <Dropdown.Menu style={{backgroundColor:"white"}}>
-                          {Array.isArray(AllLesson) && AllLesson.length > 0 ? (
-                            AllLesson.map(({ id, name }) => (
-                              <Dropdown.Item
-                                key={id}
-                                onClick={() => {
-                                  handleLesson_idChange(id);
-                                  setError('');
-
-                                }}
-
-                              >
-                                {name}
-                              </Dropdown.Item>
-                            ))
-                          ) : (
-                            <Dropdown.Item disabled>لا توجد مجموعات</Dropdown.Item>
-                          )}
-                        </Dropdown.Menu>
-                      </Dropdown>
-                    </div>
-                    <div className="px-1">
-                      <label>الفصل الدراسي</label>
-                      <Dropdown className='p-0'>
-                        <Dropdown.Toggle
-                          className='px-4 rounded-3'
-                          style={{ color: 'black', backgroundColor: 'white', border: 'none' }}
-                          id='dropdown-basic'
-                        >
-                          {/* {semster ? `تم اختيار الفصل: ${semster}` : 'إختر الفصل الدراسي'} */}
-                          إختر الفصل الدراسي
-                        </Dropdown.Toggle>
-
-                        <Dropdown.Menu style={{backgroundColor:"white"}}>
-                          <Dropdown.Item onClick={() => handleSemesterChange(1)}>
-                            الاول
-                          </Dropdown.Item>
-                          <Dropdown.Item onClick={() => handleSemesterChange(2)}>
-                            الثاني
-                          </Dropdown.Item>
-                        </Dropdown.Menu>
-                      </Dropdown>
-
+                
+                    <div className="mx-2">
+                      <label htmlFor="semester-select">الفصل الدراسي</label>
+                      <select
+                        id="semester-select"
+                        className="px-2 py-1 rounded-3"
+                        style={{ color: 'black', backgroundColor: 'white', border: 'none', padding: '8px', width: '100%' }}
+                        value={semster} // Bind the select value to state
+                        onChange={handlesemesterChanges}  // Handle change event
+                      >
+                        <option value="" disabled>إختر الفصل الدراسي</option>
+                        <option value="1">الأول</option>
+                        <option value="2">الثاني</option>
+                      </select>
                     </div>
 
-                    <div className="px-2">
-                      <label>الباقه</label>
-                      <Dropdown className=' p-0'>
-                        <Dropdown.Toggle className='px-5 rounded-3' style={{ color: "black", backgroundColor: "white", border: "none" }} id="dropdown-basic2">
-                          إختر الباقه
-                        </Dropdown.Toggle>
-
-                        <Dropdown.Menu style={{backgroundColor:"white"}}>
-                          {Array.isArray(Allplans) && Allplans.length > 0 ? (
-                            Allplans.map(({ id, name }) => (
-                              <Dropdown.Item
-                                key={id}
-                                onClick={() => {
-                                  getPlans(id);
-                                  handlePlansChange(id);
-                                  setError('');
-                                }
-                                }
-                              >
-                                {name}
-                              </Dropdown.Item>
-                            ))
-                          ) : (
-                            <Dropdown.Item disabled>لا توجد مجموعات</Dropdown.Item>
-                          )}
-                        </Dropdown.Menu>
-                      </Dropdown>
-                    </div>
                     <div className="px-2 d-flex flex-column">
                       <label>مدة الامتحان</label>
                       <input type='number' className=' py-2 rounded-3'
-                        
                         placeholder='إختر مدة الامتحان'
-                         value={duration} 
-                         onChange={(e) => setDuration(e.target.value)} 
+                        value={duration}
+                        onChange={(e) => setDuration(e.target.value)}
                         style={{ color: "black", backgroundColor: "white", border: "none" }} id="dropdown-basic" />
-                                        {timeValidationMessage && <p style={{ color: 'red' }}>{timeValidationMessage}</p>}
+                      {timeValidationMessage && <p style={{ color: 'red' }}>{timeValidationMessage}</p>}
 
                     </div>
+                    
 
+
+                    <div className="mx-2">
+                      <label>الوحدة</label>
+                      <select
+                        className="px-2 py-1 rounded-3"
+                        style={{ color: 'black', backgroundColor: 'white', border: 'none', padding: '8px', width: '100%' }}
+                        onChange={handleChange}
+                        defaultValue="" // Ensure no option is selected by default
+                      >
+                        <option value="" disabled>إختر الوحدة</option>
+                        {Array.isArray(AllUnit) && AllUnit.length > 0 ? (
+                          AllUnit.map(({ id, name }) => (
+                            <option key={id} value={id}>
+                              {name}
+                            </option>
+                          ))
+                        ) : (
+                          <option disabled>لا توجد مجموعات</option>
+                        )}
+                      </select>
+                    </div>
+                    
+                    <div className="mx-2">
+                      <label htmlFor="lesson-select">الدرس</label>
+                      <select
+                        id="lesson-select"
+                        className="px-2 py-1 rounded-3"
+                        style={{ color: 'black', backgroundColor: 'white', border: 'none', padding: '8px', width: '100%' }}
+                        onChange={handleLessonsChange}
+                        defaultValue=""
+                      >
+                        <option value="" disabled className='px-5 rounded-3' style={{ color: "black", backgroundColor: "white", border: "none" }}>إختر الدرس</option> {/* Placeholder option */}
+                        {Array.isArray(AllLesson) && AllLesson.length > 0 ? (
+                          AllLesson.map(({ id, name }) => (
+                            <option key={id} value={id}>
+                              {name}
+                            </option>
+                          ))
+                        ) : (
+                          <option disabled>لا توجد مجموعات</option> // Fallback option if no lessons are available
+                        )}
+                      </select>
+                    </div>
+                    
+                    <div className="mx-2">
+                      <label>الباقه</label>
+                      <select
+                        className="px-2 py-1 rounded-3"
+                        style={{ color: 'black', backgroundColor: 'white', border: 'none', padding: '8px', width: '100%' }}
+                        onChange={handleChangeplas}
+                        defaultValue="" 
+                      >
+                        <option value="" disabled>إختر الباقه</option>
+                        {Array.isArray(Allplans) && Allplans.length > 0 ? (
+                          Allplans.map(({ id, name }) => (
+                            <option key={id} value={id}>
+                              {name}
+                            </option>
+                          ))
+                        ) : (
+                          <option disabled>لا توجد مجموعات</option>
+                        )}
+                      </select>
+                    </div>
+                
 
                     <div className="px-2">
                       <label> الأسئلة </label>
@@ -606,7 +604,7 @@ useEffect(() => {
                           إختر الأسئلة
                         </Dropdown.Toggle>
 
-                        <Dropdown.Menu style={{backgroundColor:"white"}}    >
+                        <Dropdown.Menu style={{ backgroundColor: "white" }}    >
                           <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
                           <div className="drocontainer">
                             <div className="question-row">
@@ -659,145 +657,145 @@ useEffect(() => {
             </form>
           </div>
           <form className="modal-body managerForm" onSubmit={handleSubmitExam} id="Exam">
-          <div className="  ">
-            {/* /////////////////button///////////////////////////////////////////////// */}
-            <div className="lineButton " style={{}}>
-              <button className=" fs-4 rounded-5 p-0  px-4  my-2" algin="center" type="button" 
-                style={{ backgroundColor: "#FE4F60", color: "", width: "", border: "none" }} >
-                الامتحان   </button>
-            </div>
-            {/* <MyButton className="btn mx-3 py-0" style={{ height: "2.5rem", width:"8rem", color: "white", backgroundColor: "#4941A6" }} to={"/Home"} content={"انشاء حساب"} /> */}
-            {/* /////////////////endbutton///////////////////////////////////////////////// */}
-            {/* /////////////////exam///////////////////////////////////////////////// */}
-            <div id="collapseExample2">
-              {Array.isArray(QusetionExam.questions) && currentQuestions.map((question, index) => (
+            <div className="  ">
+              {/* /////////////////button///////////////////////////////////////////////// */}
+              <div className="lineButton " style={{}}>
+                <button className=" fs-4 rounded-5 p-0  px-4  my-2" algin="center" type="button"
+                  style={{ backgroundColor: "#FE4F60", color: "", width: "", border: "none" }} >
+                  الامتحان   </button>
+              </div>
+              {/* <MyButton className="btn mx-3 py-0" style={{ height: "2.5rem", width:"8rem", color: "white", backgroundColor: "#4941A6" }} to={"/Home"} content={"انشاء حساب"} /> */}
+              {/* /////////////////endbutton///////////////////////////////////////////////// */}
+              {/* /////////////////exam///////////////////////////////////////////////// */}
+              <div id="collapseExample2">
+                {Array.isArray(QusetionExam.questions) && currentQuestions.map((question, index) => (
 
-                <div  key={question.id} className="card card-body rounded-5" style={{ backgroundColor: "#1D195D" }}>
-                  <div className="d-flex align-items-center justify-content-between">
-                    <div className="d-flex px-3">
-                      <h3 >السؤال /{indexOfFirstQuestion + index + 1}</h3>
-                      {/* <h3>السؤال /{indexOfFirstQuestion + index + 1}</h3> */}
-                      <button className='me-3 text-bold rounded-3 px-4' style={{ border: "none", backgroundColor: "#C01F59", color: "white", height: "2.5rem" }}>
-                        علامة السؤال ({question.point})
-                      </button>
-                    </div>
-                    <div className="d-flex align-items-center justify-content-center">
-                      <div className="timerexam p-3 d-flex align-items-center justify-content-center" style={{ border: "2px solid #FFFFFF", borderRadius: "50%", width: "80px", height: "80px" }}>
-                        <div className='fontsizexam' style={{ color: "#FE4F60" }}>
-                          <div id="timer-display" className="timer-display" >
-                            {`${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`}
+                  <div key={question.id} className="card card-body rounded-5" style={{ backgroundColor: "#1D195D" }}>
+                    <div className="d-flex align-items-center justify-content-between">
+                      <div className="d-flex px-3">
+                        <h3 >السؤال /{indexOfFirstQuestion + index + 1}</h3>
+                        {/* <h3>السؤال /{indexOfFirstQuestion + index + 1}</h3> */}
+                        <button className='me-3 text-bold rounded-3 px-4' style={{ border: "none", backgroundColor: "#C01F59", color: "white", height: "2.5rem" }}>
+                          علامة السؤال ({question.point})
+                        </button>
+                      </div>
+                      <div className="d-flex align-items-center justify-content-center">
+                        <div className="timerexam p-3 d-flex align-items-center justify-content-center" style={{ border: "2px solid #FFFFFF", borderRadius: "50%", width: "80px", height: "80px" }}>
+                          <div className='fontsizexam' style={{ color: "#FE4F60" }}>
+                            <div id="timer-display" className="timer-display" >
+                              {`${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`}
+                            </div>
+
                           </div>
-
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div>
                     <div>
-                      <li className='bulits fontsizexam py-2'>{question.name}</li>
-                      {Array.isArray(question.options) && question.options.map(({ id, option }) => (
-                        <div key={id}>
-                          <div className='pt-2 pe-4 py-3'>
-                            <input
-                              type="checkbox"
-                              id={`vehicle-${id}-1`}
-                              name={`vehicle-${id}-1`}
-                              value="Bike"
-                              checked={selectedOptions[question.id]?.includes(id)||false}
-                              data-question-id={question.id} 
-                              data-option-id={id}
-                              onChange={() => handleCheckboxChange(question.id, id)}
-                            />
-                            <label
-                              className='btn rounded-3 px-4 me-3'
-                              style={{ color: "white", border: "2px solid #C01F59" ,width:"10vw"}}
-                              htmlFor={`vehicle-${id}-1`}
-                            >
-                              {option}
-                            </label> 
+                      <div>
+                        <li className='bulits fontsizexam py-2'>{question.name}</li>
+                        {Array.isArray(question.options) && question.options.map(({ id, option }) => (
+                          <div key={id}>
+                            <div className='pt-2 pe-4 py-3'>
+                              <input
+                                type="checkbox"
+                                id={`vehicle-${id}-1`}
+                                name={`vehicle-${id}-1`}
+                                value="Bike"
+                                checked={selectedOptions[question.id]?.includes(id) || false}
+                                data-question-id={question.id}
+                                data-option-id={id}
+                                onChange={() => handleCheckboxChange(question.id, id)}
+                              />
+                              <label
+                                className='btn rounded-3 px-4 me-3'
+                                style={{ color: "white", border: "2px solid #C01F59", width: "10vw" }}
+                                htmlFor={`vehicle-${id}-1`}
+                              >
+                                {option}
+                              </label>
                             </div>
-                        </div>
-                      ))}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="mt-5" dir='ltr'>
+                      <button onClick={handleNext} className='text-bold rounded-5 px-4 py-2' style={{ width: "100px", backgroundColor: "#C01F59", color: "white" }} disabled={isNextDisabled}>
+                        التالي
+                      </button>
+                      <button onClick={handlePrevious} className='text-bold rounded-5 px-4 py-2' style={{ width: "100px", backgroundColor: "#CDCDCD", color: "black" }} disabled={isPreviousDisabled}>
+                        السابق
+                      </button>
+                    </div>
+                    <div className="mt-5 d-flex align-items-center justify-content-center">
+                      <button type="submit" className='text-bold rounded-4 px-4 py-2' style={{ backgroundColor: "#C01F59", color: "white" }}>تسليم الامتحان</button>
                     </div>
                   </div>
-                  <div className="mt-5" dir='ltr'>
-                    <button onClick={handleNext} className='text-bold rounded-5 px-4 py-2' style={{ width: "100px", backgroundColor: "#C01F59", color: "white" }} disabled={isNextDisabled}>
-                      التالي
-                    </button>
-                    <button onClick={handlePrevious} className='text-bold rounded-5 px-4 py-2' style={{ width: "100px", backgroundColor: "#CDCDCD", color: "black" }} disabled={isPreviousDisabled}>
-                      السابق
-                    </button>
-                  </div>
-                  <div className="mt-5 d-flex align-items-center justify-content-center">
-                    <button type="submit" className='text-bold rounded-4 px-4 py-2' style={{ backgroundColor: "#C01F59", color: "white" }}>تسليم الامتحان</button>
-                  </div>
-                </div>
-              ))}
-            </div>
-            </div>
-            </form>
-
-            {/* /////////////////endexam///////////////////////////////////////////////// */}
-            {/* ////////////////الوقت  انتهي  ///////////////////////////////////////////////// */}
-
-            <div className="collapse mt-3" id="FinishTimer" style={{display:"none"}} >
-
-              <div className="card card-body rounded-5" style={{ backgroundColor: "#1D195D" }}>
-
-                <div className=" d-flex align-items-center justify-content-between ">
-
-                  <div className="  d-flex px-3">
-                  </div>
-
-                  <div className=" d-flex  align-items-center justify-content-center ">
-                    <div className="timerexam p-3  d-flex align-items-center justify-content-center " style={{ border: "2px solid #FFFFFF", borderRadius: "50%", width: "80px", height: "80px" }}>
-                      <div className='fontsizexam' style={{ color: "#FE4F60" }}>00:00</div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className=' d-flex align-items-center justify-content-center flex-column' >
-                  <i className='fas fa-exclamation text-center' style={{ width: "35px", height: "35px", fontSize: "25px", color: "#FE4F60 ", borderRadius: "50%", border: "4px solid #FE4F60" }}></i>
-                  <h2 style={{ color: layoutBackground === "#0E0A43" ? "#FE4F60" : "#4941A6", }}>  الوقت  انتهي  </h2>
-                  <h3 style={{ color: layoutBackground === "#0E0A43" ? "white" : "black" }}>قم بإعداد امتحان آخر</h3>
-                  <h5><span className='fontsizexam' style={{ color: "#FE4F60" }}>حظ موفق</span></h5>
-                </div>
-
+                ))}
               </div>
             </div>
+          </form>
 
-            {/* -------------------الوقت  انتهي  -------------------------------- */}
-            {/* /////////////////تم مراجعة النتائج ///////////////////////////////////////////////// */}
+          {/* /////////////////endexam///////////////////////////////////////////////// */}
+          {/* ////////////////الوقت  انتهي  ///////////////////////////////////////////////// */}
 
-            <div className="collapse  mt-3" style={{display:"none"}} id="FinishExam">
+          <div className="collapse mt-3" id="FinishTimer" style={{ display: "none" }} >
 
-              <div className="card card-body rounded-5" style={{ backgroundColor: "#1D195D" }}>
+            <div className="card card-body rounded-5" style={{ backgroundColor: "#1D195D" }}>
 
-                <div className=" d-flex align-items-center justify-content-between ">
+              <div className=" d-flex align-items-center justify-content-between ">
 
-                  <div className="  d-flex px-3">
-                  </div>
-
-                  <div className=" d-flex  align-items-center justify-content-center ">
-                    <div className="timerexam p-3  d-flex align-items-center justify-content-center " style={{ border: "2px solid #FFFFFF", borderRadius: "50%", width: "80px", height: "80px" }}>
-                      <div className='fontsizexam' style={{ color: "#FE4F60" }}>00 :00</div>
-                    </div>
-                  </div>
+                <div className="  d-flex px-3">
                 </div>
 
-                <div className=' d-flex align-items-center justify-content-center flex-column' >
-                  <i className='fas fa-check-double pt-1 text-center' style={{ width: "40px", height: "40px", fontSize: "29px", color: "#A6A0F4 ", borderRadius: "50%", border: "3px solid #A6A0F4" }}></i>
-                  <h2 style={{ color: layoutBackground === "#0E0A43" ? "#FE4F60" : "#4941A6", }}>تم مراجعة النتائج </h2>
-                  <h3 style={{ color: layoutBackground === "#0E0A43" ? "white " : "black" }}>حصلت على</h3>
-                  <h3><span className='fontsizexam' style={{ color: "white" }}>{result.total_score}</span> /<span className='fontsizexam' style={{ color: "#FE4F60" }}>{result.result}</span></h3>
+                <div className=" d-flex  align-items-center justify-content-center ">
+                  <div className="timerexam p-3  d-flex align-items-center justify-content-center " style={{ border: "2px solid #FFFFFF", borderRadius: "50%", width: "80px", height: "80px" }}>
+                    <div className='fontsizexam' style={{ color: "#FE4F60" }}>00:00</div>
+                  </div>
                 </div>
-
               </div>
-            </div>
 
-            {/* --------------------تم مراجعة النتائج -------------------------------- */}
+              <div className=' d-flex align-items-center justify-content-center flex-column' >
+                <i className='fas fa-exclamation text-center' style={{ width: "35px", height: "35px", fontSize: "25px", color: "#FE4F60 ", borderRadius: "50%", border: "4px solid #FE4F60" }}></i>
+                <h2 style={{ color: layoutBackground === "#0E0A43" ? "#FE4F60" : "#4941A6", }}>  الوقت  انتهي  </h2>
+                <h3 style={{ color: layoutBackground === "#0E0A43" ? "white" : "black" }}>قم بإعداد امتحان آخر</h3>
+                <h5><span className='fontsizexam' style={{ color: "#FE4F60" }}>حظ موفق</span></h5>
+              </div>
+
+            </div>
           </div>
+
+          {/* -------------------الوقت  انتهي  -------------------------------- */}
+          {/* /////////////////تم مراجعة النتائج ///////////////////////////////////////////////// */}
+
+          <div className="collapse  mt-3" style={{ display: "none" }} id="FinishExam">
+
+            <div className="card card-body rounded-5" style={{ backgroundColor: "#1D195D" }}>
+
+              <div className=" d-flex align-items-center justify-content-between ">
+
+                <div className="  d-flex px-3">
+                </div>
+
+                <div className=" d-flex  align-items-center justify-content-center ">
+                  <div className="timerexam p-3  d-flex align-items-center justify-content-center " style={{ border: "2px solid #FFFFFF", borderRadius: "50%", width: "80px", height: "80px" }}>
+                    <div className='fontsizexam' style={{ color: "#FE4F60" }}>00 :00</div>
+                  </div>
+                </div>
+              </div>
+
+              <div className=' d-flex align-items-center justify-content-center flex-column' >
+                <i className='fas fa-check-double pt-1 text-center' style={{ width: "40px", height: "40px", fontSize: "29px", color: "#A6A0F4 ", borderRadius: "50%", border: "3px solid #A6A0F4" }}></i>
+                <h2 style={{ color: layoutBackground === "#0E0A43" ? "#FE4F60" : "#4941A6", }}>تم مراجعة النتائج </h2>
+                <h3 style={{ color: layoutBackground === "#0E0A43" ? "white " : "black" }}>حصلت على</h3>
+                <h3><span className='fontsizexam' style={{ color: "white" }}>{result.total_score}</span> /<span className='fontsizexam' style={{ color: "#FE4F60" }}>{result.result}</span></h3>
+              </div>
+
+            </div>
+          </div>
+
+          {/* --------------------تم مراجعة النتائج -------------------------------- */}
         </div>
+      </div>
     </>
   )
 }
