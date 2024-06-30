@@ -33,6 +33,7 @@ import EmailVerificationStud from './websit/register and login/EmailVerification
 import HomeStudentView from './websit/Student/Student_View/homeStudentView.jsx'
 import CreateExam from './websit/Student/createExam/createExam.jsx';
 import TeacherProfile from './websit/teacher_view/teacher profile/teacherProfile.jsx';
+import DataStudentExam from './websit/Student/dataStudentExam/dataStudentExam.jsx'
 
 
 import HomeDashoardLogin from './dashboard/homeLogin/homeLogin.jsx';
@@ -67,6 +68,7 @@ function App(props) {
           <Route path="/student/" element={<LayoutComp />} >
           <Route path="homeStudentView" element={<HomeStudentView/>} />
           <Route path="createExam" element={<CreateExam/>} />
+          <Route path="dataStudentExam" element={<DataStudentExam/>} />
            </Route>
            <Route path="/teacher/" element={<LayoutComp />} >
             <Route path="TeacherProfile" element={<TeacherProfile/>} />

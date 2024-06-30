@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import axios from "axios";
 import { Link } from "react-router-dom";
 import styled from 'styled-components';
 import './HomeStyle.css';
@@ -13,7 +12,9 @@ import ImgProfile from "../../assets/image/home/Group 322.svg";
 import ImgProfile2 from "../../assets/image/home/Group 323.svg";
 import ImgProfile3 from "../../assets/image/home/Group 320.svg";
 import ImgProfile4 from "../../assets/image/home/Group 323.svg";
-import request from "../../utlis/axios_utils_websit.jsx";
+import Api_Website from "../../utlis/axios_utils_websit";
+import { useNavigate } from 'react-router-dom';
+import TawkToScript from '../chat/TawkToScript.jsx';
 
 function Home() {
     const sec1 = useRef();
@@ -42,26 +43,74 @@ function Home() {
 
     const [student_data, setStudent_data] = useState(null);
     const [teacher_data, setTeacher_data] = useState(null);
+    const [Data, setData] = useState(""); 
+    const navigate = useNavigate();
+    const user=localStorage.getItem("user")
+    const logout = ()=>{
+        if(user==="student"){
+               
+            Api_Website.post(`/students/logout`)
+        .then(response => {      
+            localStorage.removeItem("token");
+            navigate("/")
+            
+        })
+        .catch(error => {
+            
+            console.error("Error not logout ");
+        });
+    }else{
+        Api_Website.post(`/teachers/logout`)
+        .then(response => {      
+            localStorage.removeItem("token");
+            navigate("/")
+        })
+        .catch(error => {
+            
+            console.error("Error not logout ");
+        });
+    }
 
+    }
     useEffect(() => {
-        // Fetching data using axios
-        request({ url: '/teacher-plan', method: "get" })
-            .then(response => {
-                setTeacher_data(response.data);
-                console.log(setTeacher_data)
+     
 
-            })
-            .catch(error => {
-                console.error("Error fetching teacher data:", error);
-            });
+        Api_Website.get(`/students/refresh`)
+        .then(response => {
+            setData(response.data.User);
+      
+        })
+        .catch(error => {
+          
+            console.error("Error fetching subjects data:");
+        });
 
-        request({ url: '/student-plan' })
-            .then(response => {
-                setStudent_data(response.data);
-            })
-            .catch(error => {
-                console.error("Error fetching student data:", error);
-            });
+            // Api_Website.get(`/teachers/refresh`)
+            // .then(response => {
+            //     setData(response.data);
+            //   console.log(response.data);
+            // })
+            // .catch(error => {
+            //   console.error("Error fetching subjects data:");
+            // });
+
+        Api_Website.get(`/teacher-plan`)
+        .then(response => {
+            setTeacher_data(response.data);
+        })
+        .catch(error => {
+            console.error("Error fetching teacher data:", error);
+        });
+
+        Api_Website.get(`/student-plan`)
+        .then(response => {
+            setStudent_data(response.data);
+        })
+        .catch(error => {
+            console.error("Error fetching student data:", error);
+        });
+
+      
 
         window.addEventListener('scroll', handleScroll);
 
@@ -75,9 +124,27 @@ function Home() {
     if (!student_data || !teacher_data) {
         return <div>Loading...</div>;
     }
-
+    setTimeout(() => {
+        
+        const token=localStorage.getItem("token")
+        if(token)
+            {
+                const login = document.getElementById('login');
+                login.style.display = "block";
+                const buttonsz = document.getElementById('buttons');
+                buttonsz.style.display = "none";
+                        }
+                        else{
+                            const login = document.getElementById('login');
+                            login.style.display = "none";
+                            const buttonsz = document.getElementById('buttons');
+                            buttonsz.style.display = "block";   
+                        }
+    }, 100);
+    
     return(
         <>
+  <TawkToScript />
             <link
                 rel="stylesheet"
                 href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
@@ -116,9 +183,18 @@ function Home() {
                     </li>
                 </ul>
             </div>
-            <div>
+            <div id="login" >
+                <Link className="btn   " style={{ height: "2.5rem", width:"8rem", color: "#4941A6", backgroundColor: "" }}  to={"/student/homeStudentView"}>{Data.fullName}</Link>
+                <button    onClick={()=>{logout()}} className="btn  " style={{ height: "2.5rem", width:"8rem" , border: "none" }} >تسجيل خروج</button>
+            </div>
+            <div id="buttons" >
                 <Link className="btn mx-3  " style={{ height: "2.5rem", width:"8rem", color: "white", backgroundColor: "#4941A6" }}  to={"/CreateStudentAccount"}>انشاء حساب</Link>
-                <Link className="btn mx-3 " style={{ height: "2.5rem", width:"8rem" , border: "2px solid #4941A6" }} to={"/login_student"} >تسجيل الدخول</Link>
+                <Link className="btn mx-3"  type="button"
+        style={{ height: "2.5rem", width:"8rem", border: "2px solid #4941A6" }}  
+        to={"/Login_student"}
+        >
+    تسجيل الدخول
+</Link>
             </div>
             </div>
             </div>
