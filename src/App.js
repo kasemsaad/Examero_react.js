@@ -34,6 +34,8 @@ import HomeStudentView from './websit/Student/Student_View/homeStudentView.jsx'
 import CreateExam from './websit/Student/createExam/createExam.jsx';
 import TeacherProfile from './websit/teacher_view/teacher profile/teacherProfile.jsx';
 import DataStudentExam from './websit/Student/dataStudentExam/dataStudentExam.jsx'
+import EditStudentProfaile from './websit/Student/editStudentProfaile/editStudentProfaile.jsx'
+import ProtectedRouteWebsite from '../src/websit/protectedRouteWebsite/protectedRouteWebsite.jsx';
 
 
 import HomeDashoardLogin from './dashboard/homeLogin/homeLogin.jsx';
@@ -44,6 +46,7 @@ import ProtectedRoute from './dashboard/protectedRouteDashboard.jsx/protectedRou
 import Plans from './dashboard/Plans/Plans.jsx';
 import PlansStudent from './dashboard/Plans/PlansStudent/PlansStudent.jsx';
 import PlansTeacher from './dashboard/Plans/PlansTeacher/PlansTeacher.jsx';
+import NotFound from './websit/Student/notfound.jsx';
 
 
 function App(props) {
@@ -65,11 +68,32 @@ function App(props) {
           <Route path="/TeacherEnterCode" element={<ResetCodePageTech/>} />
           <Route path="/TeacherSendEmail" element={<ResetPage1Teacher/>} /> 
 
-          <Route path="/student/" element={<LayoutComp />} >
-          <Route path="homeStudentView" element={<HomeStudentView/>} />
-          <Route path="createExam" element={<CreateExam/>} />
-          <Route path="dataStudentExam" element={<DataStudentExam/>} />
+          <Route path="/student" element={<LayoutComp />} >
+          <Route index element={
+            <Home/>
+            } />
+          <Route path="homeStudentView" element={
+            <ProtectedRouteWebsite>
+              <HomeStudentView/>
+          </ProtectedRouteWebsite>
+            } />
+          <Route path="createExam" element={
+            <ProtectedRouteWebsite>
+              <CreateExam/>
+            </ProtectedRouteWebsite>
+            } />
+          <Route path="dataStudentExam" element={
+            <ProtectedRouteWebsite>
+             <DataStudentExam/>
+            </ProtectedRouteWebsite>
+            } />
+          <Route path="editStudentProfaile" element={
+            <ProtectedRouteWebsite>
+             <EditStudentProfaile/>
+             </ProtectedRouteWebsite>
+             } />
            </Route>
+           
            <Route path="/teacher/" element={<LayoutComp />} >
             <Route path="TeacherProfile" element={<TeacherProfile/>} />
             <Route path="InsertingOpenEmisTags" element={<InsertingOpenEmisTags/>} />
@@ -101,6 +125,7 @@ function App(props) {
 
 
            </Route>
+           <Route path="/*" element={<NotFound />} />
 
         </Routes>
       </BrowserRouter>

@@ -14,24 +14,25 @@ import ImgProfile3 from "../../assets/image/home/Group 320.svg";
 import ImgProfile4 from "../../assets/image/home/Group 323.svg";
 import Api_Website from "../../utlis/axios_utils_websit";
 import { useNavigate } from 'react-router-dom';
-import TawkToScript from '../chat/TawkToScript.jsx';
+import TawkToScript from '../chat/TawkToScript';
 
 function Home() {
+    const setId = (id) => {
+     localStorage.setItem("sidbarId", JSON.stringify(id));
+      };
+
     const sec1 = useRef();
     const sec2 = useRef();
     const sec3 = useRef();
     const sec4 = useRef();
     const sec5 = useRef();
     const sec6 = useRef();
-
-    // Function to handle smooth scroll to section
     const scrollHandler = (elmRef) => {
         window.scrollTo({ top: elmRef.current.offsetTop, behavior: "smooth" });
     }
-
     const handleScroll = () => {
-        const sections = document.querySelectorAll('.animationBoxltr, .animationBoxrtl, .animationBoxltrimg, .animationBoxrtlimg  ');
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const sections = document.querySelectorAll('.animationBoxltr, .animationBoxrtl, .animationBoxltrimg, .animationBoxrtlimg  ');
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
         sections.forEach(section => {
             const rect = section.getBoundingClientRect();
@@ -122,7 +123,12 @@ function Home() {
     }, []); 
 
     if (!student_data || !teacher_data) {
-        return <div>Loading...</div>;
+        return  <>
+        <div className="spinner">
+        <div className="double-bounce1"></div>
+        <div className="double-bounce2"></div>
+      </div>
+        </>;
     }
     setTimeout(() => {
         
@@ -184,7 +190,7 @@ function Home() {
                 </ul>
             </div>
             <div id="login" >
-                <Link className="btn   " style={{ height: "2.5rem", width:"8rem", color: "#4941A6", backgroundColor: "" }}  to={"/student/homeStudentView"}>{Data.fullName}</Link>
+                <Link className="btn" onClick={()=>{setId(1)}} style={{ height: "2.5rem", width:"8rem", color: "#4941A6", backgroundColor: "" }}  to={"/student/homeStudentView"}>{Data.fullName}</Link>
                 <button    onClick={()=>{logout()}} className="btn  " style={{ height: "2.5rem", width:"8rem" , border: "none" }} >تسجيل خروج</button>
             </div>
             <div id="buttons" >
