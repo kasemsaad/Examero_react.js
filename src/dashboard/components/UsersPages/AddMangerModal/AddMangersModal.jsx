@@ -8,6 +8,7 @@ import { json } from "react-router-dom";
 const AddMangerModel = ({ fetchAllData, content, api }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const element = document.getElementById("add-manger-dash");
 
   const {
     register,
@@ -18,7 +19,7 @@ const AddMangerModel = ({ fetchAllData, content, api }) => {
   const handleRegistration = async (userData) => {
     await Api_Dashboard.post(`/${api}`, userData)
       .then((response) => {
-        console.log(JSON.stringify(response));
+        element.style.display = "none";
         fetchAllData();
       })
       .catch((err) => {
@@ -462,7 +463,6 @@ const AddMangerModel = ({ fetchAllData, content, api }) => {
                 <div className="modal-footer-new new-footer">
                   <button
                     type="submit"
-                    data-bs-dismiss="modal"
                     className="btn btn-primary"
                     style={{
                       borderRadius: "30px",

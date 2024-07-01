@@ -11,8 +11,6 @@ const EditLessonModal = ({
   RowDataOfLesson,
   fetchUnitsBySubjectId,
 }) => {
-  console.log(RowDataOfLesson);
-  console.log(activeUnits);
   const [formData, setFormData] = useState({
     group_id: "",
     subject_id: "",
@@ -21,6 +19,7 @@ const EditLessonModal = ({
     name: "",
   });
   const [errors, setErrors] = useState({});
+  const element = document.getElementById("edit-lesson-dash");
   const [edit, setEdit] = useState({
     group_id: "",
     status: "",
@@ -46,9 +45,7 @@ const EditLessonModal = ({
 
   const handelChange = (e) => {
     const { name, value } = e.target;
-    console.log(name);
-    console.log(value);
-
+    setErrors("");
     if (name === "group_id") {
       fetchSubjectByIdOfClass(value);
     }
@@ -76,22 +73,28 @@ const EditLessonModal = ({
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const newErrors = {};
+    if (!formData.unit_id) newErrors.unit_id = "يرجى ادخال اسم الوحدة ";
+    if (!formData.name) newErrors.name = "يرجى ادخال اسم الدرس ";
+    if (!formData.subject_id) newErrors.subject_id = "يرجى اختيار اسم المبحث ";
+    if (!formData.group_id) newErrors.group_id = "يرجى ادخال اسم الدرس ";
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
     try {
       // Simulate API call
       const response = await Api_Dashboard.post(
         `/lessons/${RowDataOfLesson.id}`,
         edit
       ); // Update with correct API path
+      element.style.display = "none";
       fetchAllLessons();
-      console.log("Form submitted successfully:", response.data);
     } catch (error) {
-      console.log(error);
       setErrors({
         apiError: error.response?.data?.message || "Error submitting form",
       });
     }
-    console.log(formData);
-    console.log(edit);
   };
 
   return (
@@ -292,6 +295,7 @@ const EditLessonModal = ({
                           </option>
                         ))}
                     </select>
+                    <span style={{ color: "red" }}>{errors.group_id}</span>
                   </div>
                   {/*  */}
                   <div
@@ -358,7 +362,6 @@ const EditLessonModal = ({
                   <button
                     type="submit"
                     className="btn btn-primary"
-                    data-bs-dismiss="modal"
                     style={{
                       borderRadius: "30px",
                       border: "none",
@@ -386,11 +389,6 @@ const EditLessonModal = ({
                     إلغاء
                   </button>
                 </div>
-                {errors.apiError && (
-                  <div style={{ color: "red", marginTop: "10px" }}>
-                    {errors.apiError}
-                  </div>
-                )}
               </form>
             </div>
           </div>

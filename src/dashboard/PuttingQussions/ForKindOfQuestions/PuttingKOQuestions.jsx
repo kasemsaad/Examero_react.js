@@ -8,6 +8,7 @@ import FormFPkindOfQ from "../../components/PuttingQuesionsPage/FormForKindOfQ/F
 import "./ForKindOfQuestions.css";
 import PaginationForPuttingQ from "../paginationForPutingQ/paginationForPatingQ";
 import Api_Dashboard from "../../interceptor/interceptorDashboard";
+import DeleteUserModal from "../../components/UsersPages/DeletUserModal/DeleteUserModal";
 const PuttingKindOfQ = () => {
   let header = {
     name1: "نوع السؤال",
@@ -15,41 +16,15 @@ const PuttingKindOfQ = () => {
     name3: "الخصائص",
   };
 
-  let body = [
-    {
-      id: 2,
-      name1: "اسم الصف",
-      name2: "اسم الصف",
-    },
-    {
-      id: 3,
-      name1: "اسم الصف",
-      name3: "اسم الصف",
-    },
-    {
-      id: 4,
-      name1: "اسم الصف",
-      name4: "اسم الصف",
-    },
-    {
-      id: 6,
-      name1: "اسم الصف",
-      name4: "اسم الصف",
-    },
-    {
-      id: 1,
-      name1: "اسم الصف",
-      name5: "اسم الصف",
-    },
-  ];
-
   let icon = { trash: true };
   let other = { toggle: true };
   const [metaFPagination, setMetaFPagination] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = metaFPagination.last_page;
   const [typeOfQuesions, setTypeOfQuesions] = useState("");
-  const fetchAllUnits = async () => {
+  const [DeletedItem, setDeletedItem] = useState("");
+
+  const fetchAllKQuestons = async () => {
     const respons = await Api_Dashboard.get(
       `/questions-type?page=${currentPage}`
     )
@@ -65,7 +40,7 @@ const PuttingKindOfQ = () => {
       });
   };
   useEffect(() => {
-    fetchAllUnits();
+    fetchAllKQuestons();
   }, [currentPage]);
 
   const newTypes = useMemo(() => {
@@ -100,7 +75,7 @@ const PuttingKindOfQ = () => {
           <div>
             <AddComponent addStyle={"add-lesson"} content={"إضافة نوع سؤال"} />
           </div>
-          <FormFPkindOfQ />
+          <FormFPkindOfQ fetchAllKQuestons={fetchAllKQuestons} />
           <div
             className=" d-flex align-items-center my-info-kind"
             style={{ height: "9rem" }}
@@ -121,12 +96,21 @@ const PuttingKindOfQ = () => {
               header={header}
               body={newTypes}
               icons={icon}
+              deleteModalName={"#deleteElementModal_users-dash"}
+              handelDeleteItem={(id) => {
+                setDeletedItem(id);
+              }}
             />
           </div>
           <PaginationForPuttingQ
             totalPages={totalPages}
             currentPage={currentPage}
             setCurrentPage={(page) => setCurrentPage(page)}
+          />
+          <DeleteUserModal
+            fetchAllData={fetchAllKQuestons}
+            api={"questions-type"}
+            idOfDeleteItem={DeletedItem}
           />
         </div>
         <FooterFPuttingQ next={"التالي"} prev={"السابق"} />

@@ -10,16 +10,14 @@ const FormFPLessons = ({
   activeUnits,
   fechAlllessons,
 }) => {
-  console.log(activeUnits);
+  const [errors, setErrors] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     unit_id: "",
   });
   const handelChange = (e) => {
     const { name, value } = e.target;
-    console.log(name);
-    console.log(value);
-
+    setErrors("");
     if (name === "group_id") {
       fetchSubjectByIdOfClass(value);
     }
@@ -33,23 +31,30 @@ const FormFPLessons = ({
       });
     }
   };
+  const handleAddLesson = async (data) => {
+    if (data) {
+      await Api_Dashboard.post("/lessons", data)
+        .then((response) => {
+          fechAlllessons();
+        })
+        .catch((err) => {
+          console.log(err.response.data.errors);
+          setErrors(err.response.data.errors);
+        });
+    }
+  };
   const handelSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
-    const handleAddLesson = async (data) => {
-      if (data) {
-        await Api_Dashboard.post("/lessons", data)
-          .then((response) => {
-            console.log(data);
-            console.log(response);
+    console.log("dfdsf");
+    const newErrors = {};
 
-            fechAlllessons();
-          })
-          .catch((err) => {
-            console.log(err.response.data.errors);
-          });
-      }
-    };
+    if (!formData.unit_id) newErrors.unit_id = "يرجى ادخال اسم الوحدة ";
+    if (!formData.name) newErrors.name = "يرجى ادخال اسم الدرس ";
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
     handleAddLesson(formData);
   };
 
@@ -71,6 +76,10 @@ const FormFPLessons = ({
                 aria-describedby="emailHelp"
                 placeholder="أدخل اسم الدرس هنا"
               />
+
+              <span style={{ color: "red", fontSize: "12px" }}>
+                {errors.name}
+              </span>
             </div>
             <div className="col-5 col-md-6 col-lg-3 ">
               <label htmlFor="select1" className="form-label mb-2">
@@ -98,6 +107,9 @@ const FormFPLessons = ({
                     );
                   })}
               </select>
+              <span style={{ color: "red", fontSize: "12px" }}>
+                {errors.unit_id}
+              </span>
             </div>
             <div className="col-5 col-md-6 col-lg-3 ">
               <label htmlFor="select2" className="form-label mb-2">

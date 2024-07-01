@@ -2,22 +2,20 @@ import React, { useState, useEffect, useMemo } from "react";
 import Api_Dashboard from "../../../interceptor/interceptorDashboard";
 import { MultiSelect } from "react-multi-select-component";
 import "./EditSubjectModal.css";
-
 const EditSubjectModal = ({
   rowDataOfSubjects,
   fetchAllData,
   activeClasses,
 }) => {
-  const [formData, setFormData] = useState({ name: "", groupIds: [] });
-  const [subjectErrors, setSubjectErrors] = useState("");
-
+  const [selectedFlavors, setSelectedFlavors] = useState([]);
+  const [errors, setErrors] = useState(true);
+  const element = document.getElementById("editSubjectModal");
   const [editClass, setEditClass] = useState({
     name: "",
     status: "",
     group_id: "",
     subject_id: "",
   });
-
   // Initialize the state with the values from rowDataOfSubjects
   useEffect(() => {
     if (rowDataOfSubjects) {
@@ -26,19 +24,17 @@ const EditSubjectModal = ({
         status: rowDataOfSubjects.status === 0 ? 0 : 1,
         groupIds: rowDataOfSubjects.groupIds || [],
       });
-      console.log(rowDataOfSubjects);
       setSelectedFlavors();
     }
   }, [rowDataOfSubjects, activeClasses]);
-  console.log();
   const getEditingInputs = (e) => {
     const { name, value } = e.target;
+    setErrors({});
     setEditClass((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
-  console.log(editClass);
   const newData0 = useMemo(() => {
     if (rowDataOfSubjects && rowDataOfSubjects.groups) {
       return rowDataOfSubjects.groups.map((option) => ({
@@ -57,7 +53,6 @@ const EditSubjectModal = ({
     }
     return [];
   }, [activeClasses]);
-  const [selectedFlavors, setSelectedFlavors] = useState([]);
 
   // Initialize selectedFlavors with newData0 when the component mounts
   useEffect(() => {
@@ -72,19 +67,18 @@ const EditSubjectModal = ({
     if (rowDataOfSubjects) {
       await Api_Dashboard.post(`/subjects/${rowDataOfSubjects.id}`, editClass)
         .then((response) => {
-          console.log(response);
+          element.style.display = "none";
           fetchAllData();
         })
         .catch((err) => {
-          console.log(err);
-          setSubjectErrors(err.response.data.errors);
+          setErrors(err.response.data.errors);
         });
     }
   };
-  const [x, setx] = useState(true);
 
   const handleMultiSelectChange = (selectedOptions) => {
     setSelectedFlavors(selectedOptions);
+    setErrors({});
     setEditClass((prevData) => ({
       ...prevData,
       groupIds: selectedOptions.map((option) => option.value),
@@ -93,7 +87,15 @@ const EditSubjectModal = ({
 
   const onSubmit = (e) => {
     e.preventDefault();
-
+    const newErrors = {};
+    if (editClass.groupIds.length === 0) {
+      newErrors.groupId = "يرجى اختيار الصف ";
+    }
+    if (!editClass.name) newErrors.name = "يرجى ادخال اسم الوحدة ";
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
     handelEdit(editClass);
   };
 
@@ -157,6 +159,7 @@ const EditSubjectModal = ({
                         id="exampleFormControlTextarea1"
                         rows="3"
                       />
+                      <span style={{ color: "red" }}>{errors.name}</span>
                     </div>
                     <div
                       style={{
@@ -178,6 +181,7 @@ const EditSubjectModal = ({
                           className="multi-select-lib-2"
                         />
                       )}
+                      <span style={{ color: "red" }}>{errors.groupId}</span>
                     </div>
                   </div>
                   <div>
@@ -215,7 +219,6 @@ const EditSubjectModal = ({
                   >
                     <div className="submitButton">
                       <button
-                        data-bs-dismiss="modal"
                         type="submit"
                         className="btn btn-primary"
                         style={{

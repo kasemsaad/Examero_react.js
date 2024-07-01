@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import MyButton from "../../../../common/Button/Button";
-const SearchAndAddUsers = ({ newData, FilteredUsers, buttonContent }) => {
+const SearchAndAddUsers = ({
+  handel,
+  newData,
+  FilteredUsers,
+  buttonContent,
+  fetchAllData,
+}) => {
   const [dataOfSearch, setDataOfSearch] = useState("");
 
   useEffect(() => {
@@ -12,13 +18,14 @@ const SearchAndAddUsers = ({ newData, FilteredUsers, buttonContent }) => {
       );
       FilteredUsers(filteredItems);
     }
-  }, [dataOfSearch, newData, FilteredUsers]);
+  }, [dataOfSearch]);
   // function for handel the Change value
 
   const handelChangeForSearch = (e) => {
     const searchData = e.target.value;
     setDataOfSearch(searchData);
   };
+  // handel("sfd");
   return (
     <>
       {/* Start Search input and button for add manger */}

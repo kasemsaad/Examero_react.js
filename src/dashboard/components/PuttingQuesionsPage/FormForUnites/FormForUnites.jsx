@@ -8,21 +8,20 @@ const FormForPQUnits = ({
   handelSelectedClass,
   activeSubjects,
 }) => {
-  // const [classData, setClassData] = useState("");
-  // const handelValue = (e) => {
-  //   console.log(e.target.value.select1);
-
-  //   setClassData(e.target.value);
-  // };
-  // console.log(activeSubjects);
-  // const handelSelectChangeForclass = (e) => {
-  //   console.log(e.target.value);
-  // };
+  const [errors, setErrors] = useState("");
 
   const handelSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
-    console.log(activeClasses);
+    const newErrors = {};
+    if (!formData.group_id) {
+      newErrors.group_id = "يرجى اختيار اسم الصف ";
+    }
+    if (!formData.name) newErrors.name = "يرجى ادخال اسم الوحدة ";
+    if (!formData.subject_id) newErrors.subject_id = "يرجي اختيار اسم المبحث";
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
     const handlePostUnit = async (data) => {
       if (data) {
         await Api_Dashboard.post("/units", data)
@@ -33,7 +32,7 @@ const FormForPQUnits = ({
             fetchAllUnits();
           })
           .catch((err) => {
-            console.log(err.response.data.errors);
+            setErrors(err.response.data.errors);
           });
       }
     };
@@ -47,12 +46,10 @@ const FormForPQUnits = ({
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-
+    setErrors({});
     if (name === "group_id") {
       handelSelectedClass(value);
     }
-
-    // handelSelcetedClass(event.target.groupId);
 
     setFormData({
       ...formData,
@@ -85,9 +82,12 @@ const FormForPQUnits = ({
                       aria-describedby="emailHelp"
                       placeholder=" أدخل الوحده هنا"
                     />
+                    <span style={{ fontSize: "12px", color: "red" }}>
+                      {errors.name}
+                    </span>
                   </div>
                   <div className="col-12 col-sm-6 col-md-3  div-ques1">
-                    <label htmlFor="">اختر المبحث</label>
+                    <label htmlFor="">اختر اسم المبحث</label>
                     <select
                       onChange={handleChange}
                       name="subject_id"
@@ -112,9 +112,12 @@ const FormForPQUnits = ({
                           );
                         })}
                     </select>
+                    <span style={{ fontSize: "12px", color: "red" }}>
+                      {errors.subject_id}
+                    </span>
                   </div>
                   <div className="col-12 col-sm-6 col-md-3  div-ques2">
-                    <label htmlFor="">اختر الصف</label>
+                    <label htmlFor="">اختراسم الصف</label>
                     <select
                       onChange={handleChange}
                       defaultValue="1"
@@ -140,6 +143,9 @@ const FormForPQUnits = ({
                           );
                         })}
                     </select>
+                    <span style={{ fontSize: "12px", color: "red" }}>
+                      {errors.group_id}
+                    </span>
                   </div>
                 </div>
                 <div className="button-container-quese col-md-2 mb-3 h-100">

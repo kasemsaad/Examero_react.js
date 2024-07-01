@@ -17,6 +17,8 @@ function MyTable({
   handelEdit,
   handelDeleteItem,
   classIds,
+  handelMessage,
+  sendMessage,
 }) {
   const { trash, edit, eye } = icons || {};
   const { toggle, butt, imag, checkbox } = other || {};
@@ -90,11 +92,11 @@ function MyTable({
               {butt && (
                 <td>
                   <MyButton
-                    // onClick={(e) => {
-                    //   handelEditItem(row);
-                    // }}
-                    // dataBsToggle="modal"
-                    // dataBsTarget={editButtonName}
+                    onClick={() => {
+                      handelMessage(row.id);
+                    }}
+                    databstoggle="modal"
+                    databstarget={sendMessage}
                     className={"buttonOfTable"}
                     content={"أرسل ملحوظه"}
                   />

@@ -6,7 +6,6 @@ import { json } from "react-router-dom";
 import "./SowUser.css";
 import { width } from "@fortawesome/free-solid-svg-icons/fa0";
 const ShowUserModal = ({ fetchAllData, content, api, userData }) => {
-  console.log(userData);
   return (
     <>
       {/* <button

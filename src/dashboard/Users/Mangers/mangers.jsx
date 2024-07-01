@@ -10,6 +10,7 @@ import EditMangerModal from "../../components/UsersPages/EditMangerModal/EditMan
 import DeleteUserModal from "../../components/UsersPages/DeletUserModal/DeleteUserModal";
 import FooterOfUserFP from "../../components/UsersPages/FooterOfUsers/FooterOfUsers";
 import ShowUserModal from "../../components/UsersPages/ShowUserModal/ShowUser";
+import SendMessage from "../../components/UsersPages/SendMessageModal.jsx/SendMessageModal";
 const Mangers = () => {
   // header of the table
   let header = {
@@ -26,10 +27,34 @@ const Mangers = () => {
   ///
 
   const [rowData, setRowData] = useState("");
-  const [data, setData] = useState([]);
+  let [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [idOfDeleteItem, setIdOfDeleteItem] = useState("");
   const [showMangerData, setShowMangerData] = useState("");
+
+  const newData = useMemo(
+    () =>
+      data.map(({ id, fullName, email, phone_number }) => ({
+        id,
+        fullName,
+        email,
+        phone_number,
+      })),
+    [data]
+  );
+  const [filteredManagers, setFilteredManagers] = useState(newData);
+
+  useEffect(() => {
+    setFilteredManagers(newData);
+  }, [newData]);
+
+  // Log the filteredManagers state to debug
+  // useEffect(() => {
+  //   console.log("filteredManagers:", filteredManagers); // Debug: log filteredManagers
+  // }, [filteredManagers]);
+  console.log(newData);
+  // setFilteredManagers(newData);
+  console.log(filteredManagers);
   // console.log(idOfDeleteItem);
   const handelFetchId = async (row) => {
     const response = await Api_Dashboard.get(`/managers/${row.id}`)
@@ -59,7 +84,8 @@ const Mangers = () => {
   const fetchAllData = async () => {
     const response = await Api_Dashboard.get(`/managers?page=${currentPage}`)
       .then((response) => {
-        setData(response.data.data);
+        const allData = response.data.data;
+        setData(allData);
         setMetaFPagination(response.data.meta.pagination);
       })
       .catch((err) => {
@@ -67,33 +93,31 @@ const Mangers = () => {
       });
   };
   // take from the array object some proprety that it will pass to the table
-  const newData = useMemo(
-    () =>
-      data.map(({ id, fullName, email, phone_number }) => ({
-        id,
-        fullName,
-        email,
-        phone_number,
-      })),
-    [data]
-  );
 
   // handel the function of search
 
-  const [filteredManagers, setFilteredManagers] = useState(newData);
+  console.log(filteredManagers);
   const FilteredManagers = (dataFormComp) => {
     setFilteredManagers(dataFormComp);
+    console.log(dataFormComp);
   };
 
   // handel pagination
   const [metaFPagination, setMetaFPagination] = useState("");
   const totalPages = metaFPagination.last_page;
-
+  const [mangerIdForSendMessage, setMangerIdForSendMessage] = useState("");
+  const handelMessage = (row) => {
+    console.log(row);
+    setMangerIdForSendMessage(row);
+    console.log(mangerIdForSendMessage);
+  };
   const handelNext = () => {
     if (currentPage === totalPages) return;
     setCurrentPage((prev) => prev + 1);
   };
-
+  const handel = (da) => {
+    console.log(da);
+  };
   // handel prev page
   const handelPrev = () => {
     if (currentPage === 1) return;
@@ -114,6 +138,9 @@ const Mangers = () => {
           <SearchAndAddUsers
             newData={newData}
             buttonContent={"أضافة مدير"}
+            handel={handel}
+            fetchAllData={fetchAllData}
+            // FilteredUsers={FilteredManagers}
             FilteredUsers={FilteredManagers}
           />
           {/* // End */}
@@ -124,6 +151,7 @@ const Mangers = () => {
               header={header}
               body={filteredManagers}
               icons={icon}
+              handelMessage={(row) => handelMessage(row)}
               other={other}
               handelDeleteItem={(row) => {
                 setIdOfDeleteItem(row);
@@ -132,6 +160,7 @@ const Mangers = () => {
                 handelShowMangerById(row);
               }}
               showItem={"#show-manger-dash"}
+              sendMessage={"#send-message-dash"}
               deleteModalName={"#deleteElementModal_users-dash"}
               editButtonName={"#edit-manger-dash"}
               handelEdit={(row) => {
@@ -166,6 +195,7 @@ const Mangers = () => {
             idOfDeleteItem={idOfDeleteItem}
           />
           <ShowUserModal content={"المدير"} userData={showMangerData} />
+          <SendMessage api={"/points/"} mangerID={mangerIdForSendMessage} />
         </div>
       </div>
     </>

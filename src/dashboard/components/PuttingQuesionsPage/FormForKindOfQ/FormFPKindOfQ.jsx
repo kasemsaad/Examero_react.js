@@ -3,31 +3,37 @@ import MyButton from "../../../../common/Button/Button";
 import Checkbox from "../../NotificationPage/Checkbox/Checkbox";
 import "./FornFPkindOfQ.css";
 import Api_Dashboard from "../../../interceptor/interceptorDashboard";
-const FormFPkindOfQ = ({ fetchAllData }) => {
+const FormFPkindOfQ = ({ fetchAllKQuestons }) => {
+  const [errors, setErrors] = useState("");
   const [selctedQ, setSelectedQ] = useState({
     name: "",
   });
   const handelChange = (e) => {
     console.log(e.target.value);
-
+    setErrors({});
     console.log();
     setSelectedQ({
       ...selctedQ,
       name: e.target.value,
     });
   };
+  const newErrors = {};
   const onSubmit = (e) => {
     e.preventDefault();
+    if (!selctedQ.name) {
+      newErrors.name = "يرجى اختيار نوع السؤال";
+      setErrors(newErrors);
+      return;
+    }
 
     const handelEdit = async (selctedQ) => {
-      console.log(selctedQ);
       await Api_Dashboard.post("questions-type", selctedQ)
         .then((response) => {
-          console.log(response);
-          fetchAllData();
+          fetchAllKQuestons();
         })
         .catch((err) => {
           console.log(err);
+          setErrors(err.response.data.errors);
         });
     };
     handelEdit(selctedQ);
@@ -154,6 +160,7 @@ const FormFPkindOfQ = ({ fetchAllData }) => {
                   </div>
                 </div>
               </div>
+
               <div className=" mybutton-kind  ">
                 <MyButton
                   className={"button-kind-2"}
@@ -161,6 +168,7 @@ const FormFPkindOfQ = ({ fetchAllData }) => {
                 />
               </div>
             </div>
+
             <div className="button-container-kind">
               <MyButton
                 className="my-button-kind"
@@ -169,6 +177,7 @@ const FormFPkindOfQ = ({ fetchAllData }) => {
               />
             </div>
           </div>
+          <span style={{ color: "red", margin: "auto" }}>{errors.name}</span>
         </form>
       </div>
     </>

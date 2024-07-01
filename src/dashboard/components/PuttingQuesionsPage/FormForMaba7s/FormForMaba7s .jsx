@@ -10,22 +10,22 @@ const FormForMaba7s = ({ activeClasses, fetchAllData }) => {
 
   console.log(activeClasses);
   const newData = useMemo(() => {
-    if (Array.isArray(activeClasses)) {
+    if (activeClasses) {
       return activeClasses.map((option) => ({
         value: option.id,
         label: option.name,
       }));
     }
   }, [activeClasses]);
-  const [x, setX] = useState("");
+  const [error, setError] = useState("");
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!formData.name) {
-      setX("يرجى كتابة اسم المبحث");
+      setError("يرجى كتابة اسم المبحث");
       return;
     }
     if (!formData.groupIds) {
-      setX("يرجى اختيار اسم الصف");
+      setError("يرجى اختيار اسم الصف");
       return;
     }
 
@@ -39,8 +39,7 @@ const FormForMaba7s = ({ activeClasses, fetchAllData }) => {
             fetchAllData();
           })
           .catch((err) => {
-            console.log(err.response.data.errors);
-            setSubjectErrors(err.response.data.errors);
+            setError(err.response.data.errors.name);
           });
       }
     };
@@ -49,6 +48,7 @@ const FormForMaba7s = ({ activeClasses, fetchAllData }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    setError("");
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
@@ -68,11 +68,9 @@ const FormForMaba7s = ({ activeClasses, fetchAllData }) => {
   return (
     <form className="form-container-puttt" onSubmit={handleSubmit}>
       <div style={{ margin: "auto", color: "red", whiteSpace: "pre-wrap" }}>
-        {x}
-      </div>
-      <span style={{ margin: "auto", color: "red", whiteSpace: "pre-wrap" }}>
+        {error}
         {subjectErrors.name}
-      </span>
+      </div>
 
       <div className="MyFormm">
         <div className="form-group-puttt">

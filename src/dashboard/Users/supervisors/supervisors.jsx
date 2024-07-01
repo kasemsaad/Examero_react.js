@@ -8,6 +8,7 @@ import AddMangerModel from "../../components/UsersPages/AddMangerModal/AddManger
 import EditMangerModal from "../../components/UsersPages/EditMangerModal/EditMangerModal";
 import DeleteUserModal from "../../components/UsersPages/DeletUserModal/DeleteUserModal";
 import FooterOfUserFP from "../../components/UsersPages/FooterOfUsers/FooterOfUsers";
+import SendMessage from "../../components/UsersPages/SendMessageModal.jsx/SendMessageModal";
 const Supervisors = () => {
   // header of the table
   let header = {
@@ -22,12 +23,14 @@ const Supervisors = () => {
   const icon = { eye: true, edit: true, trash: true, butt: true };
   const other = { butt: true };
   ///
-
+  const [superIdForSendMessage, setSuperIdForSendMessage] = useState("");
   const [rowData, setRowData] = useState("");
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [idOfDeleteItem, setIdOfDeleteItem] = useState("");
-
+  const handelMessage = (row) => {
+    setSuperIdForSendMessage(row);
+  };
   const handelFetchId = async (row) => {
     const response = await Api_Dashboard.get(`/supervisors/${row.id}`)
       .then((response) => {
@@ -70,6 +73,9 @@ const Supervisors = () => {
   const FilteredSubervisors = (dataFormComp) => {
     setFilteredSubervisors(dataFormComp);
   };
+  useEffect(() => {
+    setFilteredSubervisors(newData);
+  }, [newData]);
 
   // handel pagination
   const [metaFPagination, setMetaFPagination] = useState("");
@@ -114,6 +120,8 @@ const Supervisors = () => {
               handelDeleteItem={(row) => {
                 setIdOfDeleteItem(row);
               }}
+              handelMessage={(row) => handelMessage(row)}
+              sendMessage={"#send-message-dash"}
               deleteModalName={"#deleteElementModal_users-dash"}
               editButtonName={"#edit-manger-dash"}
               handelEdit={(row) => {
@@ -148,6 +156,7 @@ const Supervisors = () => {
             idOfDeleteItem={idOfDeleteItem}
           />
         </div>
+        <SendMessage api={"/points/"} mangerID={superIdForSendMessage} />
       </div>
     </>
   );

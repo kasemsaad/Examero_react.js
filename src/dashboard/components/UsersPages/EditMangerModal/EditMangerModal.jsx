@@ -25,6 +25,8 @@ const EditMangerModal = ({ api, fetchAllData, rowData, content }) => {
       },
     }
   );
+  const element = document.getElementById("edit-manger-dash");
+
   useEffect(() => {
     if (rowData) {
       reset({
@@ -38,10 +40,9 @@ const EditMangerModal = ({ api, fetchAllData, rowData, content }) => {
     }
   }, [rowData, reset]);
   const handleRegistration = async (mangerData) => {
-    console.log(JSON.stringify(mangerData) + "form edit");
     await Api_Dashboard.post(`/${api}/${rowData.id}`, mangerData)
       .then((response) => {
-        console.log(response.data.data);
+        element.style.display = "none";
         fetchAllData();
       })
       .catch((err) => {
@@ -74,7 +75,7 @@ const EditMangerModal = ({ api, fetchAllData, rowData, content }) => {
       },
     },
     password: {
-      required: "يرجى ادخال كلمة المرور ",
+      required: "يرجى  ادخال  كلمة المرور ",
       minLength: {
         value: 8,
         message: "يرجي استخدام حروف وأرقام ولا يقل 8 خانات",
@@ -294,7 +295,7 @@ const EditMangerModal = ({ api, fetchAllData, rowData, content }) => {
                         id="edit-password"
                         name="password"
                         {...register("password", {
-                          required: "ادخلكلمة المرور",
+                          required: " يرجى ادخل كلمة المرور ",
                         })}
                         style={{ direction: "rtl", position: "relative" }}
                         autoComplete="current-password"
@@ -469,7 +470,7 @@ const EditMangerModal = ({ api, fetchAllData, rowData, content }) => {
                   <button
                     type="submit"
                     className="btn btn-primary"
-                    data-bs-dismiss="modal"
+                    // data-bs-dismiss="modal"
                     style={{
                       borderRadius: "30px",
                       border: "none",

@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import Api_Dashboard from "../../../interceptor/interceptorDashboard";
 
 const EditClassModal = ({ rowDataOfClass, fetchAllData }) => {
+  const [errors, setErrors] = useState("");
+  const element = document.getElementById("editClassModal");
+
   const [editClass, setEditClass] = useState({
     name: "",
     status: "",
   });
-  console.log(rowDataOfClass);
   // Initialize the state with the values from rowDataOfClass
   useEffect(() => {
     if (rowDataOfClass) {
@@ -19,6 +21,7 @@ const EditClassModal = ({ rowDataOfClass, fetchAllData }) => {
 
   const getEditingInputs = (e) => {
     const { name, value } = e.target;
+    setErrors("");
     setEditClass((prev) => ({
       ...prev,
       [name]: value,
@@ -30,19 +33,22 @@ const EditClassModal = ({ rowDataOfClass, fetchAllData }) => {
       console.log(editClass);
       await Api_Dashboard.post(`/groups/${rowDataOfClass.id}`, editClass)
         .then((response) => {
-          console.log(response);
+          element.style.display = "none";
           fetchAllData();
         })
         .catch((err) => {
-          console.log(err);
+          setErrors(err.response.data.errors);
         });
     }
   };
-
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(rowDataOfClass);
-    console.log(editClass);
+    const newError = {};
+    if (!editClass.name) {
+      newError.name = "يرجي ادخال اسم الصف";
+      return setErrors(newError);
+    }
+
     handelEdit(editClass);
   };
 
@@ -64,7 +70,6 @@ const EditClassModal = ({ rowDataOfClass, fetchAllData }) => {
       status: prev.status === 0 ? 1 : 0,
     }));
   };
-
   return (
     <>
       <div
@@ -98,7 +103,7 @@ const EditClassModal = ({ rowDataOfClass, fetchAllData }) => {
                     <label htmlFor="name">اسم الصف</label>
                     <input
                       name="name"
-                      value={rowDataOfClass.name || ""}
+                      value={editClass.name || ""}
                       onChange={(e) => {
                         getEditingInputs(e);
                       }}
@@ -106,8 +111,15 @@ const EditClassModal = ({ rowDataOfClass, fetchAllData }) => {
                       id="exampleFormControlTextarea1"
                       rows="3"
                     />
+                    <span style={{ color: "red" }}>{errors.name} </span>
                   </div>
-                  <div>
+                  <div
+                    style={{
+                      height: "46px",
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
                     <button
                       type="button"
                       style={{ marginLeft: "12px" }}
@@ -142,7 +154,7 @@ const EditClassModal = ({ rowDataOfClass, fetchAllData }) => {
                   >
                     <div className="submitButton">
                       <button
-                        data-bs-dismiss="modal"
+                        // data-bs-dismiss="modal"
                         type="submit"
                         className="btn btn-primary"
                         style={{

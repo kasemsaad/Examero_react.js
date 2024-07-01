@@ -1,6 +1,5 @@
-import { useForm } from "react-hook-form";
-import Api_Dashboard from "../../../interceptor/interceptorDashboard";
 import React, { useEffect, useState } from "react";
+import Api_Dashboard from "../../../interceptor/interceptorDashboard";
 import "./EditUnitModal.css";
 
 const EditUnitModal = ({
@@ -17,7 +16,7 @@ const EditUnitModal = ({
     name: "",
   });
   const [errors, setErrors] = useState({});
-
+  const element = document.getElementById("edit-Unit-dash");
   useEffect(() => {
     if (RowDataOfUnite) {
       setFormData({
@@ -50,20 +49,26 @@ const EditUnitModal = ({
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    const newErrors = {};
+    if (!formData.group_id) newErrors.group_id = "يرجى اختيار اسم الصف ";
+    if (!formData.name) newErrors.name = "يرجى ادخال اسم الوحدة ";
+    if (!formData.subject_id) newErrors.subject_id = "يرجي اختيار اسم المبحث";
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
     try {
       const response = await Api_Dashboard.post(
         `/units/${RowDataOfUnite.id}`,
         formData
       );
+      element.style.display = "none";
       fetchAllUnits();
-      console.log("Form submitted successfully:", response.data);
     } catch (error) {
-      console.log(error);
-      setErrors({
-        apiError: error.response?.data?.message || "Error submitting form",
-      });
+      setErrors(error.response.data.errors);
     }
-    console.log(formData);
   };
 
   return (
@@ -163,7 +168,7 @@ const EditUnitModal = ({
                         display: "flex",
                       }}
                     >
-                      الاسم الاول
+                      الاسم الوحده
                     </label>
                     <input
                       placeholder="أدخل اسم المدير هنا"
@@ -295,7 +300,6 @@ const EditUnitModal = ({
                   <button
                     type="submit"
                     className="btn btn-primary"
-                    data-bs-dismiss="modal"
                     style={{
                       borderRadius: "30px",
                       border: "none",
@@ -323,11 +327,6 @@ const EditUnitModal = ({
                     إلغاء
                   </button>
                 </div>
-                {errors.apiError && (
-                  <div style={{ color: "red", marginTop: "10px" }}>
-                    {errors.apiError}
-                  </div>
-                )}
               </form>
             </div>
           </div>
