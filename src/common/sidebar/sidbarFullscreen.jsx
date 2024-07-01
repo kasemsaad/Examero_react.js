@@ -1,4 +1,4 @@
-import { Router,Link, useNavigate  } from "react-router-dom";
+import { Router,Link, useNavigate, useLocation  } from "react-router-dom";
 import homeIcon from '../../assets/icons/sidebar/majesticons_home-line.svg';
 import octiconIcon from '../../assets/icons/sidebar/octicon_question-16.svg';
 import ph_certificate from '../../assets/icons/sidebar/ph_certificate.svg';
@@ -11,7 +11,10 @@ import manage_accounts_outline_rounded from '../../assets/icons/sidebar/material
 import account_supervisor_outline from '../../assets/icons/sidebar/mdi_account-supervisor-outline.svg';
 import teacher from '../../assets/icons/sidebar/mdi_teacher.svg';
 import "./style.css";
-import Api_Dashboard from "../../dashboard/interceptor/interceptorDashboard";
+import Api_website from "../../utlis/axios_utils_websit";
+import imagee from '../../assets/icons/create_Exam/High Importance.svg';
+
+// import Api_Dashboard from "../../dashboard/interceptor/interceptorDashboard";
 
 function SidebarFullscreen() {
   const navigate = useNavigate()
@@ -25,11 +28,42 @@ function SidebarFullscreen() {
     // localStorage.removeItem("token")
   //  return navigate("/login_dashboard")
   }
+  const logoutStudent = ()=>{
+           
+        Api_website.post(`/students/logout`)
+    .then(response => {      
+        localStorage.removeItem("token");
+        navigate("/")
+        setId(1)
+    })
+    .catch(error => {
+        console.error("Error not logout ");
+    });
+  }
+//   const logoutTeachers = ()=>{
+           
+//         Api_website.post(`/teachers/logout`)
+//     .then(response => {      
+//         localStorage.removeItem("token");
+//         navigate("/")
+        
+//     })
+//     .catch(error => {
+        
+//         console.error("Error not logout ");
+//     });
+// }
+
   const id=localStorage.getItem("sidbarId");
+  const location=useLocation()
+  // const path = location.pathname
+  // const basePath=path.slice(0,11)
+  // console.log(basePath)
   return (
     <>
-
-        {/* --------------sidbar------------- */}
+    {
+      location.pathname.startsWith('/dashboard')?
+      
         <div className="sidbar p-0 pe-3 " style={{paddingRight:"100px"}} dir="rtl" >
           <div className="sidbarSidbar ">
           <ul className="pt-4 ps-4">
@@ -129,13 +163,99 @@ function SidebarFullscreen() {
             <li className="sidbarli">
             <Link to="/" onClick={() => setId(11)} className={`Icon  ${id === "11" ? "Id":" "}`}>تسجيل الخروج</Link>
             </li>
-            {/* <li className="sidbarli">
-            <Link to="/" onClick={() => setId(11)} className={`Icon  ${id === "11" ? "Id":" "}`}>تسجيل الخروج</Link>
-            </li> */}
+              
           </ul>
         </div>
+:
+location.pathname.startsWith('/student')?
+
+<div className="sidbar p-0 pe-3 " style={{paddingRight:"100px"}} dir="rtl" >
+<div className="sidbarSidbar ">
+<ul className="pt-4 ps-4">
+  <li className={`Icon  ${id === "1" ? "bgIcon":" "}`}>
+    <Link to="/student/HomeStudentview" onClick={() => setId(1)} >
+    <img  src={homeIcon} alt="الرئيسية" />
+    </Link>
+  </li>
+  <li className={`Icon  ${id === "10" ? "bgIcon":" "}`}>
+  <Link to="/student/createExam" onClick={() => setId(10)}>
+    <img  style={{ width: 18 , height:18 }} src={create_new} alt="إنشاء الامتحان"  />
+    </Link>
+  </li>
+  <li className={`Icon  ${id === "11" ? "bgIcon":" "}`}>
+  <Link   onClick={() =>{
+    logout(11);
+  }}>
+    <img data-bs-toggle="modal" data-bs-target="#logout" src={iconamoon_exit_light} alt="تسجيل الخروج"  />
+    </Link>
+  </li>
+ 
+</ul>
+</div>
+<ul className="sidbarUl pt-4  " >
+  <li className="sidbarli">
+  <Link to="/student/HomeStudentview" onClick={() => setId(1)} className={`Icon  ${id === "1" ? "Id":" "}`}>الرئيسية</Link>
+  </li>
+  <li className="sidbarli">
+  <Link to="/student/createExam" onClick={() => setId(10)} className={`Icon  ${id === "10" ? "Id":" "}`}>إنشاء الامتحان</Link>
+  </li>
+  <li className="sidbarli">
+  <Link  data-bs-toggle="modal" data-bs-target="#logout" onClick={() => setId(11)} className={`Icon  ${id === "11" ? "Id":" "}`}>تسجيل الخروج</Link>
+  </li>
+
+</ul>
+</div>
 
 
+
+
+
+////////////////////teacher//////////////////////////////////////////////////////
+:location.pathname.startsWith('/teacher')?<div>keko</div>:""
+
+
+
+
+}
+<div
+
+className="modal fade DElementFade  "
+id="logout"
+tabIndex="-1"
+aria-labelledby="deleteElementModalLabel"
+aria-hidden="true"
+>
+<div className="modal-dialog DElementDialog modal-dialog-centered ele_2 ">
+  <div className="modal-content DElementContent modal-backdrop1">
+    <div className="modal-body DElementBody text-center">
+      <img src={imagee} alt="Warning Icon" className="warning-icon" />
+      <p className="modal-title DElementTitle" id="deleteElementModalLabel">هل أنت متأكد ؟</p>
+      <p className="parag">سيتم تسجيل الخروج </p>
+    </div>
+    <div className="modal-footer DElementFooter">
+      <div>
+        <button
+          type="button"
+          className="btn-secondary cancel-btn DElementCancel mx-1"
+          data-bs-dismiss="modal"
+        >
+          لا
+        </button>
+        <button
+          type="button"
+          className="btn btn-danger cancel-btn DElementSave mx-1"
+          data-bs-dismiss="modal"
+          onClick={()=>{
+            logoutStudent()
+          }}
+        >
+          نعم
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
             </>
   );
 }

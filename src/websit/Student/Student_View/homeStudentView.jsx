@@ -232,9 +232,7 @@ const getUsersFromInput=(e)=>{
   USER[e.target.name]=e.target.value
   setInputUser(USER)
   }
-  if (!allNotes) {
-    return <div>Loading...</div>;
-  }
+ 
   return (
     <>
       <div className="container py-5 mb-2 d-flex align-items-center justify-content-center flex-column">
@@ -257,13 +255,13 @@ const getUsersFromInput=(e)=>{
           <div className="row rowHomestudent pt-2 m-0 col-md-8 d-flex align-items-start justify-content-evenly">
             <div className="row d-flex p-0 align-items-start justify-content-between">
 
-            <div className="col-3 rounded-4  shadow-box shadow-boxxx boximgbackground1" style={{ backgroundColor: "#4941A6", width: "45%" }}>
+            <div className="col-3 rounded-4  shadow-box shadow-boxxx boximgbackground1 d-flex flex-column justify-content-center " style={{ backgroundColor: "#4941A6", width: "45%" }}>
               <p>عدد الامتحانات المستخدمة</p>
               <p className="fs-6">{info.exam_student_finished}</p>
             </div>
 
 
-            <div className="col-3 rounded-4  shadow-boxxx boximgbackground3" style={{ backgroundColor: "#C17011", width: "45%" }}>
+            <div className="col-3 rounded-4  shadow-boxxx boximgbackground3 d-flex flex-column justify-content-center" style={{ backgroundColor: "#C17011", width: "45%" }}>
               <p>متوسط الدرجات</p>
               <p className="fs-6">{info.exam_average}%</p>
             </div>

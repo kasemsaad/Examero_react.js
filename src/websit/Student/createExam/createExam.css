@@ -1,6 +1,6 @@
 .lineButton{
     position: relative;
-z-index: 9999999999;
+z-index: 9;
 }
 .lineButton::before{
     content: "";
