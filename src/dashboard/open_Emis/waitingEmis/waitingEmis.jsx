@@ -100,6 +100,8 @@ export default function WaitingEmis() {
     <>
 
 <OpenEmis
+current_page={current_page}
+totalPages={totalPages}
 icon={"true"}
 col7={"تعديل"}
  next={handelNext}

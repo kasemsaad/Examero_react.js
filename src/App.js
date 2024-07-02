@@ -53,6 +53,7 @@ import ForgetPassDashBoard from './dashboard/Forget_password/forget_pass.jsx';
 import EnterCodeDashBoard from './dashboard/Forget_password/enterCodeOfReset/enterCode.jsx';
 import NewPassDashBoard from './dashboard/Forget_password/DashboardNewPassword/NewPassword.jsx';
 import ErrorPage from './dashboard/Error/errorPage.jsx';
+import Checks from './dashboard/checks/checks.jsx';
 
 function App(props) {
   return (
@@ -124,6 +125,9 @@ function App(props) {
           <Route path="manger" element={<RewardManger />} />
           <Route path="rewardSupervisor" element={<RewardMoshref />} />
           <Route path="rewardteacher" element={<RewardTeacher />} />
+          <Route path="check" element={<Checks />} />
+
+          
 
 
           

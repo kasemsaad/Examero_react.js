@@ -180,7 +180,7 @@ getAllTeacherPlan()
     },[current_page])
   return (
     <>
-        <Plans totalPages={totalPages} current_page={current_page} next={handelNext} handelPrev={handelPrev}  dataRender={allTeacherPlanData} dataConnect={"البيانات الباقات المعلمين"} edit={"#add_connect_Teacher"} delete={"#deleteElementModal_teacher_dash"}  handel={(row)=>handeledit(row)} Deletehandel={(row)=>getDeletedObject(row)} nameOfPageModalTarget={"#add_connect_Teacher_add"}/>
+        <Plans  totalPages={totalPages} current_page={current_page} next={handelNext} handelPrev={handelPrev}  dataRender={allTeacherPlanData} dataConnect={"البيانات الباقات المعلمين"} edit={"#add_connect_Teacher"} delete={"#deleteElementModal_teacher_dash"}  handel={(row)=>handeledit(row)} Deletehandel={(row)=>getDeletedObject(row)} nameOfPageModalTarget={"#add_connect_Teacher_add"}/>
 {/* edit modal */}
         <div
       className="modal fade"

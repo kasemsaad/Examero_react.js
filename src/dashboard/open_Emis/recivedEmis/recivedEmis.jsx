@@ -97,6 +97,8 @@ export default function RecivedEmis() {
     <>
 
       <OpenEmis
+      current_page={current_page}
+      totalPages={totalPages}
         col7={"تعديل"}
          next={handelNext}
           handelPrev={handelPrev}  

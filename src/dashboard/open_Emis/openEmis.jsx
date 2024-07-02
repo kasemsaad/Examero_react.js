@@ -193,6 +193,26 @@ function OpenEmis(props) {
                     >
                         <p style={{ margin: "0", color: "white" }}>&gt;</p>
                     </button>
+                    <div style={{ display: "flex", flexDirection: "row-reverse" }}>
+          {Array.from({ length: props.totalPages }, (_, i) => (
+            <div
+              key={i}
+              style={{
+                backgroundColor:  props.current_page === i + 1 ? "#4941A6 " : "#120E4D",
+                height: "26px",
+                width: "26px",
+                display: "flex",
+                fontSize: "18px",
+                fontWeight: "700",
+                alignItems: "center",
+                justifyContent: "center",
+                margin: "2px", // Added margin for better visual spacing
+              }}
+            >
+              {i + 1}
+            </div>
+          ))}
+        </div>
                     <button
                     type='button'
                     onClick={()=>props.handelPrev()}

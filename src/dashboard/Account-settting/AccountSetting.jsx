@@ -180,6 +180,7 @@ const getInputPasswor=(e)=>{
 
 
         <div className="rightRound" id="upload">
+
           <input type="file"   accept=".jpg, .jpeg, .png" name='image' onChange={handleImageChange} />
           <i className="fa fa-camera"></i>
         </div>

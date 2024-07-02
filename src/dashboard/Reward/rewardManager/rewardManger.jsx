@@ -84,6 +84,8 @@ export default function RewardManger() {
 {/* <div id='rewardManager'> */}
 
             <Reward
+            current_page={current_page}
+            totalPages={totalPages}
 
                 flag={true}
                 checkboxHandler={Checkouthandler}
