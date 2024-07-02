@@ -7,8 +7,8 @@ import { json } from "react-router-dom";
 
 const AddMangerModel = ({ fetchAllData, content, api }) => {
   const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const element = document.getElementById("add-manger-dash");
+  const [apiErrors, setApiErrors] = useState(false);
+  const element = document.getElementById("manger-dash");
 
   const {
     register,
@@ -17,15 +17,19 @@ const AddMangerModel = ({ fetchAllData, content, api }) => {
   } = useForm();
 
   const handleRegistration = async (userData) => {
-    await Api_Dashboard.post(`/${api}`, userData)
-      .then((response) => {
-        element.style.display = "none";
-        fetchAllData();
-      })
-      .catch((err) => {
-        console.log(err);
-        console.log(err.response.data);
-      });
+    if (userData) {
+      await Api_Dashboard.post(`/${api}`, userData)
+        .then((response) => {
+          console.log(response);
+          element.style.display = "none";
+
+          fetchAllData();
+        })
+        .catch((err) => {
+          console.log(err);
+          setApiErrors(err.response.data.errors);
+        });
+    }
   };
 
   const handleError = (errors) => {};
@@ -251,6 +255,7 @@ const AddMangerModel = ({ fetchAllData, content, api }) => {
                     />
                     <span style={{ color: "red" }}>
                       {errors.email && errors?.email && errors.email.message}
+                      {apiErrors.email}
                     </span>
                   </div>
 

@@ -47,12 +47,31 @@ const PaginationForPuttingQ = ({
           }}
           stylep={{ margin: "0", color: "white" }}
         />
+        <div style={{ display: "flex", flexDirection: "row-reverse" }}>
+          {Array.from({ length: totalPages }, (_, i) => (
+            <div
+              key={i}
+              style={{
+                backgroundColor: currentPage === i + 1 ? "#4941A6 " : "#120E4D",
+                height: "26px",
+                width: "26px",
+                display: "flex",
+                fontSize: "18px",
+                fontWeight: "700",
+                alignItems: "center",
+                justifyContent: "center",
+                margin: "2px", // Added margin for better visual spacing
+              }}
+            >
+              {i + 1}
+            </div>
+          ))}
+        </div>
 
         <MyButton
           content={"<"}
           onClick={handelNext}
           style={{
-            marginLeft: "5px",
             backgroundColor: currentPage === totalPages ? "#120E4D" : "#4941A6",
             height: "26px",
             width: "26px",

@@ -11,12 +11,8 @@ const DeleteUserModal = ({ idOfDeleteItem, fetchAllData, api }) => {
     setLoading(true);
     const response = await Api_Dashboard.delete(
       `/${api}/${idOfDeleteItem}`
-    ).then((response) => {
-      console.log(response);
-    });
-    fetchAllData().catch((err) => {
-      console.log(err);
-    });
+    ).then((response) => {});
+    fetchAllData().catch((err) => {});
 
     setLoading(false);
   };

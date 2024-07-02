@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import MyButton from "../../../../common/Button/Button";
-import Checkbox from "../../NotificationPage/Checkbox/Checkbox";
 import "./FornFPkindOfQ.css";
 import Api_Dashboard from "../../../interceptor/interceptorDashboard";
 const FormFPkindOfQ = ({ fetchAllKQuestons }) => {

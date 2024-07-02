@@ -48,19 +48,10 @@ const Mangers = () => {
     setFilteredManagers(newData);
   }, [newData]);
 
-  // Log the filteredManagers state to debug
-  // useEffect(() => {
-  //   console.log("filteredManagers:", filteredManagers); // Debug: log filteredManagers
-  // }, [filteredManagers]);
-  console.log(newData);
-  // setFilteredManagers(newData);
-  console.log(filteredManagers);
-  // console.log(idOfDeleteItem);
   const handelFetchId = async (row) => {
     const response = await Api_Dashboard.get(`/managers/${row.id}`)
       .then((response) => {
         setRowData(response.data.data);
-        console.log(JSON.stringify(rowData) + "iam her");
       })
       .catch((err) => {
         console.log(err);
@@ -70,7 +61,6 @@ const Mangers = () => {
     const response = await Api_Dashboard.get(`/managers/${row.id}`)
       .then((response) => {
         setShowMangerData(response.data.data);
-        console.log(JSON.stringify(rowData) + "iam her");
       })
       .catch((err) => {
         console.log(err);
@@ -146,7 +136,7 @@ const Mangers = () => {
           {/* // End */}
 
           {/* Start for table */}
-          <div style={{ width: "100%", overflow: "auto" }}>
+          <div style={{ width: "100%", overflow: "auto", height: "400px" }}>
             <MyTable
               header={header}
               body={filteredManagers}
