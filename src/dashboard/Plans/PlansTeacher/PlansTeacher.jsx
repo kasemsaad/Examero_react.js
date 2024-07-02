@@ -13,6 +13,7 @@ export default function PlansTeacher() {
     const [current_page,SetcurrentPage]=useState(1)
     // const [totalPages,Set]
     const totalPages=pagination.last_page
+    const [modalDissmiss,SetmodalDissmiss]=useState('')
 
     
 
@@ -89,7 +90,10 @@ export default function PlansTeacher() {
       status:InputEditTeacher.status,
       for_student:0  
       }).then((response)=>{
-console.log(response);
+console.log("response");
+SetmodalDissmiss('modal')
+    // const modalElement = document.getElementById('add_connect_Teacher');
+    //   modalElement.style.display = "none"
 getAllTeacherPlan()
       }).catch((err)=>{
         console.log(err);
@@ -176,7 +180,7 @@ getAllTeacherPlan()
     },[current_page])
   return (
     <>
-        <Plans next={handelNext} handelPrev={handelPrev}  dataRender={allTeacherPlanData} dataConnect={"البيانات الباقات المعلمين"} edit={"#add_connect_Teacher"} delete={"#deleteElementModal_teacher_dash"}  handel={(row)=>handeledit(row)} Deletehandel={(row)=>getDeletedObject(row)} nameOfPageModalTarget={"#add_connect_Teacher_add"}/>
+        <Plans totalPages={totalPages} current_page={current_page} next={handelNext} handelPrev={handelPrev}  dataRender={allTeacherPlanData} dataConnect={"البيانات الباقات المعلمين"} edit={"#add_connect_Teacher"} delete={"#deleteElementModal_teacher_dash"}  handel={(row)=>handeledit(row)} Deletehandel={(row)=>getDeletedObject(row)} nameOfPageModalTarget={"#add_connect_Teacher_add"}/>
 {/* edit modal */}
         <div
       className="modal fade"
@@ -366,7 +370,7 @@ getAllTeacherPlan()
 
                 <div className='mt-5' style={{textAlign:"center",display:"flex",justifyContent:"center"}}>
                   <div className='submitButton'>
-                <button data-bs-dismiss="modal" type="submit" className="btn btn-primary">حفظ</button>
+                <button data-bs-dismiss={modalDissmiss}  type="submit" className="btn btn-primary">حفظ</button>
                 </div>
                 <div style={{marginRight:"30px"}}>
                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
@@ -574,7 +578,7 @@ getAllTeacherPlan()
                 </div>
                 <div className='mt-5' style={{textAlign:"center",display:"flex",justifyContent:"center"}}>
                   <div className='submitButton'>
-                <button data-bs-dismiss="modal" type="submit" className="btn btn-primary">حفظ</button>
+                <button  type="submit" className="btn btn-primary">حفظ</button>
                 </div>
                 <div style={{marginRight:"30px"}}>
                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>

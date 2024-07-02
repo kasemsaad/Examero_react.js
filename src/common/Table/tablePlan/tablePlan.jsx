@@ -1,10 +1,9 @@
 import React from "react";
-// import MyButton from "../../Button/Button";
 import MyButton from "../../Button/Button";
 import image from "../../../assets/icons/MyTable/trash.svg";
 import { Link } from "react-router-dom";
-import './tableOpenEmis.css'
-function TableOpenEmis({
+import './tablePlan.css'
+function TablePlan({
   header,
   body,
   icons,
@@ -17,19 +16,13 @@ function TableOpenEmis({
   delteModalName,
   editButtonName,
   handel,
-  Deletehandel,
-  flag,
-  checkboxHandler,
-  dataCheckedRender,
-  checkAllBoxHandler
-
+  Deletehandel
 }) {
   const { trash, edit, eye } = icons || {};
   const { toggle, butt, imag, checkbox } = other || {};
 
   return (
-    <form>
-    <table className="rounded-table-sa">
+    <table className="rounded-table-plan">
       {/* <DeleteAnItem /> */}
       {/* <AddOrEditModal /> */}
 
@@ -47,39 +40,25 @@ function TableOpenEmis({
             {/* {Object.values(row).map((value, cellIndex) => (
               <td key={`${rowIndex}-${cellIndex}`}>{value}</td>
             ))} */}
-            {
-              flag ? <td>
-<input type="checkbox" name="ids" id=""  value={row.id} checked={dataCheckedRender.includes(row.id)}  onChange={checkboxHandler}  />
-              </td>  : <td>
-              { row.id}
-             </td>
-            }
-           
             <td>
-             { row.user_name
-             }
+             { row.id}
             </td>
             <td>
-              {row.password}
+             { row.name}
             </td>
             <td>
-              {row.teacher.phone_number}
+              {row.price}
             </td>
             <td>
-              {row.group}
+              {row.allow_exam}
             </td>
             <td>
-              {row.subject
+              {row.allow_question
               }
             </td>
-            {/* <td>
-              {row.status  == 1 ?<button className="btn btn-success">مفعل</button>:<button className="btn btn-danger" style={{backgroundColor:"#FE4F60"}}> غير مفعل</button>}
-            </td> */}
-
             <td>
-              {row.ImagePath === null ? <p style={{margin:"0",padding:"0"}}>لا يوجد مستند</p>: row.ImagePath}
+              {row.status  == 1 ?<button className="btn btn-success">مفعل</button>:<button className="btn btn-danger" style={{backgroundColor:"#FE4F60"}}> غير مفعل</button>}
             </td>
-
             {toggle && (
               <td>
               </td>
@@ -150,8 +129,7 @@ function TableOpenEmis({
         ))}
       </tbody>
     </table>
-    </form>
   );
 }
 
-export default TableOpenEmis;
+export default TablePlan;

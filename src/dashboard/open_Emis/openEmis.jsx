@@ -180,7 +180,7 @@ function OpenEmis(props) {
 
                     onClick={()=>props.next()}
                         style={{
-                            backgroundColor: "#4941A6",
+                            backgroundColor: props.totalPages===props.current_page ? "#120E4D":"#4941A6",
                             height: "26px",
                             width: "26px",
                             display: "flex",
@@ -198,7 +198,7 @@ function OpenEmis(props) {
                     onClick={()=>props.handelPrev()}
                         style={{
                             marginLeft: "5px",
-                            backgroundColor: "#120E4D",
+                            backgroundColor: props.current_page ===1? "#120E4D":"#4941A6",
                             height: "26px",
                             width: "26px",
                             display: "flex",

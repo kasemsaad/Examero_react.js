@@ -9,12 +9,12 @@ export default function ErrorPage() {
 
 <div className='col-12' style={{textAlign:"center"}}>
 
-<img src={errorr} alt="error" width={"100%"} height={"70%"}/>
+<img src={errorr} alt="error" width={"500px"} height={"500px"} />
 </div>
 
 <div style={{textAlign:"center"}}>
   <p style={{color:"#FF828E"}}>الصفحة غير موجودة !</p>
-  <p  >نأسف، الصفحة التي تبحث عنها غير متوفرة. قد يكون الرابط الذي اتبعته غير صحيح أو أن الصفحة قد تم حذفها.</p>
+  <p  style={{color:"#ffff"}}>نأسف، الصفحة التي تبحث عنها غير متوفرة. قد يكون الرابط الذي اتبعته غير صحيح أو أن الصفحة قد تم حذفها.</p>
 </div>
 
 

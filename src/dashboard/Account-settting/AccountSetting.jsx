@@ -89,6 +89,7 @@ function AccountSetting() {
           setTimeout(() => {
             Setalert(false);
           }, 2000);
+          getRefreshUser()
         }).catch((err) => {
           Seterrormessage(err.response.data.message);
           Setalerterror(true);
@@ -162,6 +163,7 @@ const getInputPasswor=(e)=>{
     })
    
   };
+  
 
 
   return (

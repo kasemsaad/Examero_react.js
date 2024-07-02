@@ -149,6 +149,8 @@ dataRender={openEmisAllData}
 //    Deletehandel={(row)=>getDeletedObject(row)}
 //  nameOfPageModalTarget={"#add_connect_Teacher_add"}
 deleteModalFinished={"#delete_finished_emis"}
+current_page={current_page}
+totalPages={totalPages}
  
  />
 

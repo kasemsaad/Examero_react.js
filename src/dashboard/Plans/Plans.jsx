@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import TablePlan from '../../common/Table/Table'
+// import TablePlan from '../../common/Table/Table'
 import plansLogo from "./../../assets/image/fluent_payment-32-regular.svg"
 import plus from "./../../assets/image/+.svg"
 import FirstTriangle from '../components/FirstTriangle/FirstTriangle'
@@ -8,6 +8,9 @@ import './Plans.css'
 import Api_Dashboard from '../interceptor/interceptorDashboard'
 import { Link, useLocation } from 'react-router-dom'
 import TableOpenEmis from '../../common/Table/tableOpenEmis/tableOpenEmes'
+import TablePlan from '../../common/Table/tablePlan/tablePlan'
+
+
 
 export default function Plans(props) {
     const [colorSpin, SetColorSpin] = useState('grey')
@@ -110,7 +113,7 @@ export default function Plans(props) {
 
                     onClick={()=>props.next()}
                         style={{
-                            backgroundColor: "#4941A6",
+                            backgroundColor: props.totalPages===props.current_page ? "#120E4D":"#4941A6",
                             height: "26px",
                             width: "26px",
                             display: "flex",

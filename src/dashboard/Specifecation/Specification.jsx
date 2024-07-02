@@ -19,7 +19,7 @@ export default function Specification() {
     
 
 
-    const notify = () => {
+    const notify = (AlertPointSuccess) => {
         toast.success(AlertPointSuccess, {
             position: "top-center",
             autoClose: 2000,
@@ -33,7 +33,7 @@ export default function Specification() {
     };
 
     
-    const Errornotify = () => {
+    const Errornotify = (AlertPoint) => {
         toast.error(AlertPoint, {
             position: "top-center",
             autoClose: 2000,
@@ -86,7 +86,7 @@ export default function Specification() {
     }
     
 
-    const SendSpecification = (e) => {
+    const SendSpecification = async (e) => {
 
         e.preventDefault();
         const payload = {
@@ -97,10 +97,11 @@ export default function Specification() {
         }
         console.log(payload);
 
-        Api_Dashboard.post('/specification', payload).then((response) => {
+      await Api_Dashboard.post('/specification', payload).then((response) => {
+        console.log(response);
             let x=response.data.message
             SetAlertPointSuccess(x)
-            notify()
+            notify(x)
             downloadPDF()
 
 
@@ -109,7 +110,7 @@ export default function Specification() {
             console.log(err);
             let x=err.response.data.message
             SetAlertPoint(x);
-            Errornotify()
+            Errornotify(x)
         })
     }
     const downloadPDF = () => {
@@ -199,7 +200,8 @@ export default function Specification() {
                                                 {item.plan.name}
                                             </option>
                                         ))}
-                                    </select>                                </div>
+                                    </select>                  
+                                    </div>
 
                             </div>
 

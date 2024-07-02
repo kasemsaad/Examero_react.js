@@ -1,4 +1,4 @@
-import { Router,Link, useNavigate  } from "react-router-dom";
+import { Router,Link, useNavigate, useLocation  } from "react-router-dom";
 import homeIcon from '../../assets/icons/sidebar/majesticons_home-line.svg';
 import octiconIcon from '../../assets/icons/sidebar/octicon_question-16.svg';
 import ph_certificate from '../../assets/icons/sidebar/ph_certificate.svg';
@@ -15,6 +15,7 @@ import Api_Dashboard from "../../dashboard/interceptor/interceptorDashboard";
 
 function SidebarFullscreen() {
   const navigate = useNavigate()
+  const location = useLocation()
   const setId = (id) => {
     localStorage.setItem("sidbarId", JSON.stringify(id));
   };
@@ -28,8 +29,9 @@ function SidebarFullscreen() {
   const id=localStorage.getItem("sidbarId");
   return (
     <>
+  {/* location.pathname.startsWith("/dashboard") ?  */}
 
-        {/* --------------sidbar------------- */}
+
         <div className="sidbar p-0 pe-3 " style={{paddingRight:"100px"}} dir="rtl" >
           <div className="sidbarSidbar ">
           <ul className="pt-4 ps-4">

@@ -42,10 +42,11 @@ export default function Reward(props) {
                         localStorage.setItem('SpinColor', "#4941A6");
 
                     }}>
-                        <Link to="/dashboard/rewardManger">
+                        <Link to='/dashboard/manger'>
                             {
-                                location.pathname === '/dashboard/rewardManger' ? <FirstTriangle content={"المديرين"} style={{ backgroundColor: localStorage.getItem("SpinColor") }} /> :
-                                    <FirstTriangle content={"المديرين"} style={{ backgroundColor: "#1D195D" }} />
+                                location.pathname === '/dashboard/manger' ? <FirstTriangle content={"المديرين"}
+                                 style={{ backgroundColor: localStorage.getItem("SpinColor")}} /> :
+                               <FirstTriangle stylep={{ color: "#ffff" }} content={"المديرين"} style={{ backgroundColor: "#1D195D" }} />
                             }
                         </Link>
                     </div>

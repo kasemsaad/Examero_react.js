@@ -121,7 +121,7 @@ function App(props) {
           <Route path="waitingemis" element={<WaitingEmis />} />
           <Route path="recivedemis" element={<RecivedEmis />} />
           <Route path="finishedEmis" element={<FinishedEmis />} />
-          <Route path="rewardManger" element={<RewardManger />} />
+          <Route path="manger" element={<RewardManger />} />
           <Route path="rewardSupervisor" element={<RewardMoshref />} />
           <Route path="rewardteacher" element={<RewardTeacher />} />
 

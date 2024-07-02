@@ -2,6 +2,7 @@ import React from "react";
 import MyButton from "../../Button/Button";
 import image from "../../../assets/icons/MyTable/trash.svg";
 import { Link } from "react-router-dom";
+import './tableReward.css'
 
 function TableReward({
   header,
@@ -29,7 +30,7 @@ function TableReward({
 
   return (
     <form>
-      <table className="rounded-table">
+      <table className="rounded-table-re">
         {/* <DeleteAnItem /> */}
         {/* <AddOrEditModal /> */}
 
