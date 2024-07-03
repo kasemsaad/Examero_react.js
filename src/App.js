@@ -29,6 +29,8 @@ import HomeDashoardLogin from "./dashboard/homeLogin/homeLogin.jsx";
 import Mangers from "./dashboard/Users/Mangers/mangers.jsx";
 import Supervisors from "./dashboard/Users/supervisors/supervisors.jsx";
 import ShowUserModal from "./dashboard/components/UsersPages/ShowUserModal/ShowUser.jsx";
+import MangersActivity from "./dashboard/Notification/mangers.activity/mangersActivity.jsx";
+import AllActivity from "./dashboard/Notification/supervisorsActivity/AllActivity.jsx";
 function App(props) {
   return (
     <BrowserRouter>
@@ -53,7 +55,9 @@ function App(props) {
             }
           />
 
-          <Route path="not" element={<Notification />} />
+          {/* <Route path="not" element={<Notification />} /> */}
+          <Route path="activity/mangers" element={<MangersActivity />} />
+          <Route path="activity/all" element={<AllActivity />} />
           <Route
             path="putting/questions/levels=1"
             element={<PuttingQuestions />}
@@ -78,7 +82,6 @@ function App(props) {
 
           <Route path="mangers" element={<Mangers />} />
           <Route path="supervisors" element={<Supervisors />} />
-          <Route path="emis" element={<ReceivedEmis />} />
           <Route path="teacher" element={<Teacher />} />
 
           <Route path="login" element={<J />} />

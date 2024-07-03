@@ -6,10 +6,10 @@ import MessagesNotification from "../components/NotificationPage/messages/messag
 import MyButton from "../../common/Button/Button.jsx";
 import Api_Dashboard from "../interceptor/interceptorDashboard.jsx";
 
-const Notification = () => {
+const Notification = ({ api, man, all }) => {
   const [isCheckedAll, setIsCheckedAll] = useState(false);
   const [isChecked, setIsChecked] = useState([]);
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
   const [metaFPagination, setMetaFPagination] = useState("");
   const [notify, setNotifiy] = useState([]);
   // const [myActivityIds,setMyActivityIds]=useState({
@@ -23,9 +23,16 @@ const Notification = () => {
   }, [currentPage]);
 
   const fetchAllNotfiy = async () => {
-    await Api_Dashboard.get(`/activity?page=${currentPage}`)
+    await Api_Dashboard.get(`${api}?page=${currentPage}`)
       .then((response) => {
-        setNotifiy(response.data.data);
+        console.log(response);
+
+        {
+          man && setNotifiy(response.data.data.data);
+        }
+        {
+          all && setNotifiy(response.data.data);
+        }
         setMetaFPagination(response.data.meta.pagination);
       })
       .catch((err) => {
@@ -34,9 +41,7 @@ const Notification = () => {
   };
   const deleteNotifications = async (activityIds) => {
     console.log(JSON.stringify(activityIds));
-    await Api_Dashboard.delete("/activity", {
-      activityIds: [847, 842, 841, 840, 839, 838, 837, 836, 835, 834],
-    })
+    await Api_Dashboard.delete("/activity", activityIds)
       .then((response) => {
         // setNotifiy(response.data.data);
         // setMetaFPagination(response.data.meta.pagination);
@@ -96,16 +101,18 @@ const Notification = () => {
           )}
 
           <hr />
-
-          {notify.map((not, index) => (
-            <MessagesNotification
-              key={index}
-              isChecked={isChecked}
-              not={not}
-              handleChange={handleChange}
-              isCheckedAll={isCheckedAll}
-            />
-          ))}
+          <div style={{ height: "300px" }}>
+            {notify &&
+              notify.map((not, index) => (
+                <MessagesNotification
+                  key={index}
+                  isChecked={isChecked}
+                  not={not}
+                  handleChange={handleChange}
+                  isCheckedAll={isCheckedAll}
+                />
+              ))}
+          </div>
         </div>
       </div>
     </>
