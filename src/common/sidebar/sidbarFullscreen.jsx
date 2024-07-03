@@ -18,6 +18,7 @@ import imagee from '../../assets/icons/create_Exam/High Importance.svg';
 
 function SidebarFullscreen() {
   const navigate = useNavigate()
+  const location = useLocation()
   const setId = (id) => {
     localStorage.setItem("sidbarId", JSON.stringify(id));
   };
@@ -61,9 +62,11 @@ function SidebarFullscreen() {
   // console.log(basePath)
   return (
     <>
+<
     {
       location.pathname.startsWith('/dashboard')?
       
+
         <div className="sidbar p-0 pe-3 " style={{paddingRight:"100px"}} dir="rtl" >
           <div className="sidbarSidbar ">
           <ul className="pt-4 ps-4">

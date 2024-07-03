@@ -33,7 +33,7 @@ function TablePlan({
         </tr>
       </thead>
       <tbody>
-        {body.map((row, rowIndex) => (
+        {body&&body.map((row, rowIndex) => (
           <tr key={rowIndex}>
             {/* {Object.values(row).map((value, cellIndex) => (
               <td key={`${rowIndex}-${cellIndex}`}>{value}</td>
@@ -79,9 +79,11 @@ function TablePlan({
                 )}
                 {edit && (
                   <button
+
                   type="button"
                   data-bs-toggle="modal"
                   data-bs-target={editButtonName}
+                  
 
                     className="square fa-regular fa-pen-to-square"
                   ></button>
