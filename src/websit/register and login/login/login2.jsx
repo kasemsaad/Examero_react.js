@@ -42,6 +42,7 @@ function Login1() {
 
                 localStorage.setItem('user',"student");
                 setError('');
+                localStorage.setItem("sidbarId", JSON.stringify(1));
                 navigate('/student/homeStudentView'); 
             })
             .catch((error) => {

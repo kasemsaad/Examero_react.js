@@ -3,10 +3,13 @@ import "./editStudentProfaile.css"
 // import MyTable from "../../../common/Table/Table.jsx"
 // import personal from "../../../assets/image/IMG_20231104_171844_696.jpg"
 import home from "../../../assets/image/material-symbols_person-outline (1).svg"
+import Homeicon from "../../../assets/icons/Home/Frame 119.svg"
 
 import success from "../../../assets/image/Vector (1).svg"
 import lock from "../../../assets/image/mdi_password-outline.svg"
 import Api_website from '../../../utlis/axios_utils_websit'
+import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 // import Api_Dashboard from '../interceptor/interceptorDashboard.jsx'
 // import Api_Website from '../../../utlis/axios_utils_websit.jsx';
 // import photo from "./../../assets/image/man 2.svg"
@@ -19,9 +22,10 @@ import Api_website from '../../../utlis/axios_utils_websit'
 
 
 function EditStudentProfaile() {
+  const layoutBackground = useSelector((state) => state.dark.lay);
   const [alert , Setalert]=useState(false)
   const [alerterror , Setalerterror]=useState(false)
-
+  const [data, setInfo] = useState([]);
   const [PasswordAlert , SetPasswordAlert]=useState(false)
   const [inputUser,setInputUser]=useState({
     firstName: "",
@@ -51,6 +55,8 @@ function EditStudentProfaile() {
   }
   useEffect(()=>{
     getRefreshUser()
+    getDataStudentExam()
+
   },[])
   
   const getRefreshUser = async ()=>{
@@ -137,6 +143,18 @@ const getInputPasswor=(e)=>{
    
   };
 
+  const getDataStudentExam = () => {
+    Api_website.get(`students/plans`)
+        .then(response => {
+                setInfo(response.data.plans);
+                console.log(response.data.plans);
+          
+        })
+        .catch(error => {
+            setInfo([]);
+            console.error("Error fetching plans data:", error);
+        });
+}
 
   return (
 
@@ -330,6 +348,57 @@ const getInputPasswor=(e)=>{
       </div>
       </form>
 
+      <div className="container py-5 mb-2 d-flex align-items-center justify-content-center flex-column">
+        <div className="" style={{ width: "85%", paddingTop: "4.25px" }}>
+          <img src={Homeicon} alt="HomeIcon" style={{ backgroundColor: "transparent" }} />
+          <Link
+            className="btn"
+            to="#"
+            style={{
+              backgroundColor: "transparent",
+              color: layoutBackground === "#0E0A43" ? "white" : "#0E0A43",
+              fontSize: "18px"
+            }}
+          >
+          </Link>
+
+       
+          <table className='tabelstudent' style={{ width: "100%" }}>
+                        <thead>
+                            <tr style={{
+                                color: layoutBackground === "#0E0A43" ? "#FE4F60" : "black",
+                            }}>
+                                <th>اسم الباقة</th>
+                                <th>الامتحانات </th>
+                                <th>الاسئلة المتاحة</th>
+                                <th> الامتحانات المستخدمة </th>
+                                <th> تاريخ الاشتراك  </th>
+                                <th>  طريقة الدفع  </th>
+                            </tr>
+                        </thead>
+                        <tbody style={{
+                                color: layoutBackground === "#0E0A43" ? "white" : "black"}}>
+                            {Array.isArray(data) && data.length > 0 ? data.map(({ id, name,allow_question,allow_exam,status,pivot}, index) => (
+                                <tr key={index} style={{ 
+                                    backgroundColor: index % 2 === 0 ? (layoutBackground === "#0E0A43" ? "#1d195d" : "#FCFCFC") : (layoutBackground === "#0E0A43" ? "#090631" : "#DADADA")
+                                }}>
+                                    <td>{name}</td>
+                                    <td>{allow_exam}</td>
+                                    <td>{allow_question}</td>
+                                    <td>{pivot.exam_used}</td>
+                                    <td>{pivot.subscribe_type}</td>
+                                    <td>{pivot.payment_id}</td>
+                                   
+                                                                </tr>
+                            )) : (
+                                <tr>
+                                    <td colSpan="5">No data available</td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>   
+        </div>
+        </div>
 
     </>
   )

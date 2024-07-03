@@ -38,7 +38,7 @@ ul{
   background-image: url(../../assets/icons/sidebar/Vector\ 1.svg);
   background-repeat: no-repeat;
   width: 75px;
-  height: 645px;
+  height: 82vh;
   margin-top: -20px;
   margin-right: -35px;
 }
@@ -96,7 +96,7 @@ font-weight: bold;
  color: var(--black);
  text-decoration: none;
  display: block;
- padding-right: 16px;
+ padding-right: 19px;
  position: relative;
 
 }
@@ -106,7 +106,8 @@ background-repeat: no-repeat;
 background-position: center;
 background-size: cover;
 color: var(--white);
-padding-top: 2px;
+padding-top: 3px;
+margin-bottom: 0px; 
 }
 .sidbar  ul li .Id::before {
   content: " ";
@@ -162,23 +163,25 @@ padding-top: 2px;
       }
       .sidbarmed{
         display:block;
-  
+        height: 700px;        
       }
       .sidbarmed .sidbarSidbar{
         position: absolute;
         background-image: url(../../assets/icons/sidebar/Vector\ 1.svg);
+        background-size: 102% 75%;
         background-repeat: no-repeat;
         width: 75px;
-        height: 645px;
+        height: 82vh;
         margin-top: -20px;
-        margin-right: -35px;
+        margin-right: -15px;
       }
       .sidbarmed .sidbarSidbar ul{
         display: flex;
         align-items: center;
         justify-content: center;
         flex-direction: column;
-        width:100px;
+        width:90px;
+        margin-top: 10px;
       }
       .sidbarmed .sidbarSidbar ul li{
        margin-top: 15.5px;

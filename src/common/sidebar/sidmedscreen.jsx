@@ -52,7 +52,7 @@ function Sidmedscreen() {
         location.pathname.startsWith('/dashboard') ?
           <div className="sidbarmed p-0 " dir="rtl" >
             <div className="sidbarSidbar ">
-              <ul className="pt-4 ps-4">
+              <ul className="pt-4 ps-5">
                 <li className={`Icon  ${id === "1" ? "bgIcon" : " "}`}>
                   <Link to="/log" onClick={() => setId(1)} >
                     <img src={homeIcon} alt="الرئيسية" />
@@ -108,6 +108,11 @@ function Sidmedscreen() {
                     <img style={{ width: 18, height: 18 }} src={create_new} alt="وضع الاسئله" />
                   </Link>
                 </li>
+                <li className={`Icon  ${id === "12" ? "bgIcon" : " "}`}>
+                  <Link to="/" onClick={() => setId(12)} style={{ textDecoration: "none" }}>
+                    <i className="fas fa-globe text-white" ></i>
+                  </Link>
+                </li>
                 <li className={`Icon  ${id === "11" ? "bgIcon" : " "}`}>
                   <Link to="/" onClick={() => setId(11)}>
                     <img src={iconamoon_exit_light} alt="وضع الاسئله" />
@@ -127,8 +132,13 @@ function Sidmedscreen() {
                     </Link>
                   </li>
                   <li className={`Icon  ${id === "10" ? "bgIcon" : " "}`}>
-                    <Link to="/student/createExam" onClick={() => setId(10)}>
+                    <Link to="/student/datastudentexam" onClick={() => setId(10)}>
                       <img style={{ width: 18, height: 18 }} src={create_new} alt="إنشاء الامتحان" />
+                    </Link>
+                  </li>
+                  <li className={`Icon  ${id === "12" ? "bgIcon" : " "}`}>
+                    <Link to="/" onClick={() => setId(12)} style={{ textDecoration: "none" }}>
+                      <i className="fas fa-globe text-white" ></i>
                     </Link>
                   </li>
                   <li className={`Icon  ${id === "11" ? "bgIcon" : " "}`}>
@@ -163,13 +173,6 @@ function Sidmedscreen() {
               <div>
                 <button
                   type="button"
-                  className="btn-secondary cancel-btn DElementCancel mx-1"
-                  data-bs-dismiss="modal"
-                >
-                  لا
-                </button>
-                <button
-                  type="button"
                   className="btn btn-danger cancel-btn DElementSave mx-1"
                   data-bs-dismiss="modal"
                   onClick={() => {
@@ -177,6 +180,13 @@ function Sidmedscreen() {
                   }}
                 >
                   نعم
+                </button>
+                <button
+                  type="button"
+                  className="btn-secondary cancel-btn DElementCancel mx-1"
+                  data-bs-dismiss="modal"
+                >
+                  لا
                 </button>
               </div>
             </div>

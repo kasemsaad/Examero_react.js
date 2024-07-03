@@ -8,9 +8,11 @@ import logo from "./../../assets/image/لوجو examero-01 1.svg";
 // import SidebarFullscreen from '../sidebar/structure'
 import { useDispatch, useSelector } from "react-redux";
 import { CHANGE_THEME } from "../../redux/Types/types";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 function Header() {
+  const navigate = useNavigate()
+  const location = useLocation()
   const [toggled, setToggled] = useState(false);
   const ReducerState = useSelector((state) => state.dark);
   const count = useSelector((state) => state.dark.counter);
@@ -21,6 +23,18 @@ function Header() {
     dispatch({
       type: CHANGE_THEME,
     });
+  };
+ 
+  const linksProfile = () => {
+    if (location.pathname.startsWith('/dashboard')) {
+      navigate("/");
+    } else if (location.pathname.startsWith('/student')) {
+      navigate("/student/editStudentProfaile");
+    } else if (location.pathname.startsWith('/teacher')) {
+      navigate("/"); 
+    } else {
+      navigate("/"); 
+    }
   };
   return (
     <>
@@ -175,10 +189,16 @@ function Header() {
             width="100%"
             height="100%"
             alt="Personal"
+            onClick={()=>{
+                
+              linksProfile()
+
+            }}
           />
+            
         </div>
       </div>
-
+          
       {/*
 <div style={{maxWidth: "60%", color:"white",
 backgroundColor:"#0E0A43", marginLeft: "64px", borderRadius: "10px", position: "relative",top: "20px"}}>
