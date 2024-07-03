@@ -33,12 +33,14 @@ function Login() {
         }
     };
 
+ 
     const handleSubmit = (e) => {
         e.preventDefault();
         Api_website.post('/teachers/login', formData)
             .then((response) => {
                 setLoginSuccess(true);
                 localStorage.setItem('token', response.data.access_token);
+
                 localStorage.setItem('user',"teacher");
                 setError('');
                 navigate('/teacher/TeacherProfile'); 
@@ -46,12 +48,14 @@ function Login() {
             .catch((error) => {
                 setLoginSuccess(false);
                 if (error.response && error.response.data) {
-                    setError(error.response.data.message || 'حدث خطأ أثناء تسجيل الدخول');
+                    console.error("Error response data:", error.response.data);
+                    setError(error.response.data.error || 'حدث خطأ أثناء تسجيل الدخول');
                 } else {
                     setError('حدث خطأ أثناء تسجيل الدخول');
                 }
             });
     };
+    
 
   
 

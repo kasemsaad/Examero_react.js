@@ -66,7 +66,6 @@ function CreateTechAcc() {
         const phoneRegex = /^\d{10}$/;
         return phoneRegex.test(phone);
     };
-
     const handleSubmit = (e) => {
         e.preventDefault();
         if (formData.password !== formData.password_confirmation) {
@@ -74,34 +73,38 @@ function CreateTechAcc() {
             setTimeout(() => setError(''), 3000);
             return;
         }
-
-        if (!isValidEmail(formData.email)) {
-            setError('Invalid email format');
-            setTimeout(() => setError(''), 3000);
-            return;
-        }
-
-        if (!isValidPhoneNumber(formData.phone_number)) {
-            setError('Phone number must be 10 digits');
-            setTimeout(() => setError(''), 3000);
-            return;
-        }
-
+    
         const dateOfBirth = `${formData.date_of_birth.year}-${formData.date_of_birth.month}-${formData.date_of_birth.day}`;
         const dataToSubmit = {
             ...formData,
             date_of_birth: dateOfBirth,
         };
-
+    
         setLoading(true);
-
+    
         Api_website.post('/teachers/register', dataToSubmit)
-            .then((response) => {
+            .then(response => {
                 setSuccess('Registration successful!');
                 setError('');
                 setTimeout(() => setSuccess(''), 3000);
+    
+                // Reset form data after successful registration
+                setFormData({
+                    first_name: '',
+                    last_name: '',
+                    email: '',
+                    password: '',
+                    phone_number: '',
+                    date_of_birth: {
+                        day: '',
+                        month: '',
+                        year: '',
+                    },
+                    password_confirmation: '',
+                });
             })
-            .catch((error) => {
+            .catch(error => {
+                console.error("Error fetching subjects data:", error);
                 setError(error.response?.data?.message || 'An error occurred while registering.');
                 setTimeout(() => setError(''), 3000);
             })
@@ -109,7 +112,7 @@ function CreateTechAcc() {
                 setLoading(false);
             });
     };
- 
+    
     const handlebackhome = () => {
         navigate('/login_teacher'); 
     };

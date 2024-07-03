@@ -60,7 +60,6 @@ function CreateStudentAcc() {
      const handlebackhome = () => {
         navigate('/login_student'); 
     };
-
     const handleSubmit = (e) => {
         e.preventDefault();
         if (formData.password !== formData.password_confirmation) {
@@ -82,6 +81,21 @@ function CreateStudentAcc() {
                 setSuccess('Registration successful!');
                 setError('');
                 setTimeout(() => setSuccess(''), 3000);
+    
+                // Reset form data after successful registration
+                setFormData({
+                    first_name: '',
+                    last_name: '',
+                    email: '',
+                    password: '',
+                    phone_number: '',
+                    date_of_birth: {
+                        day: '',
+                        month: '',
+                        year: '',
+                    },
+                    password_confirmation: '',
+                });
             })
             .catch(error => {
                 console.error("Error fetching subjects data:", error);
