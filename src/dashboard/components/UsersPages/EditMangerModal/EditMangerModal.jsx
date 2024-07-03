@@ -5,9 +5,8 @@ import React, { useEffect, useState } from "react";
 const EditMangerModal = ({ api, fetchAllData, rowData, content }) => {
   const [showPassword, setShowPassword] = useState(false);
   // const [id, seId] = useState(idOfDeleteOrEditItem);
+  const [modal, setModal] = useState("");
 
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -25,7 +24,6 @@ const EditMangerModal = ({ api, fetchAllData, rowData, content }) => {
       },
     }
   );
-  const element = document.getElementById("edit-manger-dash");
 
   useEffect(() => {
     if (rowData) {
@@ -42,7 +40,7 @@ const EditMangerModal = ({ api, fetchAllData, rowData, content }) => {
   const handleRegistration = async (mangerData) => {
     await Api_Dashboard.post(`/${api}/${rowData.id}`, mangerData)
       .then((response) => {
-        element.style.display = "none";
+        setModal("modal");
         fetchAllData();
       })
       .catch((err) => {
@@ -469,6 +467,7 @@ const EditMangerModal = ({ api, fetchAllData, rowData, content }) => {
                 <div className="modal-footer-new new-footer">
                   <button
                     type="submit"
+                    data-bs-dismiss={modal}
                     className="btn btn-primary"
                     // data-bs-dismiss="modal"
                     style={{

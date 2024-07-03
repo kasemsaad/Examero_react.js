@@ -41,11 +41,9 @@ const Notification = ({ api, man, all }) => {
   };
   const deleteNotifications = async (activityIds) => {
     console.log(JSON.stringify(activityIds));
-    await Api_Dashboard.delete("/activity", activityIds)
+    await Api_Dashboard.put("/activity", activityIds)
       .then((response) => {
-        // setNotifiy(response.data.data);
-        // setMetaFPagination(response.data.meta.pagination);
-        console.log(response);
+        fetchAllNotfiy();
       })
       .catch((err) => {
         console.log(err);
@@ -70,10 +68,9 @@ const Notification = ({ api, man, all }) => {
       checked ? [...prev, idNum] : prev.filter((item) => item !== idNum)
     );
   };
-  console.log(isChecked);
-  const getValues = () => {
-    console.log(isChecked);
-  };
+  // const getValues = () => {
+  //   console.log(isChecked);
+  // };
   const check = isChecked.length;
 
   return (

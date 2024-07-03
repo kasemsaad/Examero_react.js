@@ -1,21 +1,8 @@
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import Api_Dashboard from "../../../interceptor/interceptorDashboard";
-import LadingComponent from "../../../LoadingComponent/LodingComponent";
-import { json } from "react-router-dom";
 import "./SowUser.css";
-import { width } from "@fortawesome/free-solid-svg-icons/fa0";
-const ShowUserModal = ({ fetchAllData, content, api, userData }) => {
+const ShowUserModal = ({ content, userData }) => {
   return (
     <>
-      {/* <button
-        className="btn btn-primary"
-        data-bs-toggle="modal"
-        data-bs-target="#show-manger-dash"
-      >
-        Rady
-      </button> */}
-
       <div
         className="modal fade"
         id="show-manger-dash"

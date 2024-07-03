@@ -3,7 +3,7 @@ import Api_Dashboard from "../../../interceptor/interceptorDashboard";
 import "./SendMessage.css";
 const SendMessage = ({ mangerID, api }) => {
   const [point, setPoints] = useState(0);
-  const element = document.getElementById("send-message-dash");
+  const [modal, setModal] = useState("");
   const [addMessage, setAddMessage] = useState({
     message: "",
     points: "",
@@ -36,12 +36,9 @@ const SendMessage = ({ mangerID, api }) => {
     if (addMessage) {
       await Api_Dashboard.post(`${api}`, addMessage)
         .then((response) => {
-          console.log(response);
-          element.style.display = "none";
+          setModal("modal");
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        .catch((err) => {});
     }
   };
   const [errors, setErrors] = useState("");
@@ -213,6 +210,7 @@ const SendMessage = ({ mangerID, api }) => {
                   >
                     <div className="submitButton">
                       <button
+                        data-bs-dismiss={modal}
                         type="submit"
                         className="btn btn-primary"
                         style={{
