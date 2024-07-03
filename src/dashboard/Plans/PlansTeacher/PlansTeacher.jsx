@@ -237,8 +237,8 @@ getAllTeacherPlan()
 
 
 
-                <div className="mt-4" style={{display:"flex"}}>
-                  <div className="form-group col-md-4">
+                <div className="mt-4" style={{display:"flex",justifyContent:"space-between"}}>
+                  <div className="form-group col-md-3">
                     <label htmlFor="price">سعر الباقة</label>
                     <div className="input-group" style={{flexWrap:"noWrap"}}>
                       <div className="input-group-prepend">
@@ -270,8 +270,8 @@ getAllTeacherPlan()
                       </div>
                     </div>
                   </div>
-                  <div className="form-group col-md-4">
-                    <label htmlFor="allow_exam">عدد الامتحانات المتاحة</label>
+                  <div className="form-group col-md-3">
+                    <label htmlFor="allow_exam"> الامتحانات المتاحة</label>
                     <div className="input-group">
                       <div className="input-group-prepend">
                         <button
@@ -303,8 +303,8 @@ getAllTeacherPlan()
                       </div>
                     </div>
                   </div>
-                  <div className="form-group col-md-4">
-                    <label htmlFor="allow_question">عدد الأسئلة المتاحة</label>
+                  <div className="form-group col-md-3">
+                    <label htmlFor="allow_question"> الأسئلة المتاحة</label>
                     <div className="input-group">
                       <div className="input-group-prepend">
                         <button
@@ -474,8 +474,8 @@ getAllTeacherPlan()
 
 
 
-                <div className="mt-4" style={{display:"flex"}}>
-                  <div className="form-group col-md-4">
+                <div className="mt-4" style={{display:"flex",justifyContent:'space-between'}}>
+                  <div className="form-group col-md-3">
                     <label htmlFor="price">سعر الباقة</label>
                     <div className="input-group" style={{flexWrap:"noWrap"}}>
                       <div className="input-group-prepend">
@@ -507,8 +507,8 @@ getAllTeacherPlan()
                       </div>
                     </div>
                   </div>
-                  <div className="form-group col-md-4">
-                    <label htmlFor="allow_exam">عدد الامتحانات المتاحة</label>
+                  <div className="form-group col-md-3">
+                    <label htmlFor="allow_exam"> الامتحانات المتاحة</label>
                     <div className="input-group">
                       <div className="input-group-prepend">
                         <button
@@ -540,8 +540,8 @@ getAllTeacherPlan()
                       </div>
                     </div>
                   </div>
-                  <div className="form-group col-md-4">
-                    <label htmlFor="allow_question">عدد الأسئلة المتاحة</label>
+                  <div className="form-group col-md-3">
+                    <label htmlFor="allow_question"> الأسئلة المتاحة</label>
                     <div className="input-group">
                       <div className="input-group-prepend">
                         <button

@@ -21,7 +21,7 @@ export default function RewardTeacher() {
     };
 
     const getALLdataOfTeacher = async () => {
-        await Api_Dashboard.get('/teacher/points').then((response) => {
+        await Api_Dashboard.get(`/teacher/points?page=${current_page}`).then((response) => {
             console.log(response.data.data.data);
             SetTeacher(response.data.data.data)
             Setpagination(response.data.meta.pagination);

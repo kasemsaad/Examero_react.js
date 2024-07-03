@@ -21,7 +21,7 @@ export default function RewardManger() {
     };
 
     const getAllDataOfManger = async () => {
-        await Api_Dashboard.get('/points/manager').then((response) => {
+        await Api_Dashboard.get(`/points/manager?page=${current_page}`).then((response) => {
             // console.log(response.data.data.data);
             SetmanagerALLData(response.data.data.data)
             Setpagination(response.data.meta.pagination);

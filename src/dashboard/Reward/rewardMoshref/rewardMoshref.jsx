@@ -21,7 +21,7 @@ export default function RewardMoshref() {
     };
 
     const getALLdataOfSuperVisor = async () => {
-        await Api_Dashboard.get('/points/Supervisor').then((response) => {
+        await Api_Dashboard.get(`/points/Supervisor?page=${current_page}`).then((response) => {
             console.log(response.data.data.data);
             SetsuperVisor(response.data.data.data)
             Setpagination(response.data.meta.pagination);
