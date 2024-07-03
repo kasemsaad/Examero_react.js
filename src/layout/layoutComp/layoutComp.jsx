@@ -26,7 +26,7 @@ function LayoutComp() {
         <TawkToScript />
         <div className='home'>
           <div className='block row ' dir='rtl' >
-            <div className='col-md-3 me-5' dir="rtl"   style={{ paddingTop:"110px" }}>
+            <div className='col-md-3 ff me-5' dir="rtl"   style={{ paddingTop:"110px" }}>
               <SidebarFullscreen />
               <Sidmedscreen />
               </div>

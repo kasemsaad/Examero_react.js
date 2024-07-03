@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
-
 const TawkToScript = () => {
   useEffect(() => {
-    // شيفرة Tawk.to
     var Tawk_API = Tawk_API || {};
     var Tawk_LoadStart = new Date();
     (function () {
@@ -14,9 +12,9 @@ const TawkToScript = () => {
       s1.setAttribute('crossorigin', '*');
       s0.parentNode.insertBefore(s1, s0);
     })();
-  }, []); // المصفوفة الفارغة تعني أن هذا التأثير يتم تنفيذه مرة واحدة فقط بعد تحميل المكون
+  }, []); 
 
-  return null; // لا يتم عرض أي شيء على الشاشة
+  return null; 
 };
 
 export default TawkToScript;

@@ -40,6 +40,7 @@ function Login1() {
                 localStorage.setItem('token', response.data.access_token);
                 localStorage.setItem('user',"student");
                 setError('');
+                localStorage.setItem("sidbarId", JSON.stringify(1));
                 navigate('/student/homeStudentView'); 
             })
             .catch((error) => {

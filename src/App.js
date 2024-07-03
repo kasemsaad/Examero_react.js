@@ -31,6 +31,7 @@ import Certified_exam from './websit/teacher_view/PuttingExam1/Certified_exam.js
 import EmailVerificationTech from './websit/register and login/EmailVerification/EmailVerificationtech.jsx';
 import EmailVerificationStud from './websit/register and login/EmailVerification/EmailVerificationStud.jsx';
 import HomeStudentView from './websit/Student/Student_View/homeStudentView.jsx'
+import SuccessPayment from './websit/Home/successpayment.jsx'
 import CreateExam from './websit/Student/createExam/createExam.jsx';
 import TeacherProfile from './websit/teacher_view/teacher profile/teacherProfile.jsx';
 import DataStudentExam from './websit/Student/dataStudentExam/dataStudentExam.jsx'
@@ -54,13 +55,23 @@ function App(props) {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="student/payment/SuccessPayment" element={
+            <ProtectedRouteWebsite>
+              <SuccessPayment/>
+           </ProtectedRouteWebsite>
+            } />
+          <Route path="teacher/payment/SuccessPayment" element={
+            <ProtectedRouteWebsite>
+              <SuccessPayment/>
+           </ProtectedRouteWebsite>
+            } />
           <Route path="/verify-account-teacher" element={<EmailVerificationTech />} />
           <Route path="/verify-account-student" element={<EmailVerificationStud />} />
           <Route path="/CreateStudentAccount" element={<CreateStudentAcc/>} /> 
           <Route path="/CreateTecherAccount" element={<CreateTechAcc/>} />
           <Route path="/login_student" element={<Login1/>} />
           <Route path="/login_teacher" element={<Login/>} />
-        <Route path="/StudentNewPassword" element={<New_pass/>} /> 
+          <Route path="/StudentNewPassword" element={<New_pass/>} /> 
           <Route path="/StudentEnterCode" element={<Reset_code_page/>} />
           <Route path="/StudentSendEmail" element={<Reset_page1/>} /> 
 
@@ -77,6 +88,7 @@ function App(props) {
               <HomeStudentView/>
           </ProtectedRouteWebsite>
             } />
+        
           <Route path="createExam" element={
             <ProtectedRouteWebsite>
               <CreateExam/>
