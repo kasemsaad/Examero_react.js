@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Col, Form, Button, Alert } from 'react-bootstrap';
-import request from "../../../utlis/axios_utils_websit.jsx";
+import Api_website from "../../../utlis/axios_utils_websit.jsx";
 import './new_pass.css';
 import passIcon from '../../../assets/icons/register and login icon/pngtree-password-vector-icon-design-illustration-png-image_6597553 3.svg';
 import lockIcon from '../../../assets/icons/register and login icon/padlock-icon-lock-and-unlock-icon-design-free-vector 1.svg';
@@ -18,30 +18,26 @@ function NewPass() {
   const token = useSelector((state) => state.user.token);
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      const response = await request({
-        method: 'post',
-        url: '/students/reset-password',
-        data: {
-          email,
-          token,
-          password,
-          password_confirmation: passwordConfirmation,
-        },
+    Api_website.post('/students/reset-password', {
+      email,
+      token,
+      password,
+      password_confirmation: passwordConfirmation,
+    })
+      .then((response) => {
+        setSuccess('تم إعادة تعيين كلمة المرور بنجاح.');
+        setError('');
+      })
+      .catch((error) => {
+        console.error('An error occurred while resetting password:', error);
+        setError(error.response?.data?.message || 'فشل إعادة تعيين كلمة المرور.');
+        setSuccess('');
+        setTimeout(() => setError(''), 3000);
       });
-
-      setSuccess('تم إعادة تعيين كلمة المرور بنجاح.');
-      setError('');
-   
-    } catch (error) {
-      console.error('An error occurred while resetting password:', error);
-      setError(error.response?.data?.message || 'فشل إعادة تعيين كلمة المرور.');
-      setSuccess('');
-      setTimeout(() => setError(''), 3000);
-    }
   };
+
 
   if (success) {
     return <SuccessMessage message={success} />;

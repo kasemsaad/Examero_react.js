@@ -1,0 +1,204 @@
+.modal-backdrop.show{
+    opacity: 0;
+}
+.modal-backdrop {
+  position: absolute !important;
+  width: 0;
+}
+
+
+
+
+.eleButton1 {
+  background-color: red; /* Example button color, adjust as needed */
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+.DElementTitle {
+  color: #FF8A00;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.DElementContent {
+  background-color: #1D195D;
+  border-radius: 30px;
+  padding: 20px;
+  width: 390px;
+  height: 390px;
+}
+
+.DElementBody {
+  padding-top: 15px;
+  color: #fff;
+}
+
+.DElementBody .warning-icon {
+  width: 100px;
+  margin-bottom: 30px;
+}
+
+.DElementBody p {
+  margin-bottom: 1rem;
+}
+
+.DElementFooter {
+  display: flex;
+  justify-content: center;
+  padding: 20px 20px;
+  border-top: none;
+  margin-bottom: 20px;
+}
+
+.DElementCancel, .DElementCancel:hover {
+  background-color: #CDCDCD;
+  color: #000;
+  width: 85px;
+  height: 35px;
+  border: none;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 10px;
+}
+.modal-backdrop{
+  width:0vh;
+}
+
+.DElementSave, .DElementSave:hover {
+  background-color: #C01F59;
+  color: #fff;
+  width: 85px;
+  height: 35px;
+  border: none;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 10px;
+}
+
+.DElementDialog {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* min-height: 100vh; */
+}
+
+@media screen and (max-width: 450px) {
+  .DElementContent {
+      width: 90%;
+      padding: 15px;
+  }
+  .DElementFooter {
+      flex-direction: column-reverse;
+      align-items: center;
+  }
+  .DElementCancel, .DElementSave {
+      width: 50%;
+      margin-bottom: 10px;
+  }
+  .DElementCancel{
+      order: 1 !important;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .DElementContent {
+      width: 95%;
+      padding: 10px;
+  }
+  .DElementFooter {
+      flex-direction: column;
+      align-items: center;
+  }
+  .DElementCancel, .DElementSave {
+      width: 100%;
+      margin-bottom: 10px;
+  }
+  .DElementCancel{
+      order: 1 !important;
+  }
+}
+
+
+.toggle-btnn {
+  background-color: #67c85e;
+  border-radius: 23.31px;
+  border: none;
+  width: 68.14px;
+  height: 20.49px;
+  transition: background-color 0.1s ease, border-color 0.2s ease;
+  cursor: pointer;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.748);
+  position: relative;
+}
+
+.toggle-btnn .thumb {
+  height: 16px;
+  width: 15px;
+  background-color: #ffff;
+  border-radius: 99px;
+  position: absolute;
+  left: 3px; /* Adjusted for equal spacing on the left */
+  top: 50%;
+  transform: translateY(-50%);
+  transition: left 0.15s ease;
+}
+
+.toggle-btnn.toggled {
+  background-color: #ff3a3a;
+}
+
+.toggle-btnn.toggled .thumb {
+  left: calc(100% - 18px); /* Adjusted for equal spacing on the right */
+}
+
+.white-text {
+  color: #ffff;
+}
+@media (max-width: 500px) {
+  .toggle-btnn {
+    background-color: #67c85e;
+    border-radius: 23.31px;
+    border: none;
+    width: 55.14px;
+    height: 18.49px;
+    transition: background-color 0.1s ease, border-color 0.2s ease;
+    cursor: pointer;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.748);
+    position: relative;
+  }
+
+  .toggle-btnn .thumb {
+    height: 16px;
+    width: 15px;
+    background-color: #ffff;
+    border-radius: 99px;
+    position: absolute;
+    left: 3px; /* Adjusted for equal spacing on the left */
+    top: 50%;
+    transform: translateY(-50%);
+    transition: left 0.15s ease;
+  }
+
+  .toggle-btnn.toggled {
+    background-color: #ff3a3a;
+  }
+}
+@media (max-width: 700px) {
+  .toggle-btnn {
+    background-color: #67c85e;
+    border-radius: 23.31px;
+    border: none;
+    width: 55.14px;
+    height: 18.49px;
+    transition: background-color 0.1s ease, border-color 0.2s ease;
+    cursor: pointer;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.748);
+    position: relative;
+  }
+}

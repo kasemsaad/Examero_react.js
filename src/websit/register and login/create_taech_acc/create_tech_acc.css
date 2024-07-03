@@ -167,7 +167,7 @@ text-align: right;
     gap: 10px;
 }
 
-.dropdown-container {
+.dropdown-container1 {
     position: relative;
     width: 100%;
 }
@@ -269,6 +269,8 @@ letter-spacing: 0.03em;
 .techim{
     position: relative;
 }
-.techim img{
-    width: 42%;
+.techim img {
+    width: 50%;
+    height: auto;
+    margin: auto;
 }
