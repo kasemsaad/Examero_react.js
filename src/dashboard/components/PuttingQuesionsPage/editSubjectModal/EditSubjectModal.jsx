@@ -16,6 +16,7 @@ const EditSubjectModal = ({
     group_id: "",
     subject_id: "",
   });
+  const [modal, setModal] = useState("");
   // Initialize the state with the values from rowDataOfSubjects
   useEffect(() => {
     if (rowDataOfSubjects) {
@@ -67,7 +68,8 @@ const EditSubjectModal = ({
     if (rowDataOfSubjects) {
       await Api_Dashboard.post(`/subjects/${rowDataOfSubjects.id}`, editClass)
         .then((response) => {
-          element.style.display = "none";
+          // element.style.display = "none";
+          setModal("modal");
           fetchAllData();
         })
         .catch((err) => {
@@ -235,7 +237,7 @@ const EditSubjectModal = ({
                       <button
                         type="button"
                         className="btn btn-secondary"
-                        data-bs-dismiss="modal"
+                        data-bs-dismiss={modal}
                         style={{
                           borderRadius: "30px",
                           color: "#FE4F60",

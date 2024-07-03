@@ -3,7 +3,7 @@ import Api_Dashboard from "../../../interceptor/interceptorDashboard";
 
 const EditClassModal = ({ rowDataOfClass, fetchAllData }) => {
   const [errors, setErrors] = useState("");
-  const element = document.getElementById("editClassModal");
+  const [modal, setModal] = useState("");
 
   const [editClass, setEditClass] = useState({
     name: "",
@@ -33,7 +33,7 @@ const EditClassModal = ({ rowDataOfClass, fetchAllData }) => {
       console.log(editClass);
       await Api_Dashboard.post(`/groups/${rowDataOfClass.id}`, editClass)
         .then((response) => {
-          element.style.display = "none";
+          setModal("modal");
           fetchAllData();
         })
         .catch((err) => {
@@ -154,7 +154,7 @@ const EditClassModal = ({ rowDataOfClass, fetchAllData }) => {
                   >
                     <div className="submitButton">
                       <button
-                        // data-bs-dismiss="modal"
+                        data-bs-dismiss={modal}
                         type="submit"
                         className="btn btn-primary"
                         style={{

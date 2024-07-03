@@ -2,11 +2,9 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import LayoutComp from "./layout/layoutComp/layoutComp";
 import J from "./common/j/j";
-import Log from "./common/j/log";
 import AccountSetting from "./dashboard/Account-settting/AccountSetting";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./websit/Home/home.jsx";
-import Notification from "./dashboard/Notification/Notification";
 import PuttingQuestions from "./dashboard/PuttingQussions/ForClasses/PuttingQuestions.jsx";
 import PuttingQForMab7as from "./dashboard/PuttingQussions/ForMab7s/PuttingQForMabhas.jsx";
 import "@fontsource/cairo"; // Defaults to weight 400
@@ -19,16 +17,13 @@ import Login1 from "./websit/register and login/login/login2.jsx";
 import New_pass from "./websit/register and login/new_pass/new_pass.jsx";
 // import HomeDashoardLogin from "./dashboard/homeLogin/homeLogin.jsx";
 import ProtectedRoute from "./dashboard/protectedRouteDashboard.jsx/protectedRouteDashboard.jsx";
-
 import PuttingQUnites from "./dashboard/PuttingQussions/ForUnits/PuttingQUnits.jsx";
 import PuttingQFLessons from "./dashboard/PuttingQussions/ForLessons/PuttingQFLessons.jsx";
 import PuttingKindOfQ from "./dashboard/PuttingQussions/ForKindOfQuestions/PuttingKOQuestions.jsx";
-import ReceivedEmis from "./dashboard/OpenEmis/Received/ReceivedEmis.jsx";
-import Teacher from "./dashboard/Plans/Teachers.jsx";
+// import Teacher from "./dashboard/Plans/Teachers.jsx";
 import HomeDashoardLogin from "./dashboard/homeLogin/homeLogin.jsx";
 import Mangers from "./dashboard/Users/Mangers/mangers.jsx";
 import Supervisors from "./dashboard/Users/supervisors/supervisors.jsx";
-import ShowUserModal from "./dashboard/components/UsersPages/ShowUserModal/ShowUser.jsx";
 import MangersActivity from "./dashboard/Notification/mangers.activity/mangersActivity.jsx";
 import AllActivity from "./dashboard/Notification/supervisorsActivity/AllActivity.jsx";
 function App(props) {
@@ -82,8 +77,7 @@ function App(props) {
 
           <Route path="mangers" element={<Mangers />} />
           <Route path="supervisors" element={<Supervisors />} />
-          <Route path="teacher" element={<Teacher />} />
-
+          {/* <Route path="teacher" element={<Teacher />} /> */}
           <Route path="login" element={<J />} />
           <Route path="b" element={<AccountSetting />} />
           <Route path="h" element={<Home_dashboard />} />

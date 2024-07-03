@@ -18,8 +18,9 @@ const EditLessonModal = ({
     status: "",
     name: "",
   });
+  const [modal, setModal] = useState("");
+
   const [errors, setErrors] = useState({});
-  const element = document.getElementById("edit-lesson-dash");
   const [edit, setEdit] = useState({
     group_id: "",
     status: "",
@@ -88,7 +89,7 @@ const EditLessonModal = ({
         `/lessons/${RowDataOfLesson.id}`,
         edit
       ); // Update with correct API path
-      element.style.display = "none";
+      setModal("modal");
       fetchAllLessons();
     } catch (error) {
       setErrors({
@@ -361,6 +362,7 @@ const EditLessonModal = ({
                 <div className="modal-footer-new new-footer">
                   <button
                     type="submit"
+                    data-bs-dismiss={modal}
                     className="btn btn-primary"
                     style={{
                       borderRadius: "30px",
