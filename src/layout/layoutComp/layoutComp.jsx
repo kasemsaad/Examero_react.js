@@ -8,6 +8,7 @@ import Navsmallscreen from '../../common/sidebar/navsmallscreen';
 import "./style.css"
 import { useSelector } from 'react-redux';
 import SidebarFullscreen from '../../common/sidebar/sidbarFullscreen';
+import TawkToScript from '../../websit/chat/TawkToScript.jsx';
 
 function LayoutComp() {
   const bachgroundTheme = useSelector((state)=>state.dark.color)
@@ -22,9 +23,10 @@ function LayoutComp() {
       }}>
         < Header />
         <Navsmallscreen />
+        <TawkToScript />
         <div className='home'>
           <div className='block row ' dir='rtl' >
-            <div className='col-md-3 me-5' dir="rtl"   style={{ paddingTop:"110px" }}>
+            <div className='col-md-3 ff me-5' dir="rtl"   style={{ paddingTop:"110px" }}>
               <SidebarFullscreen />
               <Sidmedscreen />
               </div>

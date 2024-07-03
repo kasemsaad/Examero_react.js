@@ -40,6 +40,8 @@ function Login() {
             .then((response) => {
                 setLoginSuccess(true);
                 localStorage.setItem('token', response.data.access_token);
+
+                localStorage.setItem('user',"teacher");
                 setError('');
                 navigate('/teacher/TeacherProfile'); 
             })

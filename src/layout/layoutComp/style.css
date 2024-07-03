@@ -19,7 +19,7 @@
     
 }
 @media screen and (max-width: 767px)  {
-    .col-md-3{
+    .ff{
       display: none;
     }
     .form{

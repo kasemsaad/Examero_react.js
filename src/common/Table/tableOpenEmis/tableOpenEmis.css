@@ -1,0 +1,273 @@
+/* Root font-size assumption: 16px */
+:root {
+    font-size: 14px;
+    font-weight: 600;
+  }
+  
+  .rounded-table-sa {
+    margin: auto;
+    width: 100%; /* 891px */
+  
+    direction: rtl;
+    text-align: center;
+    border-collapse: separate;
+    border-spacing: 0 0.5rem; /* 10px */
+  }
+  
+  .rounded-table-sa thead tr th {
+    color: #fe4f60;
+  }
+  
+  /* .rounded-table-sa thead tr td {
+    margin: 50px;
+    height: 2rem;
+  } */
+  
+  .trash,
+  .square,
+  .eye {
+    height: 100%;
+    width: 1.875rem; /* 30px */
+    padding: 0;
+    border: none;
+    display: inline-block;
+    font-size: 1rem; /* Adjust font size for icons */
+  }
+  
+  .trash {
+    color: #fe4f60;
+    height: 100%;
+    background-color: #120e4d;
+  }
+  
+  .square {
+    color: #ffffff;
+    background-color: #1d195d;
+  }
+  
+  .eye {
+    color: #ff8a00;
+    background-color: #120e4d;
+  }
+  
+  .rounded-table-sa th,
+  .rounded-table-sa td {
+    padding: 0;
+    height: 1.9rem; /* 30px */
+    color: aliceblue;
+  }
+  
+  .rounded-table-sa  tbody tr:nth-child(odd) {
+    background-color: #1d195d;
+  }
+  
+  .rounded-table-sa  tr:nth-child(even) {
+    background-color: #090631;
+  }
+  
+  .rounded-table-sa th {
+    font-weight: 700;
+    color: #fe4f60;
+    border-bottom: 0.5px solid #a6a0f4;
+    padding: 7px;
+  }
+  
+  /* Apply border-radius to the entire row by targeting the first and last cells */
+  .rounded-table-sa tbody tr td:first-child {
+    border-top-left-radius: 0rem; /* 8px */
+    border-bottom-left-radius: 0rem; /* 0px */
+    border-top-right-radius: 1rem; /* 0px */
+    border-bottom-right-radius: 1rem; /* 0px */
+    margin: 0 0.625rem; /* 10px */
+    width: 3.5rem;
+  }
+  
+  .rounded-table-sa tbody tr td:last-child {
+    border-top-left-radius: 1rem; /* 8px */
+    border-bottom-left-radius: 1rem; /* 0px */
+    border-top-right-radius: 0; /* 0px */
+    border-bottom-right-radius: 0; /* 0px */
+    width: 7.5rem;
+    margin: 0 0.625rem; /* 10px */
+  }
+  
+  /* Responsive design for all screen sizes */
+  @media (max-width: 1200px) {
+    :root {
+      font-size: 13px;
+    }
+  
+    .rounded-table-sa th,
+    .rounded-table-sa td {
+      height: 2rem; /* 28px */
+    }
+  
+    .trash,
+    .square,
+    .eye {
+      width: 1.75rem; /* 28px */
+      font-size: 0.875rem;
+      height: 100%;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    :root {
+      font-size: 12px;
+    }
+  
+    .rounded-table-sa th,
+    .rounded-table-sa td {
+      height: 2rem; /* 26px */
+    }
+  
+    .trash,
+    .square,
+    .eye {
+      height: 100%;
+      width: 1.5625rem; /* 25px */
+      font-size: 0.75rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    :root {
+      font-size: 11px;
+    }
+  
+    .rounded-table-sa th,
+    .rounded-table-sa td {
+      height: 2rem; /* 32px */
+      font-size: 0.875rem; /* 14px */
+    }
+  
+    .trash,
+    .square,
+    .eye {
+      width: 1.25rem; /* 20px */
+      font-size: 0.75rem;
+      height: 100%;
+    }
+  
+    .rounded-table-sa tbody tr td:first-child {
+      border-top-left-radius: 0rem; /* 8px */
+      border-bottom-left-radius: 0rem; /* 0px */
+      border-top-right-radius: 1rem; /* 0px */
+      border-bottom-right-radius: 1rem; /* 0px */
+    }
+    .rounded-table-sa tbody tr td:last-child {
+      border-top-left-radius: 1rem; /* 8px */
+      border-bottom-left-radius: 1rem; /* 0px */
+      border-top-right-radius: 0; /* 0px */
+      border-bottom-right-radius: 0; /* 0px */
+    }
+  }
+  
+  @media (max-width: 400px) {
+    :root {
+      font-size: 14px;
+    }
+  
+    .rounded-table-sa th,
+    .rounded-table-sa td {
+      height: 2rem; /* 30px */
+      font-size: 0.8125rem; /* 13px */
+    }
+  
+    .trash,
+    .square,
+    .eye {
+      width: 1rem; /* 16px */
+      font-size: 0.7rem;
+      height: 100%;
+    }
+  
+    .rounded-table-sa tbody tr td:first-child {
+      border-top-left-radius: 0rem; /* 8px */
+      border-bottom-left-radius: 0rem; /* 0px */
+      border-top-right-radius: 1rem; /* 0px */
+      border-bottom-right-radius: 1rem; /* 0px */
+    }
+    .rounded-table-sa tbody tr td:last-child {
+      border-top-left-radius: 1rem; /* 8px */
+      border-bottom-left-radius: 1rem; /* 0px */
+      border-top-right-radius: 0; /* 0px */
+      border-bottom-right-radius: 0; /* 0px */
+    }
+  }
+  
+  @media (max-width: 375px) {
+    :root {
+      font-size: 14px;
+    }
+  
+    .rounded-table-sa th,
+    .rounded-table-sa td {
+      height: 1.75rem; /* 28px */
+      font-size: 1rem; /* 12px */
+    }
+    .trash {
+      height: 1000px;
+    }
+    .trash,
+    .square,
+    .eye {
+      margin-left: 4px;
+      width: 1.6rem; /* 14px */
+      margin: 0;
+      font-size: 1rem;
+      height: 100%;
+    }
+    .rounded-table-sa tbody tr td:last-child {
+      margin: 0 0.625rem;
+  
+      border-top-left-radius: 1rem; /* 8px */
+      border-bottom-left-radius: 1rem; /* 0px */
+      border-top-right-radius: 0; /* 0px */
+      border-bottom-right-radius: 0; /* 0px */
+    }
+    .rounded-table-sa tbody tr td:first-child {
+      border-top-right-radius: 1rem; /* 8px */
+      border-bottom-right-radius: 1rem; /* 0px */
+      border-top-left-radius: 0; /* 0px */
+      border-bottom-left-radius: 0; /* 0px */
+      margin: 0 0.625rem; /* 10px */
+      width: 3.5rem;
+    }
+  }
+  
+  @media (max-width: 355px) {
+    :root {
+      font-size: 8px;
+    }
+  
+    .rounded-table-sa th,
+    .rounded-table-sa td {
+      height: 2rem; /* 26px */
+      font-size: 0.6875rem; /* 11px */
+    }
+  
+    .trash,
+    .square,
+    .eye {
+      width: 0.75rem; /* 12px */
+      font-size: 0.5rem;
+      height: 100%;
+    }
+  
+    .rounded-table-sa tbody tr td:first-child,
+    .rounded-table-sa tbody tr td:last-child {
+      border-radius: 0.25rem; /* 4px */
+    }
+  }
+  .buttonOfTable {
+    border-radius: 15px;
+    width: fit-content;
+    /* padding: 0px, 10px, 0px, 10px; */
+  
+    background-color: #4941a6;
+    color: #ffff;
+    border: none;
+  }
+  
+  
