@@ -127,16 +127,14 @@ function App(props) {
           <Route path="rewardteacher" element={<RewardTeacher />} />
           <Route path="check" element={<Checks />} />
 
-          
 
 
           
 
 
-          
 
 
-          
+
 
 
            </Route>

@@ -261,7 +261,11 @@ function CertificateGenerator() {
             </div>
             </form>
 
-            <img src={img} onClick={()=>onImg("/static/media/02-01 1.5019271e0f6ebea64cc9.png")} alt="" width={"20px"}  />
+            {/* <img src={img} onClick={()=>onImg("/static/media/02-01 1.5019271e0f6ebea64cc9.png")} alt="" width={"20px"}  /> */}
+
+
+
+
         </>
 
     );

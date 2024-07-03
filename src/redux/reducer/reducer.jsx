@@ -1,31 +1,39 @@
-import { counter } from "@fortawesome/fontawesome-svg-core";
+
 import { CHANGE_THEME, COUNTER } from "../Types/types";
+const initialState = {
+  color: localStorage.getItem("color") || "#090631",
+  lay: localStorage.getItem("lay") || "#0E0A43",
+  counter: Number(localStorage.getItem("counter")) || 0,
+};
 
-const changeTheme = (state={color:"#090631",lay:"#0E0A43",counter:0},action)=>{
+const changeTheme = (state = initialState, action) => {
+  switch (action.type) {
+    case CHANGE_THEME:
+      const newColor = state.color === "white" ? "#090631" : "white";
+      const newLay = state.lay === "#0E0A43" ? "#ECECEC" : "#0E0A43";
 
-    if(action.type == CHANGE_THEME){
+      localStorage.setItem("color", newColor);
+      localStorage.setItem("lay", newLay);
 
-        const color = "black"
-       const  toggled =""
-        return {
-            ...state,
-            color:state.color === "white" ? "#090631" : "white",
-            lay:state.lay === '#0E0A43' ? "#ECECEC" : "#0E0A43"
+      return {
+        ...state,
+        color: newColor,
+        lay: newLay,
+      };
 
-        }
-    }
+    case COUNTER:
+      const newCount = 44;
 
+      localStorage.setItem("counter", newCount);
 
-    
-    if(action.type == COUNTER){
+      return {
+        ...state,
+        counter: newCount,
+      };
 
-      const newCount=44
-        return {
-            ...state,
-            counter:newCount,
-           
-        }
-    }
-    return state ;
-}
+    default:
+      return state;
+  }
+};
+
 export default changeTheme;
