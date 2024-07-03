@@ -32,6 +32,7 @@ function Login1() {
             setIsValidEmail(isValid);
         }
     };
+
     const handleSubmit = (e) => {
         e.preventDefault();
         Api_website.post('/students/login', formData)
@@ -44,16 +45,14 @@ function Login1() {
             .catch((error) => {
                 setLoginSuccess(false);
                 if (error.response && error.response.data) {
-                    setError(error.response.data.message || 'حدث خطأ أثناء تسجيل الدخول');
+                    console.error("Error response data:", error.response.data);
+                    setError(error.response.data.error || 'حدث خطأ أثناء تسجيل الدخول');
                 } else {
                     setError('حدث خطأ أثناء تسجيل الدخول');
-                    
                 }
             });
     };
-
-   
-
+    
     const handleResetPassword = () => {
         navigate('/StudentSendEmail');
     };
@@ -84,9 +83,9 @@ function Login1() {
             <div className="login-container d-flex flex-wrap">
                 <Imgcom />
                 <Col xs={12} sm={12} md={12} lg={12} xl={6} xxl={6} className="d-flex flex-column login-card">
-                    <p className='card-title-l1 '>أدخل معلومات تسجيل الدخول </p>
+                    <p className='card-title-l1'>أدخل معلومات تسجيل الدخول</p>
                     <div className="header1-l1">
-                        <p className='card-title between-borders1-l1'> لتحصل على جميع الخدمات</p>
+                        <p className='card-title between-borders1-l1'>لتحصل على جميع الخدمات</p>
                     </div>
                     <Form className="login-form" onSubmit={handleSubmit}>
                         <div className="message-container">

@@ -3,9 +3,49 @@ import "./teacherProfile.css";
 import personal from "./../../../assets/image/IMG_20231104_171844_696.jpg";
 import success from "./../../../assets/image/Vector (1).svg";
 import lock from "./../../../assets/image/mdi_password-outline.svg";
+
+import fra from "./../../../assets/icons/teacherview/Vector.svg";
 import Api_website from '../../../utlis/axios_utils_websit.jsx';
+import MyTable from "../../../common/Table/Table.jsx";
 
 function TeacherProfile() {
+  let header = {
+                                                      
+    name1: " اسم الباقة",
+    name2: "  الاشتراكات الحالية",
+    name3: "  عدد النقاط  ",
+    name4: " النقاط المستخدمة ",
+    name5: "  النقاط المتاحة",
+    name6: "تفاصيل",
+
+
+    
+  };
+
+  let body = [
+    {
+      id: 1,
+      name1: "اسم الصف",
+    },
+    {
+      id: 1,
+      name1: "اسم الصف",
+    },
+    {
+      id: 1,
+      name1: "اسم الصف",
+    },
+    {
+      id: 1,
+      name1: "اسم الصف",
+    },
+    {
+      id: 1,
+      name1: "اسم الصف",
+    },
+  ];
+
+  let icon = { eye: true};
   const [alert, setAlert] = useState(false);
   const [errorAlert, setErrorAlert] = useState(false);
   const [passwordAlert, setPasswordAlert] = useState(false);
@@ -44,24 +84,13 @@ function TeacherProfile() {
         }
       });
   
-      setInputUser(response.data.user); // Log the received data for verification
-  
-      // setInputUser({
-      //   firstName: user.firstName ,
-      //   lastName: user.lastName ,
-      //   email: user.email,
-      //   date_of_birth: user.date_of_birth ,
-      //   phone_number: user.phone_number,
-      //   image: user.ImagePath 
-      // });
-    console.log(inputUser)
-  
+      const { created_at, ...userWithoutCreatedAt } = response.data.user;
+      setInputUser(userWithoutCreatedAt);
     } catch (error) {
       console.error("Error fetching user data:", error.message);
-      // Handle error appropriately, e.g., redirect to login page or show an error message
     }
   };
-
+  
   const handleChange = (e) => {
     setInputUser({ ...inputUser, [e.target.name]: e.target.value });
   };
@@ -72,8 +101,19 @@ function TeacherProfile() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+  
+    // نسخ كائن المستخدم بدون حقل created_at والتأكد من استخدام الأسماء الصحيحة للأعمدة
+    const { created_at, fullName, ...updatedUser } = {
+      first_name: inputUser.firstName,
+      last_name: inputUser.lastName,
+      email: inputUser.email,
+      date_of_birth: inputUser.date_of_birth ? new Date(inputUser.date_of_birth).toISOString().split('T')[0] : '',
+      phone_number: inputUser.phone_number,
+      image: inputUser.image
+    };
+  
     try {
-      const response = await Api_website.post('/teachers/update', inputUser);
+      const response = await Api_website.post('/teachers/update', updatedUser);
       setAlert(true);
       setTimeout(() => {
         setAlert(false);
@@ -86,7 +126,7 @@ function TeacherProfile() {
       }, 2000);
     }
   };
-
+  
   const handleSavePassword = async (e) => {
     e.preventDefault();
     try {
@@ -109,11 +149,12 @@ function TeacherProfile() {
     <>
       <div className="container" style={{ overflow: 'auto', marginTop: '10px', direction: 'rtl', height: 'auto' }}>
         <div className="w-100 h-100 pb-4" style={{ height: '60vh', marginTop: '80px', position: 'relative'}}>
-          <div style={{ position: 'absolute', top: '-12px', right: '20px', width: '40px', height: '40px', borderRadius: '50%', overflow: 'hidden' }}>
+          <div style={{  top: '-12px', right: '20px', width: '40px', height: '40px', borderRadius: '50%', overflow: 'hidden' }}>
             <img style={{ objectFit: 'cover' }} src={personal} width="100%" height="100%" alt="Profile" />
+          
           </div>
           <form onSubmit={handleSubmit}>
-            <div style={{ paddingTop: '100px' }} className="container">
+            <div style={{ paddingTop: '10px' }} className="container">
               <div className="d-flex align-items-center" style={{ direction: 'rtl', marginBottom: '20px' }}>
                 {alert &&
                   <div className="alert-primary" style={{ backgroundColor: "#ACEADF", height: "41px", display: "flex", alignItems: "center", borderRadius: "10px" }}>
@@ -186,8 +227,13 @@ function TeacherProfile() {
                     <input onChange={handleChange} type="text" className="form-control" required placeholder='21/2/1800' name='date_of_birth' value={inputUser.date_of_birth} />
                   </div>
                 </div>
-                <div className="col-md-12 mt-3 button_wraper " style={{ direction: "ltr", marginLeft: "10px" }}>
-                  <button type='submit' className="btn btn-danger" style={{ marginLeft: "30px" }}>حفظ</button>
+                <div>
+                <hr style={{marginTop:'2rem',marginBottom:'2rem'}}></hr>
+
+                </div>
+
+                <div className="col-md-12 mt-1 button_wraper d-flex justify-content-center " style={{ direction: "ltr", marginLeft: "10px" }}>
+                  <button type='submit' className="btn btn-danger">حفظ التعديلات</button>
                 </div>
               </div>
             </div>
@@ -196,11 +242,9 @@ function TeacherProfile() {
       </div>
 
       <form onSubmit={handleSavePassword}>
-        <div className="password-card p-4 " style={{
+        <div className="container password-card p-4 " style={{
           height: 'auto',
-          marginTop: '50px',
           borderRadius: '24px',
-          border: '2px #4941A6 solid',
           backgroundColor: "",
           marginBottom: "20px"
         }}>
@@ -219,6 +263,7 @@ function TeacherProfile() {
                 </div>
               </div>
             }
+
             {errorMessagePass &&
               <div className="alert-primary" style={{ backgroundColor: "#F68C8C", height: "41px", display: "flex", alignItems: "center", borderRadius: "10px", marginRight: "20px" }}>
                 <div className='d-flex ' style={{ alignItems: "center", marginRight: "17px", width: '30vw' }}>
@@ -230,27 +275,42 @@ function TeacherProfile() {
               </div>
             }
           </div>
-          <div className="row mt-4">
+          <div className=" row mt-4">
             <div className="col-md-4 form-group">
               <label htmlFor="currentPassword">كلمة المرور الحالية</label>
-              <input onChange={handlePasswordChange} type="password" name='current_password' className="form-control" style={{ marginTop: "7px" }} required placeholder='***************' />
+              <input onChange={handlePasswordChange} type="password" name='current_password' className="form-control" style={{ marginTop: "7px" }} required placeholder='أدخل كلمة المرور الحالية هنا' />
             </div>
             <div className="col-md-4 form-group">
               <label htmlFor="newPassword">كلمة المرور الجديدة</label>
-              <input onChange={handlePasswordChange} type="password" name='password' id="newPassword" className="form-control" style={{ marginTop: "7px" }} required placeholder='***************' />
+              <input onChange={handlePasswordChange} type="password" name='password' id="newPassword" className="form-control" style={{ marginTop: "7px" }} required placeholder='أدخل كلمة المرور الجديدة هنا' />
             </div>
             <div className="col-md-4 form-group">
               <label htmlFor="confirmPassword">تأكيد كلمة المرور الجديدة</label>
-              <input onChange={handlePasswordChange} type="password" name='password_confirmation' className="form-control" style={{ marginTop: "7px" }} placeholder='***************' required />
+              <input onChange={handlePasswordChange} type="password" name='password_confirmation' className="form-control" style={{ marginTop: "7px" }} placeholder='أعد أدخل كلمة المرور الجديدة هنا' required />
             </div>
-            <div className="col-md-12 mt-3 " style={{ direction: "ltr" }}>
-              <button type='submit' className="btn btn-danger">حفظ التغييرات</button>
+            <div>
+                <hr style={{marginTop:'2rem',marginBottom:'2rem'}}></hr>
+
+                </div>
+            <div className="col-md-12 mt-1  d-flex justify-content-center " style={{ direction: "ltr" }}>
+              <button type='submit' className="btn btn-danger"> حفظ كلمة السر الجديدة</button>
             </div>
           </div>
         </div>
       </form>
+      
+      <div className="MyTable  container">
+            <div className='d-flex'> 
+            <div>
+              <img src={fra} className="img-fluid " style={{ width: '20px', height: '20px', color: "#A6A0F4" }} />
+            </div>
+            <h4 className="" style={{ marginRight: "8px", color: "#A6A0F4", padding: "0", marginBottom: "0", fontSize: "18px", fontWeight: "600px" }}> تفاصيل الباقة</h4>
+            </div>
+          <MyTable header={header} body={body} icons={icon} />
+        </div>
     </>
   );
 }
 
 export default TeacherProfile;
+
