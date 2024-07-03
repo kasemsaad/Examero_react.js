@@ -5,7 +5,11 @@ import dropdownIcon from '../../../assets/icons/teacherview/Vector 13.svg';
 import loadIcon from '../../../assets/icons/teacherview/material-symbols_upload-sharp.svg';
 import './PuttingExam1.css';
 
+import { useSelector } from 'react-redux';
+
 function PuttingExam3(props) {
+  const layoutBackground = useSelector((state) => state.dark.lay);
+
   const [subject, setSubject] = useState(''); 
   const [grade, setGrade] = useState(''); 
   const [fullMark, setFullMark] = useState(''); 
@@ -70,7 +74,11 @@ function PuttingExam3(props) {
 
   return (
     <>
-      <div className='header-container1'>
+      <div className='header-container1' style={{
+        backgroundColor: layoutBackground === "#0E0A43" ? "#0E0A43" : "#ECECEC",
+        color: layoutBackground === "#0E0A43" ? "white" : "black",
+        fontSize: "18px"
+      }}>
         <img src={putting} alt="Icon" className='header1teacherview-icon' />
         <span className='header1_putting_exam1'> انشاء الامتحان  </span>
       </div>
@@ -79,11 +87,19 @@ function PuttingExam3(props) {
         <div className='header-line'></div>
       </div>
 
-      <Form onSubmit={handleSubmit} className='form_putting_exam3'>
+      <Form onSubmit={handleSubmit} className='form_putting_exam3'style={{
+        backgroundColor: layoutBackground === "#0E0A43" ? "#1D195D" : "#DADADA",
+        color: layoutBackground === "#0E0A43" ? "white" : "black",
+        fontSize: "18px"
+      }}>
         <ProgressBar now={progress} />
 
         <div className='header-container'>
-          <span className='header3_putting_exam1'>بيانات ترويسة الامتحان</span>
+          <span className='header3_putting_exam1'style={{
+        backgroundColor: layoutBackground === "#0E0A43" ? "#4941A6" : "#ECECEC",
+        color: layoutBackground === "#0E0A43" ? "white" : "black",
+        fontSize: "18px"
+      }}>بيانات ترويسة الامتحان</span>
         </div>
         <Row className="mb-3">
           <Col xs={12} sm={6}>
@@ -178,7 +194,11 @@ function PuttingExam3(props) {
           </Col>
           <Col xs={12} sm={6}>
             <Form.Group controlId="jordanianLogoCheckboxes">
-              <div className='apperalogo'>
+              <div className='apperalogo'style={{
+        backgroundColor: layoutBackground === "#0E0A43" ? "#4941A6" : "#ECECEC",
+        color: layoutBackground === "#0E0A43" ? "white" : "black",
+        fontSize: "18px"
+      }}>
                 <Form.Label className="mr-2">إظهار شعار المئوية الأردنية</Form.Label>
                 <div>
                   <Form.Check

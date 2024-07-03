@@ -10,7 +10,7 @@ import phoneIcon from '../../../assets/icons/register and login icon/depositphot
 import techIcon from '../../../assets/icons/register and login icon/75-754013_financial-planner-icon-png-financial-advisor-clipart-transparent 1.svg';
 import vector from '../../../assets/icons/register and login icon/Vector 58.svg';
 import techimg from '../../../assets/image/register and login image/Frame 26.png';
-import request from '../../../utlis/axios_utils_websit';
+import Api_website from '../../../utlis/axios_utils_websit';
 import { useNavigate } from 'react-router-dom';
 const days = Array.from({ length: 31 }, (_, i) => i + 1);
 const months = Array.from({ length: 12 }, (_, i) => i + 1);
@@ -67,7 +67,7 @@ function CreateTechAcc() {
         return phoneRegex.test(phone);
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         if (formData.password !== formData.password_confirmation) {
             setError('Passwords do not match');
@@ -94,27 +94,25 @@ function CreateTechAcc() {
         };
 
         setLoading(true);
-        try {
-            const response = await request({
-                method: 'post',
-                url: '/teachers/register',
-                data: dataToSubmit,
+
+        Api_website.post('/teachers/register', dataToSubmit)
+            .then((response) => {
+                setSuccess('Registration successful!');
+                setError('');
+                setTimeout(() => setSuccess(''), 3000);
+            })
+            .catch((error) => {
+                setError(error.response?.data?.message || 'An error occurred while registering.');
+                setTimeout(() => setError(''), 3000);
+            })
+            .finally(() => {
+                setLoading(false);
             });
-            setSuccess('Registration successful!');
-            setError('');
-            setTimeout(() => setSuccess(''), 3000);
-        } catch (error) {
-            setError(error.response?.data?.message || 'An error occurred while registering.');
-            setTimeout(() => setError(''), 3000);
-        } finally {
-            setLoading(false);
-        }
     };
+ 
     const handlebackhome = () => {
-        navigate('/'); 
+        navigate('/login_teacher'); 
     };
-
-
     return (
         <div className='create_tech_acc'>
             <div className="create_tech_acc d-flex flex-wrap">
@@ -234,7 +232,7 @@ function CreateTechAcc() {
                         <Form.Group controlId="date_of_birth">
                             <Form.Label className='birthdate_create_tech_acc'>تاريخ الميلاد</Form.Label>
                             <div className='date-input-container'>
-                                <div className='dropdown-container'>
+                                <div className='dropdown-container1'>
                                     <Form.Control as="select" className='dropdownn' name="day" onChange={handleDateChange}>
                                         <option value="" disabled selected>اليوم</option>
                                         {days.map(day => (
@@ -245,7 +243,7 @@ function CreateTechAcc() {
                                         <img src={vector} alt="dropdown icon" />
                                     </div>
                                 </div>
-                                <div className='dropdown-container'>
+                                <div className='dropdown-container1'>
                                     <Form.Control as="select" className='dropdownn' name="month" onChange={handleDateChange}>
                                         <option value="" disabled selected>الشهر</option>
                                         {months.map(month => (
@@ -256,7 +254,7 @@ function CreateTechAcc() {
                                         <img src={vector} alt="dropdown icon" />
                                     </div>
                                 </div>
-                                <div className='dropdown-container'>
+                                <div className='dropdown-container1'>
                                     <Form.Control as="select" className='dropdownn' name="year" onChange={handleDateChange}>
                                         <option value="" disabled selected>السنة</option>
                                         {years.map(year => (
@@ -319,7 +317,7 @@ function CreateTechAcc() {
                                 </Col>
                            
                                 <Col xs={12} sm={6} md={6} lg={6} xl={6} xxl={6}>
-                                    <Button type="button" className="back_creat_tech_acc_btn" onClick={handlebackhome}>رجوع</Button>
+                                    <Button type="button" className="back_creat_tech_acc_btn" onClick={handlebackhome}>تسجيل دخول</Button>
                                 </Col>
                             </Row>
                         </Row>

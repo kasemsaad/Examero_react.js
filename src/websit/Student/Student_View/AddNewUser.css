@@ -1,0 +1,181 @@
+
+
+
+.managerFGroup input {
+    border-radius: 6px;
+}
+
+.managerForm {
+    direction: rtl;
+}
+.parent1 {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.child1, .child3 {
+    position: relative;
+    margin: auto; 
+    margin-top: 1rem;
+    /* width: 45%; */
+}
+
+
+.form-text {
+    display: block;
+    height: 2rem;
+}
+
+.managerBody {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.managergDialog {
+    position: relative;
+}
+
+.managerContent {
+    width: 790px !important;
+    /* height: 30.1875rem;  */
+    /* height: 485px !important; */
+    background-color: #1D195D;
+    color: white; 
+    position: relative; 
+}
+
+.managerHeader {
+    text-align: center;
+    justify-content: center;
+    border-color: #A6A0F4;
+    width: 100% !important;
+  
+}
+
+.managerTitle {
+    margin: 0;
+    font-size: 1.5rem; 
+    font-weight: bold;
+    color: #FF8A00;
+    display: flex;
+    justify-content: center;
+}
+
+
+
+/* .kh {
+    position: relative;
+    width: 1em;
+    height: 1em;
+    padding: 0;
+    background-color: #FFFFFF;
+    color: white; 
+    border: none;
+    appearance: none;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 10px;
+    right: 10px;
+} */
+
+.kh::before,
+.kh::after {
+content: '';
+position: absolute;
+}
+
+.kh::before {
+    transform: rotate(45deg);
+}
+
+.kh::after {
+    transform: rotate(-45deg);
+}
+
+.kh {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color:  #FFFFFF;
+    color: red;
+    border-radius: 50% !important;
+    padding: 0 !important;
+}
+.kh,.kh:hover{
+    background-color:  #FFFFFF;
+
+}
+.managerControl {
+    width: 100%;
+    padding: 0.625rem; 
+    border-radius: 0;
+    border: none;
+    margin-top: 0.625rem; 
+    background-color: #D9D9D9;
+    color: #0E0A43;
+}
+
+/* .form-text {
+    color: #A6A0F4;
+} */
+
+.managerFooter{
+    border-top: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* margin-right: 33px; */
+    padding: 0px;
+    margin-bottom: 0px;
+    width: 100%;
+}
+
+.managerCancel,.managerCancel:hover,.managerCancel:active {
+    /* background-color: transparent; */
+    border: 1px solid #FE4F60 !important;
+    color: #FE4F60;
+    border-radius: 0.625rem; 
+
+    width: 120px !important;
+    height: 40px !important;
+
+    font-weight: bold;
+    border-radius: 30px !important;
+}
+.managerButton{
+    background-color: #A6A0F4;
+    border-radius: 10px;
+}
+#firstbutt {
+    width: 8.75rem;
+    height: 2.875rem;
+}
+
+#second {
+    width: 140px;
+    height: 46px;
+    background-color: #C01F59;
+    border-radius: 30px;
+}
+.managerSave {
+    width: 120px !important;
+    height: 40px !important;
+    font-weight: bold;
+    border-radius: 30px !important;
+    border: none;
+    background-color: #FE4F60;
+    color: white;
+    font-weight: bold;
+} 
+
+
+
+.managerSave:hover {
+    background-color: #FE4F60;
+}

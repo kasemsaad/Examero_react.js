@@ -1,96 +1,75 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { Col, Form, Button, Alert } from 'react-bootstrap';
 import Api_website from "../../../utlis/axios_utils_websit.jsx";
-import passIcon from '../../../assets/icons/register and login icon/pngtree-password-vector-icon-design-illustration-png-image_6597553 3.svg';
-import lockIcon from '../../../assets/icons/register and login icon/padlock-icon-lock-and-unlock-icon-design-free-vector 1.svg';
-import Create_acc from '../create_acc/create_acc.jsx';
+import { setToken } from '../../../redux/reducer/user.jsx';
+import './reset_password.css';
 import Imgcom from '../imgcom/imgcom.jsx';
-// import SuccessMessage from './updatepass.jsx';
-import { useNavigate } from 'react-router-dom';
-import Api_Dashboard from '../../../dashboard/interceptor/interceptorDashboard.jsx';
-function NewPassDashpoard() {
-  const [password, setPassword] = useState('');
-  const [passwordConfirmation, setPasswordConfirmation] = useState('');
+import Create_acc from '../create_acc/create_acc.jsx';
+import emailIcon from '../../../assets/icons/register and login icon/mail-email-icon-template-black-color-editable-mail-email-icon-symbol-flat-illustration-for-graphic-and-web-design-free-vector 2.svg';
+import rightCheck from '../../../assets/icons/register and login icon/check-mark-vector-free-1 1.svg';
+
+function ResetCodePage() {
+  const [code, setCode] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-  const email = useSelector((state) => state.user.email);
-  const token = useSelector((state) => state.user.token);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const email = useSelector((state) => state.user.email);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    Api_Dashboard.post('/reset-password', {
-      email,
-      token,
-      password,
-      password_confirmation: passwordConfirmation,
-    })
+    Api_website.post('/students/verify-token', { token: code })
       .then((response) => {
-        setSuccess('تم إعادة تعيين كلمة المرور بنجاح.');
+        console.log('Token verified:', response);
+        setSuccess('تم التحقق من الكود.');
         setError('');
+        dispatch(setToken(code)); 
+        setTimeout(() => {
+          navigate('/StudentNewPassword');
+        }, 3000);
       })
       .catch((error) => {
-        console.error('An error occurred while resetting password:', error);
-        setError(error.response?.data?.message || 'فشل إعادة تعيين كلمة المرور.');
+        console.error('Invalid token:', error);
+        setError('كود غير صحيح.');
         setSuccess('');
         setTimeout(() => setError(''), 3000);
       });
   };
 
 
-  // if (success) {
-  //   return <SuccessMessage message={success} />;
-  // }
-
   return (
-    <div className='new_pass'>
-      <div className="new_pass d-flex flex-wrap">
+    <div className='reset_code_page'>
+      <div className="Reset_code_page d-flex flex-wrap">
         <Imgcom />
-        <Col xs={12} sm={12} md={12} lg={12} xl={6} xxl={6} className="d-flex flex-column new_pass_card">
-          <p className='card-title '>أدخل معلومات تسجيل الدخول </p>
-          <div className="header1">
-            <p className='card-title between-borders1'>لتحصل على جميع الخدمات</p>
+        <Col xs={12} sm={12} md={12} lg={12} xl={6} xxl={6} className="d-flex flex-column reset1-card align-items-center">
+          <p className='card-title-l2 '>أدخل معلومات تسجيل الدخول </p>
+          <div className="header1-l2">
+            <p className='card-title2 between-borders1-l2'>لتحصل على جميع الخدمات</p>
           </div>
-          <Form className="new_pass-form" onSubmit={handleSubmit}>
+          <Form className="reset_code-form" onSubmit={handleSubmit}>
             {error && <Alert variant="danger">{error}</Alert>}
-            <Form.Group controlId="password">
-              <Form.Label className='new_password'>كلمة المرور الجديدة</Form.Label>
+            {success && <Alert variant="success">{success}</Alert>}
+            <Form.Group controlId="code">
+              <Form.Label className='reset_code_email'>أدخل الكود المرسل إلى الإيميل</Form.Label>
               <div className='relative1'>
                 <Form.Control
-                  className='p_new_pass'
-                  type="password"
-                  placeholder="أدخل كلمة السر الخاصة بك"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  className='p_code'
+                  type="text"
+                  placeholder="أدخل الكود"
+                  value={code}
+                  onChange={(e) => setCode(e.target.value)}
                 />
-                <div className='icon-container password-icon'>
-                  <img src={passIcon} alt="password icon" />
+                <div className='icon-container email-icon'>
+                  <img src={emailIcon} alt="email icon" />
                 </div>
-                <div className='icon-container lock-icon'>
-                  <img src={lockIcon} alt="lock icon" />
+                <div className='icon-container check-icon'>
+                  <img src={rightCheck} alt="check icon" />
                 </div>
               </div>
             </Form.Group>
-            <Form.Group controlId="passwordConfirmation">
-              <Form.Label className='con_new_password'>تأكيد كلمة المرور الجديدة</Form.Label>
-              <div className='relative1'>
-                <Form.Control
-                  className='p_con_new_password'
-                  type="password"
-                  placeholder="أدخل كلمة السر الخاصة بك"
-                  value={passwordConfirmation}
-                  onChange={(e) => setPasswordConfirmation(e.target.value)}
-                />
-                <div className='icon-container password-icon'>
-                  <img src={passIcon} alt="password icon" />
-                </div>
-                <div className='icon-container lock-icon'>
-                  <img src={lockIcon} alt="lock icon" />
-                </div>
-              </div>
-            </Form.Group>
-            <Button type="submit" className="new_pass_btn">تم</Button>
+            <Button type="submit" className="reset_code_btn">إرسال</Button>
             <Create_acc />
           </Form>
         </Col>
@@ -99,4 +78,4 @@ function NewPassDashpoard() {
   );
 }
 
-export default NewPassDashpoard;
+export default ResetCodePage;

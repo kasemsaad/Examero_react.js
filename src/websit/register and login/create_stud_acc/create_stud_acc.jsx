@@ -9,7 +9,7 @@ import phoneIcon from '../../../assets/icons/register and login icon/depositphot
 import studentIcon from '../../../assets/icons/register and login icon/360_F_377139493_Vta4MPTZUsQK6p5TXUkL3Xc6pqFYRxHm 1.svg';
 import vector from '../../../assets/icons/register and login icon/Vector 58.svg';
 import studentimg from '../../../assets/image/register and login image/Rectangle 4198.png';
-import request from '../../../utlis/axios_utils_websit';
+import Api_Website from '../../../utlis/axios_utils_websit';
 import { useNavigate } from 'react-router-dom';
 const days = Array.from({ length: 31 }, (_, i) => i + 1);
 const months = Array.from({ length: 12 }, (_, i) => i + 1);
@@ -58,41 +58,40 @@ function CreateStudentAcc() {
     const navigate = useNavigate();
 
      const handlebackhome = () => {
-        navigate('/'); 
+        navigate('/login_student'); 
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         if (formData.password !== formData.password_confirmation) {
             setError('Passwords do not match');
             setTimeout(() => setError(''), 3000);
             return;
         }
-
+    
         const dateOfBirth = `${formData.date_of_birth.year}-${formData.date_of_birth.month}-${formData.date_of_birth.day}`;
         const dataToSubmit = {
             ...formData,
             date_of_birth: dateOfBirth,
         };
-
+    
         setLoading(true);
-        try {
-            const response = await request({
-                method: 'post',
-                url: '/students/register',
-                data: dataToSubmit,
+    
+        Api_Website.post('/students/register', dataToSubmit)
+            .then(response => {
+                setSuccess('Registration successful!');
+                setError('');
+                setTimeout(() => setSuccess(''), 3000);
+            })
+            .catch(error => {
+                console.error("Error fetching subjects data:", error);
+                setError(error.response?.data?.message || 'An error occurred while registering.');
+                setTimeout(() => setError(''), 3000);
+            })
+            .finally(() => {
+                setLoading(false);
             });
-            setSuccess('Registration successful!');
-            setError('');
-            setTimeout(() => setSuccess(''), 3000);
-        } catch (error) {
-            setError(error.response?.data?.message || 'An error occurred while registering.');
-            setTimeout(() => setError(''), 3000);
-        } finally {
-            setLoading(false);
-        }
     };
-
     return (
         <div className='create_student_acc'>
             <div className="create_student_acc d-flex flex-wrap">
@@ -209,7 +208,7 @@ function CreateStudentAcc() {
                         <Form.Group controlId="birthdate">
                             <Form.Label className='birthdate_create_std_acc'>تاريخ الميلاد</Form.Label>
                             <div className='date-input-container'>
-                                <div className='dropdown-container'>
+                                <div className='dropdown-container1'>
                                     <Form.Control as="select" className='dropdownn' name="day" value={formData.date_of_birth.day} onChange={handleDateChange}>
                                         <option value="" disabled selected>اليوم</option>
                                         {days.map(day => (
@@ -220,7 +219,7 @@ function CreateStudentAcc() {
                                         <img src={vector} alt="dropdown iconv" />
                                     </div>
                                 </div>
-                                <div className='dropdown-container'>
+                                <div className='dropdown-container1'>
                                     <Form.Control as="select" className='dropdownn' name="month" value={formData.date_of_birth.month} onChange={handleDateChange}>
                                         <option value="" disabled selected>الشهر</option>
                                         {months.map(month => (
@@ -231,7 +230,7 @@ function CreateStudentAcc() {
                                         <img src={vector} alt="dropdown iconv" />
                                     </div>
                                 </div>
-                                <div className='dropdown-container'>
+                                <div className='dropdown-container1'>
                                     <Form.Control as="select" className='dropdownn' name="year" value={formData.date_of_birth.year} onChange={handleDateChange}>
                                         <option value="" disabled selected>السنة</option>
                                         {years.map(year => (
@@ -292,7 +291,7 @@ function CreateStudentAcc() {
                                 </Col>
                              
                                 <Col xs={12} sm={6} md={6} lg={6} xl={6} xxl={6}>
-                                    <Button type="button" className="back_create_student_acc_btn" onClick={handlebackhome}>رجوع</Button>
+                                    <Button type="button" className="back_create_student_acc_btn" onClick={handlebackhome}>تسجيل دخول</Button>
                                 </Col>
                             </Row>
                         </Row>
