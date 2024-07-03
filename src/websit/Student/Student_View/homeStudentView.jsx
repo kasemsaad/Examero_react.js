@@ -293,7 +293,7 @@ const getUsersFromInput=(e)=>{
                   <Calendar onChange={props.onChange} value={props.date} />
                 </div>
 
-                {allNotes.length > 0 && (
+                {/* {allNotes.length > 0 && (
                   <div className="mt-4 todo_app_wrapper d-flex justify-content-center" style={{ height: "30vh", overflow: "auto" }}>
                     <div className="todo_app" style={{ overflow: "auto" }}>
                       {allNotes.map(({ id, address }) => (
@@ -311,7 +311,7 @@ const getUsersFromInput=(e)=>{
                       ))}
                     </div>
                   </div>
-                )}
+                )} */}
 
                 <div style={{ textAlign: "center", display: 'flex', justifyContent: "center", marginTop: "10px" }}>
                   <button

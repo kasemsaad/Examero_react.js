@@ -19,7 +19,8 @@
     
 }
 @media screen and (max-width: 767px)  {
-   .ff {
+
+    .ff{
       display: none;
     }
     .form{

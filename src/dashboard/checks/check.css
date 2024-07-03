@@ -1,0 +1,97 @@
+
+/* .wrapper_containr_certify{ */
+    /* height: 300px;
+    width: 300px; */
+    /* background-color: red; */
+    /* position: relative;
+  } */
+  /* .content_{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    right: 0;
+  
+  }
+  
+  /* .content_ .name_cert{
+    position: absolute;
+    top: 208px;
+    left: 400px;
+    width: 144px;
+  }
+  .logo_certify{
+    right: -340px !important;
+      top: 60px !important;
+  } */
+  
+  /* .content_ .first_sign{
+    position: absolute;
+    bottom: -119px;
+    left: 455px;
+  
+  }
+  .content_ .sec_sign{
+    position: absolute;
+    bottom: -118px;
+    left: 179px;
+  }
+  
+   */
+
+
+   
+  .content_ .student_cert{
+    /* position: absolute;
+    top: 208px;
+    left: 202px;
+    width: 144px;  
+  
+    margin-top: 205px;
+    margin-left: 410px;  */
+    position: absolute;
+    top: 0;
+  
+    }  
+
+
+
+
+
+    .container {
+        position: relative;
+    }
+    
+    .wrapper_containr_certify {
+        position: relative;
+    }
+    
+    #ana {
+        position: relative;
+        width: fit-content;
+        height: auto;
+    }
+    
+    /* .content_ {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+    
+    .student_cert, .name_cert, .first_sign, .sec_sign {
+        margin: 10px 0;
+    }
+    
+    .logo_certify {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+    }
+     */

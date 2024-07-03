@@ -1,13 +1,23 @@
 import MyButton from "../../../common/Button/Button";
 import "./Second.css";
-const SecondTriangle = ({ content, className, to, onClick }) => {
+const SecondTriangle = ({
+  content,
+  className,
+  linkTo,
+  onClick,
+  style,
+  stylep,
+}) => {
+  // const com;
   return (
     <>
-      <div className={className}>
+      <div>
         <MyButton
+          style={style}
+          stylep={stylep}
           className={"ques"}
           content={content}
-          to={to}
+          linkTo={linkTo}
           onClick={onClick}
         />
       </div>
