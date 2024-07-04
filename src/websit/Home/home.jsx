@@ -137,7 +137,6 @@ function Home() {
 
     const loading = () => {
         setTimeout(() => {
-
             const load = document.getElementById("reload");
             // const body = document.getElementsByTagName("body");
             load.style.display = "none"
@@ -174,14 +173,11 @@ function Home() {
             .then(response => {
                 console.log(response.data.redirect_url)
                 window.open(response.data.redirect_url, '_blank');
-
-
             })
             .catch(error => {
                 console.error("Error fetching mastercard data:");
-                loading()
-                navigate("/login_student")
-            });
+                // loading()
+                       });
     }
     const paypalStudentApi = (id) => {
         const data = {
@@ -193,8 +189,8 @@ function Home() {
             })
             .catch(error => {
                 console.error("Error fetching paypal data:");
-                loading()
-                navigate("/login_student")
+                // loading()
+                
 
             });
     }
@@ -208,8 +204,8 @@ function Home() {
             })
             .catch(error => {
                 console.error("Error fetching mastercard data:");
-                navigate("/login_teacher")
-
+                // loading()
+              
             });
     }
     const paypalTeacherApi = (id) => {
@@ -222,8 +218,8 @@ function Home() {
             })
             .catch(error => {
                 console.error("Error fetching paypal data:");
-                navigate("/login_teacher")
-
+                // loading()
+              
             });
     }
 
@@ -276,7 +272,7 @@ function Home() {
                                 <Link className="btn mx-3  " style={{ height: "2.5rem", width: "8rem", color: "white", backgroundColor: "#4941A6" }} to={"/CreateStudentAccount"}>انشاء حساب</Link>
                                 <Link className="btn mx-3" type="button"
                                     style={{ height: "2.5rem", width: "8rem", border: "2px solid #4941A6" }}
-                                    to={"/Login_student"}
+                                    
                                 >
                                     تسجيل الدخول
                                 </Link>
@@ -288,7 +284,6 @@ function Home() {
 
             {/* -----------EndNavbar--------- */}
             {/* -----------section1--------- */}
-            {/* <img className="d"  src={imgs1} alt="" /> */}
             <Section className="Section d-flex pt-5  justify-content-center pt-5" ref={sec1}>
                 <DivSection1 className="DivSection1 mt-1 container row p-0 m-1">
                     <SectionImage1 className="SectionImage1 col-md-6 p-0">
@@ -723,7 +718,6 @@ function Home() {
                                                     alt="paypal"
                                                     onClick={() => {
                                                         paypalStudentApi(baymentObj.id)
-                                                        loading()
 
                                                     }}
                                                     style={{ width: "60px", height: "70px" }}
@@ -739,7 +733,6 @@ function Home() {
                                                     alt="mastercard"
                                                     onClick={() => {
                                                         mastercardStudentApi(baymentObj.id)
-                                                        loading()
                                                     }}
                                                     style={{ width: "60px", height: "70px" }}
                                                     data-bs-toggle="modal"
@@ -757,7 +750,6 @@ function Home() {
                                                     alt="paypal"
                                                     onClick={() => {
                                                         paypalTeacherApi(baymentObj.id)
-                                                        loading()
 
                                                     }}
                                                     style={{ width: "70px" }}
@@ -773,7 +765,6 @@ function Home() {
                                                     alt="mastercard"
                                                     onClick={() => {
                                                         mastercardTeacherApi(baymentObj.id)
-                                                        loading()
 
                                                     }}
                                                     style={{ width: "70px" }}
