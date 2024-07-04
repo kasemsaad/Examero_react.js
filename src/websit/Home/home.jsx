@@ -176,7 +176,10 @@ function Home() {
             })
             .catch(error => {
                 console.error("Error fetching mastercard data:");
-                // loading()
+                loading()
+                setTimeout(() => {
+                    navigate("/login_student")
+                }, 4000);
                        });
     }
     const paypalStudentApi = (id) => {
@@ -189,8 +192,10 @@ function Home() {
             })
             .catch(error => {
                 console.error("Error fetching paypal data:");
-                // loading()
-                
+                loading()
+                setTimeout(() => {
+                    navigate("/login_student")
+                }, 4000);
 
             });
     }
@@ -204,7 +209,10 @@ function Home() {
             })
             .catch(error => {
                 console.error("Error fetching mastercard data:");
-                // loading()
+                loading()
+                setTimeout(() => {
+                    navigate("/login_student")
+                }, 4000);
               
             });
     }
@@ -218,7 +226,10 @@ function Home() {
             })
             .catch(error => {
                 console.error("Error fetching paypal data:");
-                // loading()
+                loading()
+                setTimeout(() => {
+                    navigate("/login_student")
+                }, 4000);
               
             });
     }
