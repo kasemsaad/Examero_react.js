@@ -14,7 +14,7 @@ function CreateExam(props) {
   const [duration, setDuration] = useState('');  // User input for duration
   const [timeLeft, setTimeLeft] = useState(0);   // Time left in seconds
   const [isActive, setIsActive] = useState(false); // Timer state
-  const [timeValidationMessage, setTimeValidationMessage] = useState('');
+  const [timeValidationMessage] = useState('');
   // Function to start the timer
   const startTimer = () => {
 
@@ -138,7 +138,7 @@ function CreateExam(props) {
     }
   };
   //////////////////////////////////////////////////////
-  const [error, setError] = useState(''); // State to hold the error message
+  const [error, setError] = useState(''); 
   const [group_id, setGroup_id] = useState('');
   const [subject_id, setSubject_id] = useState('');
   const [semster, setSemster] = useState('');
@@ -151,9 +151,9 @@ function CreateExam(props) {
     setGroup_id(id);
   };
   const handleChangeGroup = (event) => {
-    const selectedId = event.target.value; // Get the selected value
-    getSubject(selectedId); // Call the getSubject function with the selected id
-    handleGroupChange(selectedId); // Call the handleGroupChange function with the selected id
+    const selectedId = event.target.value; 
+    getSubject(selectedId); 
+    handleGroupChange(selectedId); 
   }
 
   const handleSubjectChange = (id) => {
@@ -161,24 +161,17 @@ function CreateExam(props) {
   };
   const handleChangesubject = (event) => {
     const selectedId = event.target.value;
-    getUnit(selectedId); // Call getUnit with the selected subject id
-    handleSubjectChange(selectedId); // Handle the subject change
+    getUnit(selectedId); 
+    handleSubjectChange(selectedId); 
   };
-
   const handleSemesterChange = (id) => {
     setSemster(id);
   };
-  // const [selectedSemester, setSelectedSemester] = useState('');
 
-  // Handle change event for the select element
-  const [selectedSemester, setSelectedSemester] = useState('');
-
-  // Handle change event for the select element
   const handlesemesterChanges = (event) => {
     const selectedId = event.target.value;
-    // setSelectedSemester(selectedId); // Update state with the selected value
-    getLesson(selectedId);           // Call the provided function with the selected id
-    handleSemesterChange(selectedId); // Call another provided function with the selected id
+    getLesson(selectedId);           
+    handleSemesterChange(selectedId); 
   };
   const handlePlansChange = (id) => {
     setPlansid(id);
@@ -201,7 +194,7 @@ function CreateExam(props) {
     setLesson_id(id);
   };
   const handleLessonsChange = (event) => {
-    const selectedId = event.target.value; // Get the selected lesson ID
+    const selectedId = event.target.value; 
     handleLesson_idChange(selectedId);
     setError('');
   }
@@ -265,16 +258,12 @@ function CreateExam(props) {
                   .then(response => {
                     console.log(response);
 
-                    // console.log('generat successfuly exam');
                     const modalElementExam = document.getElementById('Exam');
                     modalElementExam.style.display = "block"
                     setQusetionExam(response.data.data)
                     startTimer()
                     const modalElementFinishTimer = document.getElementById('FinishTimer');
                     modalElementFinishTimer.style.display = "none"
-                    //   const transformedAnswers = response.data.data.questions.map(question => ({
-                    //     question.id: [],
-                    // }));
                     const transformedAnswers = response.data.data.questions.reduce((acc, question) => {
                       acc.answers[question.id] = [];
                       return acc;
@@ -374,22 +363,19 @@ function CreateExam(props) {
     let obj3 = {
       "answers": {}
       ,
-      group_id: group_id,              //required
-      subject_id: subject_id,          //required
+      group_id: group_id,             
+      subject_id: subject_id,        
       semster: semster,
     };
     console.log(obj3);
 
-    // Add all IDs from obj2 to obj3
     for (let id in obj2.answers) {
       obj3.answers[id] = []
     }
 
-    // Compare obj1 and obj2 based on IDs
     for (let id in obj1.answers) {
 
       if (obj2.answers.hasOwnProperty(id)) {
-        // If the IDs match, add obj1's array to obj3
         obj3.answers[id] = obj1.answers[id];
       }
     }
@@ -418,7 +404,6 @@ function CreateExam(props) {
       <div className="container py-5 d-flex align-items-center justify-content-center flex-column">
         <div className=" " style={{ width: "85%", paddingTop: "4.25px" }}  >
           <img className="" src={CreateExamIcon} alt="HomeIcon" style={{ backgroundColor: "transparent" }} />
-          {/* <MyButton className="btn mx-2 fontSizeBtn py-0 rounded-5 py- px-3" style={{ height: "1.8rem", backgroundColor: "#FF4C4C", color: "#ffff" }} to={"/Home"} content={"باقات الاشتراك"} /> */}
           <Link
             className="btn"
             to="#"  // Replace '#' with a valid route path like '/home' or '/dashboard'
@@ -445,14 +430,13 @@ function CreateExam(props) {
               <img className="p-1 ms-2" src={plus} alt='plus' style={{ backgroundColor: "black", borderRadius: "50%" }} />
               إضافة امتحان
             </button>
-            <div>
+            <div className='pe-1 pb-2'>
               {error && (
                 <div style={{ color: 'red', marginTop: '10px' }}>
                   {error}
                 </div>
               )}
             </div>
-            {/* <MyButton className="btn mx-3 py-0" style={{ height: "2.5rem", width:"8rem", color: "white", backgroundColor: "#4941A6" }} to={"/Home"} content={"انشاء حساب"} /> */}
 
             <form className="modal-body managerForm" onSubmit={handleSubmit}>
 
@@ -460,130 +444,82 @@ function CreateExam(props) {
 
                 <div className="card card-body rounded-3" style={{ backgroundColor: "#1D195D" }}>
                   <div className=" d-flex justify-content-start flex-wrap" style={{ width: "100%" }}>
-                    
-                        <div className='mx-2'>
+                  <div className='mx-2'>
+                      <label>الصف</label>
+                      <select
+                        className="px-2 py-1 rounded-3"
+                        style={{ color: 'black', backgroundColor: 'white', border: 'none', padding: '8px', width: '100%' }}
+                        defaultValue=""
+                        onChange={handleChangeGroup}
+                      >
+                        <option value="" >إختر الصف</option> 
+                        {Array.isArray(AllGroup) && AllGroup.length > 0 ? (
+                          AllGroup.map(({ id, name }) => (
+                            <option
+                              key={id}
+                              value={id}
+                              style={{ backgroundColor: "white", color: "black" }}
+                            >{name}</option> 
+                          ))
+                        ) : (
+                          <option disabled>لا توجد مجموعات</option> 
+                        )}
+                      </select>
+                    </div>
+
+                    <div className='mx-2'>
                       <label>المبحث</label>
                       <select
                         className="px-2 py-1 rounded-3"
                         style={{ color: 'black', backgroundColor: 'white', border: 'none', padding: '8px', width: '100%' }}
-                        defaultValue="" // Ensures the default 'إختر المبحث' option is displayed initially
-                        onChange={handleChangesubject} // Event handler for change
+                        defaultValue="" 
+                        onChange={handleChangesubject} 
                       >
-                        <option value="" disabled>إختر المبحث</option> {/* Default placeholder option */}
+                        <option value="" >إختر المبحث</option> 
                         {Array.isArray(AllSubject) && AllSubject.length > 0 ? (
                           AllSubject.map(({ id, name }) => (
                             <option
                               key={id}
                               value={id}
                               style={{ backgroundColor: "white", color: "black" }}
+                              onChange={handleChangesubject}
+
                             >
                               {name}
                             </option>
                           ))
                         ) : (
-                          <option disabled>لا توجد مجموعات</option> // Fallback if no subjects are available
+                          <option disabled>لا توجد مجموعات</option> 
                         )}
                       </select>
                     </div>
-                    <div className='mx-2'>
-                      <label>الصف</label>
-                      <select
-                        className="px-2 py-1 rounded-3"
-                        style={{ color: 'black', backgroundColor: 'white', border: 'none', padding: '8px', width: '100%' }}
-                        value=""
-                        onChange={handleChangeGroup}
-                      >
-                        <option value="" disabled>إختر الصف</option> {/* Placeholder option */}
-                        {Array.isArray(AllGroup) && AllGroup.length > 0 ? (
-                          AllGroup.map(({ id, name }) => (
-                            <option key={id} value={id}>{name}</option> // Create an option for each group
-                          ))
-                        ) : (
-                          <option disabled>لا توجد مجموعات</option> // Fallback option if no groups are available
-                        )}
-                      </select>
-                    </div>
-                
+                  
+
                     <div className="mx-2">
                       <label htmlFor="semester-select">الفصل الدراسي</label>
                       <select
                         id="semester-select"
                         className="px-2 py-1 rounded-3"
                         style={{ color: 'black', backgroundColor: 'white', border: 'none', padding: '8px', width: '100%' }}
-                        value={semster} // Bind the select value to state
-                        onChange={handlesemesterChanges}  // Handle change event
+                        value={semster} 
+                        onChange={handlesemesterChanges} 
                       >
-                        <option value="" disabled>إختر الفصل الدراسي</option>
+                        <option value="" >إختر الفصل الدراسي</option>
                         <option value="1">الأول</option>
                         <option value="2">الثاني</option>
                       </select>
                     </div>
 
-                    <div className="px-2 d-flex flex-column">
-                      <label>مدة الامتحان</label>
-                      <input type='number' className=' py-2 rounded-3'
-                        placeholder='إختر مدة الامتحان'
-                        value={duration}
-                        onChange={(e) => setDuration(e.target.value)}
-                        style={{ color: "black", backgroundColor: "white", border: "none" }} id="dropdown-basic" />
-                      {timeValidationMessage && <p style={{ color: 'red' }}>{timeValidationMessage}</p>}
 
-                    </div>
-                    
-
-
-                    <div className="mx-2">
-                      <label>الوحدة</label>
-                      <select
-                        className="px-2 py-1 rounded-3"
-                        style={{ color: 'black', backgroundColor: 'white', border: 'none', padding: '8px', width: '100%' }}
-                        onChange={handleChange}
-                        defaultValue="" // Ensure no option is selected by default
-                      >
-                        <option value="" disabled>إختر الوحدة</option>
-                        {Array.isArray(AllUnit) && AllUnit.length > 0 ? (
-                          AllUnit.map(({ id, name }) => (
-                            <option key={id} value={id}>
-                              {name}
-                            </option>
-                          ))
-                        ) : (
-                          <option disabled>لا توجد مجموعات</option>
-                        )}
-                      </select>
-                    </div>
-                    
-                    <div className="mx-2">
-                      <label htmlFor="lesson-select">الدرس</label>
-                      <select
-                        id="lesson-select"
-                        className="px-2 py-1 rounded-3"
-                        style={{ color: 'black', backgroundColor: 'white', border: 'none', padding: '8px', width: '100%' }}
-                        onChange={handleLessonsChange}
-                        defaultValue=""
-                      >
-                        <option value="" disabled className='px-5 rounded-3' style={{ color: "black", backgroundColor: "white", border: "none" }}>إختر الدرس</option> {/* Placeholder option */}
-                        {Array.isArray(AllLesson) && AllLesson.length > 0 ? (
-                          AllLesson.map(({ id, name }) => (
-                            <option key={id} value={id}>
-                              {name}
-                            </option>
-                          ))
-                        ) : (
-                          <option disabled>لا توجد مجموعات</option> // Fallback option if no lessons are available
-                        )}
-                      </select>
-                    </div>
-                    
                     <div className="mx-2">
                       <label>الباقه</label>
                       <select
                         className="px-2 py-1 rounded-3"
                         style={{ color: 'black', backgroundColor: 'white', border: 'none', padding: '8px', width: '100%' }}
                         onChange={handleChangeplas}
-                        defaultValue="" 
+                        defaultValue=""
                       >
-                        <option value="" disabled>إختر الباقه</option>
+                        <option value="" >إختر الباقه</option>
                         {Array.isArray(Allplans) && Allplans.length > 0 ? (
                           Allplans.map(({ id, name }) => (
                             <option key={id} value={id}>
@@ -595,7 +531,61 @@ function CreateExam(props) {
                         )}
                       </select>
                     </div>
-                
+
+                    <div className="mx-2">
+                      <label>الوحدة</label>
+                      <select
+                        className="px-2 py-1 rounded-3"
+                        style={{ color: 'black', backgroundColor: 'white', border: 'none', padding: '8px', width: '100%' }}
+                        onChange={handleChange}
+                        defaultValue="" // Ensure no option is selected by default
+                      >
+                        <option value="" >إختر الوحدة</option>
+                        {Array.isArray(AllUnit) && AllUnit.length > 0 ? (
+                          AllUnit.map(({ id, name }) => (
+                            <option key={id} value={id}>
+                              {name}
+                            </option>
+                          ))
+                        ) : (
+                          <option disabled>لا توجد مجموعات</option>
+                        )}
+                      </select>
+                    </div>
+
+                    <div className="mx-2">
+                      <label htmlFor="lesson-select">الدرس</label>
+                      <select
+                        id="lesson-select"
+                        className="px-2 py-1 rounded-3"
+                        style={{ color: 'black', backgroundColor: 'white', border: 'none', padding: '8px', width: '100%' }}
+                        onChange={handleLessonsChange}
+                        defaultValue=""
+                      >
+                        <option value=""  className='px-5 rounded-3' style={{ color: "black", backgroundColor: "white", border: "none" }}>إختر الدرس</option> {/* Placeholder option */}
+                        {Array.isArray(AllLesson) && AllLesson.length > 0 ? (
+                          AllLesson.map(({ id, name }) => (
+                            <option key={id} value={id}>
+                              {name}
+                            </option>
+                          ))
+                        ) : (
+                          <option disabled>لا توجد مجموعات</option> 
+                        )}
+                      </select>
+                    </div>
+
+                    <div className="px-2 d-flex flex-column">
+                      <label>مدة الامتحان</label>
+                      <input type='number' className=' py-2 rounded-3 text-center'
+                        placeholder='بالدقيقة '
+                        value={duration}
+                        // maxLength={20}
+                        onChange={(e) => setDuration(e.target.value)}
+                        style={{ color: "black", backgroundColor: "white", border: "none" }} id="dropdown-basic" />
+                      {timeValidationMessage && <p style={{ color: 'red' }}>{timeValidationMessage}</p>}
+
+                    </div>
 
                     <div className="px-2">
                       <label> الأسئلة </label>

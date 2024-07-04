@@ -169,8 +169,7 @@ function Home() {
         const data = {
             plan_id: id
         }
-        console.log(data)
-        Api_Website.post(`students/payments/pay-with-paymob`, data)
+         Api_Website.post(`students/payments/pay-with-paymob`, data)
 
             .then(response => {
                 console.log(response.data.redirect_url)
@@ -180,6 +179,7 @@ function Home() {
             })
             .catch(error => {
                 console.error("Error fetching mastercard data:");
+                loading()
                 navigate("/login_student")
             });
     }
@@ -193,6 +193,7 @@ function Home() {
             })
             .catch(error => {
                 console.error("Error fetching paypal data:");
+                loading()
                 navigate("/login_student")
 
             });
