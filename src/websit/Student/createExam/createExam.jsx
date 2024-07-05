@@ -139,7 +139,7 @@ function CreateExam(props) {
     }
   };
   //////////////////////////////////////////////////////
-  const [error, setError] = useState(''); 
+  const [error, setError] = useState('');
   const [group_id, setGroup_id] = useState('');
   const [subject_id, setSubject_id] = useState('');
   const [semster, setSemster] = useState('');
@@ -152,9 +152,9 @@ function CreateExam(props) {
     setGroup_id(id);
   };
   const handleChangeGroup = (event) => {
-    const selectedId = event.target.value; 
-    getSubject(selectedId); 
-    handleGroupChange(selectedId); 
+    const selectedId = event.target.value;
+    getSubject(selectedId);
+    handleGroupChange(selectedId);
   }
 
   const handleSubjectChange = (id) => {
@@ -162,8 +162,8 @@ function CreateExam(props) {
   };
   const handleChangesubject = (event) => {
     const selectedId = event.target.value;
-    getUnit(selectedId); 
-    handleSubjectChange(selectedId); 
+    getUnit(selectedId);
+    handleSubjectChange(selectedId);
   };
   const handleSemesterChange = (id) => {
     setSemster(id);
@@ -171,8 +171,8 @@ function CreateExam(props) {
 
   const handlesemesterChanges = (event) => {
     const selectedId = event.target.value;
-    getLesson(selectedId);           
-    handleSemesterChange(selectedId); 
+    getLesson(selectedId);
+    handleSemesterChange(selectedId);
   };
   const handlePlansChange = (id) => {
     setPlansid(id);
@@ -195,7 +195,7 @@ function CreateExam(props) {
     setLesson_id(id);
   };
   const handleLessonsChange = (event) => {
-    const selectedId = event.target.value; 
+    const selectedId = event.target.value;
     handleLesson_idChange(selectedId);
     setError('');
   }
@@ -300,7 +300,7 @@ function CreateExam(props) {
         const modalElementExam = document.getElementById('Exam');
         modalElementExam.style.display = "none"
         setResult(response.data.data)
-
+        setCurrentPage(0)
         setTimeout(() => {
           const modalElementSubit = document.getElementById('FinishExam');
           modalElementSubit.style.display = "none"
@@ -364,8 +364,8 @@ function CreateExam(props) {
     let obj3 = {
       "answers": {}
       ,
-      group_id: group_id,             
-      subject_id: subject_id,        
+      group_id: group_id,
+      subject_id: subject_id,
       semster: semster,
     };
     console.log(obj3);
@@ -388,16 +388,13 @@ function CreateExam(props) {
   useEffect(() => {
     setData({
       answers: selectedOptions,
-      group_id: group_id,              //required
-      subject_id: subject_id,          //required
+      group_id: group_id,             
+      subject_id: subject_id,          
       semster: semster,
     });
-  }, [selectedOptions]);
+  }, [data,selectedOptions,handleSubmit]);
+  
 
-  useEffect(() => {
-
-    // console.log(data);
-  }, [data]);
 
   return (
     <>
@@ -445,7 +442,7 @@ function CreateExam(props) {
 
                 <div className="card card-body rounded-3" style={{ backgroundColor: "#1D195D" }}>
                   <div className=" d-flex justify-content-start flex-wrap" style={{ width: "100%" }}>
-                  <div className='mx-2'>
+                    <div className='mx-2'>
                       <label>الصف</label>
                       <select
                         className="px-2 py-1 rounded-3"
@@ -453,17 +450,17 @@ function CreateExam(props) {
                         defaultValue=""
                         onChange={handleChangeGroup}
                       >
-                        <option value="" >إختر الصف</option> 
+                        <option value="" >إختر الصف</option>
                         {Array.isArray(AllGroup) && AllGroup.length > 0 ? (
                           AllGroup.map(({ id, name }) => (
                             <option
                               key={id}
                               value={id}
                               style={{ backgroundColor: "white", color: "black" }}
-                            >{name}</option> 
+                            >{name}</option>
                           ))
                         ) : (
-                          <option disabled>لا توجد مجموعات</option> 
+                          <option disabled>لا توجد مجموعات</option>
                         )}
                       </select>
                     </div>
@@ -473,10 +470,10 @@ function CreateExam(props) {
                       <select
                         className="px-2 py-1 rounded-3"
                         style={{ color: 'black', backgroundColor: 'white', border: 'none', padding: '8px', width: '100%' }}
-                        defaultValue="" 
-                        onChange={handleChangesubject} 
+                        defaultValue=""
+                        onChange={handleChangesubject}
                       >
-                        <option value="" >إختر المبحث</option> 
+                        <option value="" >إختر المبحث</option>
                         {Array.isArray(AllSubject) && AllSubject.length > 0 ? (
                           AllSubject.map(({ id, name }) => (
                             <option
@@ -490,11 +487,11 @@ function CreateExam(props) {
                             </option>
                           ))
                         ) : (
-                          <option disabled>لا توجد مجموعات</option> 
+                          <option disabled>لا توجد مجموعات</option>
                         )}
                       </select>
                     </div>
-                  
+
 
                     <div className="mx-2">
                       <label htmlFor="semester-select">الفصل الدراسي</label>
@@ -502,8 +499,8 @@ function CreateExam(props) {
                         id="semester-select"
                         className="px-2 py-1 rounded-3"
                         style={{ color: 'black', backgroundColor: 'white', border: 'none', padding: '8px', width: '100%' }}
-                        value={semster} 
-                        onChange={handlesemesterChanges} 
+                        value={semster}
+                        onChange={handlesemesterChanges}
                       >
                         <option value="" >إختر الفصل الدراسي</option>
                         <option value="1">الأول</option>
@@ -563,7 +560,7 @@ function CreateExam(props) {
                         onChange={handleLessonsChange}
                         defaultValue=""
                       >
-                        <option value=""  className='px-5 rounded-3' style={{ color: "black", backgroundColor: "white", border: "none" }}>إختر الدرس</option> {/* Placeholder option */}
+                        <option value="" className='px-5 rounded-3' style={{ color: "black", backgroundColor: "white", border: "none" }}>إختر الدرس</option> {/* Placeholder option */}
                         {Array.isArray(AllLesson) && AllLesson.length > 0 ? (
                           AllLesson.map(({ id, name }) => (
                             <option key={id} value={id}>
@@ -571,7 +568,7 @@ function CreateExam(props) {
                             </option>
                           ))
                         ) : (
-                          <option disabled>لا توجد مجموعات</option> 
+                          <option disabled>لا توجد مجموعات</option>
                         )}
                       </select>
                     </div>
@@ -683,14 +680,15 @@ function CreateExam(props) {
                     </div>
                     <div>
                       <div>
-                        
-                        <img src={`${Api_dashboard.defaults.baseURL}/assets/Questions/${question.media?.name }`} id="image" alt="" 
-                        style={{width:"12vw", 
-                          height: question.media?.name ? "12vw" : "0vw"
-                        }} />
+
+                        <img src={`${Api_dashboard.defaults.baseURL}/assets/Questions/${question.media?.name}`} id="image" alt=""
+                          style={{
+                            width: "12vw",
+                            height: question.media?.name ? "12vw" : "0vw"
+                          }} />
 
                         <li className='bulits fontsizexam py-2'>{question.name}</li>
-                        {Array.isArray(question.options) && question.options.map(({ id, option,media }) => (
+                        {Array.isArray(question.options) && question.options.map(({ id, option, media }) => (
                           <div key={id}>
                             <div className='pt-2 pe-4 py-3'>
                               <input
@@ -705,21 +703,20 @@ function CreateExam(props) {
                               />
                               <label
                                 className='btn rounded-3 px-4 me-3 '
-                                style={{ color: "white", border: "2px solid #C01F59"  }}
+                                style={{ color: "white", border: "2px solid #C01F59" }}
                                 htmlFor={`vehicle-${id}-1`}
-                                >
-                             <img src={`${Api_dashboard.defaults.baseURL}/assets/Options/${media?.name}`} id="image" alt="" 
+                              >
+                                <img src={`${Api_dashboard.defaults.baseURL}/assets/Options/${media?.name}`} id="image" alt=""
 
-style={{
-  width: "12vw", 
-  height: media?.name ? "12vw" : "0vw"
-}}
+                                  style={{
+                                    width: "12vw",
+                                    height: media?.name ? "12vw" : "0vw"
+                                  }}
 
-/>
-<div>
-                                {option}
-                                {/* {media?.name} */}
-</div>
+                                />
+                                <div>
+                                  {option}
+                                </div>
                               </label>
                             </div>
                           </div>
@@ -727,10 +724,10 @@ style={{
                       </div>
                     </div>
                     <div className="mt-5" dir='ltr'>
-                      <button onClick={handleNext} className='text-bold rounded-5 px-4 py-2' style={{ width: "100px", backgroundColor: "#C01F59", color: "white" }} disabled={isNextDisabled}>
+                      <button onClick={handleNext} className='btn rounded-5 px-4 py-2' style={{ width: "100px", backgroundColor: "#C01F59", color: "white" }} disabled={isNextDisabled}>
                         التالي
                       </button>
-                      <button onClick={handlePrevious} className='text-bold rounded-5 px-4 py-2' style={{ width: "100px", backgroundColor: "#CDCDCD", color: "black" }} disabled={isPreviousDisabled}>
+                      <button onClick={handlePrevious} className='btn rounded-5 px-4 py-2' style={{ width: "100px", backgroundColor: "#CDCDCD", color: "black" }} disabled={isPreviousDisabled}>
                         السابق
                       </button>
                     </div>
