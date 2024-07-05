@@ -9,7 +9,6 @@ const MyButton = ({
   type,
   name,
   value,
-
   stylep,
   databstoggle,
   databstarget,

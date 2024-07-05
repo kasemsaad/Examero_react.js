@@ -8,7 +8,7 @@
 
 .create_student_acc {
     width: 100%;
-    min-height: 100vh;
+    height: 100vh;
     display: flex;
     align-items:start;
     background: linear-gradient(180deg, #FFCF6B 0%, #C01F59 213.56%);
@@ -23,7 +23,7 @@
 
 .between-borders {
     position: absolute;
-    font-size: small;
+    font-size: 24px;
     text-align: center;
     padding: 0 20px; /* استخدم padding بدلاً من margin */
 }
@@ -47,7 +47,7 @@
 
 @media (max-width: 576px) {
     .between-borders {
-        font-size: smaller;
+        font-size: 24px;
         padding: 0 10px; 
     }
 
@@ -69,30 +69,38 @@
 }
 
 
-.createstudentacc_pass, .con_createstudentacc_pass, .birthdate_create_std_acc,.creatstudentacc_email, .phone_createstudentacc-label, .create_student_acc_username {
+.createstudentacc_pass, .con_createstudentacc_pass, .birthdate_create_std_acc,.creatstudentacc_email, .phone_createstudentacc-label, .create_student_acc_lastName ,.create_student_acc_firstName {
     font-family: Cairo;
-    font-size: 17.76px;
+    font-size: 15px;
     font-weight: 600;
-    line-height: 33.29px;
     text-align: right;
+    margin-bottom: 0rem!important;
+    display: flex;
 }
 
 .create_student_acc_card {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 40px;
+    /* padding: 40px; */
+    /* padding-top: 1rem; */
+    /* padding-bottom: 1rem; */
+    padding-left: 40px;
+    padding-right: 40px;
     background: transparent;
     border: none;
     box-shadow: none;
     direction: rtl;
     text-align: center;
+    background: linear-gradient(180deg, #FFCF6B 0%, #C01F59 213.56%)!important;
+    height: 100vh;
+
 }
 
 .card-title {
-    font-weight: bold;
+    /* font-weight: bold; */
     text-align: center;
-    margin-bottom: 10px;
+    /* margin-bottom: 10px; */
     font-family: 'Cairo', sans-serif;
     font-size: 1.5rem;
     direction: rtl;
@@ -108,33 +116,25 @@
     margin-top: 3rem;
 } */
 
-.create_student_acc-form .form-group {
-    margin-bottom: 20px;
-    direction: rtl;
-}
 
-.create_student_acc-form .form-group .form-label {
-    font-size: 16px;
-    direction: rtl;
-}
 
-.form-label {
-    display: flex;
-    margin-bottom: -0.5rem!important;
-        align-items: center;
-}
 
-.create_student_acc-form .form-control {
+.create_student_acc-form  {
     border-radius: 5px;
-    font-size: 16px;
-    padding: 10px;
+    font-size: 11px;
+    /* padding: 10px; */
+
+    padding-right: 10px;
+
+   
 }
 
-.p_con_createstudentacc_pass, .p_createstudentacc_pass, .p_creatstudentacc_email, .p_createstudentacc_phone, .p_create_student_acc_username {
+.p_con_createstudentacc_pass, .p_createstudentacc_pass, .p_creatstudentacc_email, .p_createstudentacc_phone, .p_create_student_acc_firstName,.p_create_student_acc_lastName {
     width: 100%;
     height: 40.76px;
     border-radius: 29.61px !important;
     padding-right: 40px !important;
+  
 }
 
 .relative1 {
@@ -172,18 +172,17 @@
     gap: 10px;
 }
 
-.dropdown-container {
+.dropdown-container1 {
     position: relative;
     width: 100%;
 }
 
-.dropdown {
+.dropdownn {
     width: 100%;
-    padding-right: 40px;
     border-radius: 29.61px !important;
 }
 
-.icon {
+.iconv {
     position: absolute;
     top: 50%;
     left: 10px;
@@ -191,15 +190,15 @@
     pointer-events: none;
 }
 
-.form-label {
+.create_tech_acc_firstname,.create_tech_acc_lastname,.creattchacc_email,.phone_createteachacc-label,.birthdate_create_tech_acc,.createteachacc_pass,.con_createteachacc_pass {
     font-size: 14px;
-    padding-top: 1%;
-    padding-bottom: 1%;
+    display: flex!important;
+    margin-bottom: 0rem!important;
 }
 
 
 .policy-container {
-    margin: 2%;
+    margin: 1%;
     text-align: right; 
 }
 
@@ -209,7 +208,7 @@
     font-family: Cairo;
     font-size: 14px;
     font-weight: 600;
-    line-height: 26.24px;
+    /* line-height: 26.24px; */
     text-decoration: none;
     position: relative;
 }
@@ -228,24 +227,23 @@
 
 .create_student_acc_btn, .back_create_student_acc_btn {
     color: white;
-    margin-top: 15px;
-    font-size: 14px!important ;
+    margin-top: 5px;
     border: none !important;
     font-family: Cairo;
-font-size: 14.87px!important;
+font-size: 10.87px!important;
 font-weight: 700!important;
-line-height: 27.86px!important;
+/* line-height: 27.86px!important; */
 }
 .create_student_acc_btn {
     background-color: #0F0862 !important;
-    padding: 11.84px 54.47px !important;
+    padding: 9.84px 54.47px !important;
     gap: 5.92px !important;
     border-radius: 41.45px !important;
 }
 
 .back_create_student_acc_btn {
     background-color: #F60909 !important;
-    padding: 11.84px 54.47px !important;
+    padding: 9.84px 54.47px !important;
     gap: 5.92px !important;
     border-radius: 41.45px !important;
 }
@@ -268,22 +266,25 @@ line-height: 27.86px!important;
     width: 100%;
     justify-content: center;
     align-items: center;
-    margin: 2rem;
+    margin: 1rem;
 }
 .di_1, .di_2 {
+    margin-top: 1rem;
     text-align: center;
     direction: rtl;
     width: 80%;
     color: #4941A6;
     font-family: Cairo;
     font-size: 12px;
-        line-height: 22.49px;
+        /* line-height: 22.49px; */
 font-weight: 700;
 letter-spacing: 0.03em;
 }
 .studentimg {
     position: relative;
 }
-.studentimg img {
-    width: 100%;
+.studentimg img  {
+    width: 50%;
+    height: auto;
+    margin: auto;
 }

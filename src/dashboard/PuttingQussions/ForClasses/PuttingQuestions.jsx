@@ -96,7 +96,7 @@ const PuttingQuestions = () => {
   return (
     <div className="questionContainer min-vh-100 w-100">
       <HeaderOfPuttingQuestions />
-      <div className="question" style={{ width: "80%", margin: "auto" }}>
+      <div className="question-dash" style={{ width: "80%", margin: "auto" }}>
         <PuttingQArrow />
         <div>
           <AddComponent content={"إضافة سؤال"} />

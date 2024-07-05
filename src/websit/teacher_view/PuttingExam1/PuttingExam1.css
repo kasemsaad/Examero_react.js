@@ -1,0 +1,301 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap');
+
+.header_enter_data_teach_view {
+    background-color: #FE4F60;
+    border-radius: 13.97px;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    margin-right: 4rem;
+    font-family: Cairo;
+    font-size: 12.57px;
+    font-weight: 700;
+    line-height: 23.56px;
+    text-align: right;
+    color: black;
+}
+
+.header1teacherview-icon {
+    padding-right: 2rem;
+    padding-left: 1rem;
+}
+
+.header1_putting_exam1 {
+    font-family: Cairo;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 33.73px;
+    text-align: right;
+    padding-left: 3rem;
+}
+
+.form_putting_exam1 ,.form_putting_exam2,.form_putting_exam3,.form_putting_exam4,.form_Certified_exam{
+    background-color: #1D195D;
+    padding: 2rem;
+    margin: 2rem;
+    gap: 0px;
+    border-radius: 13.97px;
+}
+
+.btn_putting_exam1,.btn_putting_exam2_bfor,.btn_putting_exam2_after,.btn_edit_exam {
+    background-color: #C01F59;
+    border-radius: 10px;
+    border: none !important;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    margin-top: 1rem;
+
+}
+.btn_edit_exam{
+    background-color: #4941A6;
+}
+.btn_putting_exam2_bfor{
+    background-color:#CDCDCD ;
+    color: black;
+}
+
+
+.header-container1 {
+    margin-top: 2rem;
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    width: 96%;
+}
+
+.header-line {
+    flex-grow: 1;
+    height: 1px;
+    background-color: #C01F59;
+}
+
+.custom-file-input-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+#dropdown-basic-button,#dropdown-basic-button-semester,#dropdown-basic-button-subject,#dropdown-basic-button-grade,#dropdown-basic-button-academicYear ,#dropdown-basic-button-studentName{
+    width: 100%;
+    white-space: nowrap;
+    text-align: start;
+    background: white;
+    color: rgba(33, 37, 41, 0.75);
+}
+
+.dropdown-toggle::after {
+    display: none;
+}
+
+.dropdown-icon {
+    margin-left: 10px;
+    height: 16px;
+    width: 16px;
+    vertical-align: middle;
+}
+
+.re {
+    display: flex;
+    justify-content: space-between;
+}
+
+.dropdown-menu.show {
+    background-color: #4941a6;
+}
+
+.dropdown-item {
+    text-align: justify;
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+    background-color: #d9d9d9;
+    color: #1d195d;
+}
+
+.dropdown-item:focus,
+.dropdown-item:hover {
+    background-color: #d9d9d9;
+    color: #1d195d;
+    border-radius: 20px;
+    
+}
+
+.progress{
+  background-color:  #A6A0F4; 
+  margin-bottom: 1rem;
+
+}
+.progress-bar{
+    background-color:  #FE4F60; 
+
+}
+.header3_putting_exam1{
+    background: #4941A6;
+    width: 186.1px;
+    height: 28px;
+    top: 350.49px;
+    left: 719.57px;
+    border-radius: 13.97px ;
+    text-align: center;align-items: center;
+    
+}
+/* PuttingExam1.css */
+.dropdown-item .circle {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 8px;
+    background: #D4D4D4;
+    margin-left: .75rem;
+
+}
+.circle:hover{
+    background: #4941A6;
+}
+
+
+.dropdown-item:hover .circle {
+    background: #4941A6;
+}
+
+.custom-file-input-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    
+  }
+  
+
+
+  
+  .file-input {
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    position: absolute;
+  
+  }
+  
+  .custom-file-label {
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    padding: .375rem .75rem;
+    width: 100%;
+    box-sizing: border-box;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  .custom-file-label {
+   
+    font-size: 13px;
+    background: white;
+    color:#495057;
+    display: flex;
+    justify-content: space-between;
+    }
+
+    .apperalogo{
+        display: flex;
+    justify-content: space-around;
+    background-color: #4941A6;
+    margin-top: 2rem;
+    } #jordanianLogoNo,#jordanianLogoYes{
+       border-radius: 50%;
+    
+        
+    }
+    #jordanianLogoNo:checked,#jordanianLogoYes:checked{
+        background-color: #FF3A3A;border-radius: 50%;
+    
+        
+    } 
+     #apperanceNoticeNo,#apperanceNoticeYes{
+        border-radius: 50%;
+     
+         
+     }
+
+    #apperanceNoticeNo:checked,#apperanceNoticeYes:checked{
+        background-color: #FF3A3A;border-radius: 50%;
+    
+        
+    }
+
+    .apperance_notice{
+        display: flex;
+        justify-content: space-around;
+        margin-top: 2rem;
+    }
+    #numberOfQuestions,#numberOfPages{
+        width: 10%;
+  
+      }
+      .teacher_name{
+        color:#4941A6;
+        display: flex;
+align-items: center;    font-family: Cairo;
+font-size: 12px;
+font-weight: 600;
+line-height: 30px;
+text-align: center;
+justify-content: center;
+  }
+.t1{
+    background-color: #4941A6;
+   
+    border-radius: 16.9px;
+    font-family: Cairo;
+font-size: 12.57px;
+font-weight: 700;
+line-height: 23.56px;
+text-align: center;
+display: flex;
+justify-content: center;
+padding: .75rem;
+}
+.t2{
+    padding: 2rem;
+    background-color: #FFFFFF;
+    color: black;
+
+    font-family: Cairo;
+font-size: 16px;
+font-weight: 600;
+line-height: 30px;
+text-align: center;
+
+
+border-radius: 16px;
+
+}
+.nn{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex-wrap: wrap;
+        align-content: center;
+    
+}
+
+/*  certified */
+.question{
+background-color: #120E4D;
+}
+.active-question {
+    background-color:#4941A6; /* Change to desired color */
+    color: #000; /* Change text color if needed */
+    cursor: pointer; /* Change cursor to pointer */
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}

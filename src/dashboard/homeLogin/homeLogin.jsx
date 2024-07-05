@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./homeLogin.css";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import emailIcon from ".././../assets/icons/register and login icon/mail-email-icon-template-black-color-editable-mail-email-icon-symbol-flat-illustration-for-graphic-and-web-design-free-vector 2.svg";
 import passIcon from ".././../assets/icons/register and login icon/pngtree-password-vector-icon-design-illustration-png-image_6597553 3.svg";
@@ -7,7 +8,7 @@ import lockIcon from ".././../assets/icons/register and login icon/padlock-icon-
 import Imgcom from "./../../websit/register and login/imgcom/imgcom.jsx";
 import Create_acc from "./.././../websit/register and login/create_acc/create_acc.jsx";
 import axios, { Axios } from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Api_Dashboard from "../interceptor/interceptorDashboard.jsx";
 
 function HomeDashoardLogin() {
@@ -141,11 +142,10 @@ function HomeDashoardLogin() {
               controlId="remember"
               className="d-flex justify-content-between align-items-center"
             >
-              {/* <Form.Switch */}
-              {/* id="custom-switch"
-                                label=""
-                                className="rem_login" */}
-              {/* /> */}
+              <Form.Switch id="custom-switch" label="" className="rem_login" />
+              <Link to="/forget_password" className="forgot-password">
+                نسيت كلمة المرور؟
+              </Link>
               {/* <a href="#" className="forgot-password">نسيت كلمة المرور؟</a> */}
             </Form.Group>
             <Button

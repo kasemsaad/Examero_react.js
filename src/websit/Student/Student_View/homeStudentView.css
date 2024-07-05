@@ -1,0 +1,82 @@
+
+.react-calendar__tile--now{
+    background-color: #0E0A43;
+    border-radius: 45%;
+
+}
+.react-calendar__tile{
+    color: aliceblue;
+}
+.shadow-boxxx {
+box-shadow: 0px -3px 10px rgba(0, 0, 0, .6); /* Shadow definition */
+background-repeat: no-repeat;
+background-position: center;
+margin: px px;
+font-size: 11px;
+padding-top: 10px;
+text-align: center;
+/* width: 10rem; */
+height: 8rem;
+margin-bottom: 10px;
+}
+.Bold{
+    font-weight: bold;
+}
+.boxday{
+    background-image: url(../../../assets/icons/home_student_view/undraw_social_update_re_xhjr\ 1.svg);
+    background-repeat: no-repeat;
+    background-position:bottom;
+    /* background-color: aqua; */
+}
+.boximgbackground1{
+background-image: url(../../../assets/icons/home_student_view/Group\ 325.svg);
+background-position: center;
+background-size: cover;
+}
+
+.boximgbackground3{
+background-image: url(../../../assets/icons/home_student_view/Group\ 327.svg);
+background-position: center;
+background-size: cover;
+}
+@media screen and (max-width:450px) {
+    .rowHomestudent{
+        display: flex !important;
+        width: 100% !important;
+    }
+    .Bold{
+        font-weight: bold;
+    }
+    .boxday{
+        background-image: url(../../../assets/icons/home_student_view/undraw_social_update_re_xhjr\ 1.svg);
+        background-repeat: no-repeat;
+        background-position:bottom;
+        /* background-color: aqua; */
+    }
+    @media screen and (max-width:450px) {
+        .rowHomestudent{
+            display: flex !important;
+            width: 100% !important;
+        }
+        .rowHomestudent .child{
+          margin-top: 10px !important;
+        }
+        .rowHomestudent .col-3{
+            width: 100% !important;
+            margin: 10px 0px;
+        }
+        .homeStudentcalender{
+    
+            padding-top: 10px;
+        }
+        .child{
+            margin-top: 10px !important;
+        }
+        .calenderhomestudent{
+            width: 90%;
+            display: flex;
+     justify-content: center;
+            align-items: center;
+        }
+    
+    }}

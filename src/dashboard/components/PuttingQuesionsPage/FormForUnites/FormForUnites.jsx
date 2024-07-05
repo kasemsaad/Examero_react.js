@@ -9,7 +9,7 @@ const FormForPQUnits = ({
   activeSubjects,
 }) => {
   const [errors, setErrors] = useState("");
-
+  const man = "Rady";
   const handelSubmit = (e) => {
     e.preventDefault();
     const newErrors = {};

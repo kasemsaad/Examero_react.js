@@ -6,7 +6,9 @@
     align-items: center;
     background-color: white;
     padding: 0;
-    height: 100%;
+    /* height: 100%; */
+    height: 100vh;
+
 }
 
 .image-container2_l {
@@ -14,6 +16,8 @@
     position: relative;
     text-align: center;
     width: 100%;
+    height: 100vh;
+
 }
 
 .image-container2_l img {
@@ -35,7 +39,7 @@
 }
 
 .image-text_l {
-    top: 10%;
+    top: 5%;
     font-family: Cairo;
     font-size: 40px;
     font-weight: 600;
@@ -43,7 +47,7 @@
 }
 
 .image-text2_l {
-    top: 20%;
+    top: 15%;
     font-family: Cairo;
     font-size: 18px;
     font-weight: 600;

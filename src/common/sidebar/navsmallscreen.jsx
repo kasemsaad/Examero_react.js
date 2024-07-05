@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./style.css";
 import homeIcon from '../../assets/icons/sidebar/majesticons_home-line.svg';
 import octiconIcon from '../../assets/icons/sidebar/octicon_question-16.svg';
@@ -19,8 +19,12 @@ import personal from "./../../assets/image/IMG_20231104_171844_696.jpg"
 import notifiy from "./../../assets/image/ic_baseline-notifications-none.svg"
 import { useDispatch, useSelector } from "react-redux";
 import { CHANGE_THEME } from "../../redux/Types/types";
+import imagee from '../../assets/icons/create_Exam/High Importance.svg';
+import Api_website from "../../utlis/axios_utils_websit";
 
 function Navsmallscreen() {
+  const navigate = useNavigate()
+  const location=useLocation()
   const setId = (id) => {
     localStorage.setItem("sidebarId", JSON.stringify(id));
   };
@@ -34,9 +38,32 @@ function Navsmallscreen() {
     setToggled(!toggled)
     dispatch({
       type:CHANGE_THEME,
-    }
-    )
-  }
+    })}
+const logoutStudent = ()=>{
+           
+  Api_website.post(`/students/logout`)
+.then(response => {      
+  localStorage.removeItem("token");
+  navigate("/")
+  setId(1)
+})
+.catch(error => {
+  console.error("Error not logout ");
+});
+}
+//   const logoutTeachers = ()=>{
+     
+//         Api_website.post(`/teachers/logout`)
+//     .then(response => {      
+//         localStorage.removeItem("token");
+//         navigate("/")
+  
+//     })
+//     .catch(error => {
+  
+//         console.error("Error not logout ");
+//     });
+// }
   return (
     <>
     
@@ -46,8 +73,8 @@ function Navsmallscreen() {
           <Link className="navbar-brand" href="#"><img  src={logo} alt="Logo" /></Link>
           <div style={{ backgroundColor: "#0E0A43", width: "1.606rem", height: "1.606rem",
         borderRadius: "50%",  position: "relative", }} >
-       <a href="#"> <img src={notifiy}  width="100%"  alt="notifaction"
-        style={{paddingBottom: "2px",}}/></a>
+       <Link> <img src={notifiy}  width="100%"  alt="notifaction"
+        style={{paddingBottom: "2px",}}/></Link>
                   <span
                     style={{
                       width: "auto",
@@ -70,6 +97,8 @@ function Navsmallscreen() {
           <span > <img style={{ width: 20 , height:20 }} src={list_icon} alt="list_icon" /> </span>
           </button>
           <div className="collapse navbar-collapse"   dir="rtl" id="navbarNav">
+            {
+             location.pathname.startsWith('/dashboard')?
             <ul className="navbar-nav navbar-nav-small"   dir="ltr" >
               <li className="nav-item " >
                 <Link className="nav-link" aria-current="page" to="/log" onClick={() => setId(1)}>الرئيسية
@@ -142,7 +171,44 @@ function Navsmallscreen() {
               </li>
              
             </ul>
-  
+            :
+            location.pathname.startsWith('/student')?
+<ul className="navbar-nav navbar-nav-small"   dir="ltr" >
+              <li className="nav-item " >
+                <Link className="nav-link" aria-current="page" to="/student/HomeStudentview" onClick={() => setId(1)}>الرئيسية
+                <img  src={homeIcon} alt="الرئيسية" />
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/student/createExam" onClick={() => setId(10)}>إنشاء الامتحان
+                <img  style={{ width: 18 , height:18 }} src={create_new} alt="إنشاء الامتحان"  />
+                </Link>
+              </li>
+              <li className="nav-item">
+                <div className="nav-link d-flex" style={{width:"283px", justifyContent:"space-between" ,alignItems:"center"}}   onClick={() => setId(11)}>
+                  
+                <button style={{marginLeft:"6px", height:"25px"}} className={`toggle-btn ${toggled ? "toggled" : ""}`} onClick={()=>tog()}>
+                <span className={toggled ? "white-text" : "whit"}>{toggled ? "On" : "Off"}</span>
+           <div className='thumb'></div>
+                </button>
+                <div>
+
+                 <span>الوضع</span>
+                <img  style={{ width: 18 , height:18 }} src={solar_moon_line_duotone} alt="الوضع"  />
+                </div>
+                </div>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" data-bs-toggle="modal" data-bs-target="#logout" onClick={() => setId(11)}>تسجيل الخروج
+                <img  style={{ width: 18 , height:18 }} src={iconamoon_exit_light} alt="تسجيل الخروج"  />
+                </Link>
+              </li>
+             
+            </ul>
+
+            :location.pathname.startsWith('/teacher')?<div>keko</div>:""
+
+  }
           </div>
           <div className="personal_images" style={{ position: 'relative', width: '80%', margin: 'auto', height: '10px' }}>
       <div id="svg_header" style={{ width: '55px', height: '55px', borderRadius: '50%', backgroundColor: 'blue', overflow: 'hidden', position: 'absolute' }}>
@@ -150,7 +216,46 @@ function Navsmallscreen() {
       </div>
     </div>
         </div>
-      </nav>     
+      </nav>  
+      <div
+
+className="modal fade DElementFade  "
+id="logout"
+tabIndex="-1"
+aria-labelledby="deleteElementModalLabel"
+aria-hidden="true"
+>
+<div className="modal-dialog DElementDialog modal-dialog-centered ele_2 ">
+  <div className="modal-content DElementContent modal-backdrop1">
+    <div className="modal-body DElementBody text-center">
+      <img src={imagee} alt="Warning Icon" className="warning-icon" />
+      <p className="modal-title DElementTitle" id="deleteElementModalLabel">هل أنت متأكد ؟</p>
+      <p className="parag">سيتم تسجيل الخروج </p>
+    </div>
+    <div className="modal-footer DElementFooter">
+      <div>
+        <button
+          type="button"
+          className="btn-secondary cancel-btn DElementCancel mx-1"
+          data-bs-dismiss="modal"
+        >
+          لا
+        </button>
+        <button
+          type="button"
+          className="btn btn-danger cancel-btn DElementSave mx-1"
+          data-bs-dismiss="modal"
+          onClick={()=>{
+            logoutStudent()
+          }}
+        >
+          نعم
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>   
     </>
   );
 }

@@ -1,0 +1,16 @@
+@media (min-width: 600px) and (max-width: 767px){
+.label_logo_{
+    font-size: 1.5vw  !important;
+}
+}
+@media (max-width: 599px){
+    .label_logo_{
+        font-size: 1.5vw  !important;
+    }
+
+}
+@media (min-width: 350px) and (max-width: 430px){
+    .label_logo_{
+        font-size: 1.5vw !important;
+    }
+}

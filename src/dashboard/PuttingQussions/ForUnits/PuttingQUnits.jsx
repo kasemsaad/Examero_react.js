@@ -122,7 +122,10 @@ const PuttingQUnites = () => {
     <>
       <div className=" min-vh-100 mab7asContainer">
         <HeaderOfPuttingQuestions />
-        <div className="question" style={{ width: "80%", margin: "auto" }}>
+        <div
+          className="question-dash-units "
+          style={{ width: "80%", margin: "auto" }}
+        >
           <PuttingQArrow />
           <div>
             <AddComponent content={"إضافة وحدة"} />

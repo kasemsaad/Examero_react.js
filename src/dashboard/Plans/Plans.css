@@ -1,0 +1,14 @@
+
+
+@media (min-width: 350px) and (max-width: 550px){
+.wraber_student_div{
+    transform: translate(14px, -3px) !important;
+}
+}
+.modal-backdrop.show{
+    opacity: 0;
+}
+.modal-backdrop {
+  position: absolute !important;
+  width: 0;
+}
