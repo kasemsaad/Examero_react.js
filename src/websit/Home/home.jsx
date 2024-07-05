@@ -283,7 +283,7 @@ function Home() {
                                 <Link className="btn mx-3  " style={{ height: "2.5rem", width: "8rem", color: "white", backgroundColor: "#4941A6" }} to={"/CreateStudentAccount"}>انشاء حساب</Link>
                                 <Link className="btn mx-3" type="button"
                                     style={{ height: "2.5rem", width: "8rem", border: "2px solid #4941A6" }}
-                                    
+                                    to="/Login_student"
                                 >
                                     تسجيل الدخول
                                 </Link>

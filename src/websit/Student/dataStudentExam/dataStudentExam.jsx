@@ -9,6 +9,8 @@ import Api_Website from '../../../utlis/axios_utils_websit.jsx';
 function DataStudentExam(props) {
     const [z, setZ] = useState(1); // Start with page 1
     const [data, setInfo] = useState([]);
+    const [hasMoreData, setHasMoreData] = useState(true); // To track if there's more data to fetch
+    const [loading, setLoading] = useState(true); // Loading state
     const layoutBackground = useSelector((state) => state.dark.lay);
 
     useEffect(() => {
@@ -16,18 +18,27 @@ function DataStudentExam(props) {
     }, [z]); // Fetch data on mount and when `z` changes
 
     const getDataStudentExam = () => {
+        setLoading(true); // Set loading to true before fetching data
         Api_Website.get(`students/exams?page=${z}`)
             .then(response => {
                 if (response.data && response.data.data) {
-                    setInfo(response.data.data);
+                    const fetchedData = response.data.data;
+                    setInfo(fetchedData);
+                    // Check if there is no more data to fetch
+                    setHasMoreData(fetchedData.length > 0);
                 } else {
                     setInfo([]);
+                    setHasMoreData(false);
                     console.error("No valid data returned");
                 }
             })
             .catch(error => {
                 setInfo([]);
+                setHasMoreData(false);
                 console.error("Error fetching exam data:", error);
+            })
+            .finally(() => {
+                setLoading(false); // Set loading to false after data is fetched
             });
     }
 
@@ -77,17 +88,25 @@ function DataStudentExam(props) {
                         </thead>
                         <tbody style={{
                                 color: layoutBackground === "#0E0A43" ? "white" : "black"}}>
-                            {Array.isArray(data) && data.length > 0 ? data.map(({ id, semster, group, status, subject }, index) => (
-                                <tr key={index} style={{ 
-                                    backgroundColor: index % 2 === 0 ? (layoutBackground === "#0E0A43" ? "#1d195d" : "#FCFCFC") : (layoutBackground === "#0E0A43" ? "#090631" : "#DADADA")
-                                }}>
-                                    <td >{index + 1}</td>
-                                    <td>{semster[1]}</td>
-                                    <td>{group.name}</td>
-                                    <td>{subject.name}</td>
-                                    <td style={{ color: status === "راسب" ? "#FF3A3A" : "#24FF00" }}>
-                                    {status}</td>                                </tr>
-                            )) : (
+                            {loading ? (
+                                <tr>
+                                    <td colSpan="5">Loading data...</td>
+                                </tr>
+                            ) : data.length > 0 ? (
+                                data.map(({ id, semster, group, status, subject }, index) => (
+                                    <tr key={index} style={{ 
+                                        backgroundColor: index % 2 === 0 ? (layoutBackground === "#0E0A43" ? "#1d195d" : "#FCFCFC") : (layoutBackground === "#0E0A43" ? "#090631" : "#DADADA")
+                                    }}>
+                                        <td>{index + 1}</td>
+                                        <td>{semster[1]}</td>
+                                        <td>{group.name}</td>
+                                        <td>{subject.name}</td>
+                                        <td style={{ color: status === "راسب" ? "#FF3A3A" : "#24FF00" }}>
+                                            {status}
+                                        </td>
+                                    </tr>
+                                ))
+                            ) : (
                                 <tr>
                                     <td colSpan="5">No data available</td>
                                 </tr>
@@ -96,8 +115,20 @@ function DataStudentExam(props) {
                     </table>
 
                     <div className="d-flex justify-content- mt-3" dir="ltr">
-                        <button className='btn btn-outline-light mx-2' style={{backgroundColor:"#4941A6"}} onClick={() => setZ(z + 1)}>Next</button>
-                        <button className='btn btn-outline-light' style={{backgroundColor:"#4941A6"}} onClick={() => setZ(z - 1)} disabled={z <= 1}>Previous</button>
+                        <button 
+                            className='btn btn-outline-light mx-2' 
+                            style={{ backgroundColor: "#4941A6" }} 
+                            onClick={() => setZ(z + 1)} 
+                            disabled={(z-1) || loading}>
+                            <i className='fas fa-less-than'></i>
+                        </button>
+                        <button 
+                            className='btn btn-outline-light' 
+                            style={{ backgroundColor: "#4941A6" }} 
+                            onClick={() => setZ(z - 1)} 
+                            disabled={z <= 1 || loading}>
+                            <i className='fas fa-greater-than'></i>
+                        </button>
                     </div>
                 </div>
             </div>

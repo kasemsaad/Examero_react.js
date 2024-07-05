@@ -7,6 +7,7 @@ import plus from '../../../assets/image/+.svg';
 import Dropdown from 'react-bootstrap/Dropdown';
 import CreateExamIcon from '../../../assets/icons/Home/wpf_create-new.svg'
 import Api_Website from '../../../utlis/axios_utils_websit';
+import Api_dashboard from '../../../utlis/axios_utils_dashboard';
 function CreateExam(props) {
 
 
@@ -256,7 +257,7 @@ function CreateExam(props) {
               else {
                 Api_Website.post(`/students/genrate-exam`, data)
                   .then(response => {
-                    console.log(response);
+                    // console.log(response.data.data.questions[1].media.name );
 
                     const modalElementExam = document.getElementById('Exam');
                     modalElementExam.style.display = "block"
@@ -682,8 +683,14 @@ function CreateExam(props) {
                     </div>
                     <div>
                       <div>
+                        
+                        <img src={`${Api_dashboard.defaults.baseURL}/assets/Questions/${question.media?.name }`} id="image" alt="" 
+                        style={{width:"12vw", 
+                          height: question.media?.name ? "12vw" : "0vw"
+                        }} />
+
                         <li className='bulits fontsizexam py-2'>{question.name}</li>
-                        {Array.isArray(question.options) && question.options.map(({ id, option }) => (
+                        {Array.isArray(question.options) && question.options.map(({ id, option,media }) => (
                           <div key={id}>
                             <div className='pt-2 pe-4 py-3'>
                               <input
@@ -697,11 +704,22 @@ function CreateExam(props) {
                                 onChange={() => handleCheckboxChange(question.id, id)}
                               />
                               <label
-                                className='btn rounded-3 px-4 me-3'
-                                style={{ color: "white", border: "2px solid #C01F59", width: "10vw" }}
+                                className='btn rounded-3 px-4 me-3 '
+                                style={{ color: "white", border: "2px solid #C01F59"  }}
                                 htmlFor={`vehicle-${id}-1`}
-                              >
+                                >
+                             <img src={`${Api_dashboard.defaults.baseURL}/assets/Options/${media?.name}`} id="image" alt="" 
+
+style={{
+  width: "12vw", 
+  height: media?.name ? "12vw" : "0vw"
+}}
+
+/>
+<div>
                                 {option}
+                                {/* {media?.name} */}
+</div>
                               </label>
                             </div>
                           </div>

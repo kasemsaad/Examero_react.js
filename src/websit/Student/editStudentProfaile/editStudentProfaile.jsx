@@ -164,8 +164,7 @@ const getInputPasswor=(e)=>{
         <div>
       <div className="upload">
   
-      <img src={`http://127.0.0.1:8000/assets/Student/${inputUser.media?.name}`} id="image" alt="Upload Preview" />
-
+      <img src={` http://127.0.0.1:8000/assets/Student/${inputUser.media?.name}`} id="image" alt="Upload Preview" />
 
         <div className="rightRound" id="upload">
           <input type="file"   accept=".jpg, .jpeg, .png" name='image' onChange={handleImageChange} />
