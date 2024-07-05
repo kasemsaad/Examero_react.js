@@ -84,9 +84,8 @@ export default function Plans(props) {
                         </div>
                         <div>
                             <button     type="button"
-                    data-bs-toggle="modal"
-                    data-bs-target={props.nameOfPageModalTarget}
-                            
+                             data-bs-toggle="modal"
+                             data-bs-target={props.nameOfPageModalTarget}
                             className='btn' style={{ backgroundColor: "#C01F59", height: "29px", borderRadius: "10px", color: "#FFFFFF" }}  ><img src={plus} alt="plus" />  إضافة باقه
                             </button>
                         </div>

@@ -67,6 +67,8 @@ import NewPassDashBoard from './dashboard/Forget_password/DashboardNewPassword/N
 import ErrorPage from './dashboard/Error/errorPage.jsx';
 import Checks from './dashboard/checks/checks.jsx';
 import NotFound from './websit/Student/notfound.jsx';
+import QbankDetails from './dashboard/QbankDetails/QbankDetails.jsx';
+import QbankEditing from './dashboard/QbankDetails/QbankEditing/qbankEditing.jsx';
 
 
 function App(props) {
@@ -156,6 +158,12 @@ function App(props) {
           <Route path="rewardSupervisor" element={<RewardMoshref />} />
           <Route path="rewardteacher" element={<RewardTeacher />} />
           <Route path="check" element={<Checks />} />
+          <Route path="qbank_details" element={<QbankDetails />} />
+          <Route path="qbank_edit" element={<QbankEditing />} />
+
+
+
+          
 
 
 

@@ -1,19 +1,27 @@
 import React, { useEffect, useState } from 'react'
-import homeBank from "./../../assets/image/Vector (6).svg"
-import Api_Dashboard from '../interceptor/interceptorDashboard'
-import ModalDelete, { Notify, NotifyError } from '../Alert/alertToast';
-import './Qbank.css'
+import homeBank from "./../../../assets/image/Vector (6).svg"
+import Api_Dashboard from '../../interceptor/interceptorDashboard'
+import ModalDelete, { Notify, NotifyError } from '../../Alert/alertToast';
+import { useLocation } from 'react-router-dom';
 
-export default function Qbank() {
+export default function QbankEditing(props) {
 
 
     const [groupAllData, SetgroupAllData] = useState([])
-
-    
-
-
-
-
+    const [dataToEdit,SetdataToEdit]=useState({
+        name: "",
+        point: "",
+        group_id: "",
+        subject_id:"",
+        unit_id: "",
+        lesson_id: "",
+        question_type_id: "",
+        level: "",
+        semster: "",
+        for: " ",
+        is_choose: "",
+        image: "",
+    })
     // ---------------------------------------------------------------------
     const [inputs, setInputs] = useState([
         { option: "", is_correct: false, image: '' },
@@ -84,13 +92,7 @@ export default function Qbank() {
         }
         setinputsOne(newInputs);
     };
-
- 
-
-
-
-
-
+    
     // -----------------------------------------------------------------------------
     const [allDataFromAllSelection, SetallDataFromAllSelection] = useState({
         name: "",
@@ -123,15 +125,12 @@ export default function Qbank() {
     
         setinputsOne([
             { option: "", is_correct: false, image: '' }
-        ]);
-    
-    
-        // SetsubjectAllData([]);
-        // SetunitAllData([]);
-        // SetallLesson([]);
-        // SetshowQuistitionById([]);
+        ])
     };
-    
+
+let location =useLocation()
+const {id} = location.state || {}    
+console.log(id);
 
 
 
@@ -155,38 +154,7 @@ export default function Qbank() {
 
     const [idOfGroup, SetidOfGroup] = useState('')
 
-    // const getAllSelection = async (e) => {
-    //     const data = { ...allDataFromAllSelection }
-    //     data[e.target.name] = e.target.value
-    //     // data.image=e.target.files[0]
-        
-    //     SetallDataFromAllSelection(data)
-    //     let idOfGroup = data.group_id
-    //     if (e.target.name === 'semster') {
-    //         Setsemster({...semster,semster:e.target.value}); 
-    //     }
-    //     let forId = data.for
-    //     // console.log(forId);
-    //     if (data.group_id) {
-    //         await getSubjectDependOnGroupId(idOfGroup)
-    //     }
-
-    //     let subJectId = data.subject_id
-    //     if (data.subject_id) {
-    //         await getAllUnitsDependOnSubject(subJectId)
-    //     }
-
-    //     let unitId = data.unit_id
-    //     if (data.unit_id) {
-    //         await getAllLessonsDependOnUnit(unitId)
-    //     }
-
-    //     let questionsIdType = data.question_type_id
-    //     if(data.question_type_id){
-    //       await  getAllshowQuistitionById(questionsIdType)
-    //     }
-    // }
-
+    
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (file) {
@@ -194,40 +162,34 @@ export default function Qbank() {
         }
       }
 
+     
 
-let timeout;
 
-const getAllSelection = async (e) => {
-    clearTimeout(timeout); 
-
-    timeout = setTimeout(async () => {
+    const getAllSelection = async (e) => {
         const data = { ...allDataFromAllSelection }
-        data[e.target.name] = e.target.value;
-        SetallDataFromAllSelection(data);
-
-        let idOfGroup = data.group_id;
-       
+        data[e.target.name] = e.target.value
+        // data.image=e.target.files[0]
         
-        if (data.group_id) {
-            await getSubjectDependOnGroupId(idOfGroup);
-        }
+        SetallDataFromAllSelection(data)
+        let idOfGroup = props.dataEdit.subject.id
 
-        let subJectId = data.subject_id;
+      
+    //     let forId = data.for
+    //     // console.log(forId);
+    //     if (true) {
+    //   await  getSubjectDependOnGroupId(idOfGroup)
+    //     }
+
+        let subJectId = data.subject_id
         if (data.subject_id) {
-            await getAllUnitsDependOnSubject(subJectId);
+            await getAllUnitsDependOnSubject(subJectId)
         }
 
-        let unitId = data.unit_id;
+        let unitId = data.unit_id
         if (data.unit_id) {
-            await getAllLessonsDependOnUnit(unitId);
+            await getAllLessonsDependOnUnit(unitId)
         }
-
-        let questionsIdType = data.question_type_id;
-        if (data.question_type_id) {
-            await getAllshowQuistitionById(questionsIdType);
-        }
-    }, 500); // Delay of 500ms (adjust as needed)
-}
+    }
 
 
 
@@ -286,8 +248,24 @@ const [allLesson,SetallLesson]=useState([])
     useEffect(() => {
         getAllGroup()
         getTypeOfQustition()
+        SetdataToEdit({
+            name: props.dataEdit.name ,
+            point: props.dataEdit.point,
+            group_id: props.dataEdit.group?.id,
+            subject_id: props.dataEdit.subject?.id,
+            unit_id: props.dataEdit.unit_id,
+            lesson_id: props.dataEdit.lesson_id,
+            question_type_id: props.dataEdit.question_type_id?.id,
+            level: props.dataEdit.level,
+            semster: props.dataEdit.semster,
+            for: props.dataEdit.for,
+            has_branch: props.dataEdit.has_branch,
+            is_choose: props.dataEdit.is_choose,
+            image: props.dataEdit.image,
+        })
 
-    }, [])
+
+    }, [props.dataEdit])
 
 
     const handlaeSubmit = async (event)=>{
@@ -389,7 +367,11 @@ const [allLesson,SetallLesson]=useState([])
 
     return (<>
     < ModalDelete/>
-        <div className="container  pb-4 " style={{ overflow: 'auto', marginTop: '18px', direction: 'rtl', height: 'auto', border: "2px solid purble", borderRadius: "10px", width: "90%", margin: "auto" }}>
+
+  
+
+                       
+        <div className="container pb-4 " style={{backgroundColor:"#0E0A43", overflow: 'auto', marginTop: '18px', direction: 'rtl', height: 'auto', border: "2px solid purble", borderRadius: "10px", width: "100%", margin: "auto" }}>
 
             <div className='col-12  mt-3 d-flex ' style={{ alignItems: "center", }}>
                 <div className="" style={{ width: "5.333333%" }}>
@@ -411,6 +393,7 @@ const [allLesson,SetallLesson]=useState([])
                                     onChange={getAllSelection}
                                     required
                                     name='semster'
+                                    value={dataToEdit.semster}
                                   
                                     >
                                     <option value="" disabled selected>اختر الفصل الدراسي</option>
@@ -426,6 +409,8 @@ const [allLesson,SetallLesson]=useState([])
                                     className="form-select"
                                     name='group_id'
                                     onChange={getAllSelection}
+                                    value={dataToEdit.group_id}
+
                                     required
                                 >
                                     <option value="" disabled selected>اختر الصف</option>
@@ -445,6 +430,8 @@ const [allLesson,SetallLesson]=useState([])
                                     name='subject_id'
                                     onChange={getAllSelection}
                                     required
+                                    value={dataToEdit.subject_id}
+
                                 >
                                     <option value="" disabled selected>اختر المبحث</option>
                                     {subjectAllData.map((item, index) => (
@@ -464,6 +451,8 @@ const [allLesson,SetallLesson]=useState([])
                                     name='unit_id'
                                     onChange={getAllSelection}
                                     required
+                                    value={dataToEdit.unit_id}
+
                                 >
                                     <option value="" disabled selected>اختر الوحده</option>
                                     {unitAllData.map((item, index) => (
@@ -484,6 +473,8 @@ const [allLesson,SetallLesson]=useState([])
                                     name='lesson_id'
                                     onChange={getAllSelection}
                                     required
+                                    value={dataToEdit.lesson_id}
+
                                 >
                                     <option value="" disabled selected>اختر السؤال</option>
                                     {allLesson.map((item, index) => (
@@ -504,6 +495,8 @@ const [allLesson,SetallLesson]=useState([])
                                     onChange={getAllSelection}
                                     name='level'
                                     required
+                                    value={dataToEdit.level}
+
                                 >
                                     <option value="" disabled selected> مستوي السؤال</option>
 
@@ -537,6 +530,8 @@ const [allLesson,SetallLesson]=useState([])
                                     onChange={getAllSelection}
                                     name='question_type_id'
                                     required
+                                    value={dataToEdit.question_type_id}
+
                                 >
                                     <option value="" disabled selected>اختر نوع السؤال</option>
                                     {typeOfQuistition.map((item, index) => (
@@ -556,6 +551,8 @@ const [allLesson,SetallLesson]=useState([])
                                     name="for"
                                     onChange={getAllSelection}
                                     required
+                                    value={dataToEdit.for}
+
                                 >
                                     <option value="" disabled selected> اختر صيغة السؤال</option>
                                     <option value="2">مذكر</option>
@@ -573,6 +570,8 @@ const [allLesson,SetallLesson]=useState([])
                                     name="has_branch"
                                     onChange={getAllSelection}
                                     required
+                                    value={dataToEdit.has_branch}
+
                                 >
                                     <option value="" disabled selected>اختر التفرع</option>
                                     <option value="0">رئيسي</option>
@@ -588,6 +587,8 @@ const [allLesson,SetallLesson]=useState([])
                                     name="is_choose"
                                     onChange={getAllSelection}
                                     required
+                                    value={dataToEdit.is_choose}
+
                                 >
                                     <option value="" disabled selected> هل اختياري</option>
                                     <option value="1">نعم</option>
@@ -598,13 +599,14 @@ const [allLesson,SetallLesson]=useState([])
 
                             <div className='mt-2'>
                                 <label htmlFor=" "> درجه السؤال </label>
-                                <input onChange={getAllSelection} name='point' type="number" className="form-control" placeholder="درجه السؤال" required />
+                                <input                                     value={dataToEdit.point}
+ onChange={getAllSelection} name='point' type="number" className="form-control" placeholder="درجه السؤال" required />
                             </div>
 
 
                             <div className='mt-2'>
                                 <label htmlFor=" ">اضافه صوره سؤال</label>
-                                <input onChange={handleImageChange} name='image' type="file"  className="form-control" placeholder="" />
+                                <input onChange={handleImageChange} name='image' type="file"  className="form-control" placeholder=""       value={dataToEdit.image} />
                             </div>
 
 
@@ -623,7 +625,8 @@ const [allLesson,SetallLesson]=useState([])
                         </div>
 
                         <div className='col-12 mt-2'>
-                            <textarea onChange={getAllSelection} name='name' class="form-control" id="exampleFormControlTextarea1" rows="5.5"></textarea>
+                            <textarea onChange={getAllSelection} name='name' class="form-control" id="exampleFormControlTextarea1" rows="5.5" value={dataToEdit.name}
+                            ></textarea>
                         </div>
 
                         {
@@ -760,6 +763,9 @@ const [allLesson,SetallLesson]=useState([])
                 </div>
             </form>
         </div>
+        
+
+ 
     </>
     )
 }

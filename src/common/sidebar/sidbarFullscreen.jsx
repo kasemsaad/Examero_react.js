@@ -71,17 +71,17 @@ function SidebarFullscreen() {
           <div className="sidbarSidbar ">
           <ul className="pt-4 ps-4">
             <li className={`Icon  ${id === "1" ? "bgIcon":" "}`}>
-              <Link to="/log" onClick={() => setId(1)} >
+              <Link to="/dashboard" onClick={() => setId(1)} >
               <img  src={homeIcon} alt="الرئيسية" />
               </Link>
             </li>
             <li className={`Icon  ${id === "2" ? "bgIcon":" "}`}>
-            <Link  to="/log" onClick={() => setId(2)} >
+            <Link  to="/dashboard" onClick={() => setId(2)} >
             <img style={{ width: 20 , height:20 }} src={manage_accounts_outline_rounded} alt="مديرو الموقع" />
               </Link>
             </li>
             <li className={`Icon  ${id === "3" ? "bgIcon":" "}`}>
-            <Link  to="/" onClick={() => setId(3)}>
+            <Link  to="/dashboard" onClick={() => setId(3)}>
             <img style={{ width: 20 , height:20 }} src={account_supervisor_outline} alt="مشرفو الموقع" />
               </Link>
             </li>
@@ -91,12 +91,12 @@ function SidebarFullscreen() {
               </Link>
             </li>
             <li className={`Icon  ${id === "5" ? "bgIcon":" "}`}>
-            <Link  to="/" onClick={() => setId(5)}>
+            <Link  to="/dashboard/qbank" onClick={() => setId(5)}>
             <img style={{ width: 20 , height:20 }} src={octiconIcon} alt="وضع الاسئله" />
               </Link>
             </li>
             <li className={`Icon  ${id === "6" ? "bgIcon":" "}`}>
-            <Link to="/" onClick={() => setId(6)}>
+            <Link to="/dashboard/qbank" onClick={() => setId(6)}>
               <img style={{ width: 23 , height:23 }} src={akar_icons_bank} alt="وضع الاسئله"  />
               </Link>
             </li>
@@ -134,7 +134,7 @@ function SidebarFullscreen() {
           </div>
           <ul className="sidbarUl pt-4  " >
             <li className="sidbarli">
-            <Link to="/" onClick={() => setId(1)} className={`Icon  ${id === "1" ? "Id":" "}`}>الرئيسية</Link>
+            <Link to="/dashboard" onClick={() => setId(1)} className={`Icon  ${id === "1" ? "Id":" "}`}>الرئيسية</Link>
             </li>
             <li className="sidbarli">
               <Link to="/" onClick={() => setId(2)} className={`Icon  ${id === "2" ? "Id":" "}`}>مديرو الموقع</Link>
