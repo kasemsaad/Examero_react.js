@@ -1,0 +1,8 @@
+.but-manger p {
+  transform: translate(-13px, 0px);
+}
+@media (max-width: 450px) {
+  .cont {
+    width: 100% !important;
+  }
+}

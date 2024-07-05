@@ -1,0 +1,24 @@
+.add-class-button {
+  height: 32.63px;
+  background-color: #ff7380;
+  border-radius: 32.63px;
+  display: flex;
+  align-items: center;
+  color: black;
+  font-size: 1rem;
+  font-weight: 600;
+  width: 127px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.add-class-button div {
+  height: 100%;
+  width: 93%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.add-class-button div p {
+  margin: 0%;
+}

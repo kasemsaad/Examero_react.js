@@ -1,0 +1,35 @@
+.lessons-Container {
+  width: 100%;
+}
+
+.lessons-quessions {
+}
+.form-content-lessons {
+  background-color: #1d195d;
+  width: 100%;
+  display: flex;
+  padding-bottom: 25px;
+  padding-top: 25px;
+
+  align-content: center !important;
+  border-radius: 13.97px;
+  /* flex-wrap: wrap; */
+  align-content: space-around;
+}
+
+.my-button-lesson {
+  width: 6rem;
+  height: auto;
+  color: white;
+  border: none;
+  background-color: #c01f59;
+  border-radius: 12.65px;
+  padding: 5px;
+}
+.button-lesson {
+  display: flex;
+  flex-direction: row-reverse !important;
+}
+.select-lesson {
+  margin-top: 8px;
+}

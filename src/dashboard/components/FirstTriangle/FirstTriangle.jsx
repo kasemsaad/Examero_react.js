@@ -1,7 +1,13 @@
 import MyButton from "../../../common/Button/Button";
 import "./FirstTriangle.css";
-const FirstTriangle = ({ content, className, onClick, linkTo, id, style }) => {
-  const com = 1;
+const FirstTriangle = ({
+  content,
+  className,
+  onClick,
+  linkTo,
+  style,
+  stylep,
+}) => {
   return (
     <>
       <div className={className}>
@@ -11,6 +17,7 @@ const FirstTriangle = ({ content, className, onClick, linkTo, id, style }) => {
           className={"triangle-left"}
           content={content}
           onClick={onClick}
+          stylep={stylep}
         />
       </div>
     </>

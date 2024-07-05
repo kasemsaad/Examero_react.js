@@ -1,15 +1,24 @@
+/* Root font-size assumption: 16px */
+:root {
+  font-size: 14px;
+  font-weight: 600;
+}
 
-rounded-table-ta {
+.my-rounded-table-ta {
   margin: auto;
-  width: 100%;
-  max-width: 100%; /* 891px */
+  width: 100%; /* 891px */
+
   direction: rtl;
   text-align: center;
   border-collapse: separate;
   border-spacing: 0 0.5rem; /* 10px */
 }
 
-rounded-table-ta thead tr td {
+.my-rounded-table-ta thead tr th {
+  color: #fe4f60;
+}
+
+/* .my-rounded-table-ta thead tr td {
   margin: 50px;
   height: 2rem;
 } */
@@ -17,7 +26,7 @@ rounded-table-ta thead tr td {
 .trash,
 .square,
 .eye {
-  height: 100%;
+  height: 99%;
   width: 1.875rem; /* 30px */
   padding: 0;
   border: none;
@@ -25,7 +34,11 @@ rounded-table-ta thead tr td {
   font-size: 1rem; /* Adjust font size for icons */
 }
 
-
+.trash {
+  color: #fe4f60;
+  height: 99%;
+  background-color: #120e4d;
+}
 
 .square {
   color: #ffffff;
@@ -37,22 +50,22 @@ rounded-table-ta thead tr td {
   background-color: #120e4d;
 }
 
-rounded-table-ta th,
-rounded-table-ta td {
+.my-rounded-table-ta th,
+.my-rounded-table-ta td {
   padding: 0;
-  height: 1.9rem; /* 30px */
+  height: 2rem; /* 30px */
   color: aliceblue;
 }
 
-rounded-table-ta tbody tr:nth-child(odd) {
+.my-rounded-table-ta tbody tr:nth-child(odd) {
   background-color: #1d195d;
 }
 
-rounded-table-ta tr:nth-child(even) {
+.my-rounded-table-ta tr:nth-child(even) {
   background-color: #090631;
 }
 
-rounded-table-ta th {
+.my-rounded-table-ta th {
   font-weight: 700;
   color: #fe4f60;
   border-bottom: 0.5px solid #a6a0f4;
@@ -60,7 +73,7 @@ rounded-table-ta th {
 }
 
 /* Apply border-radius to the entire row by targeting the first and last cells */
-rounded-table-ta tbody tr td:first-child {
+.my-rounded-table-ta tbody tr td:first-child {
   border-top-left-radius: 0rem; /* 8px */
   border-bottom-left-radius: 0rem; /* 0px */
   border-top-right-radius: 1rem; /* 0px */
@@ -69,7 +82,7 @@ rounded-table-ta tbody tr td:first-child {
   width: 3.5rem;
 }
 
-rounded-table-ta tbody tr td:last-child {
+.my-rounded-table-ta tbody tr td:last-child {
   border-top-left-radius: 1rem; /* 8px */
   border-bottom-left-radius: 1rem; /* 0px */
   border-top-right-radius: 0; /* 0px */
@@ -84,8 +97,8 @@ rounded-table-ta tbody tr td:last-child {
     font-size: 13px;
   }
 
-  rounded-table-ta th,
-  rounded-table-ta td {
+  .my-rounded-table-ta th,
+  .my-rounded-table-ta td {
     height: 2rem; /* 28px */
   }
 
@@ -98,13 +111,15 @@ rounded-table-ta tbody tr td:last-child {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 890px) {
   :root {
     font-size: 12px;
   }
-
-  rounded-table-ta th,
-  rounded-table-ta td {
+  .buttonOfTable {
+    font-size: 11px;
+  }
+  .my-rounded-table-ta th,
+  .my-rounded-table-ta td {
     height: 2rem; /* 26px */
   }
 
@@ -117,13 +132,15 @@ rounded-table-ta tbody tr td:last-child {
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 580px) {
   :root {
     font-size: 11px;
   }
-
-  rounded-table-ta th,
-  rounded-table-ta td {
+  .buttonOfTable {
+    font-size: 11px;
+  }
+  .my-rounded-table-ta th,
+  .my-rounded-table-ta td {
     height: 2rem; /* 32px */
     font-size: 0.875rem; /* 14px */
   }
@@ -136,13 +153,13 @@ rounded-table-ta tbody tr td:last-child {
     height: 100%;
   }
 
-  rounded-table-ta tbody tr td:first-child {
+  .my-rounded-table-ta tbody tr td:first-child {
     border-top-left-radius: 0rem; /* 8px */
     border-bottom-left-radius: 0rem; /* 0px */
     border-top-right-radius: 1rem; /* 0px */
     border-bottom-right-radius: 1rem; /* 0px */
   }
-  rounded-table-ta tbody tr td:last-child {
+  .my-rounded-table-ta tbody tr td:last-child {
     border-top-left-radius: 1rem; /* 8px */
     border-bottom-left-radius: 1rem; /* 0px */
     border-top-right-radius: 0; /* 0px */
@@ -150,13 +167,19 @@ rounded-table-ta tbody tr td:last-child {
   }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 500px) {
   :root {
-    font-size: 14px;
+    font-size: 11px;
+  }
+  .my-rounded-table-ta {
+    width: 100%;
   }
 
-  rounded-table-ta th,
-  rounded-table-ta td {
+  .buttonOfTable {
+    font-size: 0.7rem;
+  }
+  .my-rounded-table-ta th,
+  .my-rounded-table-ta td {
     height: 2rem; /* 30px */
     font-size: 0.8125rem; /* 13px */
   }
@@ -169,27 +192,38 @@ rounded-table-ta tbody tr td:last-child {
     height: 100%;
   }
 
-  rounded-table-ta tbody tr td:first-child {
+  .my-rounded-table-ta tbody tr td:first-child {
     border-top-left-radius: 0rem; /* 8px */
     border-bottom-left-radius: 0rem; /* 0px */
     border-top-right-radius: 1rem; /* 0px */
     border-bottom-right-radius: 1rem; /* 0px */
   }
-  rounded-table-ta tbody tr td:last-child {
+  .my-rounded-table-ta tbody tr td:last-child {
     border-top-left-radius: 1rem; /* 8px */
     border-bottom-left-radius: 1rem; /* 0px */
     border-top-right-radius: 0; /* 0px */
     border-bottom-right-radius: 0; /* 0px */
   }
+  .buttonOfTable {
+    border-radius: 12px;
+    width: fit-content;
+    /* padding: 0px, 10px, 0px, 10px; */
+
+    background-color: #4941a6;
+    color: #ffff;
+    border: none;
+  }
 }
 
-@media (max-width: 375px) {
+@media (max-width: 450px) {
   :root {
-    font-size: 14px;
+    font-size: 9px;
   }
-
-  rounded-table-ta th,
-  rounded-table-ta td {
+  .my-rounded-table-ta {
+    width: 100%;
+  }
+  .my-rounded-table-ta th,
+  .my-rounded-table-ta td {
     height: 1.75rem; /* 28px */
     font-size: 1rem; /* 12px */
   }
@@ -200,11 +234,12 @@ rounded-table-ta tbody tr td:last-child {
   .square,
   .eye {
     margin-left: 4px;
-    width: 1.875rem; /* 14px */
+    width: 1.6rem; /* 14px */
+    margin: 0;
     font-size: 1rem;
     height: 100%;
   }
-  rounded-table-ta tbody tr td:last-child {
+  .my-rounded-table-ta tbody tr td:last-child {
     margin: 0 0.625rem;
 
     border-top-left-radius: 1rem; /* 8px */
@@ -212,7 +247,7 @@ rounded-table-ta tbody tr td:last-child {
     border-top-right-radius: 0; /* 0px */
     border-bottom-right-radius: 0; /* 0px */
   }
-  rounded-table-ta tbody tr td:first-child {
+  .my-rounded-table-ta tbody tr td:first-child {
     border-top-right-radius: 1rem; /* 8px */
     border-bottom-right-radius: 1rem; /* 0px */
     border-top-left-radius: 0; /* 0px */
@@ -220,15 +255,24 @@ rounded-table-ta tbody tr td:last-child {
     margin: 0 0.625rem; /* 10px */
     width: 3.5rem;
   }
+  .buttonOfTable {
+    border-radius: 8px;
+    width: fit-content;
+    /* padding: 0px, 10px, 0px, 10px; */
+
+    background-color: #4941a6;
+    color: #ffff;
+    border: none;
+  }
 }
 
-@media (max-width: 355px) {
+@media (max-width: 450px) {
   :root {
-    font-size: 8px;
+    font-size: 12px;
   }
 
-  rounded-table-ta th,
-  rounded-table-ta td {
+  .my-rounded-table-ta th,
+  .my-rounded-table-ta td {
     height: 2rem; /* 26px */
     font-size: 0.6875rem; /* 11px */
   }
@@ -241,16 +285,28 @@ rounded-table-ta tbody tr td:last-child {
     height: 100%;
   }
 
-  rounded-table-ta tbody tr td:first-child,
-  rounded-table-ta tbody tr td:last-child {
-    border-radius: 0.25rem; /* 4px */
+  .my-rounded-table-ta tbody tr td:last-child {
+    margin: 0 0.625rem;
+
+    border-top-left-radius: 1rem; /* 8px */
+    border-bottom-left-radius: 1rem; /* 0px */
+    border-top-right-radius: 0; /* 0px */
+    border-bottom-right-radius: 0; /* 0px */
+  }
+  .my-rounded-table-ta tbody tr td:first-child {
+    border-top-right-radius: 1rem; /* 8px */
+    border-bottom-right-radius: 1rem; /* 0px */
+    border-top-left-radius: 0; /* 0px */
+    border-bottom-left-radius: 0; /* 0px */
+    margin: 0 0.625rem; /* 10px */
+    width: 3.5rem;
   }
 }
 .buttonOfTable {
-  border-radius: 20px;
-  width: 105px;
-  padding: 0px, 10px, 0px, 10px;
-  gap: 10px;
+  border-radius: 15px;
+  width: fit-content;
+  /* padding: 0px, 10px, 0px, 10px; */
+
   background-color: #4941a6;
   color: #ffff;
   border: none;

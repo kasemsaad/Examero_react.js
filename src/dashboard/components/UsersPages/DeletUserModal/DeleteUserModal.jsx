@@ -1,0 +1,66 @@
+import React, { useEffect, useState } from "react";
+import image from "../../../../assets/image/High Importance.svg";
+import "./DeleteUserModal.css";
+import Api_Dashboard from "../../../interceptor/interceptorDashboard";
+import LadingComponent from "../../../LoadingComponent/LodingComponent";
+const DeleteUserModal = ({ idOfDeleteItem, fetchAllData, api }) => {
+  const [loading, setLoading] = useState(false);
+  const [deletedItem, setDeletedItem] = useState(idOfDeleteItem);
+
+  const deleteManger = async (idOfDeleteItem) => {
+    setLoading(true);
+    const response = await Api_Dashboard.delete(
+      `/${api}/${idOfDeleteItem}`
+    ).then((response) => {});
+    fetchAllData().catch((err) => {});
+
+    setLoading(false);
+  };
+  if (loading) return <LadingComponent />;
+
+  return (
+    <>
+      {/* delete modal  */}
+      <div
+        className="modal fade DElementFade"
+        id="deleteElementModal_users-dash"
+        tabIndex="-1"
+        aria-labelledby="deleteElementModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog DElementDialog modal-dialog-centered ele_2">
+          <div className="modal-content DElementContent">
+            <div className="modal-body DElementBody text-center">
+              <img src={image} alt="Warning Icon" className="warning-icon" />
+              <p
+                className="modal-title DElementTitle"
+                id="deleteElementModalLabel"
+              >
+                هل أنت متأكد ؟
+              </p>
+              <p className="parag"> سيتم حذف هذا العنصر </p>
+            </div>
+            <div className="modal-footer DElementFooter">
+              <button
+                type="button"
+                className="btn-secondary cancel-btn DElementCancel"
+                data-bs-dismiss="modal"
+              >
+                لا
+              </button>
+              <button
+                data-bs-dismiss="modal"
+                type="button"
+                onClick={() => deleteManger(Number(idOfDeleteItem))}
+                className="btn-danger save-btn DElementSave"
+              >
+                نعم
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+export default DeleteUserModal;
