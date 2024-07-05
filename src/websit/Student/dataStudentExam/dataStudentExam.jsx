@@ -9,13 +9,13 @@ import Api_Website from '../../../utlis/axios_utils_websit.jsx';
 function DataStudentExam(props) {
     const [z, setZ] = useState(1); // Start with page 1
     const [data, setInfo] = useState([]);
-    const [hasMoreData, setHasMoreData] = useState(true); // To track if there's more data to fetch
+    const [hasMoreData, setHasMoreData] = useState(true); 
     const [loading, setLoading] = useState(true); // Loading state
     const layoutBackground = useSelector((state) => state.dark.lay);
 
     useEffect(() => {
         getDataStudentExam();
-    }, [z]); // Fetch data on mount and when `z` changes
+    }, [z]); 
 
     const getDataStudentExam = () => {
         setLoading(true); // Set loading to true before fetching data
