@@ -9,7 +9,7 @@ import lockIcon from '.././../assets/icons/register and login icon/padlock-icon-
 import Imgcom from './../../websit/register and login/imgcom/imgcom.jsx';
 import Create_acc from './.././../websit/register and login/create_acc/create_acc.jsx';
 import axios, { Axios } from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Api_Dashboard from '../interceptor/interceptorDashboard.jsx';
 
 
@@ -101,11 +101,12 @@ erroralertform?
                         </Form.Group>
 
                         <Form.Group controlId="remember" className="d-flex justify-content-between align-items-center">
-                            {/* <Form.Switch */}
-                                {/* id="custom-switch"
+                          <Form.Switch 
+                                id="custom-switch"
                                 label=""
-                                className="rem_login" */}
-                            {/* /> */}
+                                className="rem_login" 
+                             /> 
+                             <Link to="/forget_password" className="forgot-password">نسيت كلمة المرور؟</Link>
                             {/* <a href="#" className="forgot-password">نسيت كلمة المرور؟</a> */}
                         </Form.Group>
                         <Button style={{marginTop:"20px"}} type="submit" className="btn login_btn">تسجيل الدخول</Button>

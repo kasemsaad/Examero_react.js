@@ -1,0 +1,46 @@
+  .tabelstudent {
+    margin: auto;
+    width: 100%;
+    max-width: 100%; /* 891px */
+    direction: rtl;
+    text-align: center;
+    border-collapse: separate;
+    border-spacing: 0 0.5rem; /* 10px */
+  }
+  
+ .tabelstudent th,
+  td {
+    padding: 0;
+    height: 1.9rem; /* 30px */
+  }
+  
+.tabelstudent  tbody tr:nth-child(odd) {
+    background-color: #1d195d;
+  }
+  
+.tabelstudent  tr:nth-child(even) {
+    background-color: #090631;
+  }
+  
+
+  /* Apply border-radius to the entire row by targeting the first and last cells */
+  .tabelstudent tbody tr td:first-child {
+    border-top-left-radius: 0rem; /* 8px */
+    border-bottom-left-radius: 0rem; /* 0px */
+    border-top-right-radius: 1rem; /* 0px */
+    border-bottom-right-radius: 1rem; /* 0px */
+    margin: 0 0.625rem; /* 10px */
+    width: 3.5rem;
+  }
+  
+  .tabelstudent tbody tr td:last-child {
+    border-top-left-radius: 1rem; /* 8px */
+    border-bottom-left-radius: 1rem; /* 0px */
+    border-top-right-radius: 0; /* 0px */
+    border-bottom-right-radius: 0; /* 0px */
+    width: 7.5rem;
+    margin: 0 0.625rem; /* 10px */
+  }
+  
+  /* Responsive design for all screen sizes */
+  

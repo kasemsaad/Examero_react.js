@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import TablePlan from '../../common/Table/Table'
+// import TablePlan from '../../common/Table/Table'
 import plansLogo from "./../../assets/image/fluent_payment-32-regular.svg"
 import plus from "./../../assets/image/+.svg"
 import FirstTriangle from '../components/FirstTriangle/FirstTriangle'
@@ -7,6 +7,10 @@ import SecondTriangle from '../components/SecondTriangl/SecondTriangle'
 import './Plans.css'
 import Api_Dashboard from '../interceptor/interceptorDashboard'
 import { Link, useLocation } from 'react-router-dom'
+import TableOpenEmis from '../../common/Table/tableOpenEmis/tableOpenEmes'
+import TablePlan from '../../common/Table/tablePlan/tablePlan'
+
+
 
 export default function Plans(props) {
     const [colorSpin, SetColorSpin] = useState('grey')
@@ -63,8 +67,8 @@ export default function Plans(props) {
 
                                 {
                                     location.pathname === '/dashboard/planstudent' ?
-                                    <SecondTriangle content={"الطلاب"} style={{ backgroundColor: localStorage.getItem("SpinColor") }} /> :
-                                    <SecondTriangle content={"الطلاب"} style={{ backgroundColor: "#1D195D" }} />
+                                    <SecondTriangle stylep={{color:"#ffff"}} content={"الطلاب"} style={{ backgroundColor: localStorage.getItem("SpinColor") }} /> :
+                                    <SecondTriangle stylep={{color:"#ffff"}} content={"الطلاب"} style={{ backgroundColor: "#1D195D" }} />
                                 }
                             </Link>
                         </div>
@@ -79,15 +83,18 @@ export default function Plans(props) {
                             </button>
                         </div>
                         <div>
-                            <button className='btn' style={{ backgroundColor: "#C01F59", height: "29px", borderRadius: "10px", color: "#FFFFFF" }}  ><img src={plus} alt="plus" />  إضافة باقه
+                            <button     type="button"
+                    data-bs-toggle="modal"
+                    data-bs-target={props.nameOfPageModalTarget}
+                            
+                            className='btn' style={{ backgroundColor: "#C01F59", height: "29px", borderRadius: "10px", color: "#FFFFFF" }}  ><img src={plus} alt="plus" />  إضافة باقه
                             </button>
                         </div>
                     </div>
                 </div>
 
-
                 <div className='mt-5'>
-                    <TablePlan header={header} body={props.dataRender} icons={icon} />
+                    <TablePlan header={header} body={props.dataRender} icons={icon} editButtonName={props.edit} delteModalName={props.delete} handel={props.handel}  Deletehandel={props.Deletehandel}/>
                 </div>
 
 
@@ -101,9 +108,12 @@ export default function Plans(props) {
                     }}
                     className="footer-manger"
                 >
-                    <button
+                    <button 
+                    type='button'
+
+                    onClick={()=>props.next()}
                         style={{
-                            backgroundColor: "#4941A6",
+                            backgroundColor: props.totalPages===props.current_page ? "#120E4D":"#4941A6",
                             height: "26px",
                             width: "26px",
                             display: "flex",
@@ -116,10 +126,32 @@ export default function Plans(props) {
                     >
                         <p style={{ margin: "0", color: "white" }}>&gt;</p>
                     </button>
+                    <div style={{ display: "flex", flexDirection: "row-reverse" }}>
+          {Array.from({ length: props.totalPages }, (_, i) => (
+            <div
+              key={i}
+              style={{
+                backgroundColor:  props.current_page === i + 1 ? "#4941A6 " : "#120E4D",
+                height: "26px",
+                width: "26px",
+                display: "flex",
+                fontSize: "18px",
+                fontWeight: "700",
+                alignItems: "center",
+                justifyContent: "center",
+                margin: "2px", // Added margin for better visual spacing
+              }}
+            >
+              {i + 1}
+            </div>
+          ))}
+        </div>
                     <button
+                    type='button'
+                    onClick={()=>props.handelPrev()}
                         style={{
                             marginLeft: "5px",
-                            backgroundColor: "#120E4D",
+                            backgroundColor: props.current_page ===1? "#120E4D":"#4941A6",
                             height: "26px",
                             width: "26px",
                             display: "flex",
@@ -140,40 +172,6 @@ export default function Plans(props) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            ...
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </>
     )
 }

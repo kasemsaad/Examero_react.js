@@ -39,6 +39,8 @@ function Login1() {
             .then((response) => {
                 setLoginSuccess(true);
                 localStorage.setItem('token', response.data.access_token);
+
+                localStorage.setItem('user',"student");
                 setError('');
                 navigate('/student/homeStudentView'); 
             })

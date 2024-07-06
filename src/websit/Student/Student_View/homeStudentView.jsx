@@ -18,11 +18,11 @@ function onSelect(id) {
   useId = id
 }
 function HomeStudentview(props) {
-  const getToken = () => { return "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL3N0dWRlbnRzL2xvZ2luIiwiaWF0IjoxNzE5MTYwNDAxLCJleHAiOjE3MTkxNjQwMDEsIm5iZiI6MTcxOTE2MDQwMSwianRpIjoidVRFN2hZSE43aEViTEd3NiIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.TrhHEQ5x9U0i1dQK9S0zevvbKeU65KS2KwpxJxmoIc8"; };
   const layoutBackground = useSelector((state) => state.dark.lay);
 
   useEffect(() => {
     getAllNotes();
+    getinfo();
   }, []);
   //////////////////////////Get All Note///////////////////////////////////////////////////
   const [allNotes, setAllNotes] = useState("");
@@ -37,8 +37,20 @@ function HomeStudentview(props) {
         console.error("Error fetching notes data:", error);
       });
 
-   
   }
+  const [info, setinfo] = useState("");
+
+  const getinfo=()=>{
+    
+    Api_Website.get(`students/exams-info`)
+    .then(response => {
+      setinfo(response.data);
+    })
+    .catch(error => {
+      console.error("Error fetching notes data:", error);
+    });
+
+}
   // const getExam=()=>{
   //   request({
   //     url: '/students/exams',
@@ -123,14 +135,19 @@ function HomeStudentview(props) {
 
   //////////////////////////End add Note///////////////////////////////////////////////////
   //////////////////////////update Note///////////////////////////////////////////////////
+useEffect(()=>{
 
-  const [getDataUpdateAddress , setgetDataUpdateAddress]=useState("");
-  const [getDataUpdateNote , setgetDataUpdateNote]=useState("");
+})
+  const [values , setValues]=useState({
+    id:useId,
+    address:'',
+    note:''
+  });
+ 
   const handleGetUpdate = (id) => {
       Api_Website.get(`students/notes/${id}`)
       .then(response => {
-        setgetDataUpdateNote(response.data.data.note);
-        setgetDataUpdateAddress(response.data.data.address);
+        setValues({...values,address:response.data.data.address,note:response.data.data.note});
         getAllNotes()
             })
       .catch(error => {
@@ -139,48 +156,59 @@ function HomeStudentview(props) {
 
   };
   ////////////////////////////////////add update//////////////////////////////////////////////////////////////
-  const [DataAfterUpdateAddress, setDataAfterUpdateAddress] = useState("");
-  const [DataAfterUpdateNote, setDataAfterUpdateNote] = useState("");
-  const [addressUpdateValidationMessage, setAddressUpdateValidationMessage] = useState('');
+  // const [DataAfterUpdateAddress, setDataAfterUpdateAddress] = useState("");
+  // const [DataAfterUpdateNote, setDataAfterUpdateNote] = useState("");
   const [noteUpdateValidationMessage, setNoteUpdateValidationMessage] = useState('');
-
-  const handleAddressChangeUpdate = (event) => {
-    const value = event.target.value;
-
-    if (value.trim() === '') {
-      setAddressUpdateValidationMessage('لا يجب ان يكون فارغ');
-    } else if (value.length > 15) { // Example max length for address
-      setAddressUpdateValidationMessage('العنوان لايزيد عن 15 حرف');
-    } else if (!/^[\u0600-\u06FF\sA-Za-z]+$/.test(value)) {
-      setAddressUpdateValidationMessage('يجب ان يكون نص');
+  const [addressUpdateValidationMessage, setAddressUpdateValidationMessage] = useState('');
+  const validateAddress = (address) => {
+    if (address.trim() === '') {
+      return 'لا يجب ان يكون فارغ'; // "Should not be empty"
+    } else if (address.length > 15) {
+      return 'الملحوظه لاتزيد عن 15 حرف'; // "Note should not exceed 50 characters"
+    } else if (!/^[\u0600-\u06FF\sA-Za-z]+$/.test(address)) {
+      return 'يجب ان يكون نص'; // "Must be text"
     } else {
-      setAddressValidationMessage('');
+      return '';
     }
-    setDataAfterUpdateAddress(value)
   };
 
-  const handleNoteChangeUpdate = (event) => {
-    const value = event.target.value;
+  // Handle input change with validation
+  const handleInputChangeAddress = (e) => {
+    const { value } = e.target;
+    setValues({ ...values, address: value });
 
-    // Validate note input
-    if (value.trim() === '') {
-      setNoteUpdateValidationMessage('لا يجب ان يكون فارغ');
-    } else if (value.length > 50) { // Example max length for note
-      setNoteUpdateValidationMessage('الملحوظه لاتزيد عن 50 حرف');
-    } else if (!/^[\u0600-\u06FF\sA-Za-z]+$/.test(value)) {
-      setNoteUpdateValidationMessage('يجب ان يكون نص');
-    } else {
-      setNoteUpdateValidationMessage('');
-
-    }
-    setDataAfterUpdateNote(value)
+    // Validate the input
+    const validationMessage = validateAddress(value);
+    setAddressUpdateValidationMessage(validationMessage);
   };
+  const validateNote = (note) => {
+    if (note.trim() === '') {
+      return 'لا يجب ان يكون فارغ'; // "Should not be empty"
+    } else if (note.length > 50) {
+      return 'الملحوظه لاتزيد عن 50 حرف'; // "Note should not exceed 50 characters"
+    } else if (!/^[\u0600-\u06FF\sA-Za-z]+$/.test(note)) {
+      return 'يجب ان يكون نص'; // "Must be text"
+    } else {
+      return '';
+    }
+  };
+
+  // Handle input change with validation
+  const handleInputChangeNote = (e) => {
+    const { value } = e.target;
+    setValues({ ...values, note: value });
+
+    // Validate the input
+    const validationMessage = validateNote(value);
+    setNoteUpdateValidationMessage(validationMessage);
+  };
+
   const handleSubmitUpdate = (event) => {
 
     event.preventDefault();
     const data = {
-      address: DataAfterUpdateAddress,
-      note: DataAfterUpdateNote
+      address: values.address,
+      note: values.note
     };
       Api_Website.post(`students/notes/${useId}`,data)
       .then(response => {
@@ -204,9 +232,7 @@ const getUsersFromInput=(e)=>{
   USER[e.target.name]=e.target.value
   setInputUser(USER)
   }
-  if (!allNotes) {
-    return <div>Loading...</div>;
-  }
+ 
   return (
     <>
       <div className="container py-5 mb-2 d-flex align-items-center justify-content-center flex-column">
@@ -227,19 +253,18 @@ const getUsersFromInput=(e)=>{
 
         <div className="row m-0 Bold" style={{ width: "88%", paddingTop: "4.25px" }}>
           <div className="row rowHomestudent pt-2 m-0 col-md-8 d-flex align-items-start justify-content-evenly">
-            <div className="col-3 rounded-4 shadow-box shadow-boxxx boximgbackground1" style={{ backgroundColor: "#4941A6", width: "10rem" }}>
+            <div className="row d-flex p-0 align-items-start justify-content-between">
+
+            <div className="col-3 rounded-4  shadow-box shadow-boxxx boximgbackground1 d-flex flex-column justify-content-center " style={{ backgroundColor: "#4941A6", width: "45%" }}>
               <p>عدد الامتحانات المستخدمة</p>
-              <p className="fs-6">17</p>
+              <p className="fs-6">{info.exam_student_finished}</p>
             </div>
 
-            <div className="col-3 rounded-4 shadow-boxxx boximgbackground2" style={{ backgroundColor: "#C01F59", width: "10rem" }}>
-              <p>عدد الامتحانات المتبقية</p>
-              <p className="fs-6">2</p>
-            </div>
 
-            <div className="col-3 rounded-4 shadow-boxxx boximgbackground3" style={{ backgroundColor: "#C17011", width: "10rem" }}>
+            <div className="col-3 rounded-4  shadow-boxxx boximgbackground3 d-flex flex-column justify-content-center" style={{ backgroundColor: "#C17011", width: "45%" }}>
               <p>متوسط الدرجات</p>
-              <p className="fs-6">70%</p>
+              <p className="fs-6">{info.exam_average}%</p>
+            </div>
             </div>
 
             <div className="row child pt-4 p-0 m-0 rounded-4" style={{ width: "100%", backgroundColor: "#4941A6" }}>
@@ -261,14 +286,14 @@ const getUsersFromInput=(e)=>{
             </div>
           </div>
 
-          <div className="homeStudentcalender pt-3 col-md-4 d-flex align-items-center justify-content-center flex-column">
+          <div className="homeStudentcalender pt-2 col-md-4 d-flex align-items-center justify-content-center flex-column">
             <div className="rounded-5 d-flex align-items-center justify-content-center" style={{ width: "100%", height: "auto", backgroundColor: "#4941A6" }}>
-              <div className="wrapper_todo_calender mt-3 d-flex align-items-center justify-content-center flex-column" style={{ backgroundColor: "#4941A6", border: "1px #4941A6 solid", borderRadius: "20px", width: "100%" }}>
+              <div className="wrapper_todo_calender  d-flex align-items-center justify-content-center flex-column" style={{ backgroundColor: "#4941A6", border: "1px #4941A6 solid", borderRadius: "20px", width: "100%" }}>
                 <div className="calender calenderhomestudent d-flex align-items-center justify-content-center" style={{ width: "100%" }}>
                   <Calendar onChange={props.onChange} value={props.date} />
                 </div>
 
-                {allNotes.length > 0 && (
+                {/* {allNotes.length > 0 && (
                   <div className="mt-4 todo_app_wrapper d-flex justify-content-center" style={{ height: "30vh", overflow: "auto" }}>
                     <div className="todo_app" style={{ overflow: "auto" }}>
                       {allNotes.map(({ id, address }) => (
@@ -286,7 +311,7 @@ const getUsersFromInput=(e)=>{
                       ))}
                     </div>
                   </div>
-                )}
+                )} */}
 
                 <div style={{ textAlign: "center", display: 'flex', justifyContent: "center", marginTop: "10px" }}>
                   <button
@@ -434,13 +459,11 @@ const getUsersFromInput=(e)=>{
                         className="form-control managerControl"
                         id="address"
                         placeholder="أدخل العنوان"
-                        // value={getDataUpdateAddress}
-                        // onChange={handleAddressChangeUpdate}
-                        value={inputUser.address}
-                        name='address'
-                       onChange={(e)=>getUsersFromInput(e)}
-                      />
+                        value={values.address}
+                        onChange={handleInputChangeAddress}
+/>
                       {addressUpdateValidationMessage && <p style={{ color: 'red' }}>{addressUpdateValidationMessage}</p>}
+
                     </div>
                     <div className="form-group managerFGroup">
                       <label htmlFor="note">الملحوظة</label>
@@ -449,15 +472,17 @@ const getUsersFromInput=(e)=>{
                         className="form-control managerControl"
                         id="note"
                         placeholder="أدخل الملحوظة"
-                        value={inputUser.note}
-                        name='note'
-                       onChange={(e)=>getUsersFromInput(e)}                      />
+                        value={values.note}
+                        onChange={handleInputChangeNote}
+
+
+                      />
                       {noteUpdateValidationMessage && <p style={{ color: 'red' }}>{noteUpdateValidationMessage}</p>}
                     </div>
                   </div>
                 </div>
-                <div className="modal-footer managerFooter pt-4 ">
-                <button type="button" className="btn canceled managerCancel" data-bs-dismiss="modal" id="firstbutt">
+                <div className="modal-footer managerFooter ms-4 pt-3" >
+                  <button type="button" className="btn canceled managerCancel" data-bs-dismiss="modal" id="firstbutt">
                     إلغاء
                   </button>
                   <button type="submit" className="btn save managerSave">تعديل</button>
