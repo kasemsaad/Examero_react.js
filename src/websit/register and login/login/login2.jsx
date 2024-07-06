@@ -38,7 +38,7 @@ function Login1() {
         Api_website.post('/students/login', formData)
             .then((response) => {
                 setLoginSuccess(true);
-                localStorage.setItem('token', response.data.access_token);
+                localStorage.setItem('token_user', response.data.access_token);
 
                 localStorage.setItem('user',"student");
                 setError('');

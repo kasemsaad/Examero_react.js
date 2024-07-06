@@ -49,13 +49,14 @@ function Home() {
     const [Data, setData] = useState("");
     const [baymentObj, setbaymentObj] = useState("");
     const [user, setuser] = useState("");
+    const [UserPayment, setUserPayment] = useState("");
     const navigate = useNavigate();
     const logout = () => {
         if (user === "student") {
 
             Api_Website.post(`/students/logout`)
                 .then(response => {
-                    localStorage.removeItem("token");
+                    localStorage.removeItem("token_user");
                     navigate("/")
 
                 })
@@ -66,7 +67,7 @@ function Home() {
         } else {
             Api_Website.post(`/teachers/logout`)
                 .then(response => {
-                    localStorage.removeItem("token");
+                    localStorage.removeItem("token_user");
                     navigate("/")
                 })
                 .catch(error => {
@@ -140,17 +141,17 @@ function Home() {
             const load = document.getElementById("reload");
             // const body = document.getElementsByTagName("body");
             load.style.display = "none"
-            document.body.style.removeProperty('overflow'); 
+            document.body.style.removeProperty('overflow');
             let backdrop = document.querySelector('.modal-backdrop.fade.show');
             if (backdrop) {
                 backdrop.remove();
             }
-                }, 4000)
+        }, 4000)
     }
 
     setTimeout(() => {
 
-        const token = localStorage.getItem("token")
+        const token = localStorage.getItem("token_user")
         if (token) {
             const login = document.getElementById('login');
             login.style.display = "block";
@@ -168,11 +169,12 @@ function Home() {
         const data = {
             plan_id: id
         }
-         Api_Website.post(`students/payments/pay-with-paymob`, data)
+        Api_Website.post(`students/payments/pay-with-paymob`, data)
 
             .then(response => {
                 console.log(response.data.redirect_url)
                 window.open(response.data.redirect_url, '_blank');
+                loading()
             })
             .catch(error => {
                 console.error("Error fetching mastercard data:");
@@ -180,7 +182,7 @@ function Home() {
                 setTimeout(() => {
                     navigate("/login_student")
                 }, 4000);
-                       });
+            });
     }
     const paypalStudentApi = (id) => {
         const data = {
@@ -189,6 +191,7 @@ function Home() {
         Api_Website.post(`students/payments/pay-with-paypal`, data)
             .then(response => {
                 window.open(response.data.redirect_url, '_blank');
+                loading()
             })
             .catch(error => {
                 console.error("Error fetching paypal data:");
@@ -206,14 +209,15 @@ function Home() {
         Api_Website.post(`/teachers/payments/pay-with-paymob`, data)
             .then(response => {
                 window.open(response.data.redirect_url, '_blank');
+                loading()
             })
             .catch(error => {
                 console.error("Error fetching mastercard data:");
                 loading()
                 setTimeout(() => {
-                    navigate("/login_student")
+                    navigate("/login_teacher")
                 }, 4000);
-              
+
             });
     }
     const paypalTeacherApi = (id) => {
@@ -223,14 +227,16 @@ function Home() {
         Api_Website.post(`/teachers/payments/pay-with-paypal`, data)
             .then(response => {
                 window.open(response.data.redirect_url, '_blank');
+                loading()
+
             })
             .catch(error => {
                 console.error("Error fetching paypal data:");
                 loading()
                 setTimeout(() => {
-                    navigate("/login_student")
+                    navigate("/login_teacher")
                 }, 4000);
-              
+
             });
     }
 
@@ -519,11 +525,14 @@ function Home() {
                             </div>
                             <div className="d-flex align-items-center justify-content-center">
                                 <button
-                                    className="btn mx-2 py-0 rounded-3"
+                                    className="btn mx-2 py-0 rounded-3 "
                                     style={{ height: "3rem", width: "100%", backgroundColor: "#4941A6", color: "#ffff" }}
                                     data-bs-toggle="modal"
                                     data-bs-target="#bayment"
-                                    onClick={() => setbaymentObj(teacher_data.data[0])}
+                                    onClick={() => {
+                                        setbaymentObj(teacher_data.data[0])
+                                        setUserPayment("teacher")
+                                    }}
                                 >
                                     اشترك الآن
                                 </button>                            </div>
@@ -545,7 +554,11 @@ function Home() {
                                 <button className="btn mx-2 py-0 rounded-3 " style={{ height: "3rem", width: "100%", backgroundColor: "#C01F59", color: "#ffff" }}
                                     data-bs-toggle="modal"
                                     data-bs-target="#bayment"
-                                    onClick={() => setbaymentObj(teacher_data.data[1])}
+                                    onClick={() => {
+                                        setbaymentObj(teacher_data.data[1])
+                                        setUserPayment("teacher")
+                                    }}
+
                                 >
                                     اشترك الآن
                                 </button>
@@ -568,8 +581,10 @@ function Home() {
                                 <button className="btn mx-2 py-0 rounded-3 " style={{ height: "3rem", width: "100%", backgroundColor: "#4941A6", color: "#ffff" }}
                                     data-bs-toggle="modal"
                                     data-bs-target="#bayment"
-                                    onClick={() => setbaymentObj(teacher_data.data[2])}
-                                >
+                                    onClick={() => {
+                                        setbaymentObj(teacher_data.data[2])
+                                        setUserPayment("teacher")
+                                    }}                                >
                                     اشترك الآن
                                 </button>
 
@@ -598,8 +613,10 @@ function Home() {
                                 <button className="btn mx-2 py-0 rounded-3 " style={{ height: "3rem", width: "100%", backgroundColor: "#4941A6", color: "#ffff" }}
                                     data-bs-toggle="modal"
                                     data-bs-target="#bayment"
-                                    onClick={() => setbaymentObj(student_data.data[0])}
-                                >
+                                    onClick={() => {
+                                        setbaymentObj(student_data.data[0])
+                                        setUserPayment("student")
+                                    }}                                >
                                     اشترك الآن
                                 </button>
                             </div>
@@ -621,8 +638,10 @@ function Home() {
                                 <button className="btn mx-2 py-0 rounded-3 " style={{ height: "3rem", width: "100%", backgroundColor: "#C01F59", color: "#ffff" }}
                                     data-bs-toggle="modal"
                                     data-bs-target="#bayment"
-                                    onClick={() => setbaymentObj(student_data.data[1])}
-                                >
+                                    onClick={() => {
+                                        setbaymentObj(student_data.data[1])
+                                        setUserPayment("student")
+                                    }}                                  >
                                     اشترك الآن
                                 </button>
                             </div>
@@ -644,8 +663,10 @@ function Home() {
                                 <button className="btn mx-2 py-0 rounded-3  " style={{ height: "3rem", width: "100%", backgroundColor: "#4941A6", color: "#ffff" }}
                                     data-bs-toggle="modal"
                                     data-bs-target="#bayment"
-                                    onClick={() => setbaymentObj(student_data.data[2])}
-                                >
+                                    onClick={() => {
+                                        setbaymentObj(student_data.data[2])
+                                        setUserPayment("student")
+                                    }}                                  >
                                     اشترك الآن
                                 </button>
                             </div>
@@ -707,7 +728,7 @@ function Home() {
             </div>
             {/* </div> */}
             {/* -----------endsection--------- */}
-            <div className="modal fade managerFade" id="bayment" tabIndex="-1" aria-labelledby="addManagerModalLabel" aria-hidden="true" >
+            <div className="modal fade managerFade" id="bayment" tabIndex="-1" aria-labelledby="addManagerModalLabel" aria-hidden="true" style={{ zIndex: "999999999999999999999999999999999999999999999999999" }} >
                 <div className="modal-dialog modal-dialog-centered managergDialog">
                     <div className="modal-content managerContent">
                         <div className="modal-header managerHeader d-flex  justify-content-center">
@@ -718,69 +739,76 @@ function Home() {
                             <h4 className="modal-title managerTitle text-center ">الدفع عن طريق</h4>
                             <div className="parent1 py-4">
                                 {
-                                    user === "student" ? (
+                                    UserPayment === "student" ? (
                                         <>
                                             <button className="btn btn-light mx-2"
+                                                onClick={() => {
+                                                    paypalStudentApi(baymentObj.id)
+                                                    console.log(baymentObj)
 
+                                                }}
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#reload"
                                             >
                                                 <img
                                                     className="m-4"
                                                     src={paypal}
                                                     alt="paypal"
-                                                    onClick={() => {
-                                                        paypalStudentApi(baymentObj.id)
 
-                                                    }}
                                                     style={{ width: "60px", height: "70px" }}
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#reload"
+
                                                 />
                                             </button>
-                                            <button className="btn btn-light mx-2">
+                                            <button className="btn btn-light mx-2"
+
+                                                onClick={() => {
+                                                    mastercardStudentApi(baymentObj.id)
+                                                }}
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#reload"
+                                            >
 
                                                 <img
                                                     className="m-4"
                                                     src={mastercard}
                                                     alt="mastercard"
-                                                    onClick={() => {
-                                                        mastercardStudentApi(baymentObj.id)
-                                                    }}
+
                                                     style={{ width: "60px", height: "70px" }}
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#reload"
+
                                                 />
                                             </button>
                                         </>
                                     ) : (
                                         <>
                                             <button className="btn btn-light mx-2"
+                                                onClick={() => {
+                                                    paypalTeacherApi(baymentObj.id)
+
+                                                }}
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#reload"
                                             >
                                                 <img
                                                     className="m-4"
                                                     src={paypal}
                                                     alt="paypal"
-                                                    onClick={() => {
-                                                        paypalTeacherApi(baymentObj.id)
+                                                    style={{ width: "60px", height: "70px" }}
 
-                                                    }}
-                                                    style={{ width: "70px" }}
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#reload"
                                                 />
                                             </button>
                                             <button className="btn btn-light mx-2"
+                                                onClick={() => {
+                                                    mastercardTeacherApi(baymentObj.id)
+                                                }}
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#reload"
                                             >
                                                 <img
                                                     className="m-4"
                                                     src={mastercard}
                                                     alt="mastercard"
-                                                    onClick={() => {
-                                                        mastercardTeacherApi(baymentObj.id)
+                                                    style={{ width: "60px", height: "70px" }}
 
-                                                    }}
-                                                    style={{ width: "70px" }}
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#reload"
                                                 />
                                             </button>
 
@@ -789,8 +817,7 @@ function Home() {
                                 }
 
                             </div>
-                            <h3 className="modal-title managerTitle text-center ">$ {baymentObj.price}</h3>
-
+                            <h3 className="modal-title managerTitle text-center ">${baymentObj.price}</h3>
                         </div>
                     </div>
                 </div>
@@ -799,7 +826,6 @@ function Home() {
             <div className="modal fade managerFade" style={{ backgroundColor: "#00000032", border: "none" }} id="reload" tabIndex="-1" aria-labelledby="addManagerModalLabel" aria-hidden="true" >
                 <div className="modal-dialog modal-dialog-centered managergDialog " >
                     <div className="modal-content managerContent " style={{ backgroundColor: "transparent", border: "none" }}>
-
                         <div className="spinner" data-bs-dismiss="modal" >
                             <div className="double-bounce1"></div>
                             <div className="double-bounce2"></div>
