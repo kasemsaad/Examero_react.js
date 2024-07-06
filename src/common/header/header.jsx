@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./header.css";
-import personal from "./../../assets/image/IMG_20231104_171844_696.jpg";
+import personal from "./../../assets/image/man 2 (1).svg";
 import Examiro from "./../../assets/image/image 9.svg";
 import notifiy from "./../../assets/image/ic_baseline-notifications-none.svg";
 import moon from "./../../assets/image/solar_moon-line-duotone.svg";
@@ -27,7 +27,7 @@ function Header() {
  
   const linksProfile = () => {
     if (location.pathname.startsWith('/dashboard')) {
-      navigate("/");
+      navigate("/dashboard/b");
     } else if (location.pathname.startsWith('/student')) {
       navigate("/student/editStudentProfaile");
     } else if (location.pathname.startsWith('/teacher')) {

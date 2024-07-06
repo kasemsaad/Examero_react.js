@@ -48,13 +48,22 @@ function Login() {
                 navigate('/teacher/TeacherProfile'); 
             })
             .catch((error) => {
-                setLoginSuccess(false);
-                if (error.response && error.response.data) {
-                    console.error("Error response data:", error.response.data);
-                    setError(error.response.data.error || 'حدث خطأ أثناء تسجيل الدخول');
-                } else {
-                    setError('حدث خطأ أثناء تسجيل الدخول');
+                console.log(error);
+                if(error.response.data.error){
+                    setError( error.response.data.error);
+
+
+                }else{
+                    setError( error.response.data.message);
+
                 }
+                setLoginSuccess(false);
+                // if (error.response && error.response.data) {
+                //     console.error("Error response data:", error.response.data);
+                //     setError( error.response.data.error);
+                // } else {
+                //     setError('    بما البريد الاكتروني او الباسورد غير صحيح');
+                // }
             });
     };
     

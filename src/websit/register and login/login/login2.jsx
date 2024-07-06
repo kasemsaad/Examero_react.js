@@ -48,13 +48,12 @@ function Login1() {
                 navigate('/student/homeStudentView'); 
             })
             .catch((error) => {
-                setLoginSuccess(false);
-                if (error.response && error.response.data) {
-                    console.error("Error response data:", error.response.data);
-                    setError(error.response.data.error || 'حدث خطأ أثناء تسجيل الدخول');
-                } else {
-                    setError('حدث خطأ أثناء تسجيل الدخول');
+                if(error.response.data.error){
+                    setError( error.response.data.error);
+                }else{
+                    setError( error.response.data.message);
                 }
+                setLoginSuccess(false);
             });
     };
     
