@@ -3,6 +3,8 @@ import Plans from '../Plans'
 import Api_Dashboard from '../../interceptor/interceptorDashboard'
 import image from "./../../../assets/image/High Importance.svg"
 import "./PlansStudent.css"
+import { ToastContainer } from 'react-bootstrap'
+import { toast } from 'react-toastify'
 
 export default function PlansStudent() {
     const [allStudentPlanData,SetallStudentPlanData]=useState([])
@@ -14,6 +16,36 @@ export default function PlansStudent() {
     // const [totalPages,Set]
     const totalPages=pagination.last_page
     const [toggled, setToggled] = useState(false);
+    const [modal,Setmodal]=useState('')
+    const [modalVisible, setModalVisible] = useState(false);
+
+    
+    const notify = (AlertPointSuccess) => {
+      toast.success(AlertPointSuccess, {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+      })
+  };
+
+  
+  const Errornotify = (AlertPoint) => {
+      toast.error(AlertPoint, {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+      })
+  };
 
 
 
@@ -88,6 +120,7 @@ export default function PlansStudent() {
       for_student:1 
       }).then((response)=>{
         getAllTeacherPlan()
+        Setmodal("modal")
       }).catch((err)=>{
         console.log(err);
       })
@@ -106,9 +139,19 @@ export default function PlansStudent() {
       allow_question:InputEditTeacher.allow_question,
       for_student:1 
       }).then((response)=>{
+        // Setmodal("modal")
+        console.log("nostafa");
+        notify(response)
         getAllTeacherPlan()
+        setModalVisible(false);
+
       }).catch((err)=>{
-        console.log(err);
+        Errornotify(err.response.data.message)
+        console.log(err.response.data.message);
+        // Setmodal("")
+        setModalVisible(true);
+
+
       })
     }
 
@@ -154,8 +197,9 @@ export default function PlansStudent() {
     
     const getAllTeacherPlan= async ()=>{
       await Api_Dashboard.get('/plans/student').then((response)=>{
-        console.log(response.data.data );
+        // console.log(response.data.data );
             SetallStudentPlanData(response.data.data)
+            Setmodal("")
         }).catch((err)=>{
             console.log(err);
         })
@@ -164,6 +208,7 @@ export default function PlansStudent() {
     }
   return (
     <>
+
     <Plans dataRender={allStudentPlanData} 
     dataConnect={"البيانات الباقات الطلاب"}
     edit={"#add_connect_Student"} 
@@ -177,7 +222,8 @@ export default function PlansStudent() {
    
 
 
-      
+   <ToastContainer position='top-center' />
+
 
 
 {/* update */}
@@ -247,12 +293,13 @@ export default function PlansStudent() {
                         </button>
                       </div>
                       <input
-                        type="text"
+                        type="number"
                         className="form-control text-center"
                         id="price"
                         name='price'
                         value={InputEditTeacher.price}
                         onChange={(e)=>getEditingInputs(e)}
+                        min={1}
                         
                       />
                       <div className="input-group-append">
@@ -279,10 +326,11 @@ export default function PlansStudent() {
                         </button>
                       </div>
                       <input
-                        type="text"
+                        type="number"
                         className="form-control text-center"
                         id="allow_exam"
                         name='allow_exam'
+                        min={1}
                         value={InputEditTeacher.allow_exam}
                         
                         onChange={(e)=>getEditingInputs(e)}
@@ -312,12 +360,13 @@ export default function PlansStudent() {
                         </button>
                       </div>
                       <input
-                        type="text"
+                        type="number"
                         className="form-control text-center"
                         id="allow_question"
                         name='allow_question'
                         value={InputEditTeacher.allow_question}
                         onChange={(e)=>getEditingInputs(e)}
+                        min={1}
 
                       />
                       <div className="input-group-append">
@@ -336,7 +385,7 @@ export default function PlansStudent() {
                 </div>
                 <div className='mt-5' style={{textAlign:"center",display:"flex",justifyContent:"center"}}>
                   <div className='submitButton'>
-                <button data-bs-dismiss="modal" type="submit" className="btn btn-primary">حفظ</button>
+                <button data-bs-dismiss={modal} type="submit" className="btn btn-primary">حفظ</button>
                 </div>
                 <div style={{marginRight:"30px"}}>
                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
@@ -389,13 +438,15 @@ export default function PlansStudent() {
 
 {/* modal add connect */}
 <div
-      className="modal fade"
-      id="add_connect_student_add"
+        className={`modal fade ${modalVisible ? 'show' : ''}`}
+        id="add_connect_student_add"
       tabIndex="-1"
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
       data-bs-backdrop="static"
       data-bs-keyboard="false"
+      style={{ display: modalVisible ? 'block' : 'none' }}
+
     >
       <div className="modal-dialog" >
         <div className="modal-content" style={{backgroundColor:"#1D195D",borderRadius:"20px"}}>
@@ -419,6 +470,7 @@ export default function PlansStudent() {
                     // value={InputEditTeacher.name}
                     // onChange={(e) => setname(e.target.value)}
                     onChange={(e)=>getEditingInputs(e)}
+                    required
                   />
                 </div>
 
@@ -435,6 +487,7 @@ export default function PlansStudent() {
                     // value={InputEditTeacher.description}
                     // onChange={(e) => setdescription(e.target.value)}
                     onChange={(e)=>getEditingInputs(e)}
+                    required
 
                   />
                 </div>
@@ -573,7 +626,7 @@ export default function PlansStudent() {
                 </div>
                 <div className='mt-5' style={{textAlign:"center",display:"flex",justifyContent:"center"}}>
                   <div className='submitButton'>
-                <button data-bs-dismiss="modal" type="submit" className="btn btn-primary">حفظ</button>
+                <button  type="submit" className="btn btn-primary">حفظ</button>
                 </div>
                 <div style={{marginRight:"30px"}}>
                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>

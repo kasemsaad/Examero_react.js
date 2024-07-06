@@ -13,6 +13,8 @@ import teacher from '../../assets/icons/sidebar/mdi_teacher.svg';
 import "./style.css";
 import Api_website from "../../utlis/axios_utils_websit";
 import imagee from '../../assets/icons/create_Exam/High Importance.svg';
+import Api_Dashboard from "../../dashboard/interceptor/interceptorDashboard";
+import ModalLogOut from "../../dashboard/modal/modalLogOut";
 
 // import Api_Dashboard from "../../dashboard/interceptor/interceptorDashboard";
 
@@ -55,6 +57,21 @@ function SidebarFullscreen() {
 //     });
 // }
 
+const LogOutDashBoard = ()=>{
+           
+  Api_Dashboard.post(`/logout`)
+.then(response => { 
+  // console.log("mosyafa ");     
+  localStorage.removeItem("token");
+  navigate("/login_dashboard")
+  setId(1)
+})
+.catch(error => {
+  console.error(error);
+});
+}
+
+
   const id=localStorage.getItem("sidbarId");
   // const location=useLocation()
   // const path = location.pathname
@@ -86,33 +103,33 @@ function SidebarFullscreen() {
               </Link>
             </li>
             <li className={`Icon  ${id === "4" ? "bgIcon":" "}`}>
-            <Link  to="/" onClick={() => setId(4)}>
+            <Link  to="/dashboard/planstudent" onClick={() => setId(4)}>
             <img style={{ width: 20 , height:20 }} src={teacher} alt="المعلمين" />
               </Link>
             </li>
             <li className={`Icon  ${id === "5" ? "bgIcon":" "}`}>
             <Link  to="/dashboard/qbank" onClick={() => setId(5)}>
-            <img style={{ width: 20 , height:20 }} src={octiconIcon} alt="وضع الاسئله" />
+            <img style={{ width: 20 , height:20 }} src={octiconIcon} alt=" بنك الاسئلة" />
               </Link>
             </li>
             <li className={`Icon  ${id === "6" ? "bgIcon":" "}`}>
-            <Link to="/dashboard/qbank" onClick={() => setId(6)}>
-              <img style={{ width: 23 , height:23 }} src={akar_icons_bank} alt="وضع الاسئله"  />
+            <Link to="/dashboard" onClick={() => setId(6)}>
+              <img style={{ width: 23 , height:23 }} src={akar_icons_bank} alt="الي حين "  />
               </Link>
             </li>
             <li className={`Icon  ${id === "7" ? "bgIcon":" "}`}>
-            <Link to="/" onClick={() => setId(7)}>
-              <img style={{ width: 23 , height:23 }} src={ph_certificate } alt="وضع الاسئله"  />
+            <Link to="/dashboard/certify" onClick={() => setId(7)}>
+              <img style={{ width: 23 , height:23 }} src={ph_certificate } alt="الشهادات"  />
               </Link>
             </li>
             <li className={`Icon  ${id === "8" ? "bgIcon":" "}`}>
-            <Link to="/" onClick={() => setId(8)}>
-              <img style={{ width: 20 , height:20 }} src={lucide_file_input } alt="وضع الاسئله"  />
+            <Link to="/dashboard/waitingemis" onClick={() => setId(8)}>
+              <img style={{ width: 20 , height:20 }} src={lucide_file_input } alt=" وضع o.p.s"  />
               </Link>
             </li>
             <li className={`Icon  ${id === "9" ? "bgIcon":" "}`}>
-            <Link to="/" onClick={() => setId(9)}>
-              <img style={{ width: 23 , height:23 }} src={tabel} alt="وضع الاسئله"  />
+            <Link to="/dashboard/specify" onClick={() => setId(9)}>
+              <img style={{ width: 23 , height:23 }} src={tabel} alt=" تالمواصفات"  />
               </Link>
             </li>
             <li className={`Icon  ${id === "10" ? "bgIcon":" "}`}>
@@ -122,7 +139,7 @@ function SidebarFullscreen() {
             </li>
             <li className={`Icon  ${id === "11" ? "bgIcon":" "}`}>
             <Link   onClick={() => logout(11)}>
-              <img  src={iconamoon_exit_light} alt="وضع الاسئله"  />
+              <img data-bs-toggle="modal" data-bs-target="#log_out_dashboard" src={iconamoon_exit_light} alt=" تسجيل الخروج"  />
               </Link>
             </li>
             {/* <li className={`Icon  ${id === "11" ? "bgIcon":" "}`}>
@@ -137,36 +154,35 @@ function SidebarFullscreen() {
             <Link to="/dashboard" onClick={() => setId(1)} className={`Icon  ${id === "1" ? "Id":" "}`}>الرئيسية</Link>
             </li>
             <li className="sidbarli">
-              <Link to="/" onClick={() => setId(2)} className={`Icon  ${id === "2" ? "Id":" "}`}>مديرو الموقع</Link>
+              <Link to="/dashboard" onClick={() => setId(2)} className={`Icon  ${id === "2" ? "Id":" "}`}>مديرو الموقع</Link>
             </li>
             <li className="sidbarli">
-            <Link to="/" onClick={() => setId(3)} className={`Icon  ${id === "3" ? "Id":" "}`}>مشرفو الموقع</Link>
+            <Link to="/dashboard" onClick={() => setId(3)} className={`Icon  ${id === "3" ? "Id":" "}`}>مشرفو الموقع</Link>
             </li>
             <li className="sidbarli">
-            <Link to="/" onClick={() => setId(4)} className={`Icon  ${id === "4" ? "Id":" "}`}>المعلمين</Link>
+            <Link to="/dashboard/planstudent" onClick={() => setId(4)} className={`Icon  ${id === "4" ? "Id":" "}`}>المعلمين</Link>
             </li>
             <li className="sidbarli">
-            <Link to="/" onClick={() => setId(5)} className={`Icon  ${id === "5" ? "Id":" "}`}>وضع الأسئلة</Link>
+            <Link to="/dashboard/qbank" onClick={() => setId(5)} className={`Icon  ${id === "5" ? "Id":" "}`}>بنك الأسئلة</Link>
             </li>
             <li className="sidbarli">
-            <Link to="/" onClick={() => setId(6)} className={`Icon  ${id === "6" ? "Id":" "}`}>بنك الأسئلة</Link>
+            <Link to="/dashboard/" onClick={() => setId(6)} className={`Icon  ${id === "6" ? "Id":" "}`}> o.p.s</Link>
             </li>
             <li className="sidbarli">
-            <Link to="/" onClick={() => setId(7)} className={`Icon  ${id === "7" ? "Id":" "}`}>شهادات التقدير</Link>
+            <Link to="/dashboard/certify" onClick={() => setId(7)} className={`Icon  ${id === "7" ? "Id":" "}`}>شهادات التقدير</Link>
             </li>
             <li className="sidbarli">
-            <Link to="/" onClick={() => setId(8)} className={`Icon  ${id === "8" ? "Id":" "}`}>إدخال علامات Open Emis</Link>
+            <Link to="/dashboard/waitingemis" onClick={() => setId(8)} className={`Icon  ${id === "8" ? "Id":" "}`}>إدخال علامات Open Emis</Link>
             </li>
             <li className="sidbarli">
-            <Link to="/" onClick={() => setId(9)} className={`Icon  ${id === "9" ? "Id":" "}`}>جدول المواصفات</Link>
+            <Link to="/dashboard/specify" onClick={() => setId(9)} className={`Icon  ${id === "9" ? "Id":" "}`}>جدول المواصفات</Link>
             </li>
             <li className="sidbarli">
-            <Link to="/" onClick={() => setId(10)} className={`Icon  ${id === "10" ? "Id":" "}`}>إنشاء الامتحان</Link>
+            <Link to="/dashboard" onClick={() => setId(10)} className={`Icon  ${id === "10" ? "Id":" "}`}>إنشاء الامتحان</Link>
             </li>
             <li className="sidbarli">
-            <Link to="/" onClick={() => setId(11)} className={`Icon  ${id === "11" ? "Id":" "}`}>تسجيل الخروج</Link>
+            <Link data-bs-toggle="modal" data-bs-target="#log_out_dashboard" onClick={() => setId(11)} className={`Icon  ${id === "11" ? "Id":" "}`}>تسجيل الخروج</Link>
             </li>
-              
           </ul>
         </div>
 :
@@ -259,7 +275,8 @@ aria-hidden="true"
   </div>
 </div>
 </div>
-            </>
+<ModalLogOut LogOut={LogOutDashBoard}/>         
+   </>
   );
 }
 

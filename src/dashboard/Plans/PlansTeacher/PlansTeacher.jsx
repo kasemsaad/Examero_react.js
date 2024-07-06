@@ -168,6 +168,8 @@ getAllTeacherPlan()
         }).then((response)=>{
           // const newPlan = response.data; // Assuming the new plan data is here
           // SetallTeacherPlanData(prevState => [...prevState, newPlan]);
+          SetmodalDissmiss('modal')
+
           getAllTeacherPlan()
 
         }).catch((err)=>{
@@ -584,7 +586,7 @@ getAllTeacherPlan()
                 </div>
                 <div className='mt-5' style={{textAlign:"center",display:"flex",justifyContent:"center"}}>
                   <div className='submitButton'>
-                <button  type="submit" className="btn btn-primary">حفظ</button>
+                <button data-bs-dismiss={modalDissmiss}   type="submit" className="btn btn-primary">حفظ</button>
                 </div>
                 <div style={{marginRight:"30px"}}>
                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>

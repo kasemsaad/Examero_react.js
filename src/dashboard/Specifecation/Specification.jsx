@@ -213,7 +213,7 @@ export default function Specification() {
 
                         <div className='table_wrabber mt-3 col-12  ' style={{ textAlign: "center", overflowX: 'auto' }}>
 
-                            <table className="table table-bordered mt-4 " >
+                            <table className="table table-bordered mt-4 table-success" >
                                 <thead className=''>
                                     <tr>
                                         <th rowSpan="2">الرقم</th>
