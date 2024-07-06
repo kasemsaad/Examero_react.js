@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import HeaderOfPuttingQuestions from "../../components/PheaderOfButtingQuestion/HeaderOfButtingQuestions";
-import FirstTriangle from "../../components/FirstTriangle/FirstTriangle";
-import SecondTriangle from "../../components/SecondTriangle/SecondTriangle";
 // import FormForAll from "../../components/PuttingQuesionsPage/FormForAll";
 import MyTable from "../../../common/Table/Table";
-import MyButton from "../../../common/Button/Button";
-import { useNavigate } from "react-router-dom";
-import FormForMaba7s from "../../components/PuttingQuesionsPage/FormForMbhas/FormForMaba7s ";
+import FormForMaba7s from "../../components/PuttingQuesionsPage/FormForMaba7s/FormForMaba7s ";
 import "./PuttingQForMahbas.css";
 import FooterFPuttingQ from "../../components/PFooter/FooterFPuttingQ";
+import AddComponent from "../../components/PuttingQuesionsPage/AddComoponentForPage/Add";
+import PuttingQArrow from "../../components/PuttingQuesionsPage/PuttingArrow/PuttingQArrow";
+import InfoComponent from "../../components/PuttingQuesionsPage/InfoComponentPq/InfoComponent";
+import Api_Dashboard from "../../interceptor/interceptorDashboard";
+import DeleteUserModal from "../../components/UsersPages/DeletUserModal/DeleteUserModal";
+import EditSubjectModal from "../../components/PuttingQuesionsPage/editSubjectModal/EditSubjectModal";
+import PaginationForPuttingQ from "../paginationForPutingQ/paginationForPatingQ";
 const PuttingQForMab7as = () => {
   let header = {
     name1: "اسم المبحث",
@@ -17,81 +20,146 @@ const PuttingQForMab7as = () => {
     name4: "الخصائص",
   };
 
-  let body = [
-    {
-      id: 2,
-      name1: "اسم الصف",
-      name2: "اسم الصف",
-    },
-    {
-      id: 3,
-      name1: "اسم الصف",
-      name3: "اسم الصف",
-    },
-    {
-      id: 4,
-      name1: "اسم الصف",
-      name4: "اسم الصف",
-    },
-    {
-      id: 6,
-      name1: "اسم الصف",
-      name4: "اسم الصف",
-    },
-    {
-      id: 1,
-      name1: "اسم الصف",
-      name5: "اسم الصف",
-    },
-  ];
-  const navegate = useNavigate();
-  const handelOnclick = () => {
-    navegate("/dashboard/q");
+  let icon = { edit: true, trash: true };
+  let other = { toggle: true };
+  const togellValue = [{ status: "5" }];
+  const [DeletedItem, setDeletedItem] = useState("");
+  const [rowDataOfSubjects, setRowDataOfSubjects] = useState("");
+  const [classData, setClassData] = useState(false);
+  const [errorss, setErrors] = useState("");
+  const [metaFPagination, setMetaFPagination] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = metaFPagination.last_page;
+
+  useEffect(() => {
+    fetchDataForClass();
+  }, []);
+  const fetchDataForClass = async (Data) => {
+    setClassData(Data);
+
+    if (Data) {
+      await Api_Dashboard.get(`/subjects/${Data.id}`)
+        .then((response) => {
+          setRowDataOfSubjects(response.data.data);
+        })
+        .catch((err) => {
+          console.log(err.response.errors);
+          setErrors(err);
+        });
+    }
   };
-  let icon = { edit: true, trash: true, toggle: true };
+
+  useEffect(() => {
+    fetchAllActiveClasse();
+  }, []);
+  const fetchAllActiveClasse = async () => {
+    const respons = await Api_Dashboard.get("/groups/selection")
+      .then((response) => {
+        setActiveClasses(response.data.data);
+        console.log(response.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log(err.response.errors);
+      });
+  };
+  const [subjects, setSubjects] = useState("");
+  const [activeClasses, setActiveClasses] = useState("");
+
+  useEffect(() => {
+    fetchAllSubjects();
+  }, [currentPage]);
+  const fetchAllSubjects = async () => {
+    const respons = await Api_Dashboard.get(`/subjects?page=${currentPage}`)
+      .then((response) => {
+        setSubjects(response.data.data);
+        console.log(response.data.data);
+        setMetaFPagination(response.data.meta.pagination);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const newSubjects = useMemo(() => {
+    if (Array.isArray(subjects)) {
+      return subjects.map((item) => ({
+        id: item.id,
+        name: item.name,
+        groups: item.groups.map((group) => group.name),
+      }));
+    } else {
+      return [];
+    }
+  }, [subjects]);
+
+  const togellValues = useMemo(() => {
+    if (Array.isArray(subjects)) {
+      return subjects.map(({ status }) => ({
+        status,
+      }));
+    } else {
+      return [];
+    }
+  }, [subjects]);
+
   return (
     <>
       <div className=" min-vh-100 mab7asContainer">
         <HeaderOfPuttingQuestions />
-
-        <div className="question" style={{ width: "80%", margin: "auto" }}>
-          <div style={{ height: "7rem", display: "flex" }}>
-            <FirstTriangle onClick={handelOnclick} content={"الصفوف"} />
-            <SecondTriangle content={"المباحث"} className="iddd" />
-            <SecondTriangle content={"الوحدات"} className="to" />
-            <SecondTriangle content={"الدروس"} className="arrowfour" />
-            <SecondTriangle content={"أنواع الأسئلة"} className="arrowfive" />
-          </div>
-
+        <div
+          className="question-dash-mab"
+          style={{ width: "80%", margin: "auto" }}
+        >
+          <PuttingQArrow />
           <div>
-            <div className="add-class-button">
-              <div>
-                <p>اضافة مبحث</p>
-              </div>
-            </div>
+            <AddComponent content={"اضافة مبحث"} />
           </div>
-
-          <FormForMaba7s />
-
+          <FormForMaba7s
+            fetchAllData={fetchAllSubjects}
+            activeClasses={activeClasses}
+          />
           <div
             className="class-info-button-containerr d-flex align-items-center"
             style={{ height: "9rem" }}
           >
-            <div className="col-12 d-flex align-items-center">
-              <div className="class-info-button">
-                <div className="info-ma">
-                  <p>بيانات المبحث</p>
-                </div>
-              </div>
-              <div className="class-info-divider"></div>
-            </div>
+            <InfoComponent content={"بيانات المبحث"} />
           </div>
-
           <div className="MyTable">
-            <MyTable header={header} body={body} icons={icon} />
+            <MyTable
+              editButtonName={"#editSubjectModal"}
+              deleteModalName={"#deleteElementModal_users-dash"}
+              handelDeleteItem={(id) => {
+                setDeletedItem(id);
+              }}
+              handelEdit={(row) => {
+                fetchDataForClass(row);
+              }}
+              other={other}
+              header={header}
+              body={newSubjects}
+              icons={icon}
+              togellValue={togellValues}
+            />
           </div>
+          <PaginationForPuttingQ
+            totalPages={totalPages}
+            currentPage={currentPage}
+            setCurrentPage={(page) => setCurrentPage(page)}
+          />
         </div>
-        <FooterFPuttingQ />
+        <div className="nextButton col-12">
+          <FooterFPuttingQ next={"التالي"} prev={"السابق"} />
+        </div>
+        <DeleteUserModal
+          fetchAllData={fetchAllSubjects}
+          api={"subjects"}
+          idOfDeleteItem={DeletedItem}
+        />
+        <EditSubjectModal
+          fetchAllData={fetchAllSubjects}
+          rowDataOfSubjects={rowDataOfSubjects}
+          activeClasses={activeClasses}
+        />
       </div>
     </>
   );

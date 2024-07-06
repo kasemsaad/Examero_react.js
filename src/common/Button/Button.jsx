@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import "./Button.css";
+import { Link } from "react-router-dom";
 const MyButton = ({
   className,
   onClick,
@@ -8,7 +9,9 @@ const MyButton = ({
   type,
   name,
   value,
-  stylep
+  stylep,
+  databstoggle,
+  databstarget,
 }) => {
   return (
     <button
@@ -18,6 +21,8 @@ const MyButton = ({
       type={type}
       name={name}
       value={value}
+      data-bs-toggle={databstoggle}
+      data-bs-target={databstarget}
     >
       <p style={stylep} className="bub">
         {content}

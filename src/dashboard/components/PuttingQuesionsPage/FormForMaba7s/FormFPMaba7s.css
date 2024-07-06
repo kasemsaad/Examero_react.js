@@ -1,0 +1,96 @@
+/* FormForAll.css */
+
+.form-container-puttt {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #1d195d !important;
+  border-radius: 16.28px;
+
+  max-width: 69%;
+}
+.MyFormm {
+  height: 88px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.butt-mabhas {
+  display: flex;
+  width: 8rem;
+  text-align: center;
+  justify-content: center;
+  height: 16%;
+}
+.mab7asContainer {
+  width: 100%;
+}
+.inp1,
+.inp2 {
+  width: 191px;
+  height: 51px;
+}
+.my-button-mabhas {
+  width: 6rem;
+  height: auto;
+  color: white;
+  border: none;
+  background-color: #c01f59;
+  border-radius: 12.65px;
+  padding: 5px;
+  height: 32px;
+}
+@media (max-width: 1050px) {
+  .MyFormm {
+    display: flex;
+    flex-wrap: wrap;
+    height: fit-content;
+  }
+  .my-button-mabhas {
+    width: 9rem;
+  }
+  .butt-mabhas {
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}
+
+.form-group-puttt {
+  width: 198px;
+  height: 60px !important;
+  padding: 3px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  margin-right: 0.5rem;
+}
+
+.button-container-puttt {
+  width: 24%;
+
+  display: flex;
+  height: 62px !important;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.my-buttonn {
+  width: 5rem;
+  height: auto;
+  color: white;
+  border: none;
+  background-color: #c01f59;
+  border-radius: 12.65px;
+  padding: 5px;
+}
+@media (max-width: 550px) {
+  .form-container-puttt {
+    max-width: 100%;
+  }
+}
+.multi-select-lib {
+  color: #1d195d;
+  width: 191px;
+  height: 34px;
+  background-color: #1d195d !important;
+}

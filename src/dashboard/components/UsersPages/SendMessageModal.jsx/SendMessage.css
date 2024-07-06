@@ -1,0 +1,74 @@
+.modal-header-message {
+  height: 70px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.write-message {
+  height: 51px;
+  align-items: center;
+  display: flex;
+}
+.write-message-text {
+  background-color: #4941a6;
+  height: 32px;
+  width: 90px;
+  display: flex;
+  align-items: center;
+  /* padding: 1px; */
+  justify-content: center;
+}
+.form-group-textarea-dash {
+  height: 95px;
+}
+
+.main-message {
+  align-items: flex-end;
+  height: 58px;
+  display: flex;
+  text-align: end;
+}
+.main-message-text {
+  background-color: #4941a6;
+  height: 32px;
+  width: 90px;
+  display: flex;
+  align-items: center;
+  /* padding: 1px; */
+  justify-content: center;
+}
+.gives-a-reward {
+  display: flex;
+  height: 30px;
+  text-align: center;
+  align-items: center;
+}
+.gives-a-reward-inputs {
+  width: 86px;
+  display: flex;
+  height: 26px;
+  text-align: center;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.container-input-dash {
+  height: 36px;
+  display: flex;
+  align-items: center;
+}
+.input-send-message {
+  width: 48px;
+
+  height: 34px;
+  border-radius: 0;
+  border: none;
+  border: none;
+  padding-right: 21px;
+  box-shadow: none;
+}
+.button-send-message {
+  height: 34px;
+  width: 20px;
+  border: none;
+}
