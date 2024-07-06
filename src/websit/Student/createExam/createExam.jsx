@@ -368,7 +368,7 @@ function CreateExam(props) {
       subject_id: subject_id,
       semster: semster,
     };
-    console.log(obj3);
+    // console.log(obj3);
 
     for (let id in obj2.answers) {
       obj3.answers[id] = []
@@ -392,8 +392,8 @@ function CreateExam(props) {
       subject_id: subject_id,          
       semster: semster,
     });
-  }, [data,selectedOptions,handleSubmit]);
-  
+  }, [selectedOptions]);
+
 
 
   return (

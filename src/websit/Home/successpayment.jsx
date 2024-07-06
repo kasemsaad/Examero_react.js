@@ -8,7 +8,7 @@ const EmailVerificationStud = () => {
     const [verificationStatus, setVerificationStatus] = useState('Verifying...');
 
     useEffect(() => {
-        const token = new URLSearchParams(location.search).get('token');
+        const token = new URLSearchParams(location.search).get('token_user');
         if (token) {
             verifyEmail(token);
         }
