@@ -7,7 +7,7 @@ import passIcon from '../../../assets/icons/register and login icon/pngtree-pass
 import lockIcon from '../../../assets/icons/register and login icon/padlock-icon-lock-and-unlock-icon-design-free-vector 1.svg';
 import Create_acc from '../create_acc/create_acc.jsx';
 import Imgcom from '../imgcom/imgcom.jsx';
-import SuccessMessage from './updatepass.jsx';
+import SuccessMessage2 from './updatepass.jsx';
 import { useNavigate } from 'react-router-dom';
 function NewPassTeach() {
   const [password, setPassword] = useState('');
@@ -40,7 +40,7 @@ function NewPassTeach() {
 
 
   if (success) {
-    return <SuccessMessage message={success} />;
+    return <SuccessMessage2 message={success} />;
   }
 
   return (

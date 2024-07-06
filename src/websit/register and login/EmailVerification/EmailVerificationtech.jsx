@@ -47,7 +47,7 @@ const EmailVerificationTech = () => {
                 <img src={doneImage} alt="Done Icon" style={{ width: '150px', marginBottom: '20px' }} />
                 <h2>Email Verification</h2>
                 <p>{verificationStatus}</p>
-                <Link to="/" style={{ textDecoration: 'none', marginTop: '20px' }}>
+                <Link to="/login_teacher" style={{ textDecoration: 'none', marginTop: '20px' }}>
                     <button style={{
                         padding: '12px 24px',
                         backgroundColor: '#ACEADF',
