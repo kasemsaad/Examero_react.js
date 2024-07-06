@@ -12,8 +12,16 @@ export default function WaitingEmis() {
 
     const [InputEditWaitinOpenEmis,SetInputEditWaitinOpenEmis]=useState({
         note:'',
-        status:"2",
+        status:"",
       })
+
+      
+    // const [empty,Setempty]=useState({
+    //   note:'',
+    //   status:"",
+    // })
+
+    
 
       
     const [pagination,Setpagination]=useState('')
@@ -22,7 +30,6 @@ export default function WaitingEmis() {
     const totalPages = pagination.last_page
     
 
-    console.log(totalPages);
 
     const handelNext = () => {
 
@@ -50,6 +57,13 @@ export default function WaitingEmis() {
         if (dataToSend.note == undefined || dataToSend.note == null || dataToSend.note == "") {
           delete dataToSend.note;
         }
+
+
+        if (dataToSend.status[0] == 1 || dataToSend.status == null || dataToSend.status == "") {
+          delete dataToSend.status;
+        }
+
+        console.log(dataToSend);
         await Api_Dashboard.post(`/open-emis/${editId}`,
          dataToSend   
         ).then((response)=>{
@@ -59,18 +73,34 @@ export default function WaitingEmis() {
           }, 3000);
           
           waitingEmisAllData()
+
+          SetInputEditWaitinOpenEmis(prevState => ({
+            ...prevState,
+            note: "",
+            status: ""
+          }));
+
         }).catch((err)=>{
           console.log(err);
+        
+          SetInputEditWaitinOpenEmis(prevState => ({
+            ...prevState,
+            note: "",
+            status: ""
+          }));
+
+
         })
       };
   
 
       const handeledit = async(row)=>{
-        console.log(row.id);
         await Api_Dashboard.get(`/open-emis/${row.id}`).then((response)=>{
             SeteditId(row.id)
+            // console.log(row.id);
+            // console.log(response.data.data);
             SetInputEditWaitinOpenEmis(response.data.data)
-             waitingEmisAllData()
+            //  waitingEmisAllData()
          }).catch((err)=>{
           console.log(err);
          })

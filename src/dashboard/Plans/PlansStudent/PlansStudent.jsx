@@ -57,11 +57,6 @@ export default function PlansStudent() {
     const [price, setprice] = useState(1);
     const [allow_exam, setallow_exam] = useState(1);
     const [allow_question, setallow_question] = useState(1);
-  
-    // const increment = (setter, value) => setter(value + 1);
-    // const decrement = (setter, value) => {
-    //   if (value > 1) setter(value - 1);
-    // };
 
 
     const increment = (field) => {
@@ -85,8 +80,11 @@ export default function PlansStudent() {
       price:InputEditTeacher.price,
       allow_exam:InputEditTeacher.allow_exam,
       allow_question:InputEditTeacher.allow_question,
-      for_student:1 
+      for_student:1 ,
+      status:InputEditTeacher.status
       }).then((response)=>{
+        const modalElement = document.getElementById('add_connect_Student');
+           modalElement.style.display = "none"
         getAllTeacherPlan()
       }).catch((err)=>{
         console.log(err);
@@ -208,6 +206,7 @@ export default function PlansStudent() {
                     type="text"
                     className="form-control"
                     id="name"
+                    required
                     name='name'
                     placeholder="أدخل اسم الباقة"
                     value={InputEditTeacher.name}
@@ -229,6 +228,7 @@ export default function PlansStudent() {
                     value={InputEditTeacher.description}
                     // onChange={(e) => setdescription(e.target.value)}
                     onChange={(e)=>getEditingInputs(e)}
+                    required
 
                   />
                 </div>
@@ -334,9 +334,42 @@ export default function PlansStudent() {
                     </div>
                   </div>
                 </div>
+
+
+                <div className='input_toogle mt-4 ' style={{display:"flex",alignItems:"center"}}>
+          <input type="text" name='status'
+           value={InputEditTeacher.status} 
+           onChange={(e)=>getEditingInputs(e)}
+           style={{display:"none"}}
+
+           />
+        <label htmlFor="">الحالة</label>
+              <button type="button"
+        style={{ marginLeft: "6px",marginRight:"20px" ,backgroundColor: InputEditTeacher.status === 0 ? 'red' : 'green'}}
+        className={`toggle-btnn ${toggled ? "toggled" : ""}`}
+        onClick={() => tog()}
+
+      >
+        <span
+          style={{
+            marginTop: "-6px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+          className={toggled ? "white-text" : "whit"}
+        >
+        {InputEditTeacher.status === 1 ? 'مفعل' : 'معطل'}
+        </span>
+        <div className="thumb"></div>
+      </button>
+                </div>
+
+
+
                 <div className='mt-5' style={{textAlign:"center",display:"flex",justifyContent:"center"}}>
                   <div className='submitButton'>
-                <button data-bs-dismiss="modal" type="submit" className="btn btn-primary">حفظ</button>
+                <button  type="submit" className="btn btn-primary">حفظ</button>
                 </div>
                 <div style={{marginRight:"30px"}}>
                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>

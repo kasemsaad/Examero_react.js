@@ -10,6 +10,7 @@ import Api_Dashboard from '../interceptor/interceptorDashboard.jsx'
 
 import photo from "./../../assets/image/man 2.svg"
 import editPencil from "./../../assets/image/Ellipse 202.svg"
+import Api_dashboard from '../../utlis/axios_utils_dashboard.jsx'
 
 
 
@@ -176,7 +177,7 @@ const getInputPasswor=(e)=>{
         <div>
       <div className="upload">
   
-      <img src={`http://127.0.0.1:8000/assets/Admin/${inputUser.media?.name}`} id="image" alt="Upload Preview" />
+      <img src={`${Api_dashboard.defaults.baseURL}/assets/Admin/${inputUser.media?.name}`} id="image" alt="Upload Preview" />
 
 
         <div className="rightRound" id="upload">

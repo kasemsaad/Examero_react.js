@@ -15,6 +15,19 @@ export default function PlansTeacher() {
     const totalPages=pagination.last_page
     const [modalDissmiss,SetmodalDissmiss]=useState('')
 
+
+    
+    const getAllTeacherPlan = async ()=>{
+      await Api_Dashboard.get(`/plans/teacher?page=${current_page}`).then((response)=>{
+        // console.log(response.data.meta.pagination);
+        Setpagination(response.data.meta.pagination)
+        SetallTeacherPlanData(response.data.data)
+
+
+        }).catch((err)=>{
+            console.log(err);
+        })
+    }
     
 
     const handelNext = () => {
@@ -59,12 +72,6 @@ export default function PlansTeacher() {
     const [price, setprice] = useState(1);
     const [allow_exam, setallow_exam] = useState(1);
     const [allow_question, setallow_question] = useState(1);
-  
-    // const increment = (setter, value) => setter(value + 1);
-    // const decrement = (setter, value) => {
-    //   if (value > 1) setter(value - 1);
-    // };
-
 
     const increment = (field) => {
       SetInputEditTeacher((prevState) => ({
@@ -79,6 +86,22 @@ export default function PlansTeacher() {
         [field]: prevState[field] > 1 ? parseInt(prevState[field]) - 1 : 1
       }));
     };
+
+
+    // ******get acc id edit and update ******************8 
+    const handeledit = async(row)=>{
+      console.log(row.id);
+      await Api_Dashboard.get(`/plans/${row.id}`).then((response)=>{
+      SetId(row.id)
+      getAllTeacherPlan()
+      SetInputEditTeacher(response.data.data)
+       }).catch((err)=>{
+        console.log(err);
+       })
+    }
+
+
+    // edit modal acc id
     const handlemodal = async(event) => {
       event.preventDefault();
       await Api_Dashboard.post(`/plans/${editId}`,{
@@ -90,10 +113,10 @@ export default function PlansTeacher() {
       status:InputEditTeacher.status,
       for_student:0  
       }).then((response)=>{
-console.log("response");
-SetmodalDissmiss('modal')
-    // const modalElement = document.getElementById('add_connect_Teacher');
-    //   modalElement.style.display = "none"
+console.log(response.data);
+// SetmodalDissmiss('modal')
+    const modalElement = document.getElementById('add_connect_Teacher');
+      modalElement.style.display = "none"
 getAllTeacherPlan()
       }).catch((err)=>{
         console.log(err);
@@ -104,17 +127,6 @@ getAllTeacherPlan()
 
   
 
-// ****** edit and update ******************8 
-    const handeledit = async(row)=>{
-      console.log(row.id);
-      await Api_Dashboard.get(`/plans/${row.id}`).then((response)=>{
-      SetId(row.id)
-      getAllTeacherPlan()
-      SetInputEditTeacher(response.data.data)
-       }).catch((err)=>{
-        console.log(err);
-       })
-    }
 
     // get values which write in inputs 
 
@@ -143,17 +155,6 @@ getAllTeacherPlan()
 
 
 
-    const getAllTeacherPlan = async ()=>{
-      await Api_Dashboard.get(`/plans/teacher?page=${current_page}`).then((response)=>{
-        console.log(response.data.meta.pagination);
-        Setpagination(response.data.meta.pagination)
-        SetallTeacherPlanData(response.data.data)
-
-
-        }).catch((err)=>{
-            console.log(err);
-        })
-    }
 
       //********* */ add connect post *************8
       const addConnect =async(event)=>{
@@ -166,12 +167,16 @@ getAllTeacherPlan()
         allow_question:InputEditTeacher.allow_question,
         for_student:0  ,
         }).then((response)=>{
-          // const newPlan = response.data; // Assuming the new plan data is here
-          // SetallTeacherPlanData(prevState => [...prevState, newPlan]);
+           const modalElement = document.getElementById('add_connect_Teacher_add');
+           modalElement.style.display = "none"
           getAllTeacherPlan()
+
+      
+
 
         }).catch((err)=>{
           console.log(err);
+      
         })
       }
 
@@ -370,7 +375,7 @@ getAllTeacherPlan()
 
                 <div className='mt-5' style={{textAlign:"center",display:"flex",justifyContent:"center"}}>
                   <div className='submitButton'>
-                <button data-bs-dismiss={modalDissmiss}  type="submit" className="btn btn-primary">حفظ</button>
+                <button  type="submit" className="btn btn-primary">حفظ</button>
                 </div>
                 <div style={{marginRight:"30px"}}>
                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
@@ -447,6 +452,7 @@ getAllTeacherPlan()
                     className="form-control"
                     id="name"
                     name='name'
+                    required
                     placeholder="أدخل اسم الباقة"
                     // value={InputEditTeacher.name}
                     // onChange={(e) => setname(e.target.value)}
@@ -578,7 +584,7 @@ getAllTeacherPlan()
                 </div>
                 <div className='mt-5' style={{textAlign:"center",display:"flex",justifyContent:"center"}}>
                   <div className='submitButton'>
-                <button  type="submit" className="btn btn-primary">حفظ</button>
+                <button   type="submit" className="btn btn-primary">حفظ</button>
                 </div>
                 <div style={{marginRight:"30px"}}>
                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>

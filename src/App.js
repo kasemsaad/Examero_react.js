@@ -72,6 +72,8 @@ import Mangers from "./dashboard/Users/Mangers/mangers.jsx";
 import Supervisors from "./dashboard/Users/supervisors/supervisors.jsx";
 import MangersActivity from "./dashboard/Notification/mangers.activity/mangersActivity.jsx";
 import AllActivity from "./dashboard/Notification/supervisorsActivity/AllActivity.jsx";
+import QbankDetails from './dashboard/QbankDetails/QbankDetails.jsx';
+import QbankEditing from './dashboard/QbankDetails/QbankEditing/qbankEditing.jsx';
 function App(props) {
   return (
 
@@ -174,8 +176,8 @@ function App(props) {
           <Route path="rewardSupervisor" element={<ProtectedRoute><RewardMoshref /></ProtectedRoute>} />
           <Route path="rewardteacher" element={<ProtectedRoute><RewardTeacher /></ProtectedRoute>} />
           <Route path="check" element={<ProtectedRoute><Checks/></ProtectedRoute>} />
-          {/* <Route path="qbank_details" element={<ProtectedRoute><QbankDetails /></ProtectedRoute>} />
-          <Route path="qbank_edit" element={<ProtectedRoute><QbankEditing /></ProtectedRoute>} /> */}
+          <Route path="qbank_details" element={<ProtectedRoute><QbankDetails /></ProtectedRoute>} />
+          <Route path="qbank_edit" element={<ProtectedRoute><QbankEditing /></ProtectedRoute>} />
           <Route path="activity/mangers" element={<MangersActivity />} />
           <Route path="activity/all" element={<AllActivity />} />
           <Route
