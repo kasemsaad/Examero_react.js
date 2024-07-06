@@ -39,10 +39,12 @@ function Login() {
         Api_website.post('/teachers/login', formData)
             .then((response) => {
                 setLoginSuccess(true);
-                localStorage.setItem('token', response.data.access_token);
+
+                localStorage.setItem('token_user', response.data.access_token);
 
                 localStorage.setItem('user',"teacher");
                 setError('');
+                localStorage.setItem("sidbarId", JSON.stringify(1));
                 navigate('/teacher/TeacherProfile'); 
             })
             .catch((error) => {

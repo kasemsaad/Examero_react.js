@@ -3,10 +3,13 @@ import "./editStudentProfaile.css"
 // import MyTable from "../../../common/Table/Table.jsx"
 // import personal from "../../../assets/image/IMG_20231104_171844_696.jpg"
 import home from "../../../assets/image/material-symbols_person-outline (1).svg"
+import Homeicon from "../../../assets/icons/Home/Frame 119.svg"
 
 import success from "../../../assets/image/Vector (1).svg"
 import lock from "../../../assets/image/mdi_password-outline.svg"
 import Api_website from '../../../utlis/axios_utils_websit'
+import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 // import Api_Dashboard from '../interceptor/interceptorDashboard.jsx'
 // import Api_Website from '../../../utlis/axios_utils_websit.jsx';
 // import photo from "./../../assets/image/man 2.svg"
@@ -19,9 +22,10 @@ import Api_website from '../../../utlis/axios_utils_websit'
 
 
 function EditStudentProfaile() {
+  const layoutBackground = useSelector((state) => state.dark.lay);
   const [alert , Setalert]=useState(false)
   const [alerterror , Setalerterror]=useState(false)
-
+  const [data, setInfo] = useState([]);
   const [PasswordAlert , SetPasswordAlert]=useState(false)
   const [inputUser,setInputUser]=useState({
     firstName: "",
@@ -51,6 +55,8 @@ function EditStudentProfaile() {
   }
   useEffect(()=>{
     getRefreshUser()
+    getDataStudentExam()
+
   },[])
   
   const getRefreshUser = async ()=>{
@@ -63,7 +69,6 @@ function EditStudentProfaile() {
   }
 
 
-//  fn to post object which take from inputs 
   const HandleSubmit =async (event) => {
 
     event.preventDefault();
@@ -101,7 +106,6 @@ function EditStudentProfaile() {
   };
 
  
-//********This all about showing data in inputs and get user and showing it in inputs ************************* */
 
 const [paswwordInputs,SetpasswordInput]=useState({
   current_password:'',
@@ -137,6 +141,18 @@ const getInputPasswor=(e)=>{
    
   };
 
+  const getDataStudentExam = () => {
+    Api_website.get(`students/plans`)
+        .then(response => {
+                setInfo(response.data.plans);
+                console.log(response.data.plans);
+          
+        })
+        .catch(error => {
+            setInfo([]);
+            console.error("Error fetching plans data:", error);
+        });
+}
 
   return (
 
@@ -148,8 +164,7 @@ const getInputPasswor=(e)=>{
         <div>
       <div className="upload">
   
-      <img src={`http://127.0.0.1:8000/assets/Student/${inputUser.media?.name}`} id="image" alt="Upload Preview" />
-
+      <img src={` http://127.0.0.1:8000/assets/Student/${inputUser.media?.name}`} id="image" alt="Upload Preview" />
 
         <div className="rightRound" id="upload">
           <input type="file"   accept=".jpg, .jpeg, .png" name='image' onChange={handleImageChange} />
@@ -201,59 +216,57 @@ const getInputPasswor=(e)=>{
               <div className="row" style={{ justifyContent: 'space-between' }}>
                 <div className="col-lg-6 top_input_margin row" style={{ alignItems: 'center' }}>
                   <div className="label_size">
-                    <label htmlFor="name">الاسم</label>
+                    <label htmlFor="name"  style={{
+                                color: layoutBackground === "#0E0A43" ? "white" : "black"}}>الاسم</label>
                   </div>
                   <div className="input_size">
-                    <input onChange={(e)=>getUsersFromInput(e)} type="text" className="form-control"  name='firstName'  placeholder='هشام محمد' required value={inputUser.firstName}/>
+                    <input onChange={(e)=>getUsersFromInput(e)} type="text" className="form-control"  name='firstName'  placeholder='ادخل الاسم' required value={inputUser.firstName}/>
                   </div>
                 </div>
 
                 <div className="col-lg-6 top_input_margin row" style={{ alignItems: 'center' }}>
                   <div className="label_size">
-                    <label htmlFor="phone"> رقم الهاتف</label>
+                    <label htmlFor="phone"  style={{
+                                color: layoutBackground === "#0E0A43" ? "white" : "black"}}> رقم الهاتف</label>
                   </div>
                   <div className="input_size">
-                    <input onChange={(e)=>getUsersFromInput(e)} type="number" className="form-control" name='phone_number'  placeholder='01112222' value={inputUser.phone_number}/>
-                  </div>
-                </div>
-              </div>
-
-              <div className="row Wraber_ele" style={{ justifyContent: 'space-between', marginTop: '33px' }}>
-                <div className="col-lg-6 top_input_margin row" style={{ alignItems: 'center' }}>
-                  <div className="label_size">
-                    <label htmlFor="familyName">اسم العائلة</label>
-                  </div>
-                  <div className="input_size">
-                    <input onChange={(e)=>getUsersFromInput(e)} type="text" className="form-control" id="familyName"  name='lastName' required placeholder='حسن' value={inputUser.lastName}/>
-                  </div>
-                </div>
-
-                <div className="col-lg-6 top_input_margin row" style={{ alignItems: 'center' }}>
-                  <div className="label_size">
-                    <label htmlFor="email">البريد الألكتروني</label>
-                  </div>
-                  <div className="input_size">
-                    <input onChange={(e)=>getUsersFromInput(e)} type="email" className="form-control" id="email" placeholder='hesham@gmail.com' name='email' required value={inputUser.email}/>
+                    <input onChange={(e)=>getUsersFromInput(e)} type="number" className="form-control" name='phone_number'  placeholder='ادخل رقم الهاتف' value={inputUser.phone_number}/>
                   </div>
                 </div>
               </div>
 
               <div className="row Wraber_ele" style={{ justifyContent: 'space-between', marginTop: '33px' }}>
-                {/* <div className="col-lg-6 top_input_margin row" style={{ alignItems: 'center' }}>
+                <div className="col-lg-6 top_input_margin row" style={{ alignItems: 'center' }}>
                   <div className="label_size">
-                    <label htmlFor="governorate">المحافظة</label>
+                    <label htmlFor="familyName"  style={{
+                                color: layoutBackground === "#0E0A43" ? "white" : "black"}}>اسم العائلة</label>
                   </div>
-                  <div className="input_size col-md-10 col-sm-7">
-                    <input onChange={(e)=>getUsersFromInput(e)} type="text" className="form-control"  name='governorate' required placeholder='المنيا' value={inputUser.governorate}/>
+                  <div className="input_size">
+                    <input onChange={(e)=>getUsersFromInput(e)} type="text" className="form-control" id="familyName"  name='lastName' required placeholder='ادخل اسم العائله' value={inputUser.lastName}/>
                   </div>
-                </div> */}
+                </div>
 
                 <div className="col-lg-6 top_input_margin row" style={{ alignItems: 'center' }}>
                   <div className="label_size">
-                    <label htmlFor="birthDate">تاريخ الميلاد</label>
+                    <label htmlFor="email"  style={{
+                                color: layoutBackground === "#0E0A43" ? "white" : "black"}}>البريد الألكتروني</label>
                   </div>
                   <div className="input_size">
-                    <input onChange={(e)=>getUsersFromInput(e)} type="text" className="form-control" required placeholder='21/2/1800' name='date_of_birth' value={inputUser.date_of_birth}/>
+                    <input onChange={(e)=>getUsersFromInput(e)} type="email" className="form-control" id="email" placeholder='ادخل البريد الاكتروني' name='email' required value={inputUser.email}/>
+                  </div>
+                </div>
+              </div>
+
+              <div className="row Wraber_ele" style={{ justifyContent: 'space-between', marginTop: '33px' }}>
+             
+
+                <div className="col-lg-6 top_input_margin row" style={{ alignItems: 'center' }}>
+                  <div className="label_size">
+                    <label htmlFor="birthDate"  style={{
+                                color: layoutBackground === "#0E0A43" ? "white" : "black"}}>تاريخ الميلاد</label>
+                  </div>
+                  <div className="input_size">
+                    <input onChange={(e)=>getUsersFromInput(e)} type="date" className="form-control" required placeholder='dd/mm/yyy' name='date_of_birth' value={inputUser.date_of_birth}/>
                   </div>
                 </div>
                 <div className="col-md-12 mt-3 button_wraper " style={{ direction: "ltr", marginLeft: "10px" }}>
@@ -312,15 +325,18 @@ const getInputPasswor=(e)=>{
         </div>
         <div className="row mt-4">
           <div className="col-md-4 form-group">
-            <label htmlFor="currentPassword" >كلمة المرور الحالية</label>
+            <label htmlFor="currentPassword"  style={{
+                                color: layoutBackground === "#0E0A43" ? "white" : "black"}}>كلمة المرور الحالية</label>
             <input onChange={getInputPasswor} type="password"  name='current_password' className="form-control" style={{marginTop:"7px"}} required placeholder='***************'/>
           </div>
           <div className="col-md-4 form-group">
-            <label htmlFor="newPassword">كلمة المرور الجديدة</label>
+            <label htmlFor="newPassword"  style={{
+                                color: layoutBackground === "#0E0A43" ? "white" : "black"}}>كلمة المرور الجديدة</label>
             <input onChange={getInputPasswor}  type="password" name='password' id="newPassword" className="form-control" style={{marginTop:"7px"}}  required placeholder='***************'/>
           </div>
           <div className="col-md-4 form-group">
-            <label htmlFor="confirmPassword">تأكيد كلمة المرور الجديدة</label>
+            <label htmlFor="confirmPassword"  style={{
+                                color: layoutBackground === "#0E0A43" ? "white" : "black"}}>تأكيد كلمة المرور الجديدة</label>
             <input onChange={getInputPasswor}  type="password"  name='password_confirmation'  className="form-control" style={{marginTop:"7px"}} placeholder='***************' required />
           </div>
           <div className="col-md-12 mt-3 " style={{ direction: "ltr" }}>
@@ -330,6 +346,59 @@ const getInputPasswor=(e)=>{
       </div>
       </form>
 
+      <div className="container py-5 mb-2 d-flex align-items-center justify-content-center flex-column">
+        <div className="" style={{ width: "85%", paddingTop: "4.25px" }}>
+          <img src={Homeicon} alt="HomeIcon" style={{ backgroundColor: "transparent" }} />
+          <Link
+            className="btn"
+            to="#"
+            style={{
+              backgroundColor: "transparent",
+              color: layoutBackground === "#0E0A43" ? "white" : "#0E0A43",
+              fontSize: "18px"
+            }}
+          >
+          </Link>
+
+       
+          <table className='tabelstudent' style={{ width: "100%" }}>
+                        <thead>
+                            <tr style={{
+                                color: layoutBackground === "#0E0A43" ? "#FE4F60" : "black",
+                            }}>
+                                <th>اسم الباقة</th>
+                                <th>الامتحانات </th>
+                                <th>الاسئلة المتاحة</th>
+                                <th> الامتحانات المستخدمة </th>
+                                <th> تاريخ الاشتراك  </th>
+                                <th>  طريقة الدفع  </th>
+                                <th>  رقم العملية  </th>
+                            </tr>
+                        </thead>
+                        <tbody style={{
+                                color: layoutBackground === "#0E0A43" ? "white" : "black"}}>
+                            {Array.isArray(data) && data.length > 0 ? data.map(({ id, name,allow_question,allow_exam,status,pivot}, index) => (
+                                <tr key={index} style={{ 
+                                    backgroundColor: index % 2 === 0 ? (layoutBackground === "#0E0A43" ? "#1d195d" : "#FCFCFC") : (layoutBackground === "#0E0A43" ? "#090631" : "#DADADA")
+                                }}>
+                                    <td>{name}</td>
+                                    <td>{allow_exam}</td>
+                                    <td>{allow_question}</td>
+                                    <td>{pivot.exam_used}</td>
+                                    <td>{pivot.subscribe_type}</td>
+                                    <td>{pivot.type}</td>
+                                    <td>{pivot.payment_id}</td>
+                                   
+                                                                </tr>
+                            )) : (
+                                <tr>
+                                    <td colSpan="5">No data available</td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>   
+        </div>
+        </div>
 
     </>
   )

@@ -2,11 +2,12 @@
 import axios from 'axios';
 const Api_website = axios.create({
   baseURL: 'http://127.0.0.1:8000/api',
+
 });
 
 Api_website.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('token_user');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -22,7 +23,7 @@ Api_website.interceptors.response.use(
   },
   (error) => {
     if (error.response && error.response.status === 401) {
-      localStorage.removeItem('token');
+      localStorage.removeItem('token_user');
     }
     return Promise.reject(error);
   }
