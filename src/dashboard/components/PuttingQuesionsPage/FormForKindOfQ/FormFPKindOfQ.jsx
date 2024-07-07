@@ -2,11 +2,16 @@ import React, { useState } from "react";
 import MyButton from "../../../../common/Button/Button";
 import "./FornFPkindOfQ.css";
 import Api_Dashboard from "../../../interceptor/interceptorDashboard";
+import { useNavigate } from "react-router-dom";
 const FormFPkindOfQ = ({ fetchAllKQuestons }) => {
   const [errors, setErrors] = useState("");
   const [selctedQ, setSelectedQ] = useState({
     name: "",
   });
+  const navigate = useNavigate();
+  const navgateToQBank = () => {
+    navigate("/dashboard/qbank");
+  };
   const handelChange = (e) => {
     console.log(e.target.value);
     setErrors({});
@@ -164,6 +169,7 @@ const FormFPkindOfQ = ({ fetchAllKQuestons }) => {
                 <MyButton
                   className={"button-kind-2"}
                   content={"+  اضافة نوع سؤال جديد "}
+                  onClick={navgateToQBank}
                 />
               </div>
             </div>
