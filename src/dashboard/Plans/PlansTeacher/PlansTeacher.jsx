@@ -121,7 +121,6 @@ export default function PlansTeacher() {
     const handeledit = async(row)=>{
       document.body.style.overflow = '';
 
-      // console.log(row.id);
       await Api_Dashboard.get(`/plans/${row.id}`).then((response)=>{
       SetId(row.id)
       getAllTeacherPlan()
@@ -147,6 +146,7 @@ export default function PlansTeacher() {
 console.log(response.data);
 const modalElement = document.getElementById('add_connect_Teacher');
 modalElement.style.display = "none"
+
 getAllTeacherPlan()
 setTimeout((()=>{
 
@@ -420,6 +420,7 @@ setTimeout((()=>{
                 <div className='mt-5' style={{textAlign:"center",display:"flex",justifyContent:"center"}}>
                   <div className='submitButton'>
                 <button  type="submit" className="btn btn-primary">حفظ</button>
+
                 </div>
                 <div style={{marginRight:"30px"}}>
                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>

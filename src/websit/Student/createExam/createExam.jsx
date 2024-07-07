@@ -64,6 +64,7 @@ function CreateExam(props) {
   const [AllLesson, setAllLesson] = useState("");
   const [Allplans, setPlans] = useState("");
   useEffect(() => {
+    document.body.style.removeProperty('overflow');
     Api_Website.get(`/students/groups/selection`)
       .then(response => {
         setAllGroup(response.data.data);
@@ -76,6 +77,7 @@ function CreateExam(props) {
   /////////////////المبحث////////////////////
 
   const getSubject = (id) => {
+    document.body.style.removeProperty('overflow');
     Api_Website.get(`/students/subjects/selection/${id}`)
       .then(response => {
         setAllSubject(response.data.data);
@@ -87,7 +89,7 @@ function CreateExam(props) {
   }
   /////////////////الوحده////////////////////
   const getUnit = (id) => {
-
+    document.body.style.removeProperty('overflow');
     Api_Website.get(`/students/units/selection/${id}`)
       .then(response => {
         setAllUnit(response.data.data);
@@ -99,6 +101,7 @@ function CreateExam(props) {
   }
   ///////////////الدروس//////////////////
   const getLesson = (id) => {
+    document.body.style.removeProperty('overflow');
     Api_Website.get(`/students/lessons/selection/${id}`)
       .then(response => {
         setAllLesson(response.data.data);
@@ -109,6 +112,7 @@ function CreateExam(props) {
   }
   ///////////////الباقه//////////////////
   const getPlans = () => {
+    document.body.style.removeProperty('overflow');
     Api_Website.get(`/students/plans`)
       .then(response => {
         setPlans(response.data.plans);
@@ -393,7 +397,7 @@ function CreateExam(props) {
       semster: semster,
     });
   }, [selectedOptions]);
-
+  
 
 
   return (
