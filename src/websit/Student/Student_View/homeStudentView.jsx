@@ -28,7 +28,7 @@ function HomeStudentview(props) {
   const [allNotes, setAllNotes] = useState("");
   // const [AllExam, setAllExam] = useState("");
   const getAllNotes=()=>{
-    
+    document.body.style.removeProperty('overflow');
       Api_Website.get(`/students/notes`)
       .then(response => {
         setAllNotes(response.data.data);
@@ -41,7 +41,8 @@ function HomeStudentview(props) {
   const [info, setinfo] = useState("");
 
   const getinfo=()=>{
-    
+    document.body.style.removeProperty('overflow');
+
     Api_Website.get(`students/exams-info`)
     .then(response => {
       setinfo(response.data);
@@ -69,6 +70,8 @@ function HomeStudentview(props) {
   //////////////////////////End Get All Note///////////////////////////////////////////////////
   //////////////////////////Delete Note///////////////////////////////////////////////////
   const deleteNote = (id) => {
+    document.body.style.removeProperty('overflow');
+
       Api_Website.delete(`/students/notes/${id}`)
       .then(response => {
         console.log('Note deleted successfully');
@@ -120,6 +123,7 @@ function HomeStudentview(props) {
       address: address,
       note: note
     };
+    document.body.style.removeProperty('overflow');
 
       Api_Website.post(`students/notes`, data)
       .then(response => {
@@ -145,6 +149,8 @@ useEffect(()=>{
   });
  
   const handleGetUpdate = (id) => {
+    document.body.style.removeProperty('overflow');
+
       Api_Website.get(`students/notes/${id}`)
       .then(response => {
         setValues({...values,address:response.data.data.address,note:response.data.data.note});
@@ -210,6 +216,8 @@ useEffect(()=>{
       address: values.address,
       note: values.note
     };
+    document.body.style.removeProperty('overflow');
+
       Api_Website.post(`students/notes/${useId}`,data)
       .then(response => {
         console.log('Note update successfully:');

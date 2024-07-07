@@ -18,7 +18,8 @@ function DataStudentExam(props) {
     }, [z]); 
 
     const getDataStudentExam = () => {
-        setLoading(true); // Set loading to true before fetching data
+        setLoading(true);
+        document.body.style.removeProperty('overflow');
         Api_Website.get(`students/exams?page=${z}`)
             .then(response => {
                 if (response.data && response.data.data) {

@@ -60,6 +60,8 @@ function EditStudentProfaile() {
   },[])
   
   const getRefreshUser = async ()=>{
+    document.body.style.removeProperty('overflow');
+
     await Api_website.get('/students/refresh').then((response)=>{
       let user= response.data.User
       setInputUser(user)
@@ -85,8 +87,10 @@ function EditStudentProfaile() {
     }
     console.log(payload.image)
 
+    document.body.style.removeProperty('overflow');
 
     await Api_website.post('/students/update', payload, {
+      
           headers: {
             'Content-Type': 'multipart/form-data'
           }
@@ -124,7 +128,7 @@ const getInputPasswor=(e)=>{
 
   const HandleSavePassword =async (event) => {
     event.preventDefault();
-
+    document.body.style.removeProperty('overflow')
     await Api_website.post('/students/change-password',paswwordInputs).then((response)=>{
       SetPasswordAlert(true)
       setTimeout(()=>{
@@ -142,6 +146,7 @@ const getInputPasswor=(e)=>{
   };
 
   const getDataStudentExam = () => {
+    document.body.style.removeProperty('overflow')
     Api_website.get(`students/plans`)
         .then(response => {
                 setInfo(response.data.plans);
