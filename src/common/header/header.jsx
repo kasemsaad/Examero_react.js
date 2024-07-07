@@ -62,9 +62,21 @@ const getRefresh = async()=>{
         console.error("Error fetching subjects data:");
     });
 }
+const getRefreshstudent = async()=>{
+ await Api_website.get(`/students/refresh`)
+    .then(response => {
+      let name_image = response.data.User.media.name
+      console.log(name_image)
+      SetpersonalStudent(name_image);
+    })
+    .catch(error => {
+        console.error("Error fetching student data:");
+    });
+}
 
   useEffect(()=>{
     getRefresh()
+    getRefreshstudent()
     
   },[personalDashboard])
   return (
@@ -216,7 +228,17 @@ const getRefresh = async()=>{
         >
           <img
             style={{ objectFit: "cover" }}
-            src={`${Api_dashboard.defaults.baseURL}/assets/Admin/${personalDashboard}`}
+            
+            src={
+              
+              location.pathname.startsWith('/dashboard')? `${Api_dashboard.defaults.baseURL}/assets/Admin/${personalDashboard}`:
+              location.pathname.startsWith('/student')? `${Api_dashboard.defaults.baseURL}/assets/Student/${personalStudent}`:
+              // location.pathname.startsWith('/teacher')? `${Api_dashboard.defaults.baseURL}/assets/Student/${personalStudent}`:
+""
+      
+            
+            
+            }
             width="100%"
             height="100%"
             alt="Personal"
