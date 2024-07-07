@@ -21,6 +21,7 @@ export default function QbankEditing(props) {
         for: " ",
         is_choose: "",
         image: "",
+        // options:[]
     })
     // ---------------------------------------------------------------------
     const [inputs, setInputs] = useState([
@@ -33,7 +34,7 @@ export default function QbankEditing(props) {
 
     const handleChange = (index, event) => {
         const { type, value, checked, files } = event.target;
-        const newInputs = [...inputs];
+        const newInputs = [...dataToEdit.options];
         if (type === 'text') {
             newInputs[index].option = value;
         } else if (type === 'checkbox') {
@@ -44,9 +45,7 @@ export default function QbankEditing(props) {
         setInputs(newInputs);
     };
 
-    const getValues = () => {
-        console.log(inputs);
-    };
+   
 
     // end of multiple --> 4----------------------------------
 
@@ -58,7 +57,7 @@ export default function QbankEditing(props) {
 
     const handleChangeTowInput = (index, event) => {
         const { type, value, checked, files } = event.target;
-        const newInputs = [...inputsTow];
+        const newInputs = [...dataToEdit.options];
         if (type === 'text') {
             newInputs[index].option = value;
         } else if (type === 'checkbox') {
@@ -82,7 +81,7 @@ export default function QbankEditing(props) {
 
     const handleChangeOneInput = (index, event) => {
         const { type, value, checked, files } = event.target;
-        const newInputs = [...inputsOne];
+        const newInputs = [...dataToEdit.options];
         if (type === 'text') {
             newInputs[index].option = value;
         } else if (type === 'checkbox') {
@@ -129,8 +128,53 @@ export default function QbankEditing(props) {
     };
 
 let location =useLocation()
-const {id} = location.state || {}    
-console.log(id);
+const {id} = location.state || {}  
+
+const getObjectFromRecivedId = ()=>{
+    let subjectId;
+    Api_Dashboard.get(`questions/${id}`).then((response)=>{
+        console.log(response.data.question);
+
+          SetdataToEdit({
+            name: response.data.question.name ,
+            point:response.data.question.point,
+            group_id: response.data.question.group.id,
+            subject_id: response.data.question.subject.id,
+            unit_id: response.data.question.unit.id,
+            lesson_id: response.data.question.lesson.id,
+            question_type_id: response.data.question.question_type.id,
+            level: response.data.question.level[0],
+            semster:response.data.question.semster[0],
+            for: response.data.question.for[0],
+            has_branch: response.data.question.has_branch,
+            is_choose: response.data.question.is_choose,
+            image: response.data.question?.image,
+            options:response.data.question.options
+        })
+
+         getSubjectDependOnGroupId(response.data.question.group.id)
+
+             getAllUnitsDependOnSubject(response.data.question.subject.id)
+
+             getAllLessonsDependOnUnit(response.data.question.unit.id)
+             getAllshowQuistitionById(response.data.question.question_type.id)
+             const newInputs = [...response.data.question.options];
+             setInputs(newInputs)
+             setinputsOne(newInputs)
+             setinputsTow(newInputs)
+             
+
+
+
+
+
+
+    }).catch((err)=>{
+        console.log(err);
+    })
+}
+
+
 
 
 
@@ -164,21 +208,47 @@ console.log(id);
 
      
 
+// i get from change and call api 
+    // const getAllSelection = async (e) => {
+    //     const data = { ...allDataFromAllSelection }
+    //     data[e.target.name] = e.target.value
+    //     // data.image=e.target.files[0]
+        
+    //     // SetallDataFromAllSelection(data)
+    //     // let idOfGroup = props.dataEdit.subject.id
+
+      
+    // //     let forId = data.for
+    // //     // console.log(forId);
+    // //     if (true) {
+    // //   await  getSubjectDependOnGroupId(idOfGroup)
+    // //     }
+
+    //     let subJectId = data.subject_id
+    //     if (data.subject_id) {
+    //         await getAllUnitsDependOnSubject(subJectId)
+    //     }
+
+    //     let unitId = data.unit_id
+    //     if (data.unit_id) {
+    //         await getAllLessonsDependOnUnit(unitId)
+    //     }
+    // }
 
     const getAllSelection = async (e) => {
-        const data = { ...allDataFromAllSelection }
+        const data = { ...dataToEdit }
         data[e.target.name] = e.target.value
         // data.image=e.target.files[0]
         
-        SetallDataFromAllSelection(data)
-        let idOfGroup = props.dataEdit.subject.id
-
-      
-    //     let forId = data.for
-    //     // console.log(forId);
-    //     if (true) {
-    //   await  getSubjectDependOnGroupId(idOfGroup)
-    //     }
+        SetdataToEdit(data)
+        let idOfGroup = data.group_id
+        // let level=data.level
+        // console.log(level);
+        let forId = data.for
+        // console.log(forId);
+        if (data.group_id) {
+            await getSubjectDependOnGroupId(idOfGroup)
+        }
 
         let subJectId = data.subject_id
         if (data.subject_id) {
@@ -188,6 +258,11 @@ console.log(id);
         let unitId = data.unit_id
         if (data.unit_id) {
             await getAllLessonsDependOnUnit(unitId)
+        }
+
+        let questionsIdType = data.question_type_id
+        if(data.question_type_id){
+          await  getAllshowQuistitionById(questionsIdType)
         }
     }
 
@@ -248,21 +323,22 @@ const [allLesson,SetallLesson]=useState([])
     useEffect(() => {
         getAllGroup()
         getTypeOfQustition()
-        SetdataToEdit({
-            name: props.dataEdit.name ,
-            point: props.dataEdit.point,
-            group_id: props.dataEdit.group?.id,
-            subject_id: props.dataEdit.subject?.id,
-            unit_id: props.dataEdit.unit_id,
-            lesson_id: props.dataEdit.lesson_id,
-            question_type_id: props.dataEdit.question_type_id?.id,
-            level: props.dataEdit.level,
-            semster: props.dataEdit.semster,
-            for: props.dataEdit.for,
-            has_branch: props.dataEdit.has_branch,
-            is_choose: props.dataEdit.is_choose,
-            image: props.dataEdit.image,
-        })
+        // SetdataToEdit({
+        //     name: props.dataEdit?.name ,
+        //     point: props.dataEdit?.point,
+        //     group_id: props.dataEdit?.group?.id,
+        //     subject_id: props.dataEdit?.subject?.id,
+        //     unit_id: props.dataEdit.unit_id,
+        //     lesson_id: props.dataEdit.lesson_id,
+        //     question_type_id: props.dataEdit.question_type_id?.id,
+        //     level: props.dataEdit.level,
+        //     semster: props.dataEdit.semster,
+        //     for: props.dataEdit.for,
+        //     has_branch: props.dataEdit.has_branch,
+        //     is_choose: props.dataEdit.is_choose,
+        //     image: props.dataEdit.image,
+        // })
+        getObjectFromRecivedId()
 
 
     }, [props.dataEdit])
@@ -271,19 +347,19 @@ const [allLesson,SetallLesson]=useState([])
     const handlaeSubmit = async (event)=>{
         event.preventDefault();
         const payload ={
-            name: allDataFromAllSelection.name,
-            point: allDataFromAllSelection.point,
-            group_id: allDataFromAllSelection.group_id,
-            subject_id: allDataFromAllSelection.subject_id,
-            unit_id: allDataFromAllSelection.unit_id,
-            lesson_id: allDataFromAllSelection.lesson_id ,
-            question_type_id: allDataFromAllSelection.question_type_id,
-            level: allDataFromAllSelection.level,
-            semster: allDataFromAllSelection.semster,
-            for: allDataFromAllSelection.for,
-            has_branch: allDataFromAllSelection.has_branch,
-            is_choose: allDataFromAllSelection.is_choose,
-            image: allDataFromAllSelection.image,
+            name: dataToEdit.name,
+            point: dataToEdit.point,
+            group_id: dataToEdit.group_id,
+            subject_id: dataToEdit.subject_id,
+            unit_id: dataToEdit.unit_id,
+            lesson_id: dataToEdit.lesson_id ,
+            question_type_id: dataToEdit.question_type_id,
+            level: dataToEdit.level,
+            semster: dataToEdit.semster,
+            for: dataToEdit.for,
+            has_branch: dataToEdit.has_branch,
+            is_choose: dataToEdit.is_choose,
+            image: dataToEdit.image,
         }
 
         if(payload.image == undefined || payload.image == null || payload.image == ""){
@@ -342,8 +418,9 @@ const [allLesson,SetallLesson]=useState([])
     if( showQuistitionById?.name == "سؤال انشائي"){
         payload.options = oneInputs
     }
+    console.log(payload);
 // ------------------------------------------------
-        await Api_Dashboard.post('/questions',payload,{
+        await Api_Dashboard.post(`/questions/${id}`,payload,{
             headers: {
               'Content-Type': 'multipart/form-data'
             }
@@ -353,13 +430,12 @@ const [allLesson,SetallLesson]=useState([])
             resetForm();  
 
           }).catch((err)=>{
+            console.log(err);
             NotifyError(err.response.data.message)
           })
 }
 
-
-
-
+// get according id 
 
 
 
@@ -621,7 +697,7 @@ const [allLesson,SetallLesson]=useState([])
 
 
                         <div className='col-12'>
-                            <button className='btn' style={{ backgroundColor: "#FE4F60" }}>أضافه سؤال</button>
+                            <button className='btn' style={{ backgroundColor: "#FE4F60" ,color:"#ffff"}}>أضافه سؤال</button>
                         </div>
 
                         <div className='col-12 mt-2'>
@@ -632,7 +708,7 @@ const [allLesson,SetallLesson]=useState([])
                         {
                             showQuistitionById?.name == "متعدد الاختيارات" ?
                                 <div>
-                                    {inputs.map((item, index) => (
+                                    {dataToEdit.options.map((item, index) => (
                                         <div key={index} className="wraper_input_and_checkbox">
                                             <div className="mt-4" style={{ display: "flex", alignItems: "center" }}>
                                                 <div className="check" style={{ width: "20px", transform: "scale(2)", marginTop: "-18px" }}>
@@ -651,7 +727,7 @@ const [allLesson,SetallLesson]=useState([])
                                                         id="inputField"
                                                         placeholder="Enter text"
                                                         onChange={(e) => handleChange(index, e)}
-                                                        value={item.name}
+                                                        value={item.option}
                                                         required
                                                     />
                                                     <input
@@ -672,7 +748,7 @@ const [allLesson,SetallLesson]=useState([])
                                 </div>
                                 : showQuistitionById?.name == "صح/خطا" ?   
                                 <div>
-                                {inputsTow.map((item, index) => (
+                                {dataToEdit.options.map((item, index) => (
                                     <div key={index} className="wraper_input_and_checkbox">
                                         <div className="mt-4" style={{ display: "flex", alignItems: "center" }}>
                                             <div className="check" style={{ width: "20px", transform: "scale(2)", marginTop: "-18px" }}>
@@ -691,7 +767,7 @@ const [allLesson,SetallLesson]=useState([])
                                                     id="inputField"
                                                     placeholder="Enter text"
                                                     onChange={(e) => handleChangeTowInput(index, e)}
-                                                    value={item.name}
+                                                    value={item.option}
                                                     required
 
                                                 />
@@ -712,7 +788,7 @@ const [allLesson,SetallLesson]=useState([])
                                 ))}
                             </div>:  showQuistitionById?.name == "سؤال انشائي" ?   
                                 <div>
-                                {inputsOne.map((item, index) => (
+                                {dataToEdit.options.map((item, index) => (
                                     <div key={index} className="wraper_input_and_checkbox">
                                         <div className="mt-4" style={{ display: "flex", alignItems: "center" }}>
                                             <div className="check" style={{ width: "20px", transform: "scale(2)", marginTop: "-18px" }}>
@@ -731,7 +807,7 @@ const [allLesson,SetallLesson]=useState([])
                                                     id="inputField"
                                                     placeholder="Enter text"
                                                     onChange={(e) => handleChangeOneInput(index, e)}
-                                                    value={item.name}
+                                                    value={item.option}
                                                     required
 
                                                 />
@@ -745,7 +821,7 @@ const [allLesson,SetallLesson]=useState([])
                                                     style={{ direction: "ltr" }}
                                                     onChange={(e) => handleChangeOneInput(index, e)}
                                                 />
-                                                {item.image && <img src={item.image} alt="Selected" style={{ width: "50px", height: "50px" }} />}
+                                                {/* {item.image && <img src={item.image} alt="Selected" style={{ width: "50px", height: "50px" }} />} */}
                                             </div>
                                         </div>
                                     </div>
@@ -758,7 +834,7 @@ const [allLesson,SetallLesson]=useState([])
                 </div>
                 <div className='col-12 mt-4' style={{ direction: "ltr" }}>
                     <div>
-                        <button type='submit' className='btn' style={{ backgroundColor: "#C01F59" }}>حفظ</button>
+                        <button type='submit' className='btn' style={{ backgroundColor: "#C01F59",color:"#ffff" }}>حفظ</button>
                     </div>
                 </div>
             </form>

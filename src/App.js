@@ -178,32 +178,32 @@ function App(props) {
           <Route path="check" element={<ProtectedRoute><Checks/></ProtectedRoute>} />
           <Route path="qbank_details" element={<ProtectedRoute><QbankDetails /></ProtectedRoute>} />
           <Route path="qbank_edit" element={<ProtectedRoute><QbankEditing /></ProtectedRoute>} />
-          <Route path="activity/mangers" element={<MangersActivity />} />
-          <Route path="activity/all" element={<AllActivity />} />
+          <Route path="activity/mangers" element={<ProtectedRoute><MangersActivity /></ProtectedRoute>} />
+          <Route path="activity/all" element={<ProtectedRoute><AllActivity /></ProtectedRoute>} />
           <Route
             path="putting/questions/levels=1"
-            element={<PuttingQuestions />}
+            element={<ProtectedRoute><PuttingQuestions /></ProtectedRoute>}
           />
           <Route
             path="putting/questions/subjects=2"
-            element={<PuttingQForMab7as />}
+            element={<ProtectedRoute><PuttingQForMab7as /></ProtectedRoute>}
           />
           <Route
             path="putting/questions/units=3"
-            element={<PuttingQUnites />}
+            element={<ProtectedRoute><PuttingQUnites /></ProtectedRoute>}
           />
           <Route
             path="putting/questions/lessons=4"
-            element={<PuttingQFLessons />}
+            element={<ProtectedRoute><PuttingQFLessons /></ProtectedRoute>}
           />
 
           <Route
             path="putting/questions/kinds=5"
-            element={<PuttingKindOfQ />}
+            element={<ProtectedRoute><PuttingKindOfQ /></ProtectedRoute>}
           />
 
-          <Route path="mangers" element={<Mangers />} />
-          <Route path="supervisors" element={<Supervisors />} />
+          <Route path="mangers" element={<ProtectedRoute><Mangers /></ProtectedRoute>} />
+          <Route path="supervisors" element={<ProtectedRoute><Supervisors/></ProtectedRoute>} />
         </Route>
         <Route path="/*" element={<ErrorPage />} />
       </Routes>

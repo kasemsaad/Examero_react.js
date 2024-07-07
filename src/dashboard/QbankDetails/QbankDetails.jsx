@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import QbankLogo from './../../assets/image/akar-icons_bank (1).svg'
 import fowrword from "./../../assets/image/Forward.svg"
 import plus from "./../../assets/image/+.svg"
-import {    useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import TableQbank from '../../common/Table/tableQbank/tableQbank'
 import Api_Dashboard from '../interceptor/interceptorDashboard'
 import image from "./../../assets/image/High Importance.svg"
@@ -55,8 +55,6 @@ export default function QbankDetails() {
             console.log(current_page);
             SetallDataQuistition(response.data.data)
             Setpagination(response.data.meta.pagination)
-
-
         }).catch((err) => {
             console.log(err);
         })
@@ -83,15 +81,13 @@ export default function QbankDetails() {
     const [objectEditData,SetobjectEditData]=useState({})
     const [editId,SetId]=useState('')
 
+    // i get object according id 
     const handeledit = async(row)=>{
         console.log(row);
         await Api_Dashboard.get(`/questions/${row.id}`).then((response)=>{
         SetobjectEditData(response.data.question)
-        navigate("/dashboard",{state:{id:row.id}})
+        navigate("/dashboard/qbank_edit",{state:{id:row.id}})
         SetId(row.id)
-
-
-        
              }).catch((err)=>{
           console.log(err);
          })
@@ -105,7 +101,7 @@ export default function QbankDetails() {
 
     return (
         <>
-            <div className="container  pb-4 " style={{ overflow: 'auto', marginTop: '18px', direction: 'rtl', height: '100vh', border: "2px solid purble", borderRadius: "10px", width: "90%", margin: "auto" }}>
+            <div className="container  pb-4 " style={{ overflow: 'auto', marginTop: '18px', direction: 'rtl', height: 'auto', border: "2px solid purble", borderRadius: "10px", width: "90%", margin: "auto" }}>
 
                 <div className='col-12  mt-3 d-flex ' style={{ alignItems: "center", }}>
                     <div className="" style={{ width: "5.333333%" }}>

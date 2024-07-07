@@ -104,6 +104,8 @@ export default function PlansStudent() {
       allow_question:InputEditTeacher.allow_question,
       for_student:1 
       }).then((response)=>{
+         const modalElement = document.getElementById('add_connect_student_add');
+           modalElement.style.display = "none"
         getAllTeacherPlan()
       }).catch((err)=>{
         console.log(err);
@@ -449,6 +451,7 @@ export default function PlansStudent() {
                     id="name"
                     name='name'
                     placeholder="أدخل اسم الباقة"
+                    required
                     // value={InputEditTeacher.name}
                     // onChange={(e) => setname(e.target.value)}
                     onChange={(e)=>getEditingInputs(e)}
@@ -465,6 +468,7 @@ export default function PlansStudent() {
                     name='description'
                     rows="3"
                     placeholder="أدخل وصف الباقة"
+                    required
                     // value={InputEditTeacher.description}
                     // onChange={(e) => setdescription(e.target.value)}
                     onChange={(e)=>getEditingInputs(e)}
@@ -606,7 +610,7 @@ export default function PlansStudent() {
                 </div>
                 <div className='mt-5' style={{textAlign:"center",display:"flex",justifyContent:"center"}}>
                   <div className='submitButton'>
-                <button data-bs-dismiss="modal" type="submit" className="btn btn-primary">حفظ</button>
+                <button  type="submit" className="btn btn-primary">حفظ</button>
                 </div>
                 <div style={{marginRight:"30px"}}>
                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>

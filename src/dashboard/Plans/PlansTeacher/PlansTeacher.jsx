@@ -3,6 +3,7 @@ import Api_Dashboard from '../../interceptor/interceptorDashboard'
 import Plans from '../Plans'
 import image from "./../../../assets/image/High Importance.svg"
 import './PlansTeacher.css'
+import { ToastContainer, toast } from 'react-toastify'
 
 export default function PlansTeacher() {
     const [allTeacherPlanData,SetallTeacherPlanData]=useState([])
@@ -14,6 +15,34 @@ export default function PlansTeacher() {
     // const [totalPages,Set]
     const totalPages=pagination.last_page
     const [modalDissmiss,SetmodalDissmiss]=useState('')
+
+    const notify = (AlertPointSuccess) => {
+      toast.success(AlertPointSuccess, {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+      })
+  };
+
+  
+  const Errornotify = (AlertPoint) => {
+      toast.error(AlertPoint, {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+      })
+  };
+
 
 
     
@@ -114,12 +143,21 @@ export default function PlansTeacher() {
       for_student:0  
       }).then((response)=>{
 console.log(response.data);
-// SetmodalDissmiss('modal')
-    const modalElement = document.getElementById('add_connect_Teacher');
-      modalElement.style.display = "none"
+// const modalElement = document.getElementById('add_connect_Teacher');
+// modalElement.style.display = "none"
 getAllTeacherPlan()
+setTimeout((()=>{
+
+  SetmodalDissmiss('modal')
+}),300)
+// SetmodalDissmiss('')
+
+
       }).catch((err)=>{
         console.log(err);
+        SetmodalDissmiss('')
+
+
       })
     };
 
@@ -169,6 +207,7 @@ getAllTeacherPlan()
         }).then((response)=>{
            const modalElement = document.getElementById('add_connect_Teacher_add');
            modalElement.style.display = "none"
+           notify("mostafa")
           getAllTeacherPlan()
 
       
@@ -185,6 +224,8 @@ getAllTeacherPlan()
     },[current_page])
   return (
     <>
+                <ToastContainer position='top-center' />
+
         <Plans  totalPages={totalPages} current_page={current_page} next={handelNext} handelPrev={handelPrev}  dataRender={allTeacherPlanData} dataConnect={"البيانات الباقات المعلمين"} edit={"#add_connect_Teacher"} delete={"#deleteElementModal_teacher_dash"}  handel={(row)=>handeledit(row)} Deletehandel={(row)=>getDeletedObject(row)} nameOfPageModalTarget={"#add_connect_Teacher_add"}/>
 {/* edit modal */}
         <div
@@ -375,7 +416,7 @@ getAllTeacherPlan()
 
                 <div className='mt-5' style={{textAlign:"center",display:"flex",justifyContent:"center"}}>
                   <div className='submitButton'>
-                <button  type="submit" className="btn btn-primary">حفظ</button>
+                <button data-bs-dismiss={modalDissmiss} type="submit" className="btn btn-primary">حفظ</button>
                 </div>
                 <div style={{marginRight:"30px"}}>
                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
@@ -413,8 +454,10 @@ getAllTeacherPlan()
                             >
                                 لا
                             </button>
-                            <button                                 data-bs-dismiss="modal"
-    onClick={deleteConnect}  type="button" className="btn-danger save-btn DElementSave">
+                            <button  data-bs-dismiss="modal"
+
+    onClick={deleteConnect} 
+     type="button" className="btn-danger save-btn DElementSave">
                                 نعم
                             </button>
                         </div>
