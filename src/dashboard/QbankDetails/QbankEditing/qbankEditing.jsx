@@ -1,16 +1,28 @@
 import React, { useEffect, useState } from 'react'
-import homeBank from "./../../assets/image/Vector (6).svg"
-import Api_Dashboard from '../interceptor/interceptorDashboard'
-import ModalDelete, { Notify, NotifyError } from '../Alert/alertToast';
-import './Qbank.css'
+import homeBank from "./../../../assets/image/Vector (6).svg"
+import Api_Dashboard from '../../interceptor/interceptorDashboard'
+import ModalDelete, { Notify, NotifyError } from '../../Alert/alertToast';
+import { useLocation } from 'react-router-dom';
 
-export default function Qbank() {
+export default function QbankEditing(props) {
 
 
     const [groupAllData, SetgroupAllData] = useState([])
-
-
-
+    const [dataToEdit,SetdataToEdit]=useState({
+        name: "",
+        point: "",
+        group_id: "",
+        subject_id:"",
+        unit_id: "",
+        lesson_id: "",
+        question_type_id: "",
+        level: "",
+        semster: "",
+        for: " ",
+        is_choose: "",
+        image: "",
+        // options:[]
+    })
     // ---------------------------------------------------------------------
     const [inputs, setInputs] = useState([
         { option: "", is_correct: false, image: '' },
@@ -22,7 +34,7 @@ export default function Qbank() {
 
     const handleChange = (index, event) => {
         const { type, value, checked, files } = event.target;
-        const newInputs = [...inputs];
+        const newInputs = [...dataToEdit.options];
         if (type === 'text') {
             newInputs[index].option = value;
         } else if (type === 'checkbox') {
@@ -33,9 +45,7 @@ export default function Qbank() {
         setInputs(newInputs);
     };
 
-    const getValues = () => {
-        console.log(inputs);
-    };
+   
 
     // end of multiple --> 4----------------------------------
 
@@ -47,7 +57,7 @@ export default function Qbank() {
 
     const handleChangeTowInput = (index, event) => {
         const { type, value, checked, files } = event.target;
-        const newInputs = [...inputsTow];
+        const newInputs = [...dataToEdit.options];
         if (type === 'text') {
             newInputs[index].option = value;
         } else if (type === 'checkbox') {
@@ -71,7 +81,7 @@ export default function Qbank() {
 
     const handleChangeOneInput = (index, event) => {
         const { type, value, checked, files } = event.target;
-        const newInputs = [...inputsOne];
+        const newInputs = [...dataToEdit.options];
         if (type === 'text') {
             newInputs[index].option = value;
         } else if (type === 'checkbox') {
@@ -81,13 +91,7 @@ export default function Qbank() {
         }
         setinputsOne(newInputs);
     };
-
- 
-
-
-
-
-
+    
     // -----------------------------------------------------------------------------
     const [allDataFromAllSelection, SetallDataFromAllSelection] = useState({
         name: "",
@@ -120,15 +124,57 @@ export default function Qbank() {
     
         setinputsOne([
             { option: "", is_correct: false, image: '' }
-        ]);
-    
-    
-        // SetsubjectAllData([]);
-        // SetunitAllData([]);
-        // SetallLesson([]);
-        // SetshowQuistitionById([]);
+        ])
     };
-    
+
+let location =useLocation()
+const {id} = location.state || {}  
+
+const getObjectFromRecivedId = ()=>{
+    let subjectId;
+    Api_Dashboard.get(`questions/${id}`).then((response)=>{
+        console.log(response.data.question);
+
+          SetdataToEdit({
+            name: response.data.question.name ,
+            point:response.data.question.point,
+            group_id: response.data.question.group.id,
+            subject_id: response.data.question.subject.id,
+            unit_id: response.data.question.unit.id,
+            lesson_id: response.data.question.lesson.id,
+            question_type_id: response.data.question.question_type.id,
+            level: response.data.question.level[0],
+            semster:response.data.question.semster[0],
+            for: response.data.question.for[0],
+            has_branch: response.data.question.has_branch,
+            is_choose: response.data.question.is_choose,
+            image: response.data.question?.image,
+            options:response.data.question.options
+        })
+
+         getSubjectDependOnGroupId(response.data.question.group.id)
+
+             getAllUnitsDependOnSubject(response.data.question.subject.id)
+
+             getAllLessonsDependOnUnit(response.data.question.unit.id)
+             getAllshowQuistitionById(response.data.question.question_type.id)
+             const newInputs = [...response.data.question.options];
+             setInputs(newInputs)
+             setinputsOne(newInputs)
+             setinputsTow(newInputs)
+             
+
+
+
+
+
+
+    }).catch((err)=>{
+        console.log(err);
+    })
+}
+
+
 
 
 
@@ -152,12 +198,49 @@ export default function Qbank() {
 
     const [idOfGroup, SetidOfGroup] = useState('')
 
+    
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+          SetallDataFromAllSelection({ ...allDataFromAllSelection, image: file });
+        }
+      }
+
+     
+
+// i get from change and call api 
+    // const getAllSelection = async (e) => {
+    //     const data = { ...allDataFromAllSelection }
+    //     data[e.target.name] = e.target.value
+    //     // data.image=e.target.files[0]
+        
+    //     // SetallDataFromAllSelection(data)
+    //     // let idOfGroup = props.dataEdit.subject.id
+
+      
+    // //     let forId = data.for
+    // //     // console.log(forId);
+    // //     if (true) {
+    // //   await  getSubjectDependOnGroupId(idOfGroup)
+    // //     }
+
+    //     let subJectId = data.subject_id
+    //     if (data.subject_id) {
+    //         await getAllUnitsDependOnSubject(subJectId)
+    //     }
+
+    //     let unitId = data.unit_id
+    //     if (data.unit_id) {
+    //         await getAllLessonsDependOnUnit(unitId)
+    //     }
+    // }
+
     const getAllSelection = async (e) => {
-        const data = { ...allDataFromAllSelection }
+        const data = { ...dataToEdit }
         data[e.target.name] = e.target.value
         // data.image=e.target.files[0]
         
-        SetallDataFromAllSelection(data)
+        SetdataToEdit(data)
         let idOfGroup = data.group_id
         // let level=data.level
         // console.log(level);
@@ -182,15 +265,6 @@ export default function Qbank() {
           await  getAllshowQuistitionById(questionsIdType)
         }
     }
-
-    const handleImageChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-          SetallDataFromAllSelection({ ...allDataFromAllSelection, image: file });
-        }
-      }
-
-
 
 
 
@@ -249,26 +323,43 @@ const [allLesson,SetallLesson]=useState([])
     useEffect(() => {
         getAllGroup()
         getTypeOfQustition()
+        // SetdataToEdit({
+        //     name: props.dataEdit?.name ,
+        //     point: props.dataEdit?.point,
+        //     group_id: props.dataEdit?.group?.id,
+        //     subject_id: props.dataEdit?.subject?.id,
+        //     unit_id: props.dataEdit.unit_id,
+        //     lesson_id: props.dataEdit.lesson_id,
+        //     question_type_id: props.dataEdit.question_type_id?.id,
+        //     level: props.dataEdit.level,
+        //     semster: props.dataEdit.semster,
+        //     for: props.dataEdit.for,
+        //     has_branch: props.dataEdit.has_branch,
+        //     is_choose: props.dataEdit.is_choose,
+        //     image: props.dataEdit.image,
+        // })
+        getObjectFromRecivedId()
 
-    }, [])
+
+    }, [props.dataEdit])
 
 
     const handlaeSubmit = async (event)=>{
         event.preventDefault();
         const payload ={
-            name: allDataFromAllSelection.name,
-            point: allDataFromAllSelection.point,
-            group_id: allDataFromAllSelection.group_id,
-            subject_id: allDataFromAllSelection.subject_id,
-            unit_id: allDataFromAllSelection.unit_id,
-            lesson_id: allDataFromAllSelection.lesson_id ,
-            question_type_id: allDataFromAllSelection.question_type_id,
-            level: allDataFromAllSelection.level,
-            semster: allDataFromAllSelection.semster,
-            for: allDataFromAllSelection.for,
-            has_branch: allDataFromAllSelection.has_branch,
-            is_choose: allDataFromAllSelection.is_choose,
-            image: allDataFromAllSelection.image,
+            name: dataToEdit.name,
+            point: dataToEdit.point,
+            group_id: dataToEdit.group_id,
+            subject_id: dataToEdit.subject_id,
+            unit_id: dataToEdit.unit_id,
+            lesson_id: dataToEdit.lesson_id ,
+            question_type_id: dataToEdit.question_type_id,
+            level: dataToEdit.level,
+            semster: dataToEdit.semster,
+            for: dataToEdit.for,
+            has_branch: dataToEdit.has_branch,
+            is_choose: dataToEdit.is_choose,
+            image: dataToEdit.image,
         }
 
         if(payload.image == undefined || payload.image == null || payload.image == ""){
@@ -327,24 +418,24 @@ const [allLesson,SetallLesson]=useState([])
     if( showQuistitionById?.name == "سؤال انشائي"){
         payload.options = oneInputs
     }
+    console.log(payload);
 // ------------------------------------------------
-        await Api_Dashboard.post('/questions',payload,{
+        await Api_Dashboard.post(`/questions/${id}`,payload,{
             headers: {
               'Content-Type': 'multipart/form-data'
             }
           }).then((response)=>{
             Notify(response.data.Message)
-            console.log(response.data.Message);
+            console.log(response);
             resetForm();  
 
           }).catch((err)=>{
+            console.log(err);
             NotifyError(err.response.data.message)
           })
 }
 
-
-
-
+// get according id 
 
 
 
@@ -352,7 +443,11 @@ const [allLesson,SetallLesson]=useState([])
 
     return (<>
     < ModalDelete/>
-        <div className="container  pb-4 " style={{ overflow: 'auto', marginTop: '18px', direction: 'rtl', height: 'auto', border: "2px solid purble", borderRadius: "10px", width: "90%", margin: "auto" }}>
+
+  
+
+                       
+        <div className="container pb-4 " style={{backgroundColor:"#0E0A43", overflow: 'auto', marginTop: '18px', direction: 'rtl', height: 'auto', border: "2px solid purble", borderRadius: "10px", width: "100%", margin: "auto" }}>
 
             <div className='col-12  mt-3 d-flex ' style={{ alignItems: "center", }}>
                 <div className="" style={{ width: "5.333333%" }}>
@@ -374,6 +469,8 @@ const [allLesson,SetallLesson]=useState([])
                                     onChange={getAllSelection}
                                     required
                                     name='semster'
+                                    value={dataToEdit.semster}
+                                  
                                     >
                                     <option value="" disabled selected>اختر الفصل الدراسي</option>
                                     <option value="1">الفصل الدرسي الأول </option>
@@ -388,6 +485,8 @@ const [allLesson,SetallLesson]=useState([])
                                     className="form-select"
                                     name='group_id'
                                     onChange={getAllSelection}
+                                    value={dataToEdit.group_id}
+
                                     required
                                 >
                                     <option value="" disabled selected>اختر الصف</option>
@@ -407,6 +506,8 @@ const [allLesson,SetallLesson]=useState([])
                                     name='subject_id'
                                     onChange={getAllSelection}
                                     required
+                                    value={dataToEdit.subject_id}
+
                                 >
                                     <option value="" disabled selected>اختر المبحث</option>
                                     {subjectAllData.map((item, index) => (
@@ -426,6 +527,8 @@ const [allLesson,SetallLesson]=useState([])
                                     name='unit_id'
                                     onChange={getAllSelection}
                                     required
+                                    value={dataToEdit.unit_id}
+
                                 >
                                     <option value="" disabled selected>اختر الوحده</option>
                                     {unitAllData.map((item, index) => (
@@ -446,6 +549,8 @@ const [allLesson,SetallLesson]=useState([])
                                     name='lesson_id'
                                     onChange={getAllSelection}
                                     required
+                                    value={dataToEdit.lesson_id}
+
                                 >
                                     <option value="" disabled selected>اختر السؤال</option>
                                     {allLesson.map((item, index) => (
@@ -466,6 +571,8 @@ const [allLesson,SetallLesson]=useState([])
                                     onChange={getAllSelection}
                                     name='level'
                                     required
+                                    value={dataToEdit.level}
+
                                 >
                                     <option value="" disabled selected> مستوي السؤال</option>
 
@@ -499,6 +606,8 @@ const [allLesson,SetallLesson]=useState([])
                                     onChange={getAllSelection}
                                     name='question_type_id'
                                     required
+                                    value={dataToEdit.question_type_id}
+
                                 >
                                     <option value="" disabled selected>اختر نوع السؤال</option>
                                     {typeOfQuistition.map((item, index) => (
@@ -518,6 +627,8 @@ const [allLesson,SetallLesson]=useState([])
                                     name="for"
                                     onChange={getAllSelection}
                                     required
+                                    value={dataToEdit.for}
+
                                 >
                                     <option value="" disabled selected> اختر صيغة السؤال</option>
                                     <option value="2">مذكر</option>
@@ -535,6 +646,8 @@ const [allLesson,SetallLesson]=useState([])
                                     name="has_branch"
                                     onChange={getAllSelection}
                                     required
+                                    value={dataToEdit.has_branch}
+
                                 >
                                     <option value="" disabled selected>اختر التفرع</option>
                                     <option value="0">رئيسي</option>
@@ -550,6 +663,8 @@ const [allLesson,SetallLesson]=useState([])
                                     name="is_choose"
                                     onChange={getAllSelection}
                                     required
+                                    value={dataToEdit.is_choose}
+
                                 >
                                     <option value="" disabled selected> هل اختياري</option>
                                     <option value="1">نعم</option>
@@ -560,13 +675,14 @@ const [allLesson,SetallLesson]=useState([])
 
                             <div className='mt-2'>
                                 <label htmlFor=" "> درجه السؤال </label>
-                                <input onChange={getAllSelection} name='point' type="number" className="form-control" placeholder="درجه السؤال" required />
+                                <input                                     value={dataToEdit.point}
+ onChange={getAllSelection} name='point' type="number" className="form-control" placeholder="درجه السؤال" required />
                             </div>
 
 
                             <div className='mt-2'>
                                 <label htmlFor=" ">اضافه صوره سؤال</label>
-                                <input onChange={handleImageChange} name='image' type="file"  className="form-control" placeholder="" />
+                                <input onChange={handleImageChange} name='image' type="file"  className="form-control" placeholder=""       value={dataToEdit.image} />
                             </div>
 
 
@@ -581,17 +697,18 @@ const [allLesson,SetallLesson]=useState([])
 
 
                         <div className='col-12'>
-                            <button className='btn' style={{ backgroundColor: "#FE4F60",color:"#ffff" }}>أضافه سؤال</button>
+                            <button className='btn' style={{ backgroundColor: "#FE4F60" ,color:"#ffff"}}>أضافه سؤال</button>
                         </div>
 
                         <div className='col-12 mt-2'>
-                            <textarea onChange={getAllSelection} name='name' class="form-control" id="exampleFormControlTextarea1" rows="5.5"></textarea>
+                            <textarea onChange={getAllSelection} name='name' class="form-control" id="exampleFormControlTextarea1" rows="5.5" value={dataToEdit.name}
+                            ></textarea>
                         </div>
 
                         {
                             showQuistitionById?.name == "متعدد الاختيارات" ?
                                 <div>
-                                    {inputs.map((item, index) => (
+                                    {dataToEdit.options.map((item, index) => (
                                         <div key={index} className="wraper_input_and_checkbox">
                                             <div className="mt-4" style={{ display: "flex", alignItems: "center" }}>
                                                 <div className="check" style={{ width: "20px", transform: "scale(2)", marginTop: "-18px" }}>
@@ -610,7 +727,7 @@ const [allLesson,SetallLesson]=useState([])
                                                         id="inputField"
                                                         placeholder="Enter text"
                                                         onChange={(e) => handleChange(index, e)}
-                                                        value={item.name}
+                                                        value={item.option}
                                                         required
                                                     />
                                                     <input
@@ -631,7 +748,7 @@ const [allLesson,SetallLesson]=useState([])
                                 </div>
                                 : showQuistitionById?.name == "صح/خطا" ?   
                                 <div>
-                                {inputsTow.map((item, index) => (
+                                {dataToEdit.options.map((item, index) => (
                                     <div key={index} className="wraper_input_and_checkbox">
                                         <div className="mt-4" style={{ display: "flex", alignItems: "center" }}>
                                             <div className="check" style={{ width: "20px", transform: "scale(2)", marginTop: "-18px" }}>
@@ -650,7 +767,7 @@ const [allLesson,SetallLesson]=useState([])
                                                     id="inputField"
                                                     placeholder="Enter text"
                                                     onChange={(e) => handleChangeTowInput(index, e)}
-                                                    value={item.name}
+                                                    value={item.option}
                                                     required
 
                                                 />
@@ -671,7 +788,7 @@ const [allLesson,SetallLesson]=useState([])
                                 ))}
                             </div>:  showQuistitionById?.name == "سؤال انشائي" ?   
                                 <div>
-                                {inputsOne.map((item, index) => (
+                                {dataToEdit.options.map((item, index) => (
                                     <div key={index} className="wraper_input_and_checkbox">
                                         <div className="mt-4" style={{ display: "flex", alignItems: "center" }}>
                                             <div className="check" style={{ width: "20px", transform: "scale(2)", marginTop: "-18px" }}>
@@ -690,7 +807,7 @@ const [allLesson,SetallLesson]=useState([])
                                                     id="inputField"
                                                     placeholder="Enter text"
                                                     onChange={(e) => handleChangeOneInput(index, e)}
-                                                    value={item.name}
+                                                    value={item.option}
                                                     required
 
                                                 />
@@ -704,7 +821,7 @@ const [allLesson,SetallLesson]=useState([])
                                                     style={{ direction: "ltr" }}
                                                     onChange={(e) => handleChangeOneInput(index, e)}
                                                 />
-                                                {item.image && <img src={item.image} alt="Selected" style={{ width: "50px", height: "50px" }} />}
+                                                {/* {item.image && <img src={item.image} alt="Selected" style={{ width: "50px", height: "50px" }} />} */}
                                             </div>
                                         </div>
                                     </div>
@@ -717,11 +834,14 @@ const [allLesson,SetallLesson]=useState([])
                 </div>
                 <div className='col-12 mt-4' style={{ direction: "ltr" }}>
                     <div>
-                        <button type='submit' className='btn' style={{ backgroundColor: "#C01F59" ,color:"#ffff"}}>حفظ</button>
+                        <button type='submit' className='btn' style={{ backgroundColor: "#C01F59",color:"#ffff" }}>حفظ</button>
                     </div>
                 </div>
             </form>
         </div>
+        
+
+ 
     </>
     )
 }

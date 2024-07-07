@@ -690,7 +690,7 @@ function Home() {
                         <div className="cgg" style={{ display: "flex", justifyContent: "end", alignItems: "center", flexDirection: "column" }}>
                             <h3 className="p-0" style={{ display: "flex", justifyContent: "start", alignItems: "end" }}><span className="" style={{ color: "#FFB419" }} >روابط سريعة</span></h3>
                             <div className="" style={{ display: "flex", justifyContent: "center", flexDirection: "column" }}>
-                                <Link className="stylelink" to="/" >الرئيسية</Link>
+                                <Link className="stylelink" to="/dashboard" >لوحة التحكم</Link>
                                 <Link className="stylelink" to="/" >منصة الموظفين</Link>
                                 <Link className="stylelink" to="/" >منصة تدريب المعلمين</Link>
                                 <Link className="stylelink" to="/" >openeims منصة</Link>

@@ -51,15 +51,30 @@ export default function RecivedEmis() {
     }
 
     if (dataToSend.note == undefined || dataToSend.note == null || dataToSend.note == "") {
-      console.log("mostaf");
       delete dataToSend.note;
     }
+
     console.log(dataToSend);
     await Api_Dashboard.post(`/open-emis/${editId}`, dataToSend)
       .then((response) => {
         waitingEmisAllData();
+
+        
+        SetInputEditWaitinOpenEmis(prevState => ({
+          ...prevState,
+          note: "",
+          status: ""
+        }));
+
       })
       .catch((err) => {
+        
+        SetInputEditWaitinOpenEmis(prevState => ({
+          ...prevState,
+          note: "",
+          status: ""
+        }));
+
         console.log(err);
       });
   };

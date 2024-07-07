@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./header.css";
-import personal from "./../../assets/image/IMG_20231104_171844_696.jpg";
+import personal from "./../../assets/image/man 2 (1).svg";
 import Examiro from "./../../assets/image/image 9.svg";
 import notifiy from "./../../assets/image/ic_baseline-notifications-none.svg";
 import moon from "./../../assets/image/solar_moon-line-duotone.svg";
@@ -9,6 +9,9 @@ import logo from "./../../assets/image/لوجو examero-01 1.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { CHANGE_THEME } from "../../redux/Types/types";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import Api_Dashboard from "../../dashboard/interceptor/interceptorDashboard";
+import Api_website from "../../utlis/axios_utils_websit";
+import Api_dashboard from "../../utlis/axios_utils_dashboard";
 
 function Header() {
   const navigate = useNavigate()
@@ -16,6 +19,9 @@ function Header() {
   const [toggled, setToggled] = useState(false);
   const ReducerState = useSelector((state) => state.dark);
   const count = useSelector((state) => state.dark.counter);
+  const [personalDashboard,SetpersonalDashboard]=useState("")
+  const [personalStudent,SetpersonalStudent]=useState("")
+  const [personalTeacher,SetpersonalTeacher]=useState("")
 
   const dispatch = useDispatch();
   const tog = () => {
@@ -24,10 +30,15 @@ function Header() {
       type: CHANGE_THEME,
     });
   };
+
+
+     
+
+
  
   const linksProfile = () => {
     if (location.pathname.startsWith('/dashboard')) {
-      navigate("/");
+      navigate("/dashboard/b");
     } else if (location.pathname.startsWith('/student')) {
       navigate("/student/editStudentProfaile");
     } else if (location.pathname.startsWith('/teacher')) {
@@ -36,6 +47,26 @@ function Header() {
       navigate("/"); 
     }
   };
+
+
+const getRefresh = async()=>{
+ await Api_Dashboard.get(`/refresh`)
+    .then(response => {
+      // console.log(response);
+      let name_image = response.data.User.media.name
+         SetpersonalDashboard(name_image);
+
+    })
+    .catch(error => {
+
+        console.error("Error fetching subjects data:");
+    });
+}
+
+  useEffect(()=>{
+    getRefresh()
+    
+  },[personalDashboard])
   return (
     <>
       <div
@@ -185,7 +216,7 @@ function Header() {
         >
           <img
             style={{ objectFit: "cover" }}
-            src={personal}
+            src={`${Api_dashboard.defaults.baseURL}/assets/Admin/${personalDashboard}`}
             width="100%"
             height="100%"
             alt="Personal"
