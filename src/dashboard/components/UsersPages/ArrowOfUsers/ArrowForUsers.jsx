@@ -18,7 +18,7 @@ const ArrowForUsers = () => {
             style={{
               fontSize: "14px",
               backgroundColor:
-                pathname === "/dashboard/mangers" ? "#4941A6" : "",
+                pathname === "/dashboard/mangers" ? "#4941A6" : "#1D195D",
             }}
             content={"مديرو الموقع"}
           />

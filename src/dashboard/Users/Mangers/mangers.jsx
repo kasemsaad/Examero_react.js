@@ -58,6 +58,7 @@ const Mangers = () => {
       });
   };
   const handelShowMangerById = async (row) => {
+    document.body.style.removeProperty("overflow");
     const response = await Api_Dashboard.get(`/managers/${row.id}`)
       .then((response) => {
         setShowMangerData(response.data.data);

@@ -121,20 +121,6 @@ const ShowUserModal = ({ content, userData }) => {
                 className="modal-footer-new new-footer"
               >
                 <button
-                  type="submit"
-                  className="btn btn-primary"
-                  style={{
-                    borderRadius: "30px",
-                    border: "none",
-                    backgroundColor: "#C01F59",
-                    width: "96px",
-                    height: "40px",
-                    marginLeft: "12px",
-                  }}
-                >
-                  إضافة
-                </button>
-                <button
                   type="button"
                   className="btn btn-secondary"
                   data-bs-dismiss="modal"
