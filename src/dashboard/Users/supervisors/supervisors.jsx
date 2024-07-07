@@ -9,6 +9,7 @@ import EditMangerModal from "../../components/UsersPages/EditMangerModal/EditMan
 import DeleteUserModal from "../../components/UsersPages/DeletUserModal/DeleteUserModal";
 import FooterOfUserFP from "../../components/UsersPages/FooterOfUsers/FooterOfUsers";
 import SendMessage from "../../components/UsersPages/SendMessageModal.jsx/SendMessageModal";
+import ShowUserModal from "../../components/UsersPages/ShowUserModal/ShowUser";
 const Supervisors = () => {
   // header of the table
   let header = {
@@ -28,6 +29,8 @@ const Supervisors = () => {
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [idOfDeleteItem, setIdOfDeleteItem] = useState("");
+  const [showSuperData, setShowSuperData] = useState("");
+
   const handelMessage = (row) => {
     setSuperIdForSendMessage(row);
   };
@@ -76,7 +79,16 @@ const Supervisors = () => {
   useEffect(() => {
     setFilteredSubervisors(newData);
   }, [newData]);
-
+  const handelShowSuperById = async (row) => {
+    document.body.style.removeProperty("overflow");
+    const response = await Api_Dashboard.get(`/supervisors/${row.id}`)
+      .then((response) => {
+        setShowSuperData(response.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   // handel pagination
   const [metaFPagination, setMetaFPagination] = useState("");
   const totalPages = metaFPagination.last_page;
@@ -124,8 +136,12 @@ const Supervisors = () => {
               sendMessage={"#send-message-dash"}
               deleteModalName={"#deleteElementModal_users-dash"}
               editButtonName={"#edit-manger-dash"}
+              showItem={"#show-manger-dash"}
               handelEdit={(row) => {
                 handelFetchId(row);
+              }}
+              handelShow={(row) => {
+                handelShowSuperById(row);
               }}
             />
           </div>
@@ -156,6 +172,8 @@ const Supervisors = () => {
             idOfDeleteItem={idOfDeleteItem}
           />
         </div>
+        <ShowUserModal content={"المشرف"} userData={showSuperData} />
+
         <SendMessage api={"/points/"} mangerID={superIdForSendMessage} />
       </div>
     </>

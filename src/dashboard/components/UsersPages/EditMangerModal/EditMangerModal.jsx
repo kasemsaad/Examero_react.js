@@ -38,6 +38,7 @@ const EditMangerModal = ({ api, fetchAllData, rowData, content }) => {
     }
   }, [rowData, reset]);
   const handleRegistration = async (mangerData) => {
+    document.body.style.removeProperty("overflow");
     await Api_Dashboard.post(`/${api}/${rowData.id}`, mangerData)
       .then((response) => {
         setModal("modal");

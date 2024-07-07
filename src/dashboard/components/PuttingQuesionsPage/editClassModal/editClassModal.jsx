@@ -31,6 +31,7 @@ const EditClassModal = ({ rowDataOfClass, fetchAllData }) => {
   const handelEdit = async (editClass) => {
     if (rowDataOfClass) {
       console.log(editClass);
+      document.body.style.removeProperty("overflow");
       await Api_Dashboard.post(`/groups/${rowDataOfClass.id}`, editClass)
         .then((response) => {
           setModal("modal");

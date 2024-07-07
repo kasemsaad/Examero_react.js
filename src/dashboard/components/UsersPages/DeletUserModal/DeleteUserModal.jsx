@@ -1,22 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import image from "../../../../assets/image/High Importance.svg";
 import "./DeleteUserModal.css";
 import Api_Dashboard from "../../../interceptor/interceptorDashboard";
-import LadingComponent from "../../../LoadingComponent/LodingComponent";
 const DeleteUserModal = ({ idOfDeleteItem, fetchAllData, api }) => {
-  const [loading, setLoading] = useState(false);
-  const [deletedItem, setDeletedItem] = useState(idOfDeleteItem);
-
   const deleteManger = async (idOfDeleteItem) => {
-    setLoading(true);
+    document.body.style.removeProperty("overflow");
     const response = await Api_Dashboard.delete(
       `/${api}/${idOfDeleteItem}`
     ).then((response) => {});
     fetchAllData().catch((err) => {});
-
-    setLoading(false);
   };
-  if (loading) return <LadingComponent />;
 
   return (
     <>

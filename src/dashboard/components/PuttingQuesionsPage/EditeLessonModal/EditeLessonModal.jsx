@@ -84,6 +84,7 @@ const EditLessonModal = ({
     }
     try {
       // Simulate API call
+      document.body.style.removeProperty("overflow");
       const response = await Api_Dashboard.post(
         `/lessons/${RowDataOfLesson.id}`,
         edit

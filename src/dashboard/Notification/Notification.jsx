@@ -5,6 +5,9 @@ import ArrowNotification from "../components/NotificationPage/Arrow/Arrow.jsx";
 import MessagesNotification from "../components/NotificationPage/messages/messages.jsx";
 import MyButton from "../../common/Button/Button.jsx";
 import Api_Dashboard from "../interceptor/interceptorDashboard.jsx";
+import PaginationForPuttingQ from "../PuttingQussions/paginationForPutingQ/paginationForPatingQ.jsx";
+import { useDispatch, useSelector } from "react-redux";
+import { setNot } from "../../redux/reducer/notification.jsx";
 
 const Notification = ({ api, man, all }) => {
   const [isCheckedAll, setIsCheckedAll] = useState(false);
@@ -12,11 +15,19 @@ const Notification = ({ api, man, all }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [metaFPagination, setMetaFPagination] = useState("");
   const [notify, setNotifiy] = useState([]);
+  const totalPages = metaFPagination.last_page;
+  const dispatch = useDispatch();
   // const [myActivityIds,setMyActivityIds]=useState({
   //   activityIds:isChecked
   // })
   let activityIds = { activityIds: isChecked };
-  console.log(activityIds);
+  const payload = metaFPagination.total;
+  useEffect(() => {
+    if (payload) {
+      localStorage.setItem("not", payload);
+      dispatch(setNot(payload));
+    }
+  }, [payload]);
 
   useEffect(() => {
     fetchAllNotfiy();
@@ -25,18 +36,20 @@ const Notification = ({ api, man, all }) => {
   const fetchAllNotfiy = async () => {
     await Api_Dashboard.get(`${api}?page=${currentPage}`)
       .then((response) => {
-        console.log(response);
+        // console.log(response);
 
         {
           man && setNotifiy(response.data.data.data);
+          console.log(response.data.meta.pagination);
+          setMetaFPagination(response.data.meta.pagination);
         }
         {
           all && setNotifiy(response.data.data);
+          setMetaFPagination(response.data.meta.pagination);
         }
-        setMetaFPagination(response.data.meta.pagination);
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
       });
   };
   const deleteNotifications = async (activityIds) => {
@@ -109,6 +122,11 @@ const Notification = ({ api, man, all }) => {
                   isCheckedAll={isCheckedAll}
                 />
               ))}
+            <PaginationForPuttingQ
+              totalPages={totalPages}
+              currentPage={currentPage}
+              setCurrentPage={(page) => setCurrentPage(page)}
+            />
           </div>
         </div>
       </div>
