@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./style.css";
 import homeIcon from '../../assets/icons/sidebar/majesticons_home-line.svg';
@@ -21,7 +21,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { CHANGE_THEME } from "../../redux/Types/types";
 import imagee from '../../assets/icons/create_Exam/High Importance.svg';
 import Api_website from "../../utlis/axios_utils_websit";
-
+import Api_Dashboard from "../../dashboard/interceptor/interceptorDashboard";
+import Api_dashboard from "../../utlis/axios_utils_dashboard";
 function Navsmallscreen() {
   const navigate = useNavigate()
   const location = useLocation()
@@ -32,6 +33,9 @@ function Navsmallscreen() {
   const [toggled, setToggled] = useState(false)
   const ReducerState = useSelector((state) => state.dark);
   const count = useSelector((state) => state.dark.counter);
+  const [personalDashboard,SetpersonalDashboard]=useState("")
+  const [personalStudent,SetpersonalStudent]=useState("")
+  const [personalTeacher,SetpersonalTeacher]=useState("")
 
   const dispatch = useDispatch()
   const tog = () => {
@@ -65,6 +69,53 @@ function Navsmallscreen() {
   //         console.error("Error not logout ");
   //     });
   // }
+
+
+  
+ 
+  const linksProfile = () => {
+    if (location.pathname.startsWith('/dashboard')) {
+      navigate("/dashboard/b");
+    } else if (location.pathname.startsWith('/student')) {
+      navigate("/student/editStudentProfaile");
+    } else if (location.pathname.startsWith('/teacher')) {
+      navigate("/"); 
+    } else {
+      navigate("/"); 
+    }
+  };
+
+
+const getRefresh = async()=>{
+ await Api_Dashboard.get(`/refresh`)
+    .then(response => {
+      // console.log(response);
+      let name_image = response.data.User.media.name
+         SetpersonalDashboard(name_image);
+
+    })
+    .catch(error => {
+
+        console.error("Error fetching subjects data:");
+    });
+}
+const getRefreshstudent = async()=>{
+ await Api_website.get(`/students/refresh`)
+    .then(response => {
+      let name_image = response.data.User.media.name
+      console.log(name_image)
+      SetpersonalStudent(name_image);
+    })
+    .catch(error => {
+        console.error("Error fetching student data:");
+    });
+}
+
+  useEffect(()=>{
+    getRefresh()
+    getRefreshstudent()
+    
+  },[personalDashboard])
   return (
     <>
 
@@ -226,7 +277,20 @@ function Navsmallscreen() {
           </div>
           <div className="personal_images" style={{ position: 'relative', width: '80%', margin: 'auto', height: '10px' }}>
             <div id="svg_header" style={{ width: '55px', height: '55px', borderRadius: '50%', backgroundColor: 'blue', overflow: 'hidden', position: 'absolute' }}>
-              <img style={{ objectFit: 'cover' }} src={personal} width="100%" height="100%" alt="Personal" />
+              <img style={{ objectFit: 'cover' }} 
+              
+              src={
+              
+                location.pathname.startsWith('/dashboard')? `${Api_dashboard.defaults.baseURL}/assets/Admin/${personalDashboard}`:
+                location.pathname.startsWith('/student')? `${Api_dashboard.defaults.baseURL}/assets/Student/${personalStudent}`:
+                // location.pathname.startsWith('/teacher')? `${Api_dashboard.defaults.baseURL}/assets/Student/${personalStudent}`:
+  ""
+        
+              
+              
+              }
+              
+              width="100%" height="100%" alt="Personal" />
             </div>
           </div>
         </div>

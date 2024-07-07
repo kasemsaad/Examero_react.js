@@ -51,8 +51,8 @@ function Sidmedscreen() {
       {
         location.pathname.startsWith('/dashboard') ?
           <div className="sidbarmed p-0 " dir="rtl" >
-            <div className="sidbarSidbar ">
-              <ul className="pt-4 ps-5">
+            <div className="sidbarSidbar " style={{height:"98vh"}}>
+              <ul className="pt-5 ps-4">
                 <li className={`Icon  ${id === "1" ? "bgIcon" : " "}`}>
                   <Link to="/log" onClick={() => setId(1)} >
                     <img src={homeIcon} alt="الرئيسية" />
