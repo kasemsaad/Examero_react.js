@@ -39,8 +39,8 @@ function Login1() {
             .then((response) => {
                 setLoginSuccess(true);
 
-                localStorage.setItem('token_user', response.data.access_token);
 
+                localStorage.setItem('token_user', response.data.access_token);
 
                 localStorage.setItem('user',"student");
                 setError('');
