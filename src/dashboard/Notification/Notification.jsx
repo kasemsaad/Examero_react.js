@@ -1,86 +1,82 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Notificaion.css";
-import HeaderNotificaion from "../components/NotificationPage/Header/Header";
-import ArrowNotification from "../components/NotificationPage/Arrow/Arrow";
-import MessagesNotification from "../components/NotificationPage/messages/messages";
-import Checkbox from "../components/NotificationPage/Checkbox/Checkbox";
-import MyButton from "../../common/Button/Button";
+import HeaderNotificaion from "../components/NotificationPage/Header/Header.jsx";
+import ArrowNotification from "../components/NotificationPage/Arrow/Arrow.jsx";
+import MessagesNotification from "../components/NotificationPage/messages/messages.jsx";
+import MyButton from "../../common/Button/Button.jsx";
+import Api_Dashboard from "../interceptor/interceptorDashboard.jsx";
 
-const Notification = () => {
-  let messages = [
-    {
-      id: 1,
-      message: " قام احمد باضافة راضي الى الجروب",
-    },
-    {
-      id: 2,
-      message: " قام احمد باضافة راضي الى الجروب",
-    },
-    {
-      id: 3,
-      message: " قام احمد باضافة راضي الى الجروب",
-    },
-    {
-      id: 4,
-      message: " قام احمد باضافة راضي الى الجروب",
-    },
-    {
-      id: 5,
-      message: " قام احمد باضافة راضي الى الجروب",
-    },
-    {
-      id: 6,
-      message: " قام احمد باضاف",
-    },
-    {
-      id: 7,
-      message: " قام احمد باضاف",
-    },
-    {
-      id: 8,
-      message: " قام احمد باضاف",
-    },
-  ];
-  ////
+const Notification = ({ api, man, all }) => {
   const [isCheckedAll, setIsCheckedAll] = useState(false);
   const [isChecked, setIsChecked] = useState([]);
-  const [deleteCheckedItem, setDeleteCheckedItem] = useState([...messages]);
-  const handleSelectAll = (e) => {
-    setIsCheckedAll(!isCheckedAll);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [metaFPagination, setMetaFPagination] = useState("");
+  const [notify, setNotifiy] = useState([]);
+  // const [myActivityIds,setMyActivityIds]=useState({
+  //   activityIds:isChecked
+  // })
+  let activityIds = { activityIds: isChecked };
+  console.log(activityIds);
 
-    setIsChecked(messages.map((li) => li.id));
+  useEffect(() => {
+    fetchAllNotfiy();
+  }, [currentPage]);
 
+  const fetchAllNotfiy = async () => {
+    await Api_Dashboard.get(`${api}?page=${currentPage}`)
+      .then((response) => {
+        console.log(response);
+
+        {
+          man && setNotifiy(response.data.data.data);
+        }
+        {
+          all && setNotifiy(response.data.data);
+        }
+        setMetaFPagination(response.data.meta.pagination);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const deleteNotifications = async (activityIds) => {
+    console.log(JSON.stringify(activityIds));
+    await Api_Dashboard.put("/activity", activityIds)
+      .then((response) => {
+        fetchAllNotfiy();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const handleSelectAll = () => {
     if (isCheckedAll) {
       setIsChecked([]);
-    }
-  };
-  const handleClick = (e) => {
-    const { id, checked } = e.target;
-    console.log(e.target.checked);
-    setIsChecked([...isChecked, checked, id]);
-    console.log(" in the function" + isChecked);
-
-    if (checked) {
-      // Add the id to the array if it's checked
-      setIsChecked((prev) => [...prev, id]);
     } else {
-      // Remove the id from the array if it's unchecked
-      setIsChecked((prev) => prev.filter((item) => item !== id));
+      const ids = notify.map((not) => not.id);
+      setIsChecked(ids);
     }
+    setIsCheckedAll(!isCheckedAll);
   };
-  const handeleDelete = (e) => {
-    const { id } = e.target;
-    setDeleteCheckedItem((prevMeseages) =>
-      prevMeseages.filter((message) => !isChecked.includes(message.id))
+
+  const handleChange = (e) => {
+    const { id, checked } = e.target;
+    const idNum = Number(id);
+
+    setIsChecked((prev) =>
+      checked ? [...prev, idNum] : prev.filter((item) => item !== idNum)
     );
-    console.log(isChecked);
   };
+  // const getValues = () => {
+  //   console.log(isChecked);
+  // };
   const check = isChecked.length;
-  console.log(deleteCheckedItem);
+
   return (
     <>
       <div className="notification min-vh-100">
-        <HeaderNotificaion />
+        <HeaderNotificaion content={"الإشعارات"} />
 
         <div className="parent">
           <ArrowNotification />
@@ -94,7 +90,7 @@ const Notification = () => {
               />
               <MyButton
                 className={"bttt"}
-                onClick={handeleDelete}
+                onClick={() => deleteNotifications(activityIds)}
                 style={{ marginRight: "10px", backgroundColor: "#0E0A43" }}
                 content={"  حذف المحدد"}
               />
@@ -102,19 +98,18 @@ const Notification = () => {
           )}
 
           <hr />
-
-          {deleteCheckedItem.map(({ id, message }) => {
-            return (
-              <MessagesNotification
-                key={id}
-                id={id}
-                Checkbox={"checkbox"}
-                handleClick={handleClick}
-                name={message}
-                isChecked={isChecked.includes(id)}
-              />
-            );
-          })}
+          <div style={{ height: "300px" }}>
+            {notify &&
+              notify.map((not, index) => (
+                <MessagesNotification
+                  key={index}
+                  isChecked={isChecked}
+                  not={not}
+                  handleChange={handleChange}
+                  isCheckedAll={isCheckedAll}
+                />
+              ))}
+          </div>
         </div>
       </div>
     </>

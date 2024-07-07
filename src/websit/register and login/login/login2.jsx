@@ -38,6 +38,8 @@ function Login1() {
         Api_website.post('/students/login', formData)
             .then((response) => {
                 setLoginSuccess(true);
+
+
                 localStorage.setItem('token_user', response.data.access_token);
 
                 localStorage.setItem('user',"student");
@@ -46,13 +48,12 @@ function Login1() {
                 navigate('/student/homeStudentView'); 
             })
             .catch((error) => {
-                setLoginSuccess(false);
-                if (error.response && error.response.data) {
-                    console.error("Error response data:", error.response.data);
-                    setError(error.response.data.error || 'حدث خطأ أثناء تسجيل الدخول');
-                } else {
-                    setError('حدث خطأ أثناء تسجيل الدخول');
+                if(error.response.data.error){
+                    setError( error.response.data.error);
+                }else{
+                    setError( error.response.data.message);
                 }
+                setLoginSuccess(false);
             });
     };
     
@@ -86,7 +87,8 @@ function Login1() {
             <div className="login-container d-flex flex-wrap">
                 <Imgcom />
                 <Col xs={12} sm={12} md={12} lg={12} xl={6} xxl={6} className="d-flex flex-column login-card">
-                    <p className='card-title-l1'>أدخل معلومات تسجيل الدخول</p>
+                    <p className='card-title-l1'>أدخل معلومات تسجيل الدخول للطالب</p>
+
                     <div className="header1-l1">
                         <p className='card-title between-borders1-l1'>لتحصل على جميع الخدمات</p>
                     </div>

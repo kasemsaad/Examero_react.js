@@ -1,5 +1,5 @@
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "@fontsource/cairo"; // Defaults to weight 400
 // import Header from './common/header/header';
 import LayoutComp from "./layout/layoutComp/layoutComp";
@@ -8,9 +8,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./websit/Home/home.jsx";
 
 import Notification from "./dashboard/Notification/Notification";
-import PuttingQuestions from "./dashboard/PuttingQussions/ForClasses/PuttingQuestions.jsx";
-import PuttingQForMab7as from "./dashboard/PuttingQussions/ForMab7s/PuttingQForMabhas.jsx";
 import "@fontsource/cairo"; // Defaults to weight 400
+
 import Home_dashboard from './dashboard/Home_Dashboard/Home_dashboard.jsx';
 import CreateStudentAcc from'./websit/register and login/create_stud_acc/create_stud_acc.jsx';
 import Login1 from'./websit/register and login/login/login2.jsx'
@@ -41,37 +40,43 @@ import DataStudentExam from './websit/Student/dataStudentExam/dataStudentExam.js
 import EditStudentProfaile from './websit/Student/editStudentProfaile/editStudentProfaile.jsx'
 import ProtectedRouteWebsite from '../src/websit/protectedRouteWebsite/protectedRouteWebsite.jsx';
 
-
 // import Home_dashboard from './dashboard/Home_Dashboard/Home_dashboard.jsx';
-import HomeDashoardLogin from './dashboard/homeLogin/homeLogin.jsx';
-import CertificateGenerator from './dashboard/Certificate/Certificate.jsx';
-import Qbank from './dashboard/Qbank/Qbank.jsx';
-import Specification from './dashboard/Specifecation/Specification.jsx';
-import ProtectedRoute from './dashboard/protectedRouteDashboard.jsx/protectedRouteDashboard.jsx';
-import PlansStudent from './dashboard/Plans/PlansStudent/PlansStudent.jsx';
-import PlansTeacher from './dashboard/Plans/PlansTeacher/PlansTeacher.jsx';
-// import Notification from "./dashboard/Notification/Notification";
-// import PuttingQuestions from "./dashboard/PuttingQussions/ForClasses/PuttingQuestions.jsx";
-// import PuttingQForMab7as from "./dashboard/PuttingQussions/ForMab7s/PuttingQForMabhas.jsx";
+import HomeDashoardLogin from "./dashboard/homeLogin/homeLogin.jsx";
+import CertificateGenerator from "./dashboard/Certificate/Certificate.jsx";
+import Qbank from "./dashboard/Qbank/Qbank.jsx";
+import Specification from "./dashboard/Specifecation/Specification.jsx";
+import ProtectedRoute from "./dashboard/protectedRouteDashboard.jsx/protectedRouteDashboard.jsx";
+import PlansStudent from "./dashboard/Plans/PlansStudent/PlansStudent.jsx";
+import PlansTeacher from "./dashboard/Plans/PlansTeacher/PlansTeacher.jsx";
 
-import OpenEmis from './dashboard/open_Emis/openEmis.jsx';
-import WaitingEmis from './dashboard/open_Emis/waitingEmis/waitingEmis.jsx';
-import RecivedEmis from './dashboard/open_Emis/recivedEmis/recivedEmis.jsx';
-import FinishedEmis from './dashboard/open_Emis/finishedEmis/finishedEmis.jsx';
-import Reward from './dashboard/Reward/reward.jsx';
-import RewardManger from './dashboard/Reward/rewardManager/rewardManger.jsx';
-import RewardMoshref from './dashboard/Reward/rewardMoshref/rewardMoshref.jsx';
-import RewardTeacher from './dashboard/Reward/rewardTeacher/rewardTeacher.jsx';
-import ForgetPassDashBoard from './dashboard/Forget_password/forget_pass.jsx';
-import EnterCodeDashBoard from './dashboard/Forget_password/enterCodeOfReset/enterCode.jsx';
-import NewPassDashBoard from './dashboard/Forget_password/DashboardNewPassword/NewPassword.jsx';
-import ErrorPage from './dashboard/Error/errorPage.jsx';
-import Checks from './dashboard/checks/checks.jsx';
-import NotFound from './websit/Student/notfound.jsx';
-
-
+import OpenEmis from "./dashboard/open_Emis/openEmis.jsx";
+import WaitingEmis from "./dashboard/open_Emis/waitingEmis/waitingEmis.jsx";
+import RecivedEmis from "./dashboard/open_Emis/recivedEmis/recivedEmis.jsx";
+import FinishedEmis from "./dashboard/open_Emis/finishedEmis/finishedEmis.jsx";
+import Reward from "./dashboard/Reward/reward.jsx";
+import RewardManger from "./dashboard/Reward/rewardManager/rewardManger.jsx";
+import RewardMoshref from "./dashboard/Reward/rewardMoshref/rewardMoshref.jsx";
+import RewardTeacher from "./dashboard/Reward/rewardTeacher/rewardTeacher.jsx";
+import ForgetPassDashBoard from "./dashboard/Forget_password/forget_pass.jsx";
+import EnterCodeDashBoard from "./dashboard/Forget_password/enterCodeOfReset/enterCode.jsx";
+import NewPassDashBoard from "./dashboard/Forget_password/DashboardNewPassword/NewPassword.jsx";
+import ErrorPage from "./dashboard/Error/errorPage.jsx";
+import Checks from "./dashboard/checks/checks.jsx";
+import NotFound from "./websit/Student/notfound.jsx";
+import PuttingQUnites from "./dashboard/PuttingQussions/ForUnits/PuttingQUnits.jsx";
+import PuttingQFLessons from "./dashboard/PuttingQussions/ForLessons/PuttingQFLessons.jsx";
+import PuttingKindOfQ from "./dashboard/PuttingQussions/ForKindOfQuestions/PuttingKOQuestions.jsx";
+import PuttingQuestions from "./dashboard/PuttingQussions/ForClasses/PuttingQuestions.jsx";
+import PuttingQForMab7as from "./dashboard/PuttingQussions/ForMab7s/PuttingQForMabhas.jsx";
+import Mangers from "./dashboard/Users/Mangers/mangers.jsx";
+import Supervisors from "./dashboard/Users/supervisors/supervisors.jsx";
+import MangersActivity from "./dashboard/Notification/mangers.activity/mangersActivity.jsx";
+import AllActivity from "./dashboard/Notification/supervisorsActivity/AllActivity.jsx";
+import QbankDetails from './dashboard/QbankDetails/QbankDetails.jsx';
+import QbankEditing from './dashboard/QbankDetails/QbankEditing/qbankEditing.jsx';
 function App(props) {
   return (
+
       <BrowserRouter>
         <Routes>
 
@@ -150,40 +155,60 @@ function App(props) {
 
 
         <Route path="/dashboard/" element={<LayoutComp />}>
-          <Route index element={
-            <ProtectedRoute>
-              <Home_dashboard />
-            </ProtectedRoute>
-          } />
-          <Route path="not" element={ <Notification />} />
-          <Route path="b" element={<AccountSetting />} />
-          <Route path="certify" element={<CertificateGenerator />} />
-          <Route path="qbank" element={<Qbank />} />
-          <Route path="specify" element={<Specification />} />
-          <Route path="PlansTeacher" element={<PlansTeacher />} />
-          <Route path="planstudent" element={<PlansStudent />} />
-          <Route path="waitingemis" element={<WaitingEmis />} />
-          <Route path="recivedemis" element={<RecivedEmis />} />
-          <Route path="finishedEmis" element={<FinishedEmis />} />
-          <Route path="manger" element={<RewardManger />} />
-          <Route path="rewardSupervisor" element={<RewardMoshref />} />
-          <Route path="rewardteacher" element={<RewardTeacher />} />
-          <Route path="check" element={<Checks />} />
+          <Route
+            index
+            element={
+              <ProtectedRoute>
+                <Home_dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="b" element={ <ProtectedRoute><AccountSetting /></ProtectedRoute>} />
+          <Route path="certify" element={  <ProtectedRoute><CertificateGenerator />  </ProtectedRoute>} />
+          <Route path="qbank" element={  <ProtectedRoute><Qbank /></ProtectedRoute>} />
+          <Route path="specify" element={ <ProtectedRoute><Specification /></ProtectedRoute>} />
+          <Route path="PlansTeacher" element={ <ProtectedRoute><PlansTeacher /></ProtectedRoute>} />
+          <Route path="planstudent" element={<ProtectedRoute><PlansStudent /></ProtectedRoute>} />
+          <Route path="waitingemis" element={<ProtectedRoute><WaitingEmis /></ProtectedRoute>} />
+          <Route path="recivedemis" element={<ProtectedRoute><RecivedEmis /></ProtectedRoute>} />
+          <Route path="finishedEmis" element={<ProtectedRoute><FinishedEmis /></ProtectedRoute>} />
+          <Route path="manger" element={<ProtectedRoute><RewardManger /></ProtectedRoute>} />
+          <Route path="rewardSupervisor" element={<ProtectedRoute><RewardMoshref /></ProtectedRoute>} />
+          <Route path="rewardteacher" element={<ProtectedRoute><RewardTeacher /></ProtectedRoute>} />
+          <Route path="check" element={<ProtectedRoute><Checks/></ProtectedRoute>} />
+          <Route path="qbank_details" element={<ProtectedRoute><QbankDetails /></ProtectedRoute>} />
+          <Route path="qbank_edit" element={<ProtectedRoute><QbankEditing /></ProtectedRoute>} />
+          <Route path="activity/mangers" element={<ProtectedRoute><MangersActivity /></ProtectedRoute>} />
+          <Route path="activity/all" element={<ProtectedRoute><AllActivity /></ProtectedRoute>} />
+          <Route
+            path="putting/questions/levels=1"
+            element={<ProtectedRoute><PuttingQuestions /></ProtectedRoute>}
+          />
+          <Route
+            path="putting/questions/subjects=2"
+            element={<ProtectedRoute><PuttingQForMab7as /></ProtectedRoute>}
+          />
+          <Route
+            path="putting/questions/units=3"
+            element={<ProtectedRoute><PuttingQUnites /></ProtectedRoute>}
+          />
+          <Route
+            path="putting/questions/lessons=4"
+            element={<ProtectedRoute><PuttingQFLessons /></ProtectedRoute>}
+          />
 
+          <Route
+            path="putting/questions/kinds=5"
+            element={<ProtectedRoute><PuttingKindOfQ /></ProtectedRoute>}
+          />
 
-
-
-           </Route>
-           <Route path="/*" element={<ErrorPage />} />
-
-
-        </Routes>
-      </BrowserRouter>
+          <Route path="mangers" element={<ProtectedRoute><Mangers /></ProtectedRoute>} />
+          <Route path="supervisors" element={<ProtectedRoute><Supervisors/></ProtectedRoute>} />
+        </Route>
+        <Route path="/*" element={<ErrorPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
 export default App;
-
-
-
-

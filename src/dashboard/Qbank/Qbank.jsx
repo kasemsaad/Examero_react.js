@@ -581,7 +581,7 @@ const [allLesson,SetallLesson]=useState([])
 
 
                         <div className='col-12'>
-                            <button className='btn' style={{ backgroundColor: "#FE4F60" }}>أضافه سؤال</button>
+                            <button className='btn' style={{ backgroundColor: "#FE4F60",color:"#ffff" }}>أضافه سؤال</button>
                         </div>
 
                         <div className='col-12 mt-2'>
@@ -717,7 +717,7 @@ const [allLesson,SetallLesson]=useState([])
                 </div>
                 <div className='col-12 mt-4' style={{ direction: "ltr" }}>
                     <div>
-                        <button type='submit' className='btn' style={{ backgroundColor: "#C01F59" }}>حفظ</button>
+                        <button type='submit' className='btn' style={{ backgroundColor: "#C01F59" ,color:"#ffff"}}>حفظ</button>
                     </div>
                 </div>
             </form>

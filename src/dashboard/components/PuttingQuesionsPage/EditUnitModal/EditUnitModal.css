@@ -1,0 +1,7 @@
+@media (min-width: 576px) {
+  .my-mod-edit {
+    max-width: 666px;
+    margin: 6.75rem auto;
+    max-height: 766px;
+  }
+}

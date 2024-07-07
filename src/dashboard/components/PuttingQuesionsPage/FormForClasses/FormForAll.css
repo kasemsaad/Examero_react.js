@@ -1,0 +1,66 @@
+/* FormForAll.css */
+.form-container-putt {
+  display: flex;
+  justify-content: space-around;
+  height: auto;
+}
+.MyForm {
+  height: auto;
+  border-radius: 16.28px;
+  background-color: #1d195d;
+  width: 54%;
+}
+.form-group-putt {
+  flex: 1;
+  margin: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.form-control-putt {
+  width: 100%;
+}
+
+.button-container-putt {
+  width: 34%;
+  display: flex;
+  height: 67px;
+  align-items: flex-end;
+  justify-content: center;
+}
+/* .form-group-putt label {
+  margin-bottom: 4px !important;
+} */
+.my-button {
+  width: 6rem;
+  height: auto;
+  color: white;
+  border: none;
+  background-color: #c01f59;
+  border-radius: 12.65px;
+  padding: 5px;
+}
+@media (max-width: 630px) {
+  .button-container-putt {
+    height: 52px;
+    width: 34%;
+  }
+  .my-button {
+    width: 5rem;
+  }
+  .MyForm {
+    width: 23rem;
+  }
+}
+@media (max-width: 370px) {
+  .form-container-putt {
+    width: 100%;
+  }
+  .form-group-putt {
+    width: 100%;
+  }
+  .my-button {
+    width: 4rem;
+  }
+}

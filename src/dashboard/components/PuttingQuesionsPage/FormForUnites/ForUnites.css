@@ -1,0 +1,126 @@
+.formUnits {
+  height: 75px;
+  border-radius: 13.97px;
+  background-color: #1d195d !important;
+}
+.form-container-unite {
+  height: 50px;
+  gap: 10px;
+  margin-right: 9px;
+}
+.raw-ques {
+  gap: 8px;
+}
+.select-ques1,
+.select-ques2 {
+  margin: 0 !important;
+  height: 34px;
+  font-size: 14px;
+  font-weight: 500;
+}
+.div-ques2,
+.div-ques1 {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.input-ques {
+  display: flex;
+  width: 30%;
+  flex-direction: column;
+  align-content: flex-start;
+  justify-content: center;
+}
+.iiner-button-div {
+  height: 15%;
+}
+/* .button-container-ques {
+  display: flex;
+  align-items: center;
+} */
+.all-inp {
+  gap: 5px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.my-button-ques {
+  width: 6rem;
+  height: auto;
+  color: white;
+  border: none;
+  background-color: #c01f59;
+  border-radius: 12.65px;
+  padding: 5px;
+}
+.button-container-quese {
+  display: flex;
+  align-items: center;
+
+  height: 94px !important;
+}
+.inner-raw {
+  gap: 20px;
+  display: flex;
+}
+.raw-ques {
+  flex-direction: row;
+}
+@media (max-width: 700px) {
+  .form-container-unite {
+    flex-direction: column;
+  }
+  .formUnits {
+    height: 175px;
+  }
+  .select-ques1,
+  .select-ques2 {
+    font-size: 12px;
+    height: 28px;
+  }
+  .select-ques1,
+  .select-ques2,
+  .input-ques,
+  .iput1 {
+    font-size: 12px;
+    height: 41px;
+    display: flex;
+    flex-direction: row;
+  }
+  .div-ques2,
+  .div-ques1 {
+    display: flex !important;
+    flex-direction: row;
+  }
+  .inner-raw {
+    display: flex;
+    flex-wrap: wrap;
+    width: 75%;
+    margin-top: 15px;
+    gap: 10px;
+  }
+  .wrape-inpu {
+    display: block;
+  }
+  .row-fel {
+    flex-direction: column;
+  }
+  .button-container-quese {
+    display: flex;
+    align-items: center;
+    height: 157px !important;
+  }
+  .input-ques,
+  .div-ques1,
+  .div-ques2,
+  .button-container-ques {
+    width: 94%;
+  }
+  .button-container-ques {
+    display: flex;
+    height: 90px;
+  }
+  .button-container-ques {
+    align-items: flex-start;
+  }
+}
