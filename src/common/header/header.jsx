@@ -55,14 +55,17 @@ function Header() {
         console.error("Error fetching subjects data:");
       });
   };
-  const getRefreshstudent = async () => {
-    await Api_website.get(`/students/refresh`)
-      .then((response) => {
-        let name_image = response.data.User.media.name;
-        console.log(name_image);
-        SetpersonalStudent(name_image);
-      })
-      .catch((error) => {
+
+
+
+const getRefreshstudent = async()=>{
+ await Api_website.get(`/students/refresh`)
+    .then(response => {
+      let name_image = response.data.User.media.name
+      console.log(name_image)
+      SetpersonalStudent(name_image);
+    })
+    .catch(error => {
         console.error("Error fetching student data:");
       });
   };
@@ -71,6 +74,7 @@ function Header() {
     getRefresh();
     getRefreshstudent();
   }, [personalDashboard]);
+
   return (
     <>
       <div
@@ -222,14 +226,15 @@ function Header() {
         >
           <img
             style={{ objectFit: "cover" }}
+
+            
             src={
-              location.pathname.startsWith("/dashboard")
-                ? `${Api_dashboard.defaults.baseURL}/assets/Admin/${personalDashboard}`
-                : location.pathname.startsWith("/student")
-                ? `${Api_dashboard.defaults.baseURL}/assets/Student/${personalStudent}`
-                : // location.pathname.startsWith('/teacher')? `${Api_dashboard.defaults.baseURL}/assets/Student/${personalStudent}`:
-                  ""
-            }
+              
+              location.pathname.startsWith('/dashboard')? `${Api_dashboard.defaults.baseURL}/assets/Admin/${personalDashboard}`:
+              location.pathname.startsWith('/student')? `${Api_dashboard.defaults.baseURL}/assets/Student/${personalStudent}`:
+              // location.pathname.startsWith('/teacher')? `${Api_dashboard.defaults.baseURL}/assets/Student/${personalStudent}`:
+""  
+                        }
             width="100%"
             height="100%"
             alt="Personal"
@@ -239,34 +244,7 @@ function Header() {
           />
         </div>
       </div>
-
-      {/*
-<div style={{maxWidth: "60%", color:"white",
-backgroundColor:"#0E0A43", marginLeft: "64px", borderRadius: "10px", position: "relative",top: "20px"}}>
-
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium repellendus architecto esse, consectetur fugiat fugit quas ipsa, possimus rerum magnam veniam. Ex fuga maiores quasi recusandae inventore ut quaerat error!</p>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium repellendus architecto esse, consectetur fugiat fugit quas ipsa, possimus rerum magnam veniam. Ex fuga maiores quasi recusandae inventore ut quaerat error!</p>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium repellendus architecto esse, consectetur fugiat fugit quas ipsa, possimus rerum magnam veniam. Ex fuga maiores quasi recusandae inventore ut quaerat error!</p>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium repellendus architecto esse, consectetur fugiat fugit quas ipsa, possimus rerum magnam veniam. Ex fuga maiores quasi recusandae inventore ut quaerat error!</p>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium repellendus architecto esse, consectetur fugiat fugit quas ipsa, possimus rerum magnam veniam. Ex fuga maiores quasi recusandae inventore ut quaerat error!</p>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium repellendus architecto esse, consectetur fugiat fugit quas ipsa, possimus rerum magnam veniam. Ex fuga maiores quasi recusandae inventore ut quaerat error!</p>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium repellendus architecto esse, consectetur fugiat fugit quas ipsa, possimus rerum magnam veniam. Ex fuga maiores quasi recusandae inventore ut quaerat error!</p>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium repellendus architecto esse, consectetur fugiat fugit quas ipsa, possimus rerum magnam veniam. Ex fuga maiores quasi recusandae inventore ut quaerat error!</p>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium repellendus architecto esse, consectetur fugiat fugit quas ipsa, possimus rerum magnam veniam. Ex fuga maiores quasi recusandae inventore ut quaerat error!</p>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium repellendus architecto esse, consectetur fugiat fugit quas ipsa, possimus rerum magnam veniam. Ex fuga maiores quasi recusandae inventore ut quaerat error!</p>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium repellendus architecto esse, consectetur fugiat fugit quas ipsa, possimus rerum magnam veniam. Ex fuga maiores quasi recusandae inventore ut quaerat error!</p>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium repellendus architecto esse, consectetur fugiat fugit quas ipsa, possimus rerum magnam veniam. Ex fuga maiores quasi recusandae inventore ut quaerat error!</p>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium repellendus architecto esse, consectetur fugiat fugit quas ipsa, possimus rerum magnam veniam. Ex fuga maiores quasi recusandae inventore ut quaerat error!</p>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium repellendus architecto esse, consectetur fugiat fugit quas ipsa, possimus rerum magnam veniam. Ex fuga maiores quasi recusandae inventore ut quaerat error!</p>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium repellendus architecto esse, consectetur fugiat fugit quas ipsa, possimus rerum magnam veniam. Ex fuga maiores quasi recusandae inventore ut quaerat error!</p>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium repellendus architecto esse, consectetur fugiat fugit quas ipsa, possimus rerum magnam veniam. Ex fuga maiores quasi recusandae inventore ut quaerat error!</p>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium repellendus architecto esse, consectetur fugiat fugit quas ipsa, possimus rerum magnam veniam. Ex fuga maiores quasi recusandae inventore ut quaerat error!</p>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium repellendus architecto esse, consectetur fugiat fugit quas ipsa, possimus rerum magnam veniam. Ex fuga maiores quasi recusandae inventore ut quaerat error!</p>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium repellendus architecto esse, consectetur fugiat fugit quas ipsa, possimus rerum magnam veniam. Ex fuga maiores quasi recusandae inventore ut quaerat error!</p>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium repellendus architecto esse, consectetur fugiat fugit quas ipsa, possimus rerum magnam veniam. Ex fuga maiores quasi recusandae inventore ut quaerat error!</p>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium repellendus architecto esse, consectetur fugiat fugit quas ipsa, possimus rerum magnam veniam. Ex fuga maiores quasi recusandae inventore ut quaerat error!</p>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium repellendus architecto esse, consectetur fugiat fugit quas ipsa, possimus rerum magnam veniam. Ex fuga maiores quasi recusandae inventore ut quaerat error!</p>
-</div> */}
+     
     </>
   );
 }

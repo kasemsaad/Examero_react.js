@@ -119,7 +119,8 @@ export default function PlansTeacher() {
 
     // ******get acc id edit and update ******************8 
     const handeledit = async(row)=>{
-      console.log(row.id);
+      document.body.style.overflow = '';
+
       await Api_Dashboard.get(`/plans/${row.id}`).then((response)=>{
       SetId(row.id)
       getAllTeacherPlan()
@@ -143,8 +144,9 @@ export default function PlansTeacher() {
       for_student:0  
       }).then((response)=>{
 console.log(response.data);
-// const modalElement = document.getElementById('add_connect_Teacher');
-// modalElement.style.display = "none"
+const modalElement = document.getElementById('add_connect_Teacher');
+modalElement.style.display = "none"
+
 getAllTeacherPlan()
 setTimeout((()=>{
 
@@ -176,6 +178,8 @@ setTimeout((()=>{
 
     // delete connect 
     const getDeletedObject = (row)=>{
+      document.body.style.overflow = '';
+
       SetdeleteId(row.id)
       console.log(deleteId)
     }
@@ -196,6 +200,7 @@ setTimeout((()=>{
 
       //********* */ add connect post *************8
       const addConnect =async(event)=>{
+        document.body.style.overflow = '';
         event.preventDefault();
       await  Api_Dashboard.post('/plans',{
         name:InputEditTeacher.name,
@@ -207,10 +212,8 @@ setTimeout((()=>{
         }).then((response)=>{
            const modalElement = document.getElementById('add_connect_Teacher_add');
            modalElement.style.display = "none"
-           notify("mostafa")
+           notify("successs")
           getAllTeacherPlan()
-
-      
 
 
         }).catch((err)=>{
@@ -416,7 +419,8 @@ setTimeout((()=>{
 
                 <div className='mt-5' style={{textAlign:"center",display:"flex",justifyContent:"center"}}>
                   <div className='submitButton'>
-                <button data-bs-dismiss={modalDissmiss} type="submit" className="btn btn-primary">حفظ</button>
+                <button  type="submit" className="btn btn-primary">حفظ</button>
+
                 </div>
                 <div style={{marginRight:"30px"}}>
                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>

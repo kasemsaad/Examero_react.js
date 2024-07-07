@@ -73,6 +73,8 @@ export default function PlansStudent() {
       }));
     };
     const handlemodal = async(event) => {
+      document.body.style.overflow = '';
+
       event.preventDefault();
       await Api_Dashboard.post(`/plans/${editId}`,{
       name:InputEditTeacher.name,
@@ -95,6 +97,8 @@ export default function PlansStudent() {
 
     //********* */ add connect post *************8
     const addConnect =async(event)=>{
+      document.body.style.overflow = '';
+
       event.preventDefault();
     await  Api_Dashboard.post('/plans',{
       name:InputEditTeacher.name,
@@ -114,6 +118,7 @@ export default function PlansStudent() {
 
 // ****** edit and update ******************8 
     const handeledit = async(row)=>{
+      document.body.style.overflow = '';
       console.log(row.id);
       await Api_Dashboard.get(`/plans/${row.id}`).then((response)=>{
       SetId(row.id)
@@ -134,6 +139,7 @@ export default function PlansStudent() {
 
     // delete connect 
     const getDeletedObject = (row)=>{
+      document.body.style.overflow = '';
       SetdeleteId(row.id)
       // console.log(deleteId)
     }
