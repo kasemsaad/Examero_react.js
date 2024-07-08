@@ -2,11 +2,40 @@ import React, { useState, useEffect, useMemo } from "react";
 import Api_Dashboard from "../../../interceptor/interceptorDashboard";
 import { MultiSelect } from "react-multi-select-component";
 import "./EditSubjectModal.css";
+import { toast, ToastContainer } from "react-toastify";
 const EditSubjectModal = ({
   rowDataOfSubjects,
   fetchAllData,
   activeClasses,
 }) => {
+  const notify = (AlertPointSuccess) => {
+    toast.success(AlertPointSuccess, {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
+
+  const Errornotify = (AlertPoint) => {
+    toast.error(AlertPoint, {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
+
+  const [AlertPoint, SetAlertPoint] = useState("");
+  const [AlertPointSuccess, SetAlertPointSuccess] = useState("");
   const [selectedFlavors, setSelectedFlavors] = useState([]);
   const [errors, setErrors] = useState(true);
   const element = document.getElementById("editSubjectModal");
@@ -66,15 +95,21 @@ const EditSubjectModal = ({
 
   const handelEdit = async (editClass) => {
     if (rowDataOfSubjects) {
-      document.body.style.removeProperty("overflow")
+      document.body.style.removeProperty("overflow");
+
       await Api_Dashboard.post(`/subjects/${rowDataOfSubjects.id}`, editClass)
         .then((response) => {
-          // element.style.display = "none";
-          setModal("modal");
+          let x = response.data.message;
+          SetAlertPointSuccess(x);
+          notify("تم تعديل المبحث بنجاح ");
+          element.style.display = "none";
           fetchAllData();
         })
         .catch((err) => {
           setErrors(err.response.data.errors);
+          let x = err.response.data.message;
+          SetAlertPoint(x);
+          Errornotify(x);
         });
     }
   };
@@ -131,7 +166,7 @@ const EditSubjectModal = ({
                 className="modal-title"
                 id="exampleModalLabel"
               >
-                تعديل الصف
+                تعديل المبحث
               </h5>
             </div>
 
@@ -149,9 +184,10 @@ const EditSubjectModal = ({
                         display: "flex",
                         height: "68px",
                         flexDirection: "column",
+                        justifyContent: "center",
                       }}
                     >
-                      <label htmlFor="name">اسم الصف</label>
+                      <label htmlFor="name">اسم المبحث</label>
                       <input
                         placeholder="أدخل أسم المبحث الجديد هنا"
                         name="name"
@@ -176,12 +212,12 @@ const EditSubjectModal = ({
                       </label>
                       {newData && (
                         <MultiSelect
-                          style={{ width: "50px" }}
+                          style={{ width: "50px", backgroundColor: "black" }}
                           name="groups"
                           value={selectedFlavors}
                           options={newData}
                           onChange={handleMultiSelectChange}
-                          className="multi-select-lib-2"
+                          className="multi-select-lib-edit-2"
                         />
                       )}
                       <span style={{ color: "red" }}>{errors.groupId}</span>
@@ -238,7 +274,7 @@ const EditSubjectModal = ({
                       <button
                         type="button"
                         className="btn btn-secondary"
-                        data-bs-dismiss={modal}
+                        data-bs-dismiss="modal"
                         style={{
                           borderRadius: "30px",
                           color: "#FE4F60",

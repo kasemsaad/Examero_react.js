@@ -40,14 +40,9 @@ const PuttingQFLessons = () => {
     const response = await Api_Dashboard.get(`/lessons?page=${currentPage}`)
       .then((response) => {
         setLessons(response.data.data);
-        console.log(response);
         setMetaFPagination(response.data.meta.pagination);
-        console.log(response.data.meta.pagination);
       })
-      .catch((err) => {
-        console.log(err);
-        console.log(err.response.errors);
-      });
+      .catch((err) => {});
   };
   useEffect(() => {
     fetchAllLessons();
@@ -75,22 +70,15 @@ const PuttingQFLessons = () => {
       return [];
     }
   }, [lessons]);
-  console.log(toggllValue);
-  console.log(newLessons);
   const fetchSelectedLessonById = async (Data) => {
-    console.log(Data);
     if (Data) {
       await Api_Dashboard.get(`/lessons/${Data.id}`)
         .then((response) => {
           setRowDataOfLesson(response.data.data);
-          console.log(response.data.data);
           fetchSubjectByIdOfClass(response.data.data.unit.group.id);
           fetchUnitsBySubjectId(response.data.data.unit.subject.id);
-
-          console.log(response.data.data);
         })
         .catch((err) => {
-          console.log(err);
           setErrors(err);
         });
     }
@@ -99,37 +87,28 @@ const PuttingQFLessons = () => {
     const respons = await Api_Dashboard.get("/groups/selection")
       .then((response) => {
         setActiveClasses(response.data.data);
-        console.log(response);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
   useEffect(() => {
     fetchAllActiveClasses();
   }, []);
   const fetchSubjectByIdOfClass = async (classId) => {
-    console.log(classId);
     if (classId) {
       const response = await Api_Dashboard.get(`/subjects/selection/${classId}`)
         .then((response) => {
           setActiveSubject(response.data.data);
-          console.log(response);
           // fetchUnitsBySubjectId(response.data.data.id);
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        .catch((err) => {});
     }
   };
 
   const fetchUnitsBySubjectId = async (subjectId) => {
-    console.log(subjectId);
     if (subjectId) {
       const response = await Api_Dashboard.get(`/units/selection/${subjectId}`)
         .then((response) => {
           setActiveUnits(response.data.data);
-          console.log(response);
         })
         .catch((err) => {
           console.log(err);
@@ -191,8 +170,9 @@ const PuttingQFLessons = () => {
         </div>
         <FooterFPuttingQ next={"التالي"} prev={"السابق"} />
         <DeleteUserModal
+          content={"هذا الدرس"}
           fetchAllData={fetchAllLessons}
-          api={"Lesson"}
+          api={"lessons"}
           idOfDeleteItem={DeletedItem}
         />
         <EditLessonModal

@@ -3,6 +3,7 @@ import MyButton from "../../../../common/Button/Button";
 import "./FormFPMaba7s.css";
 import Api_Dashboard from "../../../interceptor/interceptorDashboard";
 import { MultiSelect } from "react-multi-select-component";
+import { toast, ToastContainer } from "react-toastify";
 const FormForMaba7s = ({ activeClasses, fetchAllData }) => {
   const [formData, setFormData] = useState({ name: "", groupIds: "" });
   const [subjectErrors, setSubjectErrors] = useState("");
@@ -17,6 +18,36 @@ const FormForMaba7s = ({ activeClasses, fetchAllData }) => {
       }));
     }
   }, [activeClasses]);
+
+  const notify = (AlertPointSuccess) => {
+    toast.success(AlertPointSuccess, {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
+
+  const Errornotify = (AlertPoint) => {
+    toast.error(AlertPoint, {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
+
+  const [AlertPoint, SetAlertPoint] = useState("");
+  const [AlertPointSuccess, SetAlertPointSuccess] = useState("");
+
   const [error, setError] = useState("");
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -33,12 +64,16 @@ const FormForMaba7s = ({ activeClasses, fetchAllData }) => {
       if (data) {
         await Api_Dashboard.post("/subjects", data)
           .then((response) => {
-            console.log(data);
-            console.log(response);
+            let x = response.data.message;
+            SetAlertPointSuccess(x);
+            notify("تم اضافة المبحث بنجاح ");
 
             fetchAllData();
           })
           .catch((err) => {
+            let x = err.response.data.message;
+            SetAlertPoint(x);
+            Errornotify(x);
             setError(err.response.data.errors.name);
           });
       }
@@ -112,6 +147,7 @@ const FormForMaba7s = ({ activeClasses, fetchAllData }) => {
           />
         </div>
       </div>
+      <ToastContainer position="top-center" />
     </form>
   );
 };

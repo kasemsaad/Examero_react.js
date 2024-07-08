@@ -12,7 +12,7 @@ import DeleteUserModal from "../../components/UsersPages/DeletUserModal/DeleteUs
 const PuttingKindOfQ = () => {
   let header = {
     name1: "نوع السؤال",
-    name2: "حالة الؤال",
+    name2: "حالة السؤال",
     name3: "الخصائص",
   };
 
@@ -30,14 +30,9 @@ const PuttingKindOfQ = () => {
     )
       .then((response) => {
         setTypeOfQuesions(response.data.data);
-        console.log(response);
         setMetaFPagination(response.data.meta.pagination);
-
-        console.log(response.data.meta.pagination);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
   useEffect(() => {
     fetchAllKQuestons();
@@ -108,6 +103,7 @@ const PuttingKindOfQ = () => {
             setCurrentPage={(page) => setCurrentPage(page)}
           />
           <DeleteUserModal
+            content={"السؤال"}
             fetchAllData={fetchAllKQuestons}
             api={"questions-type"}
             idOfDeleteItem={DeletedItem}

@@ -58,6 +58,7 @@ function Header() {
 
 
 
+
 const getRefreshstudent = async()=>{
  await Api_website.get(`/students/refresh`)
     .then(response => {
@@ -227,6 +228,7 @@ const getRefreshstudent = async()=>{
           <img
             style={{ objectFit: "cover" }}
 
+
             
             src={
               
@@ -244,7 +246,7 @@ const getRefreshstudent = async()=>{
           />
         </div>
       </div>
-     
+
     </>
   );
 }

@@ -10,6 +10,8 @@ import DeleteUserModal from "../../components/UsersPages/DeletUserModal/DeleteUs
 import FooterOfUserFP from "../../components/UsersPages/FooterOfUsers/FooterOfUsers";
 import SendMessage from "../../components/UsersPages/SendMessageModal.jsx/SendMessageModal";
 import ShowUserModal from "../../components/UsersPages/ShowUserModal/ShowUser";
+import { useLocation } from "react-router-dom";
+
 const Supervisors = () => {
   // header of the table
   let header = {
@@ -30,6 +32,9 @@ const Supervisors = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [idOfDeleteItem, setIdOfDeleteItem] = useState("");
   const [showSuperData, setShowSuperData] = useState("");
+  const punish = true;
+  const { pathname } = useLocation();
+
 
   const handelMessage = (row) => {
     setSuperIdForSendMessage(row);
@@ -111,7 +116,13 @@ const Supervisors = () => {
         <HeaderNotificaion content={"مشرفين الموقع"} />
         <div style={{ width: "85%", margin: "auto" }} className=" cont ">
           {/* Start Arrow for navigate */}
-          <ArrowForUsers />
+          <ArrowForUsers
+            pathname1={pathname}
+            name1={"مديرو الموقع"}
+            name2={"المشرفين"}
+            loc2={"/dashboard/supervisors"}
+            loc1={"/dashboard/mangers"}
+          />
           {/* Arrow end  */}
 
           {/* Start the search and add component */}
@@ -167,6 +178,7 @@ const Supervisors = () => {
             fetchAllData={fetchAllData}
           />
           <DeleteUserModal
+            content={"هذا المشرف"}
             api={"supervisors"}
             fetchAllData={fetchAllData}
             idOfDeleteItem={idOfDeleteItem}
@@ -174,7 +186,12 @@ const Supervisors = () => {
         </div>
         <ShowUserModal content={"المشرف"} userData={showSuperData} />
 
-        <SendMessage api={"/points/"} mangerID={superIdForSendMessage} />
+        <SendMessage
+          punish={punish}
+          api={"/points/"}
+          mangerID={superIdForSendMessage}
+        />
+
       </div>
     </>
   );

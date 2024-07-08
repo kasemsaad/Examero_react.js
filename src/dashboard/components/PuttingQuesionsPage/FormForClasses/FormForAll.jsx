@@ -3,13 +3,46 @@ import MyButton from "../../../../common/Button/Button";
 import "./FormForAll.css";
 import Api_Dashboard from "../../../interceptor/interceptorDashboard";
 import { useForm } from "react-hook-form";
+// import "react-toastify/dist/ReactToastify.css";
+
+import { toast, ToastContainer } from "react-toastify";
 const FormForAll = ({ fetchAllData }) => {
   // const [classData, setClassData] = useState("");
   // const handelValue = (e) => {
   //   console.log(e.target.value);
   //   setClassData(e.target.value);
   // };
+  const notify = (AlertPointSuccess) => {
+    toast.success(AlertPointSuccess, {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
+
+  const Errornotify = (AlertPoint) => {
+    toast.error(AlertPoint, {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
+
+  const [AlertPoint, SetAlertPoint] = useState("");
+  const [AlertPointSuccess, SetAlertPointSuccess] = useState("");
+
   const [classErrors, setClassErrors] = useState("");
+
   const {
     register,
     handleSubmit,
@@ -19,12 +52,18 @@ const FormForAll = ({ fetchAllData }) => {
   const handleRegistration = async (data) => {
     await Api_Dashboard.post("/groups", data)
       .then((response) => {
+        let x = response.data.message;
+        SetAlertPointSuccess(x);
+        console.log("Mosafa");
+        notify("تم اضافة الصف بنجاح ");
         fetchAllData();
       })
       .catch((err) => {
         setClassErrors(err.response.data.errors);
+        let x = err.response.data.message;
+        SetAlertPoint(x);
+        Errornotify(x);
       });
-    console.log();
   };
   const registerOptions = {
     name: { required: "يرجى ادخال اسم الصف", classErrors },
@@ -58,6 +97,7 @@ const FormForAll = ({ fetchAllData }) => {
         <div className="button-container-putt">
           <MyButton className="my-button" content="إضافة" type={"submit"} />
         </div>
+        <ToastContainer position="top-center" />
       </form>
     </>
   );

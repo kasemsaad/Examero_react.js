@@ -2,12 +2,42 @@ import React, { useState } from "react";
 import "./ForUnites.css";
 import MyButton from "../../../../common/Button/Button";
 import Api_Dashboard from "../../../interceptor/interceptorDashboard";
+import { toast, ToastContainer } from "react-toastify";
 const FormForPQUnits = ({
   fetchAllUnits,
   activeClasses,
   handelSelectedClass,
   activeSubjects,
 }) => {
+  const notify = (AlertPointSuccess) => {
+    toast.success(AlertPointSuccess, {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
+
+  const Errornotify = (AlertPoint) => {
+    toast.error(AlertPoint, {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
+
+  const [AlertPoint, SetAlertPoint] = useState("");
+  const [AlertPointSuccess, SetAlertPointSuccess] = useState("");
+
   const [errors, setErrors] = useState("");
   const man = "Rady";
   const handelSubmit = (e) => {
@@ -26,12 +56,16 @@ const FormForPQUnits = ({
       if (data) {
         await Api_Dashboard.post("/units", data)
           .then((response) => {
-            console.log(data);
-            console.log(response);
+            let x = response.data.message;
+            SetAlertPointSuccess(x);
+            notify("تم اضافة الوحده بنجاح ");
 
             fetchAllUnits();
           })
           .catch((err) => {
+            let x = err.response.data.message;
+            SetAlertPoint(x);
+            Errornotify(x);
             setErrors(err.response.data.errors);
           });
       }
@@ -158,6 +192,7 @@ const FormForPQUnits = ({
               </div>
             </div>
           </div>
+          <ToastContainer position="top-center" />
         </form>
       </div>
     </>

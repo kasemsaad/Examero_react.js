@@ -100,10 +100,12 @@ const ShowUserModal = ({ content, userData }) => {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td className="td-show-mod">البلد</td>
-                      <td className="td-show-mod2">{userData.governorate}</td>
-                    </tr>
+                    {userData.governorate && (
+                      <tr>
+                        <td className="td-show-mod">البلد</td>
+                        <td className="td-show-mod2">{userData.governorate}</td>
+                      </tr>
+                    )}
                     <tr>
                       <td className="td-show-mod">البريد</td>
                       <td className="td-show-mod2">{userData.email}</td>
