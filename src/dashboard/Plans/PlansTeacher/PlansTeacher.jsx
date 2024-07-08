@@ -3,7 +3,8 @@ import Api_Dashboard from '../../interceptor/interceptorDashboard'
 import Plans from '../Plans'
 import image from "./../../../assets/image/High Importance.svg"
 import './PlansTeacher.css'
-import { ToastContainer, toast } from 'react-toastify'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function PlansTeacher() {
     const [allTeacherPlanData,SetallTeacherPlanData]=useState([])
@@ -120,7 +121,6 @@ export default function PlansTeacher() {
     // ******get acc id edit and update ******************8 
     const handeledit = async(row)=>{
       document.body.style.overflow = '';
-
       await Api_Dashboard.get(`/plans/${row.id}`).then((response)=>{
       SetId(row.id)
       getAllTeacherPlan()
@@ -146,13 +146,14 @@ export default function PlansTeacher() {
 console.log(response.data);
 const modalElement = document.getElementById('add_connect_Teacher');
 modalElement.style.display = "none"
+notify(" تمت التعديل بنجاح ")
+
 
 getAllTeacherPlan()
 setTimeout((()=>{
 
   SetmodalDissmiss('modal')
 }),300)
-// SetmodalDissmiss('')
 
 
       }).catch((err)=>{
@@ -212,8 +213,8 @@ setTimeout((()=>{
         }).then((response)=>{
            const modalElement = document.getElementById('add_connect_Teacher_add');
            modalElement.style.display = "none"
-           notify("successs")
-          getAllTeacherPlan()
+           getAllTeacherPlan()
+           notify("تمت الاضافه بنجاح")
 
 
         }).catch((err)=>{
@@ -227,10 +228,19 @@ setTimeout((()=>{
     },[current_page])
   return (
     <>
-                <ToastContainer position='top-center' />
 
-        <Plans  totalPages={totalPages} current_page={current_page} next={handelNext} handelPrev={handelPrev}  dataRender={allTeacherPlanData} dataConnect={"البيانات الباقات المعلمين"} edit={"#add_connect_Teacher"} delete={"#deleteElementModal_teacher_dash"}  handel={(row)=>handeledit(row)} Deletehandel={(row)=>getDeletedObject(row)} nameOfPageModalTarget={"#add_connect_Teacher_add"}/>
+        <Plans  totalPages={totalPages}
+         current_page={current_page} 
+         next={handelNext} handelPrev={handelPrev} 
+          dataRender={allTeacherPlanData}
+           dataConnect={"البيانات الباقات المعلمين"} 
+           edit={"#add_connect_Teacher"} delete={"#deleteElementModal_teacher_dash"} 
+            handel={(row)=>handeledit(row)}
+             Deletehandel={(row)=>getDeletedObject(row)} 
+             nameOfPageModalTarget={"#add_connect_Teacher_add"}/>
 {/* edit modal */}
+<ToastContainer position='top-left' />
+
         <div
       className="modal fade"
       id="add_connect_Teacher"
@@ -642,6 +652,7 @@ setTimeout((()=>{
           </div>
         </div>
       </div>
+
     </div>
 
 

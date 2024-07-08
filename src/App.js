@@ -74,6 +74,7 @@ import MangersActivity from "./dashboard/Notification/mangers.activity/mangersAc
 import AllActivity from "./dashboard/Notification/supervisorsActivity/AllActivity.jsx";
 import QbankDetails from './dashboard/QbankDetails/QbankDetails.jsx';
 import QbankEditing from './dashboard/QbankDetails/QbankEditing/qbankEditing.jsx';
+import Certify from "./dashboard/newCertify/certify.jsx";
 function App(props) {
   return (
 
@@ -164,7 +165,7 @@ function App(props) {
             }
           />
           <Route path="b" element={ <ProtectedRoute><AccountSetting /></ProtectedRoute>} />
-          <Route path="certify" element={  <ProtectedRoute><CertificateGenerator />  </ProtectedRoute>} />
+          <Route path="certify" element={  <ProtectedRoute><Certify />  </ProtectedRoute>} />
           <Route path="qbank" element={  <ProtectedRoute><Qbank /></ProtectedRoute>} />
           <Route path="specify" element={ <ProtectedRoute><Specification /></ProtectedRoute>} />
           <Route path="PlansTeacher" element={ <ProtectedRoute><PlansTeacher /></ProtectedRoute>} />

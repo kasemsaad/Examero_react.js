@@ -156,12 +156,14 @@ export default function PlansStudent() {
 
     useEffect(()=>{
         getAllTeacherPlan()
-    },[])
+    },[current_page])
     
     const getAllTeacherPlan= async ()=>{
-      await Api_Dashboard.get('/plans/student').then((response)=>{
+      await Api_Dashboard.get(`/plans/student?page=${current_page}`).then((response)=>{
         console.log(response.data.data );
             SetallStudentPlanData(response.data.data)
+            Setpagination(response.data.meta.pagination)
+
         }).catch((err)=>{
             console.log(err);
         })
@@ -177,7 +179,11 @@ export default function PlansStudent() {
     handel={(row)=>handeledit(row)}
     Deletehandel={(row)=>getDeletedObject(row)} 
     nameOfPageModalTarget={"#add_connect_student_add"} 
-    next={handelNext} handelPrev={handelPrev}
+    next={handelNext}
+     handelPrev={handelPrev}
+     current_page={current_page} 
+     totalPages={totalPages}
+
     
     />
    
@@ -255,12 +261,13 @@ export default function PlansStudent() {
                         </button>
                       </div>
                       <input
-                        type="text"
+                        type="number"
                         className="form-control text-center"
                         id="price"
                         name='price'
                         value={InputEditTeacher.price}
                         onChange={(e)=>getEditingInputs(e)}
+                        min={1}
                         
                       />
                       <div className="input-group-append">
@@ -287,11 +294,13 @@ export default function PlansStudent() {
                         </button>
                       </div>
                       <input
-                        type="text"
+                        type="number"
                         className="form-control text-center"
                         id="allow_exam"
                         name='allow_exam'
                         value={InputEditTeacher.allow_exam}
+                        min={1}
+
                         
                         onChange={(e)=>getEditingInputs(e)}
 
@@ -320,12 +329,14 @@ export default function PlansStudent() {
                         </button>
                       </div>
                       <input
-                        type="text"
+                        type="number"
                         className="form-control text-center"
                         id="allow_question"
                         name='allow_question'
                         value={InputEditTeacher.allow_question}
                         onChange={(e)=>getEditingInputs(e)}
+                        min={1}
+
 
                       />
                       <div className="input-group-append">
@@ -504,6 +515,8 @@ export default function PlansStudent() {
                         name='price'
                         value={InputEditTeacher.price}
                         onChange={(e)=>getEditingInputs(e)}
+                        min={1}
+
                         
                       />
                       <div className="input-group-append">
@@ -537,6 +550,8 @@ export default function PlansStudent() {
                         value={InputEditTeacher.allow_exam}
                         
                         onChange={(e)=>getEditingInputs(e)}
+                        min={1}
+
 
                       />
                       <div className="input-group-append">
@@ -568,7 +583,7 @@ export default function PlansStudent() {
                         id="allow_question"
                         name='allow_question'
                         value={InputEditTeacher.allow_question}
-                        
+                        min={1}
                         onChange={(e)=>getEditingInputs(e)}
 
                       />

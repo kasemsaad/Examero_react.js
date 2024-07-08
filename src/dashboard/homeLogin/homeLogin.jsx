@@ -13,6 +13,16 @@ import Api_Dashboard from "../interceptor/interceptorDashboard.jsx";
 
 function HomeDashoardLogin() {
   const navigate = useNavigate();
+  const [showPass,setPass]=useState(false)
+
+  const showPassowrd= ()=>{
+  setPass((prev)=>
+    !prev 
+  )
+  }
+
+
+
 
   let [formData, setFormdata] = useState({
     email: "",
@@ -53,7 +63,7 @@ function HomeDashoardLogin() {
           xxl={6}
           className="d-flex flex-column login-card"
         >
-          <p className="card-title-l1 ">أدخل معلومات تسجيل الدخول </p>
+          <p className="card-title-l1 "> معلومات تسجيل الدخول للأدمن</p>
           <div className="header1-l1">
             <p className="card-title between-borders1-l1">
               {" "}
@@ -125,15 +135,16 @@ function HomeDashoardLogin() {
                 <Form.Control
                   onChange={getUserInput}
                   className="p_pass"
-                  type="password"
+                  type= { showPass ? "text " : "password" }
                   placeholder="أدخل كلمة السر الخاصة بك"
                   name="password"
+
                 />
                 <div className="icon-container password-icon">
                   <img src={passIcon} alt="password icon" />
                 </div>
                 <div className="icon-container lock-icon">
-                  <img src={lockIcon} alt="lock icon" />
+                  <img src={lockIcon} alt="lock icon"  onClick={showPassowrd}/>
                 </div>
               </div>
             </Form.Group>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Api_Dashboard from '../../interceptor/interceptorDashboard'
 import OpenEmis from '../openEmis'
+import ModalDelete, { Notify, NotifyError } from '../../Alert/alertToast'
 
 export default function RecivedEmis() {
   const [openEmisAllData, SetopenEmisAllData] = useState([])
@@ -58,6 +59,9 @@ export default function RecivedEmis() {
     await Api_Dashboard.post(`/open-emis/${editId}`, dataToSend)
       .then((response) => {
         waitingEmisAllData();
+          const modalElement = document.getElementById('recived_open_ems');
+           modalElement.style.display = "none"
+           Notify("تم التعديل بنجاح")
 
         
         SetInputEditWaitinOpenEmis(prevState => ({
@@ -74,6 +78,7 @@ export default function RecivedEmis() {
           note: "",
           status: ""
         }));
+        NotifyError("خطأ في التعديل")
 
         console.log(err);
       });
@@ -81,6 +86,7 @@ export default function RecivedEmis() {
 
 
   const handeledit = async (row) => {
+    document.body.style.overflow = '';
     console.log(row.id);
     await Api_Dashboard.get(`/open-emis/${row.id}`).then((response) => {
       SeteditId(row.id)
@@ -126,8 +132,7 @@ export default function RecivedEmis() {
       //    Deletehandel={(row)=>getDeletedObject(row)}
       //  nameOfPageModalTarget={"#add_connect_Teacher_add"}
       />
-
-
+<ModalDelete/>
 
       <div
         className="modal fade"
@@ -141,7 +146,7 @@ export default function RecivedEmis() {
         <div className="modal-dialog" >
           <div className="modal-content" style={{ backgroundColor: "#1D195D", borderRadius: "20px" }}>
             <div className="modal-header" >
-              <h5 style={{ color: '#FF8A00', margin: "auto" }} className="modal-title" id="exampleModalLabel">إضافة باقة جديدة</h5>
+              <h5 style={{ color: '#FF8A00', margin: "auto" }} className="modal-title" id="exampleModalLabel">اضافه O.E.M.S</h5>
             </div>
 
             <div className="modal-body">
@@ -154,6 +159,7 @@ export default function RecivedEmis() {
                       rows="3" name='note'
                       value={InputEditWaitinOpenEmis.note}
                       onChange={(e) => getEditingInputs(e)}
+                      required
                     > </textarea>
                   </div>
                   <div className="form-group mt-4">
@@ -170,7 +176,7 @@ export default function RecivedEmis() {
                   </div>
                   <div className='mt-5' style={{ textAlign: "center", display: "flex", justifyContent: "center" }}>
                     <div className='submitButton'>
-                      <button data-bs-dismiss="modal" type="submit" className="btn btn-primary">حفظ</button>
+                      <button  type="submit" className="btn btn-primary">حفظ</button>
                     </div>
                     <div style={{ marginRight: "30px" }}>
                       <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
