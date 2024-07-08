@@ -98,7 +98,7 @@ const LogOutDashBoard = ()=>{
               </Link>
             </li>
             <li className={`Icon  ${id === "3" ? "bgIcon":" "}`}>
-            <Link  to="/dashboard/supervisors" onClick={() => setId(3)}>
+            <Link  to="/dashboard/users/teachers" onClick={() => setId(3)}>
             <img style={{ width: 20 , height:20 }} src={account_supervisor_outline} alt="مشرفو الموقع" />
               </Link>
             </li>
@@ -162,7 +162,7 @@ const LogOutDashBoard = ()=>{
               <Link to="/dashboard/mangers" onClick={() => setId(2)} className={`Icon  ${id === "2" ? "Id":" "}`}>مديرو الموقع</Link>
             </li>
             <li className="sidbarli">
-            <Link to="/dashboard/supervisors" onClick={() => setId(3)} className={`Icon  ${id === "3" ? "Id":" "}`}> المستخدمين</Link>
+            <Link to="/dashboard/users/teachers" onClick={() => setId(3)} className={`Icon  ${id === "3" ? "Id":" "}`}> المستخدمين</Link>
             </li>
             <li className="sidbarli">
             <Link to="/dashboard/planstudent" onClick={() => setId(4)} className={`Icon  ${id === "4" ? "Id":" "}`}>باقات الاشتراك</Link>

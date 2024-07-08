@@ -3,6 +3,7 @@ import Plans from '../Plans'
 import Api_Dashboard from '../../interceptor/interceptorDashboard'
 import image from "./../../../assets/image/High Importance.svg"
 import "./PlansStudent.css"
+import ModalDelete, { Notify, NotifyError } from '../../Alert/alertToast'
 
 export default function PlansStudent() {
     const [allStudentPlanData,SetallStudentPlanData]=useState([])
@@ -88,8 +89,10 @@ export default function PlansStudent() {
         const modalElement = document.getElementById('add_connect_Student');
            modalElement.style.display = "none"
         getAllTeacherPlan()
+        Notify("تم التعديل بنجاح")
       }).catch((err)=>{
         console.log(err);
+        NotifyError("حدث خطا اثناء التعديل ")
       })
     };
 
@@ -111,8 +114,12 @@ export default function PlansStudent() {
          const modalElement = document.getElementById('add_connect_student_add');
            modalElement.style.display = "none"
         getAllTeacherPlan()
+        Notify("تم الاضافه بنجاح")
+
       }).catch((err)=>{
         console.log(err);
+        Notify("حدث خطا اتناء الاضافه" )
+
       })
     }
 
@@ -186,6 +193,7 @@ export default function PlansStudent() {
 
     
     />
+    <ModalDelete/>
    
 
 
