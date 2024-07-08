@@ -43,7 +43,6 @@ const PuttingQForMab7as = () => {
           setRowDataOfSubjects(response.data.data);
         })
         .catch((err) => {
-          console.log(err.response.errors);
           setErrors(err);
         });
     }
@@ -56,12 +55,8 @@ const PuttingQForMab7as = () => {
     const respons = await Api_Dashboard.get("/groups/selection")
       .then((response) => {
         setActiveClasses(response.data.data);
-        console.log(response.data.data);
       })
-      .catch((err) => {
-        console.log(err);
-        console.log(err.response.errors);
-      });
+      .catch((err) => {});
   };
   const [subjects, setSubjects] = useState("");
   const [activeClasses, setActiveClasses] = useState("");
@@ -73,12 +68,9 @@ const PuttingQForMab7as = () => {
     const respons = await Api_Dashboard.get(`/subjects?page=${currentPage}`)
       .then((response) => {
         setSubjects(response.data.data);
-        console.log(response.data.data);
         setMetaFPagination(response.data.meta.pagination);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
   const newSubjects = useMemo(() => {
     if (Array.isArray(subjects)) {
@@ -151,11 +143,13 @@ const PuttingQForMab7as = () => {
           <FooterFPuttingQ next={"التالي"} prev={"السابق"} />
         </div>
         <DeleteUserModal
+          content={"هذا المبحث"}
           fetchAllData={fetchAllSubjects}
           api={"subjects"}
           idOfDeleteItem={DeletedItem}
         />
         <EditSubjectModal
+          content={"هذاالمبحث"}
           fetchAllData={fetchAllSubjects}
           rowDataOfSubjects={rowDataOfSubjects}
           activeClasses={activeClasses}

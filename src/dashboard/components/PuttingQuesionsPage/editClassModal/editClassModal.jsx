@@ -1,7 +1,36 @@
 import React, { useState, useEffect } from "react";
 import Api_Dashboard from "../../../interceptor/interceptorDashboard";
+import { toast, ToastContainer } from "react-toastify";
 
 const EditClassModal = ({ rowDataOfClass, fetchAllData }) => {
+  const notify = (AlertPointSuccess) => {
+    toast.success(AlertPointSuccess, {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
+
+  const Errornotify = (AlertPoint) => {
+    toast.error(AlertPoint, {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
+
+  const [AlertPoint, SetAlertPoint] = useState("");
+  const [AlertPointSuccess, SetAlertPointSuccess] = useState("");
   const [errors, setErrors] = useState("");
   const [modal, setModal] = useState("");
 
@@ -9,6 +38,7 @@ const EditClassModal = ({ rowDataOfClass, fetchAllData }) => {
     name: "",
     status: "",
   });
+  const element = document.getElementById("editClassModal");
   // Initialize the state with the values from rowDataOfClass
   useEffect(() => {
     if (rowDataOfClass) {
@@ -34,10 +64,17 @@ const EditClassModal = ({ rowDataOfClass, fetchAllData }) => {
       document.body.style.removeProperty("overflow");
       await Api_Dashboard.post(`/groups/${rowDataOfClass.id}`, editClass)
         .then((response) => {
-          setModal("modal");
+          let x = response.data.message;
+          SetAlertPointSuccess(x);
+          notify("تم تعديل الصف بنجاح ");
+          fetchAllData();
+          element.style.display = "none";
           fetchAllData();
         })
         .catch((err) => {
+          let x = err.response.data.message;
+          SetAlertPoint(x);
+          Errornotify(x);
           setErrors(err.response.data.errors);
         });
     }
@@ -155,7 +192,6 @@ const EditClassModal = ({ rowDataOfClass, fetchAllData }) => {
                   >
                     <div className="submitButton">
                       <button
-                        data-bs-dismiss={modal}
                         type="submit"
                         className="btn btn-primary"
                         style={{
@@ -170,7 +206,6 @@ const EditClassModal = ({ rowDataOfClass, fetchAllData }) => {
                         تعديل
                       </button>
                       <button
-                        type="button"
                         className="btn btn-secondary"
                         data-bs-dismiss="modal"
                         style={{
@@ -186,6 +221,7 @@ const EditClassModal = ({ rowDataOfClass, fetchAllData }) => {
                       </button>
                     </div>
                   </div>
+                  <ToastContainer position="top-center" />
                 </form>
               </div>
             </div>

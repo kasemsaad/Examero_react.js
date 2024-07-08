@@ -2,13 +2,15 @@ import React from "react";
 import image from "../../../../assets/image/High Importance.svg";
 import "./DeleteUserModal.css";
 import Api_Dashboard from "../../../interceptor/interceptorDashboard";
-const DeleteUserModal = ({ idOfDeleteItem, fetchAllData, api }) => {
+const DeleteUserModal = ({ idOfDeleteItem, fetchAllData, api, content }) => {
   const deleteManger = async (idOfDeleteItem) => {
-    document.body.style.removeProperty("overflow");
-    const response = await Api_Dashboard.delete(
-      `/${api}/${idOfDeleteItem}`
-    ).then((response) => {});
-    fetchAllData().catch((err) => {});
+    if (idOfDeleteItem) {
+      document.body.style.removeProperty("overflow");
+      const response = await Api_Dashboard.delete(
+        `/${api}/${idOfDeleteItem}`
+      ).then((response) => {});
+      fetchAllData().catch((err) => {});
+    }
   };
 
   return (
@@ -31,7 +33,7 @@ const DeleteUserModal = ({ idOfDeleteItem, fetchAllData, api }) => {
               >
                 هل أنت متأكد ؟
               </p>
-              <p className="parag"> سيتم حذف هذا العنصر </p>
+              <p className="parag"> سيتم حذف {content} </p>
             </div>
             <div className="modal-footer DElementFooter">
               <button

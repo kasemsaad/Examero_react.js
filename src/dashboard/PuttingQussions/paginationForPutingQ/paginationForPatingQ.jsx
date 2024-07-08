@@ -9,14 +9,12 @@ const PaginationForPuttingQ = ({
 }) => {
   const handelNext = () => {
     if (currentPage === totalPages) return;
-    console.log(currentPage);
     setCurrentPage((currentPage) => currentPage + 1);
   };
 
   // handel prev page
   const handelPrev = () => {
     if (currentPage === 1) return;
-    console.log(currentPage);
 
     setCurrentPage((currentPage) => currentPage - 1);
   };

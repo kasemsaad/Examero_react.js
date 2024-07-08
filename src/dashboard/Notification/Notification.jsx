@@ -40,11 +40,12 @@ const Notification = ({ api, man, all }) => {
 
         {
           man && setNotifiy(response.data.data.data);
-          console.log(response.data.meta.pagination);
+          console.log(response.data.data.data);
           setMetaFPagination(response.data.meta.pagination);
         }
         {
           all && setNotifiy(response.data.data);
+
           setMetaFPagination(response.data.meta.pagination);
         }
       })
@@ -53,9 +54,9 @@ const Notification = ({ api, man, all }) => {
       });
   };
   const deleteNotifications = async (activityIds) => {
-    console.log(JSON.stringify(activityIds));
     await Api_Dashboard.put("/activity", activityIds)
       .then((response) => {
+        setIsChecked([]);
         fetchAllNotfiy();
       })
       .catch((err) => {
@@ -84,7 +85,6 @@ const Notification = ({ api, man, all }) => {
   // const getValues = () => {
   //   console.log(isChecked);
   // };
-  const check = isChecked.length;
 
   return (
     <>
@@ -93,7 +93,7 @@ const Notification = ({ api, man, all }) => {
 
         <div className="parent">
           <ArrowNotification />
-          {check > 0 && (
+          {isChecked.length > 0 && (
             <div className="towButt " style={{ marginBottom: "10px" }}>
               <MyButton
                 className={"btttn "}

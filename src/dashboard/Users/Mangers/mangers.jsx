@@ -11,6 +11,7 @@ import DeleteUserModal from "../../components/UsersPages/DeletUserModal/DeleteUs
 import FooterOfUserFP from "../../components/UsersPages/FooterOfUsers/FooterOfUsers";
 import ShowUserModal from "../../components/UsersPages/ShowUserModal/ShowUser";
 import SendMessage from "../../components/UsersPages/SendMessageModal.jsx/SendMessageModal";
+import { Link, useLocation } from "react-router-dom";
 const Mangers = () => {
   // header of the table
   let header = {
@@ -97,6 +98,8 @@ const Mangers = () => {
   const [metaFPagination, setMetaFPagination] = useState("");
   const totalPages = metaFPagination.last_page;
   const [mangerIdForSendMessage, setMangerIdForSendMessage] = useState("");
+  const { pathname } = useLocation();
+
   const handelMessage = (row) => {
     console.log(row);
     setMangerIdForSendMessage(row);
@@ -114,7 +117,6 @@ const Mangers = () => {
     if (currentPage === 1) return;
     setCurrentPage((prev) => prev - 1);
   };
-
   return (
     <>
       {/* header */}
@@ -122,7 +124,13 @@ const Mangers = () => {
         <HeaderNotificaion content={"مديرو الموقع"} />
         <div style={{ width: "85%", margin: "auto" }} className=" cont ">
           {/* Start Arrow for navigate */}
-          <ArrowForUsers />
+          <ArrowForUsers
+            loc1={"/dashboard/mangers"}
+            loc2={"/dashboard/supervisors"}
+            pathname1={pathname}
+            name1={"مديرو الموقع"}
+            name2={"المشرفين"}
+          />
           {/* Arrow end  */}
 
           {/* Start the search and add component */}
@@ -162,6 +170,7 @@ const Mangers = () => {
           {/* End fro table */}
 
           {/* Start buttons of pagination */}
+
           <FooterOfUserFP
             handelNext={handelNext}
             handelPrev={handelPrev}
@@ -181,6 +190,7 @@ const Mangers = () => {
             fetchAllData={fetchAllData}
           />
           <DeleteUserModal
+            content={"هذا المدير"}
             api="managers"
             fetchAllData={fetchAllData}
             idOfDeleteItem={idOfDeleteItem}

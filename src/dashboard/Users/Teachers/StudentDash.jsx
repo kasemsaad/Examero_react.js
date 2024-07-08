@@ -4,64 +4,33 @@ import MyTable from "../../../common/Table/Table";
 import Api_Dashboard from "../../interceptor/interceptorDashboard";
 import ArrowForUsers from "../../components/UsersPages/ArrowOfUsers/ArrowForUsers";
 import SearchAndAddUsers from "../../components/UsersPages/searchInputAndAddButton/handelSearch&AddUsers";
-import AddMangerModel from "../../components/UsersPages/AddMangerModal/AddMangersModal";
-import EditMangerModal from "../../components/UsersPages/EditMangerModal/EditMangerModal";
 import DeleteUserModal from "../../components/UsersPages/DeletUserModal/DeleteUserModal";
 import FooterOfUserFP from "../../components/UsersPages/FooterOfUsers/FooterOfUsers";
-import SendMessage from "../../components/UsersPages/SendMessageModal.jsx/SendMessageModal";
 import ShowUserModal from "../../components/UsersPages/ShowUserModal/ShowUser";
+import SendMessage from "../../components/UsersPages/SendMessageModal.jsx/SendMessageModal";
+import EditUserModal from "../../components/UsersPages/ArrowOfUsers/EditUsers/EditeUsers";
+import AddUsersModel from "../../components/UsersPages/addUsers/users";
+import SendTecherMessageModal from "../../components/UsersPages/sendMessageUsersModal/sendMessageUserModal";
 import { useLocation } from "react-router-dom";
-const Supervisors = () => {
+const StudentsDash = () => {
   // header of the table
   let header = {
-    name1: "اسم المشرف",
+    name1: "اسم الطالب",
     name2: "البريد الإلكتروني",
     name3: "رقم الهاتف",
     name4: "الخصائص",
-    name5: "ملاحظات",
   };
 
   // icons object to show the icons in the table
   const icon = { eye: true, edit: true, trash: true, butt: true };
-  const other = { butt: true };
   ///
-  const [superIdForSendMessage, setSuperIdForSendMessage] = useState("");
+
   const [rowData, setRowData] = useState("");
-  const [data, setData] = useState([]);
+  let [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [idOfDeleteItem, setIdOfDeleteItem] = useState("");
-  const [showSuperData, setShowSuperData] = useState("");
-  const punish = true;
-  const { pathname } = useLocation();
+  const [showMangerData, setShowMangerData] = useState("");
 
-  const handelMessage = (row) => {
-    setSuperIdForSendMessage(row);
-  };
-  const handelFetchId = async (row) => {
-    const response = await Api_Dashboard.get(`/supervisors/${row.id}`)
-      .then((response) => {
-        setRowData(response.data.data);
-        console.log(rowData + "iam her");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  useEffect(() => {
-    fetchAllData();
-  }, [currentPage]);
-  const fetchAllData = async () => {
-    const response = await Api_Dashboard.get(`/supervisors?page=${currentPage}`)
-      .then((response) => {
-        setData(response.data.data);
-        setMetaFPagination(response.data.meta.pagination);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-  // take from the array object some proprety that it will pass to the table
   const newData = useMemo(
     () =>
       data.map(({ id, fullName, email, phone_number }) => ({
@@ -72,35 +41,73 @@ const Supervisors = () => {
       })),
     [data]
   );
+  const [filteredManagers, setFilteredManagers] = useState(newData);
 
-  // handel the function of search
-
-  const [filteredSubervisors, setFilteredSubervisors] = useState(newData);
-  const FilteredSubervisors = (dataFormComp) => {
-    setFilteredSubervisors(dataFormComp);
-  };
   useEffect(() => {
-    setFilteredSubervisors(newData);
+    setFilteredManagers(newData);
   }, [newData]);
-  const handelShowSuperById = async (row) => {
-    document.body.style.removeProperty("overflow");
-    const response = await Api_Dashboard.get(`/supervisors/${row.id}`)
+
+  const handelFetchId = async (row) => {
+    const response = await Api_Dashboard.get(`/students/${row.id}`)
       .then((response) => {
-        setShowSuperData(response.data.data);
+        setRowData(response.data.data);
       })
       .catch((err) => {
         console.log(err);
       });
   };
+  const handelShowMangerById = async (row) => {
+    document.body.style.removeProperty("overflow");
+    const response = await Api_Dashboard.get(`/students/${row.id}`)
+      .then((response) => {
+        setShowMangerData(response.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    fetchAllData();
+  }, [currentPage]);
+
+  const fetchAllData = async () => {
+    const response = await Api_Dashboard.get(`/students?page=${currentPage}`)
+      .then((response) => {
+        const allData = response.data.data;
+        setData(allData);
+        setMetaFPagination(response.data.meta.pagination);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  // take from the array object some proprety that it will pass to the table
+
+  // handel the function of search
+
+  console.log(filteredManagers);
+  const FilteredManagers = (dataFormComp) => {
+    setFilteredManagers(dataFormComp);
+    console.log(dataFormComp);
+  };
+
   // handel pagination
   const [metaFPagination, setMetaFPagination] = useState("");
   const totalPages = metaFPagination.last_page;
-
+  const [mangerIdForSendMessage, setMangerIdForSendMessage] = useState("");
+  const handelMessage = (row) => {
+    console.log(row);
+    setMangerIdForSendMessage(row);
+    console.log(mangerIdForSendMessage);
+  };
   const handelNext = () => {
     if (currentPage === totalPages) return;
     setCurrentPage((prev) => prev + 1);
   };
-
+  const handel = (da) => {
+    console.log(da);
+  };
   // handel prev page
   const handelPrev = () => {
     if (currentPage === 1) return;
@@ -111,46 +118,47 @@ const Supervisors = () => {
     <>
       {/* header */}
       <div className="container-manger min-vh-100 w-100">
-        <HeaderNotificaion content={"مشرفين الموقع"} />
+        <HeaderNotificaion content={"المستخدمين"} />
         <div style={{ width: "85%", margin: "auto" }} className=" cont ">
           {/* Start Arrow for navigate */}
           <ArrowForUsers
-            pathname1={pathname}
-            name1={"مديرو الموقع"}
-            name2={"المشرفين"}
-            loc2={"/dashboard/supervisors"}
-            loc1={"/dashboard/mangers"}
+            loc2={"/dashboard/users/student"}
+            loc1={"/dashboard/users/teachers"}
+            name1={"المعلمين"}
+            name2={"الطلاب"}
           />
           {/* Arrow end  */}
 
           {/* Start the search and add component */}
           <SearchAndAddUsers
             newData={newData}
-            FilteredUsers={FilteredSubervisors}
-            buttonContent={"   اضافة مشرف   "}
+            buttonContent={"أضافة طالب"}
+            handel={handel}
+            fetchAllData={fetchAllData}
+            // FilteredUsers={FilteredManagers}
+            FilteredUsers={FilteredManagers}
           />
           {/* // End */}
 
           {/* Start for table */}
-          <div style={{ width: "100%", overflow: "auto" }}>
+          <div style={{ width: "100%", overflow: "auto", height: "400px" }}>
             <MyTable
               header={header}
-              body={filteredSubervisors}
+              body={filteredManagers}
               icons={icon}
-              other={other}
+              handelMessage={(row) => handelMessage(row)}
               handelDeleteItem={(row) => {
                 setIdOfDeleteItem(row);
               }}
-              handelMessage={(row) => handelMessage(row)}
+              handelShow={(row) => {
+                handelShowMangerById(row);
+              }}
+              showItem={"#show-manger-dash"}
               sendMessage={"#send-message-dash"}
               deleteModalName={"#deleteElementModal_users-dash"}
               editButtonName={"#edit-manger-dash"}
-              showItem={"#show-manger-dash"}
               handelEdit={(row) => {
                 handelFetchId(row);
-              }}
-              handelShow={(row) => {
-                handelShowSuperById(row);
               }}
             />
           </div>
@@ -164,34 +172,32 @@ const Supervisors = () => {
             currentPage={currentPage}
           />
           {/* End buttons of pagination */}
-          <EditMangerModal
-            api={"supervisors"}
-            content={"تعديل المشرف "}
+          <EditUserModal
+            api="students"
+            content={"تعديل الطالب "}
             fetchAllData={fetchAllData}
             rowData={rowData}
           />
-          <AddMangerModel
-            api={"supervisors"}
-            content={"إضافة مشرف جديد"}
+          <AddUsersModel
+            api="students"
+            content={"إضافة طالب جديد"}
             fetchAllData={fetchAllData}
           />
           <DeleteUserModal
-            content={"هذا المشرف"}
-            api={"supervisors"}
+            content={"هذا الطالب"}
+            api="students"
             fetchAllData={fetchAllData}
             idOfDeleteItem={idOfDeleteItem}
           />
+          <ShowUserModal content={"الطالب"} userData={showMangerData} />
+          <SendTecherMessageModal
+            api={"/teacher/points/"}
+            mangerID={mangerIdForSendMessage}
+          />
         </div>
-        <ShowUserModal content={"المشرف"} userData={showSuperData} />
-
-        <SendMessage
-          punish={punish}
-          api={"/points/"}
-          mangerID={superIdForSendMessage}
-        />
       </div>
     </>
   );
 };
 
-export default Supervisors;
+export default StudentsDash;

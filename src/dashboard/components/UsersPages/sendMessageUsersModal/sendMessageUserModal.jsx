@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Api_Dashboard from "../../../interceptor/interceptorDashboard";
-import "./SendMessage.css";
 import { toast, ToastContainer } from "react-toastify";
-const SendMessage = ({ mangerID, api }) => {
+const SendTecherMessageModal = ({ mangerID, api, punish }) => {
   const notify = (AlertPointSuccess) => {
     toast.success(AlertPointSuccess, {
       position: "top-center",
@@ -37,21 +36,21 @@ const SendMessage = ({ mangerID, api }) => {
       message: "",
       points: 0,
       type: "",
-      admin_id: mangerID,
+      teacher_id: mangerID,
     });
   };
   const [addMessage, setAddMessage] = useState({
     message: "",
     points: "",
     type: "",
-    admin_id: "",
+    teacher_id: "",
   });
 
   useEffect(() => {
     setAddMessage((prev) => ({
       ...prev,
       points: point,
-      admin_id: mangerID,
+      teacher_id: mangerID,
     }));
   }, [point, mangerID]);
   // Initialize the state with the values from rowDataOfClass
@@ -74,13 +73,14 @@ const SendMessage = ({ mangerID, api }) => {
     if (addMessage) {
       document.body.style.removeProperty("overflow");
 
+      console.log(addMessage);
       await Api_Dashboard.post(`${api}`, addMessage)
         .then((response) => {
+          element.style.display = "none";
           let x = response.data.message;
           SetAlertPointSuccess(x);
           notify("تم ارسال الملحوظه  بنجاح ");
-          element.style.display = "none";
-          handelClose();
+          console.log(response);
           // setModal("modal");
         })
         .catch((err) => {
@@ -164,9 +164,9 @@ const SendMessage = ({ mangerID, api }) => {
                   </div>
                   <div className="form-group-textarea-dash">
                     <textarea
-                      value={addMessage.message}
                       className="ext-area-send-message"
                       name="message"
+                      value={addMessage.message}
                       // value={rowDataOfClass.name || ""}
                       onChange={(e) => {
                         handelChange(e);
@@ -207,23 +207,13 @@ const SendMessage = ({ mangerID, api }) => {
                         value={2}
                         type="radio"
                       />
-                      <label htmlFor="">وضع عقاب</label>
-                    </div>
-
-                    <div className="gives-a-reward-inputs">
-                      <input
-                        onChange={handelChange}
-                        name="type"
-                        value={3}
-                        type="radio"
-                      />
                       <label htmlFor=""> اعطاء تحذير</label>
                     </div>
                     <div className="gives-a-reward-inputs">
                       <input
                         onChange={handelChange}
                         name="type"
-                        value={4}
+                        value={3}
                         type="radio"
                       />
                       <label htmlFor="">غير ذالك</label>
@@ -287,8 +277,8 @@ const SendMessage = ({ mangerID, api }) => {
                       <button
                         type="button"
                         data-bs-dismiss="modal"
-                        onClick={handelClose}
                         className="btn btn-secondary"
+                        onClick={handelClose}
                         style={{
                           borderRadius: "30px",
                           color: "#FE4F60",
@@ -312,4 +302,4 @@ const SendMessage = ({ mangerID, api }) => {
   );
 };
 
-export default SendMessage;
+export default SendTecherMessageModal;
