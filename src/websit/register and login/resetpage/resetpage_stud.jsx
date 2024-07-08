@@ -31,7 +31,7 @@ function ResetPage1() {
       })
       .catch((error) => {
         console.error('An error occurred while sending the email:', error);
-        setError('حدث خطأ أثناء إرسال البريد الإلكتروني.');
+        setError('الايميل الالكتروني غير موجود');
         setSuccess('');
         setTimeout(() => setError(''), 3000);
       });

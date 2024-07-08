@@ -147,11 +147,11 @@ function Login1() {
                         </Form.Group>
 
                         <Form.Group controlId="remember" className="d-flex justify-content-between align-items-center">
-                            <Form.Switch
+                            {/* <Form.Switch
                                 id="custom-switch"
                                 label="تذكرني"
                                 className="rem_login"
-                            />
+                            /> */}
                             <Link to="/StudentSendEmail" className="forgot-password">نسيت كلمة المرور؟</Link>
                         </Form.Group>
                         <Button type="submit" className="btn login_btn">تسجيل الدخول</Button>
