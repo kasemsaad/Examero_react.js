@@ -56,6 +56,7 @@ const SendMessage = ({ mangerID, api }) => {
   }, [point, mangerID]);
   // Initialize the state with the values from rowDataOfClass
   const element = document.getElementById("send-message-dash");
+
   const handelChange = (e) => {
     const { name, value } = e.target;
     console.log(value);
@@ -82,6 +83,7 @@ const SendMessage = ({ mangerID, api }) => {
           element.style.display = "none";
           handelClose();
           // setModal("modal");
+
         })
         .catch((err) => {
           let x = err.response.data.message;
@@ -201,12 +203,14 @@ const SendMessage = ({ mangerID, api }) => {
                     </div>
 
                     <div className="gives-a-reward-inputs">
+
                       <input
                         onChange={handelChange}
                         name="type"
                         value={2}
                         type="radio"
                       />
+
                       <label htmlFor="">وضع عقاب</label>
                     </div>
 
@@ -233,6 +237,7 @@ const SendMessage = ({ mangerID, api }) => {
                     <div className="container-input-dash">
                       <button
                         type="button"
+
                         style={{ backgroundColor: "#4941A6", color: "white" }}
                         className="button-send-message"
                         onClick={handelAddPoints}
@@ -248,6 +253,7 @@ const SendMessage = ({ mangerID, api }) => {
                       />
                       <button
                         type="button"
+
                         onClick={handelDecreasPoints}
                         style={{ backgroundColor: "#4941A6", color: "white" }}
                         className="button-send-message"

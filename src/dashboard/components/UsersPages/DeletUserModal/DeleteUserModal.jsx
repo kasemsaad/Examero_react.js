@@ -11,6 +11,7 @@ const DeleteUserModal = ({ idOfDeleteItem, fetchAllData, api, content }) => {
       ).then((response) => {});
       fetchAllData().catch((err) => {});
     }
+
   };
 
   return (

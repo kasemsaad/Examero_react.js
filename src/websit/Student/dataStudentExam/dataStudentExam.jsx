@@ -9,13 +9,13 @@ import Api_Website from '../../../utlis/axios_utils_websit.jsx';
 function DataStudentExam(props) {
     const [z, setZ] = useState(1); // Start with page 1
     const [data, setInfo] = useState([]);
-    const [hasMoreData, setHasMoreData] = useState(true); 
+    const [hasMoreData, setHasMoreData] = useState(true);
     const [loading, setLoading] = useState(true); // Loading state
     const layoutBackground = useSelector((state) => state.dark.lay);
 
     useEffect(() => {
         getDataStudentExam();
-    }, [z]); 
+    }, [z]);
 
     const getDataStudentExam = () => {
         setLoading(true);
@@ -26,7 +26,7 @@ function DataStudentExam(props) {
                     const fetchedData = response.data.data;
                     setInfo(fetchedData);
                     // Check if there is no more data to fetch
-                    setHasMoreData(fetchedData.length > 0);
+                    setHasMoreData(fetchedData.length <10);
                 } else {
                     setInfo([]);
                     setHasMoreData(false);
@@ -88,14 +88,15 @@ function DataStudentExam(props) {
                             </tr>
                         </thead>
                         <tbody style={{
-                                color: layoutBackground === "#0E0A43" ? "white" : "black"}}>
+                            color: layoutBackground === "#0E0A43" ? "white" : "black"
+                        }}>
                             {loading ? (
                                 <tr>
                                     <td colSpan="5">Loading data...</td>
                                 </tr>
                             ) : data.length > 0 ? (
                                 data.map(({ id, semster, group, status, subject }, index) => (
-                                    <tr key={index} style={{ 
+                                    <tr key={index} style={{
                                         backgroundColor: index % 2 === 0 ? (layoutBackground === "#0E0A43" ? "#1d195d" : "#FCFCFC") : (layoutBackground === "#0E0A43" ? "#090631" : "#DADADA")
                                     }}>
                                         <td>{index + 1}</td>
@@ -108,26 +109,25 @@ function DataStudentExam(props) {
                                     </tr>
                                 ))
                             ) : (
-                                <tr>
-                                    <td colSpan="5">No data available</td>
-                                </tr>
+                                ""
                             )}
                         </tbody>
                     </table>
 
-                    <div className="d-flex justify-content- mt-3" dir="ltr">
-                        <button 
-                            className='btn btn-outline-light mx-2' 
-                            style={{ backgroundColor: "#4941A6" }} 
-                            onClick={() => setZ(z + 1)} 
-                            disabled={(z-1) || loading}>
+                    <div className="d-flex justify-content-end mt-3">
+                        <button
+                            className='btn btn-outline-light mx-2'
+                            style={{ backgroundColor: "#4941A6" }}
+                            onClick={() => setZ(z - 1)}
+                            disabled={z <= 1 || loading}>
                             <i className='fas fa-less-than'></i>
                         </button>
-                        <button 
-                            className='btn btn-outline-light' 
-                            style={{ backgroundColor: "#4941A6" }} 
-                            onClick={() => setZ(z - 1)} 
-                            disabled={z <= 1 || loading}>
+                        <span className="mx-2" style={{ fontSize: "18px", color: layoutBackground === "#0E0A43" ? "white" : "black" }}>{z}</span>
+                        <button
+                            className='btn btn-outline-light mx-2'
+                            style={{ backgroundColor: "#4941A6" }}
+                            onClick={() => setZ(z + 1)}
+                            disabled={hasMoreData || loading}>
                             <i className='fas fa-greater-than'></i>
                         </button>
                     </div>

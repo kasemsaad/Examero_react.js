@@ -112,6 +112,11 @@ const LogOutDashBoard = ()=>{
             <img style={{ width: 20 , height:20 }} src={octiconIcon} alt=" بنك الاسئلة" />
               </Link>
             </li>
+            <li className={`Icon  ${id === "12" ? "bgIcon":" "}`}>
+            <Link  to="/dashboard/qbank_details" onClick={() => setId(12)}>
+            <img style={{ width: 20 , height:20 }} src={octiconIcon} alt="تفاصيل بنك الاسئلة" />
+              </Link>
+            </li>
             <li className={`Icon  ${id === "6" ? "bgIcon":" "}`}>
             <Link to="/dashboard/rewardSupervisor" onClick={() => setId(6)}>
               <img style={{ width: 23 , height:23 }} src={akar_icons_bank} alt="الي حين "  />
@@ -157,13 +162,16 @@ const LogOutDashBoard = ()=>{
               <Link to="/dashboard/mangers" onClick={() => setId(2)} className={`Icon  ${id === "2" ? "Id":" "}`}>مديرو الموقع</Link>
             </li>
             <li className="sidbarli">
-            <Link to="/dashboard/supervisors" onClick={() => setId(3)} className={`Icon  ${id === "3" ? "Id":" "}`}>مشرفو الموقع</Link>
+            <Link to="/dashboard/supervisors" onClick={() => setId(3)} className={`Icon  ${id === "3" ? "Id":" "}`}> المستخدمين</Link>
             </li>
             <li className="sidbarli">
-            <Link to="/dashboard/planstudent" onClick={() => setId(4)} className={`Icon  ${id === "4" ? "Id":" "}`}>المعلمين</Link>
+            <Link to="/dashboard/planstudent" onClick={() => setId(4)} className={`Icon  ${id === "4" ? "Id":" "}`}>باقات الاشتراك</Link>
             </li>
             <li className="sidbarli">
             <Link to="/dashboard/qbank" onClick={() => setId(5)} className={`Icon  ${id === "5" ? "Id":" "}`}>بنك الأسئلة</Link>
+            </li>
+            <li className="sidbarli">
+            <Link to="/dashboard/qbank_details" onClick={() => setId(12)} className={`Icon  ${id === "12" ? "Id":" "}`} > تفاصيل بنك الأسئلة</Link>
             </li>
             <li className="sidbarli">
             <Link to="/dashboard/rewardSupervisor" onClick={() => setId(6)} className={`Icon  ${id === "6" ? "Id":" "}`}>المكافئات و العقوبات</Link>
@@ -189,7 +197,7 @@ const LogOutDashBoard = ()=>{
           location.pathname.startsWith('/student') ?
 
             <div className="sidbar p-0 pe-3 " style={{ paddingRight: "100px" }} dir="rtl" >
-              <div className="sidbarSidbar ">
+              <div className="sidbarSidbar " style={{height:" 87vh"}}>
                 <ul className="pt-4 ps-4">
                   <li className={`Icon  ${id === "1" ? "bgIcon" : " "}`}>
                     <Link to="/student/HomeStudentview" onClick={() => setId(1)} >

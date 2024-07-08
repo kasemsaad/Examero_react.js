@@ -4,6 +4,7 @@ import "./FornFPkindOfQ.css";
 import Api_Dashboard from "../../../interceptor/interceptorDashboard";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
+
 const FormFPkindOfQ = ({ fetchAllKQuestons }) => {
   const notify = (AlertPointSuccess) => {
     toast.success(AlertPointSuccess, {

@@ -18,6 +18,7 @@ const ArrowForUsers = ({ name1, name2, loc1, loc2 }) => {
             style={{
               fontSize: "14px",
               backgroundColor: pathname === loc1 ? "#4941A6" : "#1D195D",
+
             }}
             content={name1}
           />

@@ -11,6 +11,7 @@ import FooterOfUserFP from "../../components/UsersPages/FooterOfUsers/FooterOfUs
 import SendMessage from "../../components/UsersPages/SendMessageModal.jsx/SendMessageModal";
 import ShowUserModal from "../../components/UsersPages/ShowUserModal/ShowUser";
 import { useLocation } from "react-router-dom";
+
 const Supervisors = () => {
   // header of the table
   let header = {
@@ -33,6 +34,7 @@ const Supervisors = () => {
   const [showSuperData, setShowSuperData] = useState("");
   const punish = true;
   const { pathname } = useLocation();
+
 
   const handelMessage = (row) => {
     setSuperIdForSendMessage(row);
@@ -189,6 +191,7 @@ const Supervisors = () => {
           api={"/points/"}
           mangerID={superIdForSendMessage}
         />
+
       </div>
     </>
   );

@@ -156,6 +156,7 @@ function CreateExam(props) {
     setGroup_id(id);
   };
   const handleChangeGroup = (event) => {
+
     const selectedId = event.target.value;
     getSubject(selectedId);
     handleGroupChange(selectedId);
@@ -204,6 +205,8 @@ function CreateExam(props) {
     setError('');
   }
   const handleSubmit = (event) => {
+    document.body.style.removeProperty('overflow');
+
     event.preventDefault();
     const data = {
       group_id: group_id,              //required
@@ -259,6 +262,7 @@ function CreateExam(props) {
                 setError('مدة الامتحان يجب ان تكون دقيقة عالاقل');
               }
               else {
+                document.body.style.removeProperty('overflow');
                 Api_Website.post(`/students/genrate-exam`, data)
                   .then(response => {
                     // console.log(response.data.data.questions[1].media.name );
@@ -294,8 +298,8 @@ function CreateExam(props) {
   const handleSubmitExam = (event) => {
     event.preventDefault();
     call(data)
-
     const lastobject = call(data)
+    document.body.style.removeProperty('overflow');
     Api_Website.post(`/students/submit-exam`, lastobject)
       .then(response => {
         console.log('submit exam');
@@ -310,7 +314,7 @@ function CreateExam(props) {
           modalElementSubit.style.display = "none"
           setData("")
           setSelectedOptions("")
-        }, 8000);
+        }, 2000);
 
       })
       .catch(error => {

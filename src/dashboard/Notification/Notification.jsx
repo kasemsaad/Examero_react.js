@@ -41,6 +41,7 @@ const Notification = ({ api, man, all }) => {
         {
           man && setNotifiy(response.data.data.data);
           console.log(response.data.data.data);
+
           setMetaFPagination(response.data.meta.pagination);
         }
         {

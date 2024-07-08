@@ -3,11 +3,14 @@ import homeBank from "./../../assets/image/Vector (6).svg"
 import Api_Dashboard from '../interceptor/interceptorDashboard'
 import ModalDelete, { Notify, NotifyError } from '../Alert/alertToast';
 import './Qbank.css'
+import Confetti from 'react-confetti'
 
 export default function Qbank() {
 
 
     const [groupAllData, SetgroupAllData] = useState([])
+
+        const [showConfetti, setShowConfetti] = useState(false);
 
 
 
@@ -335,22 +338,33 @@ const [allLesson,SetallLesson]=useState([])
           }).then((response)=>{
             Notify(response.data.Message)
             console.log(response.data.Message);
-            resetForm();  
+            setShowConfetti(true);
+            setTimeout(() => {
+              setShowConfetti(false);
+            }, 3000);
+            resetForm(); 
+
 
           }).catch((err)=>{
             NotifyError(err.response.data.message)
           })
 }
 
-
-
-
-
-
-
-
-
+ 
+  
     return (<>
+    {showConfetti && (
+                        <Confetti
+                            style={{
+                                position: 'absolute',
+                                top: 0,
+                                left: 0,
+                                width: '100%',
+                                height: '100%',
+                                zIndex: 9999
+                            }}
+                        />
+                    )}
     < ModalDelete/>
         <div className="container  pb-4 " style={{ overflow: 'auto', marginTop: '18px', direction: 'rtl', height: 'auto', border: "2px solid purble", borderRadius: "10px", width: "90%", margin: "auto" }}>
 

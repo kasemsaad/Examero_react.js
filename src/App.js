@@ -76,6 +76,7 @@ import QbankDetails from "./dashboard/QbankDetails/QbankDetails.jsx";
 import QbankEditing from "./dashboard/QbankDetails/QbankEditing/qbankEditing.jsx";
 import TeacherDash from "./dashboard/Users/Teachers/TeacherDash.jsx";
 import StudentsDash from "./dashboard/Users/Teachers/StudentDash.jsx";
+import Certify from "./dashboard/newCertify/certify.jsx";
 function App(props) {
   return (
     <BrowserRouter>
@@ -182,142 +183,25 @@ function App(props) {
               </ProtectedRoute>
             }
           />
-          <Route
-            path="b"
-            element={
-              <ProtectedRoute>
-                <AccountSetting />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="certify"
-            element={
-              <ProtectedRoute>
-                <CertificateGenerator />{" "}
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="qbank"
-            element={
-              <ProtectedRoute>
-                <Qbank />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="specify"
-            element={
-              <ProtectedRoute>
-                <Specification />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="PlansTeacher"
-            element={
-              <ProtectedRoute>
-                <PlansTeacher />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="planstudent"
-            element={
-              <ProtectedRoute>
-                <PlansStudent />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="waitingemis"
-            element={
-              <ProtectedRoute>
-                <WaitingEmis />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="recivedemis"
-            element={
-              <ProtectedRoute>
-                <RecivedEmis />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="finishedEmis"
-            element={
-              <ProtectedRoute>
-                <FinishedEmis />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="manger"
-            element={
-              <ProtectedRoute>
-                <RewardManger />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="rewardSupervisor"
-            element={
-              <ProtectedRoute>
-                <RewardMoshref />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="rewardteacher"
-            element={
-              <ProtectedRoute>
-                <RewardTeacher />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="check"
-            element={
-              <ProtectedRoute>
-                <Checks />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="qbank_details"
-            element={
-              <ProtectedRoute>
-                <QbankDetails />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="qbank_edit"
-            element={
-              <ProtectedRoute>
-                <QbankEditing />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="activity/mangers"
-            element={
-              <ProtectedRoute>
-                <MangersActivity />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="activity/all"
-            element={
-              <ProtectedRoute>
-                <AllActivity />
-              </ProtectedRoute>
-            }
-          />
+
+          <Route path="b" element={ <ProtectedRoute><AccountSetting /></ProtectedRoute>} />
+          <Route path="certify" element={  <ProtectedRoute><Certify />  </ProtectedRoute>} />
+          <Route path="qbank" element={  <ProtectedRoute><Qbank /></ProtectedRoute>} />
+          <Route path="specify" element={ <ProtectedRoute><Specification /></ProtectedRoute>} />
+          <Route path="PlansTeacher" element={ <ProtectedRoute><PlansTeacher /></ProtectedRoute>} />
+          <Route path="planstudent" element={<ProtectedRoute><PlansStudent /></ProtectedRoute>} />
+          <Route path="waitingemis" element={<ProtectedRoute><WaitingEmis /></ProtectedRoute>} />
+          <Route path="recivedemis" element={<ProtectedRoute><RecivedEmis /></ProtectedRoute>} />
+          <Route path="finishedEmis" element={<ProtectedRoute><FinishedEmis /></ProtectedRoute>} />
+          <Route path="manger" element={<ProtectedRoute><RewardManger /></ProtectedRoute>} />
+          <Route path="rewardSupervisor" element={<ProtectedRoute><RewardMoshref /></ProtectedRoute>} />
+          <Route path="rewardteacher" element={<ProtectedRoute><RewardTeacher /></ProtectedRoute>} />
+          <Route path="check" element={<ProtectedRoute><Checks/></ProtectedRoute>} />
+          <Route path="qbank_details" element={<ProtectedRoute><QbankDetails /></ProtectedRoute>} />
+          <Route path="qbank_edit" element={<ProtectedRoute><QbankEditing /></ProtectedRoute>} />
+          <Route path="activity/mangers" element={<ProtectedRoute><MangersActivity /></ProtectedRoute>} />
+          <Route path="activity/all" element={<ProtectedRoute><AllActivity /></ProtectedRoute>} />
+ 
           <Route
             path="putting/questions/levels=1"
             element={
