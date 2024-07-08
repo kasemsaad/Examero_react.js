@@ -8,6 +8,7 @@ import lockIcon from '../../../assets/icons/register and login icon/padlock-icon
 import Imgcom from '../../../websit/register and login/imgcom/imgcom.jsx';
 import { useNavigate } from 'react-router-dom';
 import Api_Dashboard from '../../interceptor/interceptorDashboard.jsx';
+import { ToastContainer, toast } from 'react-toastify';
 function NewPassDashBoard() {
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
@@ -29,25 +30,62 @@ function NewPassDashBoard() {
       password_confirmation: passwordConfirmation,
     })
       .then((response) => {
-        console.log("khaiiiiiiiiiiiiiii");
+        notify("mm")
+        setTimeout(()=>{
+          navigate('/dashboard')
+        },3000)
         setSuccess('تم إعادة تعيين كلمة المرور بنجاح.');
         setError('');
       })
       .catch((error) => {
         console.error('An error occurred while resetting password:', error);
         setError(error.response?.data?.message || 'فشل إعادة تعيين كلمة المرور.');
-        setSuccess('');
+        setSuccess();
+        Errornotify(error.response?.data?.message)
         setTimeout(() => setError(''), 3000);
       });
   };
 
+  
+  const notify = (AlertPointSuccess) => {
+    toast.success("تم التغيير بنجاح", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+    })
+};
 
-//   if (success) {
-//     return <SuccessMessage message={success} />;
-//   }
+
+const Errornotify = (AlertPoint) => {
+    toast.error(" AlertPoint", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+    })
+};
+
+
+
+  // if (success) {
+  //   return <SuccessMessage message={success} />;
+  // }
 
   return (
+    
     <div className='new_pass'>
+                  <ToastContainer position='top-center' />
+
+
       <div className="new_pass d-flex flex-wrap">
         <Imgcom />
         <Col xs={12} sm={12} md={12} lg={12} xl={6} xxl={6} className="d-flex flex-column new_pass_card">

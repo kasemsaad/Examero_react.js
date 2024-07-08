@@ -13,6 +13,7 @@ export default function WaitingEmis() {
     const [InputEditWaitinOpenEmis,SetInputEditWaitinOpenEmis]=useState({
         note:'',
         status:"",
+      
       })
 
       
@@ -71,6 +72,8 @@ export default function WaitingEmis() {
           setTimeout(() => {
             setShowConfetti(false);
           }, 3000);
+            const modalElement = document.getElementById('waiting_open_ems');
+           modalElement.style.display = "none"
           
           waitingEmisAllData()
 
@@ -89,12 +92,12 @@ export default function WaitingEmis() {
             status: ""
           }));
 
-
         })
       };
   
 
       const handeledit = async(row)=>{
+        document.body.style.overflow = '';
         await Api_Dashboard.get(`/open-emis/${row.id}`).then((response)=>{
             SeteditId(row.id)
             // console.log(row.id);
@@ -172,7 +175,7 @@ dataRender={openEmisAllData}
       <div className="modal-dialog" >
         <div className="modal-content" style={{backgroundColor:"#1D195D",borderRadius:"20px"}}>
           <div className="modal-header" >
-            <h5 style={{color:'#FF8A00',margin:"auto"}} className="modal-title" id="exampleModalLabel">إضافة باقة جديدة</h5>
+            <h5 style={{color:'#FF8A00',margin:"auto"}} className="modal-title" id="exampleModalLabel"> اضافه O.E.M.S</h5>
           </div>
 
           <div className="modal-body">
@@ -185,6 +188,7 @@ dataRender={openEmisAllData}
                    rows="3" name='note'
                      value={InputEditWaitinOpenEmis.note} 
                      onChange={(e)=>getEditingInputs(e)}
+                     required
                    
                    > </textarea>
                 </div>
@@ -207,7 +211,7 @@ dataRender={openEmisAllData}
                 </div>
                 <div className='mt-5' style={{textAlign:"center",display:"flex",justifyContent:"center"}}>
                   <div className='submitButton'>
-                <button data-bs-dismiss="modal" type="submit" className="btn btn-primary">حفظ</button>
+                <button  type="submit" className="btn btn-primary">حفظ</button>
                 </div>
                 <div style={{marginRight:"30px"}}>
                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>

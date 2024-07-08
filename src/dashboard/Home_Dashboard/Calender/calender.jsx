@@ -9,8 +9,7 @@ export default function Calender(props) {
      <div className='wrapper_todo_calender mt-3' style={{ backgroundColor: "#4941A6", height: "", border: "1px #4941A6 solid", borderRadius: "20px " }}>
                 <div className='calender' style={{ height: "" }}>
                   <Calendar onChange={props.onChange} value={props.date} />
-                </div>
-              
+                </div> 
                 {props.allNotes.length > 0 && (
                   <div className="mt-4 todo_app_wrapper d-flex justify-content-center" style={{ height: "30vh", overflow: "auto" }}>
                     <div className="todo_app" style={{ overflow: "auto" }}>
@@ -33,7 +32,7 @@ export default function Calender(props) {
       <div style={{ textAlign: "center", display: 'flex', justifyContent: "center",marginTop:"10px" }}>
                     <button data-bs-toggle="modal" data-bs-target="#addAdminNote" type="submit" className="btn  mx-2 " style={{ backgroundColor: "#FE4F60", color: '#FFFFFF' }}>
                       <span style={{ marginLeft: "10px", backgroundColor: "", width: '', backgroundColor: "" }}><img src={props.plus} alt="" /></span>
-                      Add Task</button>
+                      اضافه ملحوظة </button>
                   </div>
               </div>
 

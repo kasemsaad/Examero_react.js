@@ -168,7 +168,7 @@ totalPages={totalPages}
       <div className="modal-dialog" >
         <div className="modal-content" style={{backgroundColor:"#1D195D",borderRadius:"20px"}}>
           <div className="modal-header" >
-            <h5 style={{color:'#FF8A00',margin:"auto"}} className="modal-title" id="exampleModalLabel">إضافة باقة جديدة</h5>
+            <h5 style={{color:'#FF8A00',margin:"auto"}} className="modal-title" id="exampleModalLabel"> اضافه O.E.M.S </h5>
           </div>
 
           <div className="modal-body">
@@ -227,7 +227,7 @@ totalPages={totalPages}
                         <div className="modal-body DElementBody text-center">
                             <img src={image} alt="Warning Icon" className="warning-icon" />
                             <p className="modal-title DElementTitle" id="deleteElementModalLabel">هل أنت متأكد ؟</p>
-                            <p className="parag" >  سيتم حذف هذه الباقه </p>
+                            <p className="parag" >  سيتم حذف هذه  </p>
                         </div>
                         <div className="modal-footer DElementFooter">
                             <button
