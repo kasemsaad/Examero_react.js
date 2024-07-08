@@ -189,7 +189,7 @@ const LogOutDashBoard = ()=>{
           location.pathname.startsWith('/student') ?
 
             <div className="sidbar p-0 pe-3 " style={{ paddingRight: "100px" }} dir="rtl" >
-              <div className="sidbarSidbar ">
+              <div className="sidbarSidbar " style={{height:" 87vh"}}>
                 <ul className="pt-4 ps-4">
                   <li className={`Icon  ${id === "1" ? "bgIcon" : " "}`}>
                     <Link to="/student/HomeStudentview" onClick={() => setId(1)} >

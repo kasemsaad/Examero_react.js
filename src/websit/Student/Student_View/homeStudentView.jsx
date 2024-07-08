@@ -12,6 +12,7 @@ import "../../../dashboard/Home_Dashboard/home_dashboard.css";
 import "./DeleteElement.css";
 import "./AddNewUser.css";
 import Api_Website from '../../../utlis/axios_utils_websit.jsx';
+import ActionComponent from '.././../alert.jsx';
 
 let useId;
 function onSelect(id) {
@@ -88,33 +89,36 @@ function HomeStudentview(props) {
   const [note, setNote] = useState('');
   const [addressValidationMessage, setAddressValidationMessage] = useState('');
   const [noteValidationMessage, setNoteValidationMessage] = useState('');
+  const [ValidationMessage, setValidationMessage] = useState('');
   const handleAddressChange = (event) => {
     const value = event.target.value;
-    if (value.trim() === '') {
+    if (value.trim() === null) {
       setAddressValidationMessage('لا يجب ان يكون فارغ');
-    } else if (value.length > 15) {
-      setAddressValidationMessage('العنوان لايزيد عن 15 حرف');
+    } else if (value.length > 20) {
+      setAddressValidationMessage('العنوان لايزيد عن 20 حرف');
     } else if (!/^[\u0600-\u06FF\sA-Za-z]+$/.test(value)) {
       setAddressValidationMessage('يجب ان يكون نص');
     } else {
       setAddressValidationMessage('');
+      setAddress(value);
     }
-    setAddress(value);
+
   };
 
   const handleNoteChange = (event) => {
     const value = event.target.value;
 
-    if (value.trim() === '') {
+    if (value.trim() === null) {
       setNoteValidationMessage('لا يجب ان يكون فارغ');
     } else if (value.length > 50) { // Example max length for note
       setNoteValidationMessage('الملحوظه لاتزيد عن 50 حرف');
-    } else if (!/^[\u0600-\u06FF\sA-Za-z]+$/.test(value)) {
+    } else if (!/^[\u0600-\u06FF\sA-Za-z]+$/.test()) {
       setNoteValidationMessage('يجب ان يكون نص');
     } else {
       setNoteValidationMessage('');
+      setNote(value);
     }
-    setNote(value);
+    
   };
 
   const handleSubmit = (event) => {
@@ -124,14 +128,20 @@ function HomeStudentview(props) {
       note: note
     };
     document.body.style.removeProperty('overflow');
-
       Api_Website.post(`students/notes`, data)
       .then(response => {
         const modalElement = document.getElementById('addManagerModal');
         modalElement.style.display = "none"
-        getAllNotes()
+        setAddress('');
+        setNote('');
+        setValidationMessage('');
+        setAddressValidationMessage('');
+        setNoteValidationMessage('');
+        getAllNotes();
+
             })
       .catch(error => {
+        setValidationMessage("لم يتم الاضافه")
         console.error('Error adding note:');
       });
 
@@ -140,7 +150,6 @@ function HomeStudentview(props) {
   //////////////////////////End add Note///////////////////////////////////////////////////
   //////////////////////////update Note///////////////////////////////////////////////////
 useEffect(()=>{
-
 })
   const [values , setValues]=useState({
     id:useId,
@@ -224,6 +233,8 @@ useEffect(()=>{
         const modalElement = document.getElementById('UpdateManagerModal');
         modalElement.style.display = "none"
         getAllNotes()
+        // setAddress("")
+        // setNote("")
             })
       .catch(error => {
         console.error('Error update note:');
@@ -243,6 +254,7 @@ const getUsersFromInput=(e)=>{
  
   return (
     <>
+    {/* <ActionComponent /> */}
       <div className="container py-5 mb-2 d-flex align-items-center justify-content-center flex-column">
         <div className="" style={{ width: "85%", paddingTop: "4.25px" }}>
           <img src={Homeicon} alt="HomeIcon" style={{ backgroundColor: "transparent" }} />
@@ -394,13 +406,20 @@ const getUsersFromInput=(e)=>{
               <h5 className="modal-title managerTitle" >
                 إضافة ملحوظة
               </h5>
+
               <button type="button" className="btn-close kh" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <div className='pt-2' align="center">
+
+              {ValidationMessage && <h4 style={{ color: 'red' }}>{ValidationMessage}</h4>}
+            </div>
+
             <div className="modal-body managerBody">
               <form className="modal-body managerForm" onSubmit={handleSubmit}>
                 <div className="parent1">
                   <div className="child1 col-lg-5">
                     <div className="form-group managerFGroup">
+                      
                       <label htmlFor="lastName">العنوان</label>
                       <input
                         type="text"

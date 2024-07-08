@@ -14,6 +14,7 @@ function LayoutComp() {
   const layoutBackground = useSelector((state) => state.dark.lay);
   return (
     <>
+
       <section
         className="all_page "
         style={{
@@ -21,6 +22,7 @@ function LayoutComp() {
           position: "absolute",
           zIndex: -3333333333,
           height: "auto",
+          minHeight:"100vh",
           width: "100%",
           border: "1px",
         }}

@@ -296,7 +296,7 @@ function CreateStudentAcc() {
                             </div>
                         </Form.Group>
                         <div className='policy-container'>
-                            <a href="#" className="policess">سياسة استخدام الموقع</a>
+                            <link  className="policess">سياسة استخدام الموقع</link>
                         </div>
                         <Row className="acc">
                             <Row className="justify-content-center">

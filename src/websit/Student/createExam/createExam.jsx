@@ -314,7 +314,7 @@ function CreateExam(props) {
           modalElementSubit.style.display = "none"
           setData("")
           setSelectedOptions("")
-        }, 8000);
+        }, 2000);
 
       })
       .catch(error => {
