@@ -114,7 +114,7 @@ function DataStudentExam(props) {
                         </tbody>
                     </table>
 
-                    <div className="d-flex justify-content-center mt-3">
+                    <div className="d-flex justify-content-end mt-3">
                         <button
                             className='btn btn-outline-light mx-2'
                             style={{ backgroundColor: "#4941A6" }}
