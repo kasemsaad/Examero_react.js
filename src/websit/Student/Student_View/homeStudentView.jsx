@@ -92,15 +92,18 @@ function HomeStudentview(props) {
   const [ValidationMessage, setValidationMessage] = useState('');
   const handleAddressChange = (event) => {
     const value = event.target.value;
-    if (value.trim() === null) {
+
+    if (value.trim() === " ") {
       setAddressValidationMessage('لا يجب ان يكون فارغ');
     } else if (value.length > 20) {
       setAddressValidationMessage('العنوان لايزيد عن 20 حرف');
-    } else if (!/^[\u0600-\u06FF\sA-Za-z]+$/.test(value)) {
+    } else if (!/^[\u0621-\u064Aa-zA-Z_ ]*$/.test(value)) {
       setAddressValidationMessage('يجب ان يكون نص');
+      console.log(value)
     } else {
       setAddressValidationMessage('');
       setAddress(value);
+
     }
 
   };
@@ -108,11 +111,11 @@ function HomeStudentview(props) {
   const handleNoteChange = (event) => {
     const value = event.target.value;
 
-    if (value.trim() === null) {
+    if (value.trim() === " ") {
       setNoteValidationMessage('لا يجب ان يكون فارغ');
     } else if (value.length > 50) { // Example max length for note
       setNoteValidationMessage('الملحوظه لاتزيد عن 50 حرف');
-    } else if (!/^[\u0600-\u06FF\sA-Za-z]+$/.test()) {
+    } else if (!/^[\u0621-\u064Aa-zA-Z_ ]*$/.test(value)) {
       setNoteValidationMessage('يجب ان يكون نص');
     } else {
       setNoteValidationMessage('');
@@ -428,6 +431,7 @@ const getUsersFromInput=(e)=>{
                         placeholder={`أدخل العنوان `}
                         value={address}
                         onChange={handleAddressChange}
+                        required
                       />
                       {addressValidationMessage && <p style={{ color: 'red' }}>{addressValidationMessage}</p>}
 
@@ -443,7 +447,9 @@ const getUsersFromInput=(e)=>{
                         id="lastName"
                         placeholder="أدخل الملحوظة"
                         value={note}
+                        required
                         onChange={handleNoteChange} />
+                        
                       {noteValidationMessage && <p style={{ color: 'red' }}>{noteValidationMessage}</p>}
                     </div>
 
@@ -456,6 +462,13 @@ const getUsersFromInput=(e)=>{
                         className="btn canceled managerCancel"
                         data-bs-dismiss="modal"
                         id="firstbutt"
+                        onClick={()=>{
+                          setAddress('');
+                          setNote('');
+                          setValidationMessage('');
+                          setAddressValidationMessage('');
+                          setNoteValidationMessage('');
+                        }}
                       >
                         إلغاء
                       </button>
