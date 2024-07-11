@@ -72,7 +72,6 @@ const SendTecherMessageModal = ({ mangerID, api, punish }) => {
   const handelSendNot = async (addMessage) => {
     document.body.style.removeProperty("overflow");
     if (addMessage) {
-
       console.log(addMessage);
       await Api_Dashboard.post(`${api}`, addMessage)
         .then((response) => {

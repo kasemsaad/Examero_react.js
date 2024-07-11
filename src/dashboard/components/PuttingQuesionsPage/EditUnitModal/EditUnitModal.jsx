@@ -93,6 +93,7 @@ const EditUnitModal = ({
 
     try {
       const response = await Api_Dashboard.post(
+        document.body.style.removeProperty('overflow')
         `/units/${RowDataOfUnite.id}`,
         formData
       );
