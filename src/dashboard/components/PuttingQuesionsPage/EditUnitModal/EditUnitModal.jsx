@@ -81,6 +81,7 @@ const EditUnitModal = ({
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    document.body.style.removeProperty('overflow')
     const newErrors = {};
     if (!formData.group_id) newErrors.group_id = "يرجى اختيار اسم الصف ";
     if (!formData.name) newErrors.name = "يرجى ادخال اسم الوحدة ";

@@ -85,7 +85,7 @@ const LogOutDashBoard = ()=>{
 
         
         <div className="sidbar p-0 pe-3 " style={{paddingRight:"100px"}} dir="rtl" >
-          <div className="sidbarSidbar ">
+          <div className="sidbarSidbar " style={{height:"88vh"}}>
           <ul className="pt-4 ps-4">
             <li className={`Icon  ${id === "1" ? "bgIcon":" "}`}>
               <Link to="/dashboard" onClick={() => setId(1)} >
@@ -155,7 +155,7 @@ const LogOutDashBoard = ()=>{
           </ul>
           </div>
           <ul className="sidbarUl pt-4  " >
-            <li className="sidbarli">
+            <li className="sidbarli" >
             <Link to="/dashboard" onClick={() => setId(1)} className={`Icon  ${id === "1" ? "Id":" "}`}>الرئيسية</Link>
             </li>
             <li className="sidbarli">

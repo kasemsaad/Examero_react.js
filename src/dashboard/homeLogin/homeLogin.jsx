@@ -35,12 +35,15 @@ function HomeDashoardLogin() {
     // console.log(formData)
     setFormdata(formdata);
   };
-
+  const setId = (id) => {
+    localStorage.setItem("sidbarId", JSON.stringify(id));
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     await Api_Dashboard.post("/login", formData)
       .then((response) => {
         localStorage.setItem("token", response.data.access_token);
+        setId(1)
         navigate("/dashboard");
       })
       .catch((err) => {
@@ -166,6 +169,18 @@ function HomeDashoardLogin() {
             >
               تسجيل الدخول
             </Button>
+            <Link to="/">
+            <Button 
+          
+          
+              style={{ marginTop: "20px" }}
+              type="submit"
+              className="btn login_btn mx-2"
+            >
+              العوده الي الموقع 
+            </Button>
+  </Link>
+
             {/* <Create_acc /> */}
           </Form>
         </Col>

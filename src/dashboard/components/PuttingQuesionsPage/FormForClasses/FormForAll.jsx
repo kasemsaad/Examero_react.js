@@ -50,6 +50,8 @@ const FormForAll = ({ fetchAllData }) => {
   } = useForm();
 
   const handleRegistration = async (data) => {
+    document.body.style.removeProperty('overflow');
+
     await Api_Dashboard.post("/groups", data)
       .then((response) => {
         let x = response.data.message;

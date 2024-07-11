@@ -46,8 +46,9 @@ const AddMangerModel = ({ fetchAllData, content, api }) => {
   } = useForm();
 
   const handleRegistration = async (userData) => {
+    document.body.style.removeProperty("overflow");
     if (userData) {
-      document.body.style.removeProperty("overflow");
+
 
       await Api_Dashboard.post(`/${api}`, userData)
         .then((response) => {
