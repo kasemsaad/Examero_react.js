@@ -100,10 +100,12 @@ const ShowUserModal = ({ content, userData }) => {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td className="td-show-mod">البلد</td>
-                      <td className="td-show-mod2">{userData.governorate}</td>
-                    </tr>
+                    {userData.governorate && (
+                      <tr>
+                        <td className="td-show-mod">البلد</td>
+                        <td className="td-show-mod2">{userData.governorate}</td>
+                      </tr>
+                    )}
                     <tr>
                       <td className="td-show-mod">البريد</td>
                       <td className="td-show-mod2">{userData.email}</td>
@@ -120,20 +122,6 @@ const ShowUserModal = ({ content, userData }) => {
                 style={{ alignItems: "flex-start" }}
                 className="modal-footer-new new-footer"
               >
-                <button
-                  type="submit"
-                  className="btn btn-primary"
-                  style={{
-                    borderRadius: "30px",
-                    border: "none",
-                    backgroundColor: "#C01F59",
-                    width: "96px",
-                    height: "40px",
-                    marginLeft: "12px",
-                  }}
-                >
-                  إضافة
-                </button>
                 <button
                   type="button"
                   className="btn btn-secondary"

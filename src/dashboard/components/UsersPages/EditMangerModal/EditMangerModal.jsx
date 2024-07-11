@@ -6,11 +6,12 @@ const EditMangerModal = ({ api, fetchAllData, rowData, content }) => {
   const [showPassword, setShowPassword] = useState(false);
   // const [id, seId] = useState(idOfDeleteOrEditItem);
   const [modal, setModal] = useState("");
-
+  const element = document.getElementById("edit-manger-dash");
   const {
     register,
     handleSubmit,
     reset,
+    resetField,
     formState: { errors },
   } = useForm(
     rowData && {
@@ -24,7 +25,9 @@ const EditMangerModal = ({ api, fetchAllData, rowData, content }) => {
       },
     }
   );
-
+  const handleModalClose = () => {
+    resetField("password"); // Reset the password field when the modal is closed
+  };
   useEffect(() => {
     if (rowData) {
       reset({
@@ -38,9 +41,11 @@ const EditMangerModal = ({ api, fetchAllData, rowData, content }) => {
     }
   }, [rowData, reset]);
   const handleRegistration = async (mangerData) => {
+    document.body.style.removeProperty("overflow");
     await Api_Dashboard.post(`/${api}/${rowData.id}`, mangerData)
       .then((response) => {
-        setModal("modal");
+        handleModalClose();
+        element.style.display = "none";
         fetchAllData();
       })
       .catch((err) => {
@@ -124,6 +129,7 @@ const EditMangerModal = ({ api, fetchAllData, rowData, content }) => {
                 {content}
               </h5>
               <button
+                onClick={handleModalClose}
                 type="button"
                 className="btn-close-new"
                 data-bs-dismiss="modal"
@@ -482,6 +488,7 @@ const EditMangerModal = ({ api, fetchAllData, rowData, content }) => {
                     تعديل
                   </button>
                   <button
+                    onClick={handleModalClose}
                     type="button"
                     className="btn btn-secondary"
                     data-bs-dismiss="modal"

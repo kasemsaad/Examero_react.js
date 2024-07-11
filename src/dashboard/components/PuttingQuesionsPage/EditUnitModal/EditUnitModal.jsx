@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Api_Dashboard from "../../../interceptor/interceptorDashboard";
 import "./EditUnitModal.css";
+import { toast } from "react-toastify";
 
 const EditUnitModal = ({
   activeSubjects,
@@ -9,6 +10,34 @@ const EditUnitModal = ({
   activeClasses,
   RowDataOfUnite,
 }) => {
+  const notify = (AlertPointSuccess) => {
+    toast.success(AlertPointSuccess, {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
+
+  const Errornotify = (AlertPoint) => {
+    toast.error(AlertPoint, {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
+
+  const [AlertPoint, SetAlertPoint] = useState("");
+  const [AlertPointSuccess, SetAlertPointSuccess] = useState("");
   const [formData, setFormData] = useState({
     group_id: "",
     subject_id: "",
@@ -52,6 +81,7 @@ const EditUnitModal = ({
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    document.body.style.removeProperty('overflow')
     const newErrors = {};
     if (!formData.group_id) newErrors.group_id = "يرجى اختيار اسم الصف ";
     if (!formData.name) newErrors.name = "يرجى ادخال اسم الوحدة ";
@@ -66,9 +96,16 @@ const EditUnitModal = ({
         `/units/${RowDataOfUnite.id}`,
         formData
       );
-      setModal("modal");
+      let x = response.data.message;
+      SetAlertPointSuccess(x);
+      notify("تم تعديل الوحده بنجاح ");
+      element.style.display = "none";
+      // setModal("modal");
+      element.style.display = "none";
       fetchAllUnits();
     } catch (error) {
+      let x = error.response.data.message;
+      SetAlertPoint(x);
       setErrors(error.response.data.errors);
     }
   };

@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import "./add.css";
 import { useForm } from "react-hook-form";
 import Api_Dashboard from "../../../interceptor/interceptorDashboard";
 import LadingComponent from "../../../LoadingComponent/LodingComponent";
 import { json } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 
-const AddMangerModel = ({ fetchAllData, content, api }) => {
+const AddUsersModel = ({ fetchAllData, content, api }) => {
   const notify = (AlertPointSuccess) => {
     toast.success(AlertPointSuccess, {
       position: "top-center",
@@ -43,6 +42,7 @@ const AddMangerModel = ({ fetchAllData, content, api }) => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
 
   const handleRegistration = async (userData) => {
@@ -51,15 +51,15 @@ const AddMangerModel = ({ fetchAllData, content, api }) => {
 
       await Api_Dashboard.post(`/${api}`, userData)
         .then((response) => {
-          console.log(response);
-          element.style.display = "none";
           let x = response.data.message;
           SetAlertPointSuccess(x);
           notify("تمت الاضافة  بنجاح ");
           fetchAllData();
+          element.style.display = "none";
+          fetchAllData();
+          reset();
         })
         .catch((err) => {
-          console.log(err);
           let x = err.response.data.message;
           SetAlertPoint(x);
           Errornotify(x);
@@ -67,7 +67,9 @@ const AddMangerModel = ({ fetchAllData, content, api }) => {
         });
     }
   };
-
+  const handelRestWhenClose = () => {
+    reset();
+  };
   const handleError = (errors) => {};
 
   // const onErrors = errors => console.error(errors);
@@ -147,6 +149,7 @@ const AddMangerModel = ({ fetchAllData, content, api }) => {
               </h5>
               <button
                 type="button"
+                onClick={handelRestWhenClose}
                 className="btn-close-new"
                 data-bs-dismiss="modal"
                 aria-label="Close"
@@ -456,53 +459,7 @@ const AddMangerModel = ({ fetchAllData, content, api }) => {
 
                   {/* start of governorate */}
                 </div>
-                <div
-                  style={{
-                    width: "91%",
-                    margin: "auto",
-                    display: "flex",
-                    justifyContent: "space-evenly",
-                  }}
-                >
-                  <div
-                    className="form-group col-5 d-flex flex-column "
-                    style={{ display: "flex", width: "89%" }}
-                  >
-                    <label
-                      htmlFor="recipient4-name"
-                      className="col-form-label"
-                      style={{
-                        flexDirection: "column-reverse",
-                        color: "white",
-                        justifyContent: "end",
-                        display: "flex",
-                        // textAlign: "center",
-                      }}
-                    >
-                      اسم البلد
-                    </label>
-                    <div>
-                      <input
-                        placeholder="أدخل اسم البلد هنا"
-                        type="text"
-                        className="form-control text-end"
-                        id="governorate"
-                        name="governorate"
-                        {...register(
-                          "governorate",
-                          registerOptions.governorate
-                        )}
-                        style={{ direction: "rtl" }}
-                        autoComplete="current-number"
-                      />
-                      <span style={{ color: "red" }}>
-                        {errors.governorate &&
-                          errors?.governorate &&
-                          errors.governorate.message}
-                      </span>
-                    </div>
-                  </div>
-                </div>
+
                 <div className="modal-footer-new new-footer">
                   <button
                     type="submit"
@@ -520,6 +477,7 @@ const AddMangerModel = ({ fetchAllData, content, api }) => {
                   </button>
                   <button
                     type="button"
+                    onClick={handelRestWhenClose}
                     className="btn btn-secondary"
                     data-bs-dismiss="modal"
                     style={{
@@ -543,4 +501,4 @@ const AddMangerModel = ({ fetchAllData, content, api }) => {
   );
 };
 
-export default AddMangerModel;
+export default AddUsersModel;

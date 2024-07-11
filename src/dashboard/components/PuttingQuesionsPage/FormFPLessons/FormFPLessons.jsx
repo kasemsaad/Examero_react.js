@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import MyButton from "../../../../common/Button/Button";
 import "./FormFLessons.css";
 import Api_Dashboard from "../../../interceptor/interceptorDashboard";
+import { toast, ToastContainer } from "react-toastify";
 const FormFPLessons = ({
   activeClasses,
   fetchSubjectByIdOfClass,
@@ -10,6 +11,34 @@ const FormFPLessons = ({
   activeUnits,
   fechAlllessons,
 }) => {
+  const notify = (AlertPointSuccess) => {
+    toast.success(AlertPointSuccess, {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
+
+  const Errornotify = (AlertPoint) => {
+    toast.error(AlertPoint, {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
+
+  const [AlertPoint, SetAlertPoint] = useState("");
+  const [AlertPointSuccess, SetAlertPointSuccess] = useState("");
   const [errors, setErrors] = useState("");
   const [formData, setFormData] = useState({
     name: "",
@@ -32,13 +61,21 @@ const FormFPLessons = ({
     }
   };
   const handleAddLesson = async (data) => {
+    document.body.style.removeProperty('overflow');
+
     if (data) {
       await Api_Dashboard.post("/lessons", data)
         .then((response) => {
           fechAlllessons();
+
+          let x = response.data.message;
+          SetAlertPointSuccess(x);
+          notify("تم اضافة الدرس بنجاح ");
         })
         .catch((err) => {
-          console.log(err.response.data.errors);
+          let x = err.response.data.message;
+          SetAlertPoint(x);
+          Errornotify(x);
           setErrors(err.response.data.errors);
         });
     }
@@ -173,6 +210,7 @@ const FormFPLessons = ({
               />
             </div>
           </div>
+          <ToastContainer position="top-center" />
         </form>
       </div>
     </>

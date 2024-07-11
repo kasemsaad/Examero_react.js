@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import HeaderNotificaion from "../../components/NotificationPage/Header/Header";
 import MyTable from "../../../common/Table/Table";
-import "./manger.css";
+// import "./manger.css";
 import Api_Dashboard from "../../interceptor/interceptorDashboard";
 import ArrowForUsers from "../../components/UsersPages/ArrowOfUsers/ArrowForUsers";
 import SearchAndAddUsers from "../../components/UsersPages/searchInputAndAddButton/handelSearch&AddUsers";
@@ -11,11 +11,14 @@ import DeleteUserModal from "../../components/UsersPages/DeletUserModal/DeleteUs
 import FooterOfUserFP from "../../components/UsersPages/FooterOfUsers/FooterOfUsers";
 import ShowUserModal from "../../components/UsersPages/ShowUserModal/ShowUser";
 import SendMessage from "../../components/UsersPages/SendMessageModal.jsx/SendMessageModal";
-import { Link, useLocation } from "react-router-dom";
-const Mangers = () => {
+import EditUserModal from "../../components/UsersPages/ArrowOfUsers/EditUsers/EditeUsers";
+import AddUsersModel from "../../components/UsersPages/addUsers/users";
+import SendTecherMessageModal from "../../components/UsersPages/sendMessageUsersModal/sendMessageUserModal";
+import { useLocation } from "react-router-dom";
+const TeacherDash = () => {
   // header of the table
   let header = {
-    name1: "اسم المدير",
+    name1: "اسم المعلم",
     name2: "البريد الإلكتروني",
     name3: "رقم الهاتف",
     name4: "الخصائص",
@@ -23,7 +26,7 @@ const Mangers = () => {
   };
 
   // icons object to show the icons in the table
-  const icon = { eye: true, edit: true, trash: true, butt: true };
+  const icon = { eye: true, edit: true, trash: true };
   const other = { butt: true };
   ///
 
@@ -50,7 +53,7 @@ const Mangers = () => {
   }, [newData]);
 
   const handelFetchId = async (row) => {
-    const response = await Api_Dashboard.get(`/managers/${row.id}`)
+    const response = await Api_Dashboard.get(`/teachers/${row.id}`)
       .then((response) => {
         setRowData(response.data.data);
       })
@@ -60,7 +63,7 @@ const Mangers = () => {
   };
   const handelShowMangerById = async (row) => {
     document.body.style.removeProperty("overflow");
-    const response = await Api_Dashboard.get(`/managers/${row.id}`)
+    const response = await Api_Dashboard.get(`/teachers/${row.id}`)
       .then((response) => {
         setShowMangerData(response.data.data);
       })
@@ -74,7 +77,7 @@ const Mangers = () => {
   }, [currentPage]);
 
   const fetchAllData = async () => {
-    const response = await Api_Dashboard.get(`/managers?page=${currentPage}`)
+    const response = await Api_Dashboard.get(`/teachers?page=${currentPage}`)
       .then((response) => {
         const allData = response.data.data;
         setData(allData);
@@ -101,7 +104,6 @@ const Mangers = () => {
   const { pathname } = useLocation();
 
   const handelMessage = (row) => {
-    console.log(row);
     setMangerIdForSendMessage(row);
     console.log(mangerIdForSendMessage);
   };
@@ -117,26 +119,26 @@ const Mangers = () => {
     if (currentPage === 1) return;
     setCurrentPage((prev) => prev - 1);
   };
+
   return (
     <>
       {/* header */}
       <div className="container-manger min-vh-100 w-100">
-        <HeaderNotificaion content={"مديرو الموقع"} />
+        <HeaderNotificaion content={"المستخدمين"} />
         <div style={{ width: "85%", margin: "auto" }} className=" cont ">
           {/* Start Arrow for navigate */}
           <ArrowForUsers
-            loc1={"/dashboard/mangers"}
-            loc2={"/dashboard/supervisors"}
-            pathname1={pathname}
-            name1={"مديرو الموقع"}
-            name2={"المشرفين"}
+            loc2={"/dashboard/users/student"}
+            loc1={"/dashboard/users/teachers"}
+            name1={"المعلمين"}
+            name2={"الطلاب"}
           />
           {/* Arrow end  */}
 
           {/* Start the search and add component */}
           <SearchAndAddUsers
             newData={newData}
-            buttonContent={"أضافة مدير"}
+            buttonContent={"أضافة معلم"}
             handel={handel}
             fetchAllData={fetchAllData}
             // FilteredUsers={FilteredManagers}
@@ -170,7 +172,6 @@ const Mangers = () => {
           {/* End fro table */}
 
           {/* Start buttons of pagination */}
-
           <FooterOfUserFP
             handelNext={handelNext}
             handelPrev={handelPrev}
@@ -178,29 +179,32 @@ const Mangers = () => {
             currentPage={currentPage}
           />
           {/* End buttons of pagination */}
-          <EditMangerModal
-            api="managers"
-            content={"تعديل المدير "}
+          <EditUserModal
+            api="teachers"
+            content={"تعديل المعلم "}
             fetchAllData={fetchAllData}
             rowData={rowData}
           />
-          <AddMangerModel
-            api="managers"
-            content={"إضافة مدير جديد"}
+          <AddUsersModel
+            api="teachers"
+            content={"إضافة معلم جديد"}
             fetchAllData={fetchAllData}
           />
           <DeleteUserModal
-            content={"هذا المدير"}
-            api="managers"
+            api="teachers"
             fetchAllData={fetchAllData}
             idOfDeleteItem={idOfDeleteItem}
+            content={"هذا المعلم"}
           />
-          <ShowUserModal content={"المدير"} userData={showMangerData} />
-          <SendMessage api={"/points/"} mangerID={mangerIdForSendMessage} />
+          <ShowUserModal content={"المعلم"} userData={showMangerData} />
+          <SendTecherMessageModal
+            api={"/teacher/points/"}
+            mangerID={mangerIdForSendMessage}
+          />
         </div>
       </div>
     </>
   );
 };
 
-export default Mangers;
+export default TeacherDash;

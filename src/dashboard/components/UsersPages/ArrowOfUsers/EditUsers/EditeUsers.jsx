@@ -1,71 +1,59 @@
-import React, { useState } from "react";
-import "./add.css";
 import { useForm } from "react-hook-form";
-import Api_Dashboard from "../../../interceptor/interceptorDashboard";
-import LadingComponent from "../../../LoadingComponent/LodingComponent";
-import { json } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
+// import Api_Dashboard from "../../../";
+import React, { useEffect, useState } from "react";
+import Api_Dashboard from "../../../../interceptor/interceptorDashboard";
 
-const AddMangerModel = ({ fetchAllData, content, api }) => {
-  const notify = (AlertPointSuccess) => {
-    toast.success(AlertPointSuccess, {
-      position: "top-center",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-  };
-
-  const Errornotify = (AlertPoint) => {
-    toast.error(AlertPoint, {
-      position: "top-center",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-  };
-
-  const [AlertPoint, SetAlertPoint] = useState("");
-  const [AlertPointSuccess, SetAlertPointSuccess] = useState("");
+const EditUserModal = ({ api, fetchAllData, rowData, content }) => {
   const [showPassword, setShowPassword] = useState(false);
-  const [apiErrors, setApiErrors] = useState(false);
-  const element = document.getElementById("manger-dash");
-
+  // const [id, seId] = useState(idOfDeleteOrEditItem);
+  const [modal, setModal] = useState("");
+  const element = document.getElementById("edit-manger-dash");
   const {
     register,
     handleSubmit,
+    reset,
+    resetField,
     formState: { errors },
-  } = useForm();
+  } = useForm(
+    rowData && {
+      defaultValues: {
+        first_name: rowData.firstName,
+        last_name: rowData.lastName,
+        phone_number: rowData.phone_number,
 
-  const handleRegistration = async (userData) => {
-    document.body.style.removeProperty("overflow");
-    if (userData) {
-
-      await Api_Dashboard.post(`/${api}`, userData)
-        .then((response) => {
-          console.log(response);
-          element.style.display = "none";
-          let x = response.data.message;
-          SetAlertPointSuccess(x);
-          notify("تمت الاضافة  بنجاح ");
-          fetchAllData();
-        })
-        .catch((err) => {
-          console.log(err);
-          let x = err.response.data.message;
-          SetAlertPoint(x);
-          Errornotify(x);
-          setApiErrors(err.response.data.errors);
-        });
+        date_of_birth: rowData.date_of_birth,
+        email: rowData.email,
+      },
     }
+  );
+  const handleModalClose = () => {
+    resetField("password"); // Reset the password field when the modal is closed
+  };
+  useEffect(() => {
+    if (rowData) {
+      reset({
+        first_name: rowData.firstName,
+        last_name: rowData.lastName,
+        phone_number: rowData.phone_number,
+        governorate: rowData.governorate,
+        date_of_birth: rowData.date_of_birth,
+        email: rowData.email,
+      });
+    }
+  }, [rowData, reset]);
+  const handleRegistration = async (mangerData) => {
+    document.body.style.removeProperty("overflow");
+    await Api_Dashboard.post(`/${api}/${rowData.id}`, mangerData)
+      .then((response) => {
+        // setModal("modal");
+        handleModalClose();
+        element.style.display = "none";
+        console.log(response);
+        fetchAllData();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const handleError = (errors) => {};
@@ -93,7 +81,7 @@ const AddMangerModel = ({ fetchAllData, content, api }) => {
       },
     },
     password: {
-      required: "يرجى ادخال كلمة المرور ",
+      required: "يرجى  ادخال  كلمة المرور ",
       minLength: {
         value: 8,
         message: "يرجي استخدام حروف وأرقام ولا يقل 8 خانات",
@@ -103,7 +91,6 @@ const AddMangerModel = ({ fetchAllData, content, api }) => {
         message: "يرجي استخدام حروف وأرقام",
       },
     },
-    phone_number: { required: "يرجى ادخال الهاتف" },
     date_of_birth: { required: "يرجى ادخال تاريخ الميلاد" },
     governorate: { required: "يرجى ادخال البلد" },
   };
@@ -113,13 +100,12 @@ const AddMangerModel = ({ fetchAllData, content, api }) => {
 
   return (
     <>
-      <ToastContainer position="top-center" />
-
       <div
+        style={{ direction: "rtl" }}
         className="modal fade"
-        id="manger-dash"
+        id="edit-manger-dash"
         tabIndex="-1"
-        aria-labelledby="add-manger-dash"
+        aria-labelledby="edit-manger-dash"
         aria-hidden="true"
         data-bs-backdrop="static"
         data-bs-keyboard="false"
@@ -147,6 +133,7 @@ const AddMangerModel = ({ fetchAllData, content, api }) => {
               </h5>
               <button
                 type="button"
+                onClick={handleModalClose}
                 className="btn-close-new"
                 data-bs-dismiss="modal"
                 aria-label="Close"
@@ -208,19 +195,18 @@ const AddMangerModel = ({ fetchAllData, content, api }) => {
                       الاسم الاول
                     </label>
                     <input
+                      //   value={}
                       placeholder="أدخل اسم المدير هنا"
                       type="text"
                       className="form-control text-end"
-                      id="first_name"
+                      id="edit-first_name"
                       name="first_name"
-                      {...register("first_name", registerOptions.first_name)}
                       autoComplete="current-userName"
                       style={{ direction: "rtl" }}
+                      {...register("first_name", registerOptions.first_name)}
                     />
                     <span style={{ color: "red" }}>
-                      {errors.first_name &&
-                        errors?.first_name &&
-                        errors.first_name.message}
+                      {errors?.first_name && errors.first_name.message}
                     </span>
                   </div>
 
@@ -246,16 +232,14 @@ const AddMangerModel = ({ fetchAllData, content, api }) => {
                       placeholder="أدخل اسم المدير  الاخير هنا"
                       type="text"
                       className="form-control text-end"
-                      id="last_name"
+                      id="edit-last_name"
                       name="last_name"
                       {...register("last_name", registerOptions.last_name)}
                       autoComplete="current-userName"
                       style={{ direction: "rtl" }}
                     />
                     <span style={{ color: "red" }}>
-                      {errors.last_name &&
-                        errors?.last_name &&
-                        errors.last_name.message}
+                      {errors?.last_name && errors.last_name.message}
                     </span>
                   </div>
                 </div>
@@ -285,15 +269,14 @@ const AddMangerModel = ({ fetchAllData, content, api }) => {
                       placeholder="أدخل البريد الألكتروني هنا"
                       type="email"
                       className="form-control text-end"
-                      id="email"
+                      id="edit-email"
                       name="email"
                       {...register("email", registerOptions.email)}
                       style={{ direction: "rtl" }}
                       autoComplete="current-email"
                     />
                     <span style={{ color: "red" }}>
-                      {errors.email && errors?.email && errors.email.message}
-                      {apiErrors.email}
+                      {errors?.email && errors.email.message}
                     </span>
                   </div>
 
@@ -316,9 +299,11 @@ const AddMangerModel = ({ fetchAllData, content, api }) => {
                         placeholder="ادخل كلمة المرور"
                         type={showPassword ? "text" : "password"}
                         className="form-control text-end"
-                        id="password"
+                        id="edit-password"
                         name="password"
-                        {...register("password", registerOptions.password)}
+                        {...register("password", {
+                          required: " يرجى ادخل كلمة المرور ",
+                        })}
                         style={{ direction: "rtl", position: "relative" }}
                         autoComplete="current-password"
                       />
@@ -350,9 +335,7 @@ const AddMangerModel = ({ fetchAllData, content, api }) => {
                       </button>
                     </div>
                     <span style={{ color: "red" }}>
-                      {errors.password &&
-                        errors?.password &&
-                        errors.password.message}
+                      {errors?.password && errors.password.message}
                     </span>
                   </div>
                 </div>
@@ -388,26 +371,17 @@ const AddMangerModel = ({ fetchAllData, content, api }) => {
                         placeholder="أدخل رقم الهاتف هنا"
                         type="text"
                         className="form-control text-end"
-                        id="phone_number"
+                        id="edit-phone_number"
                         name="phone_number"
-                        {...register("phone_number", {
-                          required: "يرجى ادخال رقم الهاتف",
-                          minLength: {
-                            value: 10,
-                            message: "يرجي استخدام 10 أرقام",
-                          },
-                          maxLength: {
-                            value: 10,
-                            message: "يرجي استخدام 10 أرقام",
-                          },
-                        })}
+                        {...register(
+                          "phone_number",
+                          registerOptions.phone_number
+                        )}
                         style={{ direction: "rtl" }}
                         autoComplete="current-number"
                       />
                       <span style={{ color: "red" }}>
-                        {errors.phone_number &&
-                          errors?.phone_number &&
-                          errors.phone_number.message}
+                        {errors?.phone_number && errors.phone_number.message}
                       </span>
                     </div>
                   </div>
@@ -434,7 +408,7 @@ const AddMangerModel = ({ fetchAllData, content, api }) => {
                         placeholder="أدخل رقم الهاتف هنا"
                         type="date"
                         className="form-control text-end"
-                        id="date_of_birth"
+                        id="edit-date_of_birth"
                         name="date_of_birth"
                         {...register(
                           "date_of_birth",
@@ -444,9 +418,7 @@ const AddMangerModel = ({ fetchAllData, content, api }) => {
                         autoComplete="current-number"
                       />
                       <span style={{ color: "red" }}>
-                        {errors.date_of_birth &&
-                          errors?.date_of_birth &&
-                          errors.date_of_birth.message}
+                        {errors?.date_of_birth && errors.date_of_birth.message}
                       </span>
                     </div>
                   </div>
@@ -463,50 +435,13 @@ const AddMangerModel = ({ fetchAllData, content, api }) => {
                     display: "flex",
                     justifyContent: "space-evenly",
                   }}
-                >
-                  <div
-                    className="form-group col-5 d-flex flex-column "
-                    style={{ display: "flex", width: "89%" }}
-                  >
-                    <label
-                      htmlFor="recipient4-name"
-                      className="col-form-label"
-                      style={{
-                        flexDirection: "column-reverse",
-                        color: "white",
-                        justifyContent: "end",
-                        display: "flex",
-                        // textAlign: "center",
-                      }}
-                    >
-                      اسم البلد
-                    </label>
-                    <div>
-                      <input
-                        placeholder="أدخل اسم البلد هنا"
-                        type="text"
-                        className="form-control text-end"
-                        id="governorate"
-                        name="governorate"
-                        {...register(
-                          "governorate",
-                          registerOptions.governorate
-                        )}
-                        style={{ direction: "rtl" }}
-                        autoComplete="current-number"
-                      />
-                      <span style={{ color: "red" }}>
-                        {errors.governorate &&
-                          errors?.governorate &&
-                          errors.governorate.message}
-                      </span>
-                    </div>
-                  </div>
-                </div>
+                ></div>
                 <div className="modal-footer-new new-footer">
                   <button
                     type="submit"
+                    data-bs-dismiss={modal}
                     className="btn btn-primary"
+                    // data-bs-dismiss="modal"
                     style={{
                       borderRadius: "30px",
                       border: "none",
@@ -516,10 +451,11 @@ const AddMangerModel = ({ fetchAllData, content, api }) => {
                       marginLeft: "12px",
                     }}
                   >
-                    إضافة
+                    تعديل
                   </button>
                   <button
                     type="button"
+                    onClick={handleModalClose}
                     className="btn btn-secondary"
                     data-bs-dismiss="modal"
                     style={{
@@ -543,4 +479,4 @@ const AddMangerModel = ({ fetchAllData, content, api }) => {
   );
 };
 
-export default AddMangerModel;
+export default EditUserModal;

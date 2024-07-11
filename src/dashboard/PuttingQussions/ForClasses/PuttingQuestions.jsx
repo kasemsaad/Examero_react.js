@@ -15,6 +15,7 @@ import EditClassModal from "../../components/PuttingQuesionsPage/editClassModal/
 import FooterOfUserFP from "../../components/UsersPages/FooterOfUsers/FooterOfUsers";
 import PaginationForPuttingQ from "../paginationForPutingQ/paginationForPatingQ";
 import "./Quesion.css";
+import { toast } from "react-toastify";
 const PuttingQuestions = () => {
   const [classData, setClassData] = useState(false);
   const [groupsData, setGroupsData] = useState("");
@@ -24,6 +25,8 @@ const PuttingQuestions = () => {
   const totalPages = metaFPagination.last_page;
   const [errorss, setErrors] = useState("");
   const [rowDataOfClass, setRowDataOfClass] = useState([]);
+  const [AlertPoint, SetAlertPoint] = useState("");
+  const [AlertPointSuccess, SetAlertPointSuccess] = useState("");
   let header = {
     name1: "اسم الصف",
     name2: "حالة الصف",
@@ -35,16 +38,13 @@ const PuttingQuestions = () => {
     fetchDataForClass();
   }, []);
   const fetchDataForClass = async (Data) => {
-    console.log(Data);
     setClassData(Data);
     if (Data) {
       await Api_Dashboard.get(`/groups/${Data.id}`)
         .then((response) => {
           setRowDataOfClass(response.data.data);
-          console.log(response.data.data);
         })
         .catch((err) => {
-          console.log(err.response.errors);
           setErrors(err);
         });
     }
@@ -53,18 +53,12 @@ const PuttingQuestions = () => {
     fetchAllData();
   }, [currentPage]);
   const fetchAllData = async () => {
-    console.log(currentPage);
     const respons = await Api_Dashboard.get(`/groups?page=${currentPage}`)
       .then((response) => {
         setGroupsData(response.data.data);
-        console.log(response.data.data);
         setMetaFPagination(response.data.meta.pagination);
-        console.log(response.data.meta.pagination);
       })
-      .catch((err) => {
-        console.log(err);
-        console.log(err.response.errors);
-      });
+      .catch((err) => {});
   };
 
   const newData = useMemo(() => {
@@ -99,7 +93,7 @@ const PuttingQuestions = () => {
       <div className="question-dash" style={{ width: "80%", margin: "auto" }}>
         <PuttingQArrow />
         <div>
-          <AddComponent content={"إضافة سؤال"} />
+          <AddComponent content={"إضافة صف"} />
         </div>
 
         <div className="MyForm col-8">
@@ -152,6 +146,7 @@ const PuttingQuestions = () => {
         </div>
       </div>
       <DeleteUserModal
+        content={"هذا الصف"}
         fetchAllData={fetchAllData}
         api={"groups"}
         idOfDeleteItem={DeletedItem}

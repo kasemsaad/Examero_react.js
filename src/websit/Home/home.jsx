@@ -505,7 +505,7 @@ function Home() {
             {/* -----------endsection--------- */}
 
             {/* -----------section6--------- */}
-            <Section6 className="Section6 pt-4" ref={sec6}>
+            <Section6 className="Section6 pt-4 " ref={sec6}>
                 <h3 className="Bold text-center"><span style={{ color: "#4941A6" }}>باقات الاشتراك</span></h3><br />
                 <DivSection6 className=" container d-flex align-items-center  justify-content-  flex-column">
                     <h4 className="teacherbox Bold " ><span style={{ color: "#FE4F60" }}> ( المعلمين ) </span></h4><br />
@@ -679,7 +679,7 @@ function Home() {
 
             {/* ----------Footer--------- */}
 
-            <Footer className="footer" dir="rtl">
+            <Footer className="footer " dir="rtl">
                 <div className="row  footerrow d-flex  justify-content-center m-0">
                     <div className="col-md-4">
                         <h3><span className=" cgg" style={{ color: "#FFB419 " }} >Examero</span></h3>

@@ -28,6 +28,7 @@ import edit from "./../../assets/image/uil_edit.svg"
 import Calender from './Calender/calender'
 import { Link } from 'react-router-dom'
 import Api_Dashboard from '../interceptor/interceptorDashboard'
+import { useForm } from 'react-hook-form'
 
 
 
@@ -39,6 +40,7 @@ function onSelect(id) {
   useId = id
 }
 export default function Home_dashboard() {
+  const {form} =useForm()
   const [date, setDate] = useState(new Date());
   const [showPassword, setShowPassword] = useState(false);
   const [allNotes, setAllNotes] = useState("");
@@ -109,6 +111,8 @@ const handleNoteChange = (event) => {
 
 // add note 
 const handleSubmit = (event) => {
+  document.body.style.overflow = '';
+
   event.preventDefault();
   const data = {
     address: address,
@@ -116,9 +120,13 @@ const handleSubmit = (event) => {
   };
     Api_Dashboard.post(`/notes`, data)
     .then(response => {
-      // const modalElement = document.getElementById('addManagerModal');
-      // modalElement.style.display = "none"
+      const modalElement = document.getElementById('addAdminNote');
+      modalElement.style.display = "none"
       getAllNotes()
+
+      setAddress("")
+      setNote("")
+
           })
     .catch(error => {
       console.error('Error adding note:');
@@ -741,6 +749,8 @@ const getUsersFromInput=(e)=>{
                         placeholder={`أدخل العنوان `}
                         value={address}
                         onChange={handleAddressChange}
+                        required
+                        form={form}
                       />
                       {addressValidationMessage && <p style={{ color: 'red' }}>{addressValidationMessage}</p>}
 
@@ -756,6 +766,7 @@ const getUsersFromInput=(e)=>{
                         id="lastName"
                         placeholder="أدخل الملحوظة"
                         value={note}
+                        required
                         onChange={handleNoteChange} />
                       {noteValidationMessage && <p style={{ color: 'red' }}>{noteValidationMessage}</p>}
                     </div>
@@ -772,7 +783,7 @@ const getUsersFromInput=(e)=>{
                       >
                         إلغاء
                       </button>
-                      <button data-bs-dismiss="modal" type="submit" className="btn save managerSave" >إضافة</button>
+                      <button  type="submit" className="btn save managerSave" >إضافة</button>
                     </div>
               </form>
             </div>
@@ -813,6 +824,7 @@ id="updateAdminModal"
                         placeholder="أدخل العنوان"
                         value={values.address}
                         onChange={handleInputChangeAddress}
+                        required
 />
                       {addressUpdateValidationMessage && <p style={{ color: 'red' }}>{addressUpdateValidationMessage}</p>}
 

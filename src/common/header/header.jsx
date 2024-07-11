@@ -14,14 +14,15 @@ import Api_website from "../../utlis/axios_utils_websit";
 import Api_dashboard from "../../utlis/axios_utils_dashboard";
 
 function Header() {
-  const navigate = useNavigate()
-  const location = useLocation()
+  const navigate = useNavigate();
+  const location = useLocation();
   const [toggled, setToggled] = useState(false);
   const ReducerState = useSelector((state) => state.dark);
   const count = useSelector((state) => state.dark.counter);
-  const [personalDashboard,SetpersonalDashboard]=useState("")
-  const [personalStudent,SetpersonalStudent]=useState("")
-  const [personalTeacher,SetpersonalTeacher]=useState("")
+  const [personalDashboard, SetpersonalDashboard] = useState("");
+  const [personalStudent, SetpersonalStudent] = useState("");
+  const [personalTeacher, SetpersonalTeacher] = useState("");
+  const notification = useSelector((state) => state.not.not);
 
   const dispatch = useDispatch();
   const tog = () => {
@@ -31,37 +32,33 @@ function Header() {
     });
   };
 
-
-     
-
-
- 
   const linksProfile = () => {
-    if (location.pathname.startsWith('/dashboard')) {
+    if (location.pathname.startsWith("/dashboard")) {
       navigate("/dashboard/b");
-    } else if (location.pathname.startsWith('/student')) {
+    } else if (location.pathname.startsWith("/student")) {
       navigate("/student/editStudentProfaile");
-    } else if (location.pathname.startsWith('/teacher')) {
-      navigate("/"); 
+    } else if (location.pathname.startsWith("/teacher")) {
+      navigate("/");
     } else {
-      navigate("/"); 
+      navigate("/");
     }
   };
 
-
-const getRefresh = async()=>{
- await Api_Dashboard.get(`/refresh`)
-    .then(response => {
-      // console.log(response);
-      let name_image = response.data.User.media.name
-         SetpersonalDashboard(name_image);
-
-    })
-    .catch(error => {
-
+  const getRefresh = async () => {
+    await Api_Dashboard.get(`/refresh`)
+      .then((response) => {
+        // console.log(response);
+        let name_image = response.data.User.media.name;
+        SetpersonalDashboard(name_image);
+      })
+      .catch((error) => {
         console.error("Error fetching subjects data:");
-    });
-}
+      });
+  };
+
+
+
+
 const getRefreshstudent = async()=>{
  await Api_website.get(`/students/refresh`)
     .then(response => {
@@ -71,14 +68,14 @@ const getRefreshstudent = async()=>{
     })
     .catch(error => {
         console.error("Error fetching student data:");
-    });
-}
+      });
+  };
 
-  useEffect(()=>{
-    getRefresh()
-    getRefreshstudent()
-    
-  },[personalDashboard])
+  useEffect(() => {
+    getRefresh();
+    getRefreshstudent();
+  }, [personalDashboard]);
+
   return (
     <>
       <div
@@ -113,7 +110,7 @@ const getRefreshstudent = async()=>{
                       position: "relative",
                     }}
                   >
-                    <Link to="/dashboard/not">
+                    <Link to="/dashboard/activity/all">
                       {" "}
                       <img
                         src={notifiy}
@@ -137,7 +134,9 @@ const getRefreshstudent = async()=>{
                         fontWeight: "800",
                       }}
                     >
-                      122
+                      {notification
+                        ? notification
+                        : localStorage.getItem("not")}
                     </span>
                   </div>
                 </li>
@@ -228,57 +227,26 @@ const getRefreshstudent = async()=>{
         >
           <img
             style={{ objectFit: "cover" }}
+
+
             
             src={
               
               location.pathname.startsWith('/dashboard')? `${Api_dashboard.defaults.baseURL}/assets/Admin/${personalDashboard}`:
               location.pathname.startsWith('/student')? `${Api_dashboard.defaults.baseURL}/assets/Student/${personalStudent}`:
               // location.pathname.startsWith('/teacher')? `${Api_dashboard.defaults.baseURL}/assets/Student/${personalStudent}`:
-""
-      
-            
-            
-            }
+""  
+                        }
             width="100%"
             height="100%"
             alt="Personal"
-            onClick={()=>{
-                
-              linksProfile()
-
+            onClick={() => {
+              linksProfile();
             }}
           />
-            
         </div>
       </div>
-          
-      {/*
-<div style={{maxWidth: "60%", color:"white",
-backgroundColor:"#0E0A43", marginLeft: "64px", borderRadius: "10px", position: "relative",top: "20px"}}>
 
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium repellendus architecto esse, consectetur fugiat fugit quas ipsa, possimus rerum magnam veniam. Ex fuga maiores quasi recusandae inventore ut quaerat error!</p>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium repellendus architecto esse, consectetur fugiat fugit quas ipsa, possimus rerum magnam veniam. Ex fuga maiores quasi recusandae inventore ut quaerat error!</p>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium repellendus architecto esse, consectetur fugiat fugit quas ipsa, possimus rerum magnam veniam. Ex fuga maiores quasi recusandae inventore ut quaerat error!</p>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium repellendus architecto esse, consectetur fugiat fugit quas ipsa, possimus rerum magnam veniam. Ex fuga maiores quasi recusandae inventore ut quaerat error!</p>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium repellendus architecto esse, consectetur fugiat fugit quas ipsa, possimus rerum magnam veniam. Ex fuga maiores quasi recusandae inventore ut quaerat error!</p>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium repellendus architecto esse, consectetur fugiat fugit quas ipsa, possimus rerum magnam veniam. Ex fuga maiores quasi recusandae inventore ut quaerat error!</p>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium repellendus architecto esse, consectetur fugiat fugit quas ipsa, possimus rerum magnam veniam. Ex fuga maiores quasi recusandae inventore ut quaerat error!</p>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium repellendus architecto esse, consectetur fugiat fugit quas ipsa, possimus rerum magnam veniam. Ex fuga maiores quasi recusandae inventore ut quaerat error!</p>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium repellendus architecto esse, consectetur fugiat fugit quas ipsa, possimus rerum magnam veniam. Ex fuga maiores quasi recusandae inventore ut quaerat error!</p>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium repellendus architecto esse, consectetur fugiat fugit quas ipsa, possimus rerum magnam veniam. Ex fuga maiores quasi recusandae inventore ut quaerat error!</p>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium repellendus architecto esse, consectetur fugiat fugit quas ipsa, possimus rerum magnam veniam. Ex fuga maiores quasi recusandae inventore ut quaerat error!</p>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium repellendus architecto esse, consectetur fugiat fugit quas ipsa, possimus rerum magnam veniam. Ex fuga maiores quasi recusandae inventore ut quaerat error!</p>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium repellendus architecto esse, consectetur fugiat fugit quas ipsa, possimus rerum magnam veniam. Ex fuga maiores quasi recusandae inventore ut quaerat error!</p>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium repellendus architecto esse, consectetur fugiat fugit quas ipsa, possimus rerum magnam veniam. Ex fuga maiores quasi recusandae inventore ut quaerat error!</p>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium repellendus architecto esse, consectetur fugiat fugit quas ipsa, possimus rerum magnam veniam. Ex fuga maiores quasi recusandae inventore ut quaerat error!</p>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium repellendus architecto esse, consectetur fugiat fugit quas ipsa, possimus rerum magnam veniam. Ex fuga maiores quasi recusandae inventore ut quaerat error!</p>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium repellendus architecto esse, consectetur fugiat fugit quas ipsa, possimus rerum magnam veniam. Ex fuga maiores quasi recusandae inventore ut quaerat error!</p>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium repellendus architecto esse, consectetur fugiat fugit quas ipsa, possimus rerum magnam veniam. Ex fuga maiores quasi recusandae inventore ut quaerat error!</p>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium repellendus architecto esse, consectetur fugiat fugit quas ipsa, possimus rerum magnam veniam. Ex fuga maiores quasi recusandae inventore ut quaerat error!</p>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium repellendus architecto esse, consectetur fugiat fugit quas ipsa, possimus rerum magnam veniam. Ex fuga maiores quasi recusandae inventore ut quaerat error!</p>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium repellendus architecto esse, consectetur fugiat fugit quas ipsa, possimus rerum magnam veniam. Ex fuga maiores quasi recusandae inventore ut quaerat error!</p>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium repellendus architecto esse, consectetur fugiat fugit quas ipsa, possimus rerum magnam veniam. Ex fuga maiores quasi recusandae inventore ut quaerat error!</p>
-</div> */}
     </>
   );
 }

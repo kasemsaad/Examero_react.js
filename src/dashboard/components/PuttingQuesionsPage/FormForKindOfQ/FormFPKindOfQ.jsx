@@ -2,11 +2,46 @@ import React, { useState } from "react";
 import MyButton from "../../../../common/Button/Button";
 import "./FornFPkindOfQ.css";
 import Api_Dashboard from "../../../interceptor/interceptorDashboard";
+import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+
 const FormFPkindOfQ = ({ fetchAllKQuestons }) => {
+  const notify = (AlertPointSuccess) => {
+    toast.success(AlertPointSuccess, {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
+
+  const Errornotify = (AlertPoint) => {
+    toast.error(AlertPoint, {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
+
+  const [AlertPoint, SetAlertPoint] = useState("");
+  const [AlertPointSuccess, SetAlertPointSuccess] = useState("");
   const [errors, setErrors] = useState("");
   const [selctedQ, setSelectedQ] = useState({
     name: "",
   });
+  const navigate = useNavigate();
+  const navgateToQBank = () => {
+    navigate("/dashboard/qbank");
+  };
   const handelChange = (e) => {
     console.log(e.target.value);
     setErrors({});
@@ -26,12 +61,20 @@ const FormFPkindOfQ = ({ fetchAllKQuestons }) => {
     }
 
     const handelEdit = async (selctedQ) => {
+      document.body.style.removeProperty('overflow');
+
       await Api_Dashboard.post("questions-type", selctedQ)
         .then((response) => {
+          let x = response.data.message;
+          SetAlertPointSuccess(x);
+          console.log("Mosafa");
+          notify("تم اضافة نوع السؤال بنجاح ");
           fetchAllKQuestons();
         })
         .catch((err) => {
-          console.log(err);
+          let x = err.response.data.message;
+          SetAlertPoint(x);
+          Errornotify(x);
           setErrors(err.response.data.errors);
         });
     };
@@ -164,6 +207,7 @@ const FormFPkindOfQ = ({ fetchAllKQuestons }) => {
                 <MyButton
                   className={"button-kind-2"}
                   content={"+  اضافة نوع سؤال جديد "}
+                  onClick={navgateToQBank}
                 />
               </div>
             </div>
@@ -177,6 +221,7 @@ const FormFPkindOfQ = ({ fetchAllKQuestons }) => {
             </div>
           </div>
           <span style={{ color: "red", margin: "auto" }}>{errors.name}</span>
+          <ToastContainer position="top-center" />
         </form>
       </div>
     </>

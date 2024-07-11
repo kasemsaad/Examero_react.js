@@ -1,3 +1,4 @@
+import { toast, ToastContainer } from "react-toastify";
 import Api_Dashboard from "../../../interceptor/interceptorDashboard";
 import React, { useEffect, useState } from "react";
 
@@ -10,6 +11,34 @@ const EditLessonModal = ({
   RowDataOfLesson,
   fetchUnitsBySubjectId,
 }) => {
+  const notify = (AlertPointSuccess) => {
+    toast.success(AlertPointSuccess, {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
+
+  const Errornotify = (AlertPoint) => {
+    toast.error(AlertPoint, {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
+
+  const [AlertPoint, SetAlertPoint] = useState("");
+  const [AlertPointSuccess, SetAlertPointSuccess] = useState("");
   const [formData, setFormData] = useState({
     group_id: "",
     subject_id: "",
@@ -25,7 +54,7 @@ const EditLessonModal = ({
     status: "",
     name: "",
   });
-
+  const element = document.getElementById("edit-lesson-dash");
   useEffect(() => {
     if (RowDataOfLesson) {
       setEdit({
@@ -84,16 +113,25 @@ const EditLessonModal = ({
     }
     try {
       // Simulate API call
+      document.body.style.removeProperty("overflow");
       const response = await Api_Dashboard.post(
         `/lessons/${RowDataOfLesson.id}`,
         edit
       ); // Update with correct API path
-      setModal("modal");
+      element.style.display = "none";
+      let x = response.data.message;
+      SetAlertPointSuccess(x);
+      notify("تم تعديل الدرس بنجاح ");
+
+      // setModal("modal");
       fetchAllLessons();
     } catch (error) {
       setErrors({
         apiError: error.response?.data?.message || "Error submitting form",
       });
+      let x = error.response.data.message;
+      SetAlertPoint(x);
+      Errornotify(x);
     }
   };
 
@@ -390,6 +428,7 @@ const EditLessonModal = ({
                     إلغاء
                   </button>
                 </div>
+                <ToastContainer position="top-center" />
               </form>
             </div>
           </div>

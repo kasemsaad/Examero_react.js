@@ -31,28 +31,25 @@ const PuttingQUnites = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = metaFPagination.last_page;
   const fetchDataForUnitById = async (Data) => {
-    console.log(Data);
     if (Data) {
+      document.body.style.overflow = "";
+
       await Api_Dashboard.get(`/units/${Data.id}`)
         .then((response) => {
           setRowDataOfUnite(response.data.data);
-          fetchSubjectByClassId(response.data.data.group.id);
 
-          console.log(response.data.data);
+          fetchSubjectByClassId(response.data.data.group.id);
         })
         .catch((err) => {
-          console.log(err);
           setErrors(err);
         });
     }
   };
   const fetchSubjectByClassId = async (id) => {
     if (id) {
-      console.log(id);
       const respons = await Api_Dashboard.get(`subjects/selection/${id}`)
         .then((response) => {
           setActiveSubjects(response.data.data);
-          console.log(response.data.data);
         })
         .catch((err) => {
           console.log(err);
@@ -67,11 +64,8 @@ const PuttingQUnites = () => {
     const respons = await Api_Dashboard.get("/groups/selection")
       .then((response) => {
         setActiveClasses(response.data.data);
-        console.log(response);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
   useEffect(() => {
     fetchAllActiveClasses();
@@ -85,10 +79,7 @@ const PuttingQUnites = () => {
     const respons = await Api_Dashboard.get(`/units?page=${currentPage}`)
       .then((response) => {
         setUnits(response.data.data);
-        console.log(response);
         setMetaFPagination(response.data.meta.pagination);
-
-        console.log(response.data.meta.pagination);
       })
       .catch((err) => {
         console.log(err);
@@ -140,7 +131,7 @@ const PuttingQUnites = () => {
             className="class-info-button-containerr d-flex align-items-center"
             style={{ height: "9rem" }}
           >
-            <InfoComponent content={"بيانات الأسئله"} />
+            <InfoComponent content={"بيانات الوحده"} />
           </div>
           <div className="MyTable">
             <MyTable
@@ -171,6 +162,7 @@ const PuttingQUnites = () => {
           <FooterFPuttingQ next={"التالي"} prev={"السابق"} />
         </div>
         <DeleteUserModal
+          content={"هذه الوحده"}
           fetchAllData={fetchAllUnits}
           api={"units"}
           idOfDeleteItem={DeletedItem}

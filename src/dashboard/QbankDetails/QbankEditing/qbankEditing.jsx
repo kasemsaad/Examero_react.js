@@ -676,7 +676,8 @@ const [allLesson,SetallLesson]=useState([])
                             <div className='mt-2'>
                                 <label htmlFor=" "> درجه السؤال </label>
                                 <input                                     value={dataToEdit.point}
- onChange={getAllSelection} name='point' type="number" className="form-control" placeholder="درجه السؤال" required />
+ onChange={getAllSelection}
+  name='point' type="number" min={1} className="form-control" placeholder="درجه السؤال" required />
                             </div>
 
 

@@ -122,8 +122,7 @@ export default function Specification() {
         <>
             <ToastContainer position='top-center' />
 
-            <div id="specificationContent" className="container  pb-4 " style={{ overflow: 'auto', marginTop: '18px', direction: 'rtl', height: 'auto', border: "2px solid purble", borderRadius: "10px", width: "90%", margin: "auto" }}>
-
+            <div id="" className="container  pb-4 " style={{ overflow: 'auto', marginTop: '18px', direction: 'rtl', height: 'auto', border: "2px solid purble", borderRadius: "10px", width: "90%", margin: "auto" }}>
 
                 <div className='col-12  mt-3 d-flex ' style={{ alignItems: "center", }}>
                     <div className="" style={{ width: "5.333333%" }}>
@@ -208,12 +207,9 @@ export default function Specification() {
 
                         </div>
 
-
-
-
                         <div className='table_wrabber mt-3 col-12  ' style={{ textAlign: "center", overflowX: 'auto' }}>
 
-                            <table className="table table-bordered mt-4 " >
+                            <table className="table table-bordered mt-4 table-info"  id='specificationContent'>
                                 <thead className=''>
                                     <tr>
                                         <th rowSpan="2">الرقم</th>

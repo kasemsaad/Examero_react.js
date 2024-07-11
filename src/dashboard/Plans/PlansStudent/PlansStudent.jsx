@@ -3,6 +3,7 @@ import Plans from '../Plans'
 import Api_Dashboard from '../../interceptor/interceptorDashboard'
 import image from "./../../../assets/image/High Importance.svg"
 import "./PlansStudent.css"
+import ModalDelete, { Notify, NotifyError } from '../../Alert/alertToast'
 
 export default function PlansStudent() {
     const [allStudentPlanData,SetallStudentPlanData]=useState([])
@@ -73,6 +74,8 @@ export default function PlansStudent() {
       }));
     };
     const handlemodal = async(event) => {
+      document.body.style.overflow = '';
+
       event.preventDefault();
       await Api_Dashboard.post(`/plans/${editId}`,{
       name:InputEditTeacher.name,
@@ -86,8 +89,10 @@ export default function PlansStudent() {
         const modalElement = document.getElementById('add_connect_Student');
            modalElement.style.display = "none"
         getAllTeacherPlan()
+        Notify("تم التعديل بنجاح")
       }).catch((err)=>{
         console.log(err);
+        NotifyError("حدث خطا اثناء التعديل ")
       })
     };
 
@@ -95,6 +100,8 @@ export default function PlansStudent() {
 
     //********* */ add connect post *************8
     const addConnect =async(event)=>{
+      document.body.style.overflow = '';
+
       event.preventDefault();
     await  Api_Dashboard.post('/plans',{
       name:InputEditTeacher.name,
@@ -107,13 +114,18 @@ export default function PlansStudent() {
          const modalElement = document.getElementById('add_connect_student_add');
            modalElement.style.display = "none"
         getAllTeacherPlan()
+        Notify("تم الاضافه بنجاح")
+
       }).catch((err)=>{
         console.log(err);
+        Notify("حدث خطا اتناء الاضافه" )
+
       })
     }
 
 // ****** edit and update ******************8 
     const handeledit = async(row)=>{
+      document.body.style.overflow = '';
       console.log(row.id);
       await Api_Dashboard.get(`/plans/${row.id}`).then((response)=>{
       SetId(row.id)
@@ -134,6 +146,7 @@ export default function PlansStudent() {
 
     // delete connect 
     const getDeletedObject = (row)=>{
+      document.body.style.overflow = '';
       SetdeleteId(row.id)
       // console.log(deleteId)
     }
@@ -150,12 +163,14 @@ export default function PlansStudent() {
 
     useEffect(()=>{
         getAllTeacherPlan()
-    },[])
+    },[current_page])
     
     const getAllTeacherPlan= async ()=>{
-      await Api_Dashboard.get('/plans/student').then((response)=>{
+      await Api_Dashboard.get(`/plans/student?page=${current_page}`).then((response)=>{
         console.log(response.data.data );
             SetallStudentPlanData(response.data.data)
+            Setpagination(response.data.meta.pagination)
+
         }).catch((err)=>{
             console.log(err);
         })
@@ -171,9 +186,14 @@ export default function PlansStudent() {
     handel={(row)=>handeledit(row)}
     Deletehandel={(row)=>getDeletedObject(row)} 
     nameOfPageModalTarget={"#add_connect_student_add"} 
-    next={handelNext} handelPrev={handelPrev}
+    next={handelNext}
+     handelPrev={handelPrev}
+     current_page={current_page} 
+     totalPages={totalPages}
+
     
     />
+    <ModalDelete/>
    
 
 
@@ -249,12 +269,13 @@ export default function PlansStudent() {
                         </button>
                       </div>
                       <input
-                        type="text"
+                        type="number"
                         className="form-control text-center"
                         id="price"
                         name='price'
                         value={InputEditTeacher.price}
                         onChange={(e)=>getEditingInputs(e)}
+                        min={1}
                         
                       />
                       <div className="input-group-append">
@@ -281,11 +302,13 @@ export default function PlansStudent() {
                         </button>
                       </div>
                       <input
-                        type="text"
+                        type="number"
                         className="form-control text-center"
                         id="allow_exam"
                         name='allow_exam'
                         value={InputEditTeacher.allow_exam}
+                        min={1}
+
                         
                         onChange={(e)=>getEditingInputs(e)}
 
@@ -314,12 +337,14 @@ export default function PlansStudent() {
                         </button>
                       </div>
                       <input
-                        type="text"
+                        type="number"
                         className="form-control text-center"
                         id="allow_question"
                         name='allow_question'
                         value={InputEditTeacher.allow_question}
                         onChange={(e)=>getEditingInputs(e)}
+                        min={1}
+
 
                       />
                       <div className="input-group-append">
@@ -498,6 +523,8 @@ export default function PlansStudent() {
                         name='price'
                         value={InputEditTeacher.price}
                         onChange={(e)=>getEditingInputs(e)}
+                        min={1}
+
                         
                       />
                       <div className="input-group-append">
@@ -531,6 +558,8 @@ export default function PlansStudent() {
                         value={InputEditTeacher.allow_exam}
                         
                         onChange={(e)=>getEditingInputs(e)}
+                        min={1}
+
 
                       />
                       <div className="input-group-append">
@@ -562,7 +591,7 @@ export default function PlansStudent() {
                         id="allow_question"
                         name='allow_question'
                         value={InputEditTeacher.allow_question}
-                        
+                        min={1}
                         onChange={(e)=>getEditingInputs(e)}
 
                       />
