@@ -49,6 +49,7 @@ const AddMangerModel = ({ fetchAllData, content, api }) => {
     document.body.style.removeProperty("overflow");
     if (userData) {
 
+
       await Api_Dashboard.post(`/${api}`, userData)
         .then((response) => {
           console.log(response);
