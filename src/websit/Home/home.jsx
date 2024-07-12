@@ -29,6 +29,13 @@ function Home() {
     const sec4 = useRef();
     const sec5 = useRef();
     const sec6 = useRef();
+    const [student_data, setStudent_data] = useState(null);
+    const [teacher_data, setTeacher_data] = useState(null);
+    const [Data, setData] = useState("");
+    const [baymentObj, setbaymentObj] = useState("");
+    const [user, setuser] = useState("");
+    const [UserPayment, setUserPayment] = useState("");
+    const navigate = useNavigate();
     const scrollHandler = (elmRef) => {
         window.scrollTo({ top: elmRef.current.offsetTop, behavior: "smooth" });
     }
@@ -44,13 +51,7 @@ function Home() {
         });
     };
 
-    const [student_data, setStudent_data] = useState(null);
-    const [teacher_data, setTeacher_data] = useState(null);
-    const [Data, setData] = useState("");
-    const [baymentObj, setbaymentObj] = useState("");
-    const [user, setuser] = useState("");
-    const [UserPayment, setUserPayment] = useState("");
-    const navigate = useNavigate();
+
     const logout = () => {
         if (user === "student") {
 
@@ -77,29 +78,55 @@ function Home() {
         }
 
     }
+    const login = () => {
+        const token=localStorage.getItem("token_user")
+if(token){
+        if (user === "student") {
+            navigate("/student/homeStudentView")
+        } else if (user === "teacher") {
+            navigate("/teacher/TeacherProfile")
+        } else {
+            navigate("/")
+        }
+    }else{
+        if (user === "student") {
+            navigate("login_student")
+        } else if (user === "teacher") {
+            navigate("/login_teacher")
+        } else {
+            navigate("/")
+        }
+    }
+    }
+
     useEffect(() => {
         setuser(localStorage.getItem("user"))
+        if (user === "student") {
+            Api_Website.get(`/students/refresh`)
+                .then(response => {
+                    setData(response.data.User);
 
+                })
+                .catch(error => {
 
-        Api_Website.get(`/students/refresh`)
-            .then(response => {
-                setData(response.data.User);
+                    console.error("Error fetching subjects data:");
+                });
+        } else if (user === "teacher") {
 
-            })
-            .catch(error => {
+            Api_Website.get(`/teachers/refresh`)
+                .then(response => {
+                    setTimeout(() => { 
+                       setData(response.data.user);
+                        // console.log(response.data.user);
+                     } ,2000)
+                })
+                .catch(error => {
+                    console.error("Error fetching subjects data:");
+                });
 
-                console.error("Error fetching subjects data:");
-            });
-
-        // Api_Website.get(`/teachers/refresh`)
-        // .then(response => {
-        //     setData(response.data);
-        //   console.log(response.data);
-        // })
-        // .catch(error => {
-        //   console.error("Error fetching subjects data:");
-        // });
-
+        } else {
+            navigate("/")
+        }
         Api_Website.get(`/teacher-plan`)
             .then(response => {
                 setTeacher_data(response.data);
@@ -282,7 +309,13 @@ function Home() {
                                 </ul>
                             </div>
                             <div id="login" >
-                                <Link className="btn" onClick={() => { setId(1) }} style={{ height: "2.5rem", width: "8rem", color: "#4941A6", backgroundColor: "" }} to={"/student/homeStudentView"}>{Data.fullName}</Link>
+                                <button className="btn" onClick={() => {
+                                    setId(1)
+                                    login()
+                                }}
+                                    style={{ height: "2.5rem", width: "8rem", color: "#4941A6", backgroundColor: "" }}  >
+                                    {Data.fullName}
+                                </button>
                                 <button onClick={() => { logout() }} className="btn  " style={{ height: "2.5rem", width: "8rem", border: "none" }} >تسجيل خروج</button>
                             </div>
                             <div id="buttons" >
