@@ -40,6 +40,7 @@ function Login() {
             .then((response) => {
                 setLoginSuccess(true);
 
+
                 localStorage.setItem('token_user', response.data.access_token);
 
                 localStorage.setItem('user',"teacher");
@@ -48,26 +49,15 @@ function Login() {
                 navigate('/'); 
             })
             .catch((error) => {
-                console.log(error);
                 if(error.response.data.error){
                     setError( error.response.data.error);
-
-
                 }else{
                     setError( error.response.data.message);
-
                 }
                 setLoginSuccess(false);
-                // if (error.response && error.response.data) {
-                //     console.error("Error response data:", error.response.data);
-                //     setError( error.response.data.error);
-                // } else {
-                //     setError('    بما البريد الاكتروني او الباسورد غير صحيح');
-                // }
             });
     };
     
-
   
 
     useEffect(() => {
