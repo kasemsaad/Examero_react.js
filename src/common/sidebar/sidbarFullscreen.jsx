@@ -242,11 +242,7 @@ const LogOutDashBoard = ()=>{
             </div>
 
 
-
-
-
             ////////////////////teacher//////////////////////////////////////////////////////
-
             : location.pathname.startsWith('/teacher') ?
             
             
@@ -295,22 +291,12 @@ const LogOutDashBoard = ()=>{
 
               </ul>
             </div>
-            <ul className="sidbarUl pt-4  " >
-              <li className="sidbarli">
-                <Link to="/student/HomeStudentview" onClick={() => setId(1)} className={`Icon  ${id === "1" ? "Id" : " "}`}>الرئيسية</Link>
-              </li>
-              <li className="sidbarli">
-                <Link to="/student/datastudentexam" onClick={() => setId(10)} className={`Icon  ${id === "10" ? "Id" : " "}`}>إنشاء الامتحان</Link>
-              </li>
-              <li className="sidbarli">
-                <Link to="/" onClick={() => setId(12)} className={`Icon  ${id === "12" ? "Id" : " "}`}>الموقع</Link>
-              </li>
-              <li className="sidbarli">
-                <Link data-bs-toggle="modal" data-bs-target="#logout" onClick={() => setId(11)} className={`Icon  ${id === "11" ? "Id" : " "}`}>تسجيل الخروج</Link>
-              </li>
+            
+            
+            : ""
 
-            </ul>
-          </div> : ""
+
+
 
       }
       <div
