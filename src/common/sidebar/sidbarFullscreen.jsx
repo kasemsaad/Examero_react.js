@@ -246,7 +246,57 @@ const LogOutDashBoard = ()=>{
 
 
             ////////////////////teacher//////////////////////////////////////////////////////
-            : location.pathname.startsWith('/teacher') ? <div>keko</div> : ""
+            : location.pathname.startsWith('/teacher') ?
+            
+            
+            
+            <div className="sidbar p-0 pe-3 " style={{ paddingRight: "100px" }} dir="rtl" >
+              <div className="sidbarSidbar " style={{height:" 87vh"}}>
+                <ul className="pt-4 ps-4">
+                  <li className={`Icon  ${id === "1" ? "bgIcon" : " "}`}>
+                    <Link to="/student/HomeStudentview" onClick={() => setId(1)} >
+                      <img src={homeIcon} alt="الرئيسية" />
+                    </Link>
+                  </li>
+                  <li className={`Icon  ${id === "10" ? "bgIcon" : " "}`}>
+                    <Link to="student/datastudentexam" onClick={() => setId(10)}>
+                      <img style={{ width: 18, height: 18 }} src={create_new} alt="إنشاء الامتحان" />
+                    </Link>
+                  </li>
+                  <li className={`Icon  ${id === "12" ? "bgIcon" : " "}`}>
+                    <Link to="/" onClick={() => setId(12)} style={{ textDecoration: "none" }}>
+                      <i className="fas fa-globe text-white" alt="الموقع" ></i>
+                    </Link>
+                  </li>
+                  <li className={`Icon  ${id === "11" ? "bgIcon" : " "}`}>
+                    <Link onClick={() => {
+                      logout(11);
+                    }}>
+                      <img data-bs-toggle="modal" data-bs-target="#logout" src={iconamoon_exit_light} alt="تسجيل الخروج" />
+                    </Link>
+                  </li>
+
+                </ul>
+              </div>
+              <ul className="sidbarUl pt-4  " >
+                <li className="sidbarli">
+                  <Link to="/student/HomeStudentview" onClick={() => setId(1)} className={`Icon  ${id === "1" ? "Id" : " "}`}>الرئيسية</Link>
+                </li>
+                <li className="sidbarli">
+                  <Link to="/student/datastudentexam" onClick={() => setId(10)} className={`Icon  ${id === "10" ? "Id" : " "}`}>إنشاء الامتحان</Link>
+                </li>
+                <li className="sidbarli">
+                  <Link to="/" onClick={() => setId(12)} className={`Icon  ${id === "12" ? "Id" : " "}`}>الموقع</Link>
+                </li>
+                <li className="sidbarli">
+                  <Link data-bs-toggle="modal" data-bs-target="#logout" onClick={() => setId(11)} className={`Icon  ${id === "11" ? "Id" : " "}`}>تسجيل الخروج</Link>
+                </li>
+
+              </ul>
+            </div>
+            
+            
+            : ""
 
 
 

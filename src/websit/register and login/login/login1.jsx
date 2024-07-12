@@ -45,7 +45,7 @@ function Login() {
                 localStorage.setItem('user',"teacher");
                 setError('');
                 localStorage.setItem("sidbarId", JSON.stringify(1));
-                navigate('/teacher/TeacherProfile'); 
+                navigate('/'); 
             })
             .catch((error) => {
                 console.log(error);
