@@ -185,7 +185,7 @@ function App(props) {
           />
 
           <Route path="b" element={ <ProtectedRoute><AccountSetting /></ProtectedRoute>} />
-          <Route path="certify" element={  <ProtectedRoute><Certify />  </ProtectedRoute>} />
+          <Route path="certify" element={  <ProtectedRoute><CertificateGenerator />  </ProtectedRoute>} />
           <Route path="qbank" element={  <ProtectedRoute><Qbank /></ProtectedRoute>} />
           <Route path="specify" element={ <ProtectedRoute><Specification /></ProtectedRoute>} />
           <Route path="PlansTeacher" element={ <ProtectedRoute><PlansTeacher /></ProtectedRoute>} />
