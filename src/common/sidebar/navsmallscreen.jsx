@@ -271,7 +271,52 @@ const getRefreshstudent = async()=>{
 
                   </ul>
 
-                  : location.pathname.startsWith('/teacher') ? <div>keko</div> : ""
+                  : location.pathname.startsWith('/teacher') ? 
+                  
+                  
+                  
+                  <ul className="navbar-nav navbar-nav-small" dir="ltr" >
+                    <li className="nav-item " >
+                      <Link className="nav-link" aria-current="page" to="/student/HomeStudentview" onClick={() => setId(1)}>الرئيسية
+                        <img src={homeIcon} alt="الرئيسية" />
+                      </Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/student/datastudentexam" onClick={() => setId(10)}>إنشاء الامتحان
+                        <img style={{ width: 18, height: 18 }} src={create_new} alt="إنشاء الامتحان" />
+                      </Link>
+                    </li>
+                    <li className="nav-item">
+                      <div className="nav-link d-flex" style={{ width: "283px", justifyContent: "space-between", alignItems: "center" }} onClick={() => setId(11)}>
+
+                        <button style={{ marginLeft: "6px", height: "25px" }} className={`toggle-btn ${toggled ? "toggled" : ""}`} onClick={() => tog()}>
+                          <span className={toggled ? "white-text" : "whit"}>{toggled ? "On" : "Off"}</span>
+                          <div className='thumb'></div>
+                        </button>
+                        <div>
+
+                          <span>الوضع</span>
+                          <img style={{ width: 18, height: 18 }} src={solar_moon_line_duotone} alt="الوضع" />
+                        </div>
+                      </div>
+                    </li>
+
+                    <li className="nav-item">
+                      <Link to="/" className="nav-link" onClick={() => setId(12)} style={{ textDecoration: "none" }}> الموقع
+                        <i className="fas fa-globe text-white fs-4 ms-4" ></i>
+                      </Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link className="nav-link" data-bs-toggle="modal" data-bs-target="#logout" onClick={() => setId(11)}>تسجيل الخروج
+                        <img style={{ width: 18, height: 18 }} src={iconamoon_exit_light} alt="تسجيل الخروج" />
+                      </Link>
+                    </li>
+
+                  </ul>
+                  
+                  
+                  
+                  : ""
 
             }
           </div>
