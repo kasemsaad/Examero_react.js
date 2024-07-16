@@ -17,6 +17,7 @@ import mastercard from "../../assets/image/home/MasterCard_Logo.svg.png";
 import Api_Website from "../../utlis/axios_utils_websit";
 import { useNavigate } from 'react-router-dom';
 import TawkToScript from '../chat/TawkToScript';
+let sheko;
 
 function Home() {
     const setId = (id) => {
@@ -98,27 +99,28 @@ if(token){
         }
     }
     }
-
-    useEffect(() => {
+    const olck=()=>{
+        
         setuser(localStorage.getItem("user"))
+
         if (user === "student") {
+
             Api_Website.get(`/students/refresh`)
                 .then(response => {
-                    setData(response.data.User);
+                   localStorage.setItem("username",response.data.User.fullName);
 
                 })
                 .catch(error => {
-
                     console.error("Error fetching subjects data:");
                 });
+
         } else if (user === "teacher") {
 
             Api_Website.get(`/teachers/refresh`)
                 .then(response => {
-                    setTimeout(() => { 
-                       setData(response.data.user);
-                        // console.log(response.data.user);
-                     } ,2000)
+              
+                    localStorage.setItem("username",response.data.user.fullName);
+                
                 })
                 .catch(error => {
                     console.error("Error fetching subjects data:");
@@ -127,7 +129,10 @@ if(token){
         } else {
             navigate("/")
         }
-        Api_Website.get(`/teacher-plan`)
+    }
+    useEffect(() => {
+        olck()
+           Api_Website.get(`/teacher-plan`)
             .then(response => {
                 setTeacher_data(response.data);
             })
@@ -135,7 +140,7 @@ if(token){
                 console.error("Error fetching teacher data:", error);
             });
 
-        Api_Website.get(`/student-plan`)
+            Api_Website.get(`/student-plan`)
             .then(response => {
                 setStudent_data(response.data);
             })
@@ -143,15 +148,12 @@ if(token){
                 console.error("Error fetching student data:", error);
             });
 
-
-
         window.addEventListener('scroll', handleScroll);
-
         handleScroll();
-
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
+        
     }, []);
 
     if (!student_data || !teacher_data) {
@@ -199,7 +201,6 @@ if(token){
         Api_Website.post(`students/payments/pay-with-paymob`, data)
 
             .then(response => {
-                console.log(response.data.redirect_url)
                 window.open(response.data.redirect_url, '_blank');
                 loading()
             })
@@ -314,7 +315,8 @@ if(token){
                                     login()
                                 }}
                                     style={{ height: "2.5rem", width: "8rem", color: "#4941A6", backgroundColor: "" }}  >
-                                    {Data.fullName}
+                                    {localStorage.getItem("username")}
+                                    
                                 </button>
                                 <button onClick={() => { logout() }} className="btn  " style={{ height: "2.5rem", width: "8rem", border: "none" }} >تسجيل خروج</button>
                             </div>
@@ -777,7 +779,6 @@ if(token){
                                             <button className="btn btn-light mx-2"
                                                 onClick={() => {
                                                     paypalStudentApi(baymentObj.id)
-                                                    console.log(baymentObj)
 
                                                 }}
                                                 data-bs-toggle="modal"

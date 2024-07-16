@@ -396,12 +396,12 @@ function CreateExam(props) {
   useEffect(() => {
     setData({
       answers: selectedOptions,
-      group_id: group_id,             
-      subject_id: subject_id,          
+      group_id: group_id,
+      subject_id: subject_id,
       semster: semster,
     });
   }, [selectedOptions]);
-  
+
 
 
   return (

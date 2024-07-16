@@ -38,7 +38,7 @@ ul{
   background-image: url(../../assets/icons/sidebar/Vector\ 1.svg);
   background-repeat: no-repeat;
   width: 75px;
-  height: 82vh;
+  height: 81vh !important;
   margin-top: -20px;
   margin-right: -35px;
 }
@@ -171,7 +171,7 @@ margin-bottom: 0px;
         background-size: 102% 75%;
         background-repeat: no-repeat;
         width: 75px;
-        height: 82vh;
+        height: 81vh !important;
         margin-top: -20px;
         margin-right: -15px;
       }
