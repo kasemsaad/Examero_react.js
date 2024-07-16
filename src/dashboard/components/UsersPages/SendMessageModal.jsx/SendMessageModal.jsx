@@ -83,7 +83,6 @@ const SendMessage = ({ mangerID, api }) => {
           element.style.display = "none";
           handelClose();
           // setModal("modal");
-
         })
         .catch((err) => {
           let x = err.response.data.message;
@@ -203,7 +202,6 @@ const SendMessage = ({ mangerID, api }) => {
                     </div>
 
                     <div className="gives-a-reward-inputs">
-
                       <input
                         onChange={handelChange}
                         name="type"
@@ -237,7 +235,6 @@ const SendMessage = ({ mangerID, api }) => {
                     <div className="container-input-dash">
                       <button
                         type="button"
-
                         style={{ backgroundColor: "#4941A6", color: "white" }}
                         className="button-send-message"
                         onClick={handelAddPoints}
@@ -253,7 +250,6 @@ const SendMessage = ({ mangerID, api }) => {
                       />
                       <button
                         type="button"
-
                         onClick={handelDecreasPoints}
                         style={{ backgroundColor: "#4941A6", color: "white" }}
                         className="button-send-message"

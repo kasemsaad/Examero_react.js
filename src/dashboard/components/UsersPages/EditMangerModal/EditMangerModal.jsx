@@ -1,8 +1,35 @@
 import { useForm } from "react-hook-form";
 import Api_Dashboard from "../../../interceptor/interceptorDashboard";
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 const EditMangerModal = ({ api, fetchAllData, rowData, content }) => {
+  const notify = (AlertPointSuccess) => {
+    toast.success(AlertPointSuccess, {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
+
+  const Errornotify = (AlertPoint) => {
+    toast.error(AlertPoint, {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
+
   const [showPassword, setShowPassword] = useState(false);
   // const [id, seId] = useState(idOfDeleteOrEditItem);
   const [modal, setModal] = useState("");
@@ -45,11 +72,14 @@ const EditMangerModal = ({ api, fetchAllData, rowData, content }) => {
     await Api_Dashboard.post(`/${api}/${rowData.id}`, mangerData)
       .then((response) => {
         handleModalClose();
+        let x = response.data.message;
+        notify("تم التعديل  بنجاح ");
         element.style.display = "none";
         fetchAllData();
       })
       .catch((err) => {
-        console.log(err);
+        let x = err.response.data.message;
+        Errornotify(x);
       });
   };
 
@@ -84,7 +114,8 @@ const EditMangerModal = ({ api, fetchAllData, rowData, content }) => {
         message: "يرجي استخدام حروف وأرقام ولا يقل 8 خانات",
       },
       pattern: {
-        value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+        value:
+          /^(?=.*[A-Za-z\u0600-\u06FF])(?=.*\d)[A-Za-z\d\u0600-\u06FF]{8,}$/,
         message: "يرجي استخدام حروف وأرقام",
       },
     },

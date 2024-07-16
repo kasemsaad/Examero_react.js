@@ -61,8 +61,6 @@ const FormForMaba7s = ({ activeClasses, fetchAllData }) => {
     }
 
     const handleRegistration = async (data) => {
-      document.body.style.removeProperty('overflow');
-
       if (data) {
         await Api_Dashboard.post("/subjects", data)
           .then((response) => {

@@ -61,8 +61,6 @@ const FormFPLessons = ({
     }
   };
   const handleAddLesson = async (data) => {
-    document.body.style.removeProperty('overflow');
-
     if (data) {
       await Api_Dashboard.post("/lessons", data)
         .then((response) => {
@@ -101,7 +99,7 @@ const FormFPLessons = ({
         <form action="" onSubmit={handelSubmit}>
           <div className="row form-content-lessons">
             <div className="col-5 col-md-6 col-lg-3 ">
-              <label htmlFor="exampleInput" className="form-label mb-3">
+              <label htmlFor="exampleInput" className="form-label ">
                 اسم الدرس
               </label>
               <input

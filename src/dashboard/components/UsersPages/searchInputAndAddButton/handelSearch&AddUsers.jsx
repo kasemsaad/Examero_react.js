@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from "react";
 import MyButton from "../../../../common/Button/Button";
-const SearchAndAddUsers = ({
-  handel,
-  newData,
-  FilteredUsers,
-  buttonContent,
-  fetchAllData,
-}) => {
+const SearchAndAddUsers = ({ newData, FilteredUsers, buttonContent }) => {
   const [dataOfSearch, setDataOfSearch] = useState("");
 
   useEffect(() => {
