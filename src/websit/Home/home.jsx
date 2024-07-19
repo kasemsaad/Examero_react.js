@@ -17,6 +17,7 @@ import mastercard from "../../assets/image/home/MasterCard_Logo.svg.png";
 import Api_Website from "../../utlis/axios_utils_websit";
 import { useNavigate } from 'react-router-dom';
 import TawkToScript from '../chat/TawkToScript';
+let sheko;
 
 function Home() {
     const setId = (id) => {
@@ -29,6 +30,13 @@ function Home() {
     const sec4 = useRef();
     const sec5 = useRef();
     const sec6 = useRef();
+    const [student_data, setStudent_data] = useState(null);
+    const [teacher_data, setTeacher_data] = useState(null);
+    const [Data, setData] = useState("");
+    const [baymentObj, setbaymentObj] = useState("");
+    const [user, setuser] = useState("");
+    const [UserPayment, setUserPayment] = useState("");
+    const navigate = useNavigate();
     const scrollHandler = (elmRef) => {
         window.scrollTo({ top: elmRef.current.offsetTop, behavior: "smooth" });
     }
@@ -44,13 +52,7 @@ function Home() {
         });
     };
 
-    const [student_data, setStudent_data] = useState(null);
-    const [teacher_data, setTeacher_data] = useState(null);
-    const [Data, setData] = useState("");
-    const [baymentObj, setbaymentObj] = useState("");
-    const [user, setuser] = useState("");
-    const [UserPayment, setUserPayment] = useState("");
-    const navigate = useNavigate();
+
     const logout = () => {
         if (user === "student") {
 
@@ -77,30 +79,60 @@ function Home() {
         }
 
     }
-    useEffect(() => {
+    const login = () => {
+        const token=localStorage.getItem("token_user")
+if(token){
+        if (user === "student") {
+            navigate("/student/homeStudentView")
+        } else if (user === "teacher") {
+            navigate("/teacher/TeacherProfile")
+        } else {
+            navigate("/")
+        }
+    }else{
+        if (user === "student") {
+            navigate("login_student")
+        } else if (user === "teacher") {
+            navigate("/login_teacher")
+        } else {
+            navigate("/")
+        }
+    }
+    }
+    const olck=()=>{
+        
         setuser(localStorage.getItem("user"))
 
+        if (user === "student") {
 
-        Api_Website.get(`/students/refresh`)
-            .then(response => {
-                setData(response.data.User);
+            Api_Website.get(`/students/refresh`)
+                .then(response => {
+                   localStorage.setItem("username",response.data.User.fullName);
 
-            })
-            .catch(error => {
+                })
+                .catch(error => {
+                    console.error("Error fetching subjects data:");
+                });
 
-                console.error("Error fetching subjects data:");
-            });
+        } else if (user === "teacher") {
 
-        // Api_Website.get(`/teachers/refresh`)
-        // .then(response => {
-        //     setData(response.data);
-        //   console.log(response.data);
-        // })
-        // .catch(error => {
-        //   console.error("Error fetching subjects data:");
-        // });
+            Api_Website.get(`/teachers/refresh`)
+                .then(response => {
+              
+                    localStorage.setItem("username",response.data.user.fullName);
+                
+                })
+                .catch(error => {
+                    console.error("Error fetching subjects data:");
+                });
 
-        Api_Website.get(`/teacher-plan`)
+        } else {
+            navigate("/")
+        }
+    }
+    useEffect(() => {
+        olck()
+           Api_Website.get(`/teacher-plan`)
             .then(response => {
                 setTeacher_data(response.data);
             })
@@ -108,7 +140,7 @@ function Home() {
                 console.error("Error fetching teacher data:", error);
             });
 
-        Api_Website.get(`/student-plan`)
+            Api_Website.get(`/student-plan`)
             .then(response => {
                 setStudent_data(response.data);
             })
@@ -116,15 +148,12 @@ function Home() {
                 console.error("Error fetching student data:", error);
             });
 
-
-
         window.addEventListener('scroll', handleScroll);
-
         handleScroll();
-
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
+        
     }, []);
 
     if (!student_data || !teacher_data) {
@@ -172,7 +201,6 @@ function Home() {
         Api_Website.post(`students/payments/pay-with-paymob`, data)
 
             .then(response => {
-                console.log(response.data.redirect_url)
                 window.open(response.data.redirect_url, '_blank');
                 loading()
             })
@@ -282,7 +310,14 @@ function Home() {
                                 </ul>
                             </div>
                             <div id="login" >
-                                <Link className="btn" onClick={() => { setId(1) }} style={{ height: "2.5rem", width: "8rem", color: "#4941A6", backgroundColor: "" }} to={"/student/homeStudentView"}>{Data.fullName}</Link>
+                                <button className="btn" onClick={() => {
+                                    setId(1)
+                                    login()
+                                }}
+                                    style={{ height: "2.5rem", width: "8rem", color: "#4941A6", backgroundColor: "" }}  >
+                                    {localStorage.getItem("username")}
+                                    
+                                </button>
                                 <button onClick={() => { logout() }} className="btn  " style={{ height: "2.5rem", width: "8rem", border: "none" }} >تسجيل خروج</button>
                             </div>
                             <div id="buttons" >
@@ -744,7 +779,6 @@ function Home() {
                                             <button className="btn btn-light mx-2"
                                                 onClick={() => {
                                                     paypalStudentApi(baymentObj.id)
-                                                    console.log(baymentObj)
 
                                                 }}
                                                 data-bs-toggle="modal"

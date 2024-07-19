@@ -39,6 +39,7 @@ import TeacherProfile from "./websit/teacher_view/teacher profile/teacherProfile
 import DataStudentExam from "./websit/Student/dataStudentExam/dataStudentExam.jsx";
 import EditStudentProfaile from "./websit/Student/editStudentProfaile/editStudentProfaile.jsx";
 import ProtectedRouteWebsite from "../src/websit/protectedRouteWebsite/protectedRouteWebsite.jsx";
+import ProtectedRouteWebsiteTeacher from "../src/websit/protectedRouteWebsite/protectedRouteWebsiteTeacher.jsx";
 
 // import Home_dashboard from './dashboard/Home_Dashboard/Home_dashboard.jsx';
 import HomeDashoardLogin from "./dashboard/homeLogin/homeLogin.jsx";
@@ -162,7 +163,12 @@ function App(props) {
             path="InsertingOpenEmisTags"
             element={<InsertingOpenEmisTags />}
           />
-          <Route path="PuttingExam1" element={<PuttingExam1 />} />
+          <Route path="PuttingExam1" element={
+          //  <ProtectedRouteWebsiteTeacher>
+            <PuttingExam1 />
+            // </ProtectedRouteWebsiteTeacher>
+
+            } />
           <Route path="PuttingExam2" element={<PuttingExam2 />} />
           <Route path="PuttingExam3" element={<PuttingExam3 />} />
           <Route path="PuttingExam4" element={<PuttingExam4 />} />

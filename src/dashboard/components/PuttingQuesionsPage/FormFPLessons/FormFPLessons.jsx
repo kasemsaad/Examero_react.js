@@ -61,6 +61,8 @@ const FormFPLessons = ({
     }
   };
   const handleAddLesson = async (data) => {
+    document.body.style.removeProperty('overflow');
+
     if (data) {
       await Api_Dashboard.post("/lessons", data)
         .then((response) => {

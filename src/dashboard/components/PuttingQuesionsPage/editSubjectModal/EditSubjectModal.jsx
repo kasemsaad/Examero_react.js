@@ -94,8 +94,8 @@ const EditSubjectModal = ({
   }, [newData0]);
 
   const handelEdit = async (editClass) => {
+    document.body.style.removeProperty("overflow");
     if (rowDataOfSubjects) {
-      document.body.style.removeProperty("overflow");
 
       await Api_Dashboard.post(`/subjects/${rowDataOfSubjects.id}`, editClass)
         .then((response) => {

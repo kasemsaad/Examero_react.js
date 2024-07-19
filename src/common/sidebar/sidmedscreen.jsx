@@ -73,7 +73,8 @@ const LogOutDashBoard = ()=>{
       {
         location.pathname.startsWith('/dashboard') ?
           <div className="sidbarmed p-0 " dir="rtl" >
-            <div className="sidbarSidbar " style={{height:"98vh"}}>
+            <div className="sidbarSidbar " style={{height:"130vh"}}>
+
               <ul className="pt-5 ps-4">
                 <li className={`Icon  ${id === "1" ? "bgIcon" : " "}`}>
                   <Link to="/dashboard" onClick={() => setId(1)} >
@@ -173,7 +174,38 @@ const LogOutDashBoard = ()=>{
               </div>
             </div>
             ////////////////////teacher//////////////////////////////////////////////////////
-            : location.pathname.startsWith('/teacher') ? <div>keko</div> : ""
+            : location.pathname.startsWith('/teacher') ? 
+            
+            <div className="sidbarmed p-0 " dir="rtl" >
+            <div className="sidbarSidbar ">
+              <ul className="pt-4 ps-4">
+                <li className={`Icon  ${id === "1" ? "bgIcon" : " "}`}>
+                  <Link to="/student/HomeStudentview" onClick={() => setId(1)} >
+                    <img src={homeIcon} alt="الرئيسية" />
+                  </Link>
+                </li>
+                <li className={`Icon  ${id === "10" ? "bgIcon" : " "}`}>
+                  <Link to="/student/datastudentexam" onClick={() => setId(10)}>
+                    <img style={{ width: 18, height: 18 }} src={create_new} alt="إنشاء الامتحان" />
+                  </Link>
+                </li>
+                <li className={`Icon  ${id === "12" ? "bgIcon" : " "}`}>
+                  <Link to="/" onClick={() => setId(12)} style={{ textDecoration: "none" }}>
+                    <i className="fas fa-globe text-white" ></i>
+                  </Link>
+                </li>
+                <li className={`Icon  ${id === "11" ? "bgIcon" : " "}`}>
+                  <Link onClick={() => setId(11)}>
+                    <img data-bs-toggle="modal" data-bs-target="#logout" src={iconamoon_exit_light} alt="تسجيل الخروج" />
+                  </Link>
+                </li>
+
+              </ul>
+            </div>
+          </div>
+            
+            
+            : ""
       }
 
       <div

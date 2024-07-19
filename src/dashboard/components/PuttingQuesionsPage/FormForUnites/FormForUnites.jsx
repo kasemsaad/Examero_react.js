@@ -53,6 +53,8 @@ const FormForPQUnits = ({
       return;
     }
     const handlePostUnit = async (data) => {
+      document.body.style.removeProperty('overflow');
+
       if (data) {
         await Api_Dashboard.post("/units", data)
           .then((response) => {
