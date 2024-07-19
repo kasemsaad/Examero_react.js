@@ -52,7 +52,7 @@ function MyTable({
                   {trash && (
                     <button
                       type="button"
-                      className=" trash"
+                      className=" trash-but"
                       data-bs-toggle="modal"
                       data-bs-target={deleteModalName}
                       onClick={() => {

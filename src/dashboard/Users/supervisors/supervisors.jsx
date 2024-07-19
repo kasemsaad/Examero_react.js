@@ -35,7 +35,6 @@ const Supervisors = () => {
   const punish = true;
   const { pathname } = useLocation();
 
-
   const handelMessage = (row) => {
     setSuperIdForSendMessage(row);
   };
@@ -43,11 +42,8 @@ const Supervisors = () => {
     const response = await Api_Dashboard.get(`/supervisors/${row.id}`)
       .then((response) => {
         setRowData(response.data.data);
-        console.log(rowData + "iam her");
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
 
   useEffect(() => {
@@ -59,9 +55,7 @@ const Supervisors = () => {
         setData(response.data.data);
         setMetaFPagination(response.data.meta.pagination);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
   // take from the array object some proprety that it will pass to the table
   const newData = useMemo(
@@ -90,9 +84,7 @@ const Supervisors = () => {
       .then((response) => {
         setShowSuperData(response.data.data);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
   // handel pagination
   const [metaFPagination, setMetaFPagination] = useState("");
@@ -191,7 +183,6 @@ const Supervisors = () => {
           api={"/points/"}
           mangerID={superIdForSendMessage}
         />
-
       </div>
     </>
   );

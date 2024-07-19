@@ -22,14 +22,19 @@
   margin: 50px;
   height: 2rem;
 } */
+.my-rounded-table-ta .trash-but {
+  border: none;
+  width: 25%;
+  background-color: #120e4d;
+  height: 100%;
+}
 
-.my-rounded-table-ta .trash,
 .my-rounded-table-ta.square,
 .my-rounded-table-ta.eye {
   height: 99%;
   width: 1.875rem; /* 30px */
   padding: 0;
-  border: none;
+
   display: inline-block;
   font-size: 1rem; /* Adjust font size for icons */
 }
@@ -115,6 +120,9 @@
   :root {
     font-size: 12px;
   }
+  .buttonOfTable p {
+    font-size: 10px;
+  }
   .buttonOfTable {
     font-size: 11px;
   }
@@ -127,12 +135,11 @@
   .my-rounded-table-ta .trash,
   .square,
   .eye {
-    height: 100%;
-    width: 1.5625rem; /* 25px */
-    font-size: 0.75rem;
   }
 }
-
+.my-rounded-table-ta .trash {
+  width: 100%;
+}
 @media (max-width: 580px) {
   :root {
     font-size: 11px;

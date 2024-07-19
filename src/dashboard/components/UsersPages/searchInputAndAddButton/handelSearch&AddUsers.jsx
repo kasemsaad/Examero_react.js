@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import MyButton from "../../../../common/Button/Button";
+//const SearchAndAddUsers = ({ newData, FilteredUsers, buttonContent }) => {
 const SearchAndAddUsers = ({
   handel,
   newData,

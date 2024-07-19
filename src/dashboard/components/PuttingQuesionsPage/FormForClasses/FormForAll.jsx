@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 // import "react-toastify/dist/ReactToastify.css";
 
 import { toast, ToastContainer } from "react-toastify";
+
 const FormForAll = ({ fetchAllData }) => {
   // const [classData, setClassData] = useState("");
   // const handelValue = (e) => {
@@ -50,22 +51,21 @@ const FormForAll = ({ fetchAllData }) => {
   } = useForm();
 
   const handleRegistration = async (data) => {
-    document.body.style.removeProperty('overflow');
-
-    await Api_Dashboard.post("/groups", data)
-      .then((response) => {
-        let x = response.data.message;
-        SetAlertPointSuccess(x);
-        console.log("Mosafa");
-        notify("تم اضافة الصف بنجاح ");
-        fetchAllData();
-      })
-      .catch((err) => {
-        setClassErrors(err.response.data.errors);
-        let x = err.response.data.message;
-        SetAlertPoint(x);
-        Errornotify(x);
-      });
+    if (data) {
+      await Api_Dashboard.post("/groups", data)
+        .then((response) => {
+          let x = response.data.message;
+          SetAlertPointSuccess(x);
+          notify("تم اضافة الصف بنجاح ");
+          fetchAllData();
+        })
+        .catch((err) => {
+          // setClassErrors(err.response.data.errors);
+          let x = err.response.data.message;
+          SetAlertPoint(x);
+          Errornotify(x);
+        });
+    }
   };
   const registerOptions = {
     name: { required: "يرجى ادخال اسم الصف", classErrors },

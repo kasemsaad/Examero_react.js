@@ -1,6 +1,8 @@
 import { toast, ToastContainer } from "react-toastify";
 import Api_Dashboard from "../../../interceptor/interceptorDashboard";
 import React, { useEffect, useState } from "react";
+import ToggleForEdit from "../ToggelForEdit/ToggleForEdit";
+import "./editeLesson.css";
 
 const EditLessonModal = ({
   activeSubjects,
@@ -11,6 +13,7 @@ const EditLessonModal = ({
   RowDataOfLesson,
   fetchUnitsBySubjectId,
 }) => {
+  // toast fuctions for alert
   const notify = (AlertPointSuccess) => {
     toast.success(AlertPointSuccess, {
       position: "top-center",
@@ -39,6 +42,9 @@ const EditLessonModal = ({
 
   const [AlertPoint, SetAlertPoint] = useState("");
   const [AlertPointSuccess, SetAlertPointSuccess] = useState("");
+  const [modal, setModal] = useState("");
+  const [errors, setErrors] = useState({});
+  const element = document.getElementById("edit-lesson-dash");
   const [formData, setFormData] = useState({
     group_id: "",
     subject_id: "",
@@ -46,15 +52,12 @@ const EditLessonModal = ({
     status: "",
     name: "",
   });
-  const [modal, setModal] = useState("");
 
-  const [errors, setErrors] = useState({});
   const [edit, setEdit] = useState({
     group_id: "",
     status: "",
     name: "",
   });
-  const element = document.getElementById("edit-lesson-dash");
   useEffect(() => {
     if (RowDataOfLesson) {
       setEdit({
@@ -112,18 +115,15 @@ const EditLessonModal = ({
       return;
     }
     try {
-      // Simulate API call
       document.body.style.removeProperty("overflow");
       const response = await Api_Dashboard.post(
         `/lessons/${RowDataOfLesson.id}`,
         edit
-      ); // Update with correct API path
-      element.style.display = "none";
+      );
       let x = response.data.message;
       SetAlertPointSuccess(x);
       notify("تم تعديل الدرس بنجاح ");
-
-      // setModal("modal");
+      element.style.display = "none";
       fetchAllLessons();
     } catch (error) {
       setErrors({
@@ -148,115 +148,49 @@ const EditLessonModal = ({
         data-bs-keyboard="false"
       >
         <div className="modal-dialog my-mod-edit" role="document">
-          <div
-            className="modal-content"
-            style={{ backgroundColor: "#1D195D", borderRadius: "13.97px" }}
-          >
-            <div
-              className="modal-header-new"
-              style={{
-                flexDirection: "row-reverse",
-                width: "100%",
-                height: "86px",
-                color: "#FF8A00",
-                fontSize: "20px",
-                fontWeight: "700",
-                display: "flex",
-                textAlign: "center",
-              }}
-            >
+          <div className="modal-content content-edit-unit-dash">
+            <div className="modal-header-new">
               <h5 className="modal-title m-auto" id="exampleModalLabel">
-                تعديل بيانات الوحده
+                تعديل بيانات الدرس
               </h5>
               <button
                 type="button"
-                className="btn-close-new"
+                className="btn-close-lesson-dash"
                 data-bs-dismiss="modal"
                 aria-label="Close"
-                style={{
-                  margin: "9px",
-                  borderRadius: "100%",
-                  backgroundColor: "white",
-                  width: "32px",
-                  height: "32px",
-                  fontSize: "14px",
-                  border: "none",
-                }}
               >
                 ❌
               </button>
             </div>
-            <div
-              style={{
-                margin: "auto",
-                width: "514px",
-                backgroundColor: "#A6A0F4",
-                height: "1px",
-              }}
-            ></div>
-            <div
-              className="modal-body-new p-0 d-flex"
-              style={{ height: "305px" }}
-            >
+            <div className="lin-edit-lesson-dash"></div>
+            <div className="modal-body-lesson-dash">
               <form
                 style={{ width: "95%", margin: "auto" }}
-                className="w-95"
+                className="w-95 form-edit-lesson-dash"
                 onSubmit={handleSubmit}
               >
-                <div
-                  className="d-flex col-12 p-0"
-                  style={{
-                    width: "91%",
-                    margin: "auto",
-                    display: "flex",
-                    justifyContent: "space-evenly",
-                    height: "85px",
-                  }}
-                >
-                  {/*////////////// first name ////////////////// */}
-                  <div
-                    className="form-group col-5 d-flex flex-column"
-                    style={{
-                      direction: "rtl",
-                      justifyContent: "center",
-                      height: "70px",
-                    }}
-                  >
+                <div className="col-12 p-0 lesson-unit-inputs-dash">
+                  <div className="form-group col-5 d-flex flex-column lesson-input-container-dash">
                     <label
                       htmlFor="recipient2-name"
-                      className="col-form-label"
-                      style={{
-                        flexDirection: "column-reverse",
-                        color: "white",
-                        justifyContent: "end",
-                        display: "flex",
-                      }}
+                      className="col-form-label lesson-input-label-dash"
                     >
-                      الاسم الاول
+                      اسم الدرس
                     </label>
                     <input
-                      placeholder="أدخل اسم المدير هنا"
+                      placeholder="أدخل اسم الدرس هنا"
                       type="text"
-                      className="form-control text-end"
+                      className="form-control text-end lesson-input-dash"
                       id="edit-first_name"
                       name="name"
                       value={formData.name}
                       onChange={handelChange}
                       autoComplete="current-userName"
-                      style={{ direction: "rtl", height: "35px" }}
                     />
                     <span style={{ color: "red" }}>{errors.name}</span>
                   </div>
 
-                  <div
-                    className="col-5"
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "flex-start",
-                      justifyContent: "center",
-                    }}
-                  >
+                  <div className="col-5 unit-edit-input-container-dash">
                     <label htmlFor="">اختر الوحده</label>
 
                     <select
@@ -272,10 +206,7 @@ const EditLessonModal = ({
                         activeUnits.map((activeUnits) => (
                           <option
                             key={activeUnits.id}
-                            style={{
-                              background: "#4941A6",
-                              color: "white",
-                            }}
+                            style={{ background: "#4941A6", color: "white" }}
                             value={activeUnits.id}
                           >
                             {activeUnits.name}
@@ -284,31 +215,10 @@ const EditLessonModal = ({
                     </select>
                     <span style={{ color: "red" }}>{errors.unit_id}</span>
                   </div>
-                  {/* ///////////////last name input ///////////////////////////// */}
                 </div>
-                <div
-                  className="d-flex col-12 p-0"
-                  style={{
-                    width: "91%",
-                    margin: "auto",
-                    display: "flex",
-                    justifyContent: "space-evenly",
-                  }}
-                >
-                  <div className="form-group col-5 d-flex flex-column"></div>
-                </div>
-                <div
-                  style={{
-                    width: "91%",
-                    margin: "auto",
-                    display: "flex",
-                    justifyContent: "space-evenly",
-                  }}
-                >
-                  <div
-                    className="form-group col-5 d-flex flex-column "
-                    style={{ display: "flex" }}
-                  >
+
+                <div className="class-subject-inputs-container-dash">
+                  <div className="form-group col-5 d-flex flex-column edit-lesson-class-input-container">
                     <label htmlFor="">اختر الصف</label>
                     <select
                       onChange={handelChange}
@@ -323,10 +233,7 @@ const EditLessonModal = ({
                         activeClasses.map((activeClass) => (
                           <option
                             key={activeClass.id}
-                            style={{
-                              background: "#4941A6",
-                              color: "white",
-                            }}
+                            style={{ background: "#4941A6", color: "white" }}
                             value={activeClass.id}
                           >
                             {activeClass.name}
@@ -335,11 +242,8 @@ const EditLessonModal = ({
                     </select>
                     <span style={{ color: "red" }}>{errors.group_id}</span>
                   </div>
-                  {/*  */}
-                  <div
-                    className="form-group col-5 d-flex flex-column"
-                    style={{ direction: "rtl", justifyContent: "center" }}
-                  >
+
+                  <div className="form-group col-5 d-flex flex-column edit-lesson-subject-select-container-">
                     <label htmlFor="">اختر المبحث</label>
                     <select
                       onChange={handelChange}
@@ -354,6 +258,7 @@ const EditLessonModal = ({
                       {activeSubjects &&
                         activeSubjects.map((activeSubject) => (
                           <option
+                            className="option-edit-lesson"
                             key={activeSubject.id}
                             style={{ background: "#4941A6", color: "white" }}
                             value={activeSubject.id}
@@ -365,70 +270,25 @@ const EditLessonModal = ({
                     <span style={{ color: "red" }}>{errors.subject_id}</span>
                   </div>
                 </div>
-                <div
-                  style={{
-                    height: "40px",
-                    width: " 81%",
-                    margin: "auto",
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                >
-                  <button
-                    type="button"
-                    style={{ marginLeft: "6px" }}
-                    className={`toggle-btnn ${
-                      edit.status === 0 ? "toggled" : ""
-                    }`}
-                    onClick={handleClick}
-                  >
-                    <span
-                      style={{
-                        marginTop: "-6px",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}
-                      className={edit.status === 0 ? "white-text" : "whit"}
-                    >
-                      {edit.status === 1 ? "مفعل" : "معطل"}
-                    </span>
-                    <div className="thumb"></div>
-                  </button>
+                <div className="edit-lesson-toggle-container-dash">
+                  <ToggleForEdit editClass={edit} handleClick={handleClick} />
                 </div>
                 <div className="modal-footer-new new-footer">
                   <button
                     type="submit"
                     data-bs-dismiss={modal}
-                    className="btn btn-primary"
-                    style={{
-                      borderRadius: "30px",
-                      border: "none",
-                      backgroundColor: "#C01F59",
-                      width: "96px",
-                      height: "40px",
-                      marginLeft: "12px",
-                    }}
+                    className=" edit-lesson-submit-dash text-light"
                   >
                     تعديل
                   </button>
                   <button
                     type="button"
-                    className="btn btn-secondary"
+                    className="edit-lesson-cancel-dash"
                     data-bs-dismiss="modal"
-                    style={{
-                      borderRadius: "30px",
-                      color: "#FE4F60",
-                      border: "#FE4F60 solid 2px",
-                      backgroundColor: "#1D195D",
-                      width: "96px",
-                      height: "40px",
-                    }}
                   >
                     إلغاء
                   </button>
                 </div>
-                <ToastContainer position="top-center" />
               </form>
             </div>
           </div>

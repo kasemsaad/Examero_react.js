@@ -19,18 +19,35 @@
 }
 @media (max-width: 550px) {
   .iddd {
-    transform: translate(8px, -3px);
+    transform: translate(14px, -2.7px);
   }
 
   .to-arr-put {
-    transform: translate(18px, -2px);
+    transform: translate(32px, -1.7px);
   }
 
   .arrowfour {
-    transform: translate(28px, -1px);
+    transform: translate(50px, -0.8px);
   }
 
   .arrowfive {
-    transform: translate(38px, 0px);
+    transform: translate(68px, 0px);
+  }
+}
+@media (max-width: 450px) {
+  .iddd {
+    transform: translate(14px, -3.7px);
+  }
+
+  .to-arr-put {
+    transform: translate(29px, -2.7px);
+  }
+
+  .arrowfour {
+    transform: translate(44px, -1.8px);
+  }
+
+  .arrowfive {
+    transform: translate(60px, -1px);
   }
 }

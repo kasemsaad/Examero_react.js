@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Api_Dashboard from "../../../interceptor/interceptorDashboard";
 import { toast, ToastContainer } from "react-toastify";
+import ToggleForEdit from "../ToggelForEdit/ToggleForEdit";
+import "./editclass.css"; // Import the CSS file
 
 const EditClassModal = ({ rowDataOfClass, fetchAllData }) => {
   const notify = (AlertPointSuccess) => {
@@ -65,9 +67,8 @@ const EditClassModal = ({ rowDataOfClass, fetchAllData }) => {
       await Api_Dashboard.post(`/groups/${rowDataOfClass.id}`, editClass)
         .then((response) => {
           let x = response.data.message;
-          SetAlertPointSuccess(x);
+          // SetAlertPointSuccess(x);
           notify("تم تعديل الصف بنجاح ");
-          fetchAllData();
           element.style.display = "none";
           fetchAllData();
         })
@@ -110,6 +111,7 @@ const EditClassModal = ({ rowDataOfClass, fetchAllData }) => {
   };
   return (
     <>
+      <ToastContainer position="top-center" />
       <div
         className="modal fade"
         id="editClassModal"
@@ -120,22 +122,15 @@ const EditClassModal = ({ rowDataOfClass, fetchAllData }) => {
         data-bs-keyboard="false"
       >
         <div className="modal-dialog">
-          <div
-            className="modal-content"
-            style={{ backgroundColor: "#1D195D", borderRadius: "20px" }}
-          >
-            <div className="modal-header">
-              <h5
-                style={{ color: "#FF8A00", margin: "auto" }}
-                className="modal-title"
-                id="exampleModalLabel"
-              >
+          <div className="modal-content content-dash">
+            <div className="modal-header modal-header-dash">
+              <h5 className="modal-title-dash " id="exampleModalLabel">
                 تعديل الصف
               </h5>
             </div>
 
             <div className="modal-body">
-              <div className="container  text-white">
+              <div className="container text-white">
                 <form onSubmit={onSubmit}>
                   <div className="form-group">
                     <label htmlFor="name">اسم الصف</label>
@@ -151,77 +146,29 @@ const EditClassModal = ({ rowDataOfClass, fetchAllData }) => {
                     />
                     <span style={{ color: "red" }}>{errors.name} </span>
                   </div>
-                  <div
-                    style={{
-                      height: "46px",
-                      display: "flex",
-                      alignItems: "center",
-                    }}
-                  >
-                    <button
-                      type="button"
-                      style={{ marginLeft: "12px" }}
-                      className={`toggle-btnn ${
-                        editClass.status === 0 ? "toggled" : ""
-                      }`}
-                      onClick={handleClick}
-                    >
-                      <span
-                        style={{
-                          marginTop: "-6px",
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                        }}
-                        className={
-                          editClass.status === 0 ? "white-text" : "whit"
-                        }
-                      >
-                        {editClass.status === 1 ? "مفعل" : "معطل"}
-                      </span>
-                      <div className="thumb"></div>
-                    </button>
+                  <div className="toggle-container-dash">
+                    <ToggleForEdit
+                      editClass={editClass}
+                      handleClick={handleClick}
+                    />
                   </div>
-                  <div
-                    className="mt-5"
-                    style={{
-                      textAlign: "center",
-                      display: "flex",
-                      justifyContent: "center",
-                    }}
-                  >
+                  <div className="mt-5 buttons-container-dash">
                     <div className="submitButton">
                       <button
                         type="submit"
-                        className="btn btn-primary"
-                        style={{
-                          borderRadius: "30px",
-                          border: "none",
-                          backgroundColor: "#C01F59",
-                          width: "96px",
-                          height: "40px",
-                          marginLeft: "12px",
-                        }}
+                        className="text-white submit-edit-class-dash"
                       >
                         تعديل
                       </button>
                       <button
-                        className="btn btn-secondary"
+                        className="  cancel-edit-class-dash"
+                        type="button"
                         data-bs-dismiss="modal"
-                        style={{
-                          borderRadius: "30px",
-                          color: "#FE4F60",
-                          border: "#FE4F60 solid 2px",
-                          backgroundColor: "#1D195D",
-                          width: "96px",
-                          height: "40px",
-                        }}
                       >
                         إلغاء
                       </button>
                     </div>
                   </div>
-                  <ToastContainer position="top-center" />
                 </form>
               </div>
             </div>

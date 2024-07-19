@@ -1,0 +1,52 @@
+/* EditClassModal.css */
+.modal-content.content-dash {
+  background-color: #1d195d;
+  border-radius: 20px;
+}
+
+.modal-header.modal-header-dash {
+  /* Add any specific styles for modal header if needed */
+}
+
+.modal-title-dash {
+  color: #ff8a00;
+  margin: auto;
+}
+
+.container.text-white {
+  /* Add any specific styles for container if needed */
+}
+
+.form-control {
+  /* Add any specific styles for form control if needed */
+}
+
+.toggle-container-dash {
+  height: 46px;
+  display: flex;
+  align-items: center;
+}
+
+.buttons-container-dash {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.submit-edit-class-dash {
+  border-radius: 30px;
+  border: none;
+  background-color: #c01f59;
+  width: 96px;
+  height: 40px;
+  margin-left: 12px;
+}
+
+.cancel-edit-class-dash {
+  border-radius: 30px;
+  color: #fe4f60;
+  border: #fe4f60 solid 2px;
+  background-color: #1d195d;
+  width: 96px;
+  height: 40px;
+}
