@@ -74,6 +74,8 @@ const FormForAll = ({ fetchAllData }) => {
 
   return (
     <>
+            <ToastContainer position="top-center" />
+
       <form
         className="form-container-putt "
         onSubmit={handleSubmit(handleRegistration, handleError)}

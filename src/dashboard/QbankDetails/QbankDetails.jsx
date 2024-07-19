@@ -7,6 +7,7 @@ import TableQbank from '../../common/Table/tableQbank/tableQbank'
 import Api_Dashboard from '../interceptor/interceptorDashboard'
 import image from "./../../assets/image/High Importance.svg"
 import QbankEditing from './QbankEditing/qbankEditing'
+import SearchAndAddUsers from '../components/UsersPages/searchInputAndAddButton/handelSearch&AddUsers'
 
 
 
@@ -95,7 +96,19 @@ export default function QbankDetails() {
   
     useEffect(() => {
         getAllQuistionData()
-    }, [current_page])
+    }, [current_page,])
+
+
+
+    const [filterQbank, setfilterQbank] = useState(allDataQuistition);
+    const FilteredManagers = (dataFormComp) => {
+        setfilterQbank(dataFormComp);
+        console.log(dataFormComp);
+      };
+
+      useEffect(() => {
+        setfilterQbank(allDataQuistition);
+      }, [allDataQuistition]);
 
 
 
@@ -135,16 +148,31 @@ export default function QbankDetails() {
                     </div>
                 </div>
 
+                <div className='search_qbank mt-3 '>
+                <SearchAndAddUsers
+            newData={allDataQuistition}
+            buttonContent={"أضافة مدير"}
+            // handel={handel}
+            // fetchAllData={getAllQuistionData}
+            // FilteredUsers={FilteredManagers}
+            FilteredUsers={FilteredManagers}
+            flag={true}
+          />
+
+                </div>
+
                 <div className='mt-3'>
 
                     <TableQbank 
                     header={header}
                      icons={icon}
-                      body={allDataQuistition}
+                      body={filterQbank}
                        Deletehandel={(row) => getDeletedObject(row)} 
                        delteModalName={"#delete_qbank_"}
                        editButtonName={"#edit_qbank"}
                        handel={(row)=>handeledit(row)}
+                    //    filterQbank={filterQbank}
+
                        />
                 </div>
 

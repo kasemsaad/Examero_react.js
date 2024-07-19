@@ -35,7 +35,6 @@ export default function Qbank() {
         }
         setInputs(newInputs);
     };
-
     const getValues = () => {
         console.log(inputs);
     };
@@ -86,14 +85,9 @@ export default function Qbank() {
     };
 
  
-
-
-
-
-
     // -----------------------------------------------------------------------------
     const [allDataFromAllSelection, SetallDataFromAllSelection] = useState({
-        name: "",
+        name: "mostafa",
         point: "",
         group_id: "",
         subject_id: "",
@@ -126,10 +120,26 @@ export default function Qbank() {
         ]);
     
     
-        // SetsubjectAllData([]);
-        // SetunitAllData([]);
-        // SetallLesson([]);
-        // SetshowQuistitionById([]);
+        SetallDataFromAllSelection({
+            name: "",
+            point: "",
+            group_id: "",
+            subject_id: "",
+            unit_id: "",
+            lesson_id: "",
+            question_type_id: "",
+            level: "",
+            semster: "",
+            for: "",
+            has_branch: "",
+            is_choose: "",
+            image: "",
+
+        })
+        SetsubjectAllData([]);
+        SetunitAllData([]);
+        SetallLesson([]);
+        SetshowQuistitionById([]);
     };
     
 
@@ -153,38 +163,87 @@ export default function Qbank() {
         })
     }
 
+
     const [idOfGroup, SetidOfGroup] = useState('')
 
-    const getAllSelection = async (e) => {
-        const data = { ...allDataFromAllSelection }
-        data[e.target.name] = e.target.value
-        // data.image=e.target.files[0]
+    // const getAllSelection = async (e) => {
+    //     const data = { ...allDataFromAllSelection }
+    //     data[e.target.name] = e.target.value
+    //     // data.image=e.target.files[0]
         
-        SetallDataFromAllSelection(data)
-        let idOfGroup = data.group_id
-        // let level=data.level
-        // console.log(level);
-        let forId = data.for
-        // console.log(forId);
-        if (data.group_id) {
-            await getSubjectDependOnGroupId(idOfGroup)
-        }
+    //     SetallDataFromAllSelection(data)
+    //     let idOfGroup = data.group_id
+    //     // let level=data.level
+    //     // console.log(level);
+    //     let forId = data.for
+    //     // console.log(forId);
+    //     if (data.group_id) {
+    //         await getSubjectDependOnGroupId(idOfGroup)
+    //     }
 
-        let subJectId = data.subject_id
-        if (data.subject_id) {
-            await getAllUnitsDependOnSubject(subJectId)
-        }
+    //     let subJectId = data.subject_id
+    //     if (data.subject_id) {
+    //         await getAllUnitsDependOnSubject(subJectId)
+    //     }
 
-        let unitId = data.unit_id
-        if (data.unit_id) {
-            await getAllLessonsDependOnUnit(unitId)
-        }
+    //     let unitId = data.unit_id
+    //     if (data.unit_id) {
+    //         await getAllLessonsDependOnUnit(unitId)
+    //     }
 
-        let questionsIdType = data.question_type_id
-        if(data.question_type_id){
-          await  getAllshowQuistitionById(questionsIdType)
-        }
+    //     let questionsIdType = data.question_type_id
+    //     if(data.question_type_id){
+    //       await  getAllshowQuistitionById(questionsIdType)
+    //     }
+    // }
+    const handelChange = (e) => {
+        const { name, value } = e.target;
+        SetallDataFromAllSelection((prev) => ({
+            ...prev,
+            [name]: value,
+          }));
+          console.log(allDataFromAllSelection);
     }
+    
+
+
+ let timeout;
+const getAllSelection = async (e) => {
+    clearTimeout(timeout); 
+    
+        const data = { ...allDataFromAllSelection }
+
+        data[e.target.name] = e.target.value;
+        SetallDataFromAllSelection(data)
+      
+
+        console.log(data);
+        timeout = setTimeout(async () => {
+        let idOfGroup = data.group_id;
+       
+        
+        if (data.group_id) {
+            await getSubjectDependOnGroupId(idOfGroup);
+        }
+
+        let subJectId = data.subject_id;
+        if (data.subject_id) {
+            await getAllUnitsDependOnSubject(subJectId);
+        }
+
+        let unitId = data.unit_id;
+        if (data.unit_id) {
+            await getAllLessonsDependOnUnit(unitId);
+        }
+
+        let questionsIdType = data.question_type_id;
+        if (data.question_type_id) {
+            await getAllshowQuistitionById(questionsIdType);
+        }
+    }, 500); // Delay of 500ms (adjust as needed)
+}
+
+
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
@@ -252,6 +311,7 @@ const [allLesson,SetallLesson]=useState([])
     useEffect(() => {
         getAllGroup()
         getTypeOfQustition()
+
 
     }, [])
 
@@ -338,6 +398,7 @@ const [allLesson,SetallLesson]=useState([])
           }).then((response)=>{
             Notify(response.data.Message)
             console.log(response.data.Message);
+            clearNameField()
             setShowConfetti(true);
             setTimeout(() => {
               setShowConfetti(false);
@@ -347,10 +408,17 @@ const [allLesson,SetallLesson]=useState([])
 
           }).catch((err)=>{
             NotifyError(err.response.data.message)
+            console.log(err);
+          
           })
 }
 
- 
+const clearNameField = () => {
+    SetallDataFromAllSelection(prevState => ({
+      ...prevState,
+      name: "",
+    }));
+  };
   
     return (<>
     {showConfetti && (
@@ -599,7 +667,7 @@ const [allLesson,SetallLesson]=useState([])
                         </div>
 
                         <div className='col-12 mt-2'>
-                            <textarea onChange={getAllSelection} name='name' class="form-control" id="exampleFormControlTextarea1" rows="5.5"></textarea>
+                            <textarea onChange={getAllSelection} name='name' class="form-control" id="exampleFormControlTextarea1" rows="5.5" value={allDataFromAllSelection.name} />
                         </div>
 
                         {
