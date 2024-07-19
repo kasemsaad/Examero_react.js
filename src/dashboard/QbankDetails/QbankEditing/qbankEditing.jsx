@@ -21,6 +21,7 @@ export default function QbankEditing(props) {
         for: " ",
         is_choose: "",
         image: "",
+        status:""
         // options:[]
     })
     // ---------------------------------------------------------------------
@@ -107,6 +108,7 @@ export default function QbankEditing(props) {
         has_branch: "",
         is_choose: "",
         image: "",
+        status:""
     })
 
     const resetForm = () => {
@@ -149,7 +151,8 @@ const getObjectFromRecivedId = ()=>{
             has_branch: response.data.question.has_branch,
             is_choose: response.data.question.is_choose,
             image: response.data.question?.image,
-            options:response.data.question.options
+            options:response.data.question.options,
+            status:response.data.question.status[0]
         })
 
          getSubjectDependOnGroupId(response.data.question.group.id)
@@ -360,6 +363,7 @@ const [allLesson,SetallLesson]=useState([])
             has_branch: dataToEdit.has_branch,
             is_choose: dataToEdit.is_choose,
             image: dataToEdit.image,
+            status:dataToEdit.status
         }
 
         if(payload.image == undefined || payload.image == null || payload.image == ""){
@@ -634,6 +638,25 @@ const [allLesson,SetallLesson]=useState([])
                                     <option value="2">مذكر</option>
                                     <option value="3"> مؤنث </option>
                                     <option value="1">كليهما</option>
+                                </select>
+                            </div>
+
+
+                            <div className='mt-2'>
+                                <label htmlFor=" "> حاله السؤال</label>
+                                <select
+                                    id="dataSelect"
+                                    className="form-select"
+                                    name="status"
+                                    onChange={getAllSelection}
+                                    required
+                                    value={dataToEdit.status}
+
+                                >
+                                    <option value="" disabled selected> اختر حاله السؤال</option>
+                                    <option value="1">انتظار</option>
+                                    <option value="2">مقبول</option>
+                                    <option value="3"> مرفوض </option>
                                 </select>
                             </div>
 

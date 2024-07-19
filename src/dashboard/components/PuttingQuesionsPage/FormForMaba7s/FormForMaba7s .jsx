@@ -103,6 +103,9 @@ const FormForMaba7s = ({ activeClasses, fetchAllData }) => {
   };
 
   return (
+    <>
+          <ToastContainer position="top-center" />
+
     <form className="form-container-puttt" onSubmit={handleSubmit}>
       <div style={{ margin: "auto", color: "red", whiteSpace: "pre-wrap" }}>
         {error}
@@ -149,8 +152,8 @@ const FormForMaba7s = ({ activeClasses, fetchAllData }) => {
           />
         </div>
       </div>
-      <ToastContainer position="top-center" />
     </form>
+   </>
   );
 };
 

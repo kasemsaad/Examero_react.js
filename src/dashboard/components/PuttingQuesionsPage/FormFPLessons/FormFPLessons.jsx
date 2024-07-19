@@ -97,6 +97,7 @@ const FormFPLessons = ({
 
   return (
     <>
+              <ToastContainer position="top-center" />
       <div className="container">
         <form action="" onSubmit={handelSubmit}>
           <div className="row form-content-lessons">
@@ -210,7 +211,6 @@ const FormFPLessons = ({
               />
             </div>
           </div>
-          <ToastContainer position="top-center" />
         </form>
       </div>
     </>

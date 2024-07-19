@@ -40,14 +40,14 @@ function onSelect(id) {
   useId = id
 }
 export default function Home_dashboard() {
-  const {form} =useForm()
+  const { form } = useForm()
   const [date, setDate] = useState(new Date());
   const [showPassword, setShowPassword] = useState(false);
   const [allNotes, setAllNotes] = useState("");
   // const [AllExam, setAllExam] = useState("");
-  const getAllNotes=()=>{
-    
-      Api_Dashboard.get(`/notes`)
+  const getAllNotes = () => {
+
+    Api_Dashboard.get(`/notes`)
       .then(response => {
         console.log(response);
         setAllNotes(response.data.data);
@@ -61,175 +61,216 @@ export default function Home_dashboard() {
 
   const [info, setinfo] = useState("");
 
-  const getinfo=()=>{
-    
+  const getinfo = () => {
+
     Api_Dashboard.get(`students/exams-info`)
-    .then(response => {
-      setinfo(response.data);
-    })
-    .catch(error => {
-      console.error("Error fetching notes data:", error);
-    });
+      .then(response => {
+        setinfo(response.data);
+      })
+      .catch(error => {
+        console.error("Error fetching notes data:", error);
+      });
 
-}
-
-
-
-const [address, setAddress] = useState('');
-const [note, setNote] = useState('');
-const [addressValidationMessage, setAddressValidationMessage] = useState('');
-const [noteValidationMessage, setNoteValidationMessage] = useState('');
-const handleAddressChange = (event) => {
-  const value = event.target.value;
-  if (value.trim() === '') {
-    setAddressValidationMessage('لا يجب ان يكون فارغ');
-  } else if (value.length > 15) {
-    setAddressValidationMessage('العنوان لايزيد عن 15 حرف');
-  } else if (!/^[\u0600-\u06FF\sA-Za-z]+$/.test(value)) {
-    setAddressValidationMessage('يجب ان يكون نص');
-  } else {
-    setAddressValidationMessage('');
   }
-  setAddress(value);
-};
-
-const handleNoteChange = (event) => {
-  const value = event.target.value;
-
-  if (value.trim() === '') {
-    setNoteValidationMessage('لا يجب ان يكون فارغ');
-  } else if (value.length > 50) { // Example max length for note
-    setNoteValidationMessage('الملحوظه لاتزيد عن 50 حرف');
-  } else if (!/^[\u0600-\u06FF\sA-Za-z]+$/.test(value)) {
-    setNoteValidationMessage('يجب ان يكون نص');
-  } else {
-    setNoteValidationMessage('');
-  }
-  setNote(value);
-};
 
 
-// add note 
-const handleSubmit = (event) => {
-  document.body.style.overflow = '';
 
-  event.preventDefault();
-  const data = {
-    address: address,
-    note: note
+  const [address, setAddress] = useState('');
+  const [note, setNote] = useState('');
+  const [addressValidationMessage, setAddressValidationMessage] = useState('');
+  const [noteValidationMessage, setNoteValidationMessage] = useState('');
+  const handleAddressChange = (event) => {
+    const value = event.target.value;
+    if (value.trim() === '') {
+      setAddressValidationMessage('لا يجب ان يكون فارغ');
+    } else if (value.length > 15) {
+      setAddressValidationMessage('العنوان لايزيد عن 15 حرف');
+    } else if (!/^[\u0600-\u06FF\sA-Za-z]+$/.test(value)) {
+      setAddressValidationMessage('يجب ان يكون نص');
+    } else {
+      setAddressValidationMessage('');
+    }
+    setAddress(value);
   };
+
+  const handleNoteChange = (event) => {
+    const value = event.target.value;
+
+    if (value.trim() === '') {
+      setNoteValidationMessage('لا يجب ان يكون فارغ');
+    } else if (value.length > 50) { // Example max length for note
+      setNoteValidationMessage('الملحوظه لاتزيد عن 50 حرف');
+    } else if (!/^[\u0600-\u06FF\sA-Za-z]+$/.test(value)) {
+      setNoteValidationMessage('يجب ان يكون نص');
+    } else {
+      setNoteValidationMessage('');
+    }
+    setNote(value);
+  };
+
+
+  // add note 
+  const handleSubmit = (event) => {
+    document.body.style.overflow = '';
+
+    event.preventDefault();
+    const data = {
+      address: address,
+      note: note
+    };
     Api_Dashboard.post(`/notes`, data)
-    .then(response => {
-      const modalElement = document.getElementById('addAdminNote');
-      modalElement.style.display = "none"
-      getAllNotes()
+      .then(response => {
+        const modalElement = document.getElementById('addAdminNote');
+        modalElement.style.display = "none"
+        getAllNotes()
 
-      setAddress("")
-      setNote("")
+        setAddress("")
+        setNote("")
 
-          })
-    .catch(error => {
-      console.error('Error adding note:');
-    });
+      })
+      .catch(error => {
+        console.error('Error adding note:');
+      });
 
-};
+  };
+
+  const [informationNumber, SetinformationNumber] = useState({
+    acceptQuestion: "",
+    manager: "",
+    openEmis: "",
+    rejectQuestion: '',
+    student: "",
+    studentExams: "",
+    supervisor: "",
+    teacher: "",
+    teacherExams: ""
 
 
-useEffect(()=>{
-  getAllNotes()
+  })
 
-},[])
-  const [values , setValues]=useState({
-    id:useId,
-    address:'',
-    note:''
+  const getInformationNumbers = async () => {
+    await Api_Dashboard.get('/show-info').then((response) => {
+
+      console.log(response.data.data);
+      SetinformationNumber(prev => ({
+        ...prev,
+        acceptQuestion: response.data.data.acceptQuestion,
+        manager: response.data.data.manager,
+        openEmis: response.data.data.openEmis,
+        rejectQuestion: response.data.data.rejectQuestion,
+        student: response.data.data.student,
+        studentExams: response.data.data.studentExams,
+        supervisor: response.data.data.supervisor,
+        teacher: response.data.data.teacher,
+        teacherExams: response.data.data.teacherExams
+      })
+      )
+
+
+    }).catch((err) => {
+
+    })
+  }
+  console.log(informationNumber);
+
+
+
+  useEffect(() => {
+    getAllNotes()
+    getInformationNumbers()
+
+  }, [])
+  const [values, setValues] = useState({
+    id: useId,
+    address: '',
+    note: ''
   });
   const handleGetUpdate = (id) => {
     Api_Dashboard.get(`/notes/${id}`)
-    .then(response => {
-      setValues({...values,address:response.data.data.address,note:response.data.data.note});
-      getAllNotes()
-          })
-    .catch(error => {
-      console.error('Error get note:');
-    });
+      .then(response => {
+        setValues({ ...values, address: response.data.data.address, note: response.data.data.note });
+        getAllNotes()
+      })
+      .catch(error => {
+        console.error('Error get note:');
+      });
 
-};
-
-const [noteUpdateValidationMessage, setNoteUpdateValidationMessage] = useState('');
-const [addressUpdateValidationMessage, setAddressUpdateValidationMessage] = useState('');
-const validateAddress = (address) => {
-  if (address.trim() === '') {
-    return 'لا يجب ان يكون فارغ'; // "Should not be empty"
-  } else if (address.length > 15) {
-    return 'الملحوظه لاتزيد عن 15 حرف'; // "Note should not exceed 50 characters"
-  } else if (!/^[\u0600-\u06FF\sA-Za-z]+$/.test(address)) {
-    return 'يجب ان يكون نص'; // "Must be text"
-  } else {
-    return '';
-  }
-};
-
-// Handle input change with validation
-const handleInputChangeAddress = (e) => {
-  const { value } = e.target;
-  setValues({ ...values, address: value });
-
-  // Validate the input
-  const validationMessage = validateAddress(value);
-  setAddressUpdateValidationMessage(validationMessage);
-};
-const validateNote = (note) => {
-  if (note.trim() === '') {
-    return 'لا يجب ان يكون فارغ'; // "Should not be empty"
-  } else if (note.length > 50) {
-    return 'الملحوظه لاتزيد عن 50 حرف'; // "Note should not exceed 50 characters"
-  } else if (!/^[\u0600-\u06FF\sA-Za-z]+$/.test(note)) {
-    return 'يجب ان يكون نص'; // "Must be text"
-  } else {
-    return '';
-  }
-};
-
-const handleInputChangeNote = (e) => {
-  const { value } = e.target;
-  setValues({ ...values, note: value });
-
-  // Validate the input
-  const validationMessage = validateNote(value);
-  setNoteUpdateValidationMessage(validationMessage);
-};
-
-const handleSubmitUpdate = (event) => {
-
-  event.preventDefault();
-  const data = {
-    address: values.address,
-    note: values.note
   };
-    Api_Dashboard.post(`/notes/${useId}`,data)
-    .then(response => {
-      console.log('Note update successfully:');
-      // const modalElement = document.getElementById('UpdateManagerModal');
-      // modalElement.style.display = "none"
-      getAllNotes()
-          })
-    .catch(error => {
-      console.error('Error update note:');
-    });
-};
 
-const [inputUser,setInputUser]=useState({
-  address: "",
-  note: "",
- 
-  })
+  const [noteUpdateValidationMessage, setNoteUpdateValidationMessage] = useState('');
+  const [addressUpdateValidationMessage, setAddressUpdateValidationMessage] = useState('');
+  const validateAddress = (address) => {
+    if (address.trim() === '') {
+      return 'لا يجب ان يكون فارغ'; // "Should not be empty"
+    } else if (address.length > 15) {
+      return 'الملحوظه لاتزيد عن 15 حرف'; // "Note should not exceed 50 characters"
+    } else if (!/^[\u0600-\u06FF\sA-Za-z]+$/.test(address)) {
+      return 'يجب ان يكون نص'; // "Must be text"
+    } else {
+      return '';
+    }
+  };
 
-const getUsersFromInput=(e)=>{
-  let USER={...inputUser}
-  USER[e.target.name]=e.target.value
-  setInputUser(USER)
-  }
+  // Handle input change with validation
+  const handleInputChangeAddress = (e) => {
+    const { value } = e.target;
+    setValues({ ...values, address: value });
+
+    // Validate the input
+    const validationMessage = validateAddress(value);
+    setAddressUpdateValidationMessage(validationMessage);
+  };
+  const validateNote = (note) => {
+    if (note.trim() === '') {
+      return 'لا يجب ان يكون فارغ'; // "Should not be empty"
+    } else if (note.length > 50) {
+      return 'الملحوظه لاتزيد عن 50 حرف'; // "Note should not exceed 50 characters"
+    } else if (!/^[\u0600-\u06FF\sA-Za-z]+$/.test(note)) {
+      return 'يجب ان يكون نص'; // "Must be text"
+    } else {
+      return '';
+    }
+  };
+
+  const handleInputChangeNote = (e) => {
+    const { value } = e.target;
+    setValues({ ...values, note: value });
+
+    // Validate the input
+    const validationMessage = validateNote(value);
+    setNoteUpdateValidationMessage(validationMessage);
+  };
+
+  const handleSubmitUpdate = (event) => {
+
+    event.preventDefault();
+    const data = {
+      address: values.address,
+      note: values.note
+    };
+    Api_Dashboard.post(`/notes/${useId}`, data)
+      .then(response => {
+        console.log('Note update successfully:');
+        // const modalElement = document.getElementById('UpdateManagerModal');
+        // modalElement.style.display = "none"
+        getAllNotes()
+      })
+      .catch(error => {
+        console.error('Error update note:');
+      });
+  };
+
+  const [inputUser, setInputUser] = useState({
+    address: "",
+    note: "",
+
+  })
+
+  const getUsersFromInput = (e) => {
+    let USER = { ...inputUser }
+    USER[e.target.name] = e.target.value
+    setInputUser(USER)
+  }
 
 
 
@@ -261,7 +302,7 @@ const getUsersFromInput=(e)=>{
       availableQuestions,
     });
   };
-//**********************************************************************8 */
+  //**********************************************************************8 */
 
   const handleNotes = (e) => {
     const { name, value } = e.target;
@@ -284,21 +325,21 @@ const getUsersFromInput=(e)=>{
 
   const deleteNote = (id) => {
     Api_Dashboard.delete(`/notes/${id}`)
-    .then(response => {
-      console.log('Note deleted successfully');
-      getAllNotes()
-          })
-    .catch(error => {
-      console.error('Error deleting note:');
-    });
+      .then(response => {
+        console.log('Note deleted successfully');
+        getAllNotes()
+      })
+      .catch(error => {
+        console.error('Error deleting note:');
+      });
 
-};
-
-
+  };
 
 
 
-  
+
+
+
   return (
     <>
       <div className="container " style={{ overflow: 'auto', marginTop: '18px', direction: 'rtl', height: 'auto', border: "2px solid purble", borderRadius: "10px", width: "90%", margin: "auto" }}>
@@ -310,7 +351,7 @@ const getUsersFromInput=(e)=>{
                 <img src={main} className="img-fluid rounded-circle" alt="صورة شخصية" style={{ width: '16px', height: '16px' }} />
               </div>
 
-              
+
               <div className='col-1'>
                 <p style={{ margin: '0', padding: "0", color: "#FFFFFF", fontWeight: "700", fontSize: '24px' }}>الرئيسية</p>
               </div>
@@ -526,14 +567,14 @@ const getUsersFromInput=(e)=>{
                 <div style={{ position: 'relative', height: "30px", backgroundColor: '#0E0A43', border: "1px solid #4941A6", borderRadius: '9.65px' }}>
                   <p style={{ margin: "0", direction: "ltr", paddingLeft: "2vw", paddingTop: "0.3vw", color: "#A6A0F4" }}>123</p>
                   <div className='layer_owner' style={{ position: "absolute", top: "0", right: '0', width: "8vw", height: "30px", backgroundColor: "#4941A6", borderRadius: '9.65px' }}>
-                   
+
                     <div style={{ position: "relative" }}>
                       <div style={{ position: "absolute", left: "5px", top: "0.3vw", display: "flex", alignItems: "center" }}>
                         <p style={{ margin: "0", top: "0", direction: 'ltr', fontSize: "10px", fontWeight: '500', paddingTop: "2px", marginLeft: "10px", color: "#FFFFFF" }}>عدد المديرين</p>
                       </div>
                     </div>
 
-                    
+
 
 
                     <div style={{ position: "relative" }}>
@@ -659,56 +700,55 @@ const getUsersFromInput=(e)=>{
                 </div>
 
 
-                 <Link to='/dashboard/reward' style={{textDecoration:"none"}}>
-                <div className='achive_gift mt-3' style={{ height: "36px", backgroundColor: '#3E369B', border: "1px solid #4941A6", borderRadius: '9.65px', textAlign: "center", display: "flex", justifyContent: "space-evenly", alignItems: "center" }}>
-                  <div style={{ display: "flex", justifyContent: "space-evenly", alignItems: "center", width: "80%" }}>
-                    <img src={achives} className="" alt=" شخصية" />
+                <Link to='/dashboard/reward' style={{ textDecoration: "none" }}>
+                  <div className='achive_gift mt-3' style={{ height: "36px", backgroundColor: '#3E369B', border: "1px solid #4941A6", borderRadius: '9.65px', textAlign: "center", display: "flex", justifyContent: "space-evenly", alignItems: "center" }}>
+                    <div style={{ display: "flex", justifyContent: "space-evenly", alignItems: "center", width: "80%" }}>
+                      <img src={achives} className="" alt=" شخصية" />
 
-                    <p style={{ margin: "0", padding: "0", color: '#FFFFFF', fontWeight: "700" }}>المكافآت والعقوبات</p>
+                      <p style={{ margin: "0", padding: "0", color: '#FFFFFF', fontWeight: "700" }}>المكافآت والعقوبات</p>
 
+                    </div>
                   </div>
-                </div>
                 </Link>
                 {/* end of first div  */}
               </div>
 
               <Calender edit={edit}
-               Calendar={Calendar}
+                Calendar={Calendar}
                 onChange={onChange}
-                 date={date}
-                  delet={delet}
-                   plus={plus} 
-                   handleNotes={handleNotes}
-                   formData={formData}
-                   arrayContainer={arrayContainer}
-                   allNotes={allNotes}
-                   onSelect={onSelect}
-                   address={address}
-                   handleGetUpdate={handleGetUpdate}
-                   handleSubmit={handleSubmit}
-                   note={note}
-                   handleNoteChange={handleNoteChange}
-                   editButtonModal={"#updateAdminModal"}
-                   deleteButtonModal={"#deleteModalAdminNote"}
-
-
-                   
+                date={date}
+                delet={delet}
+                plus={plus}
+                handleNotes={handleNotes}
+                formData={formData}
+                arrayContainer={arrayContainer}
+                allNotes={allNotes}
+                onSelect={onSelect}
+                address={address}
+                handleGetUpdate={handleGetUpdate}
+                handleSubmit={handleSubmit}
+                note={note}
+                handleNoteChange={handleNoteChange}
+                editButtonModal={"#updateAdminModal"}
+                deleteButtonModal={"#deleteModalAdminNote"}
 
 
 
 
-                   />
+
+
+
+              />
             </div>
           </div>
 
 
-          
+
 
           {/* end of wrabeer one of container and div which take flex to wrab to div which content i write */}
         </div>
       </div>
 
-     
 
 
 
@@ -716,12 +756,13 @@ const getUsersFromInput=(e)=>{
 
 
 
-    
 
 
 
-{/* add note */}
-    <div
+
+
+      {/* add note */}
+      <div
         className="modal fade managerFade"
         id="addAdminNote"
         tabIndex="-1"
@@ -774,17 +815,17 @@ const getUsersFromInput=(e)=>{
                   </div>
 
                 </div>
-                    <div className="modal-footer managerFooter pt-4 ">
-                      <button
-                        type="button"
-                        className="btn canceled managerCancel"
-                        data-bs-dismiss="modal"
-                        id="firstbutt"
-                      >
-                        إلغاء
-                      </button>
-                      <button  type="submit" className="btn save managerSave" >إضافة</button>
-                    </div>
+                <div className="modal-footer managerFooter pt-4 ">
+                  <button
+                    type="button"
+                    className="btn canceled managerCancel"
+                    data-bs-dismiss="modal"
+                    id="firstbutt"
+                  >
+                    إلغاء
+                  </button>
+                  <button type="submit" className="btn save managerSave" >إضافة</button>
+                </div>
               </form>
             </div>
           </div>
@@ -798,13 +839,13 @@ const getUsersFromInput=(e)=>{
 
 
 
-{/* edit */}
+      {/* edit */}
 
-<div className="modal fade managerFade" 
-id="updateAdminModal"
- tabIndex="-1"
-  aria-labelledby="addManagerModalLabel"
-   aria-hidden="true" >
+      <div className="modal fade managerFade"
+        id="updateAdminModal"
+        tabIndex="-1"
+        aria-labelledby="addManagerModalLabel"
+        aria-hidden="true" >
         <div className="modal-dialog modal-dialog-centered managergDialog">
           <div className="modal-content managerContent">
             <div className="modal-header managerHeader">
@@ -825,7 +866,7 @@ id="updateAdminModal"
                         value={values.address}
                         onChange={handleInputChangeAddress}
                         required
-/>
+                      />
                       {addressUpdateValidationMessage && <p style={{ color: 'red' }}>{addressUpdateValidationMessage}</p>}
 
                     </div>
@@ -863,41 +904,41 @@ id="updateAdminModal"
 
       <div
 
-className="modal fade DElementFade "
-id="deleteModalAdminNote"
-tabIndex="-1"
-aria-labelledby="deleteElementModalLabel"
-aria-hidden="true"
->
-<div className="modal-dialog DElementDialog modal-dialog-centered ele_2 ">
-  <div className="modal-content DElementContent modal-backdrop1">
-    <div className="modal-body DElementBody text-center">
-      <img src={imagee} alt="Warning Icon" className="warning-icon" />
-      <p className="modal-title DElementTitle" id="deleteElementModalLabel">هل أنت متأكد ؟</p>
-      <p className="parag">سيتم حذف </p>
-    </div>
-    <div className="modal-footer DElementFooter">
-      <div>
-        <button
-          type="button"
-          className="btn-secondary cancel-btn DElementCancel mx-1"
-          data-bs-dismiss="modal"
-        >
-          لا
-        </button>
-        <button
-          type="button"
-          className="btn btn-danger cancel-btn DElementSave mx-1"
-          data-bs-dismiss="modal"
-          onClick={() => deleteNote(useId)}
-        >
-          نعم
-        </button>
+        className="modal fade DElementFade "
+        id="deleteModalAdminNote"
+        tabIndex="-1"
+        aria-labelledby="deleteElementModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog DElementDialog modal-dialog-centered ele_2 ">
+          <div className="modal-content DElementContent modal-backdrop1">
+            <div className="modal-body DElementBody text-center">
+              <img src={imagee} alt="Warning Icon" className="warning-icon" />
+              <p className="modal-title DElementTitle" id="deleteElementModalLabel">هل أنت متأكد ؟</p>
+              <p className="parag">سيتم حذف </p>
+            </div>
+            <div className="modal-footer DElementFooter">
+              <div>
+                <button
+                  type="button"
+                  className="btn-secondary cancel-btn DElementCancel mx-1"
+                  data-bs-dismiss="modal"
+                >
+                  لا
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-danger cancel-btn DElementSave mx-1"
+                  data-bs-dismiss="modal"
+                  onClick={() => deleteNote(useId)}
+                >
+                  نعم
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-</div>
-</div>
 
 
 

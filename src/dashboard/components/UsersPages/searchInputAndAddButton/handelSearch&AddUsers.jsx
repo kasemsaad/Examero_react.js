@@ -6,6 +6,7 @@ const SearchAndAddUsers = ({
   FilteredUsers,
   buttonContent,
   fetchAllData,
+  flag
 }) => {
   const [dataOfSearch, setDataOfSearch] = useState("");
 
@@ -14,7 +15,8 @@ const SearchAndAddUsers = ({
       FilteredUsers(newData);
     } else {
       const filteredItems = newData.filter((item) =>
-        item.fullName.toLowerCase().startsWith(dataOfSearch.toLowerCase())
+      flag ?  item.name.toLowerCase().startsWith(dataOfSearch.toLowerCase() ):item.fullName.toLowerCase().startsWith(dataOfSearch.toLowerCase() )
+
       );
       FilteredUsers(filteredItems);
     }
@@ -24,6 +26,7 @@ const SearchAndAddUsers = ({
   const handelChangeForSearch = (e) => {
     const searchData = e.target.value;
     setDataOfSearch(searchData);
+    console.log(searchData);
   };
   // handel("sfd");
   return (
@@ -81,6 +84,9 @@ const SearchAndAddUsers = ({
         {/* End input for search */}
 
         {/* Start button for add manger */}
+       {
+        flag ? "" :
+
         <div style={{ position: "relative" }} className="add-butt">
           <MyButton
             databstoggle="modal"
@@ -115,7 +121,7 @@ const SearchAndAddUsers = ({
           >
             +
           </div>
-        </div>
+        </div> }
         {/* End button for add manger */}
       </div>
       {/* End fro button and input search */}

@@ -74,6 +74,8 @@ const FormForAll = ({ fetchAllData }) => {
 
   return (
     <>
+            <ToastContainer position="top-center" />
+
       <form
         className="form-container-putt "
         onSubmit={handleSubmit(handleRegistration, handleError)}
@@ -99,7 +101,6 @@ const FormForAll = ({ fetchAllData }) => {
         <div className="button-container-putt">
           <MyButton className="my-button" content="إضافة" type={"submit"} />
         </div>
-        <ToastContainer position="top-center" />
       </form>
     </>
   );
