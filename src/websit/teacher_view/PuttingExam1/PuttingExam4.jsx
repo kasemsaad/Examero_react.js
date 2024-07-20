@@ -3,15 +3,16 @@ import { Form, Button, Row, Col, ProgressBar } from 'react-bootstrap';
 import putting from '../../../assets/icons/teacherview/wpf_create-new.svg';
 import './PuttingExam1.css';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function PuttingExam4(props) {
+
   const [progress, setProgress] = useState(85);
   const layoutBackground = useSelector((state) => state.dark.lay);
   const [finishExam, setfinishExam] = useState("إنتهت الأسئلة")
   const [Message, setMessage] = useState("تمنياتي لكم بالتوفيق والنجاح")
   const [teachername, setTeacherName] = useState("ابوكيان")
-
+  const Navigate = useNavigate()
 
   const [values, setValues] = useState({
     finishExam:"إنتهت الأسئلة",
@@ -42,6 +43,31 @@ function PuttingExam4(props) {
 
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    let doc = localStorage.getItem("doc");
+    doc = doc ? JSON.parse(doc) : [];
+
+    const formData = {
+      finishExam,
+      Message,
+      teachername
+
+    };
+
+    
+    if (!doc.length) {
+      doc.splice(3, 3, JSON.stringify(formData));
+    } else {
+        doc.splice(3, 3, JSON.stringify(formData));
+    }
+    
+    localStorage.setItem("doc", JSON.stringify(doc));
+    
+    localStorage.setItem("doc1", JSON.stringify(doc));
+
+    Navigate("/teacher/PuttingExam5");
+  };
 
   return (
     <>
@@ -59,7 +85,7 @@ function PuttingExam4(props) {
           <div className='header-line'></div>
         </div>
 
-        <Form className='form_putting_exam4' style={{
+        <Form onSubmit={handleSubmit} className='form_putting_exam4' style={{
           backgroundColor: layoutBackground === "#0E0A43" ? "#1D195D" : "#DADADA",
           color: layoutBackground === "#0E0A43" ? "white" : "black",
           fontSize: "18px"
@@ -107,6 +133,7 @@ function PuttingExam4(props) {
               <Button className='btn_putting_exam2_after' type="submit">
                 التالي
               </Button>
+
             </Col>
           </Row>
         </Form>

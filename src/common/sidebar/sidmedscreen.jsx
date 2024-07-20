@@ -32,19 +32,19 @@ function Sidmedscreen() {
         console.error("Error not logout ");
       });
   }
-  //   const logoutTeachers = ()=>{
+    const logoutTeachers = ()=>{
 
-  //         Api_website.post(`/teachers/logout`)
-  //     .then(response => {      
-  //         localStorage.removeItem("token");
-  //         navigate("/")
+          Api_website.post(`/teachers/logout`)
+      .then(response => {      
+          localStorage.removeItem("token");
+          navigate("/")
 
-  //     })
-  //     .catch(error => {
+      })
+      .catch(error => {
 
-  //         console.error("Error not logout ");
-  //     });
-  // }
+          console.error("Error not logout ");
+      });
+  }
   return (
     <>
 
@@ -156,29 +156,57 @@ function Sidmedscreen() {
             
             <div className="sidbarmed p-0 " dir="rtl" >
             <div className="sidbarSidbar ">
-              <ul className="pt-4 ps-4">
-                <li className={`Icon  ${id === "1" ? "bgIcon" : " "}`}>
-                  <Link to="/student/HomeStudentview" onClick={() => setId(1)} >
-                    <img src={homeIcon} alt="الرئيسية" />
+            <ul className="pt-4 ps-4">
+                    <li className={`Icon  ${id === "1" ? "bgIcon" : " "}`}>
+                      <Link to="/student/HomeStudentview" onClick={() => setId(1)} >
+                        <img src={homeIcon} alt="الرئيسية" />
+                      </Link>
+                    </li>
+                    <li className={`Icon  ${id === "2" ? "bgIcon" : " "}`}>
+                      <Link to="#" onClick={() => setId(2)}>
+                        <img style={{ width: 20, height: 20 }} src={octiconIcon} alt="وضع الاسئلة" />
+                      </Link>
+                    </li>
+                    <li className={`Icon  ${id === "3" ? "bgIcon" : " "}`}>
+                  <Link to="#" onClick={() => setId(3)}>
+                    <img style={{ width: 23, height: 23 }} src={akar_icons_bank} alt="بنك الاسئله" />
                   </Link>
                 </li>
-                <li className={`Icon  ${id === "10" ? "bgIcon" : " "}`}>
-                  <Link to="/student/datastudentexam" onClick={() => setId(10)}>
-                    <img style={{ width: 18, height: 18 }} src={create_new} alt="إنشاء الامتحان" />
-                  </Link>
-                </li>
-                <li className={`Icon  ${id === "12" ? "bgIcon" : " "}`}>
-                  <Link to="/" onClick={() => setId(12)} style={{ textDecoration: "none" }}>
-                    <i className="fas fa-globe text-white" ></i>
-                  </Link>
-                </li>
-                <li className={`Icon  ${id === "11" ? "bgIcon" : " "}`}>
-                  <Link onClick={() => setId(11)}>
-                    <img data-bs-toggle="modal" data-bs-target="#logout" src={iconamoon_exit_light} alt="تسجيل الخروج" />
-                  </Link>
-                </li>
+                    <li className={`Icon  ${id === "4" ? "bgIcon" : " "}`}>
+                      <Link to="#" onClick={() => setId(4)}>
+                        <img style={{ width: 23, height: 23 }} src={ph_certificate} alt="الشهادات" />
+                      </Link>
+                    </li>
+                    <li className={`Icon  ${id === "5" ? "bgIcon" : " "}`}>
+                      <Link to="#" onClick={() => setId(5)}>
+                        <img style={{ width: 20, height: 20 }} src={lucide_file_input} alt=" وضع o.p.s" />
+                      </Link>
+                    </li>
+                    <li className={`Icon  ${id === "6" ? "bgIcon" : " "}`}>
+                      <Link to="#" onClick={() => setId(6)}>
+                        <img style={{ width: 23, height: 23 }} src={tabel} alt=" تالمواصفات" />
+                      </Link>
+                    </li>
+                    <li className={`Icon  ${id === "7" ? "bgIcon" : " "}`}>
+                      <Link to="/teacher/PuttingExam1" onClick={() => setId(7)}>
+                        <img style={{ width: 18, height: 18 }} src={create_new} alt="انشاء الامتحان" />
+                      </Link>
+                    </li>
+                    <li className={`Icon  ${id === "8" ? "bgIcon" : " "}`}>
+                    <Link to="/" onClick={() => setId(8)} style={{ textDecoration: "none" }}>
+                      <i className="fas fa-globe text-white" alt="الموقع" ></i>
+                    </Link>
+                    </li>
 
-              </ul>
+                    <li className={`Icon  ${id === "11" ? "bgIcon" : " "}`}>
+                      <Link onClick={() => {
+                        logoutTeachers(11);
+                      }}>
+                        <img data-bs-toggle="modal" data-bs-target="#logout" src={iconamoon_exit_light} alt="تسجيل الخروج" />
+                      </Link>
+                    </li>
+
+                  </ul>
             </div>
           </div>
             

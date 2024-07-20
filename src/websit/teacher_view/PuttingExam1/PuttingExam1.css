@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap');
 
+.scrollable-dropdown-list {
+    max-height: 200px; /* Adjust the height as needed */
+    overflow-y: auto;
+  }
 .header_enter_data_teach_view {
     background-color: #FE4F60;
     border-radius: 13.97px;
@@ -94,6 +98,7 @@
 
 .dropdown-icon {
     margin-left: 10px;
+    margin-top: 3px;
     height: 16px;
     width: 16px;
     vertical-align: middle;

@@ -1,17 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Button, Row, Col, Dropdown, DropdownButton, ProgressBar } from 'react-bootstrap';
 import putting from '../../../assets/icons/teacherview/wpf_create-new.svg';
 import dropdownIcon from '../../../assets/icons/teacherview/Vector 13.svg';
 import { useSelector } from 'react-redux';
-
-import './PuttingExam1.css';
 import { useNavigate } from 'react-router-dom';
-
-
+import './PuttingExam1.css';
 
 function PuttingExam1(props) {
     const layoutBackground = useSelector((state) => state.dark.lay);
-
     const [examFormat, setExamFormat] = useState('عربي');
     const [curriculum, setCurriculum] = useState('');
     const [directorate, setDirectorate] = useState('');
@@ -19,12 +15,15 @@ function PuttingExam1(props) {
     const [school, setSchool] = useState('');
     const [examName, setExamName] = useState('');
     const [progress, setProgress] = useState(5); // Initial progress value
-    const Navigate = useNavigate()
+    const navigate = useNavigate();
+
     const handleSelect = (e) => {
         setExamFormat(e);
     };
 
     const handleSubmit = (e) => {
+        let doc = [];
+
         e.preventDefault();
         const formData = {
             examFormat,
@@ -34,30 +33,59 @@ function PuttingExam1(props) {
             school,
             examName,
         };
-        const doc = []
-        doc.push(JSON.stringify(formData))
+
+
+        const storedDoc = localStorage.getItem("doc");
+        if (storedDoc) {
+            try {
+                doc = JSON.parse(storedDoc);
+            } catch (error) {
+                console.error('Error parsing stored doc:', error);
+            }
+        }
+        localStorage.removeItem("doc")
+        localStorage.removeItem("doc1")
+        doc.push(JSON.stringify(formData));
+
         localStorage.setItem("doc", JSON.stringify(doc));
-        Navigate("/teacher/PuttingExam2")
+        localStorage.setItem("doc1", JSON.stringify(doc));
+        navigate("/teacher/PuttingExam2");
     };
+
+    useEffect(() => {
+        localStorage.removeItem("doc")
+        localStorage.removeItem("doc1")
+        const storedData = localStorage.getItem("doc1");
+        if (storedData) {
+            try {
+                const parsedData = JSON.parse(storedData);
+                setExamFormat(parsedData.examFormat);
+                setCurriculum(parsedData.curriculum);
+                setDirectorate(parsedData.directorate);
+                setInstitution(parsedData.institution);
+                setSchool(parsedData.school);
+                setExamName(parsedData.examName);
+            } catch (error) {
+                console.error('Error parsing JSON:', error);
+            }
+        }
+    }, []);
 
     return (
         <>
             <div className='py-2'>
-
                 <div className='header-container1' style={{
                     backgroundColor: layoutBackground === "#0E0A43" ? "#0E0A43" : "#ECECEC",
                     color: layoutBackground === "#0E0A43" ? "white" : "black",
                     fontSize: "18px"
                 }}>
                     <img src={putting} alt="Icon" className='header1teacherview-icon' />
-                    <span className='header1_putting_exam1'> انشاء الامتحان  </span>
+                    <span className='header1_putting_exam1'> انشاء الامتحان </span>
                 </div>
                 <div className='header-container'>
-                    <span className='header_putting_exam1'>   إدخال بيانات الامتحان</span>
+                    <span className='header_putting_exam1'> إدخال بيانات الامتحان</span>
                     <div className='header-line'></div>
-
                 </div>
-
 
                 <Form onSubmit={handleSubmit} className='form_putting_exam1' style={{
                     backgroundColor: layoutBackground === "#0E0A43" ? "#1D195D" : "#DADADA",
@@ -95,7 +123,7 @@ function PuttingExam1(props) {
                                     onSelect={handleSelect}
                                     required
                                 >
-                                    <Dropdown.Item eventKey="عربي">
+                                    <Dropdown.Item className='text-white' eventKey="عربي">
                                         <span className="circle arabic"></span> عربي
                                     </Dropdown.Item>
                                     <Dropdown.Item eventKey="انجليزي">
@@ -103,7 +131,6 @@ function PuttingExam1(props) {
                                     </Dropdown.Item>
                                 </DropdownButton>
                             </Form.Group>
-
                         </Col>
                     </Row>
                     <Row className="mb-3">
@@ -164,10 +191,8 @@ function PuttingExam1(props) {
                     </Row>
                 </Form>
             </div>
-
         </>
     );
 }
-
 
 export default PuttingExam1;

@@ -147,11 +147,6 @@ function SidebarFullscreen() {
                     <img data-bs-toggle="modal" data-bs-target="#log_out_dashboard" src={iconamoon_exit_light} alt=" تسجيل الخروج" />
                   </Link>
                 </li>
-                {/* <li className={`Icon  ${id === "11" ? "bgIcon":" "}`}>
-            <Link to="/" onClick={() => setId(11)}>
-              <img  src={iconamoon_exit_light} alt="وضع الاسئله"  />
-              </Link>
-            </li> */}
               </ul>
             </div>
             <ul className="sidbarUl pt-4  " >
@@ -301,8 +296,8 @@ function SidebarFullscreen() {
                         <img data-bs-toggle="modal" data-bs-target="#logout" src={iconamoon_exit_light} alt="تسجيل الخروج" />
                       </Link>
                     </li>
-
                   </ul>
+                  
                 </div>
                 <ul className="sidbarUl pt-4  " >
                   <li className="sidbarli">

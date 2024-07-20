@@ -28,6 +28,7 @@ import PuttingExam1 from "./websit/teacher_view/PuttingExam1/PuttingExam1.jsx";
 import PuttingExam2 from "./websit/teacher_view/PuttingExam1/PuttingExam2.jsx";
 import PuttingExam3 from "./websit/teacher_view/PuttingExam1/PuttingExam3.jsx";
 import PuttingExam4 from "./websit/teacher_view/PuttingExam1/PuttingExam4.jsx";
+import PuttingExam5 from "./websit/teacher_view/PuttingExam1/PuttingExam5.jsx";
 import Certified_exam from "./websit/teacher_view/PuttingExam1/Certified_exam.jsx";
 import EmailVerificationTech from "./websit/register and login/EmailVerification/EmailVerificationtech.jsx";
 import EmailVerificationStud from "./websit/register and login/EmailVerification/EmailVerificationStud.jsx";
@@ -172,6 +173,7 @@ function App(props) {
           <Route path="PuttingExam2" element={<PuttingExam2 />} />
           <Route path="PuttingExam3" element={<PuttingExam3 />} />
           <Route path="PuttingExam4" element={<PuttingExam4 />} />
+          <Route path="PuttingExam5" element={<PuttingExam5 />} />
           <Route path="Certified_exam" element={<Certified_exam />} />
         </Route>
 

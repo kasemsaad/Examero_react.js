@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form, Button, Row, Col, Dropdown, DropdownButton, ProgressBar } from 'react-bootstrap';
 import putting from '../../../assets/icons/teacherview/wpf_create-new.svg';
 import dropdownIcon from '../../../assets/icons/teacherview/Vector 13.svg';
 import './PuttingExam1.css';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import Api_dashboard from '../../../utlis/axios_utils_dashboard';
 
 function PuttingExam2(props) {
   const layoutBackground = useSelector((state) => state.dark.lay);
-  const [dayAndDate, setDayAndDate] = useState('dsf');
+  const [dayAndDate, setDayAndDate] = useState('');
   const [semester, setSemester] = useState(' الفصل الدراسي الأول');
   const currentYear = new Date().getFullYear();
   const [curriculum, setCurriculum] = useState(`للعام (${currentYear - 1}-${currentYear})`);
@@ -38,6 +39,7 @@ function PuttingExam2(props) {
     }
   };
 
+
   const handleSubmit = (e) => {
     e.preventDefault();
     let doc = localStorage.getItem("doc");
@@ -53,24 +55,70 @@ function PuttingExam2(props) {
       progress,
     };
 
-    doc.push(formData);
+    if (!doc.length) {
+      doc.splice(1, 1, JSON.stringify(formData));
+    } else {
+      doc.splice(1, 1, JSON.stringify(formData));
+    }
+
     localStorage.setItem("doc", JSON.stringify(doc));
+    localStorage.setItem("doc1", JSON.stringify(doc));
 
-    console.log(localStorage.getItem("doc"));
-    Navigate("/teacher/PuttingExam3")
+    Navigate("/teacher/PuttingExam3");
+
   };
-  // let jsonArray = [
-  //   "{\"examFormat\":\"عربي\",\"curriculum\":\"Omnis doloribus vita\",\"directorate\":\"Quasi quia ab necess\",\"institution\":\"Sit et quis rerum a\",\"school\":\"Quia corrupti modi \",\"examName\":\"Yeo Yang\"}",
-  //   {"dayAndDate":"2001-05-02","semester":" الفصل الدراسي الأول","curriculum":"للعام (2023-2024)","directorate":"اسم الطالبـــ / ـــة","examName":"Amela Beasley","examDuration":"Sint saepe enim asp","progress":35}
-  // ];
 
-  // // Function to parse JSON strings and keep objects as they are
-  // function parseArray(array) {
-  //   return array.map(item => (typeof item === 'string' ? JSON.parse(item) : item));
-  // }
 
-  // let parsedArray = parseArray(jsonArray);
-  // console.log(parsedArray);
+
+  const years = [];
+
+  for (let i = 2000; i <= currentYear; i++) {
+    years.push(i);
+  }
+useEffect(()=>{
+  backup()
+},[])
+  const backup = () => {
+
+    let jsonArray = [
+      localStorage.getItem("doc1")
+    ];
+
+    function parseArray(array) {
+      return array.map(item => {
+        if (typeof item === 'string') {
+          try {
+            return JSON.parse(item);
+          } catch (e) {
+            console.error('Error parsing JSON:', e, 'Raw item:', item);
+            return null;
+          }
+        }
+        return item;
+      });
+    }
+
+    let parsedArray = parseArray(jsonArray);
+
+    // Ensure parsedArray contains valid data before accessing it
+    if (parsedArray[0] && Array.isArray(parsedArray[0]) && parsedArray[0][1]) {
+        const data = JSON.parse(parsedArray[0][1]);
+        setTimeout(() => {
+          setDayAndDate(data.dayAndDate);
+          setSemester(data.semester);
+          setCurriculum(data.curriculum);
+          setDirectorate(data.directorate);
+          setExamName(data.examName);
+          setExamDuration(data.examDuration);
+          // console.log(data.examFormat);
+        }, 1);
+      
+    } else {
+      console.error('Parsed array is not valid or does not contain expected data:', parsedArray);
+        //  Navigate('/teacher/PuttingExam1');  
+
+    }
+  }
   return (
     <>
       <div className='py-2'>
@@ -111,10 +159,10 @@ function PuttingExam2(props) {
                   title={<div className='re'>{semester || "أختر الفصل الدراسي"}<img src={dropdownIcon} alt="Icon" className='dropdown-icon' /></div>}
                   onSelect={handleSelect}
                 >
-                  <Dropdown.Item eventKey="الفصل الدراسي الأول">
+                  <Dropdown.Item className='text-white' eventKey="الفصل الدراسي الأول">
                     <span className="circle arabic"></span> الفصل الدراسي الأول
                   </Dropdown.Item>
-                  <Dropdown.Item eventKey="الفصل الدراسي الثاني">
+                  <Dropdown.Item className='text-white' eventKey="الفصل الدراسي الثاني">
                     <span className="circle english"></span> الفصل الدراسي الثاني
                   </Dropdown.Item>
                 </DropdownButton>
@@ -122,19 +170,27 @@ function PuttingExam2(props) {
             </Col>
             <Col xs={12} sm={6}>
               <Form.Group controlId="curriculum">
-                <Form.Label><span className='text-danger'> * </span> العام الدراسي</Form.Label>
+                <Form.Label>
+                  <span className='text-danger'> * </span> العام الدراسي
+                </Form.Label>
                 <DropdownButton
                   id="dropdown-basic-button-academicYear"
-                  title={<div className='re'>{curriculum || "أختر العام الدراسي"}<img src={dropdownIcon} alt="Icon" className='dropdown-icon' /></div>}
+                  title={
+                    <div className='re'>
+                      {curriculum || "أختر العام الدراسي"}
+                      <img src={dropdownIcon} alt="Icon" className='dropdown-icon' />
+                    </div>
+                  }
                   onSelect={handleSelect}
                   required
                 >
-                  <Dropdown.Item eventKey="للعام ( 2025 - 2026 )">
-                    <span className="circle arabic"></span> للعام ( 2025 - 2026 )
-                  </Dropdown.Item>
-                  <Dropdown.Item eventKey="للعام ( 2026 - 2027 )">
-                    <span className="circle english"></span> للعام ( 2026 - 2027 )
-                  </Dropdown.Item>
+                  <div className="scrollable-dropdown-list">
+                    {years.map((year, index) => (
+                      <Dropdown.Item className='text-white' key={index} eventKey={`للعام ( ${year - 1} - ${year} )`}>
+                        <span className="circle arabic"></span> للعام ( {year - 1} - {year} )
+                      </Dropdown.Item>
+                    ))}
+                  </div>
                 </DropdownButton>
               </Form.Group>
             </Col>
@@ -174,13 +230,13 @@ function PuttingExam2(props) {
                   title={<div className='re'>{directorate || " إختر اسم الطالبــــ / ـــة :"}<img src={dropdownIcon} alt="Icon" className='dropdown-icon' /></div>}
                   onSelect={handleSelect}
                 >
-                  <Dropdown.Item eventKey="اسم الطالب : ">
+                  <Dropdown.Item className='text-white' eventKey="اسم الطالب : ">
                     <span className="circle arabic"></span> اسم الطالب :
                   </Dropdown.Item>
-                  <Dropdown.Item eventKey="اسم الطالبة : ">
+                  <Dropdown.Item className='text-white' eventKey="اسم الطالبة : ">
                     <span className="circle english"></span> اسم الطالبة :
                   </Dropdown.Item>
-                  <Dropdown.Item eventKey="اسم الطالبـــ / ــــة : ">
+                  <Dropdown.Item className='text-white' eventKey="اسم الطالبـــ / ــــة : ">
                     <span className="circle english"></span> اسم الطالبـــ / ــــة :
                   </Dropdown.Item>
                 </DropdownButton>
@@ -191,7 +247,7 @@ function PuttingExam2(props) {
                 <Form.Label><span className='text-danger'> * </span> مدة الامتحان</Form.Label>
                 <Form.Control
                   required
-                  type="text"
+                  type="number"
                   value={examDuration}
                   onChange={(e) => setExamDuration(e.target.value)}
                   placeholder="أدخل مدة الامتحان ( مثال : 1 ساعة و 30 دقيقة فقط )"

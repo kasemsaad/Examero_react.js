@@ -26,12 +26,15 @@ function PuttingExam3(props) {
   const [AllGroup, setAllGroup] = useState([]);
   const [AllSubject, setAllSubject] = useState([]);
   const [groupId, setGroupId] = useState(null);
+  const [Subjectid, setSubjectid] = useState(null);
 
   useEffect(() => {
     const fetchGroups = async () => {
       try {
         const response = await Api_dashboard.get('teachers/groups/selection');
         setAllGroup(response.data.data);
+        back()
+
       } catch (error) {
         console.error("Error fetching groups data:", error);
       }
@@ -39,7 +42,7 @@ function PuttingExam3(props) {
 
     const fetchSubjects = async () => {
       try {
-        const response = await Api_dashboard.get('/teachers/subjects/selection/8');
+        const response = await Api_dashboard.get('/teachers/subjects/selection/groupId');
         setAllSubject(response.data.data);
       } catch (error) {
         console.error("Error fetching subjects data:", error);
@@ -88,6 +91,7 @@ function PuttingExam3(props) {
     setShowApperanceNotice(false);
   };
 
+
   const handleSubmit = (e) => {
     e.preventDefault();
     let doc = localStorage.getItem("doc");
@@ -102,15 +106,24 @@ function PuttingExam3(props) {
       showJordanianLogo,
       numberOfQuestions,
       numberOfPages,
-      showApperanceNotice,
+      showApperanceNotice,  
+      idGroup:groupId,
+      idSubjectid:Subjectid
     };
 
-    doc.push(formData);
+    if (!doc.length) {
+      doc.splice(2,2, JSON.stringify(formData));
+    } else {
+        doc.splice(2,2, JSON.stringify(formData));
+    }
+    
     localStorage.setItem("doc", JSON.stringify(doc));
+    localStorage.setItem("doc1", JSON.stringify(doc));
 
-    console.log(formData);
-    Navigate("/teacher/PuttingExam4")
+     Navigate("/teacher/PuttingExam4");
   };
+
+
 
   const handleNumberOfQuestionsChange = (e) => {
     setNumberOfQuestions(e.target.value);
@@ -133,7 +146,38 @@ function PuttingExam3(props) {
       }
     }
   };
-
+ 
+const back=()=>{
+  let jsonArray = [
+    localStorage.getItem("doc1")
+  ];
+  
+  function parseArray(array) {
+    return array.map(item => (typeof item === 'string' ? JSON.parse(item) : item));
+  }
+  
+  let parsedArray = parseArray(jsonArray);
+  
+  if (parsedArray[0] && Array.isArray(parsedArray[0]) && parsedArray[0][2]) {
+  
+      const data = JSON.parse(parsedArray[0][2]);
+     
+        setSubject(data.subject);
+        setGrade(data.grade);
+        setFullMark(data.fullMark);
+        setQuestionCount(data.questionCount);
+        setFileLabel(data.fileLabel);
+        setShowJordanianLogo(data.showJordanianLogo);
+        setNumberOfQuestions(data.numberOfQuestions);
+        setNumberOfPages(data.showApperanceNotice);
+        setShowApperanceNotice(data.showApperanceNotice);
+        // console.log(data.examFormat);
+      
+     
+  } else {
+    console.error("No valid JSON data found in parsedArray[0]");
+    }
+}
   return (
     <>
         <div className='py-2'>
@@ -176,12 +220,12 @@ function PuttingExam3(props) {
               >
                 {Array.isArray(AllSubject) && AllSubject.length > 0 ? (
                   AllSubject.map(({ id, name }) => (
-                    <Dropdown.Item key={id} eventKey={name}>
+                    <Dropdown.Item className='text-white' key={id} eventKey={name} onClick={() => setSubjectid(id) } > 
                       <span className="circle arabic"></span> {name}
                     </Dropdown.Item>
                   ))
                 ) : (
-                  <Dropdown.Item disabled>لا توجد مجموعات</Dropdown.Item>
+                  <Dropdown.Item className='text-white' disabled>لا توجد مجموعات</Dropdown.Item>
                 )}
               </DropdownButton>
             </Form.Group>
@@ -197,12 +241,12 @@ function PuttingExam3(props) {
               >
                 {Array.isArray(AllGroup) && AllGroup.length > 0 ? (
                   AllGroup.map(({ id, name }) => (
-                    <Dropdown.Item key={id} eventKey={name}>
+                    <Dropdown.Item className='text-white' key={id} eventKey={name} >
                       <span className="circle arabic"></span>{name}
                     </Dropdown.Item>
                   ))
                 ) : (
-                  <Dropdown.Item disabled>لا توجد مجموعات</Dropdown.Item>
+                  <Dropdown.Item className='text-white' disabled>لا توجد مجموعات</Dropdown.Item>
                 )}
               </DropdownButton>
             </Form.Group>
@@ -215,6 +259,8 @@ function PuttingExam3(props) {
               <Form.Label><span className='text-danger'> * </span> علامة الامتحان الكاملة </Form.Label>
               <Form.Control
                 type="text"
+                required
+                
                 value={fullMark}
                 onChange={(e) => setFullMark(e.target.value)}
                 placeholder="أدخل علامة الامتحان الكاملة (مثال: 120)"
@@ -226,6 +272,7 @@ function PuttingExam3(props) {
               <Form.Label><span className='text-danger'> * </span> عدد أسئلة الامتحان الرئيسية</Form.Label>
               <Form.Control
                 type="number"
+                required
                 value={questionCount}
                 onChange={(e) => setQuestionCount(e.target.value)}
                 placeholder="أدخل عدد أسئلة الامتحان الرئيسية"
