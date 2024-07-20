@@ -442,7 +442,7 @@ function PuttingExam3(props) {
   const [levelQuestion, setLevelQuestion] = useState('اختر مستوى السؤال');
   const [typingQuestion, setTypingQuestion] = useState('اختر صيغة السؤال');
   const [markQuestion, setMarkQuestion] = useState('');
-  const [addressQuestion, setAddressQuestion] = useState('اختر عنوان السؤال الرئيسي');
+  const [addressQuestion, setAddressQuestion] = useState('');
 
   const [progress, setProgress] = useState(90);
   const [allUnit, setAllUnit] = useState([]);
@@ -550,25 +550,25 @@ function PuttingExam3(props) {
   const validateForm = () => {
     const errorss = {};
     if (!unit || unit === 'اختر الوحدة') {
-      errorss.unit = 'Please select a unit';
+      errorss.unit = 'اختر الوحدة';
     }
     if (!lesson || lesson === 'اختر الدرس') {
-      errorss.lesson = 'Please select a lesson';
+      errorss.lesson = 'اختر الدرس';
     }
     if (!questionType || questionType === 'اختر نوع السؤال') {
-      errorss.questionType = 'Please select a question type';
+      errorss.questionType = 'اختر نوع السؤال';
     }
     if (!levelQuestion || levelQuestion === 'اختر مستوى السؤال') {
-      errorss.levelQuestion = 'Please select a level question';
+      errorss.levelQuestion = 'اختر مستوى السؤال';
     }
     if (!typingQuestion || typingQuestion === 'اختر صيغة السؤال') {
-      errorss.typingQuestion = 'Please select a typing question';
+      errorss.typingQuestion = 'اختر صيغة السؤال';
     }
     if (!markQuestion) {
-      errorss.markQuestion = 'Please enter a mark question';
+      errorss.markQuestion = 'ادخل علامة السؤال';
     }
     if (!addressQuestion) {
-      errorss.addressQuestion = 'Please enter an address question';
+      errorss.addressQuestion = 'ادخل العنوان السؤال الرئيسي ';
     }
 
     if (Object.keys(errorss).length > 0) {
@@ -745,10 +745,11 @@ function PuttingExam3(props) {
           <Row className="mb-3">
           <Col xs={12} sm={6}> 
               <Form.Group controlId="addressQuestion">
-                <Form.Label><span className='text-danger'> * </span> عنوان السؤال</Form.Label>
+                <Form.Label><span className='text-danger'> * </span> 'ادخل العنوان السؤال الرئيسي </Form.Label>
                 <Form.Control
                   type="text"
                   value={addressQuestion}
+                  placeholder='اختر عنوان السؤال الرئيسي'
                   onChange={(e) => setAddressQuestion(e.target.value)}
                 />
                 {errors.addressQuestion && <Form.Text className='text-danger'>{errors.addressQuestion}
