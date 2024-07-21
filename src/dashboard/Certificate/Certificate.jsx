@@ -12,6 +12,7 @@ import chains from '../font/chain.js';
 import image_ from './../../assets/image/02-01 1 (1).png';
 import image_2 from './../../assets/image/04-01 1.png';
 import image_3 from './../../assets/image/05-01 1.png';
+import { useSelector } from 'react-redux';
 
 
 
@@ -30,6 +31,8 @@ function CertificateGenerator() {
         techerName:""
 
     })
+    const role = useSelector((state) => state.RoleAccess.role); 
+    console.log(role);
     const getinput = (e) => {
         user[e.target.name] = e.target.value
         setInput(user);

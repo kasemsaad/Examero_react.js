@@ -166,8 +166,8 @@ export default function Home_dashboard() {
       })
       )
 
-
     }).catch((err) => {
+      console.log(err);
 
     })
   }
@@ -383,7 +383,7 @@ export default function Home_dashboard() {
                   <div style={{ position: "absolute", zIndex: '10', textAlign: "center", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
 
                     <div style={{ backgroundColor: "#1D195D", width: "7vw", height: '22.9px', borderRadius: '22.9px' }}>
-                      <p style={{ margin: '0', padding: "0" }}>123</p>
+                      <p style={{ margin: '0', padding: "0" }}>{informationNumber.teacherExams}</p>
                     </div>
                     {/* <button className='btn btn-info'>mosytaf</button> */}
                   </div>
@@ -408,12 +408,12 @@ export default function Home_dashboard() {
 
                 <div style={{ textAlign: "center", position: "relative" }}>
 
-                  <p style={{ padding: "0", margin: "0", marginTop: "4px", fontWeight: "700", fontSize: "12px" }}>عدد الامتحانات التي تم </p>
-                  <p style={{ marginTop: "4px", fontWeight: "700", fontSize: "12px" }}>انشاءها من قبل المعلم</p>
+                  <p style={{ padding: "0", margin: "0", marginTop: "4px", fontWeight: "700", fontSize: "12px" }}>عدد الاسئلة التي تم </p>
+                  <p style={{ marginTop: "4px", fontWeight: "700", fontSize: "12px" }}> قبولها  </p>
                   <div style={{ position: "absolute", zIndex: '10', textAlign: "center", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
 
                     <div style={{ backgroundColor: "#1D195D", width: "7vw", height: '22.9px', borderRadius: '22.9px' }}>
-                      <p style={{ margin: '0', padding: "0" }}>123</p>
+                      <p style={{ margin: '0', padding: "0" }}>{informationNumber.acceptQuestion}</p>
                     </div>
                     {/* <button className='btn btn-info'>mosytaf</button> */}
                   </div>
@@ -439,11 +439,11 @@ export default function Home_dashboard() {
                 <div style={{ textAlign: "center", position: "relative" }}>
 
                   <p style={{ padding: "0", margin: "0", marginTop: "4px", fontWeight: "700", fontSize: "12px" }}>عدد الامتحانات التي تم </p>
-                  <p style={{ marginTop: "4px", fontWeight: "700", fontSize: "12px" }}>انشاءها من قبل المعلم</p>
+                  <p style={{ marginTop: "4px", fontWeight: "700", fontSize: "12px" }}> رفضها </p>
                   <div style={{ position: "absolute", zIndex: '10', textAlign: "center", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
 
                     <div style={{ backgroundColor: "#1D195D", width: "7vw", height: '22.9px', borderRadius: '22.9px' }}>
-                      <p style={{ margin: '0', padding: "0" }}>123</p>
+                      <p style={{ margin: '0', padding: "0" }}>{informationNumber.rejectQuestion}</p>
                     </div>
                     {/* <button className='btn btn-info'>mosytaf</button> */}
                   </div>
@@ -468,12 +468,12 @@ export default function Home_dashboard() {
 
                 <div style={{ textAlign: "center", position: "relative" }}>
 
-                  <p style={{ padding: "0", margin: "0", marginTop: "4px", fontWeight: "700", fontSize: "12px" }}>عدد الامتحانات التي تم </p>
-                  <p style={{ marginTop: "4px", fontWeight: "700", fontSize: "12px" }}>انشاءها من قبل المعلم</p>
+                  <p style={{ padding: "0", margin: "0", marginTop: "4px", fontWeight: "700", fontSize: "12px" }}>عدد الامتحانات التي  </p>
+                  <p style={{ marginTop: "4px", fontWeight: "700", fontSize: "12px" }}>openEmis</p>
                   <div style={{ position: "absolute", zIndex: '10', textAlign: "center", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
 
                     <div style={{ backgroundColor: "#1D195D", width: "7vw", height: '22.9px', borderRadius: '22.9px' }}>
-                      <p style={{ margin: '0', padding: "0" }}>123</p>
+                      <p style={{ margin: '0', padding: "0" }}>{informationNumber.openEmis}</p>
                     </div>
                     {/* <button className='btn btn-info'>mosytaf</button> */}
                   </div>
@@ -499,12 +499,12 @@ export default function Home_dashboard() {
 
                 <div style={{ textAlign: "center", position: "relative" }}>
 
-                  <p style={{ padding: "0", margin: "0", marginTop: "4px", fontWeight: "700", fontSize: "12px" }}>عدد الامتحانات التي تم </p>
-                  <p style={{ marginTop: "4px", fontWeight: "700", fontSize: "12px" }}>انشاءها من قبل المعلم</p>
+                  <p style={{ padding: "0", margin: "0", marginTop: "4px", fontWeight: "700", fontSize: "12px" }}>عدد الامتحانات   </p>
+                  <p style={{ marginTop: "4px", fontWeight: "700", fontSize: "12px" }}> الطلاب  </p>
                   <div style={{ position: "absolute", zIndex: '10', textAlign: "center", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
 
                     <div style={{ backgroundColor: "#1D195D", width: "7vw", height: '22.9px', borderRadius: '22.9px' }}>
-                      <p style={{ margin: '0', padding: "0" }}>123</p>
+                      <p style={{ margin: '0', padding: "0" }}>{informationNumber.studentExams}</p>
                     </div>
                     {/* <button className='btn btn-info'>mosytaf</button> */}
                   </div>
@@ -531,11 +531,11 @@ export default function Home_dashboard() {
                 <div style={{ textAlign: "center", position: "relative" }}>
 
                   <p style={{ padding: "0", margin: "0", marginTop: "4px", fontWeight: "700", fontSize: "12px" }}>عدد الامتحانات التي تم </p>
-                  <p style={{ marginTop: "4px", fontWeight: "700", fontSize: "12px" }}>انشاءها من قبل المعلم</p>
+                  <p style={{ marginTop: "4px", fontWeight: "700", fontSize: "12px" }}>انشاءها من قبل ---</p>
                   <div style={{ position: "absolute", zIndex: '10', textAlign: "center", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
 
                     <div style={{ backgroundColor: "#1D195D", width: "7vw", height: '22.9px', borderRadius: '22.9px' }}>
-                      <p style={{ margin: '0', padding: "0" }}>123</p>
+                      <p style={{ margin: '0', padding: "0" }}>---</p>
                     </div>
                     {/* <button className='btn btn-info'>mosytaf</button> */}
                   </div>
@@ -565,7 +565,7 @@ export default function Home_dashboard() {
 
               <div className='labels_123'>
                 <div style={{ position: 'relative', height: "30px", backgroundColor: '#0E0A43', border: "1px solid #4941A6", borderRadius: '9.65px' }}>
-                  <p style={{ margin: "0", direction: "ltr", paddingLeft: "2vw", paddingTop: "0.3vw", color: "#A6A0F4" }}>123</p>
+                  <p style={{ margin: "0", direction: "ltr", paddingLeft: "2vw", paddingTop: "0.3vw", color: "#A6A0F4" }}>{informationNumber.manager}</p>
                   <div className='layer_owner' style={{ position: "absolute", top: "0", right: '0', width: "8vw", height: "30px", backgroundColor: "#4941A6", borderRadius: '9.65px' }}>
 
                     <div style={{ position: "relative" }}>
@@ -601,7 +601,7 @@ export default function Home_dashboard() {
                 </div>
 
                 <div className='mt-3' style={{ position: 'relative', height: "30px", backgroundColor: '#0E0A43', border: "1px solid #C01F59", borderRadius: '9.65px' }}>
-                  <p style={{ margin: "0", direction: "ltr", paddingLeft: "2vw", paddingTop: "0.3vw", color: "#FE4F60" }}>123</p>
+                  <p style={{ margin: "0", direction: "ltr", paddingLeft: "2vw", paddingTop: "0.3vw", color: "#FE4F60" }}>{informationNumber.supervisor}</p>
                   <div className='layer_owner' style={{ position: "absolute", top: "0", right: '0', width: "8vw", height: "30px", backgroundColor: "#C01F59", borderRadius: '9.65px' }}>
 
                     <div style={{ position: "relative" }}>
@@ -634,7 +634,7 @@ export default function Home_dashboard() {
                 </div>
 
                 <div className='mt-3' style={{ position: 'relative', height: "30px", backgroundColor: '#0E0A43', border: "1px solid #FF8A00", borderRadius: '9.65px' }}>
-                  <p style={{ margin: "0", direction: "ltr", paddingLeft: "2vw", paddingTop: "0.3vw", color: "#C17011" }}>123</p>
+                  <p style={{ margin: "0", direction: "ltr", paddingLeft: "2vw", paddingTop: "0.3vw", color: "#C17011" }}>{informationNumber.teacher}</p>
                   <div className='layer_owner' style={{ position: "absolute", top: "0", right: '0', width: "8vw", height: "30px", backgroundColor: "#C17011", borderRadius: '9.65px' }}>
 
                     <div style={{ position: "relative" }}>
@@ -667,7 +667,7 @@ export default function Home_dashboard() {
                 </div>
 
                 <div className='mt-3' style={{ position: 'relative', height: "30px", backgroundColor: '#0E0A43', border: "1px solid #FE4F60", borderRadius: '9.65px' }}>
-                  <p style={{ margin: "0", direction: "ltr", paddingLeft: "2vw", paddingTop: "0.3vw", color: "#FE4F60" }}>123</p>
+                  <p style={{ margin: "0", direction: "ltr", paddingLeft: "2vw", paddingTop: "0.3vw", color: "#FE4F60" }}>{informationNumber.student}</p>
                   <div className='layer_owner' style={{ position: "absolute", top: "0", right: '0', width: "8vw", height: "30px", backgroundColor: "#FE4F60", borderRadius: '9.65px' }}>
 
                     <div style={{ position: "relative" }}>
@@ -700,7 +700,7 @@ export default function Home_dashboard() {
                 </div>
 
 
-                <Link to='/dashboard/reward' style={{ textDecoration: "none" }}>
+                <Link to='/dashboard/manger' style={{ textDecoration: "none" }}>
                   <div className='achive_gift mt-3' style={{ height: "36px", backgroundColor: '#3E369B', border: "1px solid #4941A6", borderRadius: '9.65px', textAlign: "center", display: "flex", justifyContent: "space-evenly", alignItems: "center" }}>
                     <div style={{ display: "flex", justifyContent: "space-evenly", alignItems: "center", width: "80%" }}>
                       <img src={achives} className="" alt=" شخصية" />
