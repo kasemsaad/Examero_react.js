@@ -246,6 +246,7 @@ function SidebarFullscreen() {
 
 
             ////////////////////teacher//////////////////////////////////////////////////////
+
             : location.pathname.startsWith('/teacher') ?
 
 
@@ -339,7 +340,6 @@ function SidebarFullscreen() {
 
 
               : ""
-
 
 
 
