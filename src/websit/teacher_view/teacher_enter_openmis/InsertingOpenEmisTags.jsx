@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import Api_website from '../../../utlis/axios_utils_websit.jsx';
 import enter from '../../../assets/icons/teacherview/lucide_file-input.svg';
@@ -14,6 +14,10 @@ function InsertingOpenEmisTags(props) {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [fileLabel, setFileLabel] = useState('قم بتحميل دفتر العلامات الخاص بالصف الذي ادخلته');
   const [selectedFile, setSelectedFile] = useState(null);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const [idOfPointSelected, SetidOfPointSelected] = useState('');
+
   const layoutBackground = useSelector((state) => state.dark.lay);
 
   const handleFileChange = (e) => {
@@ -25,6 +29,10 @@ function InsertingOpenEmisTags(props) {
       setFileLabel('قم بتحميل دفتر العلامات الخاص بالصف الذي ادخلته');
     }
   };
+  const [activePlanData, SetactivePlanData] = useState([]);
+  useEffect(() => {
+    getConnect();
+}, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -34,30 +42,70 @@ function InsertingOpenEmisTags(props) {
     formData.append('group', className);
     formData.append('subject', researcherName);
     formData.append('phone_number', phoneNumber);
+    if (idOfPointSelected) {
+      formData.append('plan_id', idOfPointSelected);
+    }
+
     if (selectedFile) {
       formData.append('document', selectedFile);
-    }
+    }   
+
 
     Api_website.post('/teachers/open-emis', formData)
       .then(response => {
         console.log('تم إرسال البيانات بنجاح:', response.data);
+        setSuccessMessage(response.data.message); // Assuming response.data.message contains the success message
+        setTimeout(() => {
+          setSuccessMessage('');
+        }, 3000); // Clear success message after 3 seconds
+
+        // Clear form data
+        setUsername('');
+        setPassword('');
+        setResearcherName('');
+        setClassName('');
+        setPhoneNumber('');
+        setFileLabel('قم بتحميل دفتر العلامات الخاص بالصف الذي ادخلته');
+        setSelectedFile(null);
       })
       .catch(error => {
         console.error('حدث خطأ أثناء إرسال البيانات:', error);
+        if (error.response) {
+          // Handle error response from server
+          const responseData = error.response.data;
+          const errorMessage = responseData.message || 'حدث خطأ أثناء إرسال البيانات.';
+          setErrorMessage(errorMessage);
+
+          setTimeout(() => {
+            setErrorMessage('');
+          }, 3000); // Clear error message after 3 seconds
+        }
       });
   };
-
+  const getConnect = async () => {
+    await Api_website.get(`/teachers/plans`)
+        .then((response) => {
+            SetactivePlanData(response.data.data);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+};
+const getPoint = (e) => {
+  const selectedValue = e.target.value;
+  SetidOfPointSelected(selectedValue);
+};
   return (
     <>
-      <div className='header-container1' style={{
+      <div className='header-container1 pt-5' style={{
         backgroundColor: layoutBackground === "#0E0A43" ? "#0E0A43" : "#ECECEC",
         color: layoutBackground === "#0E0A43" ? "white" : "black",
         fontSize: "18px"
       }}>
         <img src={enter} alt="Icon" className='header1teacherview-icon' />
-        <span className='header1_enter_data_teach_view'>إدخال علامات Open Emis</span>
+        <span className='header1_enter_data_teach_view mt-5'>إدخال علامات Open Emis</span>
       </div>
-      <div className='header-container'>
+      <div className='header-container '>
         <span className='header_enter_data_teach_view'>إدخال بيانات دفتر العلامات</span>
         <div className='header-line'></div>
       </div>
@@ -66,6 +114,16 @@ function InsertingOpenEmisTags(props) {
         color: layoutBackground === "#0E0A43" ? "white" : "black",
         fontSize: "18px"
       }}>
+        {errorMessage && (
+          <div className="alert alert-danger" role="alert">
+            {errorMessage}
+          </div>
+        )}
+        {successMessage && (
+          <div className="alert alert-success" role="alert">
+            {successMessage}
+          </div>
+        )}
         <Row className="mb-3 mt-3">
           <Col xs={12} sm={6}>
             <Form.Group controlId="formUsername">
@@ -142,6 +200,22 @@ function InsertingOpenEmisTags(props) {
                   <div><img src={loadIcon} alt="Upload Icon" className="load-icon" /></div>
                 </div>
               </div>
+              <div className='col-5'>
+                                <label htmlFor="">اسم الباقه</label>
+                                <select
+                                    id="dataSelect"
+                                    className="form-select"
+                                    onChange={getPoint}
+                                    
+                                >
+                                    <option value="" disabled selected>اختر اسم الباقه</option>
+                                    {activePlanData.map((item, index) => (
+                                        <option key={index} value={item.plan.id}>
+                                            {item.plan.name}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
             </Form.Group>
           </Col>
         </Row>

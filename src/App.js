@@ -77,6 +77,13 @@ import QbankEditing from "./dashboard/QbankDetails/QbankEditing/qbankEditing.jsx
 import TeacherDash from "./dashboard/Users/Teachers/TeacherDash.jsx";
 import StudentsDash from "./dashboard/Users/Teachers/StudentDash.jsx";
 import Certify from "./dashboard/newCertify/certify.jsx";
+
+import Home_teacher from "./websit/hometeacher/hometeacher.jsx";
+import SpecificationTeacher from "./websit/Specification_teacher/Specification_teacher.jsx";
+import OpenEmisTable from "./websit/OpenEmisTable/OpenEmisTable.jsx";
+import CertificationTeacher from "./websit/certificationTeacher/certificationTeacher.jsx";
+import { QbankTeacherTable } from "./websit/qbankk/qbankteacher.jsx";
+import CreateQuestation from "./websit/qbankk/createquestation.jsx";
 function App(props) {
   return (
     <BrowserRouter>
@@ -155,7 +162,7 @@ function App(props) {
             }
           />
         </Route>
-
+QbankTeacher
         <Route path="/teacher/" element={<LayoutComp />}>
           <Route path="TeacherProfile" element={<TeacherProfile />} />
           <Route
@@ -167,6 +174,16 @@ function App(props) {
           <Route path="PuttingExam3" element={<PuttingExam3 />} />
           <Route path="PuttingExam4" element={<PuttingExam4 />} />
           <Route path="Certified_exam" element={<Certified_exam />} />
+          <Route path="QbankTeacherTable" element={<QbankTeacherTable />} />
+          <Route path="Home_teacher" element={<Home_teacher />} />
+          <Route path="SpecificationTeacher" element={<SpecificationTeacher />} />
+             <Route path="OpenEmisTable" element={<OpenEmisTable />} />
+         
+             <Route path="CertificationTeacher" element={<CertificationTeacher />} />
+
+                <Route path="CreateQuestation" element={<CreateQuestation />} />
+
+          Home_teacher
         </Route>
 
         <Route path="login_dashboard" element={<HomeDashoardLogin />} />
