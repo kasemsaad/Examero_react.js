@@ -47,6 +47,7 @@ function Login() {
                 setError('');
                 localStorage.setItem("sidbarId", JSON.stringify(1));
                 navigate('/teacher/Home_teacher'); 
+
             })
             .catch((error) => {
                 if(error.response.data.error){

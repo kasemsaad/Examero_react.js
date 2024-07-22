@@ -54,9 +54,7 @@ const Mangers = () => {
       .then((response) => {
         setRowData(response.data.data);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
   const handelShowMangerById = async (row) => {
     document.body.style.removeProperty("overflow");

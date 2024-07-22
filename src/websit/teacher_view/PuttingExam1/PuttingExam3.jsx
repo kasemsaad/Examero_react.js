@@ -1,17 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Button, Row, Col, Dropdown, DropdownButton, ProgressBar } from 'react-bootstrap';
 import putting from '../../../assets/icons/teacherview/wpf_create-new.svg';
 import dropdownIcon from '../../../assets/icons/teacherview/Vector 13.svg';
 import loadIcon from '../../../assets/icons/teacherview/material-symbols_upload-sharp.svg';
+// import Api_dashboard from '../../../utlis/axios_utils_dashboard';
+import Api_dashboard from '../../../utlis/axios_utils_websit';
 import './PuttingExam1.css';
-
 import { useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+
 
 function PuttingExam3(props) {
   const layoutBackground = useSelector((state) => state.dark.lay);
-
-  const [subject, setSubject] = useState(''); 
-  const [grade, setGrade] = useState(''); 
+  const Navigate = useNavigate()
+  const [subject, setSubject] = useState('المبحث'); 
+  const [grade, setGrade] = useState('الصف'); 
   const [fullMark, setFullMark] = useState(''); 
   const [questionCount, setQuestionCount] = useState('');
   const [fileLabel, setFileLabel] = useState('تحميل شعار مدرستك أن وجد '); 
@@ -20,17 +23,43 @@ function PuttingExam3(props) {
   const [numberOfQuestions, setNumberOfQuestions] = useState(''); 
   const [numberOfPages, setNumberOfPages] = useState(''); 
   const [showApperanceNotice, setShowApperanceNotice] = useState(false);
+  const [AllGroup, setAllGroup] = useState([]);
+  const [AllSubject, setAllSubject] = useState([]);
+  const [groupId, setGroupId] = useState(null);
+
+  useEffect(() => {
+    const fetchGroups = async () => {
+      try {
+        const response = await Api_dashboard.get('teachers/groups/selection');
+        setAllGroup(response.data.data);
+      } catch (error) {
+        console.error("Error fetching groups data:", error);
+      }
+    };
+
+    const fetchSubjects = async () => {
+      try {
+        const response = await Api_dashboard.get('/teachers/subjects/selection/8');
+        setAllSubject(response.data.data);
+      } catch (error) {
+        console.error("Error fetching subjects data:", error);
+      }
+    };
+
+    fetchGroups();
+    fetchSubjects();
+  }, []);
 
   const handleQuestionCountChange = (e) => {
     setQuestionCount(e.target.value);
   };
 
-  const handleSelect = (eventKey, event) => {
-    if (event.target.id === 'dropdown-basic-button-subject') {
-      setSubject(eventKey);
-    } else if (event.target.id === 'dropdown-basic-button-grade') {
-      setGrade(eventKey);
-    }
+  const handleSubjectSelect = (eventKey) => {
+    setSubject(eventKey);
+  };
+
+  const handleGradeSelect = (eventKey) => {
+    setGrade(eventKey);
   };
 
   // Handle file change event
@@ -61,7 +90,26 @@ function PuttingExam3(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission logic here
+    let doc = localStorage.getItem("doc");
+    doc = doc ? JSON.parse(doc) : [];
+
+    const formData = {
+      subject,
+      grade,
+      fullMark,
+      questionCount,
+      fileLabel,
+      showJordanianLogo,
+      numberOfQuestions,
+      numberOfPages,
+      showApperanceNotice,
+    };
+
+    doc.push(formData);
+    localStorage.setItem("doc", JSON.stringify(doc));
+
+    console.log(formData);
+    Navigate("/teacher/PuttingExam4")
   };
 
   const handleNumberOfQuestionsChange = (e) => {
@@ -71,9 +119,24 @@ function PuttingExam3(props) {
   const handleNumberOfPagesChange = (e) => {
     setNumberOfPages(e.target.value);
   };
+  
+  const handleChangeGroup = async (eventKey) => {
+    setGrade(eventKey);
+    const selectedGroup = AllGroup.find(group => group.name === eventKey);
+    if (selectedGroup) {
+      setGroupId(selectedGroup.id);
+      try {
+        const response = await Api_dashboard.get(`/teachers/subjects/selection/${selectedGroup.id}`);
+        setAllSubject(response.data.data);
+      } catch (error) {
+        console.error("Error fetching subjects data:", error);
+      }
+    }
+  };
 
   return (
     <>
+        <div className='py-2'>
       <div className='header-container1' style={{
         backgroundColor: layoutBackground === "#0E0A43" ? "#0E0A43" : "#ECECEC",
         color: layoutBackground === "#0E0A43" ? "white" : "black",
@@ -83,11 +146,11 @@ function PuttingExam3(props) {
         <span className='header1_putting_exam1'> انشاء الامتحان  </span>
       </div>
       <div className='header-container'>
-        <span className='header_putting_exam1'>   إدخال بيانات الامتحان</span>
+        <span className='header_putting_exam1'> إدخال بيانات الامتحان</span>
         <div className='header-line'></div>
       </div>
 
-      <Form onSubmit={handleSubmit} className='form_putting_exam3'style={{
+      <Form onSubmit={handleSubmit} className='form_putting_exam3' style={{
         backgroundColor: layoutBackground === "#0E0A43" ? "#1D195D" : "#DADADA",
         color: layoutBackground === "#0E0A43" ? "white" : "black",
         fontSize: "18px"
@@ -95,60 +158,57 @@ function PuttingExam3(props) {
         <ProgressBar now={progress} />
 
         <div className='header-container'>
-          <span className='header3_putting_exam1'style={{
-        backgroundColor: layoutBackground === "#0E0A43" ? "#4941A6" : "#ECECEC",
-        color: layoutBackground === "#0E0A43" ? "white" : "black",
-        fontSize: "18px"
-      }}>بيانات ترويسة الامتحان</span>
+          <span className='header3_putting_exam1' style={{
+            backgroundColor: layoutBackground === "#0E0A43" ? "#4941A6" : "#ECECEC",
+            color: layoutBackground === "#0E0A43" ? "white" : "black",
+            fontSize: "18px"
+          }}>بيانات ترويسة الامتحان</span>
         </div>
+
         <Row className="mb-3">
           <Col xs={12} sm={6}>
             <Form.Group controlId="subject">
               <Form.Label><span className='text-danger'> * </span> المبحث</Form.Label>
               <DropdownButton
                 id="dropdown-basic-button-subject"
-                title={<div className='re'>{subject || " أختر المبحث"}<img src={dropdownIcon} alt="Icon" className='dropdown-icon' /></div>}
-                onSelect={handleSelect}
+                title={<div className='re'>{subject}<img src={dropdownIcon} alt="Icon" className='dropdown-icon' /></div>}
+                onSelect={handleSubjectSelect}
               >
-                <Dropdown.Item eventKey="اللغة العربية">
-                  <span className="circle arabic"></span> اللغة العربية
-                </Dropdown.Item>
-                <Dropdown.Item eventKey="اللغة الانجليزية">
-                  <span className="circle english"></span> اللغة الانجليزية
-                </Dropdown.Item>
-                <Dropdown.Item eventKey="الرياضيات">
-                  <span className="circle english"></span> الرياضيات
-                </Dropdown.Item>
-                <Dropdown.Item eventKey="العلوم">
-                  <span className="circle english"></span> العلوم
-                </Dropdown.Item>
+                {Array.isArray(AllSubject) && AllSubject.length > 0 ? (
+                  AllSubject.map(({ id, name }) => (
+                    <Dropdown.Item key={id} eventKey={name}>
+                      <span className="circle arabic"></span> {name}
+                    </Dropdown.Item>
+                  ))
+                ) : (
+                  <Dropdown.Item disabled>لا توجد مجموعات</Dropdown.Item>
+                )}
               </DropdownButton>
             </Form.Group>
           </Col>
+
           <Col xs={12} sm={6}>
             <Form.Group controlId="grade">
               <Form.Label><span className='text-danger'> * </span> الصف</Form.Label>
               <DropdownButton
                 id="dropdown-basic-button-grade"
-                title={<div className='re'>{grade || "أختر الصف"}<img src={dropdownIcon} alt="Icon" className='dropdown-icon' /></div>}
-                onSelect={handleSelect}
+                title={<div className='re'>{grade}<img src={dropdownIcon} alt="Icon" className='dropdown-icon' /></div>}
+                onSelect={handleChangeGroup}
               >
-                <Dropdown.Item eventKey="الصف الأول">
-                  <span className="circle arabic"></span> الصف الأول
-                </Dropdown.Item>
-                <Dropdown.Item eventKey="الصف الثاني">
-                  <span className="circle english"></span> الصف الثاني
-                </Dropdown.Item>
-                <Dropdown.Item eventKey="الصف الثالث">
-                  <span className="circle english"></span> الصف الثالث
-                </Dropdown.Item>
-                <Dropdown.Item eventKey="الصف الرابع">
-                  <span className="circle english"></span> الصف الرابع
-                </Dropdown.Item>
+                {Array.isArray(AllGroup) && AllGroup.length > 0 ? (
+                  AllGroup.map(({ id, name }) => (
+                    <Dropdown.Item key={id} eventKey={name}>
+                      <span className="circle arabic"></span>{name}
+                    </Dropdown.Item>
+                  ))
+                ) : (
+                  <Dropdown.Item disabled>لا توجد مجموعات</Dropdown.Item>
+                )}
               </DropdownButton>
             </Form.Group>
           </Col>
         </Row>
+
         <Row className="mb-3">
           <Col xs={12} sm={6}>
             <Form.Group controlId="fullMark">
@@ -173,6 +233,7 @@ function PuttingExam3(props) {
             </Form.Group>
           </Col>
         </Row>
+
         <Row className="mb-3">
           <Col xs={12} sm={6}>
             <Form.Group controlId="formFileUpload">
@@ -194,11 +255,11 @@ function PuttingExam3(props) {
           </Col>
           <Col xs={12} sm={6}>
             <Form.Group controlId="jordanianLogoCheckboxes">
-              <div className='apperalogo'style={{
-        backgroundColor: layoutBackground === "#0E0A43" ? "#4941A6" : "#ECECEC",
-        color: layoutBackground === "#0E0A43" ? "white" : "black",
-        fontSize: "18px"
-      }}>
+              <div className='apperalogo' style={{
+                backgroundColor: layoutBackground === "#0E0A43" ? "#4941A6" : "#ECECEC",
+                color: layoutBackground === "#0E0A43" ? "white" : "black",
+                fontSize: "18px"
+              }}>
                 <Form.Label className="mr-2">إظهار شعار المئوية الأردنية</Form.Label>
                 <div>
                   <Form.Check
@@ -222,39 +283,35 @@ function PuttingExam3(props) {
             </Form.Group>
           </Col>
         </Row>
-        <Row className="">
-     <span className='text-danger'>ملحوظة مهمة :</span>
-      <Col xs={12} sm={6}>
-      
+
+        <Row className="mb-3">
+          <span className='text-danger'>ملحوظة مهمة :</span>
+          <Col xs={12} sm={6}>
             <Form.Group controlId="numberOfQuestions">
-            <div className='d-flex justify-content-around '>
-              <Form.Label>  أجب عن الأسئلة الاتية جميعها وعددها</Form.Label>
-              <Form.Control
-                type="text"
-                value={numberOfQuestions}
-                onChange={handleNumberOfQuestionsChange}
-              />
-            
-            </div>
+              <div className='d-flex justify-content-around'>
+                <Form.Label>أجب عن الأسئلة الاتية جميعها وعددها</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={numberOfQuestions}
+                  onChange={handleNumberOfQuestionsChange}
+                />
+              </div>
             </Form.Group>
-     
-            </Col>
-            <Col xs={12} sm={6}>
-
+          </Col>
+          <Col xs={12} sm={6}>
             <Form.Group controlId="numberOfPages">
-            <div className='d-flex justify-content-around'>
-              <Form.Label>علماً أن عدد صفحات الامتحان</Form.Label>
-              <Form.Control
-                type="text"
-                value={numberOfPages}
-                onChange={handleNumberOfPagesChange}
-              />
-            </div>
+              <div className='d-flex justify-content-around'>
+                <Form.Label>علماً أن عدد صفحات الامتحان</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={numberOfPages}
+                  onChange={handleNumberOfPagesChange}
+                />
+              </div>
             </Form.Group>
-            </Col>
-
-            
+          </Col>
         </Row>
+
         <Row className="mb-3">
           <Col xs={12} sm={8}>
             <Form.Group controlId="apperanceNotice">
@@ -266,7 +323,7 @@ function PuttingExam3(props) {
                     id="apperanceNoticeNo"
                     label="لا"
                     checked={!showApperanceNotice}
-                    onChange={() => setShowApperanceNotice(false)}
+                    onChange={handleApperanceNoticeNo}
                   />
                 </div>
                 <div>
@@ -275,27 +332,32 @@ function PuttingExam3(props) {
                     id="apperanceNoticeYes"
                     label="نعم"
                     checked={showApperanceNotice}
-                    onChange={() => setShowApperanceNotice(true)}
+                    onChange={handleApperanceNoticeYes}
                   />
                 </div>
               </div>
             </Form.Group>
           </Col>
         </Row>
+
         <Row className="mb-3">
-        <Col xs={12} sm={6}>
-    <div className='text-warning'>يتم العمل الآن على إضافة أشكال مختلفة للترويسة ..</div>
-  </Col>
-  <Col xs={12} sm={6} className="text-start">
-            <Button className='btn_putting_exam2_bfor' type="button">
-              السابق
-            </Button>
+          <Col xs={12} sm={6}>
+            <div className='text-warning'>يتم العمل الآن على إضافة أشكال مختلفة للترويسة ..</div>
+          </Col>
+          <Col xs={12} sm={6} className="text-start">
+            <Link to="/teacher/PuttingExam2">
+              <Button className='btn_putting_exam2_bfor' type="button">
+                السابق
+              </Button>
+            </Link>
             <Button className='btn_putting_exam2_after' type="submit">
               التالي
             </Button>
           </Col>
         </Row>
       </Form>
+      </div>
+
     </>
   );
 }

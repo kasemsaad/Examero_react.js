@@ -39,6 +39,7 @@ import TeacherProfile from "./websit/teacher_view/teacher profile/teacherProfile
 import DataStudentExam from "./websit/Student/dataStudentExam/dataStudentExam.jsx";
 import EditStudentProfaile from "./websit/Student/editStudentProfaile/editStudentProfaile.jsx";
 import ProtectedRouteWebsite from "../src/websit/protectedRouteWebsite/protectedRouteWebsite.jsx";
+import ProtectedRouteWebsiteTeacher from "../src/websit/protectedRouteWebsite/protectedRouteWebsiteTeacher.jsx";
 
 // import Home_dashboard from './dashboard/Home_Dashboard/Home_dashboard.jsx';
 import HomeDashoardLogin from "./dashboard/homeLogin/homeLogin.jsx";
@@ -169,7 +170,12 @@ QbankTeacher
             path="InsertingOpenEmisTags"
             element={<InsertingOpenEmisTags />}
           />
-          <Route path="PuttingExam1" element={<PuttingExam1 />} />
+          <Route path="PuttingExam1" element={
+          //  <ProtectedRouteWebsiteTeacher>
+            <PuttingExam1 />
+            // </ProtectedRouteWebsiteTeacher>
+
+            } />
           <Route path="PuttingExam2" element={<PuttingExam2 />} />
           <Route path="PuttingExam3" element={<PuttingExam3 />} />
           <Route path="PuttingExam4" element={<PuttingExam4 />} />
@@ -202,7 +208,7 @@ QbankTeacher
           />
 
           <Route path="b" element={ <ProtectedRoute><AccountSetting /></ProtectedRoute>} />
-          <Route path="certify" element={  <ProtectedRoute><Certify />  </ProtectedRoute>} />
+          <Route path="certify" element={  <ProtectedRoute><CertificateGenerator />  </ProtectedRoute>} />
           <Route path="qbank" element={  <ProtectedRoute><Qbank /></ProtectedRoute>} />
           <Route path="specify" element={ <ProtectedRoute><Specification /></ProtectedRoute>} />
           <Route path="PlansTeacher" element={ <ProtectedRoute><PlansTeacher /></ProtectedRoute>} />

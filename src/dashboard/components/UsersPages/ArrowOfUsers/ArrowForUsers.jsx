@@ -2,8 +2,8 @@ import React from "react";
 
 import FirstTriangle from "../../FirstTriangle/FirstTriangle.jsx";
 
-import SecondTriangle from "../../SecondTriangle/SecondTriangle.jsx";
-
+import SecondTriangle from "../../SecondTriangl/SecondTriangle.jsx";
+import "./ArrowForUsers.css";
 import { Link, useLocation } from "react-router-dom";
 
 const ArrowForUsers = ({ name1, name2, loc1, loc2 }) => {
@@ -14,11 +14,9 @@ const ArrowForUsers = ({ name1, name2, loc1, loc2 }) => {
       <div style={{ display: "flex" }} className="outArrorws text-white ">
         <Link to={loc1}>
           <FirstTriangle
-            stylep={{ fontSize: "14px" }}
+            className={"user-man"}
             style={{
-              fontSize: "14px",
               backgroundColor: pathname === loc1 ? "#4941A6" : "#1D195D",
-
             }}
             content={name1}
           />
@@ -26,12 +24,11 @@ const ArrowForUsers = ({ name1, name2, loc1, loc2 }) => {
         <div className="secondd">
           <Link to={loc2}>
             <SecondTriangle
+              className={"user-man2"}
               stylep={{
-                fontSize: "14px",
                 color: pathname === loc2 ? "white" : "",
               }}
               style={{
-                fontSize: "12px",
                 backgroundColor: pathname === loc2 ? "#4941A6" : "",
               }}
               content={name2}

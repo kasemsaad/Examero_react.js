@@ -52,9 +52,7 @@ const StudentsDash = () => {
       .then((response) => {
         setRowData(response.data.data);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
   const handelShowMangerById = async (row) => {
     document.body.style.removeProperty("overflow");
@@ -62,9 +60,7 @@ const StudentsDash = () => {
       .then((response) => {
         setShowMangerData(response.data.data);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
 
   useEffect(() => {
@@ -78,18 +74,14 @@ const StudentsDash = () => {
         setData(allData);
         setMetaFPagination(response.data.meta.pagination);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
   // take from the array object some proprety that it will pass to the table
 
   // handel the function of search
 
-  console.log(filteredManagers);
   const FilteredManagers = (dataFormComp) => {
     setFilteredManagers(dataFormComp);
-    console.log(dataFormComp);
   };
 
   // handel pagination
@@ -97,16 +89,11 @@ const StudentsDash = () => {
   const totalPages = metaFPagination.last_page;
   const [mangerIdForSendMessage, setMangerIdForSendMessage] = useState("");
   const handelMessage = (row) => {
-    console.log(row);
     setMangerIdForSendMessage(row);
-    console.log(mangerIdForSendMessage);
   };
   const handelNext = () => {
     if (currentPage === totalPages) return;
     setCurrentPage((prev) => prev + 1);
-  };
-  const handel = (da) => {
-    console.log(da);
   };
   // handel prev page
   const handelPrev = () => {
@@ -133,9 +120,6 @@ const StudentsDash = () => {
           <SearchAndAddUsers
             newData={newData}
             buttonContent={"أضافة طالب"}
-            handel={handel}
-            fetchAllData={fetchAllData}
-            // FilteredUsers={FilteredManagers}
             FilteredUsers={FilteredManagers}
           />
           {/* // End */}

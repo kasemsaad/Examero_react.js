@@ -168,7 +168,7 @@ const ShowUserModal = ({ content, userData }) => {
             style={{
               backgroundColor: "#1D195D",
               borderRadius: "13.97px",
-              width: "100%",
+              width: "85%",
             }}
           >
             <div
