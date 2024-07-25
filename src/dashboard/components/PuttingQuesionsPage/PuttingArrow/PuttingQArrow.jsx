@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom";
 import FirstTriangle from "../../FirstTriangle/FirstTriangle";
-import SecondTriangle from "../../SecondTriangle/SecondTriangle";
+import SecondTriangle from "../../SecondTriangl/SecondTriangle";
 import "./PuttinQArrow.css";
 // Inside your component
 

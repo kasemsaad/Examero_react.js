@@ -4,8 +4,8 @@ import "./DeleteUserModal.css";
 import Api_Dashboard from "../../../interceptor/interceptorDashboard";
 const DeleteUserModal = ({ idOfDeleteItem, fetchAllData, api, content }) => {
   const deleteManger = async (idOfDeleteItem) => {
-    document.body.style.removeProperty("overflow");
     if (idOfDeleteItem) {
+      document.body.style.removeProperty("overflow");
       const response = await Api_Dashboard.delete(
         `/${api}/${idOfDeleteItem}`
       ).then((response) => {});

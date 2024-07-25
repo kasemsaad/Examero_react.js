@@ -23,6 +23,7 @@ import imagee from '../../assets/icons/create_Exam/High Importance.svg';
 import Api_website from "../../utlis/axios_utils_websit";
 import Api_Dashboard from "../../dashboard/interceptor/interceptorDashboard";
 import Api_dashboard from "../../utlis/axios_utils_dashboard";
+import ModalLogOut from "../../dashboard/modal/modalLogOut";
 function Navsmallscreen() {
   const navigate = useNavigate()
   const location = useLocation()
@@ -116,6 +117,20 @@ function Navsmallscreen() {
     getRefreshstudent()
 
   }, [personalDashboard])
+
+const LogOutDashBoard = ()=>{
+           
+  Api_Dashboard.post(`/logout`)
+.then(response => { 
+  // console.log("mosyafa ");     
+  localStorage.removeItem("token");
+  navigate("/login_dashboard")
+  setId(1)
+})
+.catch(error => {
+  console.error(error);
+});
+}
   return (
     <>
 
@@ -155,58 +170,62 @@ function Navsmallscreen() {
               location.pathname.startsWith('/dashboard') ?
                 <ul className="navbar-nav navbar-nav-small" dir="ltr" >
                   <li className="nav-item " >
-                    <Link className="nav-link" aria-current="page" to="/log" onClick={() => setId(1)}>الرئيسية
+                    <Link className="nav-link" aria-current="page" to="/dashboard" onClick={() => setId(1)}>الرئيسية
                       <img src={homeIcon} alt="الرئيسية" />
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link" to="/log" onClick={() => setId(2)}>مديرو الموقع
+                    <Link className="nav-link" to="/dashboard/mangers" onClick={() => setId(2)}>مديرو الموقع
                       <img style={{ width: 20, height: 20 }} src={manage_accounts_outline_rounded} alt="مديرو الموقع" />
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link" to="/log" onClick={() => setId(3)}>مشرفو الموقع
-                      <img style={{ width: 20, height: 20 }} src={account_supervisor_outline} alt="مشرفو الموقع" />
+                    <Link className="nav-link" to="/dashboard/users/teachers" onClick={() => setId(3)}> المستخدمين
+                      <img style={{ width: 20, height: 20 }} src={account_supervisor_outline} alt=" المستخدمين" />
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link" to="/log" onClick={() => setId(4)}>مشرفو الموقع
-                      <img style={{ width: 20, height: 20 }} src={teacher} alt="المعلمين" />
+                    <Link className="nav-link" to="/dashboard/planstudent" onClick={() => setId(4)}> باقات الاشتراك
+                      <img style={{ width: 20, height: 20 }} src={teacher} alt="باقات" />
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link" to="/log" onClick={() => setId(5)}>مشرفو الموقع
-                      <img style={{ width: 20, height: 20 }} src={octiconIcon} alt="وضع الاسئله" />
+                    <Link className="nav-link" to="/dashboard/qbank" onClick={() => setId(5)}> بنك الاسئلة
+                      <img style={{ width: 20, height: 20 }} src={octiconIcon} alt="بنك الاسئله" />
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link" to="/log" onClick={() => setId(6)}>بنك الأسئلة
-                      <img style={{ width: 20, height: 20 }} src={account_supervisor_outline} alt="بنك الأسئلة" />
+                    <Link className="nav-link" to="/dashboard/qbank_details" onClick={() => setId(6)}> تفاصيل بنك الاسئلة
+                      <img style={{ width: 20, height: 20 }} src={account_supervisor_outline} alt="بنك الأسئلة تفاصيل"  />
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link" to="/log" onClick={() => setId(7)}>شهادات التقدير
-                      <img style={{ width: 23, height: 23 }} src={ph_certificate} alt="شهادات التقدير" />
+                    <Link className="nav-link" to="/dashboard/rewardSupervisor" onClick={() => setId(7)}> المكافئات و العقوبات
+                      <img style={{ width: 23, height: 23 }} src={ph_certificate} alt=" العقوبات" />
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link" to="/log" onClick={() => setId(8)}>إدخال علامات Open Emis
-                      <img style={{ width: 20, height: 20 }} src={lucide_file_input} alt="إدخال علامات Open Emis" />
+                    <Link className="nav-link" to="/dashboard/certify" onClick={() => setId(8)}> الشهادات
+                      <img style={{ width: 20, height: 20 }} src={lucide_file_input} alt="الشهادات" />
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link" to="/log" onClick={() => setId(9)}>جدول المواصفات
-                      <img style={{ width: 23, height: 23 }} src={tabel} alt="جدول المواصفات" />
+                    <Link className="nav-link" to="/dashboard/waitingemis" onClick={() => setId(9)}> إدخال علامات Open Emis
+                      <img style={{ width: 23, height: 23 }} src={tabel} alt=" إدخال علامات Open Emis" />
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link" to="/log" onClick={() => setId(10)}>إنشاء الامتحان
-                      <img style={{ width: 18, height: 18 }} src={create_new} alt="إنشاء الامتحان" />
+                    <Link className="nav-link" to="/dashboard/specify" onClick={() => setId(10)}> جدول المواصفات
+                      <img style={{ width: 18, height: 18 }} src={create_new} alt=" المواصفات" />
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/dashboard/putting/questions/levels=1" onClick={() => setId(15)}>  انشاء الامتحان
+                      <img style={{ width: 18, height: 18 }} src={create_new} alt="انشاء الاسئله" />
                     </Link>
                   </li>
                   <li className="nav-item">
                     <div className="nav-link d-flex" style={{ width: "283px", justifyContent: "space-between", alignItems: "center" }} onClick={() => setId(11)}>
-
                       <button style={{ marginLeft: "6px", height: "25px" }} className={`toggle-btn ${toggled ? "toggled" : ""}`} onClick={() => tog()}>
                         <span className={toggled ? "white-text" : "whit"}>{toggled ? "On" : "Off"}</span>
                         <div className='thumb'></div>
@@ -224,8 +243,8 @@ function Navsmallscreen() {
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link" to="/log" onClick={() => setId(11)}>تسجيل الخروج
-                      <img style={{ width: 18, height: 18 }} src={iconamoon_exit_light} alt="تسجيل الخروج" />
+                    <Link className="nav-link" onClick={() => setId(11)}>تسجيل الخروج
+                    <img data-bs-toggle="modal" data-bs-target="#log_out_dashboard" src={iconamoon_exit_light} alt=" تسجيل الخروج"  />
                     </Link>
                   </li>
 
@@ -343,6 +362,7 @@ function Navsmallscreen() {
 
                     : ""
 
+
             }
           </div>
           <div className="personal_images" style={{ position: 'relative', width: '80%', margin: 'auto', height: '10px' }}>
@@ -355,6 +375,7 @@ function Navsmallscreen() {
                     location.pathname.startsWith('/student') ? `${Api_dashboard.defaults.baseURL}/assets/Student/${personalStudent}` :
                       location.pathname.startsWith('/teacher') ? `${Api_dashboard.defaults.baseURL}/assets/Student/${personalStudent}` :
                         ""
+
 
 
 
@@ -404,6 +425,8 @@ function Navsmallscreen() {
           </div>
         </div>
       </div>
+      <ModalLogOut LogOut={LogOutDashBoard}/>         
+
     </>
   );
 }

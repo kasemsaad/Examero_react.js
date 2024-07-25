@@ -147,6 +147,7 @@ function SidebarFullscreen() {
                     <img data-bs-toggle="modal" data-bs-target="#log_out_dashboard" src={iconamoon_exit_light} alt=" تسجيل الخروج" />
                   </Link>
                 </li>
+
               </ul>
             </div>
             <ul className="sidbarUl pt-4  " >
@@ -241,6 +242,7 @@ function SidebarFullscreen() {
 
 
             ////////////////////teacher//////////////////////////////////////////////////////
+
             : location.pathname.startsWith('/teacher') ?
 
 
@@ -298,6 +300,7 @@ function SidebarFullscreen() {
                     </li>
                   </ul>
                   
+
                 </div>
                 <ul className="sidbarUl pt-4  " >
                   <li className="sidbarli">
@@ -333,8 +336,8 @@ function SidebarFullscreen() {
 
 
 
-              : ""
 
+              : ""
 
 
 

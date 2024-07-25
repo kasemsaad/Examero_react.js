@@ -61,8 +61,6 @@ const FormFPkindOfQ = ({ fetchAllKQuestons }) => {
     }
 
     const handelEdit = async (selctedQ) => {
-      document.body.style.removeProperty('overflow');
-
       await Api_Dashboard.post("questions-type", selctedQ)
         .then((response) => {
           let x = response.data.message;

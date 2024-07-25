@@ -170,16 +170,18 @@ function HomeDashoardLogin() {
               تسجيل الدخول
             </Button>
             <Link to="/">
-            <Button 
+            <Button
+
           
           
               style={{ marginTop: "20px" }}
               type="submit"
-              className="btn login_btn mx-2"
+              className="btn login_btn"
             >
               العوده الي الموقع 
             </Button>
-  </Link>
+            </Link>
+
 
             {/* <Create_acc /> */}
           </Form>

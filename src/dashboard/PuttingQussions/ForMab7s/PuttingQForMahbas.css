@@ -1,7 +1,10 @@
+.question-dash-mab {
+  width: 80%;
+}
 @media (max-width: 450px) {
-  /* .MyFormm {
-    width: 100% !important;
-  } */
+  .question-dash-mab {
+    width: 100%;
+  }
   .mab7asContainer {
     width: 100%;
   }

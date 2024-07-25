@@ -1,13 +1,12 @@
 import { useForm } from "react-hook-form";
-// import Api_Dashboard from "../../../";
 import React, { useEffect, useState } from "react";
 import Api_Dashboard from "../../../../interceptor/interceptorDashboard";
-
+import { toast } from "react-toastify";
 const EditUserModal = ({ api, fetchAllData, rowData, content }) => {
   const [showPassword, setShowPassword] = useState(false);
-  // const [id, seId] = useState(idOfDeleteOrEditItem);
   const [modal, setModal] = useState("");
   const element = document.getElementById("edit-manger-dash");
+
   const {
     register,
     handleSubmit,
@@ -29,6 +28,32 @@ const EditUserModal = ({ api, fetchAllData, rowData, content }) => {
   const handleModalClose = () => {
     resetField("password"); // Reset the password field when the modal is closed
   };
+  const notify = (AlertPointSuccess) => {
+    toast.success(AlertPointSuccess, {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
+
+  const Errornotify = (AlertPoint) => {
+    toast.error(AlertPoint, {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
+
   useEffect(() => {
     if (rowData) {
       reset({
@@ -46,13 +71,16 @@ const EditUserModal = ({ api, fetchAllData, rowData, content }) => {
     await Api_Dashboard.post(`/${api}/${rowData.id}`, mangerData)
       .then((response) => {
         // setModal("modal");
+        let x = response.data.message;
+        notify("تم التعديل  بنجاح ");
         handleModalClose();
         element.style.display = "none";
-        console.log(response);
         fetchAllData();
       })
       .catch((err) => {
-        console.log(err);
+        let x = err.response.data.message;
+
+        Errornotify(x);
       });
   };
 
@@ -87,7 +115,8 @@ const EditUserModal = ({ api, fetchAllData, rowData, content }) => {
         message: "يرجي استخدام حروف وأرقام ولا يقل 8 خانات",
       },
       pattern: {
-        value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+        value:
+          /^(?=.*[A-Za-z\u0600-\u06FF])(?=.*\d)[A-Za-z\d\u0600-\u06FF]{8,}$/,
         message: "يرجي استخدام حروف وأرقام",
       },
     },

@@ -10,6 +10,7 @@ import Api_Dashboard from "../../interceptor/interceptorDashboard";
 import DeleteUserModal from "../../components/UsersPages/DeletUserModal/DeleteUserModal";
 import EditUnitModal from "../../components/PuttingQuesionsPage/EditUnitModal/EditUnitModal";
 import PaginationForPuttingQ from "../paginationForPutingQ/paginationForPatingQ";
+import "./PuttingQFUnites.css";
 const PuttingQUnites = () => {
   let header = {
     name1: "اسم الوحده",
@@ -113,10 +114,7 @@ const PuttingQUnites = () => {
     <>
       <div className=" min-vh-100 mab7asContainer">
         <HeaderOfPuttingQuestions />
-        <div
-          className="question-dash-units "
-          style={{ width: "80%", margin: "auto" }}
-        >
+        <div className="question-dash-units " style={{ margin: "auto" }}>
           <PuttingQArrow />
           <div>
             <AddComponent content={"إضافة وحدة"} />

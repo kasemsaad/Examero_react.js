@@ -4,3 +4,79 @@
   height: 34px;
   background-color: #1d195d !important;
 }
+.edit-subject-content-dash {
+  background-color: #1d195d;
+  border-radius: 20px;
+}
+
+.modal-title-dash {
+  color: #ff8a00;
+  margin: auto;
+}
+
+.edit-subject-class-inputs-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.edit-subject-input-container-dash {
+  justify-content: flex-end;
+  width: 226px;
+  display: flex;
+  height: 68px;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.edit-subject-input-dash {
+  height: 41px;
+  width: 200px;
+}
+
+.edit-subject-class-select-container-dash {
+  height: 74px;
+  margin-right: 0px;
+  width: 196px;
+}
+
+.lab2 {
+  margin-bottom: 0.5rem;
+}
+
+.multi-select-lib-edit-2 {
+  width: 100%;
+  background-color: black;
+}
+
+.edit-subject-submit-close-button-container-dash {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.edit-subject-button-dash {
+  border-radius: 30px;
+  border: none;
+  color: aliceblue;
+  background-color: #c01f59;
+  width: 96px;
+  height: 40px;
+  margin-left: 12px;
+}
+
+.edit-subject-cancel-button-dash {
+  border-radius: 30px;
+  color: #fe4f60;
+  border: #fe4f60 solid 2px;
+  background-color: #1d195d;
+  width: 96px;
+  height: 40px;
+}
+.edit-subject-toggle-container-dash {
+  width: 89%;
+  margin: auto;
+}
+.error-text {
+  color: red;
+}

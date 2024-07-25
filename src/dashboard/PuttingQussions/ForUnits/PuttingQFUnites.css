@@ -1,0 +1,9 @@
+.question-dash-units {
+  width: 80%;
+}
+
+@media (max-width: 450px) {
+  .question-dash-units {
+    width: 100%;
+  }
+}

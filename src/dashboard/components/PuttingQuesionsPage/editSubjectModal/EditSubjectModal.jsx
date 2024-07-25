@@ -3,11 +3,14 @@ import Api_Dashboard from "../../../interceptor/interceptorDashboard";
 import { MultiSelect } from "react-multi-select-component";
 import "./EditSubjectModal.css";
 import { toast, ToastContainer } from "react-toastify";
+import ToggleForEdit from "../ToggelForEdit/ToggleForEdit";
+
 const EditSubjectModal = ({
   rowDataOfSubjects,
   fetchAllData,
   activeClasses,
 }) => {
+  // Toast notification functions
   const notify = (AlertPointSuccess) => {
     toast.success(AlertPointSuccess, {
       position: "top-center",
@@ -46,6 +49,7 @@ const EditSubjectModal = ({
     subject_id: "",
   });
   const [modal, setModal] = useState("");
+
   // Initialize the state with the values from rowDataOfSubjects
   useEffect(() => {
     if (rowDataOfSubjects) {
@@ -57,6 +61,7 @@ const EditSubjectModal = ({
       setSelectedFlavors();
     }
   }, [rowDataOfSubjects, activeClasses]);
+
   const getEditingInputs = (e) => {
     const { name, value } = e.target;
     setErrors({});
@@ -65,6 +70,7 @@ const EditSubjectModal = ({
       [name]: value,
     }));
   };
+
   const newData0 = useMemo(() => {
     if (rowDataOfSubjects && rowDataOfSubjects.groups) {
       return rowDataOfSubjects.groups.map((option) => ({
@@ -74,6 +80,7 @@ const EditSubjectModal = ({
     }
     return [];
   }, [rowDataOfSubjects]);
+
   const newData = useMemo(() => {
     if (activeClasses) {
       return activeClasses.map((option) => ({
@@ -94,8 +101,8 @@ const EditSubjectModal = ({
   }, [newData0]);
 
   const handelEdit = async (editClass) => {
-    document.body.style.removeProperty("overflow");
     if (rowDataOfSubjects) {
+      document.body.style.removeProperty("overflow");
 
       await Api_Dashboard.post(`/subjects/${rowDataOfSubjects.id}`, editClass)
         .then((response) => {
@@ -156,16 +163,9 @@ const EditSubjectModal = ({
         data-bs-keyboard="false"
       >
         <div className="modal-dialog">
-          <div
-            className="modal-content"
-            style={{ backgroundColor: "#1D195D", borderRadius: "20px" }}
-          >
+          <div className="modal-content edit-subject-content-dash">
             <div className="modal-header">
-              <h5
-                style={{ color: "#FF8A00", margin: "auto" }}
-                className="modal-title"
-                id="exampleModalLabel"
-              >
+              <h5 className="modal-title-dash" id="exampleModalLabel">
                 تعديل المبحث
               </h5>
             </div>
@@ -173,46 +173,26 @@ const EditSubjectModal = ({
             <div className="modal-body">
               <div className="text-white">
                 <form onSubmit={onSubmit}>
-                  <div
-                    style={{ display: "flex", justifyContent: "space-around" }}
-                  >
-                    <div
-                      className="form-group"
-                      style={{
-                        justifyContent: "flex-end",
-                        width: "250",
-                        display: "flex",
-                        height: "68px",
-                        flexDirection: "column",
-                        justifyContent: "center",
-                      }}
-                    >
+                  <div className="edit-subject-class-inputs-container">
+                    <div className="form-group edit-subject-input-container-dash">
                       <label htmlFor="name">اسم المبحث</label>
                       <input
                         placeholder="أدخل أسم المبحث الجديد هنا"
                         name="name"
-                        style={{ height: "41px", width: "200px" }}
                         value={editClass.name}
                         onChange={getEditingInputs}
-                        className="form-control"
+                        className="form-control edit-subject-input-dash"
                         id="exampleFormControlTextarea1"
                         rows="3"
                       />
-                      <span style={{ color: "red" }}>{errors.name}</span>
+                      <span className="error-text">{errors.name}</span>
                     </div>
-                    <div
-                      style={{
-                        height: 79,
-                        marginRight: "10px",
-                        width: "211px",
-                      }}
-                    >
+                    <div className="edit-subject-class-select-container-dash">
                       <label className="mb-2 lab2" htmlFor="">
                         اختر الصفوف التى يدرس بها
                       </label>
                       {newData && (
                         <MultiSelect
-                          style={{ width: "50px", backgroundColor: "black" }}
                           name="groups"
                           value={selectedFlavors}
                           options={newData}
@@ -220,69 +200,27 @@ const EditSubjectModal = ({
                           className="multi-select-lib-edit-2"
                         />
                       )}
-                      <span style={{ color: "red" }}>{errors.groupId}</span>
+                      <span className="error-text">{errors.groupId}</span>
                     </div>
                   </div>
-                  <div>
-                    <button
-                      type="button"
-                      style={{ marginLeft: "6px" }}
-                      className={`toggle-btnn ${
-                        editClass.status === 0 ? "toggled" : ""
-                      }`}
-                      onClick={handleClick}
-                    >
-                      <span
-                        style={{
-                          marginTop: "-6px",
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                        }}
-                        className={
-                          editClass.status === 0 ? "white-text" : "whit"
-                        }
-                      >
-                        {editClass.status === 1 ? "مفعل" : "معطل"}
-                      </span>
-                      <div className="thumb"></div>
-                    </button>
+                  <div className="edit-subject-toggle-container-dash">
+                    <ToggleForEdit
+                      editClass={editClass}
+                      handleClick={handleClick}
+                    />
                   </div>
-                  <div
-                    className="mt-5"
-                    style={{
-                      textAlign: "center",
-                      display: "flex",
-                      justifyContent: "center",
-                    }}
-                  >
+                  <div className="edit-subject-submit-close-button-container-dash mt-5">
                     <div className="submitButton">
                       <button
                         type="submit"
-                        className="btn btn-primary"
-                        style={{
-                          borderRadius: "30px",
-                          border: "none",
-                          backgroundColor: "#C01F59",
-                          width: "96px",
-                          height: "40px",
-                          marginLeft: "12px",
-                        }}
+                        className="edit-subject-button-dash"
                       >
                         تعديل
                       </button>
                       <button
                         type="button"
-                        className="btn btn-secondary"
+                        className="edit-subject-cancel-button-dash"
                         data-bs-dismiss="modal"
-                        style={{
-                          borderRadius: "30px",
-                          color: "#FE4F60",
-                          border: "#FE4F60 solid 2px",
-                          backgroundColor: "#1D195D",
-                          width: "96px",
-                          height: "40px",
-                        }}
                       >
                         إلغاء
                       </button>
