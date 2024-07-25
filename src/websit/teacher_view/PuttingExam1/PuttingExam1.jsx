@@ -8,7 +8,7 @@ import './PuttingExam1.css';
 
 function PuttingExam1(props) {
     const layoutBackground = useSelector((state) => state.dark.lay);
-    const [examFormat, setExamFormat] = useState('عربي');
+    const [examFormat, setExamFormat] = useState('اختر شكل نموذج الامتحان');
     const [curriculum, setCurriculum] = useState('');
     const [directorate, setDirectorate] = useState('');
     const [institution, setInstitution] = useState('');
@@ -16,6 +16,7 @@ function PuttingExam1(props) {
     const [examName, setExamName] = useState('');
     const [progress, setProgress] = useState(5); // Initial progress value
     const navigate = useNavigate();
+    const [errors, setErrors] = useState({});
 
     const handleSelect = (e) => {
         setExamFormat(e);
@@ -49,6 +50,7 @@ function PuttingExam1(props) {
 
         localStorage.setItem("doc", JSON.stringify(doc));
         localStorage.setItem("doc1", JSON.stringify(doc));
+        localStorage.setItem("all", "[]" )
         navigate("/teacher/PuttingExam2");
     };
 
@@ -70,7 +72,35 @@ function PuttingExam1(props) {
             }
         }
     }, []);
+    const validateForm = () => {
+        const errorss = {};
 
+
+        if (!examFormat || examFormat === 'اختر شكل نموذج الامتحان') {
+          errorss.examFormat = 'اختر شكل نموذج الامتحان';
+        }
+
+        if (!curriculum) {
+            errorss.curriculum = 'أدخل المنهاج التربوي ';
+        }
+        if (!examName) {
+            errorss.examName = 'أدخل اسم الامتحان   ';
+        }
+
+
+        if (Object.keys(errorss).length > 0) {
+            setErrors(errorss);
+            return false;
+        }
+        return true;
+    };
+
+    const handleFormSubmit = (e) => {
+        e.preventDefault();
+        if (validateForm()) {
+            handleSubmit(e);
+        }
+    };
     return (
         <>
             <div className='py-2'>
@@ -87,7 +117,7 @@ function PuttingExam1(props) {
                     <div className='header-line'></div>
                 </div>
 
-                <Form onSubmit={handleSubmit} className='form_putting_exam1' style={{
+                <Form onSubmit={handleFormSubmit} className='form_putting_exam1' style={{
                     backgroundColor: layoutBackground === "#0E0A43" ? "#1D195D" : "#DADADA",
                     color: layoutBackground === "#0E0A43" ? "white" : "black",
                     fontSize: "18px"
@@ -106,12 +136,12 @@ function PuttingExam1(props) {
                             <Form.Group controlId="curriculum">
                                 <Form.Label><span className='text-danger pr-2'> * </span>المنهاج</Form.Label>
                                 <Form.Control
-                                    required
                                     type="text"
                                     value={curriculum}
                                     onChange={(e) => setCurriculum(e.target.value)}
-                                    placeholder="المنهاج التربوي"
+                                    placeholder=" ادخل المنهاج التربوي "
                                 />
+                                {errors.curriculum && <Form.Text className='text-danger'>{errors.curriculum}</Form.Text>}
                             </Form.Group>
                         </Col>
                         <Col xs={12} sm={6}>
@@ -121,15 +151,17 @@ function PuttingExam1(props) {
                                     id="dropdown-basic-button"
                                     title={<div className='re'>{examFormat || "أختر شكل نموذج الامتحان"}<img src={dropdownIcon} alt="Icon" className='dropdown-icon' /></div>}
                                     onSelect={handleSelect}
-                                    required
+                                    style={{border:"none"}}
                                 >
                                     <Dropdown.Item className='text-white' eventKey="عربي">
                                         <span className="circle arabic"></span> عربي
                                     </Dropdown.Item>
-                                    <Dropdown.Item eventKey="انجليزي">
+                                    {/* <Dropdown.Item className='text-white' eventKey="انجليزي">
                                         <span className="circle english"></span> انجليزي
-                                    </Dropdown.Item>
+                                    </Dropdown.Item> */}
                                 </DropdownButton>
+                                {errors.examFormat && <Form.Text className='text-danger'>{errors.examFormat}</Form.Text>}
+
                             </Form.Group>
                         </Col>
                     </Row>
@@ -143,6 +175,7 @@ function PuttingExam1(props) {
                                     onChange={(e) => setInstitution(e.target.value)}
                                     placeholder="أدخل اسم المؤسسة (مثال: وزارة التربية والتعليم)"
                                 />
+                                {errors.institution && <Form.Text className='text-danger'>{errors.institution}</Form.Text>}
                             </Form.Group>
                         </Col>
                         <Col xs={12} sm={6}>
@@ -162,12 +195,13 @@ function PuttingExam1(props) {
                             <Form.Group controlId="examName">
                                 <Form.Label><span className='text-danger'> * </span>اسم الامتحان</Form.Label>
                                 <Form.Control
-                                    required
+
                                     type="text"
                                     value={examName}
                                     onChange={(e) => setExamName(e.target.value)}
                                     placeholder="أدخل اسم الامتحان (مثال: امتحان نهائي)"
                                 />
+                                {errors.examName && <Form.Text className='text-danger'>{errors.examName}</Form.Text>}
                             </Form.Group>
                         </Col>
                         <Col xs={12} sm={6}>

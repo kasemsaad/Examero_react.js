@@ -63,12 +63,10 @@ function PuttingExam4(props) {
     }
     
     localStorage.setItem("doc", JSON.stringify(doc));
-    
     localStorage.setItem("doc1", JSON.stringify(doc));
-
-    Navigate("/teacher/PuttingExam5");
+    localStorage.setItem("all", "[]" )
+    Navigate("/teacher/PuttingExam5/1");
   };
-
   return (
     <>
       <div className='py-2'>

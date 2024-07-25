@@ -165,15 +165,32 @@ function App(props) {
             element={<InsertingOpenEmisTags />}
           />
           <Route path="PuttingExam1" element={
-          //  <ProtectedRouteWebsiteTeacher>
-            <PuttingExam1 />
-            // </ProtectedRouteWebsiteTeacher>
+            <ProtectedRouteWebsiteTeacher>
+              <PuttingExam1 />
+            </ProtectedRouteWebsiteTeacher>
 
-            } />
-          <Route path="PuttingExam2" element={<PuttingExam2 />} />
-          <Route path="PuttingExam3" element={<PuttingExam3 />} />
-          <Route path="PuttingExam4" element={<PuttingExam4 />} />
-          <Route path="PuttingExam5" element={<PuttingExam5 />} />
+          } />
+
+          <Route path="PuttingExam2" element={
+            <ProtectedRouteWebsiteTeacher>
+              <PuttingExam2 />
+            </ProtectedRouteWebsiteTeacher>
+          } />
+          <Route path="PuttingExam3" element={
+            <ProtectedRouteWebsiteTeacher>
+              <PuttingExam3 />
+            </ProtectedRouteWebsiteTeacher>
+          } />
+          <Route path="PuttingExam4" element={
+            <ProtectedRouteWebsiteTeacher>
+              <PuttingExam4 />
+            </ProtectedRouteWebsiteTeacher>
+          } />
+          <Route path="PuttingExam5/:page" element={
+            <ProtectedRouteWebsiteTeacher>
+              <PuttingExam5 />
+            </ProtectedRouteWebsiteTeacher>
+          } />
           <Route path="Certified_exam" element={<Certified_exam />} />
         </Route>
 
@@ -192,11 +209,11 @@ function App(props) {
             }
           />
 
-          <Route path="b" element={ <ProtectedRoute><AccountSetting /></ProtectedRoute>} />
-          <Route path="certify" element={  <ProtectedRoute><Certify />  </ProtectedRoute>} />
-          <Route path="qbank" element={  <ProtectedRoute><Qbank /></ProtectedRoute>} />
-          <Route path="specify" element={ <ProtectedRoute><Specification /></ProtectedRoute>} />
-          <Route path="PlansTeacher" element={ <ProtectedRoute><PlansTeacher /></ProtectedRoute>} />
+          <Route path="b" element={<ProtectedRoute><AccountSetting /></ProtectedRoute>} />
+          <Route path="certify" element={<ProtectedRoute><Certify />  </ProtectedRoute>} />
+          <Route path="qbank" element={<ProtectedRoute><Qbank /></ProtectedRoute>} />
+          <Route path="specify" element={<ProtectedRoute><Specification /></ProtectedRoute>} />
+          <Route path="PlansTeacher" element={<ProtectedRoute><PlansTeacher /></ProtectedRoute>} />
           <Route path="planstudent" element={<ProtectedRoute><PlansStudent /></ProtectedRoute>} />
           <Route path="waitingemis" element={<ProtectedRoute><WaitingEmis /></ProtectedRoute>} />
           <Route path="recivedemis" element={<ProtectedRoute><RecivedEmis /></ProtectedRoute>} />
@@ -204,12 +221,12 @@ function App(props) {
           <Route path="manger" element={<ProtectedRoute><RewardManger /></ProtectedRoute>} />
           <Route path="rewardSupervisor" element={<ProtectedRoute><RewardMoshref /></ProtectedRoute>} />
           <Route path="rewardteacher" element={<ProtectedRoute><RewardTeacher /></ProtectedRoute>} />
-          <Route path="check" element={<ProtectedRoute><Checks/></ProtectedRoute>} />
+          <Route path="check" element={<ProtectedRoute><Checks /></ProtectedRoute>} />
           <Route path="qbank_details" element={<ProtectedRoute><QbankDetails /></ProtectedRoute>} />
           <Route path="qbank_edit" element={<ProtectedRoute><QbankEditing /></ProtectedRoute>} />
           <Route path="activity/mangers" element={<ProtectedRoute><MangersActivity /></ProtectedRoute>} />
           <Route path="activity/all" element={<ProtectedRoute><AllActivity /></ProtectedRoute>} />
- 
+
           <Route
             path="putting/questions/levels=1"
             element={
