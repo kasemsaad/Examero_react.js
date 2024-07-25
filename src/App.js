@@ -28,6 +28,7 @@ import PuttingExam1 from "./websit/teacher_view/PuttingExam1/PuttingExam1.jsx";
 import PuttingExam2 from "./websit/teacher_view/PuttingExam1/PuttingExam2.jsx";
 import PuttingExam3 from "./websit/teacher_view/PuttingExam1/PuttingExam3.jsx";
 import PuttingExam4 from "./websit/teacher_view/PuttingExam1/PuttingExam4.jsx";
+import PuttingExam5 from "./websit/teacher_view/PuttingExam1/PuttingExam5.jsx";
 import Certified_exam from "./websit/teacher_view/PuttingExam1/Certified_exam.jsx";
 import EmailVerificationTech from "./websit/register and login/EmailVerification/EmailVerificationtech.jsx";
 import EmailVerificationStud from "./websit/register and login/EmailVerification/EmailVerificationStud.jsx";
@@ -171,14 +172,33 @@ QbankTeacher
             element={<InsertingOpenEmisTags />}
           />
           <Route path="PuttingExam1" element={
-          //  <ProtectedRouteWebsiteTeacher>
-            <PuttingExam1 />
-            // </ProtectedRouteWebsiteTeacher>
+            <ProtectedRouteWebsiteTeacher>
+              <PuttingExam1 />
+            </ProtectedRouteWebsiteTeacher>
 
-            } />
-          <Route path="PuttingExam2" element={<PuttingExam2 />} />
-          <Route path="PuttingExam3" element={<PuttingExam3 />} />
-          <Route path="PuttingExam4" element={<PuttingExam4 />} />
+          } />
+
+          <Route path="PuttingExam2" element={
+            <ProtectedRouteWebsiteTeacher>
+              <PuttingExam2 />
+            </ProtectedRouteWebsiteTeacher>
+          } />
+          <Route path="PuttingExam3" element={
+            <ProtectedRouteWebsiteTeacher>
+              <PuttingExam3 />
+            </ProtectedRouteWebsiteTeacher>
+          } />
+          <Route path="PuttingExam4" element={
+            <ProtectedRouteWebsiteTeacher>
+              <PuttingExam4 />
+            </ProtectedRouteWebsiteTeacher>
+          } />
+          <Route path="PuttingExam5/:page" element={
+            <ProtectedRouteWebsiteTeacher>
+              <PuttingExam5 />
+            </ProtectedRouteWebsiteTeacher>
+          } />
+
           <Route path="Certified_exam" element={<Certified_exam />} />
           <Route path="QbankTeacherTable" element={<QbankTeacherTable />} />
           <Route path="Home_teacher" element={<Home_teacher />} />
@@ -207,6 +227,7 @@ QbankTeacher
             }
           />
 
+
           <Route path="b" element={ <ProtectedRoute><AccountSetting /></ProtectedRoute>} />
           <Route path="certify" element={  <ProtectedRoute><CertificateGenerator />  </ProtectedRoute>} />
           <Route path="qbank" element={  <ProtectedRoute><Qbank /></ProtectedRoute>} />
@@ -219,12 +240,12 @@ QbankTeacher
           <Route path="manger" element={<ProtectedRoute><RewardManger /></ProtectedRoute>} />
           <Route path="rewardSupervisor" element={<ProtectedRoute><RewardMoshref /></ProtectedRoute>} />
           <Route path="rewardteacher" element={<ProtectedRoute><RewardTeacher /></ProtectedRoute>} />
-          <Route path="check" element={<ProtectedRoute><Checks/></ProtectedRoute>} />
+          <Route path="check" element={<ProtectedRoute><Checks /></ProtectedRoute>} />
           <Route path="qbank_details" element={<ProtectedRoute><QbankDetails /></ProtectedRoute>} />
           <Route path="qbank_edit" element={<ProtectedRoute><QbankEditing /></ProtectedRoute>} />
           <Route path="activity/mangers" element={<ProtectedRoute><MangersActivity /></ProtectedRoute>} />
           <Route path="activity/all" element={<ProtectedRoute><AllActivity /></ProtectedRoute>} />
- 
+
           <Route
             path="putting/questions/levels=1"
             element={

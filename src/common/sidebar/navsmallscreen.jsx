@@ -118,7 +118,6 @@ function Navsmallscreen() {
 
   }, [personalDashboard])
 
-    
 const LogOutDashBoard = ()=>{
            
   Api_Dashboard.post(`/logout`)
@@ -291,52 +290,78 @@ const LogOutDashBoard = ()=>{
 
                   </ul>
 
-                  : location.pathname.startsWith('/teacher') ? 
-                  
-                  
-                  
-                  <ul className="navbar-nav navbar-nav-small" dir="ltr" >
-                    <li className="nav-item " >
-                      <Link className="nav-link" aria-current="page" to="/student/HomeStudentview" onClick={() => setId(1)}>الرئيسية
-                        <img src={homeIcon} alt="الرئيسية" />
-                      </Link>
-                    </li>
-                    <li className="nav-item">
-                      <Link className="nav-link" to="/student/datastudentexam" onClick={() => setId(10)}>إنشاء الامتحان
-                        <img style={{ width: 18, height: 18 }} src={create_new} alt="إنشاء الامتحان" />
-                      </Link>
-                    </li>
-                    <li className="nav-item">
-                      <div className="nav-link d-flex" style={{ width: "283px", justifyContent: "space-between", alignItems: "center" }} onClick={() => setId(11)}>
+                  : location.pathname.startsWith('/teacher') ?
 
-                        <button style={{ marginLeft: "6px", height: "25px" }} className={`toggle-btn ${toggled ? "toggled" : ""}`} onClick={() => tog()}>
-                          <span className={toggled ? "white-text" : "whit"}>{toggled ? "On" : "Off"}</span>
-                          <div className='thumb'></div>
-                        </button>
-                        <div>
 
-                          <span>الوضع</span>
-                          <img style={{ width: 18, height: 18 }} src={solar_moon_line_duotone} alt="الوضع" />
+
+                    <ul className="navbar-nav navbar-nav-small" dir="ltr" >
+                      <li className="nav-item " >
+                        <Link className="nav-link" aria-current="page" to="/student/HomeStudentview" onClick={() => setId(1)}>الرئيسية
+                          <img src={homeIcon} alt="الرئيسية" />
+                        </Link>
+                      </li>
+                      <li className="nav-item">
+                        <Link className="nav-link" to="/student/datastudentexam" onClick={() => setId(10)}>"وضع الاسئلة
+                          <img style={{ width: 18, height: 18 }} src={octiconIcon} alt="وضع الأسئلة" />
+                        </Link>
+                      </li>
+                      <li className="nav-item">
+                        <Link className="nav-link" to="/student/datastudentexam" onClick={() => setId(10)}>بنك الأسئلة
+                          <img style={{ width: 18, height: 18 }} src={akar_icons_bank} alt="إنشاء الامتحان" />
+                        </Link>
+                      </li>
+                      <li className="nav-item">
+                        <Link className="nav-link" to="/student/datastudentexam" onClick={() => setId(10)}>شهادات التقدير
+                          <img style={{ width: 18, height: 18 }} src={ph_certificate} alt=" الشهادات" />
+                        </Link>
+                      </li>
+                      <li className="nav-item">
+                        <Link className="nav-link" to="/student/datastudentexam" onClick={() => setId(10)}>إدخال علامات Open Emis
+                          <img style={{ width: 18, height: 18 }} src={lucide_file_input} alt="وضع o.p.s" />
+                        </Link>
+                      </li>
+                      <li className="nav-item">
+                        <Link className="nav-link" to="/student/datastudentexam" onClick={() => setId(10)}>جدول المواصفات
+                          <img style={{ width: 18, height: 18 }} src={tabel} alt="تالمواصفات" />
+                        </Link>
+                      </li>
+                      <li className="nav-item">
+                        <Link className="nav-link" to="/student/datastudentexam" onClick={() => setId(10)}>إنشاء الامتحان
+                          <img style={{ width: 18, height: 18 }} src={create_new} alt="انشاء الامتحان" />
+                        </Link>
+                      </li>
+                      <li className="nav-item">
+                        <div className="nav-link d-flex" style={{ width: "283px", justifyContent: "space-between", alignItems: "center" }} onClick={() => setId(11)}>
+
+                          <button style={{ marginLeft: "6px", height: "25px" }} className={`toggle-btn ${toggled ? "toggled" : ""}`} onClick={() => tog()}>
+                            <span className={toggled ? "white-text" : "whit"}>{toggled ? "On" : "Off"}</span>
+                            <div className='thumb'></div>
+                          </button>
+                          <div>
+
+                            <span>الوضع</span>
+                            <img style={{ width: 18, height: 18 }} src={solar_moon_line_duotone} alt="الوضع" />
+                          </div>
                         </div>
-                      </div>
-                    </li>
+                      </li>
 
-                    <li className="nav-item">
-                      <Link to="/" className="nav-link" onClick={() => setId(12)} style={{ textDecoration: "none" }}> الموقع
-                        <i className="fas fa-globe text-white fs-4 ms-4" ></i>
-                      </Link>
-                    </li>
-                    <li className="nav-item">
-                      <Link className="nav-link" data-bs-toggle="modal" data-bs-target="#logout" onClick={() => setId(11)}>تسجيل الخروج
-                        <img style={{ width: 18, height: 18 }} src={iconamoon_exit_light} alt="تسجيل الخروج" />
-                      </Link>
-                    </li>
+                      <li className="nav-item">
+                        <Link to="/" className="nav-link" onClick={() => setId(12)} style={{ textDecoration: "none" }}> الموقع
+                          <i className="fas fa-globe text-white fs-4 ms-4" ></i>
+                        </Link>
+                      </li>
+                      <li className="nav-item">
+                        <Link className="nav-link" data-bs-toggle="modal" data-bs-target="#logout" onClick={() => setId(11)}>تسجيل الخروج
+                          <img style={{ width: 18, height: 18 }} src={iconamoon_exit_light} alt="تسجيل الخروج" />
+                        </Link>
+                      </li>
 
-                  </ul>
-                  
-                  
-                  
-                  : ""
+                    </ul>
+
+
+
+                    : ""
+
 
             }
           </div>
@@ -348,8 +373,9 @@ const LogOutDashBoard = ()=>{
 
                   location.pathname.startsWith('/dashboard') ? `${Api_dashboard.defaults.baseURL}/assets/Admin/${personalDashboard}` :
                     location.pathname.startsWith('/student') ? `${Api_dashboard.defaults.baseURL}/assets/Student/${personalStudent}` :
-                      // location.pathname.startsWith('/teacher')? `${Api_dashboard.defaults.baseURL}/assets/Student/${personalStudent}`:
-                      ""
+                      location.pathname.startsWith('/teacher') ? `${Api_dashboard.defaults.baseURL}/assets/Student/${personalStudent}` :
+                        ""
+
 
 
 
