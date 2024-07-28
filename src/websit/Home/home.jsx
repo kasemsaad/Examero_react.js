@@ -34,9 +34,10 @@ function Home() {
     const [teacher_data, setTeacher_data] = useState(null);
     const [Data, setData] = useState("");
     const [baymentObj, setbaymentObj] = useState("");
-    const [user, setuser] = useState("");
+    // const [user, setuser] = useState("");
     const [UserPayment, setUserPayment] = useState("");
     const navigate = useNavigate();
+    const user=localStorage.getItem("user")
     const scrollHandler = (elmRef) => {
         window.scrollTo({ top: elmRef.current.offsetTop, behavior: "smooth" });
     }
@@ -54,6 +55,7 @@ function Home() {
 
 
     const logout = () => {
+
         if (user === "student") {
 
             Api_Website.post(`/students/logout`)
@@ -66,7 +68,7 @@ function Home() {
 
                     console.error("Error not logout ");
                 });
-        } else {
+        } else if (user === "teacher") {
             Api_Website.post(`/teachers/logout`)
                 .then(response => {
                     localStorage.removeItem("token_user");
@@ -80,8 +82,6 @@ function Home() {
 
     }
     const login = () => {
-        const token=localStorage.getItem("token_user")
-if(token){
         if (user === "student") {
             navigate("/student/homeStudentView")
         } else if (user === "teacher") {
@@ -89,41 +89,32 @@ if(token){
         } else {
             navigate("/")
         }
-    }else{
-        if (user === "student") {
-            navigate("login_student")
-        } else if (user === "teacher") {
-            navigate("/login_teacher")
-        } else {
-            navigate("/")
-        }
     }
-    }
-    const olck=()=>{
-        
-        setuser(localStorage.getItem("user"))
+
+    const olck = () => {
+
 
         if (user === "student") {
 
             Api_Website.get(`/students/refresh`)
                 .then(response => {
-                   localStorage.setItem("username",response.data.User.fullName);
+                    localStorage.setItem("username", response.data.User.fullName);
 
                 })
                 .catch(error => {
-                    console.error("Error fetching subjects data:");
+                    console.error("Error fetching name data:");
                 });
 
         } else if (user === "teacher") {
 
             Api_Website.get(`/teachers/refresh`)
                 .then(response => {
-              
-                    localStorage.setItem("username",response.data.user.fullName);
-                
+
+                    localStorage.setItem("username", response.data.user.fullName);
+
                 })
                 .catch(error => {
-                    console.error("Error fetching subjects data:");
+                    console.error("Error fetching name data:");
                 });
 
         } else {
@@ -132,7 +123,7 @@ if(token){
     }
     useEffect(() => {
         olck()
-           Api_Website.get(`/teacher-plan`)
+        Api_Website.get(`/teacher-plan`)
             .then(response => {
                 setTeacher_data(response.data);
             })
@@ -140,7 +131,7 @@ if(token){
                 console.error("Error fetching teacher data:", error);
             });
 
-            Api_Website.get(`/student-plan`)
+        Api_Website.get(`/student-plan`)
             .then(response => {
                 setStudent_data(response.data);
             })
@@ -153,8 +144,8 @@ if(token){
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
-        
-    }, []);
+
+    }, [user]);
 
     if (!student_data || !teacher_data) {
         return <>
@@ -316,7 +307,7 @@ if(token){
                                 }}
                                     style={{ height: "2.5rem", width: "8rem", color: "#4941A6", backgroundColor: "" }}  >
                                     {localStorage.getItem("username")}
-                                    
+
                                 </button>
                                 <button onClick={() => { logout() }} className="btn  " style={{ height: "2.5rem", width: "8rem", border: "none" }} >تسجيل خروج</button>
                             </div>

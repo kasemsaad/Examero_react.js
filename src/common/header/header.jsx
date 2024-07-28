@@ -82,6 +82,7 @@ const getRefreshstudent = async()=>{
          });
      };
 
+
   useEffect(() => {
     getRefresh();
     getRefreshteacher();
@@ -236,6 +237,9 @@ const getRefreshstudent = async()=>{
             overflow: "hidden",
             position: "absolute",
           }}
+          onClick={() => {
+            linksProfile();
+          }}
         >
           <img
             style={{ objectFit: "cover" }}
@@ -252,9 +256,7 @@ const getRefreshstudent = async()=>{
             width="100%"
             height="100%"
             alt="Personal"
-            onClick={() => {
-              linksProfile();
-            }}
+           
           />
         </div>
       </div>
