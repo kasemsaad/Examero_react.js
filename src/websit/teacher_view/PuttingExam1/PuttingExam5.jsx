@@ -56,6 +56,7 @@ function PuttingExam5(props) {
   const [countPages, setcountPages] = useState([]);
   const { page } = useParams();
   const [isButtonDisabled, setIsButtonDisabled] = useState("");
+  const [IsButtonshow, setIsButtonshow] = useState("");
   let counter = page;
 
   useEffect(() => {
@@ -125,8 +126,10 @@ function PuttingExam5(props) {
 
       if (counter >= 1+parseInt(JSON.parse(parsedArray[0][2]).questionCount)) {
         setIsButtonDisabled(true)
+        setIsButtonshow(false)
       } else {
         setIsButtonDisabled(false)
+        setIsButtonshow(true)
 
       }
     };
@@ -619,17 +622,7 @@ const backup = () => {
     console.error('Parsed array is not valid or does not contain expected data:', parsedArray);
   }
 }
-// \\\\\\parse exam\\\\\\\\\
-// const parse=[localStorage.getItem("all")]
-// const parse1=JSON.parse(parse[0])
-// // console.log(parse1)
-// parse1.map(item => {
-// const parse2=JSON.parse(item)
-// const parse3=JSON.parse(parse2.السؤال)
-// console.log(parse3);
-// return item;
-// });
-// \\\\\\end parse exam\\\\\\\\\
+
 
   return (
     <>
@@ -976,19 +969,21 @@ const backup = () => {
           <Row className="mb-3" >
             
             <Col xs={12} sm={6} >
-            <button className="btn_putting_exam2_after text-white py-0 m-0 mt-3" type="button" onClick={()=>{deleteQustion(page)}} >
+            <button  hidden={isButtonDisabled}  className="btn_putting_exam2_after text-white py-0 m-0 mt-3" type="button" onClick={()=>{deleteQustion(page)}} >
                 حذف السؤال
               </button>
             </Col>
             <Col xs={12} sm={6} className="text-start">
-              {/* <Link to="/teacher/PuttingExam4"> */}
               <Button className='btn_putting_exam2_bfor' type="button" onClick={() => { back() }}>السابق
               </Button>
               {/* </Link> */}
               <Button className='btn_putting_exam2_after' type="submit"
                 hidden={isButtonDisabled}>
-                {/* disabled={isButtonDisabled}> */}
                 التالي
+              </Button>
+              <Button className='btn_putting_exam2_after' onClick={()=>{navigate("/ExamPdf")}}
+                hidden={IsButtonshow}>
+                معاينة الامتحان
               </Button>
             </Col>
           </Row>

@@ -38,7 +38,7 @@ function Header() {
     } else if (location.pathname.startsWith("/student")) {
       navigate("/student/editStudentProfaile");
     } else if (location.pathname.startsWith("/teacher")) {
-      navigate("/");
+      navigate("/teacher/TeacherProfile");
     } else {
       navigate("/");
     }
@@ -71,10 +71,22 @@ const getRefreshstudent = async()=>{
         console.error("Error fetching student data:");
       });
   };
+const getRefreshteacher= async()=>{
+ await Api_website.get(`/teachers/refresh`)
+    .then(response => {
+      let name_image = response.data.user.media.name
+      console.log(name_image)
+      SetpersonalTeacher(name_image);
+    })
+    .catch(error => {
+        console.log("Error  data:");
+      });
+  };
 
   useEffect(() => {
     getRefresh();
     getRefreshstudent();
+    getRefreshteacher();
   }, [personalDashboard]);
 
   return (
@@ -225,6 +237,9 @@ const getRefreshstudent = async()=>{
             overflow: "hidden",
             position: "absolute",
           }}
+          onClick={() => {
+            linksProfile();
+          }}
         >
           <img
             style={{ objectFit: "cover" }}
@@ -235,15 +250,13 @@ const getRefreshstudent = async()=>{
               
               location.pathname.startsWith('/dashboard')? `${Api_dashboard.defaults.baseURL}/assets/Admin/${personalDashboard}`:
               location.pathname.startsWith('/student')? `${Api_dashboard.defaults.baseURL}/assets/Student/${personalStudent}`:
-              // location.pathname.startsWith('/teacher')? `${Api_dashboard.defaults.baseURL}/assets/Student/${personalStudent}`:
+              location.pathname.startsWith('/teacher')? `${Api_dashboard.defaults.baseURL}/assets/Teacher/${personalTeacher}`:
 ""  
                         }
             width="100%"
             height="100%"
             alt="Personal"
-            onClick={() => {
-              linksProfile();
-            }}
+           
           />
         </div>
       </div>
