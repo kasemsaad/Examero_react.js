@@ -427,9 +427,9 @@ const getInputPasswor=(e)=>{
             <table className='tabelstudent' style={{ width: "90%", color: 'white' }}>
               <thead style={{ borderBottom: '1px solid #A6A0F4' }}>
                 <tr>
-                  <th style={{ color: '#FE4F60', borderBottom: '1px solid #A6A0F4' }}>الخدمة المقدمة</th>
-                  <th style={{ color: '#FE4F60', borderBottom: '1px solid #A6A0F4' }}>النقاط المستخدمة</th>
-                  <th style={{ color: '#FE4F60', borderBottom: '1px solid #A6A0F4' }}>التاريخ</th>
+                  <th style={{width:'15rem', color: '#FE4F60', borderBottom: '1px solid #A6A0F4' }}>الخدمة المقدمة</th>
+                  <th style={{width:'15rem',  color: '#FE4F60', borderBottom: '1px solid #A6A0F4' }}>النقاط المستخدمة</th>
+                  <th style={{ width:'20rem', color: '#FE4F60', borderBottom: '1px solid #A6A0F4' }}>التاريخ</th>
                 </tr>
               </thead>
 
