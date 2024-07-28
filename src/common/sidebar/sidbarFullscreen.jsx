@@ -70,6 +70,17 @@ function SidebarFullscreen() {
       });
   }
 
+          Api_website.post(`/teachers/logout`)
+      .then(response => {      
+          localStorage.removeItem("token");
+          navigate("/login_teacher")
+
+      })
+      .catch(error => {
+
+          console.error("Error not logout ");
+      });
+  }
 
   const id = localStorage.getItem("sidbarId");
   const location = useLocation()
@@ -265,32 +276,32 @@ function SidebarFullscreen() {
                 <div className="sidbarSidbar " style={{ height: " 87vh" }}>
                   <ul className="pt-4 ps-4">
                     <li className={`Icon  ${id === "1" ? "bgIcon" : " "}`}>
-                      <Link to="/student/HomeStudentview" onClick={() => setId(1)} >
+                      <Link to="/teacher/Home_teacher" onClick={() => setId(1)} >
                         <img src={homeIcon} alt="الرئيسية" />
                       </Link>
                     </li>
                     <li className={`Icon  ${id === "2" ? "bgIcon" : " "}`}>
-                      <Link to="#" onClick={() => setId(2)}>
+                      <Link to="/teacher/QbankTeacherTable" onClick={() => setId(2)}>
                         <img style={{ width: 20, height: 20 }} src={octiconIcon} alt="تفاصيل بنك الاسئلة" />
                       </Link>
                     </li>
                     <li className={`Icon  ${id === "3" ? "bgIcon" : " "}`}>
-                  <Link to="#" onClick={() => setId(3)}>
+                  <Link to="/teacher/QbankTeacherTable" onClick={() => setId(3)}>
                     <img style={{ width: 23, height: 23 }} src={akar_icons_bank} alt="الي حين " />
                   </Link>
                 </li>
                     <li className={`Icon  ${id === "4" ? "bgIcon" : " "}`}>
-                      <Link to="#" onClick={() => setId(4)}>
+                      <Link to="/teacher/CertificationTeacher" onClick={() => setId(4)}>
                         <img style={{ width: 23, height: 23 }} src={ph_certificate} alt="الشهادات" />
                       </Link>
                     </li>
                     <li className={`Icon  ${id === "5" ? "bgIcon" : " "}`}>
-                      <Link to="#" onClick={() => setId(5)}>
+                      <Link to="/teacher/OpenEmisTable" onClick={() => setId(5)}>
                         <img style={{ width: 20, height: 20 }} src={lucide_file_input} alt=" وضع o.p.s" />
                       </Link>
                     </li>
                     <li className={`Icon  ${id === "6" ? "bgIcon" : " "}`}>
-                      <Link to="#" onClick={() => setId(6)}>
+                      <Link to="/teacher/SpecificationTeacher" onClick={() => setId(6)}>
                         <img style={{ width: 23, height: 23 }} src={tabel} alt=" تالمواصفات" />
                       </Link>
                     </li>
@@ -309,7 +320,7 @@ function SidebarFullscreen() {
                       <Link onClick={() => {
                         logout(11);
                       }}>
-                        <img data-bs-toggle="modal" data-bs-target="#logout" src={iconamoon_exit_light} alt="تسجيل الخروج" />
+                        <img data-bs-toggle="modal" data-bs-target="#logout1" src={iconamoon_exit_light} alt="تسجيل الخروج" />
                       </Link>
                     </li>
                   </ul>
@@ -318,22 +329,22 @@ function SidebarFullscreen() {
                 </div>
                 <ul className="sidbarUl pt-4  " >
                   <li className="sidbarli">
-                    <Link to="/student/HomeStudentview" onClick={() => setId(1)} className={`Icon  ${id === "1" ? "Id" : " "}`}>الرئيسية</Link>
+                    <Link to="/teacher/Home_teacher" onClick={() => setId(1)} className={`Icon  ${id === "1" ? "Id" : " "}`}>الرئيسية</Link>
                   </li>
                   <li className="sidbarli">
-                    <Link to="#" onClick={() => setId(2)} className={`Icon  ${id === "2" ? "Id" : " "}`} > وضع الأسئلة</Link>
+                    <Link to="/teacher/QbankTeacherTable" onClick={() => setId(2)} className={`Icon  ${id === "2" ? "Id" : " "}`} > وضع الأسئلة</Link>
                   </li>
                   <li className="sidbarli">
-                    <Link to="#" onClick={() => setId(3)} className={`Icon  ${id === "3" ? "Id" : " "}`}>بنك الأسئلة</Link>
+                    <Link to="/teacher/QbankTeacherTable" onClick={() => setId(3)} className={`Icon  ${id === "3" ? "Id" : " "}`}>بنك الأسئلة</Link>
                   </li>
                   <li className="sidbarli">
-                    <Link to="#" onClick={() => setId(4)} className={`Icon  ${id === "4" ? "Id" : " "}`}>شهادات التقدير</Link>
+                    <Link to="/teacher/CertificationTeacher" onClick={() => setId(4)} className={`Icon  ${id === "4" ? "Id" : " "}`}>شهادات التقدير</Link>
                   </li>
                   <li className="sidbarli">
-                    <Link to="#" onClick={() => setId(5)} className={`Icon  ${id === "5" ? "Id" : " "}`}>إدخال علامات Open Emis</Link>
+                    <Link to="/teacher/OpenEmisTable" onClick={() => setId(5)} className={`Icon  ${id === "5" ? "Id" : " "}`}>إدخال علامات Open Emis</Link>
                   </li>
                   <li className="sidbarli">
-                    <Link to="#" onClick={() => setId(6)} className={`Icon  ${id === "6" ? "Id" : " "}`}>جدول المواصفات</Link>
+                    <Link to="/teacher/SpecificationTeacher" onClick={() => setId(6)} className={`Icon  ${id === "6" ? "Id" : " "}`}>جدول المواصفات</Link>
                   </li>
                   <li className="sidbarli">
                     <Link to="/teacher/PuttingExam1" onClick={() => setId(7)} className={`Icon  ${id === "7" ? "Id" : " "}`}>إنشاء الامتحان</Link>
@@ -342,7 +353,7 @@ function SidebarFullscreen() {
                     <Link to="/" onClick={() => setId(8)} className={`Icon  ${id === "8" ? "Id" : " "}`}>الموقع</Link>
                   </li>
                   <li className="sidbarli">
-                    <Link data-bs-toggle="modal" data-bs-target="#logout" onClick={() => setId(11)} className={`Icon  ${id === "11" ? "Id" : " "}`}>تسجيل الخروج</Link>
+                    <Link data-bs-toggle="modal" data-bs-target="#logout1" onClick={() => setId(11)} className={`Icon  ${id === "11" ? "Id" : " "}`}>تسجيل الخروج</Link>
                   </li>
 
                 </ul>
@@ -394,7 +405,48 @@ function SidebarFullscreen() {
           </div>
         </div>
       </div>
+      <div
+
+        className="modal fade DElementFade  "
+        id="logout1"
+        tabIndex="-1"
+        aria-labelledby="deleteElementModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog DElementDialog modal-dialog-centered ele_2 ">
+          <div className="modal-content DElementContent modal-backdrop1">
+            <div className="modal-body DElementBody text-center">
+              <img src={imagee} alt="Warning Icon" className="warning-icon" />
+              <p className="modal-title DElementTitle" id="deleteElementModalLabel">هل أنت متأكد ؟</p>
+              <p className="parag">سيتم تسجيل الخروج </p>
+            </div>
+            <div className="modal-footer DElementFooter">
+              <div>
+                <button
+                  type="button"
+                  className="btn btn-danger cancel-btn DElementSave mx-1"
+                  data-bs-dismiss="modal"
+                  onClick={() => {
+                    logoutTeachers()
+                  }}
+                >
+                  نعم
+                </button>
+                <button
+                  type="button"
+                  className="btn-secondary cancel-btn DElementCancel mx-1"
+                  data-bs-dismiss="modal"
+                >
+                  لا
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <ModalLogOut LogOut={LogOutDashBoard} />
+      
+      <ModalLogOut LogOut={logoutTeachers} />
 
     </>
   );

@@ -221,7 +221,7 @@ import fowrword from './../../assets/image/Forward.svg';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-// import chains from '../font/chain.js'; 
+import chains from '../../dashboard/font/chain'; 
 
 import image_ from './../../assets/image/02-01 1.png';
 import image_2 from './../../assets/image/02-01 1.png';
@@ -347,7 +347,7 @@ function CertificationTeacher() {
         // Add background image مهمه 
         doc.addImage(c, 'PNG', 0, 0, doc.internal.pageSize.getWidth(), doc.internal.pageSize.getHeight());
 
-        // doc.addFileToVFS('Amiri-Regular.ttf', chains);
+        doc.addFileToVFS('Amiri-Regular.ttf', chains);
         doc.addFont('Amiri-Regular.ttf', 'Amiri', 'normal');
         doc.setFont('Amiri');
 

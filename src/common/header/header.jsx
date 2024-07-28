@@ -47,7 +47,6 @@ function Header() {
   const getRefresh = async () => {
     await Api_Dashboard.get(`/refresh`)
       .then((response) => {
-        // console.log(response);
         let name_image = response.data.User.media.name;
         SetpersonalDashboard(name_image);
       })
@@ -71,22 +70,23 @@ const getRefreshstudent = async()=>{
         console.error("Error fetching student data:");
       });
   };
-const getRefreshteacher= async()=>{
- await Api_website.get(`/teachers/refresh`)
-    .then(response => {
-      let name_image = response.data.user.media.name
-      console.log(name_image)
-      SetpersonalTeacher(name_image);
-    })
-    .catch(error => {
-        console.log("Error  data:");
-      });
-  };
+  const getRefreshteacher = async()=>{
+    await Api_website.get(`/teachers/refresh`)
+       .then(response => {
+         let name_image = response.data.user.media.name
+         console.log(name_image)
+         SetpersonalTeacher(name_image);
+       })
+       .catch(error => {
+           console.error("Error fetching teacher data:");
+         });
+     };
+
 
   useEffect(() => {
     getRefresh();
-    getRefreshstudent();
     getRefreshteacher();
+    getRefreshstudent();
   }, [personalDashboard]);
 
   return (

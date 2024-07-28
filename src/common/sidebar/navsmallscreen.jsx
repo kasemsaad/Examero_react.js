@@ -80,7 +80,7 @@ function Navsmallscreen() {
     } else if (location.pathname.startsWith('/student')) {
       navigate("/student/editStudentProfaile");
     } else if (location.pathname.startsWith('/teacher')) {
-      navigate("/");
+      navigate("/teacher/TeacherProfile");
     } else {
       navigate("/");
     }
@@ -122,6 +122,18 @@ function Navsmallscreen() {
            console.log("Error  data:");
          });
      };
+
+  const getRefreshteacher = async () => {
+    await Api_website.get(`/teachers/refresh`)
+      .then(response => {
+        let name_image = response.data.user.media.name
+        console.log(name_image)
+        SetpersonalTeacher(name_image);
+      })
+      .catch(error => {
+        console.error("Error fetching student data:");
+      });
+  }
 
   useEffect(() => {
     getRefresh()
@@ -385,8 +397,9 @@ const LogOutDashBoard = ()=>{
 
                   location.pathname.startsWith('/dashboard') ? `${Api_dashboard.defaults.baseURL}/assets/Admin/${personalDashboard}` :
                     location.pathname.startsWith('/student') ? `${Api_dashboard.defaults.baseURL}/assets/Student/${personalStudent}` :
-                      // location.pathname.startsWith('/teacher') ? `${Api_dashboard.defaults.baseURL}/assets/Student/${personalStudent}` :
-                        ""
+                      location.pathname.startsWith('/teacher')? `${Api_dashboard.defaults.baseURL}/assets/Teacher/${personalTeacher}`:
+                      ""
+
 
 
 
