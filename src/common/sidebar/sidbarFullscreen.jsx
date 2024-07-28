@@ -35,7 +35,7 @@ function SidebarFullscreen() {
 
     Api_website.post(`/students/logout`)
       .then(response => {
-        localStorage.removeItem("token");
+        localStorage.removeItem("token_user");
         navigate("/")
         setId(1)
       })
@@ -43,7 +43,17 @@ function SidebarFullscreen() {
         console.error("Error not logout ");
       });
   }
-
+  const logoutTeachers = ()=>{
+    Api_website.post(`/teachers/logout`)
+    .then(response => {     
+        localStorage.removeItem("token_user");
+        navigate("/")
+        setId(1)
+    })
+    .catch(error => {
+        console.error("Error not logout ");
+    });
+}
 
 
   const LogOutDashBoard = () => {
@@ -51,7 +61,7 @@ function SidebarFullscreen() {
     Api_Dashboard.post(`/logout`)
       .then(response => {
         // console.log("mosyafa ");     
-        localStorage.removeItem("token");
+        localStorage.removeItem("token_user");
         navigate("/login_dashboard")
         setId(1)
       })
@@ -59,30 +69,34 @@ function SidebarFullscreen() {
         console.error(error);
       });
   }
-    const logoutTeachers = ()=>{
 
-          Api_website.post(`/teachers/logout`)
-      .then(response => {      
-          localStorage.removeItem("token");
-          navigate("/")
-
-      })
-      .catch(error => {
-
-          console.error("Error not logout ");
-      });
-  }
 
   const id = localStorage.getItem("sidbarId");
   const location = useLocation()
   // const path = location.pathname
   // const basePath=path.slice(0,11)
   // console.log(basePath)
+
+
+
+
+  const log=() => {
+    console.log("fff")
+    // const user = localStorage.getItem("user");
+    // if (user === "teacher") {
+    //   logoutTeachers();
+    // } else {
+
+    //   logoutStudent();
+    // }
+  }
+
+
+
   return (
     <>
       {
         location.pathname.startsWith('/dashboard') ?
-
 
           <div className="sidbar p-0 pe-3 " style={{ paddingRight: "100px" }} dir="rtl" >
             <div className="sidbarSidbar " style={{ height: "88vh" }}>
@@ -363,9 +377,8 @@ function SidebarFullscreen() {
                   type="button"
                   className="btn btn-danger cancel-btn DElementSave mx-1"
                   data-bs-dismiss="modal"
-                  onClick={() => {
-                    logoutStudent()
-                  }}
+                  onClick={()=>{log()}}
+                  
                 >
                   نعم
                 </button>

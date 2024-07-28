@@ -1,0 +1,83 @@
+.exam-container {
+    font-family: 'Arial, sans-serif';
+    direction: rtl;
+    text-align: center;
+    border: 3px solid black;
+    margin: 20px auto;
+    padding: 20px;
+    width: 800px;
+  }
+  
+  .exam-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    
+}
+
+.exam-header .exam-logo img {
+    width: 100px;
+}
+
+.exam-header .exam-title {
+    flex: 1;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.exam-content .exam-info, .exam-content .exam-details, .exam-content .exam-note ,.exam-question {
+    margin-bottom: 20px;
+    border-bottom: 3px solid black;
+  }
+  
+  .exam-content .exam-info {
+    font-size: 18px;
+    font-weight: bold;
+    border-bottom:none;
+
+  }
+  
+  .exam-content .exam-details {
+    text-align: left;
+    line-height: 1.8;
+    font-size: 16px;
+  }
+  
+  .exam-content .exam-note {
+    font-size: 14px;
+    padding: 0px 10px;
+    text-align: right;
+    border-bottom:none;
+
+  }
+  
+   .exam-question {
+    margin-top: 20px;
+    padding: 10px;
+    text-align: start;
+    font-weight: bolder;
+    font-size: 18px;
+  }
+  
+ .exam-answer {
+    margin-top:5px;
+    padding: 10px  20px;
+    /* min-height: 50px; */
+    font-size: 14px !important;
+
+  }
+  
+  .exam-footer {
+    margin-top: 20px;
+  }
+  
+  .exam-footer .exam-end, .exam-footer .exam-wish, .exam-footer .exam-teacher {
+    margin-bottom: 10px;
+    font-size: 16px;
+  }
+  
+  .exam-footer .exam-end {
+    font-size: 18px;
+    font-weight: bold;
+  }

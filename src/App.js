@@ -29,6 +29,7 @@ import PuttingExam2 from "./websit/teacher_view/PuttingExam1/PuttingExam2.jsx";
 import PuttingExam3 from "./websit/teacher_view/PuttingExam1/PuttingExam3.jsx";
 import PuttingExam4 from "./websit/teacher_view/PuttingExam1/PuttingExam4.jsx";
 import PuttingExam5 from "./websit/teacher_view/PuttingExam1/PuttingExam5.jsx";
+import ExamPdf from "./websit/teacher_view/PuttingExam1/ExamePdf.jsx";
 import Certified_exam from "./websit/teacher_view/PuttingExam1/Certified_exam.jsx";
 import EmailVerificationTech from "./websit/register and login/EmailVerification/EmailVerificationtech.jsx";
 import EmailVerificationStud from "./websit/register and login/EmailVerification/EmailVerificationStud.jsx";
@@ -133,43 +134,51 @@ function App(props) {
           <Route
             path="homeStudentView"
             element={
-              <ProtectedRouteWebsite>
+              <ProtectedRouteWebsiteTeacher>
                 <HomeStudentView />
-              </ProtectedRouteWebsite>
+              </ProtectedRouteWebsiteTeacher>
             }
           />
 
           <Route
             path="createExam"
             element={
-              <ProtectedRouteWebsite>
+              <ProtectedRouteWebsiteTeacher>
                 <CreateExam />
-              </ProtectedRouteWebsite>
+              </ProtectedRouteWebsiteTeacher>
             }
           />
           <Route
             path="dataStudentExam"
             element={
-              <ProtectedRouteWebsite>
+              <ProtectedRouteWebsiteTeacher>
                 <DataStudentExam />
-              </ProtectedRouteWebsite>
+              </ProtectedRouteWebsiteTeacher>
             }
           />
           <Route
             path="editStudentProfaile"
             element={
-              <ProtectedRouteWebsite>
+              <ProtectedRouteWebsiteTeacher>
                 <EditStudentProfaile />
-              </ProtectedRouteWebsite>
+              </ProtectedRouteWebsiteTeacher>
             }
           />
         </Route>
-QbankTeacher
+        QbankTeacher
         <Route path="/teacher/" element={<LayoutComp />}>
-          <Route path="TeacherProfile" element={<TeacherProfile />} />
+          <Route path="TeacherProfile" element={
+            <ProtectedRouteWebsiteTeacher>
+              <TeacherProfile />
+            </ProtectedRouteWebsiteTeacher>
+          } />
           <Route
             path="InsertingOpenEmisTags"
-            element={<InsertingOpenEmisTags />}
+            element={
+              <ProtectedRouteWebsiteTeacher>
+                <InsertingOpenEmisTags />
+              </ProtectedRouteWebsiteTeacher>
+            }
           />
           <Route path="PuttingExam1" element={
             <ProtectedRouteWebsiteTeacher>
@@ -198,20 +207,61 @@ QbankTeacher
               <PuttingExam5 />
             </ProtectedRouteWebsiteTeacher>
           } />
+        
 
-          <Route path="Certified_exam" element={<Certified_exam />} />
-          <Route path="QbankTeacherTable" element={<QbankTeacherTable />} />
-          <Route path="Home_teacher" element={<Home_teacher />} />
-          <Route path="SpecificationTeacher" element={<SpecificationTeacher />} />
-             <Route path="OpenEmisTable" element={<OpenEmisTable />} />
-         
-             <Route path="CertificationTeacher" element={<CertificationTeacher />} />
+          <Route path="Certified_exam" element={
+            <ProtectedRouteWebsite>
+              <Certified_exam />
+            </ProtectedRouteWebsite>
 
-                <Route path="CreateQuestation" element={<CreateQuestation />} />
+          } />
+          <Route path="QbankTeacherTable" element={
+            <ProtectedRouteWebsite>
+              <QbankTeacherTable />
+            </ProtectedRouteWebsite>
+
+          } />
+          <Route path="Home_teacher" element={
+            <ProtectedRouteWebsite>
+
+              <Home_teacher />
+            </ProtectedRouteWebsite>
+
+          } />
+          <Route path="SpecificationTeacher" element={
+            <ProtectedRouteWebsite>
+
+              <SpecificationTeacher />
+            </ProtectedRouteWebsite>
+
+          } />
+          <Route path="OpenEmisTable" element={
+            <ProtectedRouteWebsite>
+              <OpenEmisTable />
+            </ProtectedRouteWebsite>
+          } />
+
+          <Route path="CertificationTeacher" element={
+            <ProtectedRouteWebsite>
+              <CertificationTeacher />
+            </ProtectedRouteWebsite>
+          }
+
+          />
+
+          <Route path="CreateQuestation" element={
+            <ProtectedRouteWebsite>
+              <CreateQuestation />
+            </ProtectedRouteWebsite>
+          } />
 
           Home_teacher
         </Route>
-
+        <Route path="ExamPdf" element={
+            <ProtectedRouteWebsiteTeacher>
+              <ExamPdf />
+            </ProtectedRouteWebsiteTeacher>
+          } />
         <Route path="login_dashboard" element={<HomeDashoardLogin />} />
         <Route path="forget_password" element={<ForgetPassDashBoard />} />
         <Route path="dashBoardEnterCode" element={<EnterCodeDashBoard />} />
@@ -228,11 +278,11 @@ QbankTeacher
           />
 
 
-          <Route path="b" element={ <ProtectedRoute><AccountSetting /></ProtectedRoute>} />
-          <Route path="certify" element={  <ProtectedRoute><CertificateGenerator />  </ProtectedRoute>} />
-          <Route path="qbank" element={  <ProtectedRoute><Qbank /></ProtectedRoute>} />
-          <Route path="specify" element={ <ProtectedRoute><Specification /></ProtectedRoute>} />
-          <Route path="PlansTeacher" element={ <ProtectedRoute><PlansTeacher /></ProtectedRoute>} />
+          <Route path="b" element={<ProtectedRoute><AccountSetting /></ProtectedRoute>} />
+          <Route path="certify" element={<ProtectedRoute><CertificateGenerator />  </ProtectedRoute>} />
+          <Route path="qbank" element={<ProtectedRoute><Qbank /></ProtectedRoute>} />
+          <Route path="specify" element={<ProtectedRoute><Specification /></ProtectedRoute>} />
+          <Route path="PlansTeacher" element={<ProtectedRoute><PlansTeacher /></ProtectedRoute>} />
           <Route path="planstudent" element={<ProtectedRoute><PlansStudent /></ProtectedRoute>} />
           <Route path="waitingemis" element={<ProtectedRoute><WaitingEmis /></ProtectedRoute>} />
           <Route path="recivedemis" element={<ProtectedRoute><RecivedEmis /></ProtectedRoute>} />
