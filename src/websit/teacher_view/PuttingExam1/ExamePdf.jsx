@@ -8,58 +8,78 @@ function ExamPdf() {
   const [dataQuestion1, setdataQuestion1] = useState("");
   const [dataQuestion2, setdataQuestion2] = useState("");
   const [dataQuestion3, setdataQuestion3] = useState("");
+  const [totalPages, settotalPages] = useState("");
   const jsonStrings=[localStorage.getItem("doc")]
   const parsedJsonObjects = jsonStrings.map(jsonStr => JSON.parse(jsonStr));
   const HeaderData1=JSON.parse(parsedJsonObjects[0][0])
   const HeaderData2=JSON.parse(parsedJsonObjects[0][1])
   const HeaderData3=JSON.parse(parsedJsonObjects[0][2])
   const HeaderData4=JSON.parse(parsedJsonObjects[0][3])
-// console.log(HeaderData1)
-// console.log(HeaderData2)
-// console.log(HeaderData3)
-// console.log(HeaderData4)
-// // \\\\\\end parse exam\\\\\\\\\
+// console.(HeaderData1)
 
-// // \\\\\\start parse exam\\\\\\\\\
 useEffect(() => {
 const parse=[localStorage.getItem("all")]
 const parse1=JSON.parse(parse)
 // console.log(parse1)
 parse1.map(item => {
 const parse2=JSON.parse(item)
-const parse3=JSON.parse(parse2.السؤال)
+const parse3=parse2.السؤال
 setdataQuestion1(parse1);
 setdataQuestion2(parse2);
 setdataQuestion3(parse3);
 return item;
 });
 },[]);
+
 // console.log(dataQuestion);
 // \\\\\\end parse exam\\\\\\\\\
-  const downloadPdf = () => {
-    const input = document.getElementById('exam-container');
-    html2canvas(input, { scale: 2 }).then(canvas => {
-      const imgData = canvas.toDataURL('image/png');
-      const pdf = new jsPDF('p', 'mm', 'a4');
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = pdf.internal.pageSize.getHeight();
-      const imgProps = pdf.getImageProperties(imgData);
-      const imgHeight = (imgProps.height * pdfWidth) / imgProps.width;
-      let heightLeft = imgHeight;
-      let position = 0;
+const calculatePages = (imgHeight, pdfHeight) => {
+  return Math.ceil(imgHeight / pdfHeight);
+};
+useEffect(() => {
+  const input = document.getElementById('exam-container');
+  html2canvas(input, { scale: 2 }).then(canvas => {
+    const imgData = canvas.toDataURL('image/png');
+    const pdf = new jsPDF('p', 'mm', 'a4');
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = pdf.internal.pageSize.getHeight();
+    const imgProps = pdf.getImageProperties(imgData);
+    const imgHeight = (imgProps.height * pdfWidth) / imgProps.width;
+    const totalPages = calculatePages(imgHeight, pdfHeight);   
+    console.log('Total pages:', totalPages); 
+    settotalPages(totalPages);  
+  });
+},[totalPages]);
+const downloadPdf = () => {
+  const input = document.getElementById('exam-container');
+  html2canvas(input, { scale: 2 }).then(canvas => {
+    const imgData = canvas.toDataURL('image/png');
+    const pdf = new jsPDF('p', 'mm', 'a4');
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = pdf.internal.pageSize.getHeight();
+    const imgProps = pdf.getImageProperties(imgData);
+    const imgHeight = (imgProps.height * pdfWidth) / imgProps.width;
+    let heightLeft = imgHeight;
+    let position = 0;
+    const bottomMargin = 1.5;  // Adjust this value to increase the space at the bottom
 
+    pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, imgHeight);
+    heightLeft -= (pdfHeight - bottomMargin);
+
+    while (heightLeft >= 0) {
+      position = heightLeft - imgHeight + bottomMargin;
+      pdf.addPage();
       pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, imgHeight);
-      heightLeft -= pdfHeight;
+      heightLeft -= (pdfHeight - bottomMargin);
+    }
 
-      while (heightLeft >= 0) {
-        position = heightLeft - imgHeight;
-        pdf.addPage();
-        pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, imgHeight);
-        heightLeft -= pdfHeight;
-      }
-      pdf.save('exam.pdf');
-    });
-  };
+    pdf.save('exam.pdf');
+  });
+};
+
+
+
+
 
   return (
     <div>
@@ -96,8 +116,8 @@ return item;
               مدة الامتحان : {HeaderData2.examDuration} دقيقة فقط<br />
                           </div>
           </div>
-          <div className="exam-note" hidden={HeaderData3.showApperanceNotice}  >
-            ملحوظة مهمة : أجب عن الأسئلة الآتية جميعها وعددها ({HeaderData3.questionCount}) ، علماً أن عدد صفحات الامتحان ( )    
+          <div className="exam-note" hidden={!HeaderData3.showApperanceNotice}  >
+            ملحوظة مهمة : أجب عن الأسئلة الآتية جميعها وعددها ( {HeaderData3.questionCount} ) ، علماً أن عدد صفحات الامتحان ( {totalPages} )    
           </div>
           {
  Array.isArray(dataQuestion1) ? 

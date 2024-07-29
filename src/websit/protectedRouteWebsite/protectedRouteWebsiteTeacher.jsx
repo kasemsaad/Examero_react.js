@@ -44,13 +44,16 @@ const ProtectedRoute = ({ children }) => {
   const user = localStorage.getItem("token_user");
   const userType = localStorage.getItem("user");
   useEffect(() => {
-    if (!user) {
+    if (!user || !userType) {
       if(userType ==="teacher"){
         return Navigate("/login_teacher");
 
       }
       else if(userType ==="student"){
         return Navigate("/login_student");
+      }
+      else{
+      Navigate("/");
       }
     }
   }, [user]);

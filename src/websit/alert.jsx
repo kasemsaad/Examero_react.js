@@ -38,7 +38,6 @@ const ActionComponent = () => {
       <form onSubmit={handleSubmit}>
         <button type="submit">Submit</button>
       </form>
-      {/* Display message conditionally */}
       {message && (
         <div
           style={{

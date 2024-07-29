@@ -20,10 +20,11 @@ import notifiy from "./../../assets/image/ic_baseline-notifications-none.svg"
 import { useDispatch, useSelector } from "react-redux";
 import { CHANGE_THEME } from "../../redux/Types/types";
 import imagee from '../../assets/icons/create_Exam/High Importance.svg';
-import Api_website from "../../utlis/axios_utils_websit";
+import Api_Website from "../../utlis/axios_utils_websit";
 import Api_Dashboard from "../../dashboard/interceptor/interceptorDashboard";
 import Api_dashboard from "../../utlis/axios_utils_dashboard";
 import ModalLogOut from "../../dashboard/modal/modalLogOut";
+import { ToastContainer } from "react-toastify";
 function Navsmallscreen() {
   const navigate = useNavigate()
   const location = useLocation()
@@ -45,52 +46,25 @@ function Navsmallscreen() {
       type: CHANGE_THEME,
     })
   }
-  const logoutStudent = () => {
-
-    Api_website.post(`/students/logout`)
-      .then(response => {
-        localStorage.removeItem("token");
-        navigate("/")
-        setId(1)
-      })
-      .catch(error => {
-        console.error("Error not logout ");
-      });
-  }
-  //   const logoutTeachers = ()=>{
-
-  //         Api_website.post(`/teachers/logout`)
-  //     .then(response => {      
-  //         localStorage.removeItem("token");
-  //         navigate("/")
-
-  //     })
-  //     .catch(error => {
-
-  //         console.error("Error not logout ");
-  //     });
-  // }
+ 
 
 
-
-
-  const linksProfile = () => {
-    if (location.pathname.startsWith('/dashboard')) {
-      navigate("/dashboard/b");
-    } else if (location.pathname.startsWith('/student')) {
-      navigate("/student/editStudentProfaile");
-    } else if (location.pathname.startsWith('/teacher')) {
-      navigate("/teacher/TeacherProfile");
-    } else {
-      navigate("/");
-    }
-  };
+  // const linksProfile = () => {
+  //   if (location.pathname.startsWith('/dashboard')) {
+  //     navigate("/dashboard/b");
+  //   } else if (location.pathname.startsWith('/student')) {
+  //     navigate("/student/editStudentProfaile");
+  //   } else if (location.pathname.startsWith('/teacher')) {
+  //     navigate("/teacher/TeacherProfile");
+  //   } else {
+  //     navigate("/");
+  //   }
+  // };
 
 
   const getRefresh = async () => {
     await Api_Dashboard.get(`/refresh`)
       .then(response => {
-        // console.log(response);
         let name_image = response.data.User.media.name
         SetpersonalDashboard(name_image);
 
@@ -101,10 +75,9 @@ function Navsmallscreen() {
       });
   }
   const getRefreshstudent = async () => {
-    await Api_website.get(`/students/refresh`)
+    await Api_Website.get(`/students/refresh`)
       .then(response => {
         let name_image = response.data.User.media.name
-        console.log(name_image)
         SetpersonalStudent(name_image);
       })
       .catch(error => {
@@ -112,10 +85,9 @@ function Navsmallscreen() {
       });
   }
   const getRefreshteacher= async()=>{
-    await Api_website.get(`/teachers/refresh`)
+    await Api_Website.get(`/teachers/refresh`)
        .then(response => {
          let name_image = response.data.user.media.name
-         console.log(name_image)
          SetpersonalTeacher(name_image);
        })
        .catch(error => {
@@ -123,22 +95,17 @@ function Navsmallscreen() {
          });
      };
 
-  const getRefreshteacher = async () => {
-    await Api_website.get(`/teachers/refresh`)
-      .then(response => {
-        let name_image = response.data.user.media.name
-        console.log(name_image)
-        SetpersonalTeacher(name_image);
-      })
-      .catch(error => {
-        console.error("Error fetching student data:");
-      });
-  }
-
+ 
+const user=localStorage.getItem("user")
   useEffect(() => {
     getRefresh()
-    getRefreshstudent()
-    getRefreshteacher()
+    if(user==="student"){
+
+      getRefreshstudent()
+    }else if(user==="teacher"){
+      
+      getRefreshteacher()
+    }
 
   }, [personalDashboard])
 
@@ -146,7 +113,6 @@ const LogOutDashBoard = ()=>{
            
   Api_Dashboard.post(`/logout`)
 .then(response => { 
-  // console.log("mosyafa ");     
   localStorage.removeItem("token");
   navigate("/login_dashboard")
   setId(1)
@@ -155,8 +121,37 @@ const LogOutDashBoard = ()=>{
   console.error(error);
 });
 }
+
+
+const log= () => {
+
+  if (user === "student") {
+    Api_Website.post(`/students/logout`)
+          .then(response => {
+            localStorage.removeItem("token_user");
+            localStorage.removeItem("user");
+            navigate("/")          })
+          .catch(error => {
+              console.error("Error not logout ");
+          });
+          
+  } else if (user === "teacher") {
+      Api_Website.post(`/teachers/logout`)
+          .then(response => {
+            // console.log("kkkkkkkkkkk ");
+            localStorage.removeItem("token_user");
+            localStorage.removeItem("user");
+            navigate("/")
+          })
+          .catch(error => {
+
+              console.error("Error not logout ");
+            });
+          }
+}
   return (
     <>
+      <ToastContainer />
 
       <nav className="navbar navbarsidbar  navbar-expand-lg" >
         <div className="container-fluid ">
@@ -195,7 +190,7 @@ const LogOutDashBoard = ()=>{
                 <ul className="navbar-nav navbar-nav-small" dir="ltr" >
                   <li className="nav-item " >
                     <Link className="nav-link" aria-current="page" to="/dashboard" onClick={() => setId(1)}>الرئيسية
-                      <img src={homeIcon} alt="الرئيسية" />
+                    <img src={homeIcon} style={{width:"21px",marginLeft:"10px"}} alt="الرئيسية" />
                     </Link>
                   </li>
                   <li className="nav-item">
@@ -278,7 +273,7 @@ const LogOutDashBoard = ()=>{
                   <ul className="navbar-nav navbar-nav-small" dir="ltr" >
                     <li className="nav-item " >
                       <Link className="nav-link" aria-current="page" to="/student/HomeStudentview" onClick={() => setId(1)}>الرئيسية
-                        <img src={homeIcon} alt="الرئيسية" />
+                      <img src={homeIcon} style={{width:"21px",marginLeft:"10px"}} alt="الرئيسية" />
                       </Link>
                     </li>
                     <li className="nav-item">
@@ -319,38 +314,38 @@ const LogOutDashBoard = ()=>{
 
 
                     <ul className="navbar-nav navbar-nav-small" dir="ltr" >
-                      <li className="nav-item " >
-                        <Link className="nav-link" aria-current="page" to="/student/HomeStudentview" onClick={() => setId(1)}>الرئيسية
-                          <img src={homeIcon} alt="الرئيسية" />
+                      <li className="nav-item  " >
+                        <Link className="nav-link" aria-current="page" to="/teacher/Home_teacher" onClick={() => setId(1)}>الرئيسية
+                          <img src={homeIcon} style={{width:"21px",marginLeft:"10px"}} alt="الرئيسية" />
                         </Link>
                       </li>
                       <li className="nav-item">
-                        <Link className="nav-link" to="/student/datastudentexam" onClick={() => setId(10)}>"وضع الاسئلة
+                        <Link className="nav-link" to="/teacher/CreateQuestation" onClick={() => setId(2)}>"وضع الاسئلة
                           <img style={{ width: 18, height: 18 }} src={octiconIcon} alt="وضع الأسئلة" />
                         </Link>
                       </li>
                       <li className="nav-item">
-                        <Link className="nav-link" to="/student/datastudentexam" onClick={() => setId(10)}>بنك الأسئلة
+                        <Link className="nav-link" to="/teacher/QbankTeacherTable" onClick={() => setId(3)}>بنك الأسئلة
                           <img style={{ width: 18, height: 18 }} src={akar_icons_bank} alt="إنشاء الامتحان" />
                         </Link>
                       </li>
                       <li className="nav-item">
-                        <Link className="nav-link" to="/student/datastudentexam" onClick={() => setId(10)}>شهادات التقدير
+                        <Link className="nav-link" to="/teacher/CertificationTeacher" onClick={() => setId(4)}>شهادات التقدير
                           <img style={{ width: 18, height: 18 }} src={ph_certificate} alt=" الشهادات" />
                         </Link>
                       </li>
                       <li className="nav-item">
-                        <Link className="nav-link" to="/student/datastudentexam" onClick={() => setId(10)}>إدخال علامات Open Emis
+                        <Link className="nav-link" to="/teacher/InsertingOpenEmisTags" onClick={() => setId(5)}>إدخال علامات Open Emis
                           <img style={{ width: 18, height: 18 }} src={lucide_file_input} alt="وضع o.p.s" />
                         </Link>
                       </li>
                       <li className="nav-item">
-                        <Link className="nav-link" to="/student/datastudentexam" onClick={() => setId(10)}>جدول المواصفات
+                        <Link className="nav-link" to="/teacher/SpecificationTeacher" onClick={() => setId(6)}>جدول المواصفات
                           <img style={{ width: 18, height: 18 }} src={tabel} alt="تالمواصفات" />
                         </Link>
                       </li>
                       <li className="nav-item">
-                        <Link className="nav-link" to="/student/datastudentexam" onClick={() => setId(10)}>إنشاء الامتحان
+                        <Link className="nav-link" to="/teacher/PuttingExam1" onClick={() => setId(7)}>إنشاء الامتحان
                           <img style={{ width: 18, height: 18 }} src={create_new} alt="انشاء الامتحان" />
                         </Link>
                       </li>
@@ -370,7 +365,7 @@ const LogOutDashBoard = ()=>{
                       </li>
 
                       <li className="nav-item">
-                        <Link to="/" className="nav-link" onClick={() => setId(12)} style={{ textDecoration: "none" }}> الموقع
+                        <Link to="/" className="nav-link" onClick={() => setId(8)} style={{ textDecoration: "none" }}> الموقع
                           <i className="fas fa-globe text-white fs-4 ms-4" ></i>
                         </Link>
                       </li>
@@ -399,11 +394,6 @@ const LogOutDashBoard = ()=>{
                     location.pathname.startsWith('/student') ? `${Api_dashboard.defaults.baseURL}/assets/Student/${personalStudent}` :
                       location.pathname.startsWith('/teacher')? `${Api_dashboard.defaults.baseURL}/assets/Teacher/${personalTeacher}`:
                       ""
-
-
-
-
-
                 }
 
                 width="100%" height="100%" alt="Personal" />
@@ -433,7 +423,7 @@ const LogOutDashBoard = ()=>{
                   className="btn btn-danger cancel-btn DElementSave mx-1"
                   data-bs-dismiss="modal"
                   onClick={() => {
-                    logoutStudent()
+                    log()
                   }}
                 >
                   نعم

@@ -1,8 +1,8 @@
-import React, { useEffect,useMemo, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import "./teacherProfile.css"
 import { Modal, Button } from 'react-bootstrap';
 
-import MyTable from '../../../common/Table/Table';
+// import MyTable from '../../../common/Table/Table';
 import home from "../../../assets/image/material-symbols_person-outline (1).svg"
 import Homeicon from "../../../assets/icons/Home/Frame 119.svg"
 import eye from '../../../assets/image/register and login image/hugeicons_view (1).svg'
@@ -11,6 +11,7 @@ import lock from "../../../assets/image/mdi_password-outline.svg"
 import Api_website from '../../../utlis/axios_utils_websit'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import Api_dashboard from '../../../utlis/axios_utils_dashboard';
 function TeacherProfile() {
   const layoutBackground = useSelector((state) => state.dark.lay);
   const [alert , Setalert]=useState(false)
@@ -34,8 +35,12 @@ function TeacherProfile() {
         });
 };
 
-const handleClose = () => setShow(false);
+const handleClose = () => {
+  setShow(false)
+  document.body.style.removeProperty('overflow');
+};
     const handleShow = (planId) => {
+      document.body.style.removeProperty('overflow');
         const planDetails = data.find(plan => plan.id === planId);
         setSelectedPlan(planDetails);
         setShow(true);
@@ -59,6 +64,7 @@ const handleClose = () => setShow(false);
   const [errormesssage,Seterrormessage]=useState('')
  
   const getUsersFromInput=(e)=>{
+    document.body.style.removeProperty('overflow');
     let USER={...inputUser}
     USER[e.target.name]=e.target.value
     setInputUser(USER)
@@ -66,12 +72,14 @@ const handleClose = () => setShow(false);
   
  
   const handleImageChange = (e) => {
+    document.body.style.removeProperty('overflow');
     const file = e.target.files[0];
     if (file) {
       setInputUser({ ...inputUser, image: file });
     }
   }
   useEffect(()=>{
+    document.body.style.removeProperty('overflow');
     getRefreshUser()
     getDataStudentExam()
 
@@ -90,6 +98,7 @@ const handleClose = () => setShow(false);
 
 
   const HandleSubmit =async (event) => {
+    document.body.style.removeProperty('overflow');
 
     event.preventDefault();
     const payload = {
@@ -101,9 +110,11 @@ const handleClose = () => setShow(false);
     };
 
     if (inputUser.image) {
+      document.body.style.removeProperty('overflow');
+
       payload.image = inputUser.image;
     }
-    console.log(payload.image)
+    // console.log(payload.image)
 
     document.body.style.removeProperty('overflow');
 
@@ -175,7 +186,7 @@ const getInputPasswor=(e)=>{
         <div>
       <div className="upload">
   
-      <img src={` http://127.0.0.1:8000/assets/Teacher/${inputUser.media?.name}`} id="image" alt="Upload Preview" />
+      <img src={` ${Api_dashboard.defaults.baseURL}/assets/Teacher/${inputUser.media?.name}`} id="image" alt="Upload Preview" />
 
         <div className="rightRound" id="upload">
           <input type="file"   accept=".jpg, .jpeg, .png" name='image' onChange={handleImageChange} />
@@ -449,9 +460,21 @@ const getInputPasswor=(e)=>{
         )}
       </Modal.Body>
       <Modal.Footer className='justify-content-center' style={{ backgroundColor: '#1D195D' }}>
-        <Button variant="secondary" onClick={handleClose} style={{ borderRadius: '30px', color: '#FE4F60', border: '2px solid #FE4F60', backgroundColor: '#1D195D' }}>
-          إغلاق
-        </Button>
+      <Button 
+  variant="secondary" 
+  onClick={() => {
+    handleClose();
+  }} 
+  style={{ 
+    borderRadius: '30px', 
+    color: '#FE4F60', 
+    border: '2px solid #FE4F60', 
+    backgroundColor: '#1D195D' 
+  }}
+>
+  إغلاق
+</Button>
+
       </Modal.Footer>
     </Modal>
 
