@@ -63,7 +63,6 @@ const getRefreshstudent = async()=>{
  await Api_website.get(`/students/refresh`)
     .then(response => {
       let name_image = response.data.User.media.name
-      console.log(name_image)
       SetpersonalStudent(name_image);
     })
     .catch(error => {
@@ -82,11 +81,17 @@ const getRefreshstudent = async()=>{
          });
      };
 
+     const user=localStorage.getItem("user")
 
   useEffect(() => {
     getRefresh();
-    getRefreshteacher();
-    getRefreshstudent();
+    if(user==="student"){
+
+      getRefreshstudent()
+    }else if(user==="teacher"){
+      
+      getRefreshteacher()
+    }
   }, [personalDashboard]);
 
   return (

@@ -10,6 +10,7 @@ import lock from "../../../assets/image/mdi_password-outline.svg"
 import Api_website from '../../../utlis/axios_utils_websit'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import Api_dashboard from '../../../utlis/axios_utils_dashboard'
 // import Api_Dashboard from '../interceptor/interceptorDashboard.jsx'
 // import Api_Website from '../../../utlis/axios_utils_websit.jsx';
 // import photo from "./../../assets/image/man 2.svg"
@@ -169,7 +170,7 @@ const getInputPasswor=(e)=>{
         <div>
       <div className="upload">
   
-      <img src={` http://127.0.0.1:8000/assets/Student/${inputUser.media?.name}`} id="image" alt="Upload Preview" />
+      <img src={` ${Api_dashboard.defaults.baseURL}/assets/Student/${inputUser.media?.name}`} id="image" alt="Upload Preview" />
 
         <div className="rightRound" id="upload">
           <input type="file"   accept=".jpg, .jpeg, .png" name='image' onChange={handleImageChange} />

@@ -17,7 +17,6 @@ import mastercard from "../../assets/image/home/MasterCard_Logo.svg.png";
 import Api_Website from "../../utlis/axios_utils_websit";
 import { useNavigate } from 'react-router-dom';
 import TawkToScript from '../chat/TawkToScript';
-let sheko;
 
 function Home() {
     const setId = (id) => {
@@ -32,9 +31,8 @@ function Home() {
     const sec6 = useRef();
     const [student_data, setStudent_data] = useState(null);
     const [teacher_data, setTeacher_data] = useState(null);
-    const [Data, setData] = useState("");
+    const [name, setname] = useState("");
     const [baymentObj, setbaymentObj] = useState("");
-    // const [user, setuser] = useState("");
     const [UserPayment, setUserPayment] = useState("");
     const navigate = useNavigate();
     const user=localStorage.getItem("user")
@@ -57,27 +55,26 @@ function Home() {
     const logout = () => {
 
         if (user === "student") {
-
             Api_Website.post(`/students/logout`)
                 .then(response => {
                     localStorage.removeItem("token_user");
-                    navigate("/")
-
-                })
+                    localStorage.removeItem("user");
+                    navigate("/")                })
                 .catch(error => {
-
                     console.error("Error not logout ");
                 });
+                
         } else if (user === "teacher") {
             Api_Website.post(`/teachers/logout`)
                 .then(response => {
                     localStorage.removeItem("token_user");
-                    navigate("/")
-                })
+                    localStorage.removeItem("user");
+                    navigate("/")                })
                 .catch(error => {
 
                     console.error("Error not logout ");
                 });
+                
         }
 
     }
@@ -91,14 +88,11 @@ function Home() {
         }
     }
 
-    const olck = () => {
-
-
+    useEffect(() => {
         if (user === "student") {
-
             Api_Website.get(`/students/refresh`)
                 .then(response => {
-                    localStorage.setItem("username", response.data.User.fullName);
+                   setname(response.data.User.fullName);
 
                 })
                 .catch(error => {
@@ -110,7 +104,7 @@ function Home() {
             Api_Website.get(`/teachers/refresh`)
                 .then(response => {
 
-                    localStorage.setItem("username", response.data.user.fullName);
+                    setname(response.data.user.fullName);
 
                 })
                 .catch(error => {
@@ -120,9 +114,10 @@ function Home() {
         } else {
             navigate("/")
         }
-    }
+    
+}, [user,name]);
+
     useEffect(() => {
-        olck()
         Api_Website.get(`/teacher-plan`)
             .then(response => {
                 setTeacher_data(response.data);
@@ -306,7 +301,7 @@ function Home() {
                                     login()
                                 }}
                                     style={{ height: "2.5rem", width: "8rem", color: "#4941A6", backgroundColor: "" }}  >
-                                    {localStorage.getItem("username")}
+                                    {name}
 
                                 </button>
                                 <button onClick={() => { logout() }} className="btn  " style={{ height: "2.5rem", width: "8rem", border: "none" }} >تسجيل خروج</button>

@@ -20,7 +20,7 @@ import notifiy from "./../../assets/image/ic_baseline-notifications-none.svg"
 import { useDispatch, useSelector } from "react-redux";
 import { CHANGE_THEME } from "../../redux/Types/types";
 import imagee from '../../assets/icons/create_Exam/High Importance.svg';
-import Api_website from "../../utlis/axios_utils_websit";
+import Api_Website from "../../utlis/axios_utils_websit";
 import Api_Dashboard from "../../dashboard/interceptor/interceptorDashboard";
 import Api_dashboard from "../../utlis/axios_utils_dashboard";
 import ModalLogOut from "../../dashboard/modal/modalLogOut";
@@ -45,33 +45,7 @@ function Navsmallscreen() {
       type: CHANGE_THEME,
     })
   }
-  const logoutStudent = () => {
-
-    Api_website.post(`/students/logout`)
-      .then(response => {
-        localStorage.removeItem("token");
-        navigate("/")
-        setId(1)
-      })
-      .catch(error => {
-        console.error("Error not logout ");
-      });
-  }
-  //   const logoutTeachers = ()=>{
-
-  //         Api_website.post(`/teachers/logout`)
-  //     .then(response => {      
-  //         localStorage.removeItem("token");
-  //         navigate("/")
-
-  //     })
-  //     .catch(error => {
-
-  //         console.error("Error not logout ");
-  //     });
-  // }
-
-
+ 
 
 
   const linksProfile = () => {
@@ -90,7 +64,6 @@ function Navsmallscreen() {
   const getRefresh = async () => {
     await Api_Dashboard.get(`/refresh`)
       .then(response => {
-        // console.log(response);
         let name_image = response.data.User.media.name
         SetpersonalDashboard(name_image);
 
@@ -101,10 +74,9 @@ function Navsmallscreen() {
       });
   }
   const getRefreshstudent = async () => {
-    await Api_website.get(`/students/refresh`)
+    await Api_Website.get(`/students/refresh`)
       .then(response => {
         let name_image = response.data.User.media.name
-        console.log(name_image)
         SetpersonalStudent(name_image);
       })
       .catch(error => {
@@ -112,10 +84,9 @@ function Navsmallscreen() {
       });
   }
   const getRefreshteacher= async()=>{
-    await Api_website.get(`/teachers/refresh`)
+    await Api_Website.get(`/teachers/refresh`)
        .then(response => {
          let name_image = response.data.user.media.name
-         console.log(name_image)
          SetpersonalTeacher(name_image);
        })
        .catch(error => {
@@ -123,22 +94,17 @@ function Navsmallscreen() {
          });
      };
 
-  const getRefreshteacher = async () => {
-    await Api_website.get(`/teachers/refresh`)
-      .then(response => {
-        let name_image = response.data.user.media.name
-        console.log(name_image)
-        SetpersonalTeacher(name_image);
-      })
-      .catch(error => {
-        console.error("Error fetching student data:");
-      });
-  }
-
+ 
+const user=localStorage.getItem("user")
   useEffect(() => {
     getRefresh()
-    getRefreshstudent()
-    getRefreshteacher()
+    if(user==="student"){
+
+      getRefreshstudent()
+    }else if(user==="teacher"){
+      
+      getRefreshteacher()
+    }
 
   }, [personalDashboard])
 
@@ -146,7 +112,6 @@ const LogOutDashBoard = ()=>{
            
   Api_Dashboard.post(`/logout`)
 .then(response => { 
-  // console.log("mosyafa ");     
   localStorage.removeItem("token");
   navigate("/login_dashboard")
   setId(1)
@@ -155,6 +120,39 @@ const LogOutDashBoard = ()=>{
   console.error(error);
 });
 }
+
+
+const log= () => {
+
+  if (user === "student") {
+    Api_Website.post(`/students/logout`)
+          .then(response => {
+            localStorage.removeItem("token_user");
+            localStorage.removeItem("user");
+            navigate("/")          })
+          .catch(error => {
+              console.error("Error not logout ");
+          });
+          
+  } else if (user === "teacher") {
+      Api_Website.post(`/teachers/logout`)
+          .then(response => {
+            // console.log("kkkkkkkkkkk ");
+            localStorage.removeItem("token_user");
+            localStorage.removeItem("user");
+            navigate("/")
+          })
+          .catch(error => {
+
+              console.error("Error not logout ");
+            });
+          }
+             
+
+}
+
+
+
   return (
     <>
 
@@ -399,11 +397,6 @@ const LogOutDashBoard = ()=>{
                     location.pathname.startsWith('/student') ? `${Api_dashboard.defaults.baseURL}/assets/Student/${personalStudent}` :
                       location.pathname.startsWith('/teacher')? `${Api_dashboard.defaults.baseURL}/assets/Teacher/${personalTeacher}`:
                       ""
-
-
-
-
-
                 }
 
                 width="100%" height="100%" alt="Personal" />
@@ -433,7 +426,7 @@ const LogOutDashBoard = ()=>{
                   className="btn btn-danger cancel-btn DElementSave mx-1"
                   data-bs-dismiss="modal"
                   onClick={() => {
-                    logoutStudent()
+                    log()
                   }}
                 >
                   نعم

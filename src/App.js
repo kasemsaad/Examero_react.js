@@ -134,34 +134,34 @@ function App(props) {
           <Route
             path="homeStudentView"
             element={
-              <ProtectedRouteWebsiteTeacher>
+              <protectedRouteWebsite>
                 <HomeStudentView />
-              </ProtectedRouteWebsiteTeacher>
+              </protectedRouteWebsite>
             }
           />
 
           <Route
             path="createExam"
             element={
-              <ProtectedRouteWebsiteTeacher>
+              <protectedRouteWebsite>
                 <CreateExam />
-              </ProtectedRouteWebsiteTeacher>
+              </protectedRouteWebsite>
             }
           />
           <Route
             path="dataStudentExam"
             element={
-              <ProtectedRouteWebsiteTeacher>
+              <protectedRouteWebsite>
                 <DataStudentExam />
-              </ProtectedRouteWebsiteTeacher>
+              </protectedRouteWebsite>
             }
           />
           <Route
             path="editStudentProfaile"
             element={
-              <ProtectedRouteWebsiteTeacher>
+              <protectedRouteWebsite>
                 <EditStudentProfaile />
-              </ProtectedRouteWebsiteTeacher>
+              </protectedRouteWebsite>
             }
           />
         </Route>
@@ -210,49 +210,49 @@ function App(props) {
         
 
           <Route path="Certified_exam" element={
-            <ProtectedRouteWebsite>
+            <ProtectedRouteWebsiteTeacher>
               <Certified_exam />
-            </ProtectedRouteWebsite>
+            </ProtectedRouteWebsiteTeacher>
 
           } />
           <Route path="QbankTeacherTable" element={
-            <ProtectedRouteWebsite>
+            <ProtectedRouteWebsiteTeacher>
               <QbankTeacherTable />
-            </ProtectedRouteWebsite>
+            </ProtectedRouteWebsiteTeacher>
 
           } />
           <Route path="Home_teacher" element={
-            <ProtectedRouteWebsite>
+            <ProtectedRouteWebsiteTeacher>
 
               <Home_teacher />
-            </ProtectedRouteWebsite>
+            </ProtectedRouteWebsiteTeacher>
 
           } />
           <Route path="SpecificationTeacher" element={
-            <ProtectedRouteWebsite>
+            <ProtectedRouteWebsiteTeacher>
 
               <SpecificationTeacher />
-            </ProtectedRouteWebsite>
+            </ProtectedRouteWebsiteTeacher>
 
           } />
           <Route path="OpenEmisTable" element={
-            <ProtectedRouteWebsite>
+            <ProtectedRouteWebsiteTeacher>
               <OpenEmisTable />
-            </ProtectedRouteWebsite>
+            </ProtectedRouteWebsiteTeacher>
           } />
 
           <Route path="CertificationTeacher" element={
-            <ProtectedRouteWebsite>
+            <ProtectedRouteWebsiteTeacher>
               <CertificationTeacher />
-            </ProtectedRouteWebsite>
+            </ProtectedRouteWebsiteTeacher>
           }
 
           />
 
           <Route path="CreateQuestation" element={
-            <ProtectedRouteWebsite>
+            <ProtectedRouteWebsiteTeacher>
               <CreateQuestation />
-            </ProtectedRouteWebsite>
+            </ProtectedRouteWebsiteTeacher>
           } />
 
           Home_teacher
