@@ -253,27 +253,27 @@ function SidebarFullscreen() {
                       </Link>
                     </li>
                     <li className={`Icon  ${id === "2" ? "bgIcon" : " "}`}>
-                      <Link to="#" onClick={() => setId(2)}>
+                      <Link to="/teacher/CreateQuestation" onClick={() => setId(2)}>
                         <img style={{ width: 20, height: 20 }} src={octiconIcon} alt="تفاصيل بنك الاسئلة" />
                       </Link>
                     </li>
                     <li className={`Icon  ${id === "3" ? "bgIcon" : " "}`}>
-                  <Link to="#" onClick={() => setId(3)}>
-                    <img style={{ width: 23, height: 23 }} src={akar_icons_bank} alt="الي حين " />
+                  <Link to="/teacher/QbankTeacherTable" onClick={() => setId(3)}>
+                    <img style={{ width: 23, height: 23 }} src={akar_icons_bank} alt="بنك الاسءله " />
                   </Link>
                 </li>
                     <li className={`Icon  ${id === "4" ? "bgIcon" : " "}`}>
-                      <Link to="#" onClick={() => setId(4)}>
+                      <Link to="/teacher/CertificationTeacher" onClick={() => setId(4)}>
                         <img style={{ width: 23, height: 23 }} src={ph_certificate} alt="الشهادات" />
                       </Link>
                     </li>
                     <li className={`Icon  ${id === "5" ? "bgIcon" : " "}`}>
-                      <Link to="#" onClick={() => setId(5)}>
+                      <Link to="/teacher/InsertingOpenEmisTags" onClick={() => setId(5)}>
                         <img style={{ width: 20, height: 20 }} src={lucide_file_input} alt=" وضع o.p.s" />
                       </Link>
                     </li>
                     <li className={`Icon  ${id === "6" ? "bgIcon" : " "}`}>
-                      <Link to="#" onClick={() => setId(6)}>
+                      <Link to="/teacher/SpecificationTeacher" onClick={() => setId(6)}>
                         <img style={{ width: 23, height: 23 }} src={tabel} alt=" تالمواصفات" />
                       </Link>
                     </li>
@@ -304,19 +304,19 @@ function SidebarFullscreen() {
                     <Link to="/teacher/Home_teacher" onClick={() => setId(1)} className={`Icon  ${id === "1" ? "Id" : " "}`}>الرئيسية</Link>
                   </li>
                   <li className="sidbarli">
-                    <Link to="#" onClick={() => setId(2)} className={`Icon  ${id === "2" ? "Id" : " "}`} > وضع الأسئلة</Link>
+                    <Link to="/teacher/CreateQuestation" onClick={() => setId(2)} className={`Icon  ${id === "2" ? "Id" : " "}`} > وضع الأسئلة</Link>
                   </li>
                   <li className="sidbarli">
-                    <Link to="#" onClick={() => setId(3)} className={`Icon  ${id === "3" ? "Id" : " "}`}>بنك الأسئلة</Link>
+                    <Link to="/teacher/QbankTeacherTable" onClick={() => setId(3)} className={`Icon  ${id === "3" ? "Id" : " "}`}>بنك الأسئلة</Link>
                   </li>
                   <li className="sidbarli">
-                    <Link to="#" onClick={() => setId(4)} className={`Icon  ${id === "4" ? "Id" : " "}`}>شهادات التقدير</Link>
+                    <Link to="/teacher/CertificationTeacher" onClick={() => setId(4)} className={`Icon  ${id === "4" ? "Id" : " "}`}>شهادات التقدير</Link>
                   </li>
                   <li className="sidbarli">
-                    <Link to="#" onClick={() => setId(5)} className={`Icon  ${id === "5" ? "Id" : " "}`}>إدخال علامات Open Emis</Link>
+                    <Link to="/teacher/InsertingOpenEmisTags" onClick={() => setId(5)} className={`Icon  ${id === "5" ? "Id" : " "}`}>إدخال علامات Open Emis</Link>
                   </li>
                   <li className="sidbarli">
-                    <Link to="#" onClick={() => setId(6)} className={`Icon  ${id === "6" ? "Id" : " "}`}>جدول المواصفات</Link>
+                    <Link to="/teacher/SpecificationTeacher" onClick={() => setId(6)} className={`Icon  ${id === "6" ? "Id" : " "}`}>جدول المواصفات</Link>
                   </li>
                   <li className="sidbarli">
                     <Link to="/teacher/PuttingExam1" onClick={() => setId(7)} className={`Icon  ${id === "7" ? "Id" : " "}`}>إنشاء الامتحان</Link>

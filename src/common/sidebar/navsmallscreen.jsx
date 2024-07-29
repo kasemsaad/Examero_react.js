@@ -24,6 +24,7 @@ import Api_Website from "../../utlis/axios_utils_websit";
 import Api_Dashboard from "../../dashboard/interceptor/interceptorDashboard";
 import Api_dashboard from "../../utlis/axios_utils_dashboard";
 import ModalLogOut from "../../dashboard/modal/modalLogOut";
+import { ToastContainer } from "react-toastify";
 function Navsmallscreen() {
   const navigate = useNavigate()
   const location = useLocation()
@@ -48,17 +49,17 @@ function Navsmallscreen() {
  
 
 
-  const linksProfile = () => {
-    if (location.pathname.startsWith('/dashboard')) {
-      navigate("/dashboard/b");
-    } else if (location.pathname.startsWith('/student')) {
-      navigate("/student/editStudentProfaile");
-    } else if (location.pathname.startsWith('/teacher')) {
-      navigate("/teacher/TeacherProfile");
-    } else {
-      navigate("/");
-    }
-  };
+  // const linksProfile = () => {
+  //   if (location.pathname.startsWith('/dashboard')) {
+  //     navigate("/dashboard/b");
+  //   } else if (location.pathname.startsWith('/student')) {
+  //     navigate("/student/editStudentProfaile");
+  //   } else if (location.pathname.startsWith('/teacher')) {
+  //     navigate("/teacher/TeacherProfile");
+  //   } else {
+  //     navigate("/");
+  //   }
+  // };
 
 
   const getRefresh = async () => {
@@ -147,14 +148,10 @@ const log= () => {
               console.error("Error not logout ");
             });
           }
-             
-
 }
-
-
-
   return (
     <>
+      <ToastContainer />
 
       <nav className="navbar navbarsidbar  navbar-expand-lg" >
         <div className="container-fluid ">
@@ -193,7 +190,7 @@ const log= () => {
                 <ul className="navbar-nav navbar-nav-small" dir="ltr" >
                   <li className="nav-item " >
                     <Link className="nav-link" aria-current="page" to="/dashboard" onClick={() => setId(1)}>الرئيسية
-                      <img src={homeIcon} alt="الرئيسية" />
+                    <img src={homeIcon} style={{width:"21px",marginLeft:"10px"}} alt="الرئيسية" />
                     </Link>
                   </li>
                   <li className="nav-item">
@@ -276,7 +273,7 @@ const log= () => {
                   <ul className="navbar-nav navbar-nav-small" dir="ltr" >
                     <li className="nav-item " >
                       <Link className="nav-link" aria-current="page" to="/student/HomeStudentview" onClick={() => setId(1)}>الرئيسية
-                        <img src={homeIcon} alt="الرئيسية" />
+                      <img src={homeIcon} style={{width:"21px",marginLeft:"10px"}} alt="الرئيسية" />
                       </Link>
                     </li>
                     <li className="nav-item">
@@ -317,38 +314,38 @@ const log= () => {
 
 
                     <ul className="navbar-nav navbar-nav-small" dir="ltr" >
-                      <li className="nav-item " >
-                        <Link className="nav-link" aria-current="page" to="/student/HomeStudentview" onClick={() => setId(1)}>الرئيسية
-                          <img src={homeIcon} alt="الرئيسية" />
+                      <li className="nav-item  " >
+                        <Link className="nav-link" aria-current="page" to="/teacher/Home_teacher" onClick={() => setId(1)}>الرئيسية
+                          <img src={homeIcon} style={{width:"21px",marginLeft:"10px"}} alt="الرئيسية" />
                         </Link>
                       </li>
                       <li className="nav-item">
-                        <Link className="nav-link" to="/student/datastudentexam" onClick={() => setId(10)}>"وضع الاسئلة
+                        <Link className="nav-link" to="/teacher/CreateQuestation" onClick={() => setId(2)}>"وضع الاسئلة
                           <img style={{ width: 18, height: 18 }} src={octiconIcon} alt="وضع الأسئلة" />
                         </Link>
                       </li>
                       <li className="nav-item">
-                        <Link className="nav-link" to="/student/datastudentexam" onClick={() => setId(10)}>بنك الأسئلة
+                        <Link className="nav-link" to="/teacher/QbankTeacherTable" onClick={() => setId(3)}>بنك الأسئلة
                           <img style={{ width: 18, height: 18 }} src={akar_icons_bank} alt="إنشاء الامتحان" />
                         </Link>
                       </li>
                       <li className="nav-item">
-                        <Link className="nav-link" to="/student/datastudentexam" onClick={() => setId(10)}>شهادات التقدير
+                        <Link className="nav-link" to="/teacher/CertificationTeacher" onClick={() => setId(4)}>شهادات التقدير
                           <img style={{ width: 18, height: 18 }} src={ph_certificate} alt=" الشهادات" />
                         </Link>
                       </li>
                       <li className="nav-item">
-                        <Link className="nav-link" to="/student/datastudentexam" onClick={() => setId(10)}>إدخال علامات Open Emis
+                        <Link className="nav-link" to="/teacher/InsertingOpenEmisTags" onClick={() => setId(5)}>إدخال علامات Open Emis
                           <img style={{ width: 18, height: 18 }} src={lucide_file_input} alt="وضع o.p.s" />
                         </Link>
                       </li>
                       <li className="nav-item">
-                        <Link className="nav-link" to="/student/datastudentexam" onClick={() => setId(10)}>جدول المواصفات
+                        <Link className="nav-link" to="/teacher/SpecificationTeacher" onClick={() => setId(6)}>جدول المواصفات
                           <img style={{ width: 18, height: 18 }} src={tabel} alt="تالمواصفات" />
                         </Link>
                       </li>
                       <li className="nav-item">
-                        <Link className="nav-link" to="/student/datastudentexam" onClick={() => setId(10)}>إنشاء الامتحان
+                        <Link className="nav-link" to="/teacher/PuttingExam1" onClick={() => setId(7)}>إنشاء الامتحان
                           <img style={{ width: 18, height: 18 }} src={create_new} alt="انشاء الامتحان" />
                         </Link>
                       </li>
@@ -368,7 +365,7 @@ const log= () => {
                       </li>
 
                       <li className="nav-item">
-                        <Link to="/" className="nav-link" onClick={() => setId(12)} style={{ textDecoration: "none" }}> الموقع
+                        <Link to="/" className="nav-link" onClick={() => setId(8)} style={{ textDecoration: "none" }}> الموقع
                           <i className="fas fa-globe text-white fs-4 ms-4" ></i>
                         </Link>
                       </li>

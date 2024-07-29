@@ -82,7 +82,7 @@ function Home() {
         if (user === "student") {
             navigate("/student/homeStudentView")
         } else if (user === "teacher") {
-            navigate("/teacher/TeacherProfile")
+            navigate("/teacher/Home_teacher")
         } else {
             navigate("/")
         }

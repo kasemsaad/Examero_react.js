@@ -95,17 +95,13 @@ function App(props) {
         <Route
           path="student/payment/SuccessPayment"
           element={
-            <ProtectedRouteWebsite>
               <SuccessPayment />
-            </ProtectedRouteWebsite>
           }
         />
         <Route
           path="teacher/payment/SuccessPayment"
           element={
-            <ProtectedRouteWebsite>
               <SuccessPayment />
-            </ProtectedRouteWebsite>
           }
         />
         <Route
@@ -134,34 +130,34 @@ function App(props) {
           <Route
             path="homeStudentView"
             element={
-              <protectedRouteWebsite>
+              <ProtectedRouteWebsiteTeacher>
                 <HomeStudentView />
-              </protectedRouteWebsite>
+              </ProtectedRouteWebsiteTeacher>
             }
           />
 
           <Route
             path="createExam"
             element={
-              <protectedRouteWebsite>
+              <ProtectedRouteWebsiteTeacher>
                 <CreateExam />
-              </protectedRouteWebsite>
+              </ProtectedRouteWebsiteTeacher>
             }
           />
           <Route
             path="dataStudentExam"
             element={
-              <protectedRouteWebsite>
+              <ProtectedRouteWebsiteTeacher>
                 <DataStudentExam />
-              </protectedRouteWebsite>
+              </ProtectedRouteWebsiteTeacher>
             }
           />
           <Route
             path="editStudentProfaile"
             element={
-              <protectedRouteWebsite>
+              <ProtectedRouteWebsiteTeacher>
                 <EditStudentProfaile />
-              </protectedRouteWebsite>
+              </ProtectedRouteWebsiteTeacher>
             }
           />
         </Route>

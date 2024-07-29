@@ -65,6 +65,7 @@ function PuttingExam4(props) {
     localStorage.setItem("doc", JSON.stringify(doc));
     localStorage.setItem("doc1", JSON.stringify(doc));
     localStorage.setItem("all", "[]" )
+    localStorage.setItem("Box", "[]" )
     Navigate("/teacher/PuttingExam5/1");
   };
   return (

@@ -1,8 +1,8 @@
-import React, { useEffect,useMemo, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import "./teacherProfile.css"
 import { Modal, Button } from 'react-bootstrap';
 
-import MyTable from '../../../common/Table/Table';
+// import MyTable from '../../../common/Table/Table';
 import home from "../../../assets/image/material-symbols_person-outline (1).svg"
 import Homeicon from "../../../assets/icons/Home/Frame 119.svg"
 import eye from '../../../assets/image/register and login image/hugeicons_view (1).svg'

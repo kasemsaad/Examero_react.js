@@ -23,7 +23,8 @@ Api_website.interceptors.response.use(
   },
   (error) => {
     if (error.response && error.response.status === 401) {
-      // localStorage.removeItem('token_user');
+      localStorage.removeItem('token_user');
+      
     }
     return Promise.reject(error);
   }

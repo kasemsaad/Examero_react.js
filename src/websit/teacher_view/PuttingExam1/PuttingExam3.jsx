@@ -31,6 +31,9 @@ function PuttingExam3(props) {
   const [AllSubject, setAllSubject] = useState([]);
   const [groupId, setGroupId] = useState(null);
   const [errors, setErrors] = useState({});
+  const [planname, setplanname] = useState("الباقات");
+  const [planid, setplanid] = useState("");
+  const [planss, setplans] = useState("");
 
 
   useEffect(() => {
@@ -56,8 +59,18 @@ function PuttingExam3(props) {
 
     fetchGroups();
     fetchSubjects();
+    plans()
   }, []);
-
+  const plans = () => {
+    Api_dashboard.get('/teachers/plans')
+      .then((response) => {
+        setplans(response.data.data);
+        // console.log(response.data.data);
+      })
+      .catch((error) => {
+        console.error('Error submitting form data:', error);
+      });
+  }
   const handleQuestionCountChange = (e) => {
     setQuestionCount(e.target.value);
   };
@@ -115,7 +128,9 @@ function PuttingExam3(props) {
       numberOfPages,
       showApperanceNotice,  
       idGroup:groupId,
-      idSubjectid:Subjectid
+      idSubjectid:Subjectid,
+      planid,
+      planname,
     };
 
     if (!doc.length) {
@@ -127,6 +142,7 @@ function PuttingExam3(props) {
     localStorage.setItem("doc", JSON.stringify(doc));
     localStorage.setItem("doc1", JSON.stringify(doc));
     localStorage.setItem("all", "[]" )
+    localStorage.setItem("Box", "[]" )
      Navigate("/teacher/PuttingExam4");
   };
 
@@ -196,12 +212,12 @@ const validateForm = () => {
 
 
      
-  // if (!groupid || groupid === 'اختر الصف') {
-  //   errorss.groupid = 'اختر الصف';
-  // }
-  //     if (!subject || subject === 'المبحث اختر') {
-  //       errorss.subject = 'اختر المبحث';
-  //     }
+  if (!groupid || groupid === 'اختر الصف') {
+    errorss.groupid = 'اختر الصف';
+  }
+      if (!subject || subject === 'المبحث اختر') {
+        errorss.subject = 'اختر المبحث';
+      }
       if (!fullMark) {
         errorss.fullMark = 'ادخل علامة الامتحان الكاملة';
       }
@@ -356,6 +372,35 @@ const validateForm = () => {
             </Form.Group>
           </Col>
           <Col xs={12} sm={6}>
+              <Form.Group controlId="lesson">
+                <Form.Label><span className='text-danger'>  </span> الباقه</Form.Label>
+                <DropdownButton
+                  id="dropdown-basic-button-subject"
+                  title={<div className='re'>{planname}<img src={dropdownIcon} alt="Icon" className='dropdown-icon' /></div>}
+                >
+                  {Array.isArray(planss) && planss.length > 0 ? (
+                    planss.map(({ id, plan }) => (
+                      <Dropdown.Item
+                        className='text-white'
+                        key={id}
+                        eventKey={plan.name}
+                        onClick={() => {
+                          setplanid(plan.id);
+                          setplanname(plan.name);
+                        }}
+                      >
+                        <span className="circle arabic"></span> {plan.name}
+                      </Dropdown.Item>
+                    ))
+                  ) : (
+                    <Dropdown.Item className='text-white' disabled>لا توجد باقات</Dropdown.Item>
+                  )}
+                </DropdownButton>
+                {errors.lesson && <Form.Text className='text-danger'>{errors.lesson}</Form.Text>}
+
+              </Form.Group>
+            </Col>
+          <Col xs={12} sm={6}>
             <Form.Group controlId="jordanianLogoCheckboxes">
               <div className='apperalogo' style={{
                 backgroundColor: layoutBackground === "#0E0A43" ? "#4941A6" : "#ECECEC",
@@ -388,19 +433,20 @@ const validateForm = () => {
 
         <Row className="mb-3">
           <span className='text-danger'>ملحوظة مهمة :</span>
-          <Col xs={12} sm={7}>
+          <Col xs={12} sm={6}>
             <Form.Group controlId="numberOfQuestions">
-              <div className='d-flex justify-content-around'>
+              <div className='d-flex justify-content-'>
                 <Form.Label  className='d-inline-block' >أجب عن الأسئلة الاتية جميعها وعددها</Form.Label>
                 <Form.Control style={{width:"6rem" ,height:"3rem"}}
                   type="number"
                   value={numberOfQuestions}
                   onChange={handleNumberOfQuestionsChange}
+                  hidden={true}
                 />
               </div>
             </Form.Group>
           </Col>
-          <Col xs={12} sm={5}>
+          <Col xs={12} sm={6}>
             <Form.Group controlId="numberOfPages">
               <div className='d-flex justify-content-around'>
               <Form.Label className='d-inline-block' >علماً أن عدد صفحات الامتحان</Form.Label>
@@ -408,6 +454,8 @@ const validateForm = () => {
                   type="number"
                   value={numberOfPages}
                   onChange={handleNumberOfPagesChange}
+                  hidden={true}
+
                 />
               </div>
             </Form.Group>
@@ -418,7 +466,7 @@ const validateForm = () => {
           <Col xs={12} sm={8}>
             <Form.Group controlId="apperanceNotice">
               <div className='apperance_notice'>
-                <Form.Label className="mr-2">ظهور هذه الملحوظة بترويسة الامتحان</Form.Label>
+                <Form.Label className="m-0">ظهور هذه الملحوظة بترويسة الامتحان</Form.Label>
                 <div>
                   <Form.Check
                     type="checkbox"
