@@ -403,6 +403,35 @@ const validateForm = () => {
               </Form.Group>
             </Col>
           <Col xs={12} sm={6}>
+              <Form.Group controlId="lesson">
+                <Form.Label><span className='text-danger'>  </span> الباقه</Form.Label>
+                <DropdownButton
+                  id="dropdown-basic-button-subject"
+                  title={<div className='re'>{planname}<img src={dropdownIcon} alt="Icon" className='dropdown-icon' /></div>}
+                >
+                  {Array.isArray(planss) && planss.length > 0 ? (
+                    planss.map(({ id, plan }) => (
+                      <Dropdown.Item
+                        className='text-white'
+                        key={id}
+                        eventKey={plan.name}
+                        onClick={() => {
+                          setplanid(plan.id);
+                          setplanname(plan.name);
+                        }}
+                      >
+                        <span className="circle arabic"></span> {plan.name}
+                      </Dropdown.Item>
+                    ))
+                  ) : (
+                    <Dropdown.Item className='text-white' disabled>لا توجد باقات</Dropdown.Item>
+                  )}
+                </DropdownButton>
+                {errors.lesson && <Form.Text className='text-danger'>{errors.lesson}</Form.Text>}
+
+              </Form.Group>
+            </Col>
+          <Col xs={12} sm={6}>
             <Form.Group controlId="jordanianLogoCheckboxes">
               <div className='apperalogo' style={{
                 backgroundColor: layoutBackground === "#0E0A43" ? "#4941A6" : "#ECECEC",
