@@ -15,8 +15,6 @@ export const fetchRoleAndImage = () => async (dispatch) => {
                         // image:  response.data.User.media.name
                     }
                 });
-                console.log();
-
 
     }).catch((err)=>{
         console.log(err);

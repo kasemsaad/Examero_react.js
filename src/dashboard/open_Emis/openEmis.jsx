@@ -3,10 +3,11 @@ import openEmisimage from "./../../assets/image/Group.svg"
 import forowrd from "./../../assets/image/Forward.svg"
 import SecondTriangle from '../components/SecondTriangl/SecondTriangle';
 import FirstTriangle from '../components/FirstTriangle/FirstTriangle';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import MyTable from '../../common/Table/Table';
 import TableOpenEmis from '../../common/Table/tableOpenEmis/tableOpenEmes';
 import './openEmis.css'
+import { useSelector } from 'react-redux';
 
 
 function OpenEmis(props) {
@@ -40,6 +41,8 @@ function OpenEmis(props) {
             ksdjih:"ksn",
         }
     ]
+
+    
     
 
 

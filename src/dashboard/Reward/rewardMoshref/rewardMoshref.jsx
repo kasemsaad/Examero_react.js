@@ -120,7 +120,7 @@ export default function RewardMoshref() {
                         <div className="modal-body DElementBody text-center">
                             <img src={image} alt="Warning Icon" className="warning-icon" />
                             <p className="modal-title DElementTitle" id="deleteElementModalLabel">هل أنت متأكد ؟</p>
-                            <p className="parag" >  سيتم حذف هذه الباقه </p>
+                            <p className="parag" >  سيتم حذف هذه  </p>
                         </div>
                         <div className="modal-footer DElementFooter">
                             <button

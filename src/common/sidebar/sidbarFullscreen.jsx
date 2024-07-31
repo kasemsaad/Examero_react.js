@@ -16,6 +16,8 @@ import imagee from '../../assets/icons/create_Exam/High Importance.svg';
 import ex from '../../assets/image/لوجو examero-01 1.svg';
 import Api_Dashboard from "../../dashboard/interceptor/interceptorDashboard";
 import ModalLogOut from "../../dashboard/modal/modalLogOut";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 // import Api_Dashboard from "../../dashboard/interceptor/interceptorDashboard";
 
@@ -78,6 +80,22 @@ const LogOutDashBoard = ()=>{
   // const path = location.pathname
   // const basePath=path.slice(0,11)
   // console.log(basePath)
+
+  const [roleAceessToNav,SetroleAceessToNav]=useState(true)
+  const role = useSelector((state) => state.RoleAccess.role); 
+  console.log(role);
+  const acccessDenied = ()=>{
+      if (role != "owner"){
+        SetroleAceessToNav(false)
+          // navigate('/dashboard/accessDenied')
+      }
+  }
+  useEffect(() => {
+    if (role) {
+      acccessDenied();
+    }
+  }, [role]);
+
   return (
     <>
       {
@@ -122,21 +140,21 @@ const LogOutDashBoard = ()=>{
               <img style={{ width: 23 , height:23 }} src={akar_icons_bank} alt="الي حين "  />
               </Link>
             </li>
-            <li className={`Icon  ${id === "7" ? "bgIcon":" "}`}>
-            <Link to="/dashboard/certify" onClick={() => setId(7)}>
-              <img style={{ width: 23 , height:23 }} src={ph_certificate } alt="الشهادات"  />
-              </Link>
-            </li>
-            <li className={`Icon  ${id === "8" ? "bgIcon":" "}`}>
+       {roleAceessToNav? <li className={`Icon  ${id === "7" ? "bgIcon":" "}`}>
+        <Link to="/dashboard/certify" onClick={() => setId(7)}>
+          <img style={{ width: 23 , height:23 }} src={ph_certificate } alt="الشهادات"  />
+          </Link>
+        </li>:""}
+           { roleAceessToNav?<li className={`Icon  ${id === "8" ? "bgIcon":" "}`}>
             <Link to="/dashboard/waitingemis" onClick={() => setId(8)}>
               <img style={{ width: 20 , height:20 }} src={lucide_file_input } alt=" وضع o.p.s"  />
               </Link>
-            </li>
-            <li className={`Icon  ${id === "9" ? "bgIcon":" "}`}>
+            </li>:""}
+           {roleAceessToNav? <li className={`Icon  ${id === "9" ? "bgIcon":" "}`}>
             <Link to="/dashboard/specify" onClick={() => setId(9)}>
               <img style={{ width: 23 , height:23 }} src={tabel} alt=" تالمواصفات"  />
               </Link>
-            </li>
+            </li>:""}
             <li className={`Icon  ${id === "10" ? "bgIcon":" "}`}>
             <Link to="/dashboard/putting/questions/levels=1" onClick={() => setId(10)}>
               <img  style={{ width: 18 , height:18 }} src={create_new} alt="وضع الاسئله"  />
@@ -176,15 +194,15 @@ const LogOutDashBoard = ()=>{
             <li className="sidbarli">
             <Link to="/dashboard/rewardSupervisor" onClick={() => setId(6)} className={`Icon  ${id === "6" ? "Id":" "}`}>المكافئات و العقوبات</Link>
             </li>
-            <li className="sidbarli">
+          { roleAceessToNav? <li className="sidbarli">
             <Link to="/dashboard/certify" onClick={() => setId(7)} className={`Icon  ${id === "7" ? "Id":" "}`}>شهادات التقدير</Link>
-            </li>
-            <li className="sidbarli">
+            </li>:""}
+            {roleAceessToNav?<li className="sidbarli">
             <Link to="/dashboard/waitingemis" onClick={() => setId(8)} className={`Icon  ${id === "8" ? "Id":" "}`}>إدخال علامات Open Emis</Link>
-            </li>
-            <li className="sidbarli">
+            </li>:""}
+           { roleAceessToNav?<li className="sidbarli">
             <Link to="/dashboard/specify" onClick={() => setId(9)} className={`Icon  ${id === "9" ? "Id":" "}`}>جدول المواصفات</Link>
-            </li>
+            </li>:""}
             <li className="sidbarli">
             <Link to="/dashboard/putting/questions/levels=1" onClick={() => setId(10)} className={`Icon  ${id === "10" ? "Id":" "}`}>إنشاء الامتحان</Link>
             </li>

@@ -60,9 +60,8 @@ export default function Home_dashboard() {
 
 
   const [info, setinfo] = useState("");
-
+  
   const getinfo = () => {
-
     Api_Dashboard.get(`students/exams-info`)
       .then(response => {
         setinfo(response.data);
@@ -70,7 +69,6 @@ export default function Home_dashboard() {
       .catch(error => {
         console.error("Error fetching notes data:", error);
       });
-
   }
 
 
@@ -144,8 +142,6 @@ export default function Home_dashboard() {
     supervisor: "",
     teacher: "",
     teacherExams: ""
-
-
   })
 
   const getInformationNumbers = async () => {

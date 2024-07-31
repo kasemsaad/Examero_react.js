@@ -21,21 +21,15 @@ export default function Specification() {
     const [idOfPointSelected, SetidOfPointSelected] = useState('')
     const navigate = useNavigate()
 
-    // const role = useSelector((state) => state.RoleAccess.role); 
-    // console.log(role);
-
-    
-
-
-
-    // const acccessDenied = ()=>{
-    //     if (role != "e"){
-    //         navigate('/dashboard/rewardSupervisor')
-    //     }
-    // }
-    // useEffect(()=>{
-    //     acccessDenied()
-    // },[])
+    const role = useSelector((state) => state.RoleAccess.role); 
+    const acccessDenied = ()=>{
+        if (role != "owner"){
+            navigate('/dashboard/accessDenied')
+        }
+    }
+    useEffect(()=>{
+        acccessDenied()
+    },[])
 
    
 

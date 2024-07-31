@@ -63,7 +63,7 @@ function TableOpenEmis({
               {row.password}
             </td>
             <td>
-              {row.teacher.phone_number}
+              {row.phone_number}
             </td>
             <td>
               {row.group}

@@ -13,17 +13,20 @@ import image_ from './../../assets/image/02-01 1 (1).png';
 import image_2 from './../../assets/image/04-01 1.png';
 import image_3 from './../../assets/image/05-01 1.png';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
-
-
-
-
-
-
-
-
+    
 
 function CertificateGenerator() {
+
+    const navigate= useNavigate()
+    const role = useSelector((state) => state.RoleAccess.role); 
+    const acccessDenied = ()=>{
+        if (role != "owner"){
+            navigate('/dashboard/accessDenied')
+        }
+    }
+
     const [user, setInput] = useState({
         firstName: '',
         teacher_name:"",
@@ -31,8 +34,6 @@ function CertificateGenerator() {
         techerName:""
 
     })
-    const role = useSelector((state) => state.RoleAccess.role); 
-    console.log(role);
     const getinput = (e) => {
         user[e.target.name] = e.target.value
         setInput(user);
@@ -108,7 +109,7 @@ function CertificateGenerator() {
             return;
         }
 
-        await Api_Dashboard.post('/specification', payload).then((response) => {
+        await Api_Dashboard.post('/certificate', payload).then((response) => {
           
 
             let x = response.data.message;
@@ -148,6 +149,7 @@ function CertificateGenerator() {
 
     useEffect(() => {
         getTeacher();
+        acccessDenied()
     }, [])
 
     const x = image_3;
@@ -165,7 +167,7 @@ function CertificateGenerator() {
 
         let d = "مصطفي";
 
-        let x = "قاسم";
+        let x = "";
     
         const doc = new jsPDF();
         // Add background image مهمه 

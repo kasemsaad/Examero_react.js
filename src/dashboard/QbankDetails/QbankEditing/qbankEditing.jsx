@@ -238,37 +238,62 @@ const getObjectFromRecivedId = ()=>{
     //     }
     // }
 
-    const getAllSelection = async (e) => {
-        const data = { ...dataToEdit }
-        data[e.target.name] = e.target.value
-        // data.image=e.target.files[0]
+    // const getAllSelection = async (e) => {
+    //     const data = { ...dataToEdit }
+    //     data[e.target.name] = e.target.value
+    //     // data.image=e.target.files[0]
         
-        SetdataToEdit(data)
-        let idOfGroup = data.group_id
-        // let level=data.level
-        // console.log(level);
-        let forId = data.for
-        // console.log(forId);
-        if (data.group_id) {
-            await getSubjectDependOnGroupId(idOfGroup)
-        }
+    //     SetdataToEdit(data)
+    //     let idOfGroup = data.group_id
+    //     // let level=data.level
+    //     // console.log(level);
+    //     let forId = data.for
+    //     // console.log(forId);
+    //     if (data.group_id) {
+    //         await getSubjectDependOnGroupId(idOfGroup)
+    //     }
 
-        let subJectId = data.subject_id
-        if (data.subject_id) {
-            await getAllUnitsDependOnSubject(subJectId)
-        }
+    //     let subJectId = data.subject_id
+    //     if (data.subject_id) {
+    //         await getAllUnitsDependOnSubject(subJectId)
+    //     }
 
-        let unitId = data.unit_id
-        if (data.unit_id) {
-            await getAllLessonsDependOnUnit(unitId)
-        }
+    //     let unitId = data.unit_id
+    //     if (data.unit_id) {
+    //         await getAllLessonsDependOnUnit(unitId)
+    //     }
 
-        let questionsIdType = data.question_type_id
-        if(data.question_type_id){
-          await  getAllshowQuistitionById(questionsIdType)
+    //     let questionsIdType = data.question_type_id
+    //     if(data.question_type_id){
+    //       await  getAllshowQuistitionById(questionsIdType)
+    //     }
+    // }
+
+    const getAllSelection = (e) => {
+        const data = { ...allDataFromAllSelection };
+        data[e.target.name] = e.target.value;
+        SetallDataFromAllSelection(data);
+    
+        let idOfGroup = data.group_id;
+        if (idOfGroup && idOfGroup !== allDataFromAllSelection.group_id) {
+            getSubjectDependOnGroupId(idOfGroup);
+        }
+    
+        let subJectId = data.subject_id;
+        if (subJectId && subJectId !== allDataFromAllSelection.subject_id) {
+            getAllUnitsDependOnSubject(subJectId);
+        }
+    
+        let unitId = data.unit_id;
+        if (unitId && unitId !== allDataFromAllSelection.unit_id) {
+            getAllLessonsDependOnUnit(unitId);
+        }
+    
+        let questionsIdType = data.question_type_id;
+        if (questionsIdType && questionsIdType !== allDataFromAllSelection.question_type_id) {
+            getAllshowQuistitionById(questionsIdType);
         }
     }
-
 
 
 

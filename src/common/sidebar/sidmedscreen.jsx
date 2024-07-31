@@ -15,6 +15,8 @@ import imagee from '../../assets/icons/create_Exam/High Importance.svg';
 import Api_website from "../../utlis/axios_utils_websit";
 import Api_Dashboard from "../../dashboard/interceptor/interceptorDashboard";
 import ModalLogOut from "../../dashboard/modal/modalLogOut";
+import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 
 function Sidmedscreen() {
   const navigate = useNavigate()
@@ -67,6 +69,21 @@ const LogOutDashBoard = ()=>{
   console.error(error);
 });
 }
+
+const [roleAceessToNav,SetroleAceessToNav]=useState(true)
+const role = useSelector((state) => state.RoleAccess.role); 
+const acccessDenied = ()=>{
+    if (role != "owner"){
+      SetroleAceessToNav(false)
+        // navigate('/dashboard/accessDenied')
+    }
+}
+useEffect(() => {
+  if (role) {
+    acccessDenied();
+  }
+}, [role]);
+
   return (
     <>
 
@@ -110,21 +127,21 @@ const LogOutDashBoard = ()=>{
                     <img style={{ width: 20, height: 20 }} src={account_supervisor_outline} alt="مشرفو الموقع" />
                   </Link>
                 </li>
-                <li className={`Icon  ${id === "7" ? "bgIcon" : " "}`}>
+               {roleAceessToNav? <li className={`Icon  ${id === "7" ? "bgIcon" : " "}`}>
                   <Link to="/dashboard/certify" onClick={() => setId(7)}>
                     <img style={{ width: 23, height: 23 }} src={ph_certificate} alt="وضع الاسئله" />
                   </Link>
-                </li>
-                <li className={`Icon  ${id === "8" ? "bgIcon" : " "}`}>
+                </li>:""}
+              { roleAceessToNav? <li className={`Icon  ${id === "8" ? "bgIcon" : " "}`}>
                   <Link to="/dashboard/waitingemis" onClick={() => setId(8)}>
                     <img style={{ width: 20, height: 20 }} src={lucide_file_input} alt="وضع الاسئله" />
                   </Link>
-                </li>
-                <li className={`Icon  ${id === "9" ? "bgIcon" : " "}`}>
+                </li>:""}
+            {  roleAceessToNav?  <li className={`Icon  ${id === "9" ? "bgIcon" : " "}`}>
                   <Link to="/dashboard/specify" onClick={() => setId(9)}>
                     <img style={{ width: 23, height: 23 }} src={tabel} alt="وضع الاسئله" />
                   </Link>
-                </li>
+                </li>:""}
                 <li className={`Icon  ${id === "10" ? "bgIcon" : " "}`}>
                   <Link to="/dashboard/putting/questions/levels=1" onClick={() => setId(10)}>
                     <img style={{ width: 18, height: 18 }} src={create_new} alt="وضع الاسئله" />

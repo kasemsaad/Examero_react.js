@@ -132,6 +132,21 @@ const LogOutDashBoard = ()=>{
   console.error(error);
 });
 }
+
+const [roleAceessToNav,SetroleAceessToNav]=useState(true)
+const role = useSelector((state) => state.RoleAccess.role); 
+const acccessDenied = ()=>{
+    if (role != "owner"){
+      SetroleAceessToNav(false)
+        // navigate('/dashboard/accessDenied')
+    }
+}
+useEffect(() => {
+  if (role) {
+    acccessDenied();
+  }
+}, [role]);
+
   return (
     <>
 
@@ -205,21 +220,21 @@ const LogOutDashBoard = ()=>{
                       <img style={{ width: 23, height: 23 }} src={ph_certificate} alt=" العقوبات" />
                     </Link>
                   </li>
-                  <li className="nav-item">
+                 {roleAceessToNav? <li className="nav-item">
                     <Link className="nav-link" to="/dashboard/certify" onClick={() => setId(8)}> الشهادات
                       <img style={{ width: 20, height: 20 }} src={lucide_file_input} alt="الشهادات" />
                     </Link>
-                  </li>
-                  <li className="nav-item">
+                  </li>:""}
+                 {roleAceessToNav? <li className="nav-item">
                     <Link className="nav-link" to="/dashboard/waitingemis" onClick={() => setId(9)}> إدخال علامات Open Emis
                       <img style={{ width: 23, height: 23 }} src={tabel} alt=" إدخال علامات Open Emis" />
                     </Link>
-                  </li>
-                  <li className="nav-item">
+                  </li>:""}
+                 {roleAceessToNav? <li className="nav-item">
                     <Link className="nav-link" to="/dashboard/specify" onClick={() => setId(10)}> جدول المواصفات
                       <img style={{ width: 18, height: 18 }} src={create_new} alt=" المواصفات" />
                     </Link>
-                  </li>
+                  </li>:""}
                   <li className="nav-item">
                     <Link className="nav-link" to="/dashboard/putting/questions/levels=1" onClick={() => setId(15)}>  انشاء الامتحان
                       <img style={{ width: 18, height: 18 }} src={create_new} alt="انشاء الاسئله" />

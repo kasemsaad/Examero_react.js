@@ -2,9 +2,19 @@ import React, { useEffect, useState } from 'react'
 import Api_Dashboard from '../../interceptor/interceptorDashboard'
 import OpenEmis from '../openEmis'
 import image from "./../../../assets/image/High Importance.svg"
+import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 
 export default function FinishedEmis() {
+
+  const navigate= useNavigate()
+  const role = useSelector((state) => state.RoleAccess.role); 
+  const acccessDenied = ()=>{
+      if (role != "owner"){
+          navigate('/dashboard/accessDenied')
+      }
+  }
     const [openEmisAllData,SetopenEmisAllData]=useState([])
     const [editId,SeteditId]=useState('')
 
@@ -114,10 +124,12 @@ export default function FinishedEmis() {
 
     useEffect(()=>{
         waitingEmisAllData()
+        acccessDenied()
     },[current_page])
     // getting ALL DATA OF WAIITING_OPENING_EMIS
     const waitingEmisAllData = async ()=>{
         await Api_Dashboard.get(`/open-emis?status=3&page=${current_page}`).then((response)=>{
+          console.log(response);
             SetopenEmisAllData(response.data.data)
             Setpagination(response.data.meta.pagination);
         }).catch((err)=>{

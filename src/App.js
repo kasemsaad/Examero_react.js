@@ -77,6 +77,7 @@ import QbankEditing from "./dashboard/QbankDetails/QbankEditing/qbankEditing.jsx
 import TeacherDash from "./dashboard/Users/Teachers/TeacherDash.jsx";
 import StudentsDash from "./dashboard/Users/Teachers/StudentDash.jsx";
 import Certify from "./dashboard/newCertify/certify.jsx";
+import AccessDinied from "./dashboard/AccessDienied/accessDinied.jsx";
 function App(props) {
   return (
     <BrowserRouter>
@@ -201,6 +202,8 @@ function App(props) {
           <Route path="qbank_edit" element={<ProtectedRoute><QbankEditing /></ProtectedRoute>} />
           <Route path="activity/mangers" element={<ProtectedRoute><MangersActivity /></ProtectedRoute>} />
           <Route path="activity/all" element={<ProtectedRoute><AllActivity /></ProtectedRoute>} />
+          <Route path="accessDenied" element={<ProtectedRoute><AccessDinied /></ProtectedRoute>} />
+
  
           <Route
             path="putting/questions/levels=1"
