@@ -3,7 +3,11 @@ import './ExamPage.css';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { Link, useNavigate } from 'react-router-dom';
-
+import { ToastContainer } from 'react-bootstrap';
+import loadIcon from '../../../assets/icons/teacherview/material-symbols_upload-sharp.svg';
+import homeLogo from './WhatsApp Image 2024-07-31 at 12.55.50_962c7e48.jpg';
+// import rightLogo from './WhatsApp Image 2024-07-31 at 12.55.50_962c7e48.jpg';
+import leftLogo from './WhatsApp Image 2024-07-31 at 12.56.09_2c113d77.jpg';
 function ExamPdf() {
   const navigate = useNavigate();
   const [dataQuestion1, setdataQuestion1] = useState([]);
@@ -13,6 +17,7 @@ function ExamPdf() {
   const [headerData2, setHeaderData2] = useState({});
   const [headerData3, setHeaderData3] = useState({});
   const [headerData4, setHeaderData4] = useState({});
+  const [totalpage, settotalpage] = useState("");
 
   useEffect(() => {
     const docString = localStorage.getItem("doc");
@@ -49,7 +54,6 @@ function ExamPdf() {
     }
  
   setTimeout(() => {
-
     const input = document.getElementById('exam-container');
     html2canvas(input, { scale: 2 }).then(canvas => {
       const imgData = canvas.toDataURL('image/png');
@@ -71,29 +75,45 @@ function ExamPdf() {
         heightLeft -= pdfHeight;
       }
         pdf.save('examSolution.pdf');
-        navigate("/ExamPdf")
+        // navigate("/ExamPdf")
             
       });
     }, 3000); 
     }, []);
+    useEffect(() => {
+      const input = document.getElementById('exam-container');
+      html2canvas(input, { scale: 2 }).then(canvas => {
+          const imgData = canvas.toDataURL('image/png');
+          const pdf = new jsPDF('p', 'mm', 'a4');
+          const pdfWidth = pdf.internal.pageSize.getWidth();
+          const pdfHeight = pdf.internal.pageSize.getHeight();
+          const imgProps = pdf.getImageProperties(imgData);
+          const imgHeight = (imgProps.height * pdfWidth) / imgProps.width;
+          const totalPages = Math.ceil(imgHeight / pdfHeight);
+          settotalpage(totalPages);
+  
+      });
+  }, []);
   
   return (
+    <>
+    {/* <ToastContainer position='top-center' /> */}
     <div dir="rtl">
       <div dir="rtl" id="exam-container" className="exam-container">
-        <div dir="rtl" className="exam-header">
-          <div dir="rtl" className="exam-logo">
-            <img src="https://i.ibb.co/7g6p4zM/logo.png" alt="logo" />
-          </div>
-          <div dir="rtl" className="exam-title">
-            Exam Header in English <br />
-            <div dir="rtl" className="exam-logo">
+      <div className="exam-header">
+            <div className="exam-logo">
+            <img  hidden={!headerData3.showJordanianLogo} src={leftLogo} alt="logo" />
+            </div>
+            <div className="exam-title">
+              ترويسة الامتحان باللغه العربية <br />
+              <div className="exam-logo">
+                <img src={homeLogo} alt="logo" />
+              </div>
+            </div>
+            <div className="exam-logo">
               <img src="https://i.ibb.co/7g6p4zM/logo.png" alt="logo" />
             </div>
           </div>
-          <div dir="rtl" className="exam-logo">
-            <img src="https://i.ibb.co/7g6p4zM/logo.png" alt="logo" />
-          </div>
-        </div>
         <div className="exam-content" dir="ltr">
           <div dir="ltr" className="exam-info" style={{ textDecoration: "underline" }}>
             {headerData1.institution}<br />
@@ -114,7 +134,7 @@ function ExamPdf() {
 
           </div>
           <div dir="ltr" className="exam-note text-center" hidden={!headerData3.showApperanceNotice}>
-            Important Note: Answer all the following questions ({headerData3.questionCount}) knowing that the number of exam pages is ()
+            Important Note: Answer all the following questions ({headerData3.questionCount}) knowing that the number of exam pages is ({totalpage})
           </div>
           {
             Array.isArray(dataQuestion1) &&
@@ -134,7 +154,7 @@ function ExamPdf() {
                               {index + 1}
                               <span>) </span>
                               {option.option}
-                              <span className='ms-1'> {option.is_correct===1?"correct answer":"" } </span>
+                              <span className='ms-1' style={{paddingLeft:"60px", color:"green"}}> {option.is_correct===1?"correct answer":"" } </span>
                               <br />
                             </div>
                           ))}
@@ -172,6 +192,8 @@ function ExamPdf() {
         </Link> */}
       </div>
     </div>
+    </>
+
   );
 }
 

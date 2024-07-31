@@ -13,6 +13,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useParams } from 'react-router-dom';
 import plus from '../../../assets/image/+.svg';
+import ChildComponent from './ExamPdfArabic.jsx';
 
 function PuttingExam5(props) {
     const notify = (AlertPointSuccess) => {
@@ -81,7 +82,8 @@ function PuttingExam5(props) {
   const [planname, setplanname] = useState("");
   const [languagePdf, setlanguagePdf] = useState("عربي");
   let counter = page;
-
+  const [preview, setPreview] = useState('');
+  
   useEffect(() => {
 
     const fetchQuestions = async () => {
@@ -605,12 +607,33 @@ const sendData=()=>{
  Api_website.post('/teachers/save-exam', DataQustion)
  .then((response) => {
   localStorage.setItem("QB",JSON.stringify(response.data.data.questions))
-  setlanguagePdf === "عربي" ?navigate("/ExamPdfArabic"):navigate("/ExamPdf")
+ if(languagePdf === "عربي"){
+  window.open('/ExamPdfArabic', '_blank')
+ } else if( languagePdf === "انجليزي"){
+  window.open('/ExamPdf', '_blank')
+ } 
+ else{
+ }
  }).catch((error) => {
           Errornotify("لم يتم إضافة أسئله للمعاينه")
           });
 
 }
+
+const handleFileChange = (event) => {
+  const file = event.target.files[0];
+  const reader = new FileReader();
+  
+  reader.onloadend = () => {
+    setPreview(reader.result);
+    navigate('', { state: { preview: reader.result } });
+  };
+  
+  if (file) {
+    reader.readAsDataURL(file);
+  }
+}
+
   return (
     <>
       <ToastContainer position='top-center' />
@@ -946,6 +969,9 @@ const sendData=()=>{
                 hidden={IsButtonshow}>
                 معاينة الامتحان
               </Button>
+              <div>
+      <input type="file" onChange={handleFileChange} />
+    </div>
             </Col>
           </Row>
 
