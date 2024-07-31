@@ -5,6 +5,9 @@ import html2canvas from 'html2canvas';
 import { Link,useNavigate } from 'react-router-dom';
 import Api_website from '../../../utlis/axios_utils_websit';
 import { toast, ToastContainer } from 'react-toastify';
+import imagee from '../../../assets/icons/create_Exam/High Importance.svg';
+import { Form, Button, Row, Col, Dropdown, DropdownButton, ProgressBar } from 'react-bootstrap';
+import loadIcon from '../../../assets/icons/teacherview/material-symbols_upload-sharp.svg';
 
 function ExamPdf() {
   const navigate = useNavigate();
@@ -15,10 +18,16 @@ function ExamPdf() {
   const [headerData2, setHeaderData2] = useState({});
   const [headerData3, setHeaderData3] = useState({});
   const [headerData4, setHeaderData4] = useState({});
+  const [subjectid, setsubjectid] = useState(null);
+  const [idGroup, setidGroup] = useState(null);
+  const [idsemester, setidsemester] = useState(null);
+  const [fileLabel, setFileLabel] = useState('تحميل ملف الاسئله '); 
+  const [fileLabel2, setFileLabel2] = useState('تحميل ملف الإجابات '); 
+
   const notify = (AlertPointSuccess) => {
     toast.success(AlertPointSuccess, {
         position: "top-center",
-        autoClose: 2000,
+        autoClose: 4000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -30,7 +39,7 @@ function ExamPdf() {
 const Errornotify = (AlertPoint) => {
   toast.error(AlertPoint, {
       position: "top-center",
-      autoClose: 2000,
+      autoClose: 4000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -99,24 +108,74 @@ const Errornotify = (AlertPoint) => {
       navigate("/ExamPdfArabicsolution")
     });
   };
-  const save=()=>{
-  const  DataQustions={
-      group_id:"",
-      subject_id:"",
-      semster:"",
-      mediaQuestion:"",
-      mediaAnswer:""
+  const getSubjectId = () => {
+    let jsonArray = [localStorage.getItem("doc1")];
+    function parseArray(array) {
+      return array.map(item => {
+        if (typeof item === 'string') {
+          try {
+            return JSON.parse(item);
+          } catch (e) {
+            console.error('Error parsing JSON:', e, 'Raw item:', item);
+            return null;
+          }
+        }
+        return item;
+      });
     }
+
+    let parsedArray = parseArray(jsonArray);
+    if (parsedArray[0] && parsedArray[0][2]) {
+      setsubjectid(JSON.parse(parsedArray[0][2]).idSubjectid);
+      setidGroup(JSON.parse(parsedArray[0][2]).idGroup);
+      setidsemester(JSON.parse(parsedArray[0][1]).semester);
+    } else {
+      navigate('/teacher/PuttingExam1');
+    }
+  }
+  useEffect(() => {
+    getSubjectId()
+  }, []);
+
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    // if (selectedFile && selectedFile.type === 'application/pdf') {
+      setFileLabel(selectedFile.name);
+    // } else {
+    //   setFileLabel('قم بتحميل الملف');
+    //   alert('يرجى تحميل ملف بصيغة PDF فقط');
+    // }
+  };
+  
+  const handleFileChange2 = (e) => {
+    const selectedFile = e.target.files[0];
+    // if (selectedFile && selectedFile.type === 'application/pdf') {
+      setFileLabel2(selectedFile.name);
+    // } else {
+    //   setFileLabel2('قم بتحميل الملف');
+    //   alert('يرجى تحميل ملف بصيغة PDF فقط');
+    // }
+  };
+  
+  const save = () => {
+    const DataQustions = {
+      group_id: idGroup,
+      subject_id: subjectid,
+      semster: idsemester,
+      mediaQuestion: fileLabel,
+      mediaAnswer: fileLabel2,
+    };
+    console.log(DataQustions);
     Api_website.post('/teachers/store-exam-info', DataQustions)
       .then((response) => {
-        
+        notify('تم الحفظ بنجاح');
       })
       .catch((error) => {
         let err = error.response.data.message;
-        Errornotify(err)
+        Errornotify(err);
+        // console.error('dddd');
       });
-  }
-
+  };
 
   return (
     <>
@@ -217,9 +276,70 @@ const Errornotify = (AlertPoint) => {
           </button>
         </Link>
         <Link > <button className="btn_putting_exam2_after text-white py-0 m-0 mt-3 mx-2 p-5" onClick={downloadPdf}>تحميل</button></Link>
-        <Link > <button className="btn_putting_exam2_after text-white py-0 m-0 mt-3 mx-2 p-5" onClick={save}>حفظ</button></Link>
+        <Link data-bs-toggle="modal" data-bs-target="#logout"> <button className="btn_putting_exam2_after text-white py-0 m-0 mt-3 mx-2 p-5" >حفظ</button></Link>
       </div>
     </div>
+
+    <div className="modal fade DElementFade" id="logout" tabIndex="-1" aria-labelledby="deleteElementModalLabel" aria-hidden="true">
+  <div className="modal-dialog DElementDialog modal-dialog-centered ele_2">
+    <div className="modal-content DElementContent modal-backdrop1">
+      <div className="modal-body DElementBody text-center">
+        {/* <img src={imagee} alt="Warning Icon" className="warning-icon" /> */}
+        <p className="modal-title DElementTitle pt-5" id="deleteElementModalLabel">رفع الملفات</p>
+        <Row className="mb-3">
+          <Col xs={12} sm={6}>
+            <Form.Group controlId="formFileUpload">
+              <div className="d-flex align-items-center justify-content-center iciio">
+                <Form.Label className="mr-2">ملف الأسئله</Form.Label>
+              </div>
+              <div className="custom-file-input-wrapper">
+                <Form.Control
+                  type="file"
+                  accept="application/pdf"
+                  onChange={handleFileChange}
+                  className="file-input"
+                />
+                <div className="custom-file-label">
+                  <div>{fileLabel}</div>
+                  <div><img src={loadIcon} alt="Upload Icon" className="load-icon" /></div>
+                </div>
+              </div>
+            </Form.Group>
+          </Col>
+          <Col xs={12} sm={6}>
+            <Form.Group controlId="formFileUpload">
+              <div className="d-flex align-items-center justify-content-center iciio">
+                <Form.Label className="mr-2">ملف الإجابات</Form.Label>
+              </div>
+              <div className="custom-file-input-wrapper">
+                <Form.Control
+                  type="file"
+                  accept="application/pdf"
+                  onChange={handleFileChange2}
+                  className="file-input"
+                />
+                <div className="custom-file-label">
+                  <div>{fileLabel2}</div>
+                  <div><img src={loadIcon} alt="Upload Icon" className="load-icon" /></div>
+                </div>
+              </div>
+            </Form.Group>
+          </Col>
+        </Row>
+      </div>
+      <div className="modal-footer DElementFooter">
+        <div>
+          <button type="button" className="btn btn-danger cancel-btn DElementSave mx-1" data-bs-dismiss="modal" onClick={save}>
+            نعم
+          </button>
+          <button type="button" className="btn-secondary cancel-btn DElementCancel mx-1" data-bs-dismiss="modal">
+            لا
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
     </>
   );
 }
