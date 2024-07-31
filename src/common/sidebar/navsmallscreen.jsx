@@ -320,7 +320,7 @@ const log= () => {
                         </Link>
                       </li>
                       <li className="nav-item">
-                        <Link className="nav-link" to="/teacher/CreateQuestation" onClick={() => setId(2)}>"وضع الاسئلة
+                        <Link className="nav-link" to="/teacher/CreateQuestation" onClick={() => setId(2)}>وضع الاسئلة
                           <img style={{ width: 18, height: 18 }} src={octiconIcon} alt="وضع الأسئلة" />
                         </Link>
                       </li>

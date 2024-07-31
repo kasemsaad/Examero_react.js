@@ -30,6 +30,9 @@ import PuttingExam3 from "./websit/teacher_view/PuttingExam1/PuttingExam3.jsx";
 import PuttingExam4 from "./websit/teacher_view/PuttingExam1/PuttingExam4.jsx";
 import PuttingExam5 from "./websit/teacher_view/PuttingExam1/PuttingExam5.jsx";
 import ExamPdf from "./websit/teacher_view/PuttingExam1/ExamePdf.jsx";
+import ExamePdfsolution from "./websit/teacher_view/PuttingExam1/ExamePdfsolution.jsx";
+import ExamPdfArabic from "./websit/teacher_view/PuttingExam1/ExamPdfArabic.jsx";
+import ExamPdfArabicsolution from "./websit/teacher_view/PuttingExam1/ExamPdfArabicsolution.jsx";
 import Certified_exam from "./websit/teacher_view/PuttingExam1/Certified_exam.jsx";
 import EmailVerificationTech from "./websit/register and login/EmailVerification/EmailVerificationtech.jsx";
 import EmailVerificationStud from "./websit/register and login/EmailVerification/EmailVerificationStud.jsx";
@@ -256,6 +259,21 @@ function App(props) {
         <Route path="ExamPdf" element={
             <ProtectedRouteWebsiteTeacher>
               <ExamPdf />
+            </ProtectedRouteWebsiteTeacher>
+          } />
+        <Route path="ExamPdfArabic" element={
+            <ProtectedRouteWebsiteTeacher>
+              <ExamPdfArabic />
+            </ProtectedRouteWebsiteTeacher>
+          } />
+        <Route path="ExamePdfsolution" element={
+            <ProtectedRouteWebsiteTeacher>
+              <ExamePdfsolution />
+            </ProtectedRouteWebsiteTeacher>
+          } />
+        <Route path="ExamPdfArabicsolution" element={
+            <ProtectedRouteWebsiteTeacher>
+              <ExamPdfArabicsolution />
             </ProtectedRouteWebsiteTeacher>
           } />
         <Route path="login_dashboard" element={<HomeDashoardLogin />} />

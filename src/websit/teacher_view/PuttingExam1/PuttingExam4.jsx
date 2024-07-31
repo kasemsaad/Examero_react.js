@@ -180,7 +180,7 @@ function PuttingExam4(props) {
                       </div>
                       <div className="form-group managerFGroup">
 
-                        <label htmlFor="lastName">العنوان</label>
+                        <label htmlFor="lastName">الرساله</label>
                         <input
                           type="text"
                           className="form-control managerControl"

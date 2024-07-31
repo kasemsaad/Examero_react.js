@@ -47,9 +47,9 @@ function ExamPdf() {
         console.error("Error parsing all:", error);
       }
     }
-  }, []);
+ 
+  setTimeout(() => {
 
-  const downloadPdf = () => {
     const input = document.getElementById('exam-container');
     html2canvas(input, { scale: 2 }).then(canvas => {
       const imgData = canvas.toDataURL('image/png');
@@ -70,11 +70,13 @@ function ExamPdf() {
         pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, imgHeight);
         heightLeft -= pdfHeight;
       }
-      pdf.save('exam.pdf');
-      navigate("/ExamePdfsolution")
-    });
-  };
-
+        pdf.save('examSolution.pdf');
+        navigate("/ExamPdf")
+            
+      });
+    }, 3000); 
+    }, []);
+  
   return (
     <div dir="rtl">
       <div dir="rtl" id="exam-container" className="exam-container">
@@ -132,6 +134,7 @@ function ExamPdf() {
                               {index + 1}
                               <span>) </span>
                               {option.option}
+                              <span className='ms-1'> {option.is_correct===1?"correct answer":"" } </span>
                               <br />
                             </div>
                           ))}
@@ -159,17 +162,14 @@ function ExamPdf() {
         </div>
       </div>
       <div className='d-flex align-items-center justify-content-center p-5'>
-        <Link to={`/teacher/PuttingExam5/${parseInt(headerData3.questionCount) + 1}`}>
+        {/* <Link to={`/teacher/PuttingExam5/${parseInt(headerData3.questionCount) + 1}`}>
           <button className="btn_putting_exam2_after text-white py-0 m-0 mt-3 mx-2 p-5">
             Previous
           </button>
-        </Link>
-        <Link>
+        </Link> */}
+        {/* <Link>
           <button className="btn_putting_exam2_after text-white py-0 m-0 mt-3 mx-2 p-5" onClick={downloadPdf}>Download</button>
-        </Link>
-        <Link>
-          <button className="btn_putting_exam2_after text-white py-0 m-0 mt-3 mx-2 p-5" onClick={downloadPdf}>Save</button>
-        </Link>
+        </Link> */}
       </div>
     </div>
   );

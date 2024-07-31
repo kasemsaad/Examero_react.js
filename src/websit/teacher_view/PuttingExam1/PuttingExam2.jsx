@@ -12,7 +12,7 @@ function PuttingExam2(props) {
   const [semester, setSemester] = useState('اختر الفصل الدراسي ');
   const [semesterName, setSemesterName] = useState('');
   const currentYear = new Date().getFullYear();
-  const [curriculum, setCurriculum] = useState(`للعام (${currentYear - 1}-${currentYear})`);
+  const [curriculum, setCurriculum] = useState(` (${currentYear - 1}-${currentYear})`);
   const [directorate, setDirectorate] = useState('إختر اسم الطالبــــ / ـــة ');
   const [examName, setExamName] = useState('');
   const [examDuration, setExamDuration] = useState('');
@@ -206,8 +206,8 @@ function PuttingExam2(props) {
                 >
                   <div className="scrollable-dropdown-list">
                     {years.map((year, index) => (
-                      <Dropdown.Item className='text-white' key={index} eventKey={`للعام ( ${year - 1} - ${year} )`}>
-                        <span className="circle arabic"></span> للعام ( {year - 1} - {year} )
+                      <Dropdown.Item className='text-white' key={index} eventKey={` ( ${year - 1} - ${year} )`}>
+                        <span className="circle arabic"></span>  ( {year - 1} - {year} )
                       </Dropdown.Item>
                     ))}
                   </div>
