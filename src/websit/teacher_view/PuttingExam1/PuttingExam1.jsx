@@ -157,9 +157,9 @@ function PuttingExam1(props) {
                                     <Dropdown.Item className='text-white' eventKey="عربي">
                                         <span className="circle arabic"></span> عربي
                                     </Dropdown.Item>
-                                    {/* <Dropdown.Item className='text-white' eventKey="انجليزي">
+                                    <Dropdown.Item className='text-white' eventKey="انجليزي">
                                         <span className="circle english"></span> انجليزي
-                                    </Dropdown.Item> */}
+                                    </Dropdown.Item>
                                 </DropdownButton>
                                 {errors.examFormat && <Form.Text className='text-danger'>{errors.examFormat}</Form.Text>}
 
