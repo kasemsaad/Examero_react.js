@@ -11,9 +11,6 @@ export default function Qbank() {
     const [groupAllData, SetgroupAllData] = useState([])
 
         const [showConfetti, setShowConfetti] = useState(false);
-
-
-
     // ---------------------------------------------------------------------
     const [inputs, setInputs] = useState([
         { option: "", is_correct: false, image: '' },
@@ -68,7 +65,6 @@ export default function Qbank() {
 
     const [inputsOne, setinputsOne] = useState([
         { option: "", is_correct: false, image: '' }
-
     ]);
 
     const handleChangeOneInput = (index, event) => {
@@ -83,6 +79,7 @@ export default function Qbank() {
         }
         setinputsOne(newInputs);
     };
+
 
  
     // -----------------------------------------------------------------------------
@@ -136,10 +133,14 @@ export default function Qbank() {
             image: "",
 
         })
+        SetshowQuistitionById({});
         SetsubjectAllData([]);
         SetunitAllData([]);
         SetallLesson([]);
-        SetshowQuistitionById([]);
+
+        // console.log(showQuistitionById);
+        
+
     };
     
 
@@ -166,82 +167,122 @@ export default function Qbank() {
 
     const [idOfGroup, SetidOfGroup] = useState('')
 
-    // const getAllSelection = async (e) => {
+    // const getAllSelection =  (e) => {
     //     const data = { ...allDataFromAllSelection }
-    //     data[e.target.name] = e.target.value
-    //     // data.image=e.target.files[0]
-        
+    //     data[e.target.name] = e.target.value        
     //     SetallDataFromAllSelection(data)
     //     let idOfGroup = data.group_id
-    //     // let level=data.level
-    //     // console.log(level);
-    //     let forId = data.for
-    //     // console.log(forId);
+     
     //     if (data.group_id) {
-    //         await getSubjectDependOnGroupId(idOfGroup)
+    //          getSubjectDependOnGroupId(idOfGroup)
     //     }
 
-    //     let subJectId = data.subject_id
+    //     let subJectId = data.subject_id 
     //     if (data.subject_id) {
-    //         await getAllUnitsDependOnSubject(subJectId)
+    //          getAllUnitsDependOnSubject(subJectId)
+
     //     }
 
     //     let unitId = data.unit_id
     //     if (data.unit_id) {
-    //         await getAllLessonsDependOnUnit(unitId)
+    //          getAllLessonsDependOnUnit(unitId)
     //     }
 
     //     let questionsIdType = data.question_type_id
-    //     if(data.question_type_id){
-    //       await  getAllshowQuistitionById(questionsIdType)
+    //     if(questionsIdType){
+    //         getAllshowQuistitionById(questionsIdType)
     //     }
     // }
-    const handelChange = (e) => {
-        const { name, value } = e.target;
-        SetallDataFromAllSelection((prev) => ({
-            ...prev,
-            [name]: value,
-          }));
-          console.log(allDataFromAllSelection);
+  
+
+
+    const getAllSelection = (e) => {
+        const data = { ...allDataFromAllSelection };
+        data[e.target.name] = e.target.value;
+        SetallDataFromAllSelection(data);
+    
+        let idOfGroup = data.group_id;
+        if (idOfGroup && idOfGroup !== allDataFromAllSelection.group_id) {
+            getSubjectDependOnGroupId(idOfGroup);
+        }
+    
+        let subJectId = data.subject_id;
+        if (subJectId && subJectId !== allDataFromAllSelection.subject_id) {
+            getAllUnitsDependOnSubject(subJectId);
+        }
+    
+        let unitId = data.unit_id;
+        if (unitId && unitId !== allDataFromAllSelection.unit_id) {
+            getAllLessonsDependOnUnit(unitId);
+        }
+    
+        let questionsIdType = data.question_type_id;
+        if (questionsIdType && questionsIdType !== allDataFromAllSelection.question_type_id) {
+            getAllshowQuistitionById(questionsIdType);
+        }
     }
     
 
 
- let timeout;
-const getAllSelection = async (e) => {
-    clearTimeout(timeout); 
+
+
+    // const getAllSelection = async (e) => {
+    //     const data = { ...allDataFromAllSelection };
+    //     data[e.target.name] = e.target.value;
+    //     SetallDataFromAllSelection(data);
     
-        const data = { ...allDataFromAllSelection }
+    //     if (data.group_id && data.group_id !== idOfGroup) {
+    //         // setidOfGroup(data.group_id);
+    //         await getSubjectDependOnGroupId(data.group_id);
+    //     }
+    
+    //     if (data.subject_id && data.subject_id !== subjectId) {
+    //         // setSubjectId(data.subject_id);
+    //         await getAllUnitsDependOnSubject(data.subject_id);
+    //     }
+    
+    //     if (data.unit_id && data.unit_id !== unitId) {
+    //         // setUnitId(data.unit_id);
+    //         await getAllLessonsDependOnUnit(data.unit_id);
+    //     }
+    
+    //     if (data.question_type_id && data.question_type_id !== questionTypeId) {
+    //         // setQuestionTypeId(data.question_type_id);
+    //         await getAllshowQuistitionById(data.question_type_id);
+    //     }
+    // };
+    
 
-        data[e.target.name] = e.target.value;
-        SetallDataFromAllSelection(data)
-      
+//  let timeout;
+// const getAllSelection = async (e) => {
+//     clearTimeout(timeout); 
+//         const data = { ...allDataFromAllSelection }
+//         data[e.target.name] = e.target.value;
+//         SetallDataFromAllSelection(data)
+//         timeout = setTimeout(async () => {
+//         let idOfGroup = data.group_id;
+    
+//         if (data.group_id) {
+//             await getSubjectDependOnGroupId(idOfGroup);
+//         }
 
-        console.log(data);
-        timeout = setTimeout(async () => {
-        let idOfGroup = data.group_id;
-       
-        
-        if (data.group_id) {
-            await getSubjectDependOnGroupId(idOfGroup);
-        }
+//         let subJectId = data.subject_id;
+//         if (data.subject_id) {
+//             await getAllUnitsDependOnSubject(subJectId);
+//         }
 
-        let subJectId = data.subject_id;
-        if (data.subject_id) {
-            await getAllUnitsDependOnSubject(subJectId);
-        }
+//         let unitId = data.unit_id;
+//         if (data.unit_id) {
+//             await getAllLessonsDependOnUnit(unitId);
+//         }
 
-        let unitId = data.unit_id;
-        if (data.unit_id) {
-            await getAllLessonsDependOnUnit(unitId);
-        }
+//         let questionsIdType = data.question_type_id;
+//         if (data.question_type_id) {
+//             await getAllshowQuistitionById(questionsIdType);
+//         }
+//     }, 500); // Delay of 500ms (adjust as needed)
+// }
 
-        let questionsIdType = data.question_type_id;
-        if (data.question_type_id) {
-            await getAllshowQuistitionById(questionsIdType);
-        }
-    }, 500); // Delay of 500ms (adjust as needed)
-}
 
 
 
@@ -278,20 +319,15 @@ const [allLesson,SetallLesson]=useState([])
     }
 
 
-    const [showQuistitionById,SetshowQuistitionById]=useState([])
+    const [showQuistitionById,SetshowQuistitionById]=useState({})
     const getAllshowQuistitionById = async (idOfquesId) => {
         await Api_Dashboard.get(`/questions-type/${idOfquesId}`).then((response) => {
+            // console.log(response.data.data);
             SetshowQuistitionById(response.data.data)
         }).catch((err) => {
             console.log(err);
         })
     }
-
-
-
-
-
-
 
     const [typeOfQuistition, SettypeOfQuistition] = useState([])
     const getTypeOfQustition = async () => {
@@ -312,8 +348,17 @@ const [allLesson,SetallLesson]=useState([])
         getAllGroup()
         getTypeOfQustition()
 
-
     }, [])
+    const [isLoading, setIsLoading] = useState(false);
+
+    // const startLoadingAndSubmit = (event) => {
+    //     event.preventDefault(); // منع الإرسال الافتراضي للنموذج
+    //     setIsLoading(true); // تعيين حالة التحميل على true
+    //     setTimeout(() => {
+    //         handlaeSubmit(); // استدعاء دالة handlaeSubmit بعد التأخير
+    //         setIsLoading(false); // تعيين حالة التحميل على false بعد استدعاء الدالة
+    //     }, 5000); // التأخير لمدة 10 ثوانٍ
+    // };
 
 
     const handlaeSubmit = async (event)=>{
@@ -391,35 +436,35 @@ const [allLesson,SetallLesson]=useState([])
         payload.options = oneInputs
     }
 // ------------------------------------------------
-        await Api_Dashboard.post('/questions',payload,{
-            headers: {
-              'Content-Type': 'multipart/form-data'
-            }
-          }).then((response)=>{
-            Notify(response.data.Message)
-            console.log(response.data.Message);
-            clearNameField()
-            setShowConfetti(true);
-            setTimeout(() => {
-              setShowConfetti(false);
-            }, 3000);
-            resetForm(); 
 
 
-          }).catch((err)=>{
-            NotifyError(err.response.data.message)
-            console.log(err);
-          
-          })
+    await Api_Dashboard.post('/questions',payload,{
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then((response)=>{
+        Notify(response.data.Message)
+        console.log(response.data.Message);
+        // clearNameField()
+        setShowConfetti(true);
+        setTimeout(() => {
+          setShowConfetti(false);
+        }, 3000);
+        resetForm(); 
+    //    SetshowQuistitionById({});
+
+      }).catch((err)=>{
+        NotifyError(err.response.data.message)
+        console.log(err);
+      
+      })    
 }
 
-const clearNameField = () => {
-    SetallDataFromAllSelection(prevState => ({
-      ...prevState,
-      name: "",
-    }));
-  };
-  
+
+//   console.log(showQuistitionById);
+// console.log(allDataFromAllSelection);
+          
+
     return (<>
     {showConfetti && (
                         <Confetti
@@ -449,6 +494,25 @@ const clearNameField = () => {
 
                     <div className='col-3 mt-4 ' style={{ height: "auto", borderRadius: "10px" }}>
                         <div className='wraber_elsf pt-3  pb-3'>
+                        <div className='mt-2'>
+                                <label htmlFor=" ">نوع السؤال</label>
+                                <select
+                                    id="dataSelect"
+                                    className="form-select"
+                                    onChange={getAllSelection}
+                                    name='question_type_id'
+                                    required
+                                    value={allDataFromAllSelection.question_type_id}
+
+                                >
+                                    <option value="" disabled selected>اختر نوع السؤال</option>
+                                    {typeOfQuistition.map((item, index) => (
+                                        <option key={index} value={item.id}>
+                                            {item.name}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
                             <div>
                                 <label htmlFor=" "> الفصل الدراسي</label>
                                 <select id="dataSelect"
@@ -456,6 +520,10 @@ const clearNameField = () => {
                                     onChange={getAllSelection}
                                     required
                                     name='semster'
+                                    value={allDataFromAllSelection.semster}
+
+
+
                                     >
                                     <option value="" disabled selected>اختر الفصل الدراسي</option>
                                     <option value="1">الفصل الدرسي الأول </option>
@@ -471,6 +539,7 @@ const clearNameField = () => {
                                     name='group_id'
                                     onChange={getAllSelection}
                                     required
+                                    value={allDataFromAllSelection.group_id}
                                 >
                                     <option value="" disabled selected>اختر الصف</option>
                                     {groupAllData.map((item, index) => (
@@ -481,7 +550,7 @@ const clearNameField = () => {
                                 </select>
                             </div>
 
-                            <div className='mt-2'>
+                          { allDataFromAllSelection.group_id? <div className='mt-2'>
                                 <label htmlFor=" ">المبحث</label>
                                 <select
                                     id="dataSelect"
@@ -489,6 +558,8 @@ const clearNameField = () => {
                                     name='subject_id'
                                     onChange={getAllSelection}
                                     required
+                                    value={allDataFromAllSelection.subject_id}
+
                                 >
                                     <option value="" disabled selected>اختر المبحث</option>
                                     {subjectAllData.map((item, index) => (
@@ -497,9 +568,9 @@ const clearNameField = () => {
                                         </option>
                                     ))}
                                 </select>
-                            </div>
+                            </div>:""}
 
-                            <div className='mt-2'>
+                          {  allDataFromAllSelection.subject_id?<div className='mt-2'>
                                 <label htmlFor=" ">الوحده</label>
                                 <select
                                     id="dataSelect"
@@ -508,6 +579,8 @@ const clearNameField = () => {
                                     name='unit_id'
                                     onChange={getAllSelection}
                                     required
+                                    value={allDataFromAllSelection.unit_id}
+
                                 >
                                     <option value="" disabled selected>اختر الوحده</option>
                                     {unitAllData.map((item, index) => (
@@ -516,11 +589,11 @@ const clearNameField = () => {
                                         </option>
                                     ))}
                                 </select>
-                            </div>
+                            </div>:""}
 
 
 
-                            <div className='mt-2'>
+                         {  allDataFromAllSelection.unit_id? <div className='mt-2'>
                                 <label htmlFor=" ">اختر السؤال</label>
                                 <select
                                     id="dataSelect"
@@ -528,15 +601,17 @@ const clearNameField = () => {
                                     name='lesson_id'
                                     onChange={getAllSelection}
                                     required
+                                    value={allDataFromAllSelection.lesson_id}
+
                                 >
-                                    <option value="" disabled selected>اختر السؤال</option>
+                                    <option value="" disabled selected> اسم الدرس </option>
                                     {allLesson.map((item, index) => (
                                         <option key={index} value={item.id}>
                                             {item.name}
                                         </option>
                                     ))}
                                 </select>
-                            </div>
+                            </div>:""}
 
 
 
@@ -548,6 +623,8 @@ const clearNameField = () => {
                                     onChange={getAllSelection}
                                     name='level'
                                     required
+                                    value={allDataFromAllSelection.level}
+
                                 >
                                     <option value="" disabled selected> مستوي السؤال</option>
 
@@ -573,23 +650,7 @@ const clearNameField = () => {
 
 
 
-                            <div className='mt-2'>
-                                <label htmlFor=" ">نوع السؤال</label>
-                                <select
-                                    id="dataSelect"
-                                    className="form-select"
-                                    onChange={getAllSelection}
-                                    name='question_type_id'
-                                    required
-                                >
-                                    <option value="" disabled selected>اختر نوع السؤال</option>
-                                    {typeOfQuistition.map((item, index) => (
-                                        <option key={index} value={item.id}>
-                                            {item.name}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
+                        
 
 
                             <div className='mt-2'>
@@ -600,6 +661,8 @@ const clearNameField = () => {
                                     name="for"
                                     onChange={getAllSelection}
                                     required
+                                    value={allDataFromAllSelection.for}
+
                                 >
                                     <option value="" disabled selected> اختر صيغة السؤال</option>
                                     <option value="2">مذكر</option>
@@ -617,6 +680,8 @@ const clearNameField = () => {
                                     name="has_branch"
                                     onChange={getAllSelection}
                                     required
+                                    value={allDataFromAllSelection.has_branch}
+
                                 >
                                     <option value="" disabled selected>اختر التفرع</option>
                                     <option value="0">رئيسي</option>
@@ -632,6 +697,8 @@ const clearNameField = () => {
                                     name="is_choose"
                                     onChange={getAllSelection}
                                     required
+                                    value={allDataFromAllSelection.is_choose}
+
                                 >
                                     <option value="" disabled selected> هل اختياري</option>
                                     <option value="1">نعم</option>
@@ -642,7 +709,8 @@ const clearNameField = () => {
 
                             <div className='mt-2'>
                                 <label htmlFor=" "> درجه السؤال </label>
-                                <input onChange={getAllSelection} name='point' type="number" className="form-control" placeholder="درجه السؤال" required />
+                                <input onChange={getAllSelection} name='point' type="number" className="form-control" placeholder="درجه السؤال" required value={allDataFromAllSelection.point}
+ />
                             </div>
 
 
@@ -799,7 +867,9 @@ const clearNameField = () => {
                 </div>
                 <div className='col-12 mt-4' style={{ direction: "ltr" }}>
                     <div>
-                        <button type='submit' className='btn' style={{ backgroundColor: "#C01F59" ,color:"#ffff"}}>حفظ</button>
+                        <button type='submit'        
+                             disabled={isLoading} // تعطيل الزر أثناء التحميل
+ className='btn' style={{ backgroundColor: "#C01F59" ,color:"#ffff"}}>حفظ</button>
                     </div>
                 </div>
             </form>

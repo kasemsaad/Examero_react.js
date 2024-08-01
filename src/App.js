@@ -83,13 +83,14 @@ import QbankEditing from "./dashboard/QbankDetails/QbankEditing/qbankEditing.jsx
 import TeacherDash from "./dashboard/Users/Teachers/TeacherDash.jsx";
 import StudentsDash from "./dashboard/Users/Teachers/StudentDash.jsx";
 import Certify from "./dashboard/newCertify/certify.jsx";
-
+import AccessDinied from "./dashboard/AccessDienied/accessDinied.jsx";
 import Home_teacher from "./websit/hometeacher/hometeacher.jsx";
 import SpecificationTeacher from "./websit/Specification_teacher/Specification_teacher.jsx";
 import OpenEmisTable from "./websit/OpenEmisTable/OpenEmisTable.jsx";
 import CertificationTeacher from "./websit/certificationTeacher/certificationTeacher.jsx";
 import { QbankTeacherTable } from "./websit/qbankk/qbankteacher.jsx";
 import CreateQuestation from "./websit/qbankk/createquestation.jsx";
+
 function App(props) {
   return (
     <BrowserRouter>
@@ -291,12 +292,11 @@ function App(props) {
             }
           />
 
-
-          <Route path="b" element={<ProtectedRoute><AccountSetting /></ProtectedRoute>} />
-          <Route path="certify" element={<ProtectedRoute><CertificateGenerator />  </ProtectedRoute>} />
-          <Route path="qbank" element={<ProtectedRoute><Qbank /></ProtectedRoute>} />
-          <Route path="specify" element={<ProtectedRoute><Specification /></ProtectedRoute>} />
-          <Route path="PlansTeacher" element={<ProtectedRoute><PlansTeacher /></ProtectedRoute>} />
+          <Route path="b" element={ <ProtectedRoute><AccountSetting /></ProtectedRoute>} />
+          <Route path="certify" element={  <ProtectedRoute><CertificateGenerator />  </ProtectedRoute>} />
+          <Route path="qbank" element={  <ProtectedRoute><Qbank /></ProtectedRoute>} />
+          <Route path="specify" element={ <ProtectedRoute><Specification /></ProtectedRoute>} />
+          <Route path="PlansTeacher" element={ <ProtectedRoute><PlansTeacher /></ProtectedRoute>} />
           <Route path="planstudent" element={<ProtectedRoute><PlansStudent /></ProtectedRoute>} />
           <Route path="waitingemis" element={<ProtectedRoute><WaitingEmis /></ProtectedRoute>} />
           <Route path="recivedemis" element={<ProtectedRoute><RecivedEmis /></ProtectedRoute>} />
@@ -309,6 +309,7 @@ function App(props) {
           <Route path="qbank_edit" element={<ProtectedRoute><QbankEditing /></ProtectedRoute>} />
           <Route path="activity/mangers" element={<ProtectedRoute><MangersActivity /></ProtectedRoute>} />
           <Route path="activity/all" element={<ProtectedRoute><AllActivity /></ProtectedRoute>} />
+          <Route path="accessDenied" element={<ProtectedRoute><AccessDinied /></ProtectedRoute>} />
 
           <Route
             path="putting/questions/levels=1"

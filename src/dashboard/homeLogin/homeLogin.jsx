@@ -10,6 +10,9 @@ import Create_acc from "./.././../websit/register and login/create_acc/create_ac
 import axios, { Axios } from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import Api_Dashboard from "../interceptor/interceptorDashboard.jsx";
+import { useDispatch } from "react-redux";
+import { ROLE } from "../../redux/Types/types.jsx";
+import { fetchRoleAndImage } from "../../redux/reducer/actions/action.jsx";
 
 function HomeDashoardLogin() {
   const navigate = useNavigate();
@@ -21,8 +24,8 @@ function HomeDashoardLogin() {
   )
   }
 
-
-
+  
+  const dispatch = useDispatch()
 
   let [formData, setFormdata] = useState({
     email: "",
@@ -43,7 +46,10 @@ function HomeDashoardLogin() {
     await Api_Dashboard.post("/login", formData)
       .then((response) => {
         localStorage.setItem("token", response.data.access_token);
+
+        dispatch(fetchRoleAndImage());
         setId(1)
+
         navigate("/dashboard");
       })
       .catch((err) => {
@@ -52,6 +58,10 @@ function HomeDashoardLogin() {
         setTimeout(() => setAlertForm(false), 3000);
       });
   };
+
+
+
+  
 
   return (
     <div className="collContainer">

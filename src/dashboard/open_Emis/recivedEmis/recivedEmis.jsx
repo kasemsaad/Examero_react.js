@@ -2,8 +2,18 @@ import React, { useEffect, useState } from 'react'
 import Api_Dashboard from '../../interceptor/interceptorDashboard'
 import OpenEmis from '../openEmis'
 import ModalDelete, { Notify, NotifyError } from '../../Alert/alertToast'
+import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 export default function RecivedEmis() {
+
+  const navigate= useNavigate()
+  const role = useSelector((state) => state.RoleAccess.role); 
+  const acccessDenied = ()=>{
+      if (role != "owner"){
+          navigate('/dashboard/accessDenied')
+      }
+  }
   const [openEmisAllData, SetopenEmisAllData] = useState([])
   const [editId, SeteditId] = useState('')
 
@@ -90,7 +100,12 @@ export default function RecivedEmis() {
     console.log(row.id);
     await Api_Dashboard.get(`/open-emis/${row.id}`).then((response) => {
       SeteditId(row.id)
-      SetInputEditWaitinOpenEmis(response.data.data)
+      // SetInputEditWaitinOpenEmis(response.data.data)
+      const { note, status } = response.data.data;
+      SetInputEditWaitinOpenEmis({
+        note: note || '',
+        status: status || '',
+      });
       waitingEmisAllData()
     }).catch((err) => {
       console.log(err);
@@ -101,6 +116,7 @@ export default function RecivedEmis() {
 
   useEffect(() => {
     waitingEmisAllData()
+    acccessDenied()
   }, [current_page])
   // getting ALL DATA OF WAIITING_OPENING_EMIS
   const waitingEmisAllData = async () => {

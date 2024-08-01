@@ -49,31 +49,7 @@ function Navsmallscreen() {
  
 
 
-  // const linksProfile = () => {
-  //   if (location.pathname.startsWith('/dashboard')) {
-  //     navigate("/dashboard/b");
-  //   } else if (location.pathname.startsWith('/student')) {
-  //     navigate("/student/editStudentProfaile");
-  //   } else if (location.pathname.startsWith('/teacher')) {
-  //     navigate("/teacher/TeacherProfile");
-  //   } else {
-  //     navigate("/");
-  //   }
-  // };
 
-
-  const getRefresh = async () => {
-    await Api_Dashboard.get(`/refresh`)
-      .then(response => {
-        let name_image = response.data.User.media.name
-        SetpersonalDashboard(name_image);
-
-      })
-      .catch(error => {
-
-        console.error("Error fetching subjects data:");
-      });
-  }
   const getRefreshstudent = async () => {
     await Api_Website.get(`/students/refresh`)
       .then(response => {
@@ -109,10 +85,47 @@ const user=localStorage.getItem("user")
 
   }, [personalDashboard])
 
+
+  const linksProfile = () => {
+    if (location.pathname.startsWith('/dashboard')) {
+      navigate("/dashboard/b");
+    } else if (location.pathname.startsWith('/student')) {
+      navigate("/student/editStudentProfaile");
+    } else if (location.pathname.startsWith('/teacher')) {
+      navigate("/");
+    } else {
+      navigate("/");
+    }
+  };
+
+
+  const getRefresh = async () => {
+    await Api_Dashboard.get(`/refresh`)
+      .then(response => {
+        // console.log(response);
+        let name_image = response.data.User.media.name
+        SetpersonalDashboard(name_image);
+
+      })
+      .catch(error => {
+
+        console.error("Error fetching subjects data:");
+      });
+  }
+
+
+  useEffect(() => {
+    getRefresh()
+    getRefreshstudent()
+
+  }, [personalDashboard])
+
+    
 const LogOutDashBoard = ()=>{
            
   Api_Dashboard.post(`/logout`)
 .then(response => { 
+  // console.log("mosyafa ");     
   localStorage.removeItem("token");
   navigate("/login_dashboard")
   setId(1)
@@ -121,6 +134,21 @@ const LogOutDashBoard = ()=>{
   console.error(error);
 });
 }
+
+const [roleAceessToNav,SetroleAceessToNav]=useState(true)
+const role = useSelector((state) => state.RoleAccess.role); 
+const acccessDenied = ()=>{
+    if (role != "owner"){
+      SetroleAceessToNav(false)
+        // navigate('/dashboard/accessDenied')
+    }
+}
+useEffect(() => {
+  if (role) {
+    acccessDenied();
+  }
+}, [role]);
+
 
 
 const log= () => {
@@ -149,6 +177,7 @@ const log= () => {
             });
           }
 }
+
   return (
     <>
       <ToastContainer />
@@ -190,6 +219,7 @@ const log= () => {
                 <ul className="navbar-nav navbar-nav-small" dir="ltr" >
                   <li className="nav-item " >
                     <Link className="nav-link" aria-current="page" to="/dashboard" onClick={() => setId(1)}>الرئيسية
+
                     <img src={homeIcon} style={{width:"21px",marginLeft:"10px"}} alt="الرئيسية" />
                     </Link>
                   </li>
@@ -223,21 +253,22 @@ const log= () => {
                       <img style={{ width: 23, height: 23 }} src={ph_certificate} alt=" العقوبات" />
                     </Link>
                   </li>
-                  <li className="nav-item">
+                 {roleAceessToNav? <li className="nav-item">
                     <Link className="nav-link" to="/dashboard/certify" onClick={() => setId(8)}> الشهادات
                       <img style={{ width: 20, height: 20 }} src={lucide_file_input} alt="الشهادات" />
                     </Link>
-                  </li>
-                  <li className="nav-item">
+                  </li>:""}
+                 {roleAceessToNav? <li className="nav-item">
                     <Link className="nav-link" to="/dashboard/waitingemis" onClick={() => setId(9)}> إدخال علامات Open Emis
                       <img style={{ width: 23, height: 23 }} src={tabel} alt=" إدخال علامات Open Emis" />
+
                     </Link>
-                  </li>
-                  <li className="nav-item">
+                  </li>:""}
+                 {roleAceessToNav? <li className="nav-item">
                     <Link className="nav-link" to="/dashboard/specify" onClick={() => setId(10)}> جدول المواصفات
                       <img style={{ width: 18, height: 18 }} src={create_new} alt=" المواصفات" />
                     </Link>
-                  </li>
+                  </li>:""}
                   <li className="nav-item">
                     <Link className="nav-link" to="/dashboard/putting/questions/levels=1" onClick={() => setId(15)}>  انشاء الامتحان
                       <img style={{ width: 18, height: 18 }} src={create_new} alt="انشاء الاسئله" />
@@ -393,6 +424,7 @@ const log= () => {
 
                   location.pathname.startsWith('/dashboard') ? `${Api_dashboard.defaults.baseURL}/assets/Admin/${personalDashboard}` :
                     location.pathname.startsWith('/student') ? `${Api_dashboard.defaults.baseURL}/assets/Student/${personalStudent}` :
+
                       location.pathname.startsWith('/teacher')? `${Api_dashboard.defaults.baseURL}/assets/Teacher/${personalTeacher}`:
                       ""
                 }

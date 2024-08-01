@@ -2,8 +2,19 @@ import React, { useEffect, useState } from 'react'
 import Api_Dashboard from '../../interceptor/interceptorDashboard'
 import OpenEmis from '../openEmis'
 import Confetti from 'react-confetti'
+import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 export default function WaitingEmis() {
+
+  const navigate= useNavigate()
+  const role = useSelector((state) => state.RoleAccess.role); 
+  const acccessDenied = ()=>{
+      if (role != "owner"){
+          navigate('/dashboard/accessDenied')
+      }
+  }
+  
     const [openEmisAllData,SetopenEmisAllData]=useState([])
     const [editId,SeteditId]=useState('')
     const [showConfetti, setShowConfetti] = useState(false);
@@ -54,16 +65,15 @@ export default function WaitingEmis() {
 // post request
       const handlemodal = async(event) => {
         event.preventDefault();
+        // console.log(InputEditWaitinOpenEmis);
         const dataToSend = { ...InputEditWaitinOpenEmis };
+        // console.log(dataToSend);
         if (dataToSend.note == undefined || dataToSend.note == null || dataToSend.note == "") {
           delete dataToSend.note;
         }
-
-
         if (dataToSend.status[0] == 1 || dataToSend.status == null || dataToSend.status == "") {
           delete dataToSend.status;
         }
-
         console.log(dataToSend);
         await Api_Dashboard.post(`/open-emis/${editId}`,
          dataToSend   
@@ -76,21 +86,20 @@ export default function WaitingEmis() {
            modalElement.style.display = "none"
           
           waitingEmisAllData()
-
-          SetInputEditWaitinOpenEmis(prevState => ({
-            ...prevState,
-            note: "",
-            status: ""
+          SetInputEditWaitinOpenEmis(pre=>({
+            ...pre,
+            note: '',
+            status: '',
           }));
+          console.log('State after reset:', InputEditWaitinOpenEmis);
 
         }).catch((err)=>{
           console.log(err);
         
-          SetInputEditWaitinOpenEmis(prevState => ({
-            ...prevState,
-            note: "",
-            status: ""
-          }));
+          SetInputEditWaitinOpenEmis({
+            note: '',
+            status: '',
+          });
 
         })
       };
@@ -102,7 +111,12 @@ export default function WaitingEmis() {
             SeteditId(row.id)
             // console.log(row.id);
             // console.log(response.data.data);
-            SetInputEditWaitinOpenEmis(response.data.data)
+            const { note, status } = response.data.data;
+            SetInputEditWaitinOpenEmis({
+              note: note || '',
+              status: status || '',
+            });
+            // SetInputEditWaitinOpenEmis()
             //  waitingEmisAllData()
          }).catch((err)=>{
           console.log(err);
@@ -113,6 +127,7 @@ export default function WaitingEmis() {
 
     useEffect(()=>{
         waitingEmisAllData()
+        acccessDenied()
     },[current_page])
     // getting ALL DATA OF WAIITING_OPENING_EMIS
     const waitingEmisAllData = async ()=>{
@@ -187,7 +202,7 @@ dataRender={openEmisAllData}
                    id="exampleFormControlTextarea1" 
                    rows="3" name='note'
                      value={InputEditWaitinOpenEmis.note} 
-                     onChange={(e)=>getEditingInputs(e)}
+              onChange={getEditingInputs}
                      required
                    
                    > </textarea>

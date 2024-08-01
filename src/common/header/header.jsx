@@ -48,6 +48,7 @@ function Header() {
   const getRefresh = async () => {
     await Api_Dashboard.get(`/refresh`)
       .then((response) => {
+
         let name_image = response.data.User.media.name;
         SetpersonalDashboard(name_image);
       })

@@ -5,6 +5,10 @@ import Api_Dashboard from '../interceptor/interceptorDashboard';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import html2pdf from 'html2pdf.js'; // استيراد مكتبة html2pdf.js
+import { useDispatch, useSelector } from 'react-redux';
+import { ROLE } from '../../redux/Types/types';
+import { fetchRoleAndImage } from '../../redux/reducer/actions/action';
+import { useNavigate } from 'react-router-dom';
 
 export default function Specification() {
 
@@ -15,6 +19,22 @@ export default function Specification() {
     const [AlertPoint, SetAlertPoint] = useState('')
     const [AlertPointSuccess, SetAlertPointSuccess] = useState('')
     const [idOfPointSelected, SetidOfPointSelected] = useState('')
+    const navigate = useNavigate()
+
+    const role = useSelector((state) => state.RoleAccess.role); 
+    const acccessDenied = ()=>{
+        if (role != "owner"){
+            navigate('/dashboard/accessDenied')
+        }
+    }
+    useEffect(()=>{
+        acccessDenied()
+    },[])
+
+   
+
+
+
 
     
 
