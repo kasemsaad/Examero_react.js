@@ -118,7 +118,9 @@ export default function QbankDetails() {
 
                 <div className='col-12  mt-3 d-flex ' style={{ alignItems: "center", }}>
                     <div className="" style={{ width: "5.333333%" }}>
-                        <img src={QbankLogo} className="img-fluid rounded-circle" alt="صورة شخصية" />
+                        {/* <img src={QbankLogo} className="img-fluid rounded-circle" alt="صورة شخصية" /> */}
+                     <img src={QbankLogo}  alt="صورة شخصية" />
+
                     </div>
                     <div className='col-6'>
                         <p style={{ margin: '0', padding: "0", color: "#FFFFFF", fontWeight: "700", fontSize: '24px' }}>بنك الأسئلة</p>
