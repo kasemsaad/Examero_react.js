@@ -27,10 +27,12 @@ ul{
 }
 .sidbar {
   width: 260px !important;
-  height: 586px !important;
+  /* height: 586px !important; */
   border-radius: 30px;
   padding-top: 10px;
   /* border: 7px solid var(--darkblue)  ; */
+  padding-bottom: 10px !important;
+
   background-color: var(--gray);
 }
 .sidbar .sidbarSidbar{
@@ -38,9 +40,11 @@ ul{
   background-image: url(../../assets/icons/sidebar/Vector\ 1.svg);
   background-repeat: no-repeat;
   width: 75px;
-  height: 81vh !important;
+  /* height: 81vh !important; */
   margin-top: -20px;
-  margin-right: -35px;
+  margin-right: -30px;
+  padding-bottom: 40px;
+  background-size: contain !important;
 }
 .sidbar .sidbarSidbar ul{
   display: flex;
@@ -167,13 +171,14 @@ margin-bottom: 0px;
       }
       .sidbarmed .sidbarSidbar{
         position: absolute;
-        background-image: url(../../assets/icons/sidebar/Vector\ 1.svg);
-        background-size: 102% 75%;
-        background-repeat: no-repeat;
-        width: 75px;
-        height: 81vh !important;
-        margin-top: -20px;
-        margin-right: -15px;
+  background-image: url(../../assets/icons/sidebar/Vector\ 1.svg);
+  background-repeat: no-repeat;
+  width: 75px;
+  /* height: 81vh !important; */
+  margin-top: -20px;
+  margin-right: -30px;
+  padding-bottom: 30px;
+  background-size: contain !important;
       }
       .sidbarmed .sidbarSidbar ul{
         display: flex;
@@ -181,7 +186,7 @@ margin-bottom: 0px;
         justify-content: center;
         flex-direction: column;
         width:90px;
-        margin-top: 10px;
+        margin-right: 10px;
       }
       .sidbarmed .sidbarSidbar ul li{
        margin-top: 15.5px;

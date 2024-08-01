@@ -35,7 +35,8 @@ function PuttingExam3(props) {
   const [planname, setplanname] = useState("الباقات");
   const [planid, setplanid] = useState("");
   const [planss, setplans] = useState("");
-
+  const [preview, setPreview] = useState('');
+  const [file, setfile] = useState("")
 
   useEffect(() => {
     const fetchGroups = async () => {
@@ -239,8 +240,25 @@ const validateForm = () => {
       if (validateForm()) {
         handleSubmit(e);
       }
+
+
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        const preview = reader.result;
+        setPreview(preview);
+        localStorage.setItem('preview', preview);
+      };
+      if (file) {
+        reader.readAsDataURL(file);
+      }
+
     };
 
+    const handleFileChangee = (event) => {
+      const file = event.target.files[0];
+      setfile(file)
+    }
 
   return (
     <>
@@ -355,15 +373,14 @@ const validateForm = () => {
         </Row>
 
         <Row className="mb-3">
-          {/* <Col xs={12} sm={6}>
+          <Col xs={12} sm={6}>
             <Form.Group controlId="formFileUpload">
               <div className="d-flex align-items-center iciio">
                 <Form.Label className="mr-2">شعار المدرسة</Form.Label>
               </div>
               <div className="custom-file-input-wrapper">
                 <Form.Control
-                  type="file"
-                  onChange={handleFileChange}
+                 type="file" onChange={handleFileChangee}
                   className="file-input"
                 />
                 <div className="custom-file-label">
@@ -372,7 +389,7 @@ const validateForm = () => {
                 </div>
               </div>
             </Form.Group>
-          </Col> */}
+          </Col>
           <Col xs={12} sm={6}>
               <Form.Group controlId="lesson">
                 <Form.Label><span className='text-danger'>  </span> الباقه</Form.Label>
@@ -431,6 +448,10 @@ const validateForm = () => {
               </div>
             </Form.Group>
           </Col>
+          {/* <div  className='me-4' >
+          <Form.Label><span className='text-danger'> * </span>شعار المدرسة</Form.Label>
+            <input type="file" onChange={handleFileChangee} />
+          </div> */}
         </Row>
 
         <Row className="mb-3">

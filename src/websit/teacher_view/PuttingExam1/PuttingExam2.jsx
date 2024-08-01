@@ -23,6 +23,7 @@ function PuttingExam2(props) {
   const handleDayAndDateChange = (e) => {
     setDayAndDate(e.target.value);
   };
+  localStorage.removeItem("preview") 
 
   const handleSelect = (eventKey, event) => {
     const dropdownButtonId = event.target.closest('.dropdown-menu').previousElementSibling.id;
