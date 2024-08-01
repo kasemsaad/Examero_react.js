@@ -5,7 +5,7 @@ import { Link, useLocation } from "react-router-dom";
 import Api_website from "../../utlis/axios_utils_websit";
 import { useSelector } from "react-redux";
 import plus from '../../assets/icons/teacherview/Vector (2).svg';
-import testt from '../../assets/icons/teacherview/octicon_question-16.svg';
+import testt from '../../assets/icons/teacherview/octicon_question-16 (1).svg';
 import DeleteQuestationModel from "../../dashboard/components/UsersPages/DeletUserModal/deletequestationmodel";
 import ShowquestationModal from "../../dashboard/components/UsersPages/ShowUserModal/ShowquestationModal";
 
@@ -77,11 +77,12 @@ export const QbankTeacherTable = () => {
   const [idOfDeleteItem, setIdOfDeleteItem] = useState("");
   const [showOpenemisData, setshowOpenemisData] = useState("");
   const [filteredManagers, setFilteredManagers] = useState([]);
-
+  const pageSize = 10;
   const newData = useMemo(
     () =>
-      data.map(({ id, semster, status, group, subject, unit, lesson }) => ({
-        id,
+      data.map(({ id, semster, status, group, subject, unit, lesson }, index) => ({
+        id, 
+        // serial: (currentPage - 1) * pageSize + index + 1,
         semster: getSemesterMessage(semster),
         groupName: group?.name || "",
         SubjectName: subject?.name || "",
@@ -89,7 +90,7 @@ export const QbankTeacherTable = () => {
         lessonName: lesson?.name || "",
         status: getStatusMessage(status),
       })),
-    [data]
+    [data, currentPage]
   );
 
   useEffect(() => {
@@ -154,21 +155,22 @@ export const QbankTeacherTable = () => {
       <div className="container-manger min-vh-100 w-100">
         <div style={{ width: "85%", margin: "auto" }} className="cont">
           <div
-            className='headdd pt-4 pb-4 p-1 d-flex justify-content-between'
+            className='headdd  pb-4 p-1 d-flex justify-content-between'
             style={{
               backgroundColor: layoutBackground === "#0E0A43" ? "#0E0A43" : "#ECECEC",
               color: layoutBackground === "#0E0A43" ? "white" : "black",
               fontSize: "24px",
             }}
-          >
-            <div>
-              <img
-                src={testt}
-                alt="Icon"
-                className='header1teacherview-iconuu'
-                style={{ width: '12%', marginLeft: '5px' }}
-              />
-              <span className='header1_enter_data_teach_view65'>وضع الأسئلة</span>
+          >             
+            <div className='col-12  mt-3 d-flex ' style={{ alignItems: "center", }}>
+                <div className="" style={{ width: "5.333333%" }}>
+                    <img src={testt} className="img-fluid" alt="صورة شخصية" />
+                </div>
+                <div className='col-6'>
+                    <p style={{ margin: '0', padding: "0", color: "#FFFFFF", fontSize: '24px' ,backgroundColor: layoutBackground === "#0E0A43" ? "#0E0A43" : "#ECECEC",
+        color: layoutBackground === "#0E0A43" ? "white" : "black",
+        fontSize: "24px"}}> بنك الأسئلة </p>
+                </div>
             </div>
           </div>
 
@@ -237,7 +239,7 @@ export const QbankTeacherTable = () => {
                   case "name7":
                     return <td>{getStatusMessage(row[headerKey])}</td>;
                   default:
-                    return <td>{row[headerKey]}</td>;
+                    return headerKey === "id" ? null : <td>{row[headerKey]}</td>;
                 }
               }}
             />

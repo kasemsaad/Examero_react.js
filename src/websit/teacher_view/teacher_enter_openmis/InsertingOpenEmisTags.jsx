@@ -34,54 +34,90 @@ function InsertingOpenEmisTags(props) {
     getConnect();
 }, []);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append('user_name', username);
-    formData.append('password_site', password);
-    formData.append('group', className);
-    formData.append('subject', researcherName);
-    formData.append('phone_number', phoneNumber);
-    if (idOfPointSelected) {
+const handleSubmit = (e) => {
+  e.preventDefault();
+  setErrorMessage(''); // Reset error message
+
+  // Validate fields
+  if (!username) {
+      setErrorMessage('يرجى إدخال اسم المستخدم.');
+      setTimeout(() => {
+          setErrorMessage('');
+      }, 3000); // Clear error message after 3 seconds
+      return;
+  }
+  if (!password) {
+      setErrorMessage('يرجى إدخال كلمة المرور.');
+      setTimeout(() => {
+          setErrorMessage('');
+      }, 3000); // Clear error message after 3 seconds
+      return;
+  }
+  if (!className) {
+      setErrorMessage('يرجى إدخال اسم الصف.');
+      setTimeout(() => {
+          setErrorMessage('');
+      }, 3000); // Clear error message after 3 seconds
+      return;
+  }
+  if (!researcherName) {
+      setErrorMessage('يرجى إدخال اسم المبحث.');
+      setTimeout(() => {
+          setErrorMessage('');
+      }, 3000); // Clear error message after 3 seconds
+      return;
+  }
+  if (!phoneNumber) {
+      setErrorMessage('يرجى إدخال رقم الهاتف.');
+      setTimeout(() => {
+          setErrorMessage('');
+      }, 3000); // Clear error message after 3 seconds
+      return;
+  }
+ 
+  // Prepare form data
+  const formData = new FormData();
+  formData.append('user_name', username);
+  formData.append('password_site', password);
+  formData.append('group', className);
+  formData.append('subject', researcherName);
+  formData.append('phone_number', phoneNumber);
+  if (idOfPointSelected) {
       formData.append('plan_id', idOfPointSelected);
-    }
+  }
+  formData.append('document', selectedFile);
 
-    if (selectedFile) {
-      formData.append('document', selectedFile);
-    }   
+  // Submit data to API
+  Api_website.post('/teachers/open-emis', formData)
+    .then(response => {
+      console.log('تم إرسال البيانات بنجاح:', response.data);
+      setSuccessMessage(response.data.message); // Assuming response.data.message contains the success message
+      setTimeout(() => {
+        setSuccessMessage('');
+      }, 3000); // Clear success message after 3 seconds
 
-
-    Api_website.post('/teachers/open-emis', formData)
-      .then(response => {
-        console.log('تم إرسال البيانات بنجاح:', response.data);
-        setSuccessMessage(response.data.message); // Assuming response.data.message contains the success message
+      // Clear form data
+      setUsername('');
+      setPassword('');
+      setResearcherName('');
+      setClassName('');
+      setPhoneNumber('');
+      setFileLabel('قم بتحميل دفتر العلامات الخاص بالصف الذي ادخلته');
+      setSelectedFile(null);
+    })
+    .catch(error => {
+      console.error('حدث خطأ أثناء إرسال البيانات:', error);
+      if (error.response) {
+        // Handle error response from server
+        const responseData = error.response.data;
+        const errorMessage = responseData.message || 'حدث خطأ أثناء إرسال البيانات.';
+        setErrorMessage(errorMessage);
         setTimeout(() => {
-          setSuccessMessage('');
-        }, 3000); // Clear success message after 3 seconds
-
-        // Clear form data
-        setUsername('');
-        setPassword('');
-        setResearcherName('');
-        setClassName('');
-        setPhoneNumber('');
-        setFileLabel('قم بتحميل دفتر العلامات الخاص بالصف الذي ادخلته');
-        setSelectedFile(null);
-      })
-      .catch(error => {
-        console.error('حدث خطأ أثناء إرسال البيانات:', error);
-        if (error.response) {
-          // Handle error response from server
-          const responseData = error.response.data;
-          const errorMessage = responseData.message || 'حدث خطأ أثناء إرسال البيانات.';
-          setErrorMessage(errorMessage);
-
-          setTimeout(() => {
-            setErrorMessage('');
-          }, 3000); // Clear error message after 3 seconds
-        }
-      });
-  };
+          setErrorMessage('');
+        }, 3000); // Clear error message after 3 seconds
+      }
+    });
+};
   const getConnect = async () => {
     await Api_website.get(`/teachers/plans`)
         .then((response) => {
@@ -97,13 +133,13 @@ const getPoint = (e) => {
 };
   return (
     <>
-      <div className='header-container1 pt-5' style={{
+      <div className='header-container1 pt-3' style={{"borderRadius": '10%',
         backgroundColor: layoutBackground === "#0E0A43" ? "#0E0A43" : "#ECECEC",
         color: layoutBackground === "#0E0A43" ? "white" : "black",
         fontSize: "18px"
       }}>
         <img src={enter} alt="Icon" className='header1teacherview-icon' />
-        <span className='header1_enter_data_teach_view mt-5'>إدخال علامات Open Emis</span>
+        <span className='header1_enter_data_teach_view mt-5' style={{fontSize: '24px'}}>إدخال علامات Open Emis</span>
       </div>
       <div className='header-container '>
         <span className='header_enter_data_teach_view'>إدخال بيانات دفتر العلامات</span>

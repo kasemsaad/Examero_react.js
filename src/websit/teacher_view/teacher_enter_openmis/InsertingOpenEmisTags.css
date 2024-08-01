@@ -12,20 +12,15 @@ margin-right: 4rem;
 border-radius: 13.97px ;
 font-family: Cairo;
 font-size: 12.57px;
-font-weight: 700;
 line-height: 23.56px;
 text-align: right;
 color: black;
 
 }
-.header1teacherview-icon{
-    padding-right: 2rem;
-    padding-left: 1rem;
-}
+
 .header1_enter_data_teach_view{
     font-family: Cairo;
-font-size: 18px;
-font-weight: 600;
+font-size: 24px;
 line-height: 33.73px;
 text-align: right;
 padding-left: 3rem;
@@ -52,8 +47,7 @@ padding-right: 3rem;
 
 }
 .header-container1{
-    margin-top: 2rem;
-
+  padding-top: 2rem !important
 }
 .header-container {
     display: flex;

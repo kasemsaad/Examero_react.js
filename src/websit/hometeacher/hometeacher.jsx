@@ -318,12 +318,14 @@ const getDataStudentExam = () => {
     <>
       <div className="container " style={{ overflow: 'auto', marginTop: '18px', direction: 'rtl', height: 'auto', border: "2px solid purble", borderRadius: "10px", width: "90%", margin: "auto" }}>
       <div className='col-12 mt-3 d-flex align-items-center'>
-    <div style={{ width: "7.333333%" }}>
-      <img src={main} className="img-fluid rounded-circle" alt="صورة شخصية" style={{ width: '16px', height: '16px' }} />
+    <div style={{ width: "5.333333%" }}>
+      <img src={main} className="img-fluid " alt="صورة شخصية" style={{ width: '16px', height: '16px' }} />
     </div>
     
     <div className='col-1'>
-      <p style={{ margin: '0', padding: "0", color: "#FFFFFF", fontWeight: "700", fontSize: '24px' }}>الرئيسية</p>
+      <p style={{ margin: '0', padding: "0", color: "#FFFFFF", fontSize: '24px',backgroundColor: layoutBackground === "#0E0A43" ? "#0E0A43" : "#ECECEC",
+        color: layoutBackground === "#0E0A43" ? "white" : "black",
+        fontSize: "24px" }}>الرئيسية</p>
     </div>
   </div>
   <div className="row child pt-4 p-0 m-0 mt-3 rounded-4" style={{ width: "100%" }}>
