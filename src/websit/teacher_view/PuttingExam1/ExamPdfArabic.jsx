@@ -19,6 +19,7 @@ function ExamPdf() {
 if(flag!==1){
   navigate("/")
 }
+
   const [dataQuestion1, setdataQuestion1] = useState([]);
   const [dataQuestion2, setdataQuestion2] = useState({});
   const [dataQuestion3, setdataQuestion3] = useState({});
@@ -207,6 +208,7 @@ if(flag!==1){
       const previewData = localStorage.getItem('preview');
       setPreview(previewData);
   }, []);
+
   return (
     <>
       <ToastContainer position='top-center' />

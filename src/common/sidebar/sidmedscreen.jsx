@@ -165,6 +165,7 @@ function Sidmedscreen() {
               <div className="sidbarmed p-0" dir="rtl">
                 <div className="sidbarSidbar">
                 <ul className="pt-4 " style={{paddingLeft:"50px"}}>
+
                     <li className={`Icon  ${id === "1" ? "bgIcon" : " "}`}>
                       <Link to="/teacher/Home_teacher" onClick={() => setId(1)} >
                         <img src={homeIcon} alt="الرئيسية" />
