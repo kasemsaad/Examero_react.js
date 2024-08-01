@@ -1,6 +1,3 @@
-import React from "react";
-import "./SowUser.css";
-
 const ShowquestationModal = ({ content, userData }) => {
   const getStatusMessage = (status) => {
     if (!status || !Array.isArray(status) || status.length === 0) {
@@ -21,7 +18,12 @@ const ShowquestationModal = ({ content, userData }) => {
   // Ensure userData and its nested properties are defined
   const questionTypeName = userData?.question_type?.name || "غير متوفر";
   const options = userData?.options || [];
-  const correctOption = options.find(option => option.is_correct)?.option || "غير متوفر";
+  // Filter correct options
+  const correctOptions = options
+    .filter(option => option.is_correct)
+    .map(option => option.option)
+    .join(', ') || "غير متوفر"; // Join correct options with a comma and space
+
   const statusMessage = getStatusMessage(userData?.status) || "غير معروف";
 
   // Join options into a single string
@@ -31,6 +33,8 @@ const ShowquestationModal = ({ content, userData }) => {
       {index < options.length - 1 ? ', ' : ''}
     </span>
   ));
+
+  const questionName = userData?.name || "غير متوفر"; // Get question name
 
   return (
     <div
@@ -118,6 +122,10 @@ const ShowquestationModal = ({ content, userData }) => {
               >
                 <thead>
                   <tr>
+                    <th className="td-show-mod" scope="col">صيغة السؤال</th>
+                    <th className="td-show-mod2" scope="col">{questionName}</th>
+                  </tr>
+                  <tr>
                     <th className="td-show-mod" scope="col">نوع السؤال</th>
                     <th className="td-show-mod2" scope="col">{questionTypeName}</th>
                   </tr>
@@ -129,7 +137,7 @@ const ShowquestationModal = ({ content, userData }) => {
                   </tr>
                   <tr>
                     <td className="td-show-mod">الإجابة</td>
-                    <td className="td-show-mod2">{correctOption}</td>
+                    <td className="td-show-mod2">{correctOptions}</td>
                   </tr>
                   <tr>
                     <td className="td-show-mod">حالة السؤال</td>

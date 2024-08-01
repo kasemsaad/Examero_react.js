@@ -1,11 +1,12 @@
 
 
 import React, { useEffect, useState } from 'react'
-import homeBank from "./../../assets/image/Vector (6).svg"
+import homeBank from "../../assets/icons/teacherview/octicon_question-16 (1).svg"
 import Api_Dashboard from '../../dashboard/interceptor/interceptorDashboard'
 import ModalDelete, { Notify, NotifyError } from '../../dashboard/Alert/alertToast';
 import Confetti from 'react-confetti'
 import Api_website from '../../utlis/axios_utils_websit';
+import { useSelector } from 'react-redux';
 
 export default function CreateQuestation() {
 
@@ -165,39 +166,11 @@ export default function CreateQuestation() {
         })
     }
 
+    const layoutBackground = useSelector((state) => state.dark.lay);
 
     const [idOfGroup, SetidOfGroup] = useState('')
 
-    // const getAllSelection = async (e) => {
-    //     const data = { ...allDataFromAllSelection }
-    //     data[e.target.name] = e.target.value
-    //     // data.image=e.target.files[0]
-        
-    //     SetallDataFromAllSelection(data)
-    //     let idOfGroup = data.group_id
-    //     // let level=data.level
-    //     // console.log(level);
-    //     let forId = data.for
-    //     // console.log(forId);
-    //     if (data.group_id) {
-    //         await getSubjectDependOnGroupId(idOfGroup)
-    //     }
-
-    //     let subJectId = data.subject_id
-    //     if (data.subject_id) {
-    //         await getAllUnitsDependOnSubject(subJectId)
-    //     }
-
-    //     let unitId = data.unit_id
-    //     if (data.unit_id) {
-    //         await getAllLessonsDependOnUnit(unitId)
-    //     }
-
-    //     let questionsIdType = data.question_type_id
-    //     if(data.question_type_id){
-    //       await  getAllshowQuistitionById(questionsIdType)
-    //     }
-    // }
+   
     const handelChange = (e) => {
         const { name, value } = e.target;
         SetallDataFromAllSelection((prev) => ({
@@ -210,41 +183,32 @@ export default function CreateQuestation() {
 
 
  let timeout;
-const getAllSelection = async (e) => {
-    clearTimeout(timeout); 
-    
-        const data = { ...allDataFromAllSelection }
 
-        data[e.target.name] = e.target.value;
-        SetallDataFromAllSelection(data)
-      
+const getAllSelection = (e) => {
+    const data = { ...allDataFromAllSelection };
+    data[e.target.name] = e.target.value;
+    SetallDataFromAllSelection(data);
 
-        console.log(data);
-        timeout = setTimeout(async () => {
-        let idOfGroup = data.group_id;
-       
-        
-        if (data.group_id) {
-            await getSubjectDependOnGroupId(idOfGroup);
-        }
+    let idOfGroup = data.group_id;
+    if (idOfGroup && idOfGroup !== allDataFromAllSelection.group_id) {
+        getSubjectDependOnGroupId(idOfGroup);
+    }
 
-        let subJectId = data.subject_id;
-        if (data.subject_id) {
-            await getAllUnitsDependOnSubject(subJectId);
-        }
+    let subJectId = data.subject_id;
+    if (subJectId && subJectId !== allDataFromAllSelection.subject_id) {
+        getAllUnitsDependOnSubject(subJectId);
+    }
 
-        let unitId = data.unit_id;
-        if (data.unit_id) {
-            await getAllLessonsDependOnUnit(unitId);
-        }
+    let unitId = data.unit_id;
+    if (unitId && unitId !== allDataFromAllSelection.unit_id) {
+        getAllLessonsDependOnUnit(unitId);
+    }
 
-        let questionsIdType = data.question_type_id;
-        if (data.question_type_id) {
-            await getAllshowQuistitionById(questionsIdType);
-        }
-    }, 500); // Delay of 500ms (adjust as needed)
+    let questionsIdType = data.question_type_id;
+    if (questionsIdType && questionsIdType !== allDataFromAllSelection.question_type_id) {
+        getAllshowQuistitionById(questionsIdType);
 }
-
+}
 
 
     const handleImageChange = (e) => {
@@ -427,14 +391,18 @@ const clearNameField = () => {
                         />
                     )}
     < ModalDelete/>
-        <div className="container  pb-4 " style={{ overflow: 'auto', marginTop: '18px', direction: 'rtl', height: 'auto', border: "2px solid purble", borderRadius: "10px", width: "90%", margin: "auto" }}>
+        <div className="container  pb-4 " style={{ overflow: 'auto', direction: 'rtl', height: 'auto', border: "2px solid purble", borderRadius: "10px", width: "90%", margin: "auto", backgroundColor: layoutBackground === "#0E0A43" ? "#0E0A43" : "#ECECEC",
+        color: layoutBackground === "#0E0A43" ? "white" : "black",
+        fontSize: "18px" }}>
 
             <div className='col-12  mt-3 d-flex ' style={{ alignItems: "center", }}>
-                <div className="" style={{ width: "5.333333%" }}>
-                    <img src={homeBank} className="img-fluid rounded-circle" alt="صورة شخصية" />
+                <div className="" style={{ width: "3.333333%" }}>
+                    <img src={homeBank} className="img-fluid" alt="صورة شخصية" />
                 </div>
                 <div className='col-6'>
-                    <p style={{ margin: '0', padding: "0", color: "#FFFFFF", fontWeight: "700", fontSize: '24px' }}>وضع الأسئلة </p>
+                    <p style={{ margin: '0', padding: "0", color: "#FFFFFF", fontSize: '24px', borderRadius: "10px", width: "90%", margin: "auto", backgroundColor: layoutBackground === "#0E0A43" ? "#0E0A43" : "#ECECEC",
+        color: layoutBackground === "#0E0A43" ? "white" : "black",
+        fontSize: "24px"  }}>وضع الأسئلة </p>
                 </div>
             </div>
             <form onSubmit={handlaeSubmit}>

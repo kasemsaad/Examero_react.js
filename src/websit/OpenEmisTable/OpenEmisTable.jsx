@@ -6,7 +6,7 @@ import { Link, useLocation } from "react-router-dom";
 import Api_website from "../../utlis/axios_utils_websit";
 import { useSelector } from "react-redux";
 import enter from '../../assets/icons/teacherview/lucide_file-input.svg';
-import plus from '../../assets/icons/teacherview/Vector (2).svg'
+import plus from '../../assets/icons/teacherview/Vector (2).svg';
 import DeleteopenemisModal from "../../dashboard/components/UsersPages/DeletUserModal/DeleteopenemisModal";
 import ShowOpenEmisModal from "../../dashboard/components/UsersPages/ShowUserModal/ShowOpenEmisModal";
 import EditopenemisModal from "../../dashboard/components/UsersPages/ArrowOfUsers/EditUsers/EditopenemisModal";
@@ -61,17 +61,19 @@ const OpenEmisTable = () => {
   const [idOfDeleteItem, setIdOfDeleteItem] = useState("");
   const [showOpenemisData, setshowOpenemisData] = useState("");
 
+  const pageSize = 10; // Assuming you have a fixed page size
   const newData = useMemo(
     () =>
-      data.map(({ id, group, subject, phone_number, status, note }) => ({
-        id,
+      data.map(({ id, group, subject, phone_number, status, note }, index) => ({
+        indx: (currentPage - 1) * pageSize + index + 1, // Calculate ID based on current page
+        id, 
         group,
         subject,
         phone_number,
         status: getStatusMessage(status),
         note,
       })),
-    [data]
+    [data, currentPage]
   );
 
   const [filteredManagers, setFilteredManagers] = useState(newData);
@@ -81,7 +83,7 @@ const OpenEmisTable = () => {
   }, [newData]);
 
   const handelFetchId = async (row) => {
-    await Api_website.get(`/teachers/questions/${row.id}`)
+    await Api_website.get(`/teachers/open-emis/${row.id}`)
       .then((response) => {
         setRowData(response.data.data);
       })
@@ -137,13 +139,13 @@ const OpenEmisTable = () => {
       {/* header */}
       <div className="container-manger min-vh-100 w-100">
         <div style={{ width: "85%", margin: "auto" }} className="cont">
-          <div className='headdd p-4 p-1 d-flex justify-content-between' style={{
+          <div className='headdd pt-4  d-flex justify-content-between' style={{
             backgroundColor: layoutBackground === "#0E0A43" ? "#0E0A43" : "#ECECEC",
             color: layoutBackground === "#0E0A43" ? "white" : "black",
             fontSize: "24px"
           }}>
-            <div>
-              <img src={enter} alt="Icon" className='header1teacherview-iconuu ' style={{width:'5%',marginLeft:'5px'}}/>
+            <div >
+              <img src={enter} alt="Icon" className='header1teacherview-iconuu ' style={{width:'7%',marginLeft:'.5rem'}}/>
               <span className='header1_enter_data_teach_view65'>إدخال علامات Open Emis</span>
             </div>
           </div> 

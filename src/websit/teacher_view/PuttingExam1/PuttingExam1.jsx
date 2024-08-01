@@ -108,10 +108,10 @@ function PuttingExam1(props) {
                 <div className='header-container1' style={{
                     backgroundColor: layoutBackground === "#0E0A43" ? "#0E0A43" : "#ECECEC",
                     color: layoutBackground === "#0E0A43" ? "white" : "black",
-                    fontSize: "18px"
+                    fontSize: "24px"
                 }}>
                     <img src={putting} alt="Icon" className='header1teacherview-icon' />
-                    <span className='header1_putting_exam1'> انشاء الامتحان </span>
+                    <span className='header1_putting_exam1 'style={{fontSize:'24px'}}> انشاء الامتحان </span>
                 </div>
                 <div className='header-container'>
                     <span className='header_putting_exam1'> إدخال بيانات الامتحان</span>

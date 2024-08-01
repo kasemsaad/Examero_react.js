@@ -4,6 +4,7 @@ import Api_website from '../../utlis/axios_utils_websit';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import html2pdf from 'html2pdf.js';
+import { useSelector } from 'react-redux';
 
 export default function SpecificationTeacher() {
 
@@ -11,6 +12,8 @@ export default function SpecificationTeacher() {
     const [AlertPoint, SetAlertPoint] = useState('');
     const [AlertPointSuccess, SetAlertPointSuccess] = useState('');
     const [idOfPointSelected, SetidOfPointSelected] = useState('');
+
+    const layoutBackground = useSelector((state) => state.dark.lay);
 
     const notify = (AlertPointSuccess) => {
         toast.success(AlertPointSuccess, {
@@ -89,13 +92,17 @@ export default function SpecificationTeacher() {
         <>
             <ToastContainer position='top-center' />
 
-            <div id="" className="container pb-4" style={{ overflow: 'auto', marginTop: '18px', direction: 'rtl', height: 'auto', border: "2px solid purble", borderRadius: "10px", width: "90%", margin: "auto" }}>
+            <div id="" className="container pb-4" style={{ overflow: 'auto', direction: 'rtl', height: 'auto', border: "2px solid purble", borderRadius: "10px", width: "90%", margin: "auto" , backgroundColor: layoutBackground === "#0E0A43" ? "#0E0A43" : "#ECECEC",
+        color: layoutBackground === "#0E0A43" ? "white" : "black",
+        fontSize: "18px","paddingTop":'1rem'}}>
                 <div className='col-12 mt-3 d-flex' style={{ alignItems: "center" }}>
                     <div className="" style={{ width: "5.333333%" }}>
                         <img src={SpecificationMain} className="img-fluid rounded-circle" alt="صورة شخصية" />
                     </div>
                     <div className='col-6'>
-                        <p style={{ margin: '0', padding: "0", color: "#FFFFFF", fontWeight: "700", fontSize: '24px' }}>جدول المواصفات</p>
+                        <p style={{ margin: '0', padding: "0", color: "#FFFFFF", fontSize: '24px', backgroundColor: layoutBackground === "#0E0A43" ? "#0E0A43" : "#ECECEC",
+        color: layoutBackground === "#0E0A43" ? "white" : "black",
+        fontSize: "24px" }}>جدول المواصفات</p>
                     </div>
                 </div>
 
@@ -176,7 +183,7 @@ export default function SpecificationTeacher() {
                                 </tbody>
                             </table>
                             <div className='' style={{ direction: 'ltr', textAlign: "left" }}>
-                                <button type='submit' style={{ backgroundColor: "#C01F59" }} className='btn '>تحميل الجدول</button>
+                                <button type='submit' style={{ backgroundColor: "#C01F59",color:'white' }} className='btn '>تحميل الجدول</button>
                             </div>
                         </div>
                     </form>
