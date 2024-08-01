@@ -13,8 +13,33 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useParams } from 'react-router-dom';
 import plus from '../../../assets/image/+.svg';
+import ChildComponent from './ExamPdfArabic.jsx';
 
 function PuttingExam5(props) {
+    const notify = (AlertPointSuccess) => {
+        toast.success(AlertPointSuccess, {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        })
+    };
+    const Errornotify = (AlertPoint) => {
+      toast.error(AlertPoint, {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+      })
+  };
 
   const layoutBackground = useSelector((state) => state.dark.lay);
   const navigate = useNavigate();
@@ -54,8 +79,11 @@ function PuttingExam5(props) {
   const [isButtonDisabled, setIsButtonDisabled] = useState("");
   const [IsButtonshow, setIsButtonshow] = useState("");
   const [planid, setplanid] = useState("");
+  const [planname, setplanname] = useState("");
+  const [languagePdf, setlanguagePdf] = useState("عربي");
   let counter = page;
-
+  const [preview, setPreview] = useState('');
+  
   useEffect(() => {
 
     const fetchQuestions = async () => {
@@ -105,11 +133,13 @@ function PuttingExam5(props) {
 
       let parsedArray = parseArray(jsonArray);
       if (parsedArray[0] && parsedArray[0][2]) {
+        setlanguagePdf(JSON.parse(parsedArray[0][0]).examFormat);
         setsubjectid(JSON.parse(parsedArray[0][2]).idSubjectid);
         setidGroup(JSON.parse(parsedArray[0][2]).idGroup);
         setidsemester(JSON.parse(parsedArray[0][1]).semester);
         setcountPages(parseInt(JSON.parse(parsedArray[0][2]).questionCount));
         setplanid(parseInt(JSON.parse(parsedArray[0][2]).planid));
+        setplanname(parseInt(JSON.parse(parsedArray[0][2]).planname));
       } else {
         navigate('/teacher/PuttingExam1');
       }
@@ -157,7 +187,7 @@ function PuttingExam5(props) {
     unit_id: Untis,
     lesson_id: lessonid,
     count: count,
-    plan_id: planid
+    // plan_id: planid
   };
 
   for (let key in DataQustion) {
@@ -177,7 +207,7 @@ function PuttingExam5(props) {
       level: levelQuestionnameid,
       unit_id: Untis,
       lesson_id: lessonid,
-      plan_id: planid
+      // plan_id: planid
     };
     for (let key in DataQustions) {
       if (DataQustions[key] === '' || DataQustions[key] === null || DataQustions[key] === undefined) {
@@ -191,17 +221,7 @@ function PuttingExam5(props) {
       .catch((error) => {
         let err = error.response.data.message;
         handleApperanceNoticeNo()
-        toast.error(err, {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-          // transition: Bounce,
-        });
+        Errornotify(err)
       });
 
   }
@@ -214,10 +234,18 @@ function PuttingExam5(props) {
       setCount(count - 1);
     }
   };
-  const handleSubmit = (e, countPageunder) => {
+  const handleSubmit = async(e, countPageunder) => {
     e.preventDefault();
     if (appearanceNoticeText === "يدوي") {
-      // selectedQuestionIds
+
+      const DataQustion = { questionIds: selectedQuestionIds}
+      for (let key in DataQustion) {
+        if (DataQustion[key] === '' || DataQustion[key] === null || DataQustion[key] === undefined) {
+          delete DataQustion[key];
+        }
+      }
+      
+      
       const DataQustionManualy = {
         group_id: idGroup,
         subject_id: subjectidd,
@@ -227,9 +255,8 @@ function PuttingExam5(props) {
         level: levelQuestionnameid,
         unit_id: Untis,
         lesson_id: lessonid,
-        plan_id: planid
-        // questionIds: selectedQuestionIds         array=[id,id,id] ,
-        //  plan_id: planid,
+        // plan_id: planid
+      
       }
       for (let key in DataQustionManualy) {
         if (DataQustionManualy[key] === '' || DataQustionManualy[key] === null || DataQustionManualy[key] === undefined) {
@@ -238,106 +265,88 @@ function PuttingExam5(props) {
       }
       
       // console.log(DataQustionManualy)
-      Api_website.post('/teachers/genrate-exam', DataQustionManualy)
-        .then((response) => {
+      await Api_website.post('/teachers/genrate-exam', DataQustionManualy)
+        .then( async(response) => {
        
           const Box = JSON.parse(localStorage.getItem("Box")) ;
-
           const newArray = selectedQuestionIds;
           console.log(selectedQuestionIds);
           const filteredArray = newArray.filter(item => !Box.includes(item));
           const updatedBox = Box.concat(filteredArray);
-
           localStorage.setItem("Box", JSON.stringify(updatedBox));
-          console.log(updatedBox);
+////////////////////////////////////////////////////////////////////////////////////////////////
 
-          const question = {
-            "السؤال": JSON.stringify(response.data.data.questions),
-            lessonid,
-            lesson,
-            Untis,
-            Untisname,
-            markQuestion,
-            addressQuestion,
-            appearanceNotice: appearanceNoticeText,
-            pageNumber: page,
-            question_type_id: questionType,
-            question_type_name: QuestionTypename,
-            for: TypingQuestionid,
-            forname: typingQuestion,
-            level: levelQuestionnameid,
-            levelname: levelQuestionname,
-          };
+ await Api_website.post('/teachers/questions-by-main-question', DataQustion)
+.then((response) => {
+  console.log(response.data.data.questions)
+
+  const question = {
+    "السؤال": JSON.stringify(response.data.data.questions),
+    lessonid,
+    lesson,
+    Untis,
+    Untisname,
+    planid,
+    planname,
+    markQuestion,
+    addressQuestion,
+    appearanceNotice: appearanceNoticeText,
+    pageNumber: page,
+    question_type_id: questionType,
+    question_type_name: QuestionTypename,
+    for: TypingQuestionid,
+    forname: typingQuestion,
+    level: levelQuestionnameid,
+    levelname: levelQuestionname,
+  };
 
 
 
-          if (!question || Object.keys(question).length === 0) {
-            console.error("Question object is empty or undefined");
-          } else {
-            console.log("Question object:", question);
-          }
+  if (!question || Object.keys(question).length === 0) {
+    console.error("Question object is empty or undefined");
+  } else {
+    console.log("Question object:", question);
+  }
+  const questionBank = question;
+  const x = JSON.stringify(questionBank);
+  let doc = localStorage.getItem("all");
+  doc = doc ? JSON.parse(doc) : [];
+  console.log("Initial doc array:", doc);
 
-          const questionBank = question;
-          const x = JSON.stringify(questionBank);
-          let doc = localStorage.getItem("all");
-          doc = doc ? JSON.parse(doc) : [];
-          // console.log("Initial doc array:", doc);
-          if (page < 1 || page > doc.length + 1) {
+  if (page < 1 || page > doc.length + 1) {
 
-            toast.error(`لم يتم اضافه السؤال رقم ${doc.length + 1}`, {
-              position: "top-center",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-              // transition: Bounce,
-            });
-            setTimeout(() => {
-              navigate(`/teacher/PuttingExam5/${doc.length + 1}`);
-              window.location.reload();
-            }, 2000);
-          } else {
-            doc[page - 1] = x;
+      Errornotify("لم يتم اضافه السؤال رقم")
+    setTimeout(() => {
+      navigate(`/teacher/PuttingExam5/${doc.length + 1}`);
+      window.location.reload();
+    }, 1500);
+  } else {
+    doc[page - 1] = x;
 
-            localStorage.setItem("all", JSON.stringify(doc));
-          }
+    localStorage.setItem("all", JSON.stringify(doc));
+  }
 
-          toast.success('تم إضافه السؤال بنجاح', {
-            position: "top-center",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-          });
-          counter++
-          setTimeout(() => {
-            navigate(`/teacher/PuttingExam5/${counter}`);
-            // window.location.reload();
-          }, [2000])
+    notify('تم إضافه السؤال بنجاح')
+  counter++
+  setTimeout(() => {
+  navigate(`/teacher/PuttingExam5/${counter}`);
+  window.location.reload();
+  },[1500])
+})
+.catch((error) => {
+  let err = error.response.data.message;
+  Errornotify(err)
+});
+
+////////////////////////////////////////////////////////////////////////////////////////////////        
         })
         .catch((error) => {
           let err = error.response.data.message;
-          toast.error(err, {
-            position: "top-center",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-            // transition: Bounce,
-          });
+          Errornotify(err)
         });
 
     } else if (appearanceNoticeText === "أوتوماتيكي") {
-      Api_website.post('/teachers/genrate-exam', DataQustion)
+     await Api_website.post('/teachers/genrate-exam', DataQustion)
         .then((response) => {
           const Box = JSON.parse(localStorage.getItem("Box"));
           const dataz = response.data.data.allQuestion;
@@ -372,7 +381,6 @@ function PuttingExam5(props) {
             console.error("Question object is empty or undefined");
           } else {
             console.log("Question object:", question);
-            console.log("Question object:", question);
           }
 
           const questionBank = question;
@@ -387,74 +395,32 @@ function PuttingExam5(props) {
           // Ensure `page` is a positive integer within bounds
           if (page < 1 || page > doc.length + 1) {
 
-            toast.error(`لم يتم اضافه السؤال رقم ${doc.length + 1}`, {
-              position: "top-center",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-              // transition: Bounce,
-
-            });
+              Errornotify("لم يتم اضافه السؤال رقم" )
             setTimeout(() => {
               navigate(`/teacher/PuttingExam5/${doc.length + 1}`);
               window.location.reload();
-            }, 2000);
+            }, 1500);
 
           } else {
             doc[page - 1] = x;
 
             localStorage.setItem("all", JSON.stringify(doc));
-            toast.success('تم إضافه السؤال بنجاح', {
-              position: "top-center",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-            });
+              notify("تم إضافه السؤال بنجاح")
             counter++
             setTimeout(() => {
               navigate(`/teacher/PuttingExam5/${counter}`);
               window.location.reload();
-            }, [2000])
+            }, [1500])
           }
 
         })
         .catch((error) => {
-          // let err = error.response.data.message;
-          toast.error("لم يتم إضافه السؤال", {
-            position: "top-center",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-            // transition: Bounce,
-
-          });
-          navigate(`/teacher/PuttingExam5/${counter}`);
+          let err = error.response.data.message;
+       Errornotify(err)
 
         });
     } else {
-      toast.error("لم يتم إضافه السؤال", {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        // transition: Bounce,
-      });
+      Errornotify("لم يتم اضافه السؤال رقم ")
     }
 
 
@@ -579,17 +545,7 @@ function PuttingExam5(props) {
       window.location.reload();
     } else {
       console.log("Index out of bounds");
-      toast.error("اضغط علي السابق لحذف السؤال", {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        // transition: Bounce,
-      });
+    Errornotify("اضغط علي السابق لحذف السؤال")
     }
 
   }
@@ -640,32 +596,47 @@ const sendData=()=>{
  const boxarray = JSON.parse(localStorage.getItem("Box"))
  const DataQustion={
   questionIds:boxarray,
-  plan_id:planid
+  // plan_id:planid
  }
+ for (let key in DataQustion) {
+  if (DataQustion[key] === '' || DataQustion[key] === null || DataQustion[key] === undefined) {
+    delete DataQustion[key];
+  }
+}
+
  Api_website.post('/teachers/save-exam', DataQustion)
  .then((response) => {
-  console.log(response.data.data.questions)
-  // navigate("/ExamPdf")
+  localStorage.setItem("QB",JSON.stringify(response.data.data.questions))
+ if(languagePdf === "عربي"){
+  window.open('/ExamPdfArabic', '_blank')
+ } else if( languagePdf === "انجليزي"){
+  window.open('/ExamPdf', '_blank')
+ } 
+ else{
+ }
  }).catch((error) => {
-  // let err = error.response.data.message;
-  toast.error("لم يتم إنشاء الإمتحان", {
-    position: "top-center",
-    autoClose: 5000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: "light",
-    // transition: Bounce,
-
-  });
-});
+          Errornotify("لم يتم إضافة أسئله للمعاينه")
+          });
 
 }
+
+const handleFileChange = (event) => {
+  const file = event.target.files[0];
+  const reader = new FileReader();
+  
+  reader.onloadend = () => {
+    setPreview(reader.result);
+    navigate('', { state: { preview: reader.result } });
+  };
+  
+  if (file) {
+    reader.readAsDataURL(file);
+  }
+}
+
   return (
     <>
-      <ToastContainer />
+      <ToastContainer position='top-center' />
       <div className='py-2'>
 
         <div className='header-container1' style={{
@@ -724,7 +695,7 @@ const sendData=()=>{
               <Form.Group controlId="unit">
                 <Form.Label><span className='text-danger'>  </span> الوحدة</Form.Label>
                 <DropdownButton
-                  id="dropdown-basic-button-subject"
+                  id="dropdown-basic-button-subject" style={{border:"none"}}
                   title={<div className='re'>{Untisname}<img src={dropdownIcon} alt="Icon" className='dropdown-icon' /></div>}
                 >
                   {Array.isArray(allUnit) && allUnit.length > 0 ? (
@@ -998,6 +969,9 @@ const sendData=()=>{
                 hidden={IsButtonshow}>
                 معاينة الامتحان
               </Button>
+              <div>
+      <input type="file" onChange={handleFileChange} />
+    </div>
             </Col>
           </Row>
 

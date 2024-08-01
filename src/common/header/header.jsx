@@ -5,6 +5,7 @@ import Examiro from "./../../assets/image/image 9.svg";
 import notifiy from "./../../assets/image/ic_baseline-notifications-none.svg";
 import moon from "./../../assets/image/solar_moon-line-duotone.svg";
 import logo from "./../../assets/image/لوجو examero-01 1.svg";
+import person from "./Mask group.svg";
 // import SidebarFullscreen from '../sidebar/structure'
 import { useDispatch, useSelector } from "react-redux";
 import { CHANGE_THEME } from "../../redux/Types/types";
@@ -238,7 +239,7 @@ const getRefreshstudent = async()=>{
             width: "55px",
             height: "55px",
             borderRadius: "50%",
-            backgroundColor: "blue",
+            backgroundColor: "#4941A6",
             overflow: "hidden",
             position: "absolute",
           }}
@@ -256,13 +257,14 @@ const getRefreshstudent = async()=>{
               location.pathname.startsWith('/dashboard')? `${Api_dashboard.defaults.baseURL}/assets/Admin/${personalDashboard}`:
               location.pathname.startsWith('/student')? `${Api_dashboard.defaults.baseURL}/assets/Student/${personalStudent}`:
               location.pathname.startsWith('/teacher')? `${Api_dashboard.defaults.baseURL}/assets/Teacher/${personalTeacher}`:
-""  
+              person  
                         }
             width="100%"
             height="100%"
-            alt="Personal"
+            alt={person}
            
           />
+        
         </div>
       </div>
 

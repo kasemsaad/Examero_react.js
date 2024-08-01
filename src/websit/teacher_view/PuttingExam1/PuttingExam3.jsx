@@ -8,6 +8,7 @@ import Api_dashboard from '../../../utlis/axios_utils_websit';
 import './PuttingExam1.css';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import ImageUploader from './imgUpload';
 
 
 function PuttingExam3(props) {
@@ -243,6 +244,7 @@ const validateForm = () => {
 
   return (
     <>
+   
         <div className='py-2'>
       <div className='header-container1' style={{
         backgroundColor: layoutBackground === "#0E0A43" ? "#0E0A43" : "#ECECEC",
@@ -353,7 +355,7 @@ const validateForm = () => {
         </Row>
 
         <Row className="mb-3">
-          <Col xs={12} sm={6}>
+          {/* <Col xs={12} sm={6}>
             <Form.Group controlId="formFileUpload">
               <div className="d-flex align-items-center iciio">
                 <Form.Label className="mr-2">شعار المدرسة</Form.Label>
@@ -370,7 +372,36 @@ const validateForm = () => {
                 </div>
               </div>
             </Form.Group>
-          </Col>
+          </Col> */}
+          <Col xs={12} sm={6}>
+              <Form.Group controlId="lesson">
+                <Form.Label><span className='text-danger'>  </span> الباقه</Form.Label>
+                <DropdownButton
+                  id="dropdown-basic-button-subject"
+                  title={<div className='re'>{planname}<img src={dropdownIcon} alt="Icon" className='dropdown-icon' /></div>}
+                >
+                  {Array.isArray(planss) && planss.length > 0 ? (
+                    planss.map(({ id, plan }) => (
+                      <Dropdown.Item
+                        className='text-white'
+                        key={id}
+                        eventKey={plan.name}
+                        onClick={() => {
+                          setplanid(plan.id);
+                          setplanname(plan.name);
+                        }}
+                      >
+                        <span className="circle arabic"></span> {plan.name}
+                      </Dropdown.Item>
+                    ))
+                  ) : (
+                    <Dropdown.Item className='text-white' disabled>لا توجد باقات</Dropdown.Item>
+                  )}
+                </DropdownButton>
+                {errors.lesson && <Form.Text className='text-danger'>{errors.lesson}</Form.Text>}
+
+              </Form.Group>
+            </Col>
           <Col xs={12} sm={6}>
               <Form.Group controlId="lesson">
                 <Form.Label><span className='text-danger'>  </span> الباقه</Form.Label>

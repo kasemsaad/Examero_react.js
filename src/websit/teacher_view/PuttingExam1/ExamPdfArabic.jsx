@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import './ExamPage.css';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Api_website from '../../../utlis/axios_utils_websit';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -116,23 +116,19 @@ function ExamPdf() {
         let heightLeft = imgHeight;
         let position = 0;
 
-        // Add the first page
         pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, pdfHeight);
         heightLeft -= pdfHeight;
 
-        // Add subsequent pages
         while (heightLeft > 0) {
             position = heightLeft - pdfHeight;
             pdf.addPage();
             pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, pdfHeight);
             heightLeft -= pdfHeight;
         }
-
         pdf.save('exam.pdf');
-        navigate("/ExamePdfsolution");
+        navigate("/ExamPdfArabicsolution");
     });
 };
-
 
   const getSubjectId = () => {
     let jsonArray = [localStorage.getItem("doc1")];
@@ -199,15 +195,17 @@ function ExamPdf() {
       });
 
   }
-
+  const location = useLocation();
+  const { preview } = location.state || '';
   return (
     <>
       <ToastContainer position='top-center' />
-      <div dir="rtl">
-      <div dir="rtl" id="exam-container" className="exam-container">
-      <div className="exam-header">
+    
+      <div>
+        <div id="exam-container" className="exam-container">
+          <div className="exam-header">
             <div className="exam-logo">
-            <img  hidden={!headerData3.showJordanianLogo} src={leftLogo} alt="logo" />
+              <img  hidden={!headerData3.showJordanianLogo} src={leftLogo} alt="logo" />
             </div>
             <div className="exam-title">
               ترويسة الامتحان باللغه العربية <br />
@@ -216,146 +214,140 @@ function ExamPdf() {
               </div>
             </div>
             <div className="exam-logo">
-              <img src="https://i.ibb.co/7g6p4zM/logo.png" alt="logo" />
+              <img src={preview} alt="logo" />
             </div>
           </div>
-        <div className="exam-content" dir="ltr">
-          <div dir="ltr" className="exam-info" style={{ textDecoration: "underline" }}>
-            {headerData1.institution}<br />
-            Directorate: {headerData1.directorate}<br />
-            School: {headerData1.school}<br />
-            {headerData1.examName} {parseInt(headerData2.semester) === 1 ? "First Semester" : parseInt(headerData2.semester) === 2 ? "Second Semester" : ""} {headerData2.curriculum}
-          </div>
-          <div dir="ltr" className="exam-details d-flex justify-content-between">
-            <div dir="ltr" align="start">
-              Class and Section: {headerData2.examName}<br />
-              Subject: {headerData3.subjectname}<br />
-              Student's name .....................
+          <div className="exam-content">
+            <div className="exam-info" style={{ textDecoration: "underline" }}>
+              {headerData1.institution}<br />
+              مديرية   {headerData1.directorate}<br />
+              مدرسة  {headerData1.school}<br />
+              {headerData1.examName}    {parseInt(headerData2.semester) === 1 ? "الفصل الدرسي الأول" : parseInt(headerData2.semester) === "2" ? "الفصل الدرسي الثاني" : ""}   {headerData2.curriculum}
             </div>
-            <div dir="ltr" align="start">
-              Date: {headerData2.dayAndDate}<br />
-              Exam Duration: {headerData2.examDuration} minutes only<br />
+            <div className="exam-details d-flex justify-content-between" dir='rtl'>
+              <div className='' align="start">
+                الصف و الشعبة : {headerData2.examName}<br />
+                المبحث:  {headerData3.subjectname}<br />
+                {headerData2.directorate} .....................
+              </div>
+              <div className='' align="start">
+                التاريخ  :  {headerData2.dayAndDate}<br />
+                مدة الامتحان : {headerData2.examDuration} دقيقة فقط<br />
+              </div>
             </div>
-
-          </div>
-          <div dir="ltr" className="exam-note text-center" hidden={!headerData3.showApperanceNotice}>
-            
-            Important Note: Answer all the following questions ({headerData3.questionCount}) knowing that the number of exam pages is ({totalpage})
-          </div>
-          {
-            Array.isArray(dataQuestion1) &&
-            dataQuestion1.map((headquestion, index) => {
-              try {
-                const parsedQuestion = JSON.parse(headquestion);
-                return (
-                  <div key={index} className="exam-question">
-                    {index + 1}) {parsedQuestion.addressQuestion} <span> : </span>
-                    <span>({parsedQuestion.markQuestion}) points</span><br />
-                    {
-                      JSON.parse(parsedQuestion.السؤال).map((markquestion, index) =>
-                        <div className="exam-answer" key={index}>
-                          {index + 1}) {markquestion.name}
-                          {(markquestion.options).map((option, index) => (
-                            <div key={index}>
-                              {index + 1}
-                              <span>) </span>
-                              {option.option}
-                              <br />
+            <div className="exam-note" hidden={!headerData3.showApperanceNotice}>
+              ملحوظة مهمة : أجب عن الأسئلة الآتية جميعها وعددها ({headerData3.questionCount}) ، علماً أن عدد صفحات الامتحان ({totalpage})
+            </div>
+            {
+              Array.isArray(dataQuestion1) ?
+                dataQuestion1.map((headquestion, index) => {
+                  try {
+                    const parsedQuestion = JSON.parse(headquestion);
+                    return (
+                      <div key={index} className="exam-question">
+                        {index + 1}) {parsedQuestion.addressQuestion} <span> : </span>
+                        <span>({parsedQuestion.markQuestion}) درجة</span><br />
+                        {
+                          JSON.parse(parsedQuestion.السؤال).map((markquestion, index) =>
+                            <div className="exam-answer">
+                              {index + 1}) {markquestion.name}
+                              {(markquestion.options).map((option, index) => (
+                                <div key={index}>
+                                  {index + 1}
+                                  <span>) </span>
+                                  {option.option}
+                                  <br />
+                                </div>
+                              ))}
                             </div>
-                          ))}
-                        </div>
-                      )}
-                  </div>
-                );
-              } catch (error) {
-                console.error('Error parsing question:', error);
-                return null;
-              }
-            })
-          }
-        </div>
-        <div className="exam-footer">
-          <div className="exam-end">
-            {headerData4.finishExam}
+                          )
+                        }
+                      </div>
+                    );
+                  } catch (error) {
+                    console.error('Error parsing question:', error);
+                    return null;
+                  }
+                })
+                : null
+            }
           </div>
-          <div className="exam-wish">
-            {headerData4.Message}
-          </div>
-          <div dir='ltr' className="exam-teacher">
-            Teacher's name: {headerData4.teachername}
-          </div>
-        </div>
-      </div>
-      <div className='d-flex align-items-center justify-content-center p-5'>
-        <Link hidden={true} to={`/teacher/PuttingExam5/${parseInt(headerData3.questionCount) + 1}`}>
-          <button className="btn_putting_exam2_after text-white py-0 m-0 mt-3 mx-2 p-5">
-            Previous
-          </button>
-        </Link>
-        <Link>
-          <button className="btn_putting_exam2_after text-white py-0 m-0 mt-3 mx-2 p-5" onClick={downloadPdf}>Download</button>
-        </Link>
-        <Link>
-        <button className="btn_putting_exam2_after text-white py-0 m-0 mt-3 mx-2 p-5" data-bs-toggle="modal" data-bs-target="#logout">save</button>
-        </Link>
-      </div>
-    </div>
-
-<div className="modal fade DElementFade" id="logout" tabIndex="-1" aria-labelledby="deleteElementModalLabel" aria-hidden="true">
-<div className="modal-dialog DElementDialog modal-dialog-centered ele_2">
-  <div className="modal-content DElementContent modal-backdrop1">
-    <div className="modal-body DElementBody text-center">
-      <p className="modal-title DElementTitle pt-5" id="deleteElementModalLabel">رفع الملفات</p>
-      <Row className="mt-5">
-
-       <Col xs={12} sm={6}>
-<Form.Group controlId="formFileUpload">
-<div className="d-flex align-items-center justify-content-center iciio">
-  <Form.Label className="mr-2">ملف الأسئلة</Form.Label>
-</div>
-<div className="custom-file-input-wrapper">
-  <Form.Control
-    type="file"
-    name="mediaQuestion"
-    accept=".pdf"
-    onChange={handleFileChange}
-    className="custom-file-input" // Ensure this class is defined in your CSS
-  />
- 
-</div>
-</Form.Group>
-</Col>
-        <Col xs={12} sm={6}>
-          <Form.Group controlId="formFileUpload">
-            <div className="d-flex align-items-center justify-content-center iciio">
-              <Form.Label className="mr-2">ملف الإجابات</Form.Label>
+          <div className="exam-footer">
+            <div className="exam-end">
+              {headerData4.finishExam}
             </div>
-            <div className="custom-file-input-wrapper" encType="multipart/form-data">
-              <Form.Control
-                type="file" name="mediaAnswer" accept=".pdf" onChange={handleFileChange}
-              />
-              
+            <div className="exam-wish">
+              {headerData4.Message}
             </div>
-          </Form.Group>
-        </Col>
-      </Row>
-    </div>
-    <div className="modal-footer DElementFooter">
-      <div>
-        <button type="button" className="btn btn-danger cancel-btn DElementSave mx-1" data-bs-dismiss="modal" onClick={handleSubmit}>
-          ok
-        </button>
-        <button type="button" className="btn-secondary cancel-btn DElementCancel mx-1" data-bs-dismiss="modal">
-          cansel
-        </button>
+            <div className="exam-teacher">
+              معلم المادة : {headerData4.teachername}
+            </div>
+          </div>
+        </div>
+        <div className='d-flex align-item-center justify-content-center p-5'>
+          <Link hidden={true}  to={`/teacher/PuttingExam5/${parseInt(headerData3.questionCount) + 1}`}>
+            <button className="btn_putting_exam2_after text-white py-0 m-0 mt-3 mx-2 p-5">
+              السابق
+            </button>
+          </Link>
+          <button className="btn_putting_exam2_after text-white py-0 m-0 mt-3 mx-2 p-5" onClick={downloadPdf}>تحميل</button>
+          <button className="btn_putting_exam2_after text-white py-0 m-0 mt-3 mx-2 p-5" data-bs-toggle="modal" data-bs-target="#logout">حفظ</button>
+        </div>
       </div>
-    </div>
-  </div>
-</div>
-</div>
 
-</>
-
+      <div className="modal fade DElementFade" id="logout" tabIndex="-1" aria-labelledby="deleteElementModalLabel" aria-hidden="true">
+        <div className="modal-dialog DElementDialog modal-dialog-centered ele_2">
+          <div className="modal-content DElementContent modal-backdrop1">
+            <div className="modal-body DElementBody text-center">
+              <p className="modal-title DElementTitle pt-5" id="deleteElementModalLabel">رفع الملفات</p>
+              <Row className="mt-5">
+        
+               <Col xs={12} sm={6}>
+      <Form.Group controlId="formFileUpload">
+        <div className="d-flex align-items-center justify-content-center iciio">
+          <Form.Label className="mr-2">ملف الأسئلة</Form.Label>
+        </div>
+        <div className="custom-file-input-wrapper">
+          <Form.Control
+            type="file"
+            name="mediaQuestion"
+            accept=".pdf"
+            onChange={handleFileChange}
+            className="custom-file-input" // Ensure this class is defined in your CSS
+          />
+         
+        </div>
+      </Form.Group>
+    </Col>
+                <Col xs={12} sm={6}>
+                  <Form.Group controlId="formFileUpload">
+                    <div className="d-flex align-items-center justify-content-center iciio">
+                      <Form.Label className="mr-2">ملف الإجابات</Form.Label>
+                    </div>
+                    <div className="custom-file-input-wrapper" encType="multipart/form-data">
+                      <Form.Control
+                        type="file" name="mediaAnswer" accept=".pdf" onChange={handleFileChange}
+                      />
+                      
+                    </div>
+                  </Form.Group>
+                </Col>
+              </Row>
+            </div>
+            <div className="modal-footer DElementFooter">
+              <div>
+                <button type="button" className="btn btn-danger cancel-btn DElementSave mx-1" data-bs-dismiss="modal" onClick={handleSubmit}>
+                  نعم
+                </button>
+                <button type="button" className="btn-secondary cancel-btn DElementCancel mx-1" data-bs-dismiss="modal">
+                  لا
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
 

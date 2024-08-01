@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap');
-
+.dropdown-toggle::after {
+  display: none;
+}
 .scrollable-dropdown-list {
     max-height: 200px; /* Adjust the height as needed */
     overflow-y: auto;
@@ -92,11 +94,11 @@
     text-align: start;
     background: white;
     color: rgba(33, 37, 41, 0.75);
+    border: 1px solid #ced4da;
+
 }
 
-.dropdown-toggle::after {
-    display: none;
-}
+
 
 .dropdown-icon {
     margin-left: 10px;
