@@ -81,9 +81,9 @@ function SidebarFullscreen() {
       {
         location.pathname.startsWith('/dashboard') ?
 
-          <div className="sidbar p-0 pe-3 " style={{ paddingRight: "100px" }} dir="rtl" >
-            <div className="sidbarSidbar " style={{ height: "88vh" }}>
-              <ul className="pt-4 ps-4">
+        <div className="sidbar p-0  "  dir="rtl" >
+        <div className="sidbarSidbar " >
+          <ul className="pt-4 ps-4">
                 <li className={`Icon  ${id === "1" ? "bgIcon" : " "}`}>
                   <Link to="/dashboard" onClick={() => setId(1)} >
                     <img src={homeIcon} alt="الرئيسية" />
@@ -189,9 +189,9 @@ function SidebarFullscreen() {
           :
           location.pathname.startsWith('/student') ?
 
-            <div className="sidbar p-0 pe-3 " style={{ paddingRight: "100px" }} dir="rtl" >
-              <div className="sidbarSidbar " style={{ height: " 87vh" }}>
-                <ul className="pt-4 ps-4">
+          <div className="sidbar p-0 pb-2 "  dir="rtl" style={{height:"340px", width:"300px"}} >
+          <div className="sidbarSidbar "  style={{paddingBottom:"13.5rem"}} >
+            <ul className="pt-4 ">
                   <li className={`Icon  ${id === "1" ? "bgIcon" : " "}`}>
                     <Link to="/student/HomeStudentview" onClick={() => setId(1)} >
                       <img src={homeIcon} alt="الرئيسية" />
@@ -244,9 +244,9 @@ function SidebarFullscreen() {
 
 
 
-              <div className="sidbar p-0 pe-3 " style={{ paddingRight: "100px" }} dir="rtl" >
-                <div className="sidbarSidbar " style={{ height: " 87vh" }}>
-                  <ul className="pt-4 ps-4">
+              <div className="sidbar p-0  "  dir="rtl" >
+                <div className="sidbarSidbar " >
+                  <ul className="pt-4 ps-2">
                     <li className={`Icon  ${id === "1" ? "bgIcon" : " "}`}>
                       <Link to="/teacher/Home_teacher" onClick={() => setId(1)} >
                         <img src={homeIcon} alt="الرئيسية" />

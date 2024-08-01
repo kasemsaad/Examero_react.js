@@ -15,6 +15,11 @@ import leftLogo from './WhatsApp Image 2024-07-31 at 12.56.09_2c113d77.jpg';
 
 function ExamPdf() {
   const navigate = useNavigate();
+  const flag= localStorage.get("allow")
+  if(flag!==1){
+    navigate("/")
+  }
+  
   const [dataQuestion1, setdataQuestion1] = useState([]);
   const [dataQuestion2, setdataQuestion2] = useState({});
   const [dataQuestion3, setdataQuestion3] = useState({});
@@ -199,7 +204,13 @@ function ExamPdf() {
       });
 
   }
+  const [preview, setPreview] = useState(null);
 
+  useEffect(() => {
+      // Retrieve the preview from sessionStorage
+      const previewData = localStorage.getItem('preview');
+      setPreview(previewData);
+  }, []);
   return (
     <>
       <ToastContainer position='top-center' />
@@ -216,7 +227,7 @@ function ExamPdf() {
               </div>
             </div>
             <div className="exam-logo">
-              <img src="https://i.ibb.co/7g6p4zM/logo.png" alt="logo" />
+              <img src={preview} alt="logo" />
             </div>
           </div>
         <div className="exam-content" dir="ltr">
@@ -305,13 +316,13 @@ function ExamPdf() {
 <div className="modal-dialog DElementDialog modal-dialog-centered ele_2">
   <div className="modal-content DElementContent modal-backdrop1">
     <div className="modal-body DElementBody text-center">
-      <p className="modal-title DElementTitle pt-5" id="deleteElementModalLabel">رفع الملفات</p>
+      <p className="modal-title DElementTitle pt-5" id="deleteElementModalLabel">Upload files</p>
       <Row className="mt-5">
 
        <Col xs={12} sm={6}>
 <Form.Group controlId="formFileUpload">
 <div className="d-flex align-items-center justify-content-center iciio">
-  <Form.Label className="mr-2">ملف الأسئلة</Form.Label>
+  <Form.Label className="mr-2">Questions file</Form.Label>
 </div>
 <div className="custom-file-input-wrapper">
   <Form.Control
@@ -328,7 +339,7 @@ function ExamPdf() {
         <Col xs={12} sm={6}>
           <Form.Group controlId="formFileUpload">
             <div className="d-flex align-items-center justify-content-center iciio">
-              <Form.Label className="mr-2">ملف الإجابات</Form.Label>
+              <Form.Label className="mr-2">Answers file</Form.Label>
             </div>
             <div className="custom-file-input-wrapper" encType="multipart/form-data">
               <Form.Control
