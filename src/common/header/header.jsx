@@ -5,6 +5,7 @@ import Examiro from "./../../assets/image/image 9.svg";
 import notifiy from "./../../assets/image/ic_baseline-notifications-none.svg";
 import moon from "./../../assets/image/solar_moon-line-duotone.svg";
 import logo from "./../../assets/image/لوجو examero-01 1.svg";
+import person from "./Mask group.svg";
 // import SidebarFullscreen from '../sidebar/structure'
 import { useDispatch, useSelector } from "react-redux";
 import { CHANGE_THEME } from "../../redux/Types/types";
@@ -38,7 +39,7 @@ function Header() {
     } else if (location.pathname.startsWith("/student")) {
       navigate("/student/editStudentProfaile");
     } else if (location.pathname.startsWith("/teacher")) {
-      navigate("/");
+      navigate("/teacher/TeacherProfile");
     } else {
       navigate("/");
     }
@@ -47,7 +48,7 @@ function Header() {
   const getRefresh = async () => {
     await Api_Dashboard.get(`/refresh`)
       .then((response) => {
-        console.log(response);
+
         let name_image = response.data.User.media.name;
         SetpersonalDashboard(name_image);
       })
@@ -64,17 +65,35 @@ const getRefreshstudent = async()=>{
  await Api_website.get(`/students/refresh`)
     .then(response => {
       let name_image = response.data.User.media.name
-      console.log(name_image)
       SetpersonalStudent(name_image);
     })
     .catch(error => {
         console.error("Error fetching student data:");
       });
   };
+  const getRefreshteacher = async()=>{
+    await Api_website.get(`/teachers/refresh`)
+       .then(response => {
+         let name_image = response.data.user.media.name
+         console.log(name_image)
+         SetpersonalTeacher(name_image);
+       })
+       .catch(error => {
+           console.error("Error fetching teacher data:");
+         });
+     };
+
+     const user=localStorage.getItem("user")
 
   useEffect(() => {
     getRefresh();
-    getRefreshstudent();
+    if(user==="student"){
+
+      getRefreshstudent()
+    }else if(user==="teacher"){
+      
+      getRefreshteacher()
+    }
   }, [personalDashboard]);
 
   return (
@@ -221,9 +240,12 @@ const getRefreshstudent = async()=>{
             width: "55px",
             height: "55px",
             borderRadius: "50%",
-            backgroundColor: "blue",
+            backgroundColor: "#4941A6",
             overflow: "hidden",
             position: "absolute",
+          }}
+          onClick={() => {
+            linksProfile();
           }}
         >
           <img
@@ -235,16 +257,15 @@ const getRefreshstudent = async()=>{
               
               location.pathname.startsWith('/dashboard')? `${Api_dashboard.defaults.baseURL}/assets/Admin/${personalDashboard}`:
               location.pathname.startsWith('/student')? `${Api_dashboard.defaults.baseURL}/assets/Student/${personalStudent}`:
-              // location.pathname.startsWith('/teacher')? `${Api_dashboard.defaults.baseURL}/assets/Student/${personalStudent}`:
-""  
+              location.pathname.startsWith('/teacher')? `${Api_dashboard.defaults.baseURL}/assets/Teacher/${personalTeacher}`:
+              person  
                         }
             width="100%"
             height="100%"
-            alt="Personal"
-            onClick={() => {
-              linksProfile();
-            }}
+            alt={person}
+           
           />
+        
         </div>
       </div>
 

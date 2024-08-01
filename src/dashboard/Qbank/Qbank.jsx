@@ -80,12 +80,11 @@ export default function Qbank() {
         setinputsOne(newInputs);
     };
 
-    
 
  
     // -----------------------------------------------------------------------------
     const [allDataFromAllSelection, SetallDataFromAllSelection] = useState({
-        name: "",
+        name: "mostafa",
         point: "",
         group_id: "",
         subject_id: "",
@@ -181,6 +180,7 @@ export default function Qbank() {
     //     let subJectId = data.subject_id 
     //     if (data.subject_id) {
     //          getAllUnitsDependOnSubject(subJectId)
+
     //     }
 
     //     let unitId = data.unit_id
@@ -285,6 +285,7 @@ export default function Qbank() {
 
 
 
+
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (file) {
@@ -346,6 +347,7 @@ const [allLesson,SetallLesson]=useState([])
     useEffect(() => {
         getAllGroup()
         getTypeOfQustition()
+
     }, [])
     const [isLoading, setIsLoading] = useState(false);
 
@@ -462,6 +464,7 @@ const [allLesson,SetallLesson]=useState([])
 //   console.log(showQuistitionById);
 // console.log(allDataFromAllSelection);
           
+
     return (<>
     {showConfetti && (
                         <Confetti

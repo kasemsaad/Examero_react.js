@@ -98,10 +98,7 @@ const PuttingQForMab7as = () => {
     <>
       <div className=" min-vh-100 mab7asContainer">
         <HeaderOfPuttingQuestions />
-        <div
-          className="question-dash-mab"
-          style={{ width: "80%", margin: "auto" }}
-        >
+        <div className="question-dash-mab" style={{ margin: "auto" }}>
           <PuttingQArrow />
           <div>
             <AddComponent content={"اضافة مبحث"} />

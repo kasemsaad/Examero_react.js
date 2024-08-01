@@ -19,6 +19,7 @@ function NewPassDashBoard() {
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
+    document.body.style.removeProperty('overflow');
     e.preventDefault();
     console.log(  email,
         token,

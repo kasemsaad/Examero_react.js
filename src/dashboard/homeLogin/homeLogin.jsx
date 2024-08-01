@@ -38,7 +38,9 @@ function HomeDashoardLogin() {
     // console.log(formData)
     setFormdata(formdata);
   };
-
+  const setId = (id) => {
+    localStorage.setItem("sidbarId", JSON.stringify(id));
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     await Api_Dashboard.post("/login", formData)
@@ -46,6 +48,7 @@ function HomeDashoardLogin() {
         localStorage.setItem("token", response.data.access_token);
 
         dispatch(fetchRoleAndImage());
+        setId(1)
 
         navigate("/dashboard");
       })
@@ -178,6 +181,7 @@ function HomeDashoardLogin() {
             </Button>
             <Link to="/">
             <Button
+
           
           
               style={{ marginTop: "20px" }}
@@ -187,6 +191,7 @@ function HomeDashoardLogin() {
               العوده الي الموقع 
             </Button>
             </Link>
+
 
             {/* <Create_acc /> */}
           </Form>

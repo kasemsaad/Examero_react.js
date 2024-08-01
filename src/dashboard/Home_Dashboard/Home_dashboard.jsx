@@ -59,9 +59,9 @@ export default function Home_dashboard() {
   }
 
 
-  const [info, setinfo] = useState("");
-  
+  const [info, setinfo] = useState("");  
   const getinfo = () => {
+
     Api_Dashboard.get(`students/exams-info`)
       .then(response => {
         setinfo(response.data);
@@ -70,6 +70,7 @@ export default function Home_dashboard() {
         console.error("Error fetching notes data:", error);
       });
   }
+
 
 
 
@@ -104,12 +105,28 @@ export default function Home_dashboard() {
       setNoteValidationMessage('');
     }
     setNote(value);
+
   };
 
+  const handleNoteChange = (event) => {
+    const value = event.target.value;
+
+    if (value.trim() === '') {
+      setNoteValidationMessage('لا يجب ان يكون فارغ');
+    } else if (value.length > 50) { // Example max length for note
+      setNoteValidationMessage('الملحوظه لاتزيد عن 50 حرف');
+    } else if (!/^[\u0600-\u06FF\sA-Za-z]+$/.test(value)) {
+      setNoteValidationMessage('يجب ان يكون نص');
+    } else {
+      setNoteValidationMessage('');
+    }
+    setNote(value);
+  };
 
   // add note 
   const handleSubmit = (event) => {
     document.body.style.overflow = '';
+
 
     event.preventDefault();
     const data = {
@@ -175,6 +192,7 @@ export default function Home_dashboard() {
     getAllNotes()
     getInformationNumbers()
 
+
   }, [])
   const [values, setValues] = useState({
     id: useId,
@@ -206,6 +224,7 @@ export default function Home_dashboard() {
       return '';
     }
   };
+
 
   // Handle input change with validation
   const handleInputChangeAddress = (e) => {
@@ -697,6 +716,7 @@ export default function Home_dashboard() {
 
 
                 <Link to='/dashboard/manger' style={{ textDecoration: "none" }}>
+
                   <div className='achive_gift mt-3' style={{ height: "36px", backgroundColor: '#3E369B', border: "1px solid #4941A6", borderRadius: '9.65px', textAlign: "center", display: "flex", justifyContent: "space-evenly", alignItems: "center" }}>
                     <div style={{ display: "flex", justifyContent: "space-evenly", alignItems: "center", width: "80%" }}>
                       <img src={achives} className="" alt=" شخصية" />
@@ -727,12 +747,6 @@ export default function Home_dashboard() {
                 handleNoteChange={handleNoteChange}
                 editButtonModal={"#updateAdminModal"}
                 deleteButtonModal={"#deleteModalAdminNote"}
-
-
-
-
-
-
 
               />
             </div>

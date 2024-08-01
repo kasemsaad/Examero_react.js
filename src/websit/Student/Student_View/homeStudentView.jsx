@@ -28,9 +28,9 @@ function HomeStudentview(props) {
   //////////////////////////Get All Note///////////////////////////////////////////////////
   const [allNotes, setAllNotes] = useState("");
   // const [AllExam, setAllExam] = useState("");
-  const getAllNotes=()=>{
+  const getAllNotes = () => {
     document.body.style.removeProperty('overflow');
-      Api_Website.get(`/students/notes`)
+    Api_Website.get(`/students/notes`)
       .then(response => {
         setAllNotes(response.data.data);
       })
@@ -41,18 +41,18 @@ function HomeStudentview(props) {
   }
   const [info, setinfo] = useState("");
 
-  const getinfo=()=>{
+  const getinfo = () => {
     document.body.style.removeProperty('overflow');
 
     Api_Website.get(`students/exams-info`)
-    .then(response => {
-      setinfo(response.data);
-    })
-    .catch(error => {
-      console.error("Error fetching notes data:", error);
-    });
+      .then(response => {
+        setinfo(response.data);
+      })
+      .catch(error => {
+        console.error("Error fetching notes data:", error);
+      });
 
-}
+  }
   // const getExam=()=>{
   //   request({
   //     url: '/students/exams',
@@ -73,11 +73,11 @@ function HomeStudentview(props) {
   const deleteNote = (id) => {
     document.body.style.removeProperty('overflow');
 
-      Api_Website.delete(`/students/notes/${id}`)
+    Api_Website.delete(`/students/notes/${id}`)
       .then(response => {
         console.log('Note deleted successfully');
         getAllNotes()
-            })
+      })
       .catch(error => {
         console.error('Error deleting note:');
       });
@@ -121,7 +121,7 @@ function HomeStudentview(props) {
       setNoteValidationMessage('');
       setNote(value);
     }
-    
+
   };
 
   const handleSubmit = (event) => {
@@ -131,7 +131,7 @@ function HomeStudentview(props) {
       note: note
     };
     document.body.style.removeProperty('overflow');
-      Api_Website.post(`students/notes`, data)
+    Api_Website.post(`students/notes`, data)
       .then(response => {
         const modalElement = document.getElementById('addManagerModal');
         modalElement.style.display = "none"
@@ -142,7 +142,7 @@ function HomeStudentview(props) {
         setNoteValidationMessage('');
         getAllNotes();
 
-            })
+      })
       .catch(error => {
         setValidationMessage("لم يتم الاضافه")
         console.error('Error adding note:');
@@ -152,22 +152,22 @@ function HomeStudentview(props) {
 
   //////////////////////////End add Note///////////////////////////////////////////////////
   //////////////////////////update Note///////////////////////////////////////////////////
-useEffect(()=>{
-})
-  const [values , setValues]=useState({
-    id:useId,
-    address:'',
-    note:''
+  useEffect(() => {
+  })
+  const [values, setValues] = useState({
+    id: useId,
+    address: '',
+    note: ''
   });
- 
+
   const handleGetUpdate = (id) => {
     document.body.style.removeProperty('overflow');
 
-      Api_Website.get(`students/notes/${id}`)
+    Api_Website.get(`students/notes/${id}`)
       .then(response => {
-        setValues({...values,address:response.data.data.address,note:response.data.data.note});
+        setValues({ ...values, address: response.data.data.address, note: response.data.data.note });
         getAllNotes()
-            })
+      })
       .catch(error => {
         console.error('Error get note:');
       });
@@ -230,7 +230,7 @@ useEffect(()=>{
     };
     document.body.style.removeProperty('overflow');
 
-      Api_Website.post(`students/notes/${useId}`,data)
+    Api_Website.post(`students/notes/${useId}`, data)
       .then(response => {
         console.log('Note update successfully:');
         const modalElement = document.getElementById('UpdateManagerModal');
@@ -238,26 +238,26 @@ useEffect(()=>{
         getAllNotes()
         // setAddress("")
         // setNote("")
-            })
+      })
       .catch(error => {
         console.error('Error update note:');
       });
   };
   //////////////////////////End add Note///////////////////////////////////////////////////
-  const [inputUser,setInputUser]=useState({
+  const [inputUser, setInputUser] = useState({
     address: "",
     note: "",
-   
-  })
-const getUsersFromInput=(e)=>{
-  let USER={...inputUser}
-  USER[e.target.name]=e.target.value
-  setInputUser(USER)
-  }
- 
+
+  })
+  const getUsersFromInput = (e) => {
+    let USER = { ...inputUser }
+    USER[e.target.name] = e.target.value
+    setInputUser(USER)
+  }
+
   return (
     <>
-    {/* <ActionComponent /> */}
+      {/* <ActionComponent /> */}
       <div className="container py-5 mb-2 d-flex align-items-center justify-content-center flex-column">
         <div className="" style={{ width: "85%", paddingTop: "4.25px" }}>
           <img src={Homeicon} alt="HomeIcon" style={{ backgroundColor: "transparent" }} />
@@ -278,16 +278,16 @@ const getUsersFromInput=(e)=>{
           <div className="row rowHomestudent pt-2 m-0 col-md-8 d-flex align-items-start justify-content-evenly">
             <div className="row d-flex p-0 align-items-start justify-content-between">
 
-            <div className="col-3 rounded-4  shadow-box shadow-boxxx boximgbackground1 d-flex flex-column justify-content-center " style={{ backgroundColor: "#4941A6", width: "45%" }}>
-              <p>عدد الامتحانات المستخدمة</p>
-              <p className="fs-6">{info.exam_student_finished}</p>
-            </div>
+              <div className="col-3 rounded-4  shadow-box shadow-boxxx boximgbackground1 d-flex flex-column justify-content-center " style={{ backgroundColor: "#4941A6", width: "45%" }}>
+                <p>عدد الامتحانات المستخدمة</p>
+                <p className="fs-6">{info.exam_student_finished}</p>
+              </div>
 
 
-            <div className="col-3 rounded-4  shadow-boxxx boximgbackground3 d-flex flex-column justify-content-center" style={{ backgroundColor: "#C17011", width: "45%" }}>
-              <p>متوسط الدرجات</p>
-              <p className="fs-6">{info.exam_average}%</p>
-            </div>
+              <div className="col-3 rounded-4  shadow-boxxx boximgbackground3 d-flex flex-column justify-content-center" style={{ backgroundColor: "#C17011", width: "45%" }}>
+                <p>متوسط الدرجات</p>
+                <p className="fs-6">{info.exam_average}%</p>
+              </div>
             </div>
 
             <div className="row child pt-4 p-0 m-0 rounded-4" style={{ width: "100%", backgroundColor: "#4941A6" }}>
@@ -327,7 +327,7 @@ const getUsersFromInput=(e)=>{
                           <div className="wraber_delete d-flex justify-content-center align-items-center" style={{ backgroundColor: "#1D195D", width: "2vw", height: "2vw", borderRadius: "8px" }}>
                             <img src={delet} alt="Delete" width="17px" height="17px" data-bs-toggle="modal" data-bs-target="#deleteElementModal" onClick={() => onSelect(id)} />
                           </div>
-                          <div data-bs-toggle="modal" data-bs-target="#UpdateManagerModal" className="wraber_delete d-flex justify-content-center align-items-center" onClick={() =>{onSelect(id); handleGetUpdate(id);} } style={{ backgroundColor: "#4941A6", width: "2vw", height: "2vw", borderRadius: "8px", boxShadow: 'rgba(0, 0, 0, 0.75) -2px 3px 5px 0px' }}>
+                          <div data-bs-toggle="modal" data-bs-target="#UpdateManagerModal" className="wraber_delete d-flex justify-content-center align-items-center" onClick={() => { onSelect(id); handleGetUpdate(id); }} style={{ backgroundColor: "#4941A6", width: "2vw", height: "2vw", borderRadius: "8px", boxShadow: 'rgba(0, 0, 0, 0.75) -2px 3px 5px 0px' }}>
                             <img src={edit} alt="Edit" />
                           </div>
                         </div>
@@ -422,7 +422,7 @@ const getUsersFromInput=(e)=>{
                 <div className="parent1">
                   <div className="child1 col-lg-5">
                     <div className="form-group managerFGroup">
-                      
+
                       <label htmlFor="lastName">العنوان</label>
                       <input
                         type="text"
@@ -449,31 +449,31 @@ const getUsersFromInput=(e)=>{
                         value={note}
                         required
                         onChange={handleNoteChange} />
-                        
+
                       {noteValidationMessage && <p style={{ color: 'red' }}>{noteValidationMessage}</p>}
                     </div>
 
                   </div>
 
                 </div>
-                    <div className="modal-footer managerFooter pt-4 ">
-                      <button
-                        type="button"
-                        className="btn canceled managerCancel"
-                        data-bs-dismiss="modal"
-                        id="firstbutt"
-                        onClick={()=>{
-                          setAddress('');
-                          setNote('');
-                          setValidationMessage('');
-                          setAddressValidationMessage('');
-                          setNoteValidationMessage('');
-                        }}
-                      >
-                        إلغاء
-                      </button>
-                      <button type="submit" className="btn save managerSave" >إضافة</button>
-                    </div>
+                <div className="modal-footer managerFooter pt-4 ">
+                  <button
+                    type="button"
+                    className="btn canceled managerCancel"
+                    data-bs-dismiss="modal"
+                    id="firstbutt"
+                    onClick={() => {
+                      setAddress('');
+                      setNote('');
+                      setValidationMessage('');
+                      setAddressValidationMessage('');
+                      setNoteValidationMessage('');
+                    }}
+                  >
+                    إلغاء
+                  </button>
+                  <button type="submit" className="btn save managerSave" >إضافة</button>
+                </div>
               </form>
             </div>
           </div>
@@ -501,7 +501,7 @@ const getUsersFromInput=(e)=>{
                         placeholder="أدخل العنوان"
                         value={values.address}
                         onChange={handleInputChangeAddress}
-/>
+                      />
                       {addressUpdateValidationMessage && <p style={{ color: 'red' }}>{addressUpdateValidationMessage}</p>}
 
                     </div>

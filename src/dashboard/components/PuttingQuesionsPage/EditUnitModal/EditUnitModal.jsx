@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Api_Dashboard from "../../../interceptor/interceptorDashboard";
 import "./EditUnitModal.css";
 import { toast } from "react-toastify";
+import ToggleForEdit from "../ToggelForEdit/ToggleForEdit";
 
 const EditUnitModal = ({
   activeSubjects,
@@ -91,8 +92,9 @@ const EditUnitModal = ({
     }
 
     try {
+      document.body.style.removeProperty("overflow");
+
       const response = await Api_Dashboard.post(
-        document.body.style.removeProperty('overflow')
         `/units/${RowDataOfUnite.id}`,
         formData
       );
@@ -100,12 +102,10 @@ const EditUnitModal = ({
       SetAlertPointSuccess(x);
       notify("تم تعديل الوحده بنجاح ");
       element.style.display = "none";
-      // setModal("modal");
-      element.style.display = "none";
       fetchAllUnits();
     } catch (error) {
       let x = error.response.data.message;
-      SetAlertPoint(x);
+      Errornotify(x);
       setErrors(error.response.data.errors);
     }
   };
@@ -123,89 +123,31 @@ const EditUnitModal = ({
         data-bs-keyboard="false"
       >
         <div className="modal-dialog my-mod-edit" role="document">
-          <div
-            className="modal-content"
-            style={{ backgroundColor: "#1D195D", borderRadius: "13.97px" }}
-          >
-            <div
-              className="modal-header-new"
-              style={{
-                flexDirection: "row-reverse",
-                width: "100%",
-                height: "86px",
-                color: "#FF8A00",
-                fontSize: "20px",
-                fontWeight: "700",
-                display: "flex",
-                textAlign: "center",
-              }}
-            >
+          <div className="modal-content edit-unit-content-dash">
+            <div className="edit-unit-header-dash">
               <h5 className="modal-title m-auto" id="exampleModalLabel">
                 تعديل بيانات الوحده
               </h5>
               <button
                 type="button"
-                className="btn-close-new"
+                className="edit-unit-btn-close-dash"
                 data-bs-dismiss="modal"
                 aria-label="Close"
-                style={{
-                  margin: "9px",
-                  borderRadius: "100%",
-                  backgroundColor: "white",
-                  width: "32px",
-                  height: "32px",
-                  fontSize: "14px",
-                  border: "none",
-                }}
               >
                 ❌
               </button>
             </div>
-            <div
-              style={{
-                margin: "auto",
-                width: "514px",
-                backgroundColor: "#A6A0F4",
-                height: "1px",
-              }}
-            ></div>
-            <div
-              className="modal-body-new p-0 d-flex"
-              style={{ height: "305px" }}
-            >
+            <div className="edit-unit-lin-dash"></div>
+            <div className="modal-body-new p-0 d-flex">
               <form
-                style={{ width: "95%", margin: "auto" }}
-                className="w-95"
+                className="w-95 form-edit-unit-dash"
                 onSubmit={handleSubmit}
               >
-                <div
-                  className="d-flex col-12 p-0"
-                  style={{
-                    width: "91%",
-                    margin: "auto",
-                    display: "flex",
-                    justifyContent: "space-evenly",
-                    height: "85px",
-                  }}
-                >
-                  {/*////////////// first name ////////////////// */}
-                  <div
-                    className="form-group col-5 d-flex flex-column"
-                    style={{
-                      direction: "rtl",
-                      justifyContent: "center",
-                      height: "70px",
-                    }}
-                  >
+                <div className="d-flex col-12 p-0 edit-unit-subject-inputs-container-dash">
+                  <div className="form-group col-5 d-flex flex-column edit-unit-input-container-dash">
                     <label
                       htmlFor="recipient2-name"
-                      className="col-form-label"
-                      style={{
-                        flexDirection: "column-reverse",
-                        color: "white",
-                        justifyContent: "end",
-                        display: "flex",
-                      }}
+                      className="col-form-label edit-unit-input-label-dash"
                     >
                       الاسم الوحده
                     </label>
@@ -218,17 +160,10 @@ const EditUnitModal = ({
                       value={formData.name}
                       onChange={handleChange}
                       autoComplete="current-userName"
-                      style={{ direction: "rtl", height: "35px" }}
                     />
-                    <span style={{ color: "red" }}>{errors.name}</span>
+                    <span className="error-text">{errors.name}</span>
                   </div>
-
-                  {/* ///////////////last name input ///////////////////////////// */}
-
-                  <div
-                    className="form-group col-5 d-flex flex-column"
-                    style={{ direction: "rtl", justifyContent: "center" }}
-                  >
+                  <div className="form-group col-5 d-flex flex-column edit-unit-subject-select-container-dash">
                     <label htmlFor="">اختر المبحث</label>
                     <select
                       onChange={handleChange}
@@ -244,38 +179,19 @@ const EditUnitModal = ({
                         activeSubjects.map((activeSubject) => (
                           <option
                             key={activeSubject.id}
-                            style={{ background: "#4941A6", color: "white" }}
                             value={activeSubject.id}
                           >
                             {activeSubject.name}
                           </option>
                         ))}
                     </select>
-                    <span style={{ color: "red" }}>{errors.subject_id}</span>
+                    <span className="error-text">{errors.subject_id}</span>
                   </div>
                 </div>
-                <div
-                  className="d-flex col-12 p-0"
-                  style={{
-                    width: "91%",
-                    margin: "auto",
-                    display: "flex",
-                    justifyContent: "space-evenly",
-                  }}
-                >
-                  <div className="form-group col-5 d-flex flex-column"></div>
-                </div>
-                <div
-                  style={{
-                    width: "91%",
-                    margin: "auto",
-                    display: "flex",
-                    justifyContent: "space-evenly",
-                  }}
-                >
+                <div className="edit-unit-class-select-container">
                   <div
-                    className="form-group col-5 d-flex flex-column "
-                    style={{ display: "flex", width: "89%" }}
+                    style={{ width: "81%" }}
+                    className="form-group col-5 d-flex flex-column"
                   >
                     <label htmlFor="">اختر الصف</label>
                     <select
@@ -289,80 +205,32 @@ const EditUnitModal = ({
                       <option value="">اختر اسم الصف</option>
                       {activeClasses &&
                         activeClasses.map((activeClass) => (
-                          <option
-                            key={activeClass.id}
-                            style={{
-                              background: "#4941A6",
-                              color: "white",
-                            }}
-                            value={activeClass.id}
-                          >
+                          <option key={activeClass.id} value={activeClass.id}>
                             {activeClass.name}
                           </option>
                         ))}
                     </select>
-                    <span style={{ color: "red" }}>{errors.group_id}</span>
+                    <span className="error-text">{errors.group_id}</span>
                   </div>
                 </div>
-                <div
-                  style={{
-                    height: "40px",
-                    width: " 81%",
-                    margin: "auto",
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                >
-                  <button
-                    type="button"
-                    style={{ marginLeft: "6px" }}
-                    className={`toggle-btnn ${
-                      formData.status === 0 ? "toggled" : ""
-                    }`}
-                    onClick={handleClick}
-                  >
-                    <span
-                      style={{
-                        marginTop: "-6px",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}
-                      className={formData.status === 0 ? "white-text" : "whit"}
-                    >
-                      {formData.status === 1 ? "مفعل" : "معطل"}
-                    </span>
-                    <div className="thumb"></div>
-                  </button>
+                <div className="edit-unit-toggle-container-dash">
+                  <ToggleForEdit
+                    editClass={formData}
+                    handleClick={handleClick}
+                  />
                 </div>
                 <div className="modal-footer-new new-footer">
                   <button
                     type="submit"
                     data-bs-dismiss={modal}
-                    className="btn btn-primary"
-                    style={{
-                      borderRadius: "30px",
-                      border: "none",
-                      backgroundColor: "#C01F59",
-                      width: "96px",
-                      height: "40px",
-                      marginLeft: "12px",
-                    }}
+                    className="edit-unit-submit-button-dash"
                   >
                     تعديل
                   </button>
                   <button
                     type="button"
-                    className="btn btn-secondary"
+                    className="edit-unit-close-button-dash "
                     data-bs-dismiss="modal"
-                    style={{
-                      borderRadius: "30px",
-                      color: "#FE4F60",
-                      border: "#FE4F60 solid 2px",
-                      backgroundColor: "#1D195D",
-                      width: "96px",
-                      height: "40px",
-                    }}
                   >
                     إلغاء
                   </button>

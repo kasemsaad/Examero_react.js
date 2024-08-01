@@ -28,6 +28,11 @@ import PuttingExam1 from "./websit/teacher_view/PuttingExam1/PuttingExam1.jsx";
 import PuttingExam2 from "./websit/teacher_view/PuttingExam1/PuttingExam2.jsx";
 import PuttingExam3 from "./websit/teacher_view/PuttingExam1/PuttingExam3.jsx";
 import PuttingExam4 from "./websit/teacher_view/PuttingExam1/PuttingExam4.jsx";
+import PuttingExam5 from "./websit/teacher_view/PuttingExam1/PuttingExam5.jsx";
+import ExamPdf from "./websit/teacher_view/PuttingExam1/ExamePdf.jsx";
+import ExamePdfsolution from "./websit/teacher_view/PuttingExam1/ExamePdfsolution.jsx";
+import ExamPdfArabic from "./websit/teacher_view/PuttingExam1/ExamPdfArabic.jsx";
+import ExamPdfArabicsolution from "./websit/teacher_view/PuttingExam1/ExamPdfArabicsolution.jsx";
 import Certified_exam from "./websit/teacher_view/PuttingExam1/Certified_exam.jsx";
 import EmailVerificationTech from "./websit/register and login/EmailVerification/EmailVerificationtech.jsx";
 import EmailVerificationStud from "./websit/register and login/EmailVerification/EmailVerificationStud.jsx";
@@ -39,6 +44,7 @@ import TeacherProfile from "./websit/teacher_view/teacher profile/teacherProfile
 import DataStudentExam from "./websit/Student/dataStudentExam/dataStudentExam.jsx";
 import EditStudentProfaile from "./websit/Student/editStudentProfaile/editStudentProfaile.jsx";
 import ProtectedRouteWebsite from "../src/websit/protectedRouteWebsite/protectedRouteWebsite.jsx";
+import ProtectedRouteWebsiteTeacher from "../src/websit/protectedRouteWebsite/protectedRouteWebsiteTeacher.jsx";
 
 // import Home_dashboard from './dashboard/Home_Dashboard/Home_dashboard.jsx';
 import HomeDashoardLogin from "./dashboard/homeLogin/homeLogin.jsx";
@@ -78,6 +84,13 @@ import TeacherDash from "./dashboard/Users/Teachers/TeacherDash.jsx";
 import StudentsDash from "./dashboard/Users/Teachers/StudentDash.jsx";
 import Certify from "./dashboard/newCertify/certify.jsx";
 import AccessDinied from "./dashboard/AccessDienied/accessDinied.jsx";
+import Home_teacher from "./websit/hometeacher/hometeacher.jsx";
+import SpecificationTeacher from "./websit/Specification_teacher/Specification_teacher.jsx";
+import OpenEmisTable from "./websit/OpenEmisTable/OpenEmisTable.jsx";
+import CertificationTeacher from "./websit/certificationTeacher/certificationTeacher.jsx";
+import { QbankTeacherTable } from "./websit/qbankk/qbankteacher.jsx";
+import CreateQuestation from "./websit/qbankk/createquestation.jsx";
+
 function App(props) {
   return (
     <BrowserRouter>
@@ -86,17 +99,13 @@ function App(props) {
         <Route
           path="student/payment/SuccessPayment"
           element={
-            <ProtectedRouteWebsite>
               <SuccessPayment />
-            </ProtectedRouteWebsite>
           }
         />
         <Route
           path="teacher/payment/SuccessPayment"
           element={
-            <ProtectedRouteWebsite>
               <SuccessPayment />
-            </ProtectedRouteWebsite>
           }
         />
         <Route
@@ -125,51 +134,149 @@ function App(props) {
           <Route
             path="homeStudentView"
             element={
-              <ProtectedRouteWebsite>
+              <ProtectedRouteWebsiteTeacher>
                 <HomeStudentView />
-              </ProtectedRouteWebsite>
+              </ProtectedRouteWebsiteTeacher>
             }
           />
 
           <Route
             path="createExam"
             element={
-              <ProtectedRouteWebsite>
+              <ProtectedRouteWebsiteTeacher>
                 <CreateExam />
-              </ProtectedRouteWebsite>
+              </ProtectedRouteWebsiteTeacher>
             }
           />
           <Route
             path="dataStudentExam"
             element={
-              <ProtectedRouteWebsite>
+              <ProtectedRouteWebsiteTeacher>
                 <DataStudentExam />
-              </ProtectedRouteWebsite>
+              </ProtectedRouteWebsiteTeacher>
             }
           />
           <Route
             path="editStudentProfaile"
             element={
-              <ProtectedRouteWebsite>
+              <ProtectedRouteWebsiteTeacher>
                 <EditStudentProfaile />
-              </ProtectedRouteWebsite>
+              </ProtectedRouteWebsiteTeacher>
             }
           />
         </Route>
-
+        QbankTeacher
         <Route path="/teacher/" element={<LayoutComp />}>
-          <Route path="TeacherProfile" element={<TeacherProfile />} />
+          <Route path="TeacherProfile" element={
+            <ProtectedRouteWebsiteTeacher>
+              <TeacherProfile />
+            </ProtectedRouteWebsiteTeacher>
+          } />
           <Route
             path="InsertingOpenEmisTags"
-            element={<InsertingOpenEmisTags />}
+            element={
+              <ProtectedRouteWebsiteTeacher>
+                <InsertingOpenEmisTags />
+              </ProtectedRouteWebsiteTeacher>
+            }
           />
-          <Route path="PuttingExam1" element={<PuttingExam1 />} />
-          <Route path="PuttingExam2" element={<PuttingExam2 />} />
-          <Route path="PuttingExam3" element={<PuttingExam3 />} />
-          <Route path="PuttingExam4" element={<PuttingExam4 />} />
-          <Route path="Certified_exam" element={<Certified_exam />} />
-        </Route>
+          <Route path="PuttingExam1" element={
+            <ProtectedRouteWebsiteTeacher>
+              <PuttingExam1 />
+            </ProtectedRouteWebsiteTeacher>
 
+          } />
+
+          <Route path="PuttingExam2" element={
+            <ProtectedRouteWebsiteTeacher>
+              <PuttingExam2 />
+            </ProtectedRouteWebsiteTeacher>
+          } />
+          <Route path="PuttingExam3" element={
+            <ProtectedRouteWebsiteTeacher>
+              <PuttingExam3 />
+            </ProtectedRouteWebsiteTeacher>
+          } />
+          <Route path="PuttingExam4" element={
+            <ProtectedRouteWebsiteTeacher>
+              <PuttingExam4 />
+            </ProtectedRouteWebsiteTeacher>
+          } />
+          <Route path="PuttingExam5/:page" element={
+            <ProtectedRouteWebsiteTeacher>
+              <PuttingExam5 />
+            </ProtectedRouteWebsiteTeacher>
+          } />
+        
+
+          <Route path="Certified_exam" element={
+            <ProtectedRouteWebsiteTeacher>
+              <Certified_exam />
+            </ProtectedRouteWebsiteTeacher>
+
+          } />
+          <Route path="QbankTeacherTable" element={
+            <ProtectedRouteWebsiteTeacher>
+              <QbankTeacherTable />
+            </ProtectedRouteWebsiteTeacher>
+
+          } />
+          <Route path="Home_teacher" element={
+            <ProtectedRouteWebsiteTeacher>
+
+              <Home_teacher />
+            </ProtectedRouteWebsiteTeacher>
+
+          } />
+          <Route path="SpecificationTeacher" element={
+            <ProtectedRouteWebsiteTeacher>
+
+              <SpecificationTeacher />
+            </ProtectedRouteWebsiteTeacher>
+
+          } />
+          <Route path="OpenEmisTable" element={
+            <ProtectedRouteWebsiteTeacher>
+              <OpenEmisTable />
+            </ProtectedRouteWebsiteTeacher>
+          } />
+
+          <Route path="CertificationTeacher" element={
+            <ProtectedRouteWebsiteTeacher>
+              <CertificationTeacher />
+            </ProtectedRouteWebsiteTeacher>
+          }
+
+          />
+
+          <Route path="CreateQuestation" element={
+            <ProtectedRouteWebsiteTeacher>
+              <CreateQuestation />
+            </ProtectedRouteWebsiteTeacher>
+          } />
+
+          Home_teacher
+        </Route>
+        <Route path="ExamPdf" element={
+            <ProtectedRouteWebsiteTeacher>
+              <ExamPdf />
+            </ProtectedRouteWebsiteTeacher>
+          } />
+        <Route path="ExamPdfArabic" element={
+            <ProtectedRouteWebsiteTeacher>
+              <ExamPdfArabic />
+            </ProtectedRouteWebsiteTeacher>
+          } />
+        <Route path="ExamePdfsolution" element={
+            <ProtectedRouteWebsiteTeacher>
+              <ExamePdfsolution />
+            </ProtectedRouteWebsiteTeacher>
+          } />
+        <Route path="ExamPdfArabicsolution" element={
+            <ProtectedRouteWebsiteTeacher>
+              <ExamPdfArabicsolution />
+            </ProtectedRouteWebsiteTeacher>
+          } />
         <Route path="login_dashboard" element={<HomeDashoardLogin />} />
         <Route path="forget_password" element={<ForgetPassDashBoard />} />
         <Route path="dashBoardEnterCode" element={<EnterCodeDashBoard />} />
@@ -197,14 +304,13 @@ function App(props) {
           <Route path="manger" element={<ProtectedRoute><RewardManger /></ProtectedRoute>} />
           <Route path="rewardSupervisor" element={<ProtectedRoute><RewardMoshref /></ProtectedRoute>} />
           <Route path="rewardteacher" element={<ProtectedRoute><RewardTeacher /></ProtectedRoute>} />
-          <Route path="check" element={<ProtectedRoute><Checks/></ProtectedRoute>} />
+          <Route path="check" element={<ProtectedRoute><Checks /></ProtectedRoute>} />
           <Route path="qbank_details" element={<ProtectedRoute><QbankDetails /></ProtectedRoute>} />
           <Route path="qbank_edit" element={<ProtectedRoute><QbankEditing /></ProtectedRoute>} />
           <Route path="activity/mangers" element={<ProtectedRoute><MangersActivity /></ProtectedRoute>} />
           <Route path="activity/all" element={<ProtectedRoute><AllActivity /></ProtectedRoute>} />
           <Route path="accessDenied" element={<ProtectedRoute><AccessDinied /></ProtectedRoute>} />
 
- 
           <Route
             path="putting/questions/levels=1"
             element={

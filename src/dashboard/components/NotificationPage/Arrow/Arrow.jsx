@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import FirstTriangle from "../../FirstTriangle/FirstTriangle";
-import SecondTriangle from "../../SecondTriangle/SecondTriangle";
+import SecondTriangle from "../../SecondTriangl/SecondTriangle";
 import "./Arrow.css";
 import { Link, useLocation } from "react-router-dom";
 

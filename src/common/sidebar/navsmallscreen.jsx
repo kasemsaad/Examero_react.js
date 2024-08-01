@@ -20,10 +20,11 @@ import notifiy from "./../../assets/image/ic_baseline-notifications-none.svg"
 import { useDispatch, useSelector } from "react-redux";
 import { CHANGE_THEME } from "../../redux/Types/types";
 import imagee from '../../assets/icons/create_Exam/High Importance.svg';
-import Api_website from "../../utlis/axios_utils_websit";
+import Api_Website from "../../utlis/axios_utils_websit";
 import Api_Dashboard from "../../dashboard/interceptor/interceptorDashboard";
 import Api_dashboard from "../../utlis/axios_utils_dashboard";
 import ModalLogOut from "../../dashboard/modal/modalLogOut";
+import { ToastContainer } from "react-toastify";
 function Navsmallscreen() {
   const navigate = useNavigate()
   const location = useLocation()
@@ -45,33 +46,44 @@ function Navsmallscreen() {
       type: CHANGE_THEME,
     })
   }
-  const logoutStudent = () => {
+ 
 
-    Api_website.post(`/students/logout`)
+
+
+  const getRefreshstudent = async () => {
+    await Api_Website.get(`/students/refresh`)
       .then(response => {
-        localStorage.removeItem("token");
-        navigate("/")
-        setId(1)
+        let name_image = response.data.User.media.name
+        SetpersonalStudent(name_image);
       })
       .catch(error => {
-        console.error("Error not logout ");
+        console.error("Error fetching student data:");
       });
   }
-  //   const logoutTeachers = ()=>{
+  const getRefreshteacher= async()=>{
+    await Api_Website.get(`/teachers/refresh`)
+       .then(response => {
+         let name_image = response.data.user.media.name
+         SetpersonalTeacher(name_image);
+       })
+       .catch(error => {
+           console.log("Error  data:");
+         });
+     };
 
-  //         Api_website.post(`/teachers/logout`)
-  //     .then(response => {      
-  //         localStorage.removeItem("token");
-  //         navigate("/")
+ 
+const user=localStorage.getItem("user")
+  useEffect(() => {
+    getRefresh()
+    if(user==="student"){
 
-  //     })
-  //     .catch(error => {
+      getRefreshstudent()
+    }else if(user==="teacher"){
+      
+      getRefreshteacher()
+    }
 
-  //         console.error("Error not logout ");
-  //     });
-  // }
-
-
+  }, [personalDashboard])
 
 
   const linksProfile = () => {
@@ -100,17 +112,7 @@ function Navsmallscreen() {
         console.error("Error fetching subjects data:");
       });
   }
-  const getRefreshstudent = async () => {
-    await Api_website.get(`/students/refresh`)
-      .then(response => {
-        let name_image = response.data.User.media.name
-        console.log(name_image)
-        SetpersonalStudent(name_image);
-      })
-      .catch(error => {
-        console.error("Error fetching student data:");
-      });
-  }
+
 
   useEffect(() => {
     getRefresh()
@@ -147,8 +149,38 @@ useEffect(() => {
   }
 }, [role]);
 
+
+
+const log= () => {
+
+  if (user === "student") {
+    Api_Website.post(`/students/logout`)
+          .then(response => {
+            localStorage.removeItem("token_user");
+            localStorage.removeItem("user");
+            navigate("/")          })
+          .catch(error => {
+              console.error("Error not logout ");
+          });
+          
+  } else if (user === "teacher") {
+      Api_Website.post(`/teachers/logout`)
+          .then(response => {
+            // console.log("kkkkkkkkkkk ");
+            localStorage.removeItem("token_user");
+            localStorage.removeItem("user");
+            navigate("/")
+          })
+          .catch(error => {
+
+              console.error("Error not logout ");
+            });
+          }
+}
+
   return (
     <>
+      <ToastContainer />
 
       <nav className="navbar navbarsidbar  navbar-expand-lg" >
         <div className="container-fluid ">
@@ -187,7 +219,8 @@ useEffect(() => {
                 <ul className="navbar-nav navbar-nav-small" dir="ltr" >
                   <li className="nav-item " >
                     <Link className="nav-link" aria-current="page" to="/dashboard" onClick={() => setId(1)}>الرئيسية
-                      <img src={homeIcon} alt="الرئيسية" />
+
+                    <img src={homeIcon} style={{width:"21px",marginLeft:"10px"}} alt="الرئيسية" />
                     </Link>
                   </li>
                   <li className="nav-item">
@@ -228,6 +261,7 @@ useEffect(() => {
                  {roleAceessToNav? <li className="nav-item">
                     <Link className="nav-link" to="/dashboard/waitingemis" onClick={() => setId(9)}> إدخال علامات Open Emis
                       <img style={{ width: 23, height: 23 }} src={tabel} alt=" إدخال علامات Open Emis" />
+
                     </Link>
                   </li>:""}
                  {roleAceessToNav? <li className="nav-item">
@@ -270,7 +304,7 @@ useEffect(() => {
                   <ul className="navbar-nav navbar-nav-small" dir="ltr" >
                     <li className="nav-item " >
                       <Link className="nav-link" aria-current="page" to="/student/HomeStudentview" onClick={() => setId(1)}>الرئيسية
-                        <img src={homeIcon} alt="الرئيسية" />
+                      <img src={homeIcon} style={{width:"21px",marginLeft:"10px"}} alt="الرئيسية" />
                       </Link>
                     </li>
                     <li className="nav-item">
@@ -306,7 +340,79 @@ useEffect(() => {
 
                   </ul>
 
-                  : location.pathname.startsWith('/teacher') ? <div>keko</div> : ""
+                  : location.pathname.startsWith('/teacher') ?
+
+
+
+                    <ul className="navbar-nav navbar-nav-small" dir="ltr" >
+                      <li className="nav-item  " >
+                        <Link className="nav-link" aria-current="page" to="/teacher/Home_teacher" onClick={() => setId(1)}>الرئيسية
+                          <img src={homeIcon} style={{width:"21px",marginLeft:"10px"}} alt="الرئيسية" />
+                        </Link>
+                      </li>
+                      <li className="nav-item">
+                        <Link className="nav-link" to="/teacher/CreateQuestation" onClick={() => setId(2)}>وضع الاسئلة
+
+                          <img style={{ width: 18, height: 18 }} src={octiconIcon} alt="وضع الأسئلة" />
+                        </Link>
+                      </li>
+                      <li className="nav-item">
+                        <Link className="nav-link" to="/teacher/QbankTeacherTable" onClick={() => setId(3)}>بنك الأسئلة
+                          <img style={{ width: 18, height: 18 }} src={akar_icons_bank} alt="إنشاء الامتحان" />
+                        </Link>
+                      </li>
+                      <li className="nav-item">
+                        <Link className="nav-link" to="/teacher/CertificationTeacher" onClick={() => setId(4)}>شهادات التقدير
+                          <img style={{ width: 18, height: 18 }} src={ph_certificate} alt=" الشهادات" />
+                        </Link>
+                      </li>
+                      <li className="nav-item">
+                        <Link className="nav-link" to="/teacher/InsertingOpenEmisTags" onClick={() => setId(5)}>إدخال علامات Open Emis
+                          <img style={{ width: 18, height: 18 }} src={lucide_file_input} alt="وضع o.p.s" />
+                        </Link>
+                      </li>
+                      <li className="nav-item">
+                        <Link className="nav-link" to="/teacher/SpecificationTeacher" onClick={() => setId(6)}>جدول المواصفات
+                          <img style={{ width: 18, height: 18 }} src={tabel} alt="تالمواصفات" />
+                        </Link>
+                      </li>
+                      <li className="nav-item">
+                        <Link className="nav-link" to="/teacher/PuttingExam1" onClick={() => setId(7)}>إنشاء الامتحان
+                          <img style={{ width: 18, height: 18 }} src={create_new} alt="انشاء الامتحان" />
+                        </Link>
+                      </li>
+                      <li className="nav-item">
+                        <div className="nav-link d-flex" style={{ width: "283px", justifyContent: "space-between", alignItems: "center" }} onClick={() => setId(11)}>
+
+                          <button style={{ marginLeft: "6px", height: "25px" }} className={`toggle-btn ${toggled ? "toggled" : ""}`} onClick={() => tog()}>
+                            <span className={toggled ? "white-text" : "whit"}>{toggled ? "On" : "Off"}</span>
+                            <div className='thumb'></div>
+                          </button>
+                          <div>
+
+                            <span>الوضع</span>
+                            <img style={{ width: 18, height: 18 }} src={solar_moon_line_duotone} alt="الوضع" />
+                          </div>
+                        </div>
+                      </li>
+
+                      <li className="nav-item">
+                        <Link to="/" className="nav-link" onClick={() => setId(8)} style={{ textDecoration: "none" }}> الموقع
+                          <i className="fas fa-globe text-white fs-4 ms-4" ></i>
+                        </Link>
+                      </li>
+                      <li className="nav-item">
+                        <Link className="nav-link" data-bs-toggle="modal" data-bs-target="#logout" onClick={() => setId(11)}>تسجيل الخروج
+                          <img style={{ width: 18, height: 18 }} src={iconamoon_exit_light} alt="تسجيل الخروج" />
+                        </Link>
+                      </li>
+
+                    </ul>
+
+
+
+                    : ""
+
 
             }
           </div>
@@ -318,11 +424,9 @@ useEffect(() => {
 
                   location.pathname.startsWith('/dashboard') ? `${Api_dashboard.defaults.baseURL}/assets/Admin/${personalDashboard}` :
                     location.pathname.startsWith('/student') ? `${Api_dashboard.defaults.baseURL}/assets/Student/${personalStudent}` :
-                      // location.pathname.startsWith('/teacher')? `${Api_dashboard.defaults.baseURL}/assets/Student/${personalStudent}`:
+
+                      location.pathname.startsWith('/teacher')? `${Api_dashboard.defaults.baseURL}/assets/Teacher/${personalTeacher}`:
                       ""
-
-
-
                 }
 
                 width="100%" height="100%" alt="Personal" />
@@ -352,7 +456,7 @@ useEffect(() => {
                   className="btn btn-danger cancel-btn DElementSave mx-1"
                   data-bs-dismiss="modal"
                   onClick={() => {
-                    logoutStudent()
+                    log()
                   }}
                 >
                   نعم

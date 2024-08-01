@@ -54,10 +54,9 @@ const AddUsersModel = ({ fetchAllData, content, api }) => {
           let x = response.data.message;
           SetAlertPointSuccess(x);
           notify("تمت الاضافة  بنجاح ");
-          fetchAllData();
+          reset();
           element.style.display = "none";
           fetchAllData();
-          reset();
         })
         .catch((err) => {
           let x = err.response.data.message;
@@ -101,7 +100,8 @@ const AddUsersModel = ({ fetchAllData, content, api }) => {
         message: "يرجي استخدام حروف وأرقام ولا يقل 8 خانات",
       },
       pattern: {
-        value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+        value:
+          /^(?=.*[A-Za-z\u0600-\u06FF])(?=.*\d)[A-Za-z\d\u0600-\u06FF]{8,}$/,
         message: "يرجي استخدام حروف وأرقام",
       },
     },
@@ -115,8 +115,6 @@ const AddUsersModel = ({ fetchAllData, content, api }) => {
 
   return (
     <>
-      <ToastContainer position="top-center" />
-
       <div
         className="modal fade"
         id="manger-dash"

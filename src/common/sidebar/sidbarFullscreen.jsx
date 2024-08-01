@@ -11,7 +11,7 @@ import manage_accounts_outline_rounded from '../../assets/icons/sidebar/material
 import account_supervisor_outline from '../../assets/icons/sidebar/mdi_account-supervisor-outline.svg';
 import teacher from '../../assets/icons/sidebar/mdi_teacher.svg';
 import "./style.css";
-import Api_website from "../../utlis/axios_utils_websit";
+import Api_Website from "../../utlis/axios_utils_websit";
 import imagee from '../../assets/icons/create_Exam/High Importance.svg';
 import ex from '../../assets/image/لوجو examero-01 1.svg';
 import Api_Dashboard from "../../dashboard/interceptor/interceptorDashboard";
@@ -29,51 +29,54 @@ function SidebarFullscreen() {
 
   const logout = (id) => {
     localStorage.setItem("sidbarId", JSON.stringify(id));
-    // Api_Dashboard.get('/logout').post
-    // localStorage.removeItem("token")
-    //  return navigate("/login_dashboard")
+   
   }
-  const logoutStudent = () => {
 
-    Api_website.post(`/students/logout`)
+  const LogOutDashBoard = () => {
+    Api_Dashboard.post(`/logout`)
       .then(response => {
-        localStorage.removeItem("token");
-        navigate("/")
+        localStorage.removeItem("token_user");
+        navigate("/login_dashboard")
         setId(1)
       })
       .catch(error => {
-        console.error("Error not logout ");
+        console.error(error);
       });
   }
 
 
-  
-const LogOutDashBoard = ()=>{
-           
-  Api_Dashboard.post(`/logout`)
-.then(response => { 
-  // console.log("mosyafa ");     
-  localStorage.removeItem("token");
-  navigate("/login_dashboard")
-  setId(1)
-})
-.catch(error => {
-  console.error(error);
-});
+  const id = localStorage.getItem("sidbarId");
+  const location = useLocation()
+  const user=localStorage.getItem("user")
+
+
+  const log= () => {
+
+    if (user === "student") {
+      Api_Website.post(`/students/logout`)
+            .then(response => {
+              localStorage.removeItem("token_user");
+              localStorage.removeItem("user");
+              navigate("/")            })
+            .catch(error => {
+                console.error("Error not logout ");
+            });
+            
+    } else if (user === "teacher") {
+        Api_Website.post(`/teachers/logout`)
+            .then(response => {
+              localStorage.removeItem("token_user");
+              localStorage.removeItem("user");
+              navigate("/")            })
+            .catch(error => {
+
+                console.error("Error not logout ");
+            });
+    }
+               
+
 }
-  //   const logoutTeachers = ()=>{
 
-  //         Api_website.post(`/teachers/logout`)
-  //     .then(response => {      
-  //         localStorage.removeItem("token");
-  //         navigate("/")
-
-  //     })
-  //     .catch(error => {
-
-  //         console.error("Error not logout ");
-  //     });
-  // }
 
   const id = localStorage.getItem("sidbarId");
   const location = useLocation()
@@ -100,7 +103,6 @@ const LogOutDashBoard = ()=>{
     <>
       {
         location.pathname.startsWith('/dashboard') ?
-
         
         <div className="sidbar p-0 pe-3 " style={{paddingRight:"100px"}} dir="rtl" >
           <div className="sidbarSidbar ">
@@ -211,11 +213,12 @@ const LogOutDashBoard = ()=>{
             </li>
           </ul>
         </div>
+
           :
           location.pathname.startsWith('/student') ?
 
             <div className="sidbar p-0 pe-3 " style={{ paddingRight: "100px" }} dir="rtl" >
-              <div className="sidbarSidbar " style={{height:" 87vh"}}>
+              <div className="sidbarSidbar " style={{ height: " 87vh" }}>
                 <ul className="pt-4 ps-4">
                   <li className={`Icon  ${id === "1" ? "bgIcon" : " "}`}>
                     <Link to="/student/HomeStudentview" onClick={() => setId(1)} >
@@ -264,8 +267,102 @@ const LogOutDashBoard = ()=>{
 
 
             ////////////////////teacher//////////////////////////////////////////////////////
-            : location.pathname.startsWith('/teacher') ? <div>keko</div> : ""
 
+            : location.pathname.startsWith('/teacher') ?
+
+
+
+              <div className="sidbar p-0 pe-3 " style={{ paddingRight: "100px" }} dir="rtl" >
+                <div className="sidbarSidbar " style={{ height: " 87vh" }}>
+                  <ul className="pt-4 ps-4">
+                    <li className={`Icon  ${id === "1" ? "bgIcon" : " "}`}>
+                      <Link to="/teacher/Home_teacher" onClick={() => setId(1)} >
+                        <img src={homeIcon} alt="الرئيسية" />
+                      </Link>
+                    </li>
+                    <li className={`Icon  ${id === "2" ? "bgIcon" : " "}`}>
+                      <Link to="/teacher/CreateQuestation" onClick={() => setId(2)}>
+                        <img style={{ width: 20, height: 20 }} src={octiconIcon} alt="تفاصيل بنك الاسئلة" />
+                      </Link>
+                    </li>
+                    <li className={`Icon  ${id === "3" ? "bgIcon" : " "}`}>
+                  <Link to="/teacher/QbankTeacherTable" onClick={() => setId(3)}>
+                    <img style={{ width: 23, height: 23 }} src={akar_icons_bank} alt="بنك الاسءله " />
+                  </Link>
+                </li>
+                    <li className={`Icon  ${id === "4" ? "bgIcon" : " "}`}>
+                      <Link to="/teacher/CertificationTeacher" onClick={() => setId(4)}>
+                        <img style={{ width: 23, height: 23 }} src={ph_certificate} alt="الشهادات" />
+                      </Link>
+                    </li>
+                    <li className={`Icon  ${id === "5" ? "bgIcon" : " "}`}>
+                      <Link to="/teacher/InsertingOpenEmisTags" onClick={() => setId(5)}>
+                        <img style={{ width: 20, height: 20 }} src={lucide_file_input} alt=" وضع o.p.s" />
+                      </Link>
+                    </li>
+                    <li className={`Icon  ${id === "6" ? "bgIcon" : " "}`}>
+                      <Link to="/teacher/SpecificationTeacher" onClick={() => setId(6)}>
+                        <img style={{ width: 23, height: 23 }} src={tabel} alt=" تالمواصفات" />
+                      </Link>
+                    </li>
+                    <li className={`Icon  ${id === "7" ? "bgIcon" : " "}`}>
+                      <Link to="/teacher/PuttingExam1" onClick={() => setId(7)}>
+                        <img style={{ width: 18, height: 18 }} src={create_new} alt="انشاء الامتحان" />
+                      </Link>
+                    </li>
+                    <li className={`Icon  ${id === "8" ? "bgIcon" : " "}`}>
+                    <Link to="/" onClick={() => setId(8)} style={{ textDecoration: "none" }}>
+                      <i className="fas fa-globe text-white" alt="الموقع" ></i>
+                    </Link>
+                    </li>
+
+                    <li className={`Icon  ${id === "11" ? "bgIcon" : " "}`}>
+                      <Link onClick={() => {
+                        logout(11);
+                      }}>
+                        <img data-bs-toggle="modal" data-bs-target="#logout" src={iconamoon_exit_light} alt="تسجيل الخروج" />
+                      </Link>
+                    </li>
+                  </ul>
+                  
+
+                </div>
+                <ul className="sidbarUl pt-4  " >
+                  <li className="sidbarli">
+                    <Link to="/teacher/Home_teacher" onClick={() => setId(1)} className={`Icon  ${id === "1" ? "Id" : " "}`}>الرئيسية</Link>
+                  </li>
+                  <li className="sidbarli">
+                    <Link to="/teacher/CreateQuestation" onClick={() => setId(2)} className={`Icon  ${id === "2" ? "Id" : " "}`} > وضع الأسئلة</Link>
+                  </li>
+                  <li className="sidbarli">
+                    <Link to="/teacher/QbankTeacherTable" onClick={() => setId(3)} className={`Icon  ${id === "3" ? "Id" : " "}`}>بنك الأسئلة</Link>
+                  </li>
+                  <li className="sidbarli">
+                    <Link to="/teacher/CertificationTeacher" onClick={() => setId(4)} className={`Icon  ${id === "4" ? "Id" : " "}`}>شهادات التقدير</Link>
+                  </li>
+                  <li className="sidbarli">
+                    <Link to="/teacher/InsertingOpenEmisTags" onClick={() => setId(5)} className={`Icon  ${id === "5" ? "Id" : " "}`}>إدخال علامات Open Emis</Link>
+                  </li>
+                  <li className="sidbarli">
+                    <Link to="/teacher/SpecificationTeacher" onClick={() => setId(6)} className={`Icon  ${id === "6" ? "Id" : " "}`}>جدول المواصفات</Link>
+                  </li>
+                  <li className="sidbarli">
+                    <Link to="/teacher/PuttingExam1" onClick={() => setId(7)} className={`Icon  ${id === "7" ? "Id" : " "}`}>إنشاء الامتحان</Link>
+                  </li>
+                  <li className="sidbarli">
+                    <Link to="/" onClick={() => setId(8)} className={`Icon  ${id === "8" ? "Id" : " "}`}>الموقع</Link>
+                  </li>
+                  <li className="sidbarli">
+                    <Link data-bs-toggle="modal" data-bs-target="#logout" onClick={() => setId(11)} className={`Icon  ${id === "11" ? "Id" : " "}`}>تسجيل الخروج</Link>
+                  </li>
+
+                </ul>
+              </div>
+
+
+
+
+              : ""
 
 
 
@@ -291,9 +388,8 @@ const LogOutDashBoard = ()=>{
                   type="button"
                   className="btn btn-danger cancel-btn DElementSave mx-1"
                   data-bs-dismiss="modal"
-                  onClick={() => {
-                    logoutStudent()
-                  }}
+                  onClick={()=>{log()}}
+                  
                 >
                   نعم
                 </button>
@@ -309,7 +405,7 @@ const LogOutDashBoard = ()=>{
           </div>
         </div>
       </div>
-      <ModalLogOut LogOut={LogOutDashBoard}/>         
+      <ModalLogOut LogOut={LogOutDashBoard} />
 
     </>
   );

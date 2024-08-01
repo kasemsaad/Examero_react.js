@@ -1,199 +1,258 @@
-import React, { useEffect, useState } from 'react';
-import "./teacherProfile.css";
-import personal from "./../../../assets/image/IMG_20231104_171844_696.jpg";
-import success from "./../../../assets/image/Vector (1).svg";
-import lock from "./../../../assets/image/mdi_password-outline.svg";
+import React, { useEffect, useState } from 'react'
+import "./teacherProfile.css"
+import { Modal, Button } from 'react-bootstrap';
 
-import fra from "./../../../assets/icons/teacherview/Vector.svg";
-import Api_website from '../../../utlis/axios_utils_websit.jsx';
-import MyTable from "../../../common/Table/Table.jsx";
-
+// import MyTable from '../../../common/Table/Table';
+import home from "../../../assets/image/material-symbols_person-outline (1).svg"
+import Homeicon from "../../../assets/icons/Home/Frame 119.svg"
+import eye from '../../../assets/image/register and login image/hugeicons_view (1).svg'
+import success from "../../../assets/image/Vector (1).svg"
+import lock from "../../../assets/image/mdi_password-outline.svg"
+import Api_website from '../../../utlis/axios_utils_websit'
+import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import Api_dashboard from '../../../utlis/axios_utils_dashboard';
 function TeacherProfile() {
-  let header = {
-                                                      
-    name1: " اسم الباقة",
-    name2: "  الاشتراكات الحالية",
-    name3: "  عدد النقاط  ",
-    name4: " النقاط المستخدمة ",
-    name5: "  النقاط المتاحة",
-    name6: "تفاصيل",
+  const layoutBackground = useSelector((state) => state.dark.lay);
+  const [alert , Setalert]=useState(false)
+  const [alerterror , Setalerterror]=useState(false)
+  // const [data, setInfo] = useState([]);
 
 
-    
-  };
 
-  let body = [
-    {
-      id: 1,
-      name1: "اسم الصف",
-    },
-    {
-      id: 1,
-      name1: "اسم الصف",
-    },
-    {
-      id: 1,
-      name1: "اسم الصف",
-    },
-    {
-      id: 1,
-      name1: "اسم الصف",
-    },
-    {
-      id: 1,
-      name1: "اسم الصف",
-    },
-  ];
+  const [data, setData] = useState([]);
+  const [show, setShow] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState(null);
 
-  let icon = { eye: true};
-  const [alert, setAlert] = useState(false);
-  const [errorAlert, setErrorAlert] = useState(false);
-  const [passwordAlert, setPasswordAlert] = useState(false);
-  const [inputUser, setInputUser] = useState({
+
+  const getDataStudentExam = () => {
+    Api_website.get('/teachers/plans/details')
+        .then(response => {
+            setData(response.data.data);
+        })
+        .catch(error => {
+            console.error("Error fetching plans data:", error);
+        });
+};
+
+const handleClose = () => {
+  setShow(false)
+  document.body.style.removeProperty('overflow');
+};
+    const handleShow = (planId) => {
+      document.body.style.removeProperty('overflow');
+        const planDetails = data.find(plan => plan.id === planId);
+        setSelectedPlan(planDetails);
+        setShow(true);
+    };
+
+
+
+
+
+
+  const [PasswordAlert , SetPasswordAlert]=useState(false)
+  const [inputUser,setInputUser]=useState({
     firstName: "",
     lastName: "",
     email: "",
+    governorate: "",
     date_of_birth: '',
     phone_number: "",
-    image: "" 
-  });
-
-  const [errorMessage, setErrorMessage] = useState('');
-  const [passwordInputs, setPasswordInputs] = useState({
-    current_password: '',
-    password: '',
-    password_confirmation: ''
-  });
-  const [errorMessagePass, setErrorMessagePass] = useState(false);
-  const [responseErrorMessage, setResponseErrorMessage] = useState('');
-
-  useEffect(() => {
-    getRefreshUser();
-  }, []);
-
-  const getRefreshUser = async () => {
-    try {
-      const access_token = localStorage.getItem('access_token');
-      if (!access_token) {
-        throw new Error('Token not found');
-      }
+    image: "" ,
+  })
+  const [errormesssage,Seterrormessage]=useState('')
+ 
+  const getUsersFromInput=(e)=>{
+    document.body.style.removeProperty('overflow');
+    let USER={...inputUser}
+    USER[e.target.name]=e.target.value
+    setInputUser(USER)
+  }
   
-      const response = await Api_website.get('/teachers/refresh', {
-        headers: {
-          Authorization: `Bearer ${access_token}`
-        }
-      });
-  
-      const { created_at, ...userWithoutCreatedAt } = response.data.user;
-      setInputUser(userWithoutCreatedAt);
-    } catch (error) {
-      console.error("Error fetching user data:", error.message);
+ 
+  const handleImageChange = (e) => {
+    document.body.style.removeProperty('overflow');
+    const file = e.target.files[0];
+    if (file) {
+      setInputUser({ ...inputUser, image: file });
     }
-  };
-  
-  const handleChange = (e) => {
-    setInputUser({ ...inputUser, [e.target.name]: e.target.value });
-  };
+  }
+  useEffect(()=>{
+    document.body.style.removeProperty('overflow');
+    getRefreshUser()
+    getDataStudentExam()
 
-  const handlePasswordChange = (e) => {
-    setPasswordInputs({ ...passwordInputs, [e.target.name]: e.target.value });
-  };
+  },[])
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-  
-    // نسخ كائن المستخدم بدون حقل created_at والتأكد من استخدام الأسماء الصحيحة للأعمدة
-    const { created_at, fullName, ...updatedUser } = {
+  const getRefreshUser = async ()=>{
+    document.body.style.removeProperty('overflow');
+
+    await Api_website.get('/teachers/refresh').then((response)=>{
+      let user= response.data.user
+      setInputUser(user)
+     }).catch((err)=>{
+      console.log(err);
+     })
+  }
+
+
+  const HandleSubmit =async (event) => {
+    document.body.style.removeProperty('overflow');
+
+    event.preventDefault();
+    const payload = {
       first_name: inputUser.firstName,
       last_name: inputUser.lastName,
-      email: inputUser.email,
-      date_of_birth: inputUser.date_of_birth ? new Date(inputUser.date_of_birth).toISOString().split('T')[0] : '',
+      date_of_birth: inputUser.date_of_birth,
       phone_number: inputUser.phone_number,
-      image: inputUser.image
+      email: inputUser.email
     };
-  
-    try {
-      const response = await Api_website.post('/teachers/update', updatedUser);
-      setAlert(true);
-      setTimeout(() => {
-        setAlert(false);
-      }, 2000);
-    } catch (err) {
-      setErrorMessage(err.response.data.message);
-      setErrorAlert(true);
-      setTimeout(() => {
-        setErrorAlert(false);
-      }, 2000);
+
+    if (inputUser.image) {
+      document.body.style.removeProperty('overflow');
+
+      payload.image = inputUser.image;
     }
-  };
-  
-  const handleSavePassword = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await Api_website.post('/teachers/change-password', passwordInputs);
-      setPasswordAlert(true);
-      setTimeout(() => {
-        setPasswordAlert(false);
-      }, 2000);
-    } catch (err) {
-      console.error("Error changing password:", err);
-      setResponseErrorMessage(err.response.data.message);
-      setErrorMessagePass(true);
-      setTimeout(() => {
-        setErrorMessagePass(false);
-      }, 2000);
-    }
+    // console.log(payload.image)
+
+    document.body.style.removeProperty('overflow');
+
+    await Api_website.post('/teachers/update', payload, {
+      
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        }).then((response) => {
+          Setalert(true);
+          setTimeout(() => {
+            Setalert(false);
+          }, 2000);
+          getRefreshUser(   )
+        }).catch((err) => {
+          Seterrormessage(err.response.data.message);
+          Setalerterror(true);
+          setTimeout(() => {
+            Seterrormessage(false);
+          }, 2000);
+        });
   };
 
+ 
+
+const [paswwordInputs,SetpasswordInput]=useState({
+  current_password:'',
+  password:'',
+  password_confirmation:''
+})
+const [errorMessagePass,SetErrorMessagePass]=useState(false)
+const [responseErrorMesage,SetresponseErrorMesage]=useState('')
+const getInputPasswor=(e)=>{
+
+  let inputPass={...paswwordInputs}
+  inputPass[e.target.name]=e.target.value
+  SetpasswordInput(inputPass)
+
+}
+
+  const HandleSavePassword =async (event) => {
+    event.preventDefault();
+    document.body.style.removeProperty('overflow')
+    await Api_website.post('/teachers/change-password',paswwordInputs).then((response)=>{
+      SetPasswordAlert(true)
+      setTimeout(()=>{
+        SetPasswordAlert(false)
+      },2000)}).catch((err)=>{
+        console.log(err.response.data.message)
+        SetErrorMessagePass(true)
+        SetresponseErrorMesage(err.response.data.message)
+        setTimeout(()=>{
+          SetErrorMessagePass(false)
+        },2000)
+
+    })
+   
+  };
+
+
   return (
+
     <>
+    
       <div className="container" style={{ overflow: 'auto', marginTop: '10px', direction: 'rtl', height: 'auto' }}>
-        <div className="w-100 h-100 pb-4" style={{ height: '60vh', marginTop: '80px', position: 'relative'}}>
-          <div style={{  top: '-12px', right: '20px', width: '40px', height: '40px', borderRadius: '50%', overflow: 'hidden' }}>
-            <img style={{ objectFit: 'cover' }} src={personal} width="100%" height="100%" alt="Profile" />
-          
-          </div>
-          <form onSubmit={handleSubmit}>
-            <div style={{ paddingTop: '10px' }} className="container">
+        <div className=" w-100 h-100 pb-4" style={{ height: '60vh', marginTop: '80px', position: 'relative', borderRadius: '24px', border: '1px #4941A6 solid' }}>
+        <form onSubmit={(e) => HandleSubmit(e)} encType="multipart/form-data">
+
+        <div>
+      <div className="upload">
+  
+      <img src={` ${Api_dashboard.defaults.baseURL}/assets/Teacher/${inputUser.media?.name}`} id="image" alt="Upload Preview" />
+
+        <div className="rightRound" id="upload">
+          <input type="file"   accept=".jpg, .jpeg, .png" name='image' onChange={handleImageChange} />
+          <i className="fa fa-camera"></i>
+        </div>
+
+        <div className="leftRound" id="cancel" style={{ display: 'none' }}>
+          <i className="fa fa-times"></i>
+        </div>
+        
+        <div className="rightRound" id="confirm" style={{ display: 'none' }}>
+          <i className="fa fa-check"></i>
+        </div>
+      </div>
+    </div>         
+            <div  className="container">
               <div className="d-flex align-items-center" style={{ direction: 'rtl', marginBottom: '20px' }}>
-                {alert &&
-                  <div className="alert-primary" style={{ backgroundColor: "#ACEADF", height: "41px", display: "flex", alignItems: "center", borderRadius: "10px" }}>
-                    <div className='d-flex ' style={{ alignItems: "center", marginRight: "17px", width: '30vw' }}>
-                      <img src={success} className="img-fluid rounded-circle" alt="صورة شخصية" style={{ width: '10px', height: '10px' }} />
-                      <div>
-                        <p style={{ margin: "0", padding: "0", color: "#000000", fontSize: "14px", fontWeight: "600px", marginRight: "10px" }}>تم حفظ التغييرات بنجاح</p>
-                      </div>
+                <div className="d-flex align-items-center " style={{width:"13vw"}}>
+                  <img src={home} className="img-fluid rounded-circle" alt="صورة شخصية" style={{ width: '30px', height: '30px' }} />
+                  <h3 className="ml-3 mx-2  personal_inf" style={{ margin: "0", padding: "0", color: "#A6A0F4" }}>البيانات الشخصية</h3>
+                </div>
+                {
+                  alert ?
+                <div className=" alert-primary " style={{ backgroundColor: "#ACEADF", height: "41px", display: "flex", alignItems: "center", borderRadius: "10px" }}>
+                  <div className='d-flex ' style={{ alignItems: "center", marginRight: "17px", width: '30vw' }}>
+                    <img src={success} className="img-fluid rounded-circle" alt="صورة شخصية" style={{ width: '10px', height: '10px' }} />
+                    <div>
+                      <p style={{ margin: "0", padding: "0", color: "#000000", fontSize: "14px", fontWeight: "600px",marginRight:"10px" }}>تم حفظ التغييرات بنجاح</p>
                     </div>
                   </div>
-                }
-                {errorAlert &&
-                  <div className="alert-danger" style={{ backgroundColor: "#F68C8C", height: "41px", display: "flex", alignItems: "center", borderRadius: "10px" }}>
-                    <div className='d-flex ' style={{ alignItems: "center", marginRight: "17px", width: '30vw' }}>
-                      <img src={success} className="img-fluid rounded-circle" alt="صورة شخصية" style={{ width: '10px', height: '10px' }} />
-                      <div>
-                        <p style={{ margin: "0", padding: "0", color: "#000000", fontSize: "14px", fontWeight: "600px", marginRight: "10px" }}>{errorMessage}</p>
-                      </div>
-                    </div>
-                  </div>
-                }
+                </div>
+               :"" }
+
+               { errormesssage?
+                 <div className=" alert-danger " style={{ backgroundColor: "#F68C8C", height: "41px", display: "flex", alignItems: "center", borderRadius: "10px" }}>
+                 <div className='d-flex ' style={{ alignItems: "center", marginRight: "17px", width: '30vw' }}>
+                   <img src={success} className="img-fluid rounded-circle" alt="صورة شخصية" style={{ width: '10px', height: '10px' }} />
+                   <div>
+                     <p style={{ margin: "0", padding: "0", color: "#000000", fontSize: "14px", fontWeight: "600px",marginRight:"10px" }}>{errormesssage}</p>
+                   </div>
+                 </div>
+               </div>
+               :""}
+
               </div>
+
+
 
               <div className="row" style={{ justifyContent: 'space-between' }}>
                 <div className="col-lg-6 top_input_margin row" style={{ alignItems: 'center' }}>
                   <div className="label_size">
-                    <label htmlFor="fullName">الاسم</label>
+                    <label htmlFor="name"  style={{
+                                color: layoutBackground === "#0E0A43" ? "white" : "black"}}>الاسم</label>
                   </div>
                   <div className="input_size">
-                    <input onChange={handleChange} type="text" className="form-control" name='firstName' placeholder='هشام محمد' required value={inputUser.firstName} />
+                    <input onChange={(e)=>getUsersFromInput(e)} type="text" className="form-control"  name='firstName'  placeholder='ادخل الاسم' required value={inputUser.firstName}/>
                   </div>
                 </div>
 
                 <div className="col-lg-6 top_input_margin row" style={{ alignItems: 'center' }}>
                   <div className="label_size">
-                    <label htmlFor="phone"> رقم الهاتف</label>
+                    <label htmlFor="phone"  style={{
+                                color: layoutBackground === "#0E0A43" ? "white" : "black"}}> رقم الهاتف</label>
                   </div>
                   <div className="input_size">
-                    <input onChange={handleChange} type="text" className="form-control" name='phone_number' placeholder='01112222' value={inputUser.phone_number} />
+                    <input onChange={(e)=>getUsersFromInput(e)} type="number" className="form-control" name='phone_number'  placeholder='ادخل رقم الهاتف' value={inputUser.phone_number}/>
                   </div>
                 </div>
               </div>
@@ -201,39 +260,39 @@ function TeacherProfile() {
               <div className="row Wraber_ele" style={{ justifyContent: 'space-between', marginTop: '33px' }}>
                 <div className="col-lg-6 top_input_margin row" style={{ alignItems: 'center' }}>
                   <div className="label_size">
-                    <label htmlFor="familyName">اسم العائلة</label>
+                    <label htmlFor="familyName"  style={{
+                                color: layoutBackground === "#0E0A43" ? "white" : "black"}}>اسم العائلة</label>
                   </div>
                   <div className="input_size">
-                    <input onChange={handleChange} type="text" className="form-control" id="familyName" name='lastName' required placeholder='حسن' value={inputUser.lastName} />
+                    <input onChange={(e)=>getUsersFromInput(e)} type="text" className="form-control" id="familyName"  name='lastName' required placeholder='ادخل اسم العائله' value={inputUser.lastName}/>
                   </div>
                 </div>
 
                 <div className="col-lg-6 top_input_margin row" style={{ alignItems: 'center' }}>
                   <div className="label_size">
-                    <label htmlFor="email">البريد الألكتروني</label>
+                    <label htmlFor="email"  style={{
+                                color: layoutBackground === "#0E0A43" ? "white" : "black"}}>البريد الألكتروني</label>
                   </div>
                   <div className="input_size">
-                    <input onChange={handleChange} type="email" className="form-control" id="email" placeholder='hesham@gmail.com' name='email' required value={inputUser.email} />
+                    <input onChange={(e)=>getUsersFromInput(e)} type="email" className="form-control" id="email" placeholder='ادخل البريد الاكتروني' name='email' required value={inputUser.email}/>
                   </div>
                 </div>
               </div>
 
               <div className="row Wraber_ele" style={{ justifyContent: 'space-between', marginTop: '33px' }}>
+             
+
                 <div className="col-lg-6 top_input_margin row" style={{ alignItems: 'center' }}>
                   <div className="label_size">
-                    <label htmlFor="birthDate">تاريخ الميلاد</label>
+                    <label htmlFor="birthDate"  style={{
+                                color: layoutBackground === "#0E0A43" ? "white" : "black"}}>تاريخ الميلاد</label>
                   </div>
                   <div className="input_size">
-                    <input onChange={handleChange} type="text" className="form-control" required placeholder='21/2/1800' name='date_of_birth' value={inputUser.date_of_birth} />
+                    <input onChange={(e)=>getUsersFromInput(e)} type="date" className="form-control" required placeholder='dd/mm/yyy' name='date_of_birth' value={inputUser.date_of_birth}/>
                   </div>
                 </div>
-                <div>
-                <hr style={{marginTop:'2rem',marginBottom:'2rem'}}></hr>
-
-                </div>
-
-                <div className="col-md-12 mt-1 button_wraper d-flex justify-content-center " style={{ direction: "ltr", marginLeft: "10px" }}>
-                  <button type='submit' className="btn btn-danger">حفظ التعديلات</button>
+                <div className="col-md-12 mt-3 button_wraper " style={{ direction: "ltr", marginLeft: "10px" }}>
+                  <button type='submit' className="btn btn-danger" style={{ marginLeft: "30px" }}>حفظ</button>
                 </div>
               </div>
             </div>
@@ -241,76 +300,188 @@ function TeacherProfile() {
         </div>
       </div>
 
-      <form onSubmit={handleSavePassword}>
-        <div className="container password-card p-4 " style={{
-          height: 'auto',
-          borderRadius: '24px',
-          backgroundColor: "",
-          marginBottom: "20px"
-        }}>
-          <div style={{ direction: 'rtl', margin: "0", padding: "0", display: 'flex', alignItems: "center" }}>
-            <div>
-              <img src={lock} className="img-fluid rounded-circle" alt="صورة شخصية" style={{ width: '16px', height: '15px', color: "#A6A0F4" }} />
-            </div>
-            <h4 className="" style={{ marginRight: "8px", color: "#A6A0F4", padding: "0", marginBottom: "0", fontSize: "18px", fontWeight: "600px" }}>كلمة المرور</h4>
-            {passwordAlert &&
-              <div className="alert-primary" style={{ backgroundColor: "#ACEADF", height: "41px", display: "flex", alignItems: "center", borderRadius: "10px", marginRight: "20px" }}>
-                <div className='d-flex ' style={{ alignItems: "center", marginRight: "17px", width: '30vw' }}>
-                  <img src={success} className="img-fluid rounded-circle" alt="صورة شخصية" style={{ width: '10px', height: '10px' }} />
-                  <div>
-                    <p style={{ margin: "0", padding: "0", color: "#000000", fontSize: "14px", fontWeight: "600px", marginRight: "10px" }}>تم حفظ التغييرات بنجاح</p>
-                  </div>
-                </div>
-              </div>
-            }
 
-            {errorMessagePass &&
-              <div className="alert-primary" style={{ backgroundColor: "#F68C8C", height: "41px", display: "flex", alignItems: "center", borderRadius: "10px", marginRight: "20px" }}>
-                <div className='d-flex ' style={{ alignItems: "center", marginRight: "17px", width: '30vw' }}>
-                  <img src={success} className="img-fluid rounded-circle" alt="صورة شخصية" style={{ width: '10px', height: '10px' }} />
-                  <div>
-                    <p style={{ margin: "0", padding: "0", color: "white", fontSize: "14px", fontWeight: "600px", marginRight: "10px" }}>{responseErrorMessage}</p>
+
+
+      <form  onSubmit={(e)=>HandleSavePassword(e)}>
+      <div className="password-card p-4 " style={{
+        height: 'auto',
+        marginTop: '50px',
+        borderRadius: '24px',
+        border: '2px #4941A6 solid',
+        backgroundColor: "",
+        marginBottom: "20px"
+      }}>
+       <div style={{direction:'rtl' ,margin:"0",padding:"0",display:'flex',alignItems:"center"}}>
+        <div>
+       <img src={lock} className="img-fluid rounded-circle" alt="صورة شخصية" style={{ width: '16px', height: '15px' ,color:"#A6A0F4"}} />
+        </div>
+       <h4 className="" style={{marginRight:"8px",color:"#A6A0F4",padding:"0",marginBottom:"0",fontSize:"18px",fontWeight:"600px"}}>كلمة المرور</h4>
+       {
+                  PasswordAlert ?
+                <div class=" alert-primary " style={{ backgroundColor: "#ACEADF", height: "41px", display: "flex", alignItems: "center", borderRadius: "10px",marginRight:"20px",
+              }}>
+                  <div className='d-flex ' style={{ alignItems: "center", marginRight: "17px", width: '30vw' }}>
+                    <img src={success} className="img-fluid rounded-circle" alt="صورة شخصية" style={{ width: '10px', height: '10px' }} />
+                    <div>
+                      <p style={{ margin: "0", padding: "0", color: "#000000", fontSize: "14px", fontWeight: "600px",marginRight:"10px" }}>تم حفظ التغييرات بنجاح</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            }
+               :"" }
+
+
+{
+                  errorMessagePass ?
+                <div class=" alert-primary " style={{ backgroundColor: "#F68C8C", height: "41px", display: "flex", alignItems: "center", borderRadius: "10px",marginRight:"20px",
+              }}>
+                  <div className='d-flex ' style={{ alignItems: "center", marginRight: "17px", width: '30vw' }}>
+                    <img src={success} className="img-fluid rounded-circle" alt="صورة شخصية" style={{ width: '10px', height: '10px' }} />
+                    <div>
+                      <p style={{ margin: "0", padding: "0", color: "white", fontSize: "14px", fontWeight: "600px",marginRight:"10px" }}>{responseErrorMesage} </p>
+                    </div>
+                  </div>
+                </div>
+               :"" }
+
+        </div>
+        <div className="row mt-4">
+          <div className="col-md-4 form-group">
+            <label htmlFor="currentPassword"  style={{
+                                color: layoutBackground === "#0E0A43" ? "white" : "black"}}>كلمة المرور الحالية</label>
+            <input onChange={getInputPasswor} type="password"  name='current_password' className="form-control" style={{marginTop:"7px"}} required placeholder='***************'/>
           </div>
-          <div className=" row mt-4">
-            <div className="col-md-4 form-group">
-              <label htmlFor="currentPassword">كلمة المرور الحالية</label>
-              <input onChange={handlePasswordChange} type="password" name='current_password' className="form-control" style={{ marginTop: "7px" }} required placeholder='أدخل كلمة المرور الحالية هنا' />
-            </div>
-            <div className="col-md-4 form-group">
-              <label htmlFor="newPassword">كلمة المرور الجديدة</label>
-              <input onChange={handlePasswordChange} type="password" name='password' id="newPassword" className="form-control" style={{ marginTop: "7px" }} required placeholder='أدخل كلمة المرور الجديدة هنا' />
-            </div>
-            <div className="col-md-4 form-group">
-              <label htmlFor="confirmPassword">تأكيد كلمة المرور الجديدة</label>
-              <input onChange={handlePasswordChange} type="password" name='password_confirmation' className="form-control" style={{ marginTop: "7px" }} placeholder='أعد أدخل كلمة المرور الجديدة هنا' required />
-            </div>
-            <div>
-                <hr style={{marginTop:'2rem',marginBottom:'2rem'}}></hr>
-
-                </div>
-            <div className="col-md-12 mt-1  d-flex justify-content-center " style={{ direction: "ltr" }}>
-              <button type='submit' className="btn btn-danger"> حفظ كلمة السر الجديدة</button>
-            </div>
+          <div className="col-md-4 form-group">
+            <label htmlFor="newPassword"  style={{
+                                color: layoutBackground === "#0E0A43" ? "white" : "black"}}>كلمة المرور الجديدة</label>
+            <input onChange={getInputPasswor}  type="password" name='password' id="newPassword" className="form-control" style={{marginTop:"7px"}}  required placeholder='***************'/>
+          </div>
+          <div className="col-md-4 form-group">
+            <label htmlFor="confirmPassword"  style={{
+                                color: layoutBackground === "#0E0A43" ? "white" : "black"}}>تأكيد كلمة المرور الجديدة</label>
+            <input onChange={getInputPasswor}  type="password"  name='password_confirmation'  className="form-control" style={{marginTop:"7px"}} placeholder='***************' required />
+          </div>
+          <div className="col-md-12 mt-3 " style={{ direction: "ltr" }}>
+            <button type='submit' className="btn btn-danger">حفظ التغييرات</button>
           </div>
         </div>
+      </div>
       </form>
-      
-      <div className="MyTable  container">
-            <div className='d-flex'> 
-            <div>
-              <img src={fra} className="img-fluid " style={{ width: '20px', height: '20px', color: "#A6A0F4" }} />
-            </div>
-            <h4 className="" style={{ marginRight: "8px", color: "#A6A0F4", padding: "0", marginBottom: "0", fontSize: "18px", fontWeight: "600px" }}> تفاصيل الباقة</h4>
-            </div>
-          <MyTable header={header} body={body} icons={icon} />
+
+      <div className="container py-5 mb-2 d-flex align-items-center justify-content-center flex-column">
+        <div className="" style={{ width: "85%", paddingTop: "4.25px" }}>
+          <img src={Homeicon} alt="HomeIcon" style={{ backgroundColor: "transparent" }} />
+          <Link
+            className="btn"
+            to="#"
+            style={{
+              backgroundColor: "transparent",
+              color: layoutBackground === "#0E0A43" ? "white" : "#0E0A43",
+              fontSize: "18px"
+            }}
+          >
+          </Link>
+
+       
+          <table className='tabelstudent' style={{ width: "100%" }}>
+                <thead>
+                    <tr style={{
+                        color: layoutBackground === "#0E0A43" ? "#FE4F60" : "black",
+                    }}>
+                        <th>اسم الباقة</th>
+                        <th>عدد النقاط</th>
+                        <th>النقاط المستخدمة</th>
+                        <th>النقاط المتاحة</th>
+                        <th>التفاصيل</th>
+                    </tr>
+                </thead>
+                <tbody style={{
+                    color: layoutBackground === "#0E0A43" ? "white" : "black"
+                }}>
+                    {Array.isArray(data) && data.length > 0 ? data.map(({ id, plan, points, point_used }, index) => (
+                        <tr key={index} style={{
+                            backgroundColor: index % 2 === 0 ? (layoutBackground === "#0E0A43" ? "#1d195d" : "#FCFCFC") : (layoutBackground === "#0E0A43" ? "#090631" : "#DADADA")
+                        }}>
+                            <td>{plan.name}</td>
+                            <td>{points}</td>
+                            <td>{point_used}</td>
+                            <td>{points - point_used}</td>
+                            <td>
+                                <img
+                                    className='p-1'
+                                    style={{ background: '#120E4D', cursor: 'pointer' }}
+                                    src={eye}
+                                    alt="View details"
+                                    onClick={() => handleShow(id)}
+                                />
+                            </td>
+                        </tr>
+                    )) : (
+                        <tr>
+                            <td colSpan="5">No data available</td>
+                        </tr>
+                    )}
+                </tbody>
+            </table>
+
+            <Modal show={show} onHide={handleClose} dialogClassName="custom-modal">
+      <Modal.Header className='flex-column-reverse' style={{ backgroundColor: '#1D195D', borderBottom: '1px solid #A6A0F4' }}>
+        <Modal.Title style={{ color: '#FF8A00' }}>تفاصيل صرف النقاط</Modal.Title>
+        <button type="button" className="btn-close custom-close " style={{color:'red'}} aria-label="Close" onClick={handleClose}></button>
+      </Modal.Header>
+      <Modal.Body style={{ backgroundColor: '#1D195D', color: 'white' }}>
+        {selectedPlan ? (
+          <>
+            <p>{selectedPlan.plan.description}</p>
+            <p>Status: {selectedPlan.plan.status === 1 ? 'Active' : 'Inactive'}</p>
+
+            <table className='tabelstudent' style={{ width: "90%", color: 'white' }}>
+              <thead style={{ borderBottom: '1px solid #A6A0F4' }}>
+                <tr>
+                  <th style={{width:'15rem', color: '#FE4F60', borderBottom: '1px solid #A6A0F4' }}>الخدمة المقدمة</th>
+                  <th style={{width:'15rem',  color: '#FE4F60', borderBottom: '1px solid #A6A0F4' }}>النقاط المستخدمة</th>
+                  <th style={{ width:'20rem', color: '#FE4F60', borderBottom: '1px solid #A6A0F4' }}>التاريخ</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {selectedPlan.details.map(detail => (
+                  <tr key={detail.id}>
+                    <td>{detail.type[1]}</td>
+                    <td>{detail.point}</td>
+                    <td>{new Date(detail.created_at).toLocaleString()}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </>
+        ) : (
+          <p>Loading...</p>
+        )}
+      </Modal.Body>
+      <Modal.Footer className='justify-content-center' style={{ backgroundColor: '#1D195D' }}>
+      <Button 
+  variant="secondary" 
+  onClick={() => {
+    handleClose();
+  }} 
+  style={{ 
+    borderRadius: '30px', 
+    color: '#FE4F60', 
+    border: '2px solid #FE4F60', 
+    backgroundColor: '#1D195D' 
+  }}
+>
+  إغلاق
+</Button>
+
+      </Modal.Footer>
+    </Modal>
+
         </div>
+        </div>
+
     </>
-  );
+  )
 }
-
 export default TeacherProfile;
-

@@ -1,0 +1,126 @@
+.modal-content.content-edit-unit-dash {
+  background-color: #1d195d;
+  border-radius: 13.97px;
+}
+
+.modal-header-new {
+  flex-direction: row-reverse;
+  width: 100%;
+  height: 86px;
+  color: #ff8a00;
+  font-size: 20px;
+  font-weight: 700;
+  display: flex;
+  text-align: center;
+}
+
+.modal-header-new .modal-title {
+  margin: auto;
+}
+
+.btn-close-lesson-dash {
+  margin: 9px;
+  border-radius: 100%;
+  background-color: white;
+  width: 32px;
+  height: 32px;
+  font-size: 14px;
+  border: none;
+}
+
+.lin-edit-lesson-dash {
+  margin: auto;
+  width: 514px;
+  background-color: #a6a0f4;
+  height: 1px;
+}
+
+.modal-body-lesson-dash {
+  height: 305px;
+  display: flex;
+  padding: 0;
+}
+
+.lesson-unit-inputs-dash {
+  width: 91%;
+  margin: auto;
+  display: flex;
+  justify-content: space-evenly;
+  height: 85px;
+}
+
+.lesson-input-container-dash {
+  direction: rtl;
+  justify-content: center;
+  height: 70px;
+}
+
+.lesson-input-label-dash {
+  flex-direction: column-reverse;
+  color: white;
+  justify-content: end;
+  display: flex;
+}
+
+.lesson-input-dash {
+  direction: rtl;
+  height: 35px;
+}
+
+.unit-edit-input-container-dash {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.class-subject-inputs-container-dash {
+  width: 91%;
+  margin: auto;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.edit-lesson-class-input-container {
+  display: flex;
+}
+
+.edit-lesson-subject-select-container- {
+  direction: rtl;
+  justify-content: center;
+}
+
+.edit-lesson-toggle-container-dash {
+  height: 40px;
+  width: 81%;
+  margin: auto;
+  display: flex;
+  align-items: center;
+}
+
+.modal-footer-new.new-footer {
+  display: flex;
+}
+
+.edit-lesson-submit-dash {
+  border-radius: 30px;
+  border: none;
+  background-color: #c01f59;
+  width: 96px;
+  height: 40px;
+  margin-left: 12px;
+}
+
+.edit-lesson-cancel-dash {
+  border-radius: 30px;
+  color: #fe4f60;
+  border: #fe4f60 solid 2px;
+  background-color: #1d195d;
+  width: 96px;
+  height: 40px;
+}
+
+.option-edit-lesson {
+  background: #4941a6;
+  color: white;
+}

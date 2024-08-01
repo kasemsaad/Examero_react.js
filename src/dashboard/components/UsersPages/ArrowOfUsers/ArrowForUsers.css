@@ -1,0 +1,17 @@
+@media (max-width: 650px) {
+  .user-man .triangle-left .bub,
+  .user-man2 .ques .bub {
+    font-size: 0.8rem;
+  }
+}
+/* .user-man2 .triangle-left .bub {
+  font-size: 0.6rem;
+}
+.user-man .triangle-left .bub {
+  font-size: 0.6rem;
+} */
+@media (max-width: 620px) {
+  .user-man .triangle-left {
+    width: 8.25rem;
+  }
+}

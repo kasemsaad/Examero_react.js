@@ -42,6 +42,7 @@ const AddMangerModel = ({ fetchAllData, content, api }) => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
@@ -52,14 +53,15 @@ const AddMangerModel = ({ fetchAllData, content, api }) => {
       await Api_Dashboard.post(`/${api}`, userData)
         .then((response) => {
           console.log(response);
+          reset();
           element.style.display = "none";
           let x = response.data.message;
           SetAlertPointSuccess(x);
           notify("تمت الاضافة  بنجاح ");
           fetchAllData();
+          setApiErrors("");
         })
         .catch((err) => {
-          console.log(err);
           let x = err.response.data.message;
           SetAlertPoint(x);
           Errornotify(x);
@@ -99,7 +101,8 @@ const AddMangerModel = ({ fetchAllData, content, api }) => {
         message: "يرجي استخدام حروف وأرقام ولا يقل 8 خانات",
       },
       pattern: {
-        value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+        value:
+          /^(?=.*[A-Za-z\u0600-\u06FF])(?=.*\d)[A-Za-z\d\u0600-\u06FF]{8,}$/,
         message: "يرجي استخدام حروف وأرقام",
       },
     },
@@ -110,10 +113,13 @@ const AddMangerModel = ({ fetchAllData, content, api }) => {
   const handlePasswordToggle = () => {
     setShowPassword((prevState) => !prevState);
   };
-
+  const handelRestDataClose = () => {
+    reset();
+    setApiErrors("");
+  };
   return (
     <>
-      <ToastContainer position="top-center" />
+      {/* <ToastContainer position="top-center" /> */}
 
       <div
         className="modal fade"
@@ -293,7 +299,7 @@ const AddMangerModel = ({ fetchAllData, content, api }) => {
                     />
                     <span style={{ color: "red" }}>
                       {errors.email && errors?.email && errors.email.message}
-                      {apiErrors.email}
+                      {apiErrors && apiErrors?.email}
                     </span>
                   </div>
 
@@ -519,6 +525,7 @@ const AddMangerModel = ({ fetchAllData, content, api }) => {
                     إضافة
                   </button>
                   <button
+                    onClick={handelRestDataClose}
                     type="button"
                     className="btn btn-secondary"
                     data-bs-dismiss="modal"

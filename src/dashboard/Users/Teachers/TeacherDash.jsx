@@ -57,9 +57,7 @@ const TeacherDash = () => {
       .then((response) => {
         setRowData(response.data.data);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
   const handelShowMangerById = async (row) => {
     document.body.style.removeProperty("overflow");
@@ -67,9 +65,7 @@ const TeacherDash = () => {
       .then((response) => {
         setShowMangerData(response.data.data);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
 
   useEffect(() => {
@@ -83,18 +79,14 @@ const TeacherDash = () => {
         setData(allData);
         setMetaFPagination(response.data.meta.pagination);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
   // take from the array object some proprety that it will pass to the table
 
   // handel the function of search
 
-  console.log(filteredManagers);
   const FilteredManagers = (dataFormComp) => {
     setFilteredManagers(dataFormComp);
-    console.log(dataFormComp);
   };
 
   // handel pagination
@@ -105,15 +97,12 @@ const TeacherDash = () => {
 
   const handelMessage = (row) => {
     setMangerIdForSendMessage(row);
-    console.log(mangerIdForSendMessage);
   };
   const handelNext = () => {
     if (currentPage === totalPages) return;
     setCurrentPage((prev) => prev + 1);
   };
-  const handel = (da) => {
-    console.log(da);
-  };
+  const handel = (da) => {};
   // handel prev page
   const handelPrev = () => {
     if (currentPage === 1) return;

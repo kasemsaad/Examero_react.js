@@ -35,7 +35,7 @@ const SuccessMessage = ({ message }) => {
                     <img src={doneImage} alt="Done Icon" style={{ width: '150px', marginBottom: '20px' }} />
                     <h2>تم إعادة تعيين كلمة المرور بنجاح</h2>
                     <p>{message}</p>
-                    <Link to="/login_teacher" style={{ textDecoration: 'none', marginTop: '20px' }}>
+                    <Link to="/login_student" style={{ textDecoration: 'none', marginTop: '20px' }}>
                         <Button
                             style={{
                                 padding: '12px 24px',

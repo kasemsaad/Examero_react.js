@@ -100,7 +100,7 @@ const FormFPLessons = ({
         <form action="" onSubmit={handelSubmit}>
           <div className="row form-content-lessons">
             <div className="col-5 col-md-6 col-lg-3 ">
-              <label htmlFor="exampleInput" className="form-label mb-3">
+              <label htmlFor="exampleInput" className="form-label ">
                 اسم الدرس
               </label>
               <input
