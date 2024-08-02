@@ -136,7 +136,7 @@ function Sidmedscreen() {
           : location.pathname.startsWith('/student') ?
             <div className="sidbarmed p-0 pe-2" dir="rtl" >
               <div className="sidbarSidbar " style={{height:"340px", width:""}}>
-                <ul className="pt-4 ps-5">
+                <ul className="pt-4 ps-1">
              
                   <li className={`Icon ${id === "1" ? "bgIcon" : ""}`}>
                     <Link to="/student/HomeStudentview" onClick={() => setId(1)}>
@@ -163,7 +163,7 @@ function Sidmedscreen() {
             </div>
             : location.pathname.startsWith('/teacher') ?
               <div className="sidbarmed p-0" dir="rtl">
-                <div className="sidbarSidbar">
+                <div className="sidbarSidbar pe-4">
                 <ul className="pt-4 " style={{paddingLeft:"50px"}}>
                     <li className={`Icon  ${id === "1" ? "bgIcon" : " "}`}>
                       <Link to="/teacher/Home_teacher" onClick={() => setId(1)} >
