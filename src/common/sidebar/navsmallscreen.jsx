@@ -47,8 +47,32 @@ function Navsmallscreen() {
     })
   }
  
+ // const linksProfile = () => {
+    //   if (location.pathname.startsWith('/dashboard')) {
+    //     navigate("/dashboard/b");
+    //   } else if (location.pathname.startsWith('/student')) {
+    //     navigate("/student/editStudentProfaile");
+    //   } else if (location.pathname.startsWith('/teacher')) {
+    //     navigate("/");
+    //   } else {
+    //     navigate("/");
+    //   }
+    // };
+  
+  
+  const getRefresh = async () => {
+    await Api_Dashboard.get(`/refresh`)
+      .then(response => {
+        // console.log(response);
+        let name_image = response.data.User.media.name
+        SetpersonalDashboard(name_image);
 
+      })
+      .catch(error => {
 
+        console.error("Error fetching subjects data:");
+      });
+  }
 
   const getRefreshstudent = async () => {
     await Api_Website.get(`/students/refresh`)
@@ -86,54 +110,55 @@ const user=localStorage.getItem("user")
   }, [personalDashboard])
 
 
-  const linksProfile = () => {
-    if (location.pathname.startsWith('/dashboard')) {
-      navigate("/dashboard/b");
-    } else if (location.pathname.startsWith('/student')) {
-      navigate("/student/editStudentProfaile");
-    } else if (location.pathname.startsWith('/teacher')) {
-      navigate("/");
-    } else {
-      navigate("/");
-    }
-  };
+  
+  const LogOutDashBoard = ()=>{
+           
+    Api_Dashboard.post(`/logout`)
+  .then(response => { 
+    // console.log("mosyafa ");     
+    localStorage.removeItem("token");
+    navigate("/login_dashboard")
+    setId(1)
+  })
+  .catch(error => {
+    console.error(error);
+  });
+  }
+  
+  const log= () => {
 
-
-  const getRefresh = async () => {
-    await Api_Dashboard.get(`/refresh`)
-      .then(response => {
-        // console.log(response);
-        let name_image = response.data.User.media.name
-        SetpersonalDashboard(name_image);
-
-      })
-      .catch(error => {
-
-        console.error("Error fetching subjects data:");
-      });
+    if (user === "student") {
+      Api_Website.post(`/students/logout`)
+            .then(response => {
+              localStorage.removeItem("token_user");
+              localStorage.removeItem("user");
+              navigate("/")          })
+            .catch(error => {
+                console.error("Error not logout ");
+            });
+            
+    } else if (user === "teacher") {
+        Api_Website.post(`/teachers/logout`)
+            .then(response => {
+              // console.log("kkkkkkkkkkk ");
+              localStorage.removeItem("token_user");
+              localStorage.removeItem("user");
+              navigate("/")
+            })
+            .catch(error => {
+  
+                console.error("Error not logout ");
+              });
+            }
   }
 
+  // useEffect(() => {
+  //   getRefresh()
+  //   getRefreshstudent()
 
-  useEffect(() => {
-    getRefresh()
-    getRefreshstudent()
-
-  }, [personalDashboard])
+  // }, [personalDashboard])
 
     
-const LogOutDashBoard = ()=>{
-           
-  Api_Dashboard.post(`/logout`)
-.then(response => { 
-  // console.log("mosyafa ");     
-  localStorage.removeItem("token");
-  navigate("/login_dashboard")
-  setId(1)
-})
-.catch(error => {
-  console.error(error);
-});
-}
 
 const [roleAceessToNav,SetroleAceessToNav]=useState(true)
 const role = useSelector((state) => state.RoleAccess.role); 
@@ -151,32 +176,7 @@ useEffect(() => {
 
 
 
-const log= () => {
 
-  if (user === "student") {
-    Api_Website.post(`/students/logout`)
-          .then(response => {
-            localStorage.removeItem("token_user");
-            localStorage.removeItem("user");
-            navigate("/")          })
-          .catch(error => {
-              console.error("Error not logout ");
-          });
-          
-  } else if (user === "teacher") {
-      Api_Website.post(`/teachers/logout`)
-          .then(response => {
-            // console.log("kkkkkkkkkkk ");
-            localStorage.removeItem("token_user");
-            localStorage.removeItem("user");
-            navigate("/")
-          })
-          .catch(error => {
-
-              console.error("Error not logout ");
-            });
-          }
-}
 
   return (
     <>
@@ -216,7 +216,7 @@ const log= () => {
           <div className="collapse navbar-collapse" dir="rtl" id="navbarNav">
             {
               location.pathname.startsWith('/dashboard') ?
-                <ul className="navbar-nav navbar-nav-small" dir="ltr" >
+              <ul className="navbar-nav navbar-nav-small" dir="ltr" >
                   <li className="nav-item " >
                     <Link className="nav-link" aria-current="page" to="/dashboard" onClick={() => setId(1)}>الرئيسية
 
@@ -301,7 +301,7 @@ const log= () => {
                 </ul>
                 :
                 location.pathname.startsWith('/student') ?
-                  <ul className="navbar-nav navbar-nav-small" dir="ltr" >
+                <ul className="navbar-nav navbar-nav-small" dir="ltr" >
                     <li className="nav-item " >
                       <Link className="nav-link" aria-current="page" to="/student/HomeStudentview" onClick={() => setId(1)}>الرئيسية
                       <img src={homeIcon} style={{width:"21px",marginLeft:"10px"}} alt="الرئيسية" />
@@ -344,7 +344,7 @@ const log= () => {
 
 
 
-                    <ul className="navbar-nav navbar-nav-small" dir="ltr" >
+                  <ul className="navbar-nav navbar-nav-small" dir="ltr" >
                       <li className="nav-item  " >
                         <Link className="nav-link" aria-current="page" to="/teacher/Home_teacher" onClick={() => setId(1)}>الرئيسية
                           <img src={homeIcon} style={{width:"21px",marginLeft:"10px"}} alt="الرئيسية" />
@@ -424,7 +424,6 @@ const log= () => {
 
                   location.pathname.startsWith('/dashboard') ? `${Api_dashboard.defaults.baseURL}/assets/Admin/${personalDashboard}` :
                     location.pathname.startsWith('/student') ? `${Api_dashboard.defaults.baseURL}/assets/Student/${personalStudent}` :
-
                       location.pathname.startsWith('/teacher')? `${Api_dashboard.defaults.baseURL}/assets/Teacher/${personalTeacher}`:
                       ""
                 }

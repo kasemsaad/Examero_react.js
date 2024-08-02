@@ -108,22 +108,22 @@ export default function Home_dashboard() {
 
   };
 
-  const handleNoteChange = (event) => {
-    const value = event.target.value;
+  // const handleNoteChange = (event) => {
+  //   const value = event.target.value;
 
-    if (value.trim() === '') {
-      setNoteValidationMessage('لا يجب ان يكون فارغ');
-    } else if (value.length > 50) { // Example max length for note
-      setNoteValidationMessage('الملحوظه لاتزيد عن 50 حرف');
-    } else if (!/^[\u0600-\u06FF\sA-Za-z]+$/.test(value)) {
-      setNoteValidationMessage('يجب ان يكون نص');
-    } else {
-      setNoteValidationMessage('');
-    }
-    setNote(value);
-  };
+  //   if (value.trim() === '') {
+  //     setNoteValidationMessage('لا يجب ان يكون فارغ');
+  //   } else if (value.length > 50) { // Example max length for note
+  //     setNoteValidationMessage('الملحوظه لاتزيد عن 50 حرف');
+  //   } else if (!/^[\u0600-\u06FF\sA-Za-z]+$/.test(value)) {
+  //     setNoteValidationMessage('يجب ان يكون نص');
+  //   } else {
+  //     setNoteValidationMessage('');
+  //   }
+  //   setNote(value);
+  // };
 
-  // add note 
+  // // add note 
   const handleSubmit = (event) => {
     document.body.style.overflow = '';
 

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import homeBank from "./../../../assets/image/Vector (6).svg"
 import Api_Dashboard from '../../interceptor/interceptorDashboard'
 import ModalDelete, { Notify, NotifyError } from '../../Alert/alertToast';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export default function QbankEditing(props) {
 
@@ -165,12 +165,6 @@ const getObjectFromRecivedId = ()=>{
              setInputs(newInputs)
              setinputsOne(newInputs)
              setinputsTow(newInputs)
-             
-
-
-
-
-
 
     }).catch((err)=>{
         console.log(err);
@@ -270,9 +264,9 @@ const getObjectFromRecivedId = ()=>{
     // }
 
     const getAllSelection = (e) => {
-        const data = { ...allDataFromAllSelection };
+        const data = { ...dataToEdit };
         data[e.target.name] = e.target.value;
-        SetallDataFromAllSelection(data);
+        SetdataToEdit(data);
     
         let idOfGroup = data.group_id;
         if (idOfGroup && idOfGroup !== allDataFromAllSelection.group_id) {
@@ -370,6 +364,7 @@ const [allLesson,SetallLesson]=useState([])
 
 
     }, [props.dataEdit])
+    const navigate = useNavigate()
 
 
     const handlaeSubmit = async (event)=>{
@@ -455,8 +450,10 @@ const [allLesson,SetallLesson]=useState([])
             }
           }).then((response)=>{
             Notify(response.data.Message)
-            console.log(response);
             resetForm();  
+            setTimeout(()=>{
+                navigate("/dashboard/qbank_details")  
+            },4000)
 
           }).catch((err)=>{
             console.log(err);

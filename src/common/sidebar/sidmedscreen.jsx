@@ -66,29 +66,20 @@ function Sidmedscreen() {
       });
   };
 
-  //         console.error("Error not logout ");
-  //     });
-  // }
-  const logout = (id) => {
-    localStorage.setItem("sidbarId", JSON.stringify(id));
-    // Api_Dashboard.get('/logout').post
-    // localStorage.removeItem("token")
-    //  return navigate("/login_dashboard")
-  }
-    
-const LogOutDashBoard = ()=>{
+
+// const LogOutDashBoard = ()=>{
            
-  Api_Dashboard.post(`/logout`)
-.then(response => { 
-  // console.log("mosyafa ");     
-  localStorage.removeItem("token");
-  navigate("/login_dashboard")
-  setId(1)
-})
-.catch(error => {
-  console.error(error);
-});
-}
+//   Api_Dashboard.post(`/logout`)
+// .then(response => { 
+//   // console.log("mosyafa ");     
+//   localStorage.removeItem("token");
+//   navigate("/login_dashboard")
+//   setId(1)
+// })
+// .catch(error => {
+//   console.error(error);
+// });
+// }
 
 const [roleAceessToNav,SetroleAceessToNav]=useState(true)
 const role = useSelector((state) => state.RoleAccess.role); 
@@ -109,9 +100,9 @@ useEffect(() => {
     <>
       {
         location.pathname.startsWith('/dashboard') ?
-          <div className="sidbarmed p-0 " dir="rtl" >
-            <div className="sidbarSidbar " style={{height:"98vh"}}>
-              <ul className="pt-5 ps-4">
+        <div className="sidbarmed p-0" dir="rtl">
+        <div className="sidbarSidbar pe-2">
+        <ul className="pt-4 " style={{paddingLeft:"50px"}}>
                 <li className={`Icon  ${id === "1" ? "bgIcon" : " "}`}>
                   <Link to="/dashboard" onClick={() => setId(1)} >
                     <img src={homeIcon} alt="الرئيسية" />
@@ -187,9 +178,9 @@ useEffect(() => {
             </div>
           </div>
           : location.pathname.startsWith('/student') ?
-            <div className="sidbarmed p-0 pe-2" dir="rtl" >
-              <div className="sidbarSidbar " style={{height:"340px", width:""}}>
-                <ul className="pt-4 ps-1">
+          <div className="sidbarmed p-0 pe-2" dir="rtl" >
+          <div className="sidbarSidbar " style={{height:"340px", width:""}}>
+            <ul className="pt-4 ps-1">
              
                   <li className={`Icon ${id === "1" ? "bgIcon" : ""}`}>
                     <Link to="/student/HomeStudentview" onClick={() => setId(1)}>
@@ -215,9 +206,9 @@ useEffect(() => {
               </div>
             </div>
             : location.pathname.startsWith('/teacher') ?
-              <div className="sidbarmed p-0" dir="rtl">
-                <div className="sidbarSidbar pe-4">
-                <ul className="pt-4 " style={{paddingLeft:"50px"}}>
+            <div className="sidbarmed p-0" dir="rtl">
+            <div className="sidbarSidbar pe-4">
+            <ul className="pt-4 " style={{paddingLeft:"50px"}}>
                     <li className={`Icon  ${id === "1" ? "bgIcon" : " "}`}>
                       <Link to="/teacher/Home_teacher" onClick={() => setId(1)} >
                         <img src={homeIcon} alt="الرئيسية" />

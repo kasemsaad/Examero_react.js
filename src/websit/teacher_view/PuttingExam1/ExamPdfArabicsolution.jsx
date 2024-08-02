@@ -9,6 +9,11 @@ import homeLogo from './WhatsApp Image 2024-07-31 at 12.55.50_962c7e48.jpg';
 import leftLogo from './WhatsApp Image 2024-07-31 at 12.56.09_2c113d77.jpg';
 function ExamPdf() {
   const navigate = useNavigate();
+  const flag= localStorage.getItem("allow")
+  if(flag!==1){
+    navigate("/")
+  }
+  
   const [dataQuestion1, setdataQuestion1] = useState([]);
   const [dataQuestion2, setdataQuestion2] = useState({});
   const [dataQuestion3, setdataQuestion3] = useState({});
@@ -73,7 +78,7 @@ function ExamPdf() {
         heightLeft -= pdfHeight;
       }
         pdf.save('examSolution.pdf');
-        // navigate("/examPdfArabic")
+        navigate("/examPdfArabic")
           
     });
   }, 3000); 
@@ -93,6 +98,13 @@ function ExamPdf() {
 
     });
 }, []);
+const [preview, setPreview] = useState(null);
+
+useEffect(() => {
+    // Retrieve the preview from sessionStorage
+    const previewData = localStorage.getItem('preview');
+    setPreview(previewData);
+}, []);
   return (
     <div>
       <div id="exam-container" className="exam-container">
@@ -107,7 +119,7 @@ function ExamPdf() {
               </div>
             </div>
             <div className="exam-logo">
-              <img src="https://i.ibb.co/7g6p4zM/logo.png" alt="logo" />
+              <img src={preview} alt="logo" />
             </div>
           </div>
         <div className="exam-content">
