@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import MyTable from "../../common/Table/Table";
+import MyTable2 from "../../common/Table/tableSARA";
 import FooterOfUserFP from "../../dashboard/components/UsersPages/FooterOfUsers/FooterOfUsers";
 import { Link, useLocation } from "react-router-dom";
 import Api_website from "../../utlis/axios_utils_websit";
@@ -82,7 +82,7 @@ export const QbankTeacherTable = () => {
     () =>
       data.map(({ id, semster, status, group, subject, unit, lesson }, index) => ({
         id, 
-        // serial: (currentPage - 1) * pageSize + index + 1,
+        serial: (currentPage - 1) * pageSize + index + 1,
         semster: getSemesterMessage(semster),
         groupName: group?.name || "",
         SubjectName: subject?.name || "",
@@ -216,7 +216,7 @@ export const QbankTeacherTable = () => {
           </div>
 
           <div style={{ width: "100%", overflow: "auto", height: "400px" }}>
-            <MyTable
+            <MyTable2
               header={header}
               body={filteredManagers}
               icons={icon}
