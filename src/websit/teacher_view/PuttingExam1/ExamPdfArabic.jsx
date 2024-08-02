@@ -15,10 +15,11 @@ import leftLogo from './WhatsApp Image 2024-07-31 at 12.56.09_2c113d77.jpg';
 
 function ExamPdf() {
   const navigate = useNavigate();
- const flag= localStorage.get("allow")
-if(flag!==1){
+  const flag= localStorage.getItem("allow")
+if(flag!=="1"){
   navigate("/")
 }
+
   const [dataQuestion1, setdataQuestion1] = useState([]);
   const [dataQuestion2, setdataQuestion2] = useState({});
   const [dataQuestion3, setdataQuestion3] = useState({});
