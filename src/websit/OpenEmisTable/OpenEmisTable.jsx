@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import MyTable from "../../common/Table/Table";
+import MyTable2 from "../../common/Table/tableSARA";
 import FooterOfUserFP from "../../dashboard/components/UsersPages/FooterOfUsers/FooterOfUsers";
 import AddUsersModel from "../../dashboard/components/UsersPages/addUsers/users";
 import { Link, useLocation } from "react-router-dom";
@@ -159,7 +159,7 @@ const OpenEmisTable = () => {
 
           {/* Start for table */}
           <div style={{ width: "100%", overflow: "auto", height: "400px" }}>
-            <MyTable
+            <MyTable2
               header={header}
               body={filteredManagers}
               icons={icon}
