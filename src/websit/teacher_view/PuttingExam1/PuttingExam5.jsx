@@ -507,12 +507,7 @@ function PuttingExam5(props) {
   useEffect(() => {
     const jsonStringArray = [localStorage.getItem("all")]
     const parsedData = jsonStringArray.map(item => JSON.parse(item));
-
-    // Log the parsed data to verify
     setmapqustions(parsedData[0]);
-
-    // console.log(parsedData[0]);
-
 
   }, []);
 
@@ -600,7 +595,7 @@ function PuttingExam5(props) {
     const boxarray = JSON.parse(localStorage.getItem("Box"))
     const DataQustion = {
       questionIds: boxarray,
-      // plan_id:planid
+      plan_id: planid
     }
     for (let key in DataQustion) {
       if (DataQustion[key] === '' || DataQustion[key] === null || DataQustion[key] === undefined) {
@@ -611,19 +606,27 @@ function PuttingExam5(props) {
     Api_website.post('/teachers/save-exam', DataQustion)
       .then((response) => {
         localStorage.setItem("QB", JSON.stringify(response.data.data.questions))
+        if(JSON.stringify(response.data.data.questions)==="[]"){
+          handleApperanceNoticeNo()
+        Errornotify("لا يوجد أسئله للإضافه")
 
-        if (languagePdf === "عربي") {
-          localStorage.setItem("allow",1)
-          window.open('/ExamPdfArabic', '_blank');
+                }else{
 
-        } else if (languagePdf === "انجليزي") {
-          localStorage.setItem("allow",1)
-          window.open('/ExamPdf', '_blank')
-        }
-        else {
-        }
+                  if (languagePdf === "عربي") {
+                    localStorage.setItem("allow",1)
+                    window.open('/ExamPdfArabic', '_blank');
+          
+                  } else if (languagePdf === "انجليزي") {
+                    localStorage.setItem("allow",1)
+                    window.open('/ExamPdf', '_blank')
+                  }
+                  else {
+                  }
+                }
       }).catch((error) => {
-        Errornotify("لم يتم إضافة أسئله للمعاينه")
+        let err = error.response.data.message;
+        Errornotify(err)
+        // Errornotify("لم يتم إضافة أسئله للمعاينه")
       });
 
   }
