@@ -560,16 +560,16 @@ function Home() {
                         </div>
 
                         <div className="boxpre  bac p-2 col-sm-3 shadow  " style={{ backgroundColor: "#4941A6" }}>
-                            <h3 className="Bold" style={{ color: "#4941A6" }}><span>{teacher_data.data[1].name}</span></h3>
-                            <h3 style={{ color: "black" }}><span className="fs-5">$ </span><span className="Bold" > {teacher_data.data[1].price}</span></h3>
+                            <h3 className="Bold" style={{ color: "#4941A6" }}><span>{teacher_data.data[1]?.name}</span></h3>
+                            <h3 style={{ color: "black" }}><span className="fs-5">$ </span><span className="Bold" > {teacher_data.data[1]?.price}</span></h3>
                             <div className="boxchil text-white" dir="rtl">
                                 <div className="d-flex align-items-start">
                                     <img className="checkicone" src={park_check} alt="check" />
-                                    <p>{teacher_data.data[1].description}</p>
+                                    <p>{teacher_data.data[1]?.description}</p>
                                 </div>
 
-                                <p><img className="checkicone" src={park_check} alt="check" />عدد الأسئلة : {teacher_data.data[1].allow_question} </p>
-                                <p><img className="checkicone" src={park_check} alt="check" /> عدد الامتحانات : {teacher_data.data[1].allow_exam}</p>
+                                <p><img className="checkicone" src={park_check} alt="check" />عدد الأسئلة : {teacher_data.data[1]?.allow_question} </p>
+                                <p><img className="checkicone" src={park_check} alt="check" /> عدد الامتحانات : {teacher_data.data[1]?.allow_exam}</p>
                             </div>
                             <div className="d-flex align-items-center justify-content-center">
                                 <button className="btn mx-2 py-0 rounded-3 " style={{ height: "3rem", width: "100%", backgroundColor: "#C01F59", color: "#ffff" }}
@@ -587,16 +587,16 @@ function Home() {
                         </div>
 
                         <div className="boxpre p-2 col-sm-3 shadow  " style={{ backgroundColor: "#C01F59" }}>
-                            <h3 className="Bold" style={{ color: "#FE4F60" }}><span>{teacher_data.data[2].name}</span></h3>
-                            <h3 style={{ color: "black" }}><span className="fs-5">$ </span><span className="Bold" > {teacher_data.data[2].price}</span></h3>
+                            <h3 className="Bold" style={{ color: "#FE4F60" }}><span>{teacher_data.data[2]?.name}</span></h3>
+                            <h3 style={{ color: "black" }}><span className="fs-5">$ </span><span className="Bold" > {teacher_data.data[2]?.price}</span></h3>
                             <div className="boxchil text-white" dir="rtl">
                                 <div className="d-flex align-items-start">
                                     <img className="checkicone" src={park_check} alt="check" />
-                                    <p>{teacher_data.data[2].description}</p>
+                                    <p>{teacher_data.data[2]?.description}</p>
                                 </div>
 
-                                <p><img className="checkicone" src={park_check} alt="check" />عدد الأسئلة : {teacher_data.data[2].allow_question} </p>
-                                <p><img className="checkicone" src={park_check} alt="check" /> عدد الامتحانات : {teacher_data.data[2].allow_exam}</p>
+                                <p><img className="checkicone" src={park_check} alt="check" />عدد الأسئلة : {teacher_data.data[2]?.allow_question} </p>
+                                <p><img className="checkicone" src={park_check} alt="check" /> عدد الامتحانات : {teacher_data.data[2]?.allow_exam}</p>
                             </div>
                             <div className="d-flex align-items-center justify-content-center">
                                 <button className="btn mx-2 py-0 rounded-3 " style={{ height: "3rem", width: "100%", backgroundColor: "#4941A6", color: "#ffff" }}
@@ -619,16 +619,16 @@ function Home() {
                     <h4 className="teacherbox Bold " ><span style={{ color: "#FE4F60" }}> ( الطلاب ) </span></h4><br />
                     <div className="boxrow row  d-flex align-items-start justify-content-evenly">
                         <div className="boxpre  p-2 col-sm-3 shadow  " style={{ backgroundColor: "#8C57FB" }}>
-                            <h3 className="Bold" style={{ color: "#FE4F60" }}><span>{student_data.data[0].name}</span></h3>
-                            <h3 style={{ color: "black" }}><span className="fs-5">$ </span><span className="Bold" > {student_data.data[0].price}</span></h3>
+                            <h3 className="Bold" style={{ color: "#FE4F60" }}><span>{student_data.data[0]?.name}</span></h3>
+                            <h3 style={{ color: "black" }}><span className="fs-5">$ </span><span className="Bold" > {student_data.data[0]?.price}</span></h3>
                             <div className="boxchil text-white" dir="rtl">
                                 <div className="d-flex align-items-start">
                                     <img className="checkicone" src={park_check} alt="check" />
-                                    <p>{student_data.data[0].description}</p>
+                                    <p>{student_data.data[0]?.description}</p>
                                 </div>
 
-                                <p><img className="checkicone" src={park_check} alt="check" />عدد الأسئلة : {student_data.data[0].allow_question} </p>
-                                <p><img className="checkicone" src={park_check} alt="check" /> عدد الامتحانات : {student_data.data[0].allow_exam}</p>
+                                <p><img className="checkicone" src={park_check} alt="check" />عدد الأسئلة : {student_data.data[0]?.allow_question} </p>
+                                <p><img className="checkicone" src={park_check} alt="check" /> عدد الامتحانات : {student_data.data[0]?.allow_exam}</p>
                             </div>
                             <div className="d-flex align-items-center justify-content-center">
                                 <button className="btn mx-2 py-0 rounded-3 " style={{ height: "3rem", width: "100%", backgroundColor: "#4941A6", color: "#ffff" }}
@@ -644,16 +644,16 @@ function Home() {
                         </div>
 
                         <div className="boxpre  bac p-2 col-sm-3 shadow  " style={{ backgroundColor: "#4941A6" }}>
-                            <h3 className="Bold" style={{ color: "#4941A6" }}><span>{student_data.data[1].name}</span></h3>
-                            <h3 style={{ color: "black" }}><span className="fs-5">$ </span><span className="Bold" > {student_data.data[1].price}</span></h3>
+                            <h3 className="Bold" style={{ color: "#4941A6" }}><span>{student_data.data[1]?.name}</span></h3>
+                            <h3 style={{ color: "black" }}><span className="fs-5">$ </span><span className="Bold" > {student_data.data[1]?.price}</span></h3>
                             <div className="boxchil text-white" dir="rtl">
                                 <div className="d-flex align-items-start">
                                     <img className="checkicone" src={park_check} alt="check" />
-                                    <p>{student_data.data[1].description}</p>
+                                    <p>{student_data.data[1]?.description}</p>
                                 </div>
 
-                                <p><img className="checkicone" src={park_check} alt="check" />عدد الأسئلة : {student_data.data[1].allow_question} </p>
-                                <p><img className="checkicone" src={park_check} alt="check" /> عدد الامتحانات : {student_data.data[1].allow_exam}</p>
+                                <p><img className="checkicone" src={park_check} alt="check" />عدد الأسئلة : {student_data.data[1]?.allow_question} </p>
+                                <p><img className="checkicone" src={park_check} alt="check" /> عدد الامتحانات : {student_data.data[1]?.allow_exam}</p>
                             </div>
                             <div className="d-flex align-items-center justify-content-center">
                                 <button className="btn mx-2 py-0 rounded-3 " style={{ height: "3rem", width: "100%", backgroundColor: "#C01F59", color: "#ffff" }}
@@ -669,16 +669,16 @@ function Home() {
                         </div>
 
                         <div className="boxpre  p-2 col-sm-3 shadow  " style={{ backgroundColor: "#C01F59" }}>
-                            <h3 className="Bold" style={{ color: "#FE4F60" }}><span>{student_data.data[2].name}</span></h3>
-                            <h3 style={{ color: "black" }}><span className="fs-5">$ </span><span className="Bold" > {student_data.data[2].price}</span></h3>
+                            <h3 className="Bold" style={{ color: "#FE4F60" }}><span>{student_data.data[2]?.name}</span></h3>
+                            <h3 style={{ color: "black" }}><span className="fs-5">$ </span><span className="Bold" > {student_data.data[2]?.price}</span></h3>
                             <div className="boxchil text-white" dir="rtl">
                                 <div className="d-flex align-items-start">
                                     <img className="checkicone" src={park_check} alt="check" />
-                                    <p>{student_data.data[0].description}</p>
+                                    <p>{student_data.data[0]?.description}</p>
                                 </div>
 
-                                <p><img className="checkicone" src={park_check} alt="check" />عدد الأسئلة : {student_data.data[2].allow_question} </p>
-                                <p><img className="checkicone" src={park_check} alt="check" /> عدد الامتحانات : {student_data.data[2].allow_exam}</p>
+                                <p><img className="checkicone" src={park_check} alt="check" />عدد الأسئلة : {student_data.data[2]?.allow_question} </p>
+                                <p><img className="checkicone" src={park_check} alt="check" /> عدد الامتحانات : {student_data.data[2]?.allow_exam}</p>
                             </div>
                             <div className="d-flex align-items-center justify-content-center">
                                 <button className="btn mx-2 py-0 rounded-3  " style={{ height: "3rem", width: "100%", backgroundColor: "#4941A6", color: "#ffff" }}

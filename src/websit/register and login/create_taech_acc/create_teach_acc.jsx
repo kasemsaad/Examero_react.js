@@ -69,7 +69,7 @@ function CreateTechAcc() {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (formData.password !== formData.password_confirmation) {
-            setError('Passwords do not match');
+            setError('أدخل كلمة السر الخاصة بك');
             setTimeout(() => setError(''), 3000);
             return;
         }
@@ -84,7 +84,7 @@ function CreateTechAcc() {
     
         Api_website.post('/teachers/register', dataToSubmit)
             .then(response => {
-                setSuccess('Registration successful!');
+                setSuccess('تم إنشاء الحساب بنجاح ');
                 setError('');
                 setTimeout(() => setSuccess(''), 3000);
     
@@ -271,7 +271,7 @@ function CreateTechAcc() {
                             </div>
                         </Form.Group>
                         <Form.Group controlId="password">
-                            <Form.Label className='createteachacc_pass'>كلمة المرور الجديدة</Form.Label>
+                            <Form.Label className='createteachacc_pass'>كلمة المرور </Form.Label>
                             <div className='relative1'>
                                 <Form.Control
                                     className='p_createteachacc_pass'
@@ -290,7 +290,7 @@ function CreateTechAcc() {
                             </div>
                         </Form.Group>
                         <Form.Group controlId="password_confirmation">
-                            <Form.Label className='con_createteachacc_pass'>تأكيد كلمة المرور الجديدة</Form.Label>
+                            <Form.Label className='con_createteachacc_pass'>تأكيد كلمة المرور </Form.Label>
                             <div className='relative1'>
                                 <Form.Control
                                     className='p_con_createteachacc_pass'
