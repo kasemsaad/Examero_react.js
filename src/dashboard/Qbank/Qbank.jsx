@@ -415,7 +415,7 @@ const [allLesson,SetallLesson]=useState([])
         });
         
 
-        if( showQuistitionById?.name == "صح/خطا"){
+        if( showQuistitionById?.name == "صح/خطأ"){
             payload.options = towInoutts
         }
     //--------------------------------------------------------
@@ -779,7 +779,7 @@ const [allLesson,SetallLesson]=useState([])
                                         </div>
                                     ))}
                                 </div>
-                                : showQuistitionById?.name == "صح/خطا" ?   
+                                : showQuistitionById?.name == "صح/خطأ" ?   
                                 <div>
                                 {inputsTow.map((item, index) => (
                                     <div key={index} className="wraper_input_and_checkbox">
