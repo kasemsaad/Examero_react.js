@@ -84,7 +84,7 @@ export default function Qbank() {
  
     // -----------------------------------------------------------------------------
     const [allDataFromAllSelection, SetallDataFromAllSelection] = useState({
-        name: "mostafa",
+        name: "",
         point: "",
         group_id: "",
         subject_id: "",
