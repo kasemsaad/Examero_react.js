@@ -181,10 +181,7 @@ function HomeDashoardLogin() {
             </Button>
             <Link to="/">
             <Button
-
-          
-          
-              style={{ marginTop: "20px" }}
+              style={{ marginTop: "20px" , marginRight:"10px"}}
               type="submit"
               className="btn login_btn"
             >
