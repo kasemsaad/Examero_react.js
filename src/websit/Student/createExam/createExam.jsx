@@ -314,7 +314,7 @@ function CreateExam(props) {
           modalElementSubit.style.display = "none"
           setData("")
           setSelectedOptions("")
-        }, 2000);
+        }, 3500);
 
       })
       .catch(error => {
@@ -375,6 +375,8 @@ function CreateExam(props) {
       group_id: group_id,
       subject_id: subject_id,
       semster: semster,
+      time_min  :duration
+
     };
     // console.log(obj3);
 
@@ -399,9 +401,10 @@ function CreateExam(props) {
       group_id: group_id,
       subject_id: subject_id,
       semster: semster,
+      time_min  :duration
     });
   }, [selectedOptions]);
-
+/////////////////////get correct answer////////////////////////////////////////////////////
 
 
   return (

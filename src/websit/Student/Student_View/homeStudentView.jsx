@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Calendar from 'react-calendar';
-import { Link } from 'react-router-dom';
+import { Await, Link } from 'react-router-dom';
 import Homeicon from '../../../assets/icons/home_student_view/majesticons_home-line copy.svg';
 import delet from '../../../assets/image/fluent_delete-12-regular.svg';
 import edit from '../../../assets/image/uil_edit.svg';
 import imagee from '../../../assets/icons/create_Exam/High Importance.svg';
+import sora from './DSC_2468 copy.jpg';
 import plus from '../../../assets/image/+.svg';
 import '../Student_View/homeStudentView.css';
 import "../../../dashboard/Home_Dashboard/home_dashboard.css";
@@ -13,6 +14,8 @@ import "./DeleteElement.css";
 import "./AddNewUser.css";
 import Api_Website from '../../../utlis/axios_utils_websit.jsx';
 import ActionComponent from '.././../alert.jsx';
+import { set } from 'react-hook-form';
+import { Button } from 'antd';
 
 let useId;
 function onSelect(id) {
@@ -27,6 +30,11 @@ function HomeStudentview(props) {
   }, []);
   //////////////////////////Get All Note///////////////////////////////////////////////////
   const [allNotes, setAllNotes] = useState("");
+  const [first, setfirst] = useState("");
+  const [GroupId, setGroupId] = useState("");
+  const [Groupname, setGroupname] = useState("");
+  const [Allsubjectss, setAllsubjects] = useState("");
+  const [buttonGroupId, setbuttonGroupId] = useState("");
   // const [AllExam, setAllExam] = useState("");
   const getAllNotes = () => {
     document.body.style.removeProperty('overflow');
@@ -53,23 +61,7 @@ function HomeStudentview(props) {
       });
 
   }
-  // const getExam=()=>{
-  //   request({
-  //     url: '/students/exams',
-  //     method: 'get',  
-  //     headers: {
-  //     'Authorization': `Bearer ${getToken()}`
-  //     }
-  //   })
-  //     .then(response => {
-  //       setAllExam(response.data.data);
-  //     })
-  //     .catch(error => {
-  //       console.error("Error fetching notes data:", error);
-  //     });
-  // }
-  //////////////////////////End Get All Note///////////////////////////////////////////////////
-  //////////////////////////Delete Note///////////////////////////////////////////////////
+
   const deleteNote = (id) => {
     document.body.style.removeProperty('overflow');
 
@@ -242,6 +234,7 @@ function HomeStudentview(props) {
       .catch(error => {
         console.error('Error update note:');
       });
+
   };
   //////////////////////////End add Note///////////////////////////////////////////////////
   const [inputUser, setInputUser] = useState({
@@ -254,7 +247,58 @@ function HomeStudentview(props) {
     USER[e.target.name] = e.target.value
     setInputUser(USER)
   }
+  const [isExpanded, setIsExpanded] = useState(false);
+  const handleToggle = () => {
+    setIsExpanded(!isExpanded);
+  };
 
+  const refresh = async () => {
+    try {
+      const response = await Api_Website.get(`/students/refresh`);
+      setGroupId(response.data.User.group.id);
+      setGroupname(response.data.User.group.name);
+    } catch (error) {
+      console.error('Error updating note in refresh:', error);
+    }
+  };
+  
+  const subjects = async () => {
+    try {
+      const response = await Api_Website.get(`/students/subjects/selection/${GroupId}`);
+      setAllsubjects(response.data.data);
+      setTimeout(() => {
+        setfirst(response.data.data[0].id);
+        console.log(response.data.data[0].id + " مره واحده");
+      }, 2000);
+    } catch (error) {
+      console.error('Error updating note in subjects:', error);
+    }
+  };
+  
+  const honorary = async () => {
+    try {
+      const id = buttonGroupId || first;
+console.log(id+"dddddd")
+      const response = await Api_Website.get(`/students/honorary-board/${id}`);
+      // Process the response data as needed
+    } catch (error) {
+      console.error('Error updating note in honorary:', error);
+    }
+  };
+  
+  useEffect(() => {
+    refresh();
+    subjects();
+    honorary();
+  }, [GroupId,first]);
+  
+    const students = [
+      { name: "محمد علي", score: 100, img: "./DSC_2468 copy.jpg ", color:"#FFBA69"},
+      { name: "محمد علي", score: 99, img: "./DSC_2468 copy.jpg " , color:"#E3E3E3" },
+      { name: "محمد علي", score: 90, img: "./DSC_2468 copy.jpg " ,color:"#FF8A65" },
+      { name: "محمد علي", score: 85, img: "./DSC_2468 copy.jpg " ,color:"#FF8A65"},
+      { name: "محمد علي", score: 83, img: "./DSC_2468 copy.jpg" ,color:"#FF8A65"},
+    ];
   return (
     <>
       {/* <ActionComponent /> */}
@@ -290,26 +334,69 @@ function HomeStudentview(props) {
               </div>
             </div>
 
-            <div className="row child pt-4 p-0 m-0 rounded-4" style={{ width: "100%", backgroundColor: "#4941A6" }}>
-              <div className="col-md-7">
-                <Link
-                  className="btn rounded-5 px-5 py-1"
-                  to="#"
-                  style={{
-                    backgroundColor: layoutBackground === "#0E0A43" ? "#1D195D" : "white",
-                    color: layoutBackground === "#0E0A43" ? "#C01F59" : "black",
-                    fontSize: "18px"
-                  }}
-                >
-                  رسالة اليوم
-                </Link>
-                <p className="p-3 pt-4">“ ينقسم الفاشِلون إلى نصفين: هؤلاء الذين يُفكرون ولا يعملون، وهؤلاء الذين يَعملون ولا يُفكرون أبدًا. “</p>
+            <div className="row child pt-4 p-0 m-0 rounded-4" style={{ width: "100%", backgroundColor: "#4941A6" }} >
+              <p className='  text-center' style={{ width: "100%", color: "white" }}><span style={{ color: "#FFB660" }}>لوحة الشرف</span> الصف {Groupname}</p>
+              <div className='py-2' dir='ltr' align="end" style={{ width: "100%" }}>
+                {Array.isArray(Allsubjectss) && Allsubjectss.length > 0 ? (
+                  Allsubjectss.map((item, index) => (
+                    <Button  className='mx-2' onClick={() => { 
+                      setbuttonGroupId(item.id)
+                      // console.log(item[0].id+"fffffff")
+                      // console.log(item[1].id+"fffffff")
+                     }} style={{ backgroundColor: item.id == buttonGroupId  ? "#FE4F60" : "#635BBA", color: "white", border: "none" }} key={index}>{item.name}</Button>
+                  ))
+                ) : (
+                  <option disabled>لا توجد مجموعات</option>
+                )}
               </div>
-              <div className="col-md-4 mb-4 boxday"></div>
+              < div className='' style={{ backgroundColor: "#FFBA69", width: "100%", height: "3px" }}></div>
+
+              {/* ////////////////// */}
+
+            <div className="row  p-0 m-0" dir='ltr' style={{flexDirection:"row-reverse"}}>
+                {students.map((student, index) => (
+                  <div className="col p-0  pt-2" key={index} align="center">
+                        <div className="student-card text-center">
+                            <img src={sora} alt="student" className="student-img rounded-circle" />
+                            <div className="student-info">
+                                <h6 className='pt-2'>{student.name}</h6>
+                                <p style={{color:student.color}}>{student.score} %</p>
+                            </div>
+                            <div className={`rank-badge rank-${index + 1}`}>
+                               <span className='' style={{paddingRight:"1.8px", paddingTop:"3px", color:student.color}}> {index + 1}</span>
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+      
+            </div>
+
+            <div className="row child pt-4 p-0 m-0 rounded-4" style={{ width: "100%" }}>
+
+              <div className="new-feature-section" style={{ padding: "10px", marginBottom: "15px", marginTop: "5px", borderRadius: "8px", border: "2px solid #A6A0F4 " }}>
+                <div className="d-flex justify-content-between align-items-center">
+                  <span style={{ fontSize: "15px", fontWeight: "bold", color: '#A6A0F4' }}>كيف أنضم للوحة الشرف ؟ </span>
+                  <button onClick={handleToggle} style={{ color: 'white', background: "none", border: "none", cursor: "pointer" }}>
+                    {isExpanded ? "▲" : "▼"}
+                  </button>
+                </div>
+                {isExpanded && (
+                  <div style={{ marginTop: "10px" }}>
+                    <p> قم بانشاء امتحان بالمواصفات الآتية : </p>
+                    <p> 1. اختر المبحث في الصف والفصل الدراسي  الخاص بك .</p>
+                    <p> 2. مدة الامتحان لا تزيد عن ساعة واحدة.</p>
+                    <p> 3. الامتحان يشمل  كل وحدات ودروس المبحث.</p>
+                    <p> 4. عدد أسئلة الامتحان لا تقل عن 20 سؤالا.</p>
+                    <p> 4. لا يحتوي الإمتحان على أسئلة سهلة .</p>
+                    <p style={{ color: '#FF8A00' }}>. [ Exmaero ] فريق الدعم</p>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
 
-          <div className="homeStudentcalender pt-2 col-md-4 d-flex align-items-center justify-content-center flex-column">
+          <div className="homeStudentcalender pt-2 col-md-4 d-flex align-items-center flex-column">
             <div className="rounded-5 d-flex align-items-center justify-content-center" style={{ width: "100%", height: "auto", backgroundColor: "#4941A6" }}>
               <div className="wrapper_todo_calender  d-flex align-items-center justify-content-center flex-column" style={{ backgroundColor: "#4941A6", border: "1px #4941A6 solid", borderRadius: "20px", width: "100%" }}>
                 <div className="calender calenderhomestudent d-flex align-items-center justify-content-center" style={{ width: "100%" }}>

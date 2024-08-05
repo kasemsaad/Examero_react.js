@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Container, Row, Col, Form, Button, Alert } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
+import { Container, Row, Col, Form, Button, Alert, Dropdown, DropdownButton, ProgressBar } from 'react-bootstrap';
 import './create_stud_acc.css';
 import emailIcon from '../../../assets/icons/register and login icon/mail-email-icon-template-black-color-editable-mail-email-icon-symbol-flat-illustration-for-graphic-and-web-design-free-vector 2.svg';
 import passIcon from '../../../assets/icons/register and login icon/pngtree-password-vector-icon-design-illustration-png-image_6597553 3.svg';
@@ -11,6 +11,9 @@ import vector from '../../../assets/icons/register and login icon/Vector 58.svg'
 import studentimg from '../../../assets/image/register and login image/Rectangle 4198.png';
 import Api_Website from '../../../utlis/axios_utils_websit';
 import { useNavigate } from 'react-router-dom';
+import dropdownIcon from '../../../assets/icons/teacherview/Vector 13.svg';
+import Api_website from '../../../utlis/axios_utils_websit';
+
 const days = Array.from({ length: 31 }, (_, i) => i + 1);
 const months = Array.from({ length: 12 }, (_, i) => i + 1);
 const currentYear = new Date().getFullYear();
@@ -18,13 +21,19 @@ const years = Array.from({ length: 100 }, (_, i) => currentYear - i);
 
 const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 const isValidPhoneNumber = (phoneNumber) => /^\d{10}$/.test(phoneNumber);
+
 function CreateStudentAcc() {
+    const [AllGroup, setAllGroup] = useState([]);
+    const [grade, setGrade] = useState('');
+    const [droupname, setdroupname] = useState(' اختر الصف ');
+    const [groupId, setGroupId] = useState(null);
     const [formData, setFormData] = useState({
         first_name: '',
         last_name: '',
         email: '',
         password: '',
         phone_number: '',
+        group_id: '',
         date_of_birth: {
             day: '',
             month: '',
@@ -54,34 +63,43 @@ function CreateStudentAcc() {
                 [name]: value,
             },
         });
-    }; 
+    };
+
     const navigate = useNavigate();
 
-     const handlebackhome = () => {
-        navigate('/login_student'); 
+    const handlebackhome = () => {
+        navigate('/login_student');
     };
+
     const handleSubmit = (e) => {
         e.preventDefault();
         if (formData.password !== formData.password_confirmation) {
-            setError('Passwords do not match');
+            setError('أدخل كلمة السر الخاصة بك');
             setTimeout(() => setError(''), 3000);
             return;
         }
-    
+        if (formData.group_id !== formData.group_id) {
+            setError('أختر الصف');
+            setTimeout(() => setError(''), 3000);
+            return;
+        }
+
         const dateOfBirth = `${formData.date_of_birth.year}-${formData.date_of_birth.month}-${formData.date_of_birth.day}`;
         const dataToSubmit = {
             ...formData,
             date_of_birth: dateOfBirth,
+            group_id: groupId,
         };
-    
+
         setLoading(true);
-    
+        console.log(dataToSubmit);
+
         Api_Website.post('/students/register', dataToSubmit)
             .then(response => {
-                setSuccess('Registration successful!');
+                setSuccess('تم إنشاء الحساب بنجاح ');
                 setError('');
                 setTimeout(() => setSuccess(''), 3000);
-    
+
                 // Reset form data after successful registration
                 setFormData({
                     first_name: '',
@@ -89,6 +107,7 @@ function CreateStudentAcc() {
                     email: '',
                     password: '',
                     phone_number: '',
+                    group_id: '',
                     date_of_birth: {
                         day: '',
                         month: '',
@@ -105,6 +124,32 @@ function CreateStudentAcc() {
             .finally(() => {
                 setLoading(false);
             });
+    };
+
+    const fetchGroups = async () => {
+        try {
+            const response = await Api_website.get('/students/groups/selection');
+            setAllGroup(response.data.data);
+        } catch (error) {
+            console.error("Error fetching groups data:", error);
+        }
+    };
+
+    useEffect(() => {
+        fetchGroups();
+    }, []);
+
+    const handleChangeGroup = (eventKey) => {
+        setGrade(eventKey);
+        const selectedGroup = AllGroup.find(group => group.name === eventKey);
+        if (selectedGroup) {
+            setGroupId(selectedGroup.id);
+            setFormData({
+                ...formData,
+                group_id: selectedGroup.id,
+            });
+            setdroupname(eventKey);
+        }
     };
     return (
         <div className='create_student_acc'>
@@ -177,6 +222,33 @@ function CreateStudentAcc() {
                                 )}
                             </div>
                         </Form.Group>
+                        <Form.Group controlId="grade">
+                        <Form.Label className='create_student_acc_lastName'>الصف</Form.Label>
+                        <div className='relative1'>
+              <DropdownButton 
+        // className='p_create_student_acc_lastName'
+                id="e"
+                title={<div className='re'>{droupname}<img src={dropdownIcon} alt="Icon" className='dropdown-icon' /></div>}
+                onSelect={handleChangeGroup}
+              >
+                {Array.isArray(AllGroup) && AllGroup.length > 0 ? (
+                  AllGroup.map(({ id, name }) => (
+                    <Dropdown.Item className='text-white' key={id} eventKey={name} 
+                    value={id}
+                    onChange={handleChange}
+                    onClick={()=>{
+                    //   setgroupid(id);
+                      setdroupname(name)}} >
+                      <span className="circle arabic"></span>{name}
+                    </Dropdown.Item>
+                  ))
+                ) : (
+                  <Dropdown.Item className='text-white' disabled>لا توجد مجموعات</Dropdown.Item>
+                )}
+              </DropdownButton>
+                 </div>
+            </Form.Group>
+
                         <Form.Group controlId="email">
                             <Form.Label className='creatstudentacc_email'>البريد الإلكتروني</Form.Label>
                             <div className='relative1'>
@@ -219,6 +291,7 @@ function CreateStudentAcc() {
                                 )}
                             </div>
                         </Form.Group>
+                        
                         <Form.Group controlId="birthdate">
                             <Form.Label className='birthdate_create_std_acc'>تاريخ الميلاد</Form.Label>
                             <div className='date-input-container'>
@@ -258,7 +331,7 @@ function CreateStudentAcc() {
                             </div>
                         </Form.Group>
                         <Form.Group controlId="password">
-                            <Form.Label className='createstudentacc_pass'>كلمة المرور الجديدة</Form.Label>
+                            <Form.Label className='createstudentacc_pass'>كلمة المرور </Form.Label>
                             <div className='relative1'>
                                 <Form.Control
                                     className='p_createstudentacc_pass'
@@ -277,7 +350,7 @@ function CreateStudentAcc() {
                             </div>
                         </Form.Group>
                         <Form.Group controlId="password_confirmation">
-                            <Form.Label className='con_createstudentacc_pass'>تأكيد كلمة المرور الجديدة</Form.Label>
+                            <Form.Label className='con_createstudentacc_pass'>تأكيد كلمة المرور </Form.Label>
                             <div className='relative1'>
                                 <Form.Control
                                     className='p_con_createstudentacc_pass'
