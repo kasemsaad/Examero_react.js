@@ -42,6 +42,7 @@ import SuccessPayment from "./websit/Home/successpayment.jsx";
 import CreateExam from "./websit/Student/createExam/createExam.jsx";
 import TeacherProfile from "./websit/teacher_view/teacher profile/teacherProfile.jsx";
 import DataStudentExam from "./websit/Student/dataStudentExam/dataStudentExam.jsx";
+import CorrectAnswerfrom from "./websit/Student/createExam/correctAnswer.jsx";
 import EditStudentProfaile from "./websit/Student/editStudentProfaile/editStudentProfaile.jsx";
 import ProtectedRouteWebsite from "../src/websit/protectedRouteWebsite/protectedRouteWebsite.jsx";
 import ProtectedRouteWebsiteTeacher from "../src/websit/protectedRouteWebsite/protectedRouteWebsiteTeacher.jsx";
@@ -153,6 +154,14 @@ function App(props) {
             element={
               <ProtectedRouteWebsiteTeacher>
                 <DataStudentExam />
+              </ProtectedRouteWebsiteTeacher>
+            }
+          />
+          <Route
+            path="CorrectAnswerfrom/:id"
+            element={
+              <ProtectedRouteWebsiteTeacher>
+                <CorrectAnswerfrom />
               </ProtectedRouteWebsiteTeacher>
             }
           />

@@ -85,6 +85,7 @@ function DataStudentExam(props) {
                                 <th>اسم الصف</th>
                                 <th>اسم المبحث</th>
                                 <th>نتيجة الامتحان</th>
+                                <th>مراجعة الامتحان</th>
                             </tr>
                         </thead>
                         <tbody style={{
@@ -105,6 +106,9 @@ function DataStudentExam(props) {
                                         <td>{subject.name}</td>
                                         <td style={{ color: status === "راسب" ? "#FF3A3A" : "#24FF00" }}>
                                             {status}
+                                        </td>
+                                        <td>
+                                        <Link to={`/student/CorrectAnswerfrom/${id}`}><i className='fas fa-pen-to-square' style={{color:"#C01F59"}}></i></Link>
                                         </td>
                                     </tr>
                                 ))
