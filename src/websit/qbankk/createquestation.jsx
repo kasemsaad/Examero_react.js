@@ -353,7 +353,7 @@ const [allLesson,SetallLesson]=useState([])
               'Content-Type': 'multipart/form-data'
             }
           }).then((response)=>{
-            Notify(response.data.Message)
+            Notify('تم اضافه السوال بنجاح')
             console.log(response.data.Message);
             clearNameField()
             setShowConfetti(true);

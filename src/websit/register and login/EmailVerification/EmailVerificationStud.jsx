@@ -45,7 +45,6 @@ const EmailVerificationStud = () => {
                 margin: 'auto',
             }}>
                 <img src={doneImage} alt="Done Icon" style={{ width: '150px', marginBottom: '20px' }} />
-                <h2>Email Verification</h2>
                 <p>{verificationStatus}</p>
                 <Link to="/login_student" style={{ textDecoration: 'none', marginTop: '20px' }}>
                     <button style={{
@@ -60,7 +59,7 @@ const EmailVerificationStud = () => {
                         boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
                         transition: 'transform 0.2s ease-in-out',
                     }}>
-                        الرجوع إلى الصفحة الرئيسية
+                        الرجوع إلى صفحه تسجيل الدخول
                     </button>
                 </Link>
             </div>

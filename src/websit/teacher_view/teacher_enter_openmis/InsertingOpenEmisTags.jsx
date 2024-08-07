@@ -91,7 +91,7 @@ const handleSubmit = (e) => {
   Api_website.post('/teachers/open-emis', formData)
     .then(response => {
       console.log('تم إرسال البيانات بنجاح:', response.data);
-      setSuccessMessage(response.data.message); // Assuming response.data.message contains the success message
+      setSuccessMessage('تم إرسال البيانات بنجاح'); // Assuming response.data.message contains the success message
       setTimeout(() => {
         setSuccessMessage('');
       }, 3000); // Clear success message after 3 seconds
@@ -236,25 +236,30 @@ const getPoint = (e) => {
                   <div><img src={loadIcon} alt="Upload Icon" className="load-icon" /></div>
                 </div>
               </div>
-              <div className='col-5'>
-                                <label htmlFor="">اسم الباقه</label>
-                                <select
-                                    id="dataSelect"
-                                    className="form-select"
-                                    onChange={getPoint}
-                                    
-                                >
-                                    <option value="" disabled selected>اختر اسم الباقه</option>
-                                    {activePlanData.map((item, index) => (
-                                        <option key={index} value={item.plan.id}>
-                                            {item.plan.name}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
+             
             </Form.Group>
           </Col>
         </Row>
+        <Row className="mb-3">
+
+<Col xs={12} sm={6}>
+<label htmlFor="">اسم الباقه</label>
+                  <select
+                      id="dataSelect"
+                      className="form-select"
+                      onChange={getPoint}
+                      
+                  >
+                      <option value="" disabled selected>اختر اسم الباقه</option>
+                      {activePlanData.map((item, index) => (
+                          <option key={index} value={item.plan.id}>
+                              {item.plan.name}
+                          </option>
+                      ))}
+                  </select>
+              </Col>
+                
+              </Row> 
         <Row>
           <Col className="text-start">
             <Button className='btn_enter_data_teach_view pl-3 pr-3' type="submit">

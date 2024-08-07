@@ -137,7 +137,6 @@ export default function SpecificationTeacher() {
                                     id="dataSelect"
                                     className="form-select"
                                     onChange={getPoint}
-                                    required
                                 >
                                     <option value="" disabled selected>اختر اسم الباقه</option>
                                     {activePlanData.map((item, index) => (
