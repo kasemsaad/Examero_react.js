@@ -33,8 +33,7 @@ const SuccessMessage2 = ({ message }) => {
                     margin: 'auto',
                 }}>
                     <img src={doneImage} alt="Done Icon" style={{ width: '150px', marginBottom: '20px' }} />
-                    <h2>تم إعادة تعيين كلمة المرور بنجاح</h2>
-                    <p>{message}</p>
+                    <h2 style={{ direction: 'rtl' }}>{message}</h2>
                     <Link to="/login_teacher" style={{ textDecoration: 'none', marginTop: '20px' }}>
                         <Button
                             style={{
@@ -51,7 +50,7 @@ const SuccessMessage2 = ({ message }) => {
                             }}
                             onClick={handleNavigateHome}
                         >
-الرجوع للرئيسية 
+الرجوع لصفحة تسجيل الدخول 
                         </Button>
                     </Link>
                 </div>

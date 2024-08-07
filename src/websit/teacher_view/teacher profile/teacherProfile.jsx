@@ -7,6 +7,8 @@ import home from "../../../assets/image/material-symbols_person-outline (1).svg"
 import Homeicon from "../../../assets/icons/Home/Frame 119.svg"
 import eye from '../../../assets/image/register and login image/hugeicons_view (1).svg'
 import success from "../../../assets/image/Vector (1).svg"
+import def from '../../../assets/image/register and login image/Mask group.svg'
+
 import lock from "../../../assets/image/mdi_password-outline.svg"
 import Api_website from '../../../utlis/axios_utils_websit'
 import { Link } from 'react-router-dom'
