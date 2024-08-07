@@ -300,7 +300,7 @@ function Home() {
                                     setId(1)
                                     login()
                                 }}
-                                    style={{ height: "2.5rem", width: "8rem", color: "#4941A6", backgroundColor: "" }}  >
+                                    style={{ height: "2.5rem", width: "12rem", color: "#4941A6", backgroundColor: "" }}  >
                                     {name}
 
                                 </button>

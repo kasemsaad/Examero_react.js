@@ -194,3 +194,9 @@
 .white-text {
   color: #ffff;
 }
+.sasa{
+  width: 100%;
+  height: 100%;
+  background-image: url(./Mask\ group.svg);
+  background-color: #4941A6;
+}

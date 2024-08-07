@@ -8,8 +8,20 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import CreateExamIcon from '../../../assets/icons/Home/wpf_create-new.svg'
 import Api_Website from '../../../utlis/axios_utils_websit';
 import Api_dashboard from '../../../utlis/axios_utils_dashboard';
+import { toast, ToastContainer } from 'react-toastify';
 function CreateExam(props) {
-
+  const Errornotify = (message) => {
+    toast.error(message, {
+      position: "top-center",
+      autoClose: 4000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
 
   const layoutBackground = useSelector((state) => state.dark.lay);
   const [duration, setDuration] = useState('');  // User input for duration
@@ -206,7 +218,6 @@ function CreateExam(props) {
   }
   const handleSubmit = (event) => {
     document.body.style.removeProperty('overflow');
-
     event.preventDefault();
     const data = {
       group_id: group_id,              //required
@@ -265,10 +276,11 @@ function CreateExam(props) {
                 document.body.style.removeProperty('overflow');
                 Api_Website.post(`/students/genrate-exam`, data)
                   .then(response => {
-                    // console.log(response.data.data.questions[1].media.name );
-
                     const modalElementExam = document.getElementById('Exam');
                     modalElementExam.style.display = "block"
+                    if(response.data.data.count == 0){
+                      Errornotify("لا يوجد أسئله لإنشاء الإمتحان")
+                    }
                     setQusetionExam(response.data.data)
                     startTimer()
                     const modalElementFinishTimer = document.getElementById('FinishTimer');
@@ -284,6 +296,8 @@ function CreateExam(props) {
                   })
                   .catch(error => {
                     console.error('Error generat exam', error);
+                    let err = error.response.data.message;
+        Errornotify(err)
                   });
 
                 setError("");
@@ -347,7 +361,6 @@ function CreateExam(props) {
 
   ////////////////////////////////questions///////////////////////////////////////////////////////////////
   const handleCheckboxChange = (questionId, optionId) => {
-    // console.log(questionId,optionId)
     setSelectedOptions(prevSelected => {
       const newSelected = { ...prevSelected };
 
@@ -378,7 +391,6 @@ function CreateExam(props) {
       time_min  :duration
 
     };
-    // console.log(obj3);
 
     for (let id in obj2.answers) {
       obj3.answers[id] = []
@@ -409,6 +421,7 @@ function CreateExam(props) {
 
   return (
     <>
+      <ToastContainer position='top-center' />
 
       <div className="container py-5 d-flex align-items-center justify-content-center flex-column">
         <div className=" " style={{ width: "85%", paddingTop: "4.25px" }}  >
@@ -427,7 +440,7 @@ function CreateExam(props) {
           <div className=" rounded-3" style={{ backgroundColor: "#2F2791" }}>
             <p className='p-4 fs-5'>
               <span style={{ color: "#FFA031" }}>          ملحوظة :        </span>
-              بالخطة الأولى والثانية يتم فتح الأسئلة بحد أقصى 25 سؤالا ، مع العلم أنه في حالة  اختيار أقل من 25 سؤال يتم احتسابهم كامتحان كامل
+              بالخطة الأولى والثانية يتم فتح الأسئلة بحد أقصى 25 سؤالا ، مع العلم أنه في حالة  أختيار أقل من 25 سؤال يتم احتسابهم كامتحان كامل
             </p>
           </div>
           {/* --------------------add exam-------------------------------- */}
@@ -604,7 +617,7 @@ function CreateExam(props) {
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu style={{ backgroundColor: "white" }}    >
-                          <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                          <Dropdown.Item href="#/action-1"></Dropdown.Item>
                           <div className="drocontainer">
                             <div className="question-row">
                               <button className="control-button" onClick={() => decrement(setEasyCount, easyCount)}>-</button>
@@ -668,7 +681,6 @@ function CreateExam(props) {
               {/* /////////////////exam///////////////////////////////////////////////// */}
               <div id="collapseExample2">
                 {Array.isArray(QusetionExam.questions) && currentQuestions.map((question, index) => (
-
                   <div key={question.id} className="card card-body rounded-5" style={{ backgroundColor: "#1D195D" }}>
                     <div className="d-flex align-items-center justify-content-between">
                       <div className="d-flex px-3">
@@ -735,10 +747,10 @@ function CreateExam(props) {
                       </div>
                     </div>
                     <div className="mt-5" dir='ltr'>
-                      <button onClick={handleNext} className='btn rounded-5 px-4 py-2' style={{ width: "100px", backgroundColor: "#C01F59", color: "white" }} disabled={isNextDisabled}>
+                      <button onClick={handleNext} className='btn rounded-5 px-4 py-2 mx-1' style={{ width: "100px", backgroundColor: "#C01F59", color: "white" }} disabled={isNextDisabled}>
                         التالي
                       </button>
-                      <button onClick={handlePrevious} className='btn rounded-5 px-4 py-2' style={{ width: "100px", backgroundColor: "#CDCDCD", color: "black" }} disabled={isPreviousDisabled}>
+                      <button onClick={handlePrevious} className='btn rounded-5 px-4 py-2 mx-1' style={{ width: "100px", backgroundColor: "#CDCDCD", color: "black" }} disabled={isPreviousDisabled}>
                         السابق
                       </button>
                     </div>

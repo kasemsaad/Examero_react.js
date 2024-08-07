@@ -6,10 +6,8 @@ import LayoutComp from "./layout/layoutComp/layoutComp";
 import AccountSetting from "./dashboard/Account-settting/AccountSetting";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./websit/Home/home.jsx";
-
 import Notification from "./dashboard/Notification/Notification";
 import "@fontsource/cairo"; // Defaults to weight 400
-
 import Home_dashboard from "./dashboard/Home_Dashboard/Home_dashboard.jsx";
 import CreateStudentAcc from "./websit/register and login/create_stud_acc/create_stud_acc.jsx";
 import Login1 from "./websit/register and login/login/login2.jsx";
@@ -18,11 +16,9 @@ import CreateTechAcc from "./websit/register and login/create_taech_acc/create_t
 import Reset_page1 from "./websit/register and login/resetpage/resetpage_stud.jsx";
 import Reset_code_page from "./websit/register and login/reset_password/reset_password_stud.jsx";
 import New_pass from "./websit/register and login/new_pass/new_pass_stud.jsx";
-
 import ResetPage1Teacher from "./websit/register and login/resetpage/resetpage_teach.jsx";
 import ResetCodePageTech from "./websit/register and login/reset_password/reset_password_tech.jsx";
 import NewPassTeach from "./websit/register and login/new_pass/new_pass_tech.jsx";
-
 import InsertingOpenEmisTags from "./websit/teacher_view/teacher_enter_openmis/InsertingOpenEmisTags.jsx";
 import PuttingExam1 from "./websit/teacher_view/PuttingExam1/PuttingExam1.jsx";
 import PuttingExam2 from "./websit/teacher_view/PuttingExam1/PuttingExam2.jsx";
@@ -36,7 +32,6 @@ import ExamPdfArabicsolution from "./websit/teacher_view/PuttingExam1/ExamPdfAra
 import Certified_exam from "./websit/teacher_view/PuttingExam1/Certified_exam.jsx";
 import EmailVerificationTech from "./websit/register and login/EmailVerification/EmailVerificationtech.jsx";
 import EmailVerificationStud from "./websit/register and login/EmailVerification/EmailVerificationStud.jsx";
-
 import HomeStudentView from "./websit/Student/Student_View/homeStudentView.jsx";
 import SuccessPayment from "./websit/Home/successpayment.jsx";
 import CreateExam from "./websit/Student/createExam/createExam.jsx";
@@ -46,7 +41,6 @@ import CorrectAnswerfrom from "./websit/Student/createExam/correctAnswer.jsx";
 import EditStudentProfaile from "./websit/Student/editStudentProfaile/editStudentProfaile.jsx";
 import ProtectedRouteWebsite from "../src/websit/protectedRouteWebsite/protectedRouteWebsite.jsx";
 import ProtectedRouteWebsiteTeacher from "../src/websit/protectedRouteWebsite/protectedRouteWebsiteTeacher.jsx";
-
 // import Home_dashboard from './dashboard/Home_Dashboard/Home_dashboard.jsx';
 import HomeDashoardLogin from "./dashboard/homeLogin/homeLogin.jsx";
 import CertificateGenerator from "./dashboard/Certificate/Certificate.jsx";
@@ -55,7 +49,6 @@ import Specification from "./dashboard/Specifecation/Specification.jsx";
 import ProtectedRoute from "./dashboard/protectedRouteDashboard.jsx/protectedRouteDashboard.jsx";
 import PlansStudent from "./dashboard/Plans/PlansStudent/PlansStudent.jsx";
 import PlansTeacher from "./dashboard/Plans/PlansTeacher/PlansTeacher.jsx";
-
 import OpenEmis from "./dashboard/open_Emis/openEmis.jsx";
 import WaitingEmis from "./dashboard/open_Emis/waitingEmis/waitingEmis.jsx";
 import RecivedEmis from "./dashboard/open_Emis/recivedEmis/recivedEmis.jsx";
@@ -91,8 +84,24 @@ import OpenEmisTable from "./websit/OpenEmisTable/OpenEmisTable.jsx";
 import CertificationTeacher from "./websit/certificationTeacher/certificationTeacher.jsx";
 import { QbankTeacherTable } from "./websit/qbankk/qbankteacher.jsx";
 import CreateQuestation from "./websit/qbankk/createquestation.jsx";
+import { useEffect } from "react";
 
 function App(props) {
+
+setInterval(() => {
+  
+  const backdrop = document.querySelector('.modal-backdrop');
+  if (backdrop) {
+    backdrop.classList.remove('show');
+  }
+  document.body.style.removeProperty('overflow');
+
+}, 100);
+
+    useEffect(()=>{
+document.title="Examero | Site"
+
+    },[])
   return (
     <BrowserRouter>
       <Routes>

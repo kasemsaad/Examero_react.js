@@ -98,7 +98,7 @@ function SidebarFullscreen() {
       {
         location.pathname.startsWith('/dashboard') ?
         
-        <div className="sidbar p-0  "  dir="rtl" >
+        <div className="sidbar p-0  mt-3"  dir="rtl" >
         <div className="sidbarSidbar " >
           <ul className="pt-4 ps-4">
             <li className={`Icon  ${id === "1" ? "bgIcon":" "}`}>
@@ -211,7 +211,7 @@ function SidebarFullscreen() {
           :
           location.pathname.startsWith('/student') ?
 
-          <div className="sidbar p-0 pb-2 "  dir="rtl" style={{height:"340px", width:"300px"}} >
+          <div className="sidbar p-0 pb-2 mt-3 "  dir="rtl" style={{height:"340px", width:"300px"}} >
           <div className="sidbarSidbar "  style={{paddingBottom:"13.5rem"}} >
             <ul className="pt-4 ">
                   <li className={`Icon  ${id === "1" ? "bgIcon" : " "}`}>
@@ -266,7 +266,7 @@ function SidebarFullscreen() {
 
 
 
-            <div className="sidbar p-0  "  dir="rtl" >
+            <div className="sidbar p-0  mt-3"  dir="rtl" >
             <div className="sidbarSidbar " >
               <ul className="pt-4 ps-2">
                     <li className={`Icon  ${id === "1" ? "bgIcon" : " "}`}>

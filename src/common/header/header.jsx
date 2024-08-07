@@ -219,11 +219,7 @@ const getRefreshstudent = async()=>{
         </div>
       </nav>
 
-      {/* <div className="personal_image" style={{  position: "relative",}}>
-   <div id="svg_header" style={{ width: "3.437rem", height: "3.437rem", borderRadius: "50%", backgroundColor: "blue", overflow: "hidden",}}>
-        <img  style={{ objectFit: "cover" }} src={personal} width="100%"  height="100%" alt='presonal_img'/>
-        </div>
-     </div> */}
+
 
       <div
         className="personal_image"
@@ -248,23 +244,24 @@ const getRefreshstudent = async()=>{
             linksProfile();
           }}
         >
-          <img
-            style={{ objectFit: "cover" }}
+          
+            <img
+              style={{ objectFit: "cover" }}
 
 
-            
-            src={
               
-              location.pathname.startsWith('/dashboard')? `${Api_dashboard.defaults.baseURL}/assets/Admin/${personalDashboard}`:
-              location.pathname.startsWith('/student')? `${Api_dashboard.defaults.baseURL}/assets/Student/${personalStudent}`:
-              location.pathname.startsWith('/teacher')? `${Api_dashboard.defaults.baseURL}/assets/Teacher/${personalTeacher}`:
-              person  
-                        }
-            width="100%"
-            height="100%"
-            alt={person}
-           
-          />
+              src={
+                
+                location.pathname.startsWith('/dashboard')? `${Api_dashboard.defaults.baseURL}/assets/Admin/${personalDashboard}`:
+                location.pathname.startsWith('/student')? `${Api_dashboard.defaults.baseURL}/assets/Student/${personalStudent}`:
+                location.pathname.startsWith('/teacher')? `${Api_dashboard.defaults.baseURL}/assets/Teacher/${personalTeacher}`:
+                person  
+                          }
+              width="100%"
+              height="100%"
+              alt={""}
+            
+            />
         
         </div>
       </div>

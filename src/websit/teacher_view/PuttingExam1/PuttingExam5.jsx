@@ -145,13 +145,13 @@ function PuttingExam5(props) {
       if (counter <= 0) {
         navigate(`/teacher/PuttingExam4`);
       }
-      else if (counter > (1 + parseInt(JSON.parse(parsedArray[0][2]).questionCount))) {
-        navigate(`/teacher/PuttingExam5/${1 + parseInt(JSON.parse(parsedArray[0][2]).questionCount)}`);
+      else if (counter > (1 + countPages)) {
+        navigate(`/teacher/PuttingExam5/${countPages}`);
       } else {
 
       }
 
-      if (counter >= 1 + parseInt(JSON.parse(parsedArray[0][2]).questionCount)) {
+      if (counter >= 1 + countPages) {
         setIsButtonDisabled(true)
         setIsButtonshow(false)
       } else {
@@ -268,7 +268,6 @@ function PuttingExam5(props) {
         }
       }
 
-      // console.log(DataQustionManualy)
       await Api_website.post('/teachers/genrate-exam', DataQustionManualy)
 
         .then(async (response) => {
@@ -281,8 +280,6 @@ function PuttingExam5(props) {
             
             await Api_website.post('/teachers/questions-by-main-question', DataQustion)
             .then((response) => {
-              console.log("dfgfdgfg")
-
               const question = {
                 "السؤال": JSON.stringify(response.data.data.questions),
                 lessonid,
@@ -308,7 +305,6 @@ function PuttingExam5(props) {
               if (!question || Object.keys(question).length === 0) {
                 console.error("Question object is empty or undefined");
               } else {
-                console.log("Question object:", question);
               }
               const questionBank = question;
               const x = JSON.stringify(questionBank);
@@ -385,13 +381,11 @@ function PuttingExam5(props) {
             if (!question || Object.keys(question).length === 0) {
               console.error("Question object is empty or undefined");
             } else {
-              console.log("Question object:", question);
             }
 
             const questionBank = question;
 
             const x = JSON.stringify(questionBank);
-            console.log(question);
 
             let doc = localStorage.getItem("all");
             doc = doc ? JSON.parse(doc) : [];
@@ -540,7 +534,6 @@ function PuttingExam5(props) {
     const arrayalldelete = JSON.parse(deletedata)
     if (id >= 0 && page <= arrayalldelete.length) {
       arrayalldelete.splice((id - 1), 1);
-      console.log(arrayalldelete)
       localStorage.setItem("all", JSON.stringify(arrayalldelete));
       window.location.reload();
     } else {
