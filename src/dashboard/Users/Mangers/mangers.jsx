@@ -11,8 +11,19 @@ import DeleteUserModal from "../../components/UsersPages/DeletUserModal/DeleteUs
 import FooterOfUserFP from "../../components/UsersPages/FooterOfUsers/FooterOfUsers";
 import ShowUserModal from "../../components/UsersPages/ShowUserModal/ShowUser";
 import SendMessage from "../../components/UsersPages/SendMessageModal.jsx/SendMessageModal";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 const Mangers = () => {
+  const navigate = useNavigate()
+  const role = useSelector((state) => state.RoleAccess.role); 
+  const acccessDenied = ()=>{
+      if (role === "manager"){
+          navigate('/dashboard/accessDenied')
+      }
+  }
+  useEffect(()=>{
+      acccessDenied()
+  },[])
   // header of the table
   let header = {
     name1: "اسم المدير",
