@@ -7,6 +7,7 @@ import delet from '../../../assets/image/fluent_delete-12-regular.svg';
 import edit from '../../../assets/image/uil_edit.svg';
 import imagee from '../../../assets/icons/create_Exam/High Importance.svg';
 import sora from './126-1268354_community-student-icon-graduate-icon.png';
+import sora2 from './man 2.png';
 import plus from '../../../assets/image/+.svg';
 import '../Student_View/homeStudentView.css';
 import "../../../dashboard/Home_Dashboard/home_dashboard.css";
@@ -292,13 +293,15 @@ function HomeStudentview(props) {
     const user = indices[userIdx];
     const score = indices[userIdx + 1]?.total_percentage;
     const img = imgNames[idx];
-
+    console.log(user)
     return user?.first_name !== undefined
+    
       ? {
         name: `${user.first_name} ${user.last_name}`,
         score: score,
         img: img,
         color: "#FFBA69",
+        media: user.media,
         flag: 1
       }
       : {
@@ -344,21 +347,31 @@ function HomeStudentview(props) {
               </div>
             </div>
 
-            <div className="row child pt-4 p-0 m-0 rounded-4" style={{ width: "100%", backgroundColor: "#4941A6" }} >
+            <div className="row  child pt-4 p-0 m-0 rounded-4" style={{ width: "100%", backgroundColor: "#4941A6" }} >
               <p className='  text-center' style={{ width: "100%", color: "white" }}><span style={{ color: "#FFB660" }}>لوحة الشرف</span> الصف {Groupname}</p>
-              <div className='py-2' dir='ltr' align="end" style={{ width: "100%" }}>
-                {Array.isArray(Allsubjectss) && Allsubjectss.length > 0 ? (
-                  Allsubjectss.map((item, index) => (
-                    <Button className='mx-2' onClick={() => {
-                      setbuttonGroupId(item.id)
-                    
-                    }} style={{ backgroundColor: item.id == (buttonGroupId||first) ? "#FE4F60" : "#635BBA", color: "white", border: "none" }} key={index}>{item.name}</Button>
-                  ))
-                ) : (
-                  <option disabled>لا توجد مجموعات</option>
-                )}
-              </div>
-              < div className='' style={{ backgroundColor: "#FFBA69", width: "100%", height: "3px" }}></div>
+              <div className='row py-2' dir='ltr' style={{ width: "100%" }}>
+              <div className='container d-flex flex-wrap justify-content-start'  style={{ flexDirection: 'row-reverse' }}>
+    {Array.isArray(Allsubjectss) && Allsubjectss.length > 0 ? (
+      Allsubjectss.map((item, index) => (
+        <Button 
+          className='mx-2 mb-2' 
+          onClick={() => setbuttonGroupId(item.id)} 
+          style={{ 
+            backgroundColor: item.id === (buttonGroupId || first) ? "#FE4F60" : "#635BBA", 
+            color: "white", 
+            border: "none" 
+          }} 
+          key={index}
+        >
+          {item.name}
+        </Button>
+      ))
+    ) : (
+      <option disabled>لا توجد مجموعات</option>
+    )}
+  </div>
+  <div style={{ backgroundColor: "#FFBA69", width: "100%", height: "3px" }}></div>
+</div>
 
               {/* ////////////////// */}
 
@@ -366,12 +379,12 @@ function HomeStudentview(props) {
                 {students.map((student, index) => (
                   <div className="col p-0  pt-2" key={index} align="center">
                     <div className="student-card text-center">
-
                       <img
-                        src={student.flag === 1 ? `${Api_dashboard.defaults.baseURL}${img}${student.img}` : sora}
+                        src={student.flag === 1 ? student.media==null? sora2:`${Api_dashboard.defaults.baseURL}${img}${student.img}` : sora}
                         alt="student"
                         className="student-img rounded-circle"
-                      />                            <div className="student-info">
+                      />                           
+                       <div className="student-info">
                         <h6 className='pt-2'>{student.name}</h6>
                         <p style={{ color: student.color }}>{student.score} %</p>
                       </div>
@@ -602,7 +615,6 @@ function HomeStudentview(props) {
                         onChange={handleInputChangeAddress}
                       />
                       {addressUpdateValidationMessage && <p style={{ color: 'red' }}>{addressUpdateValidationMessage}</p>}
-
                     </div>
                     <div className="form-group managerFGroup">
                       <label htmlFor="note">الملحوظة</label>
@@ -613,8 +625,6 @@ function HomeStudentview(props) {
                         placeholder="أدخل الملحوظة"
                         value={values.note}
                         onChange={handleInputChangeNote}
-
-
                       />
                       {noteUpdateValidationMessage && <p style={{ color: 'red' }}>{noteUpdateValidationMessage}</p>}
                     </div>
