@@ -32,11 +32,6 @@ import { useForm } from 'react-hook-form'
 import Api_website from '../../utlis/axios_utils_websit'
 import { useSelector } from 'react-redux'
 
-
-
-
-
-
 let useId;
 function onSelect(id) {
   useId = id
@@ -48,6 +43,9 @@ export default function Home_teacher() {
   const [allNotes, setAllNotes] = useState("");
   const [plans, setPlans] = useState([]);
 
+  const setId = (id) => {
+    localStorage.setItem("sidbarId", JSON.stringify(id));
+  };
   const getAllNotes=()=>{
     
       Api_website.get(`teachers/notes`)
@@ -478,7 +476,7 @@ const getDataStudentExam = () => {
             <p style={{ margin: "4px 0 0 0", fontWeight: "700", fontSize: "12px" }}>وضع الأسئلة</p>
             <div className='d-flex justify-content-center align-items-center position-absolute' style={{ width: "100%", zIndex: '10' }}>
               <div style={{ backgroundColor: "#1D195D", width: "100px", height: '22.9px', borderRadius: '22.9px' }}>
-                <Link to="/teacher/QbankTeacherTable" style={{ color: 'white', textDecoration: 'none', padding: '8px 12px' }}>اضغط هنا</Link>
+                <Link to="/teacher/QbankTeacherTable" onClick={()=>setId(2)} style={{ color: 'white', textDecoration: 'none', padding: '8px 12px' }}>اضغط هنا</Link>
               </div>
             </div>
           </div>
@@ -503,7 +501,7 @@ const getDataStudentExam = () => {
             <p style={{ margin: "4px 0 0 0", fontWeight: "700", fontSize: "12px" }}>شهادات التقدير</p>
             <div className='d-flex justify-content-center align-items-center position-absolute' style={{ width: "100%", zIndex: '10' }}>
               <div style={{ backgroundColor: "#1D195D", width: "100px", height: '22.9px', borderRadius: '22.9px' }}>
-                <Link to="/teacher/CertificationTeacher" style={{ color: 'white', textDecoration: 'none', padding: '8px 12px' }}>اضغط هنا</Link>
+                <Link to="/teacher/CertificationTeacher" onClick={()=>setId(4)} style={{ color: 'white', textDecoration: 'none', padding: '8px 12px' }}>اضغط هنا</Link>
               </div>
             </div>
           </div>
@@ -528,7 +526,7 @@ const getDataStudentExam = () => {
             <p style={{ margin: "4px 0 0 0", fontWeight: "700", fontSize: "12px" }}>جدول المواصفات</p>
             <div className='d-flex justify-content-center align-items-center position-absolute' style={{ width: "100%", zIndex: '10' }}>
               <div style={{ backgroundColor: "#1D195D", width: "100px", height: '22.9px', borderRadius: '22.9px' }}>
-                <Link to="/teacher/SpecificationTeacher" style={{ color: 'white', textDecoration: 'none', padding: '8px 12px' }}>اضغط هنا</Link>
+                <Link to="/teacher/SpecificationTeacher" onClick={()=>setId(6)} style={{ color: 'white', textDecoration: 'none', padding: '8px 12px' }}>اضغط هنا</Link>
               </div>
             </div>
           </div>
@@ -553,7 +551,7 @@ const getDataStudentExam = () => {
             <p style={{ margin: "4px 0 0 0", fontWeight: "700", fontSize: "12px" }}>علامات Open Emis</p>
             <div className='d-flex justify-content-center align-items-center position-absolute' style={{ width: "100%", zIndex: '10' }}>
               <div style={{ backgroundColor: "#1D195D", width: "100px", height: '22.9px', borderRadius: '22.9px' }}>
-                <Link to="/teacher/OpenEmisTable" style={{ color: 'white', textDecoration: 'none', padding: '8px 12px' }}>اضغط هنا</Link>
+                <Link to="/teacher/OpenEmisTable" onClick={()=>setId(5)} style={{ color: 'white', textDecoration: 'none', padding: '8px 12px' }}>اضغط هنا</Link>
               </div>
             </div>
           </div>

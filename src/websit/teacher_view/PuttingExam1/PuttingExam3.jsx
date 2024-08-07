@@ -67,7 +67,6 @@ function PuttingExam3(props) {
     Api_dashboard.get('/teachers/plans')
       .then((response) => {
         setplans(response.data.data);
-        // console.log(response.data.data);
       })
       .catch((error) => {
         console.error('Error submitting form data:', error);
@@ -198,7 +197,6 @@ const back=()=>{
         setNumberOfQuestions(data.numberOfQuestions);
         setNumberOfPages(data.numberOfPages);
         setShowApperanceNotice(data.showApperanceNotice);
-        // console.log(data.examFormat);
       
      
   } else {

@@ -93,7 +93,7 @@ function DataStudentExam(props) {
                         }}>
                             {loading ? (
                                 <tr>
-                                    <td colSpan="5">Loading data...</td>
+                                    {/* <td colSpan="5" className=''>Loading data...</td> */}
                                 </tr>
                             ) : data.length > 0 ? (
                                 data.map(({ id, semster, group, status, subject }, index) => (

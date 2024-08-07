@@ -163,11 +163,7 @@ useEffect(() => {
                     <img style={{ width: 18, height: 18 }} src={create_new} alt="وضع الاسئله" />
                   </Link>
                 </li>
-                {/* <li className={`Icon  ${id === "12" ? "bgIcon" : " "}`}>
-                  <Link to="/" onClick={() => setId(12)} style={{ textDecoration: "none" }}>
-                    <i className="fas fa-globe text-white" ></i>
-                  </Link>
-                </li> */}
+            
                 <li className={`Icon  ${id === "11" ? "bgIcon" : " "}`}>
                   <Link onClick={() => logout(11)}>
                   <img data-bs-toggle="modal" data-bs-target="#log_out_dashboard" src={iconamoon_exit_light} alt=" تسجيل الخروج"  />
@@ -178,7 +174,7 @@ useEffect(() => {
             </div>
           </div>
           : location.pathname.startsWith('/student') ?
-          <div className="sidbarmed p-0 pe-2" dir="rtl" >
+          <div className="sidbarmed p-0 ps-1" dir="rtl" >
           <div className="sidbarSidbar " style={{height:"340px", width:""}}>
             <ul className="pt-4 ps-1">
              

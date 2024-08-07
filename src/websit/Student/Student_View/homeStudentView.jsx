@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Calendar from 'react-calendar';
-import { Await, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Homeicon from '../../../assets/icons/home_student_view/majesticons_home-line copy.svg';
 import delet from '../../../assets/image/fluent_delete-12-regular.svg';
 import edit from '../../../assets/image/uil_edit.svg';
 import imagee from '../../../assets/icons/create_Exam/High Importance.svg';
-import sora from './DSC_2468 copy.jpg';
+import sora from './126-1268354_community-student-icon-graduate-icon.png';
+import sora2 from './man 2.png';
 import plus from '../../../assets/image/+.svg';
 import '../Student_View/homeStudentView.css';
 import "../../../dashboard/Home_Dashboard/home_dashboard.css";
 import "./DeleteElement.css";
 import "./AddNewUser.css";
 import Api_Website from '../../../utlis/axios_utils_websit.jsx';
-import ActionComponent from '.././../alert.jsx';
-import { set } from 'react-hook-form';
 import { Button } from 'antd';
+import Api_dashboard from '../../../utlis/axios_utils_dashboard.jsx';
 
 let useId;
 function onSelect(id) {
@@ -30,12 +30,11 @@ function HomeStudentview(props) {
   }, []);
   //////////////////////////Get All Note///////////////////////////////////////////////////
   const [allNotes, setAllNotes] = useState("");
-  const [first, setfirst] = useState("");
   const [GroupId, setGroupId] = useState("");
   const [Groupname, setGroupname] = useState("");
   const [Allsubjectss, setAllsubjects] = useState("");
-  const [buttonGroupId, setbuttonGroupId] = useState("");
-  // const [AllExam, setAllExam] = useState("");
+  const [first, setfirst] = useState("");
+
   const getAllNotes = () => {
     document.body.style.removeProperty('overflow');
     Api_Website.get(`/students/notes`)
@@ -67,7 +66,6 @@ function HomeStudentview(props) {
 
     Api_Website.delete(`/students/notes/${id}`)
       .then(response => {
-        console.log('Note deleted successfully');
         getAllNotes()
       })
       .catch(error => {
@@ -91,7 +89,6 @@ function HomeStudentview(props) {
       setAddressValidationMessage('العنوان لايزيد عن 20 حرف');
     } else if (!/^[\u0621-\u064Aa-zA-Z_ ]*$/.test(value)) {
       setAddressValidationMessage('يجب ان يكون نص');
-      console.log(value)
     } else {
       setAddressValidationMessage('');
       setAddress(value);
@@ -224,12 +221,10 @@ function HomeStudentview(props) {
 
     Api_Website.post(`students/notes/${useId}`, data)
       .then(response => {
-        console.log('Note update successfully:');
         const modalElement = document.getElementById('UpdateManagerModal');
         modalElement.style.display = "none"
         getAllNotes()
-        // setAddress("")
-        // setNote("")
+     
       })
       .catch(error => {
         console.error('Error update note:');
@@ -237,16 +232,8 @@ function HomeStudentview(props) {
 
   };
   //////////////////////////End add Note///////////////////////////////////////////////////
-  const [inputUser, setInputUser] = useState({
-    address: "",
-    note: "",
+ 
 
-  })
-  const getUsersFromInput = (e) => {
-    let USER = { ...inputUser }
-    USER[e.target.name] = e.target.value
-    setInputUser(USER)
-  }
   const [isExpanded, setIsExpanded] = useState(false);
   const handleToggle = () => {
     setIsExpanded(!isExpanded);
@@ -261,44 +248,70 @@ function HomeStudentview(props) {
       console.error('Error updating note in refresh:', error);
     }
   };
-  
+
   const subjects = async () => {
     try {
       const response = await Api_Website.get(`/students/subjects/selection/${GroupId}`);
       setAllsubjects(response.data.data);
-      setTimeout(() => {
         setfirst(response.data.data[0].id);
-        console.log(response.data.data[0].id + " مره واحده");
-      }, 2000);
     } catch (error) {
       console.error('Error updating note in subjects:', error);
     }
   };
-  
+
+  const [indices, setIndices] = useState(Array(10).fill(undefined));
+  const [imgNames, setImgNames] = useState(Array(5).fill(""));
+  const [img, setImg] = useState("");
+  const firstid=first  
+  const [buttonGroupId, setbuttonGroupId] = useState(firstid);
+
   const honorary = async () => {
     try {
-      const id = buttonGroupId || first;
-console.log(id+"dddddd")
-      const response = await Api_Website.get(`/students/honorary-board/${id}`);
-      // Process the response data as needed
+      const response = await Api_Website.get(`/students/honorary-board/${buttonGroupId||first   }`);
+      const data = response.data.data;
+      setImg(response.data.path_user_image);
+
+      const newImgNames = imgNames.map((name, idx) => data[idx]?.user?.media?.file_name || "");
+      const newIndices = data.flatMap((item, idx) => [item.user, item]);
+
+      setImgNames(newImgNames);
+      setIndices(newIndices);
     } catch (error) {
       console.error('Error updating note in honorary:', error);
     }
   };
-  
+
   useEffect(() => {
+    // Assuming refresh and subjects are defined elsewhere
     refresh();
     subjects();
     honorary();
-  }, [GroupId,first]);
-  
-    const students = [
-      { name: "محمد علي", score: 100, img: "./DSC_2468 copy.jpg ", color:"#FFBA69"},
-      { name: "محمد علي", score: 99, img: "./DSC_2468 copy.jpg " , color:"#E3E3E3" },
-      { name: "محمد علي", score: 90, img: "./DSC_2468 copy.jpg " ,color:"#FF8A65" },
-      { name: "محمد علي", score: 85, img: "./DSC_2468 copy.jpg " ,color:"#FF8A65"},
-      { name: "محمد علي", score: 83, img: "./DSC_2468 copy.jpg" ,color:"#FF8A65"},
-    ];
+  }, [GroupId,first,buttonGroupId]);
+
+  const students = Array(5).fill(null).map((_, idx) => {
+    const userIdx = idx * 2;
+    const user = indices[userIdx];
+    const score = indices[userIdx + 1]?.total_percentage;
+    const img = imgNames[idx];
+    console.log(user)
+    return user?.first_name !== undefined
+    
+      ? {
+        name: `${user.first_name} ${user.last_name}`,
+        score: score,
+        img: img,
+        color: "#FFBA69",
+        media: user.media,
+        flag: 1
+      }
+      : {
+        name: ["الاول", "الثاني", "الثالث", "الرابع", "الخامس"][idx],
+        score: 0,
+        img: sora,
+        color: "#FF8A65",
+        flag: 0
+      };
+  });
   return (
     <>
       {/* <ActionComponent /> */}
@@ -334,42 +347,55 @@ console.log(id+"dddddd")
               </div>
             </div>
 
-            <div className="row child pt-4 p-0 m-0 rounded-4" style={{ width: "100%", backgroundColor: "#4941A6" }} >
+            <div className="row  child pt-4 p-0 m-0 rounded-4" style={{ width: "100%", backgroundColor: "#4941A6" }} >
               <p className='  text-center' style={{ width: "100%", color: "white" }}><span style={{ color: "#FFB660" }}>لوحة الشرف</span> الصف {Groupname}</p>
-              <div className='py-2' dir='ltr' align="end" style={{ width: "100%" }}>
-                {Array.isArray(Allsubjectss) && Allsubjectss.length > 0 ? (
-                  Allsubjectss.map((item, index) => (
-                    <Button  className='mx-2' onClick={() => { 
-                      setbuttonGroupId(item.id)
-                      // console.log(item[0].id+"fffffff")
-                      // console.log(item[1].id+"fffffff")
-                     }} style={{ backgroundColor: item.id == buttonGroupId  ? "#FE4F60" : "#635BBA", color: "white", border: "none" }} key={index}>{item.name}</Button>
-                  ))
-                ) : (
-                  <option disabled>لا توجد مجموعات</option>
-                )}
-              </div>
-              < div className='' style={{ backgroundColor: "#FFBA69", width: "100%", height: "3px" }}></div>
+              <div className='row py-2' dir='ltr' style={{ width: "100%" }}>
+              <div className='container d-flex flex-wrap justify-content-start'  style={{ flexDirection: 'row-reverse' }}>
+    {Array.isArray(Allsubjectss) && Allsubjectss.length > 0 ? (
+      Allsubjectss.map((item, index) => (
+        <Button 
+          className='mx-2 mb-2' 
+          onClick={() => setbuttonGroupId(item.id)} 
+          style={{ 
+            backgroundColor: item.id === (buttonGroupId || first) ? "#FE4F60" : "#635BBA", 
+            color: "white", 
+            border: "none" 
+          }} 
+          key={index}
+        >
+          {item.name}
+        </Button>
+      ))
+    ) : (
+      <option disabled>لا توجد مجموعات</option>
+    )}
+  </div>
+  <div style={{ backgroundColor: "#FFBA69", width: "100%", height: "3px" }}></div>
+</div>
 
               {/* ////////////////// */}
 
-            <div className="row  p-0 m-0" dir='ltr' style={{flexDirection:"row-reverse"}}>
+              <div className="row  p-0 m-0" dir='ltr' style={{ flexDirection: "row-reverse" }}>
                 {students.map((student, index) => (
                   <div className="col p-0  pt-2" key={index} align="center">
-                        <div className="student-card text-center">
-                            <img src={sora} alt="student" className="student-img rounded-circle" />
-                            <div className="student-info">
-                                <h6 className='pt-2'>{student.name}</h6>
-                                <p style={{color:student.color}}>{student.score} %</p>
-                            </div>
-                            <div className={`rank-badge rank-${index + 1}`}>
-                               <span className='' style={{paddingRight:"1.8px", paddingTop:"3px", color:student.color}}> {index + 1}</span>
-                            </div>
-                        </div>
+                    <div className="student-card text-center">
+                      <img
+                        src={student.flag === 1 ? student.media==null? sora2:`${Api_dashboard.defaults.baseURL}${img}${student.img}` : sora}
+                        alt="student"
+                        className="student-img rounded-circle"
+                      />                           
+                       <div className="student-info">
+                        <h6 className='pt-2'>{student.name}</h6>
+                        <p style={{ color: student.color }}>{student.score} %</p>
+                      </div>
+                      <div className={`rank-badge rank-${index + 1}`}>
+                        <span className='' style={{ paddingRight: "1.8px", paddingTop: "3px", color: student.color }}> {index + 1}</span>
+                      </div>
                     </div>
+                  </div>
                 ))}
-            </div>
-      
+              </div>
+
             </div>
 
             <div className="row child pt-4 p-0 m-0 rounded-4" style={{ width: "100%" }}>
@@ -388,7 +414,6 @@ console.log(id+"dddddd")
                     <p> 2. مدة الامتحان لا تزيد عن ساعة واحدة.</p>
                     <p> 3. الامتحان يشمل  كل وحدات ودروس المبحث.</p>
                     <p> 4. عدد أسئلة الامتحان لا تقل عن 20 سؤالا.</p>
-                    <p> 4. لا يحتوي الإمتحان على أسئلة سهلة .</p>
                     <p style={{ color: '#FF8A00' }}>. [ Exmaero ] فريق الدعم</p>
                   </div>
                 )}
@@ -590,7 +615,6 @@ console.log(id+"dddddd")
                         onChange={handleInputChangeAddress}
                       />
                       {addressUpdateValidationMessage && <p style={{ color: 'red' }}>{addressUpdateValidationMessage}</p>}
-
                     </div>
                     <div className="form-group managerFGroup">
                       <label htmlFor="note">الملحوظة</label>
@@ -601,8 +625,6 @@ console.log(id+"dddddd")
                         placeholder="أدخل الملحوظة"
                         value={values.note}
                         onChange={handleInputChangeNote}
-
-
                       />
                       {noteUpdateValidationMessage && <p style={{ color: 'red' }}>{noteUpdateValidationMessage}</p>}
                     </div>

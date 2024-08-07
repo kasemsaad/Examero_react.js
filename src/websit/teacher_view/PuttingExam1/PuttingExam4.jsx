@@ -24,14 +24,12 @@ function PuttingExam4(props) {
     const { value } = e.target;
     setValues({ ...values, finishExam: value });
     setfinishExam(value)
-    console.log(finishExam)
    
   };
   const handleInputChangeMessage = (e) => {
     const { value } = e.target;
     setValues({ ...values, Message: value });
     setMessage(value)
-    console.log(value)
 
    
   };
@@ -39,7 +37,6 @@ function PuttingExam4(props) {
     const { value } = e.target;
     setValues({ ...values, teachername: value });
     setTeacherName(value)
-    console.log(value)
 
   };
 

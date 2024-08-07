@@ -398,7 +398,7 @@ const getInputPasswor=(e)=>{
                                                                 </tr>
                             )) : (
                                 <tr>
-                                    <td colSpan="5">No data available</td>
+                                    {/* <td colSpan="5">No data available</td> */}
                                 </tr>
                             )}
                         </tbody>

@@ -13,7 +13,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import Api_Dashboard from "../../dashboard/interceptor/interceptorDashboard";
 import Api_website from "../../utlis/axios_utils_websit";
 import Api_dashboard from "../../utlis/axios_utils_dashboard";
-
+import sora2 from './man 2.png';
 function Header() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -56,42 +56,42 @@ function Header() {
         console.error("Error fetching subjects data:");
       });
   };
-  
 
 
 
 
-const getRefreshstudent = async()=>{
- await Api_website.get(`/students/refresh`)
-    .then(response => {
-      let name_image = response.data.User.media.name
-      SetpersonalStudent(name_image);
-    })
-    .catch(error => {
+
+  const getRefreshstudent = async () => {
+    await Api_website.get(`/students/refresh`)
+      .then(response => {
+        let name_image = response.data.User.media.name
+        SetpersonalStudent(name_image);
+      })
+      .catch(error => {
         console.error("Error fetching student data:");
       });
   };
-  const getRefreshteacher = async()=>{
+  const getRefreshteacher = async () => {
     await Api_website.get(`/teachers/refresh`)
-       .then(response => {
-         let name_image = response.data.user.media.name
-         console.log(name_image)
-         SetpersonalTeacher(name_image);
-       })
-       .catch(error => {
-           console.error("Error fetching teacher data:");
-         });
-     };
+      .then(response => {
+        let name_image = response.data.user.media.name
+        console.log(name_image)
+        SetpersonalTeacher(name_image);
+      })
+      .catch(error => {
+        console.error("Error fetching teacher data:");
+      });
+  };
 
-     const user=localStorage.getItem("user")
+  const user = localStorage.getItem("user")
 
   useEffect(() => {
     getRefresh();
-    if(user==="student"){
+    if (user === "student") {
 
       getRefreshstudent()
-    }else if(user==="teacher"){
-      
+    } else if (user === "teacher") {
+
       getRefreshteacher()
     }
   }, [personalDashboard]);
@@ -219,11 +219,7 @@ const getRefreshstudent = async()=>{
         </div>
       </nav>
 
-      {/* <div className="personal_image" style={{  position: "relative",}}>
-   <div id="svg_header" style={{ width: "3.437rem", height: "3.437rem", borderRadius: "50%", backgroundColor: "blue", overflow: "hidden",}}>
-        <img  style={{ objectFit: "cover" }} src={personal} width="100%"  height="100%" alt='presonal_img'/>
-        </div>
-     </div> */}
+
 
       <div
         className="personal_image"
@@ -248,24 +244,26 @@ const getRefreshstudent = async()=>{
             linksProfile();
           }}
         >
+{console.log(personalStudent)}
           <img
             style={{ objectFit: "cover" }}
 
-
-            
             src={
-              
-              location.pathname.startsWith('/dashboard')? `${Api_dashboard.defaults.baseURL}/assets/Admin/${personalDashboard}`:
-              location.pathname.startsWith('/student')? `${Api_dashboard.defaults.baseURL}/assets/Student/${personalStudent}`:
-              location.pathname.startsWith('/teacher')? `${Api_dashboard.defaults.baseURL}/assets/Teacher/${personalTeacher}`:
-              person  
-                        }
+              (personalDashboard || personalStudent || personalTeacher) == "" ?
+                sora2
+                :
+                location.pathname.startsWith('/dashboard') ? `${Api_dashboard.defaults.baseURL}/assets/Admin/${personalDashboard}` :
+                  location.pathname.startsWith('/student') ? `${Api_dashboard.defaults.baseURL}/assets/Student/${personalStudent}` :
+                    location.pathname.startsWith('/teacher') ? `${Api_dashboard.defaults.baseURL}/assets/Teacher/${personalTeacher}` :
+                    sora2
+            }
+
             width="100%"
             height="100%"
-            alt={person}
-           
+            alt={""}
+
           />
-        
+
         </div>
       </div>
 
