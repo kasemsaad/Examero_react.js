@@ -476,7 +476,7 @@ const getDataStudentExam = () => {
             <p style={{ margin: "4px 0 0 0", fontWeight: "700", fontSize: "12px" }}>وضع الأسئلة</p>
             <div className='d-flex justify-content-center align-items-center position-absolute' style={{ width: "100%", zIndex: '10' }}>
               <div style={{ backgroundColor: "#1D195D", width: "100px", height: '22.9px', borderRadius: '22.9px' }}>
-                <Link to="/teacher/QbankTeacherTable" onClick={()=>setId(2)} style={{ color: 'white', textDecoration: 'none', padding: '8px 12px' }}>اضغط هنا</Link>
+                <Link to="/teacher/CreateQuestation" onClick={()=>setId(2)} style={{ color: 'white', textDecoration: 'none', padding: '8px 12px' }}>اضغط هنا</Link>
               </div>
             </div>
           </div>
