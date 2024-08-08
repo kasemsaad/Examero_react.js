@@ -145,13 +145,13 @@ function PuttingExam5(props) {
       if (counter <= 0) {
         navigate(`/teacher/PuttingExam4`);
       }
-      else if (counter > (1 + countPages)) {
-        navigate(`/teacher/PuttingExam5/${countPages}`);
+      else if (counter > (1 + parseInt(JSON.parse(parsedArray[0][2]).questionCount))) {
+        navigate(`/teacher/PuttingExam5/${1 + parseInt(JSON.parse(parsedArray[0][2]).questionCount)}`);
       } else {
 
       }
 
-      if (counter >= 1 + countPages) {
+      if (counter >= 1 + parseInt(JSON.parse(parsedArray[0][2]).questionCount)) {
         setIsButtonDisabled(true)
         setIsButtonshow(false)
       } else {
@@ -186,7 +186,7 @@ function PuttingExam5(props) {
     unit_id: Untis,
     lesson_id: lessonid,
     count: count,
-    // plan_id: planid
+    plan_id: planid
   };
 
   for (let key in DataQustion) {
@@ -206,7 +206,7 @@ function PuttingExam5(props) {
       level: levelQuestionnameid,
       unit_id: Untis,
       lesson_id: lessonid,
-      // plan_id: planid
+      plan_id: planid
     };
     for (let key in DataQustions) {
       if (DataQustions[key] === '' || DataQustions[key] === null || DataQustions[key] === undefined) {
@@ -259,7 +259,7 @@ function PuttingExam5(props) {
         level: levelQuestionnameid,
         unit_id: Untis,
         lesson_id: lessonid,
-        // plan_id: planid
+        plan_id: planid
 
       }
       for (let key in DataQustionManualy) {
@@ -268,6 +268,7 @@ function PuttingExam5(props) {
         }
       }
 
+      // console.log(DataQustionManualy)
       await Api_website.post('/teachers/genrate-exam', DataQustionManualy)
 
         .then(async (response) => {
@@ -280,6 +281,8 @@ function PuttingExam5(props) {
             
             await Api_website.post('/teachers/questions-by-main-question', DataQustion)
             .then((response) => {
+              console.log("dfgfdgfg")
+
               const question = {
                 "السؤال": JSON.stringify(response.data.data.questions),
                 lessonid,
@@ -305,6 +308,7 @@ function PuttingExam5(props) {
               if (!question || Object.keys(question).length === 0) {
                 console.error("Question object is empty or undefined");
               } else {
+                console.log("Question object:", question);
               }
               const questionBank = question;
               const x = JSON.stringify(questionBank);
@@ -381,11 +385,13 @@ function PuttingExam5(props) {
             if (!question || Object.keys(question).length === 0) {
               console.error("Question object is empty or undefined");
             } else {
+              console.log("Question object:", question);
             }
 
             const questionBank = question;
 
             const x = JSON.stringify(questionBank);
+            console.log(question);
 
             let doc = localStorage.getItem("all");
             doc = doc ? JSON.parse(doc) : [];
@@ -501,7 +507,12 @@ function PuttingExam5(props) {
   useEffect(() => {
     const jsonStringArray = [localStorage.getItem("all")]
     const parsedData = jsonStringArray.map(item => JSON.parse(item));
+
+    // Log the parsed data to verify
     setmapqustions(parsedData[0]);
+
+    // console.log(parsedData[0]);
+
 
   }, []);
 
@@ -534,6 +545,7 @@ function PuttingExam5(props) {
     const arrayalldelete = JSON.parse(deletedata)
     if (id >= 0 && page <= arrayalldelete.length) {
       arrayalldelete.splice((id - 1), 1);
+      console.log(arrayalldelete)
       localStorage.setItem("all", JSON.stringify(arrayalldelete));
       window.location.reload();
     } else {
@@ -588,7 +600,7 @@ function PuttingExam5(props) {
     const boxarray = JSON.parse(localStorage.getItem("Box"))
     const DataQustion = {
       questionIds: boxarray,
-      plan_id: planid
+      plan_id:planid
     }
     for (let key in DataQustion) {
       if (DataQustion[key] === '' || DataQustion[key] === null || DataQustion[key] === undefined) {
@@ -599,27 +611,19 @@ function PuttingExam5(props) {
     Api_website.post('/teachers/save-exam', DataQustion)
       .then((response) => {
         localStorage.setItem("QB", JSON.stringify(response.data.data.questions))
-        if(JSON.stringify(response.data.data.questions)==="[]"){
-          handleApperanceNoticeNo()
-        Errornotify("لا يوجد أسئله للإضافه")
 
-                }else{
+        if (languagePdf === "عربي") {
+          localStorage.setItem("allow",1)
+          window.open('/ExamPdfArabic', '_blank');
 
-                  if (languagePdf === "عربي") {
-                    localStorage.setItem("allow",1)
-                    window.open('/ExamPdfArabic', '_blank');
-          
-                  } else if (languagePdf === "انجليزي") {
-                    localStorage.setItem("allow",1)
-                    window.open('/ExamPdf', '_blank')
-                  }
-                  else {
-                  }
-                }
+        } else if (languagePdf === "انجليزي") {
+          localStorage.setItem("allow",1)
+          window.open('/ExamPdf', '_blank')
+        }
+        else {
+        }
       }).catch((error) => {
-        let err = error.response.data.message;
-        Errornotify(err)
-        // Errornotify("لم يتم إضافة أسئله للمعاينه")
+        Errornotify("لم يتم إضافة أسئله للمعاينه")
       });
 
   }
@@ -974,10 +978,3 @@ function PuttingExam5(props) {
 }
 
 export default PuttingExam5;
-
-
-
-
-
-
-

@@ -170,6 +170,7 @@ function Home() {
         if (token) {
             const login = document.getElementById('login');
             login.style.display = "block";
+            document.body.classList.add('no-click');
             const buttonsz = document.getElementById('buttons');
             buttonsz.style.display = "none";
         }
@@ -177,9 +178,13 @@ function Home() {
             const login = document.getElementById('login');
             login.style.display = "none";
             const buttonsz = document.getElementById('buttons');
+            document.body.classList.add('no-click');
             buttonsz.style.display = "block";
         }
+        document.body.classList.remove('no-click');
+// 
     }, 100);
+
     const mastercardStudentApi = (id) => {
         const data = {
             plan_id: id

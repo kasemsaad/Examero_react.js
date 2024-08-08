@@ -16,13 +16,14 @@ import Api_dashboard from '../../../utlis/axios_utils_dashboard'
 // import photo from "./../../assets/image/man 2.svg"
 // import editPencil from "./../../assets/image/Ellipse 202.svg"
 
-
+import sora2 from '../../../common/header/man 2.png';
 
 
 
 
 
 function EditStudentProfaile() {
+  const [loading, setLoading] = useState(true); // Loading state
   const layoutBackground = useSelector((state) => state.dark.lay);
   const [alert , Setalert]=useState(false)
   const [alerterror , Setalerterror]=useState(false)
@@ -148,6 +149,7 @@ const getInputPasswor=(e)=>{
 
   const getDataStudentExam = () => {
     document.body.style.removeProperty('overflow')
+    setLoading(true);
     Api_website.get(`students/plans`)
         .then(response => {
                 setInfo(response.data.plans);
@@ -156,6 +158,7 @@ const getInputPasswor=(e)=>{
         })
         .catch(error => {
             setInfo([]);
+            setLoading(false); 
             console.error("Error fetching plans data:", error);
         });
 }
@@ -168,11 +171,17 @@ const getInputPasswor=(e)=>{
         <form onSubmit={(e) => HandleSubmit(e)} encType="multipart/form-data">
 
         <div>
-      <div className="upload">
-  
-      <img src={` ${Api_dashboard.defaults.baseURL}/assets/Student/${inputUser.media?.name}`} id="image" alt="Upload Preview" />
+      <div className="upload" >
+        
+  {/* // upload image */}
+<img  
+  src={inputUser.media?.name ? `${Api_dashboard.defaults.baseURL}/assets/Student/${inputUser.media?.name}` : sora2} 
+  id="image" 
+  alt="Upload Preview" 
+/>
+       
 
-        <div className="rightRound" id="upload">
+        <div className="rightRound" id="upload" style={{backgroundColor:"#4941A6"}}>
           <input type="file"   accept=".jpg, .jpeg, .png" name='image' onChange={handleImageChange} />
           <i className="fa fa-camera"></i>
         </div>
@@ -366,7 +375,9 @@ const getInputPasswor=(e)=>{
           >
           </Link>
 
-       
+          {loading ? (
+    <div colSpan="" className='text-center ' style={{ width: "100%" ,color: layoutBackground === "#0E0A43" ? "white" : "black"}} >لا يوجد باقات</div>
+) : data.length > 0 ? (
           <table className='tabelstudent' style={{ width: "100%" }}>
                         <thead>
                             <tr style={{
@@ -403,6 +414,10 @@ const getInputPasswor=(e)=>{
                             )}
                         </tbody>
                     </table>   
+                    ) : (
+                      <div colSpan="" className='text-center' style={{ width: "100%" }}>لا يوجد باقات</div>
+                  )}
+                  
         </div>
         </div>
 
