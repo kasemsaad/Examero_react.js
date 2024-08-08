@@ -47,6 +47,8 @@ const FormForAll = ({ fetchAllData }) => {
   const {
     register,
     handleSubmit,
+    reset,
+    resetField,
     formState: { errors },
   } = useForm();
 
@@ -57,6 +59,7 @@ const FormForAll = ({ fetchAllData }) => {
           let x = response.data.message;
           SetAlertPointSuccess(x);
           notify("تم اضافة الصف بنجاح ");
+          resetField("name");
           fetchAllData();
         })
         .catch((err) => {
@@ -74,7 +77,7 @@ const FormForAll = ({ fetchAllData }) => {
 
   return (
     <>
-            <ToastContainer position="top-center" />
+      {/* <ToastContainer position="top-center" /> */}
 
       <form
         className="form-container-putt "

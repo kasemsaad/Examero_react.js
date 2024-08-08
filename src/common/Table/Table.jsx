@@ -19,6 +19,7 @@ function MyTable({
   classIds,
   handelMessage,
   sendMessage,
+  flag,
 }) {
   const { trash, edit, eye } = icons || {};
   const { toggle, butt, imag, checkbox } = other || {};
@@ -44,7 +45,10 @@ function MyTable({
 
               {toggle && togellValue && (
                 <td>
-                  <ToggledButton togel={togellValue[rowIndex].status} />
+                  <ToggledButton
+                    flag={flag}
+                    togel={togellValue[rowIndex].status}
+                  />
                 </td>
               )}
               {icons && (

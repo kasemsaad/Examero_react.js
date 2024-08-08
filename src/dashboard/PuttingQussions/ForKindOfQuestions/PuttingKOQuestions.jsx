@@ -9,26 +9,31 @@ import "./ForKindOfQuestions.css";
 import PaginationForPuttingQ from "../paginationForPutingQ/paginationForPatingQ";
 import Api_Dashboard from "../../interceptor/interceptorDashboard";
 import DeleteUserModal from "../../components/UsersPages/DeletUserModal/DeleteUserModal";
+import EditClassModal from "../../components/PuttingQuesionsPage/editClassModal/editClassModal";
+import AddTOfQuestion from "../../components/PuttingQuesionsPage/AddTypeOfQuestionModal/AddTypeOfQurstionModal";
+import EditTypeOfQuesions from "../../components/PuttingQuesionsPage/editTypeOfQuesuons/EditTypeOfQuesions";
 const PuttingKindOfQ = () => {
   let header = {
     name1: "نوع السؤال",
     name2: "حالة السؤال",
     name3: "الخصائص",
   };
-
-  let icon = { trash: true };
+  let icon = { trash: true, edit: true };
   let other = { toggle: true };
   const [metaFPagination, setMetaFPagination] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = metaFPagination.last_page;
   const [typeOfQuesions, setTypeOfQuesions] = useState("");
   const [DeletedItem, setDeletedItem] = useState("");
+  const [classData, setClassData] = useState(false);
+  const [rowDataOfClass, setRowDataOfClass] = useState([]);
 
   const fetchAllKQuestons = async () => {
     const respons = await Api_Dashboard.get(
       `/questions-type?page=${currentPage}`
     )
       .then((response) => {
+        console.log(response.data.data);
         setTypeOfQuesions(response.data.data);
         setMetaFPagination(response.data.meta.pagination);
       })
@@ -58,6 +63,22 @@ const PuttingKindOfQ = () => {
       return [];
     }
   }, [typeOfQuesions]);
+  useEffect(() => {
+    fetchDataForClass();
+  }, []);
+  const fetchDataForClass = async (Data) => {
+    setClassData(Data);
+    if (Data) {
+      await Api_Dashboard.get(`/questions-type/${Data.id}`)
+        .then((response) => {
+          console.log(response.data.data);
+          setRowDataOfClass(response.data.data);
+        })
+        .catch((err) => {
+          // setErrors(err);
+        });
+    }
+  };
   return (
     <>
       <div className=" min-vh-100 lessons-Container">
@@ -86,11 +107,16 @@ const PuttingKindOfQ = () => {
           </div>
           <div className="MyTable">
             <MyTable
+              flag={true}
               other={other}
               togellValue={toggelValues}
               header={header}
               body={newTypes}
               icons={icon}
+              handelEdit={(row) => {
+                fetchDataForClass(row);
+              }}
+              editButtonName={"#editTypeOfQuestions"}
               deleteModalName={"#deleteElementModal_users-dash"}
               handelDeleteItem={(id) => {
                 setDeletedItem(id);
@@ -108,6 +134,11 @@ const PuttingKindOfQ = () => {
             api={"questions-type"}
             idOfDeleteItem={DeletedItem}
           />
+          <EditTypeOfQuesions
+            fetchAllData={fetchAllKQuestons}
+            rowDataOfClass={rowDataOfClass}
+          />
+          <AddTOfQuestion fetchAllData={fetchAllKQuestons} />
         </div>
         <FooterFPuttingQ next={"التالي"} prev={"السابق"} />
       </div>

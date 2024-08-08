@@ -37,7 +37,11 @@ const FormForPQUnits = ({
 
   const [AlertPoint, SetAlertPoint] = useState("");
   const [AlertPointSuccess, SetAlertPointSuccess] = useState("");
-
+  const [formData, setFormData] = useState({
+    group_id: "",
+    subject_id: "",
+    name: "",
+  });
   const [errors, setErrors] = useState("");
   const man = "Rady";
   const handelSubmit = (e) => {
@@ -52,6 +56,9 @@ const FormForPQUnits = ({
       setErrors(newErrors);
       return;
     }
+    const reset = () => {
+      setFormData({ group_id: "", subject_id: "", name: "" });
+    };
     const handlePostUnit = async (data) => {
       if (data) {
         await Api_Dashboard.post("/units", data)
@@ -59,6 +66,7 @@ const FormForPQUnits = ({
             let x = response.data.message;
             SetAlertPointSuccess(x);
             notify("تم اضافة الوحده بنجاح ");
+            reset();
 
             fetchAllUnits();
           })
@@ -72,11 +80,6 @@ const FormForPQUnits = ({
     };
     handlePostUnit(formData);
   };
-  const [formData, setFormData] = useState({
-    group_id: "",
-    subject_id: "",
-    name: "",
-  });
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -93,7 +96,7 @@ const FormForPQUnits = ({
   console.log();
   return (
     <>
-              <ToastContainer position="top-center" />
+      <ToastContainer position="top-center" />
 
       <div className="formUnits container">
         <form className="form-container-unite row-fel" onSubmit={handelSubmit}>
@@ -112,6 +115,7 @@ const FormForPQUnits = ({
                       name="name"
                       style={{}}
                       onChange={handleChange}
+                      value={formData.name}
                       type="text"
                       className="form-control  iput1"
                       id="exampleInput"
@@ -126,14 +130,14 @@ const FormForPQUnits = ({
                     <label htmlFor="">اختر اسم المبحث</label>
                     <select
                       onChange={handleChange}
-                      name="subject_id"
                       defaultValue="1"
+                      value={formData.subject_id}
+                      name="subject_id"
+                      id="select2"
                       className="form-select form-select-lg select-ques1 mb-3"
-                      aria-label=".form-select-lg example"
+                      aria-label=".form-select-lg  example"
                     >
-                      <option value="1" disabled>
-                        اختر المبحث
-                      </option>
+                      <option value="1">اختر المبحث</option>
 
                       {activeSubjects &&
                         activeSubjects.map((activeSubject) => {
@@ -157,6 +161,7 @@ const FormForPQUnits = ({
                     <select
                       onChange={handleChange}
                       defaultValue="1"
+                      value={formData.group_id}
                       name="group_id"
                       className="form-select form-select-lg select-ques2 mb-3"
                       aria-label=".form-select-lg example"

@@ -47,7 +47,9 @@ const FormForMaba7s = ({ activeClasses, fetchAllData }) => {
 
   const [AlertPoint, SetAlertPoint] = useState("");
   const [AlertPointSuccess, SetAlertPointSuccess] = useState("");
-
+  const reset = () => {
+    setFormData({ name: "", groupIds: "" });
+  };
   const [error, setError] = useState("");
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -66,7 +68,9 @@ const FormForMaba7s = ({ activeClasses, fetchAllData }) => {
           .then((response) => {
             let x = response.data.message;
             SetAlertPointSuccess(x);
+
             notify("تم اضافة المبحث بنجاح ");
+            reset();
 
             fetchAllData();
           })
@@ -102,56 +106,56 @@ const FormForMaba7s = ({ activeClasses, fetchAllData }) => {
 
   return (
     <>
-          <ToastContainer position="top-center" />
+      <ToastContainer position="top-center" />
 
-    <form className="form-container-puttt" onSubmit={handleSubmit}>
-      <div style={{ margin: "auto", color: "red", whiteSpace: "pre-wrap" }}>
-        {error}
-        {subjectErrors.name}
-      </div>
-
-      <div className="MyFormm">
-        <div className="form-group-puttt">
-          <label className="mb-2 lab1" htmlFor="exampleInputEmail1">
-            اسم المبحث
-          </label>
-          <input
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            type="text"
-            className="form-control inp1"
-            id="exampleInput"
-            aria-describedby="nameHelp"
-            placeholder="أدخل أسم المبحث الجديد هنا"
-          />
+      <form className="form-container-puttt" onSubmit={handleSubmit}>
+        <div style={{ margin: "auto", color: "red", whiteSpace: "pre-wrap" }}>
+          {error}
+          {subjectErrors.name}
         </div>
 
-        <div style={{ height: 79, marginRight: "10px", width: "191px" }}>
-          <label className="mb-2 lab2" htmlFor="">
-            اختر الصفوف التى يدرس بها
-          </label>
-          {newData && (
-            <MultiSelect
-              name="groups"
-              value={selectedFlavors}
-              options={newData}
-              onChange={handleMultiSelectChange}
-              className="multi-select-lib"
+        <div className="MyFormm">
+          <div className="form-group-puttt">
+            <label className="mb-2 lab1" htmlFor="exampleInputEmail1">
+              اسم المبحث
+            </label>
+            <input
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              type="text"
+              className="form-control inp1"
+              id="exampleInput"
+              aria-describedby="nameHelp"
+              placeholder="أدخل أسم المبحث الجديد هنا"
             />
-          )}
-        </div>
+          </div>
 
-        <div className="butt-mabhas">
-          <MyButton
-            className="my-button-mabhas"
-            content="إضافة"
-            type="submit"
-          />
+          <div style={{ height: 79, marginRight: "10px", width: "191px" }}>
+            <label className="mb-2 lab2" htmlFor="">
+              اختر الصفوف التى يدرس بها
+            </label>
+            {newData && (
+              <MultiSelect
+                name="groups"
+                value={selectedFlavors}
+                options={newData}
+                onChange={handleMultiSelectChange}
+                className="multi-select-lib"
+              />
+            )}
+          </div>
+
+          <div className="butt-mabhas">
+            <MyButton
+              className="my-button-mabhas"
+              content="إضافة"
+              type="submit"
+            />
+          </div>
         </div>
-      </div>
-    </form>
-   </>
+      </form>
+    </>
   );
 };
 

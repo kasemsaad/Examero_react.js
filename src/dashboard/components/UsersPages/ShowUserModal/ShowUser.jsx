@@ -245,7 +245,7 @@ const ShowUserModal = ({ content, userData }) => {
                         الاسم
                       </th>
                       <th className="td-show-mod2" scope="col">
-                        {userData.data}{"seg "}
+                        {userData.fullName}
                       </th>
                     </tr>
                   </thead>
@@ -297,4 +297,3 @@ const ShowUserModal = ({ content, userData }) => {
 };
 
 export default ShowUserModal;
-

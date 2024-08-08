@@ -14,16 +14,16 @@ import SendMessage from "../../components/UsersPages/SendMessageModal.jsx/SendMe
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 const Mangers = () => {
-  const navigate = useNavigate()
-  const role = useSelector((state) => state.RoleAccess.role); 
-  const acccessDenied = ()=>{
-      if (role === "manager"){
-          navigate('/dashboard/accessDenied')
-      }
-  }
-  useEffect(()=>{
-      acccessDenied()
-  },[])
+  const navigate = useNavigate();
+  const role = useSelector((state) => state.RoleAccess.role);
+  const acccessDenied = () => {
+    if (role === "manager") {
+      navigate("/dashboard/accessDenied");
+    }
+  };
+  useEffect(() => {
+    acccessDenied();
+  }, []);
   // header of the table
   let header = {
     name1: "اسم المدير",
@@ -154,7 +154,7 @@ const Mangers = () => {
           {/* // End */}
 
           {/* Start for table */}
-          <div style={{ width: "100%", overflow: "auto", height: "400px" }}>
+          <div style={{ width: "100%", overflow: "auto", height: "430px" }}>
             <MyTable
               header={header}
               body={filteredManagers}

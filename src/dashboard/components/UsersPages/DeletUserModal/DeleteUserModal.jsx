@@ -2,16 +2,52 @@ import React from "react";
 import image from "../../../../assets/image/High Importance.svg";
 import "./DeleteUserModal.css";
 import Api_Dashboard from "../../../interceptor/interceptorDashboard";
-const DeleteUserModal = ({ idOfDeleteItem, fetchAllData, api, content }) => {
+import { toast } from "react-toastify";
+const DeleteUserModal = ({
+  idOfDeleteItem,
+  fetchAllData,
+  api,
+  content,
+  itemName,
+}) => {
+  const notify = (AlertPointSuccess) => {
+    toast.success(AlertPointSuccess, {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
+
+  const Errornotify = (AlertPoint) => {
+    toast.error(AlertPoint, {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
   const deleteManger = async (idOfDeleteItem) => {
     if (idOfDeleteItem) {
       document.body.style.removeProperty("overflow");
       const response = await Api_Dashboard.delete(
         `/${api}/${idOfDeleteItem}`
-      ).then((response) => {});
-      fetchAllData().catch((err) => {});
+      ).then((response) => {
+        console.log(response);
+        notify(`تم مسح ${content} بنجاح `);
+      });
+      fetchAllData().catch((err) => {
+        console.log(err);
+      });
     }
-
   };
 
   return (

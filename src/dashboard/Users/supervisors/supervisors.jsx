@@ -14,16 +14,16 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const Supervisors = () => {
-  const navigate = useNavigate()
-  const role = useSelector((state) => state.RoleAccess.role); 
-  const acccessDenied = ()=>{
-      if (role != "manager" || role != "owner"){
-          navigate('/dashboard/accessDenied')
-      }
-  }
-  useEffect(()=>{
-      acccessDenied()
-  },[])
+  const navigate = useNavigate();
+  const role = useSelector((state) => state.RoleAccess.role);
+  const acccessDenied = () => {
+    if (role != "manager" || role != "owner") {
+      navigate("/dashboard/accessDenied");
+    }
+  };
+  useEffect(() => {
+    acccessDenied();
+  }, []);
   // header of the table
   let header = {
     name1: "اسم المشرف",

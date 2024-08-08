@@ -43,15 +43,33 @@ const FormFPLessons = ({
   const [formData, setFormData] = useState({
     name: "",
     unit_id: "",
+    group_id: "",
+    subject_id: "",
   });
+  const reset = () => {
+    setFormData({
+      name: "",
+      unit_id: "",
+      group_id: "",
+      subject_id: "",
+    });
+  };
   const handelChange = (e) => {
     const { name, value } = e.target;
     setErrors("");
     if (name === "group_id") {
       fetchSubjectByIdOfClass(value);
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
     }
     if (name === "subject_id") {
       fetchUnitsBySubjectId(value);
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
     }
     if (name === "unit_id" || name === "name") {
       setFormData({
@@ -65,7 +83,7 @@ const FormFPLessons = ({
       await Api_Dashboard.post("/lessons", data)
         .then((response) => {
           fechAlllessons();
-
+          reset();
           let x = response.data.message;
           SetAlertPointSuccess(x);
           notify("تم اضافة الدرس بنجاح ");
@@ -95,7 +113,7 @@ const FormFPLessons = ({
 
   return (
     <>
-              <ToastContainer position="top-center" />
+      <ToastContainer position="top-center" />
       <div className="container">
         <form action="" onSubmit={handelSubmit}>
           <div className="row form-content-lessons">
@@ -104,6 +122,7 @@ const FormFPLessons = ({
                 اسم الدرس
               </label>
               <input
+                value={formData.name}
                 onChange={handelChange}
                 type="text"
                 name="name"
@@ -122,6 +141,7 @@ const FormFPLessons = ({
                 اختر الوحده
               </label>
               <select
+                value={formData.unit_id}
                 onChange={handelChange}
                 name="unit_id"
                 defaultValue="1"
@@ -153,6 +173,7 @@ const FormFPLessons = ({
               </label>
 
               <select
+                value={formData.subject_id}
                 defaultValue="1"
                 name="subject_id"
                 className="form-select select-lesson rmsc multi-select-lib-les"
@@ -180,6 +201,7 @@ const FormFPLessons = ({
               </label>
               <select
                 defaultValue="1"
+                value={formData.group_id}
                 name="group_id"
                 className="form-select select-lesson"
                 onChange={handelChange}

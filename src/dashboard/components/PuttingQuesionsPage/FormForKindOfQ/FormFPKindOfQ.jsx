@@ -4,6 +4,7 @@ import "./FornFPkindOfQ.css";
 import Api_Dashboard from "../../../interceptor/interceptorDashboard";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
+import AddTOfQuestion from "../AddTypeOfQuestionModal/AddTypeOfQurstionModal";
 
 const FormFPkindOfQ = ({ fetchAllKQuestons }) => {
   const notify = (AlertPointSuccess) => {
@@ -39,9 +40,7 @@ const FormFPkindOfQ = ({ fetchAllKQuestons }) => {
     name: "",
   });
   const navigate = useNavigate();
-  const navgateToQBank = () => {
-    navigate("/dashboard/qbank");
-  };
+
   const handelChange = (e) => {
     console.log(e.target.value);
     setErrors({});
@@ -65,7 +64,6 @@ const FormFPkindOfQ = ({ fetchAllKQuestons }) => {
         .then((response) => {
           let x = response.data.message;
           SetAlertPointSuccess(x);
-          console.log("Mosafa");
           notify("تم اضافة نوع السؤال بنجاح ");
           fetchAllKQuestons();
         })
@@ -119,7 +117,7 @@ const FormFPkindOfQ = ({ fetchAllKQuestons }) => {
                   <div className="inputs">
                     <input
                       onChange={handelChange}
-                      value="  متعدد الاختيارات"
+                      value="متعدد الاختيارات"
                       name={"option"}
                       id={"option1"}
                       type="radio"
@@ -203,9 +201,12 @@ const FormFPkindOfQ = ({ fetchAllKQuestons }) => {
 
               <div className=" mybutton-kind  ">
                 <MyButton
+                  type="button"
+                  databstoggle="modal"
+                  databstarget="#addTypeOfQuestion"
                   className={"button-kind-2"}
                   content={"+  اضافة نوع سؤال جديد "}
-                  onClick={navgateToQBank}
+                  // onClick={navgateToQBank}
                 />
               </div>
             </div>
@@ -219,8 +220,8 @@ const FormFPkindOfQ = ({ fetchAllKQuestons }) => {
             </div>
           </div>
           <span style={{ color: "red", margin: "auto" }}>{errors.name}</span>
-          <ToastContainer position="top-center" />
         </form>
+        {/* <AddTOfQuestion fetchAllData={""} /> */}
       </div>
     </>
   );
