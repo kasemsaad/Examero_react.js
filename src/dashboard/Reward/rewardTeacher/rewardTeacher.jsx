@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Reward from '../reward'
 import Api_Dashboard from '../../interceptor/interceptorDashboard'
 import image from "./../../../assets/image/High Importance.svg"
+import { NotifyError } from '../../Alert/alertToast'
 
 
 export default function RewardTeacher() {
@@ -69,7 +70,8 @@ export default function RewardTeacher() {
         await Api_Dashboard.put('/teacher/points',{
             teacherIds: selectedItems
         }).then((response)=>{
-          getALLdataOfTeacher()
+            NotifyError("تم الحذف بنجاح")
+            getALLdataOfTeacher()
 
         }).catch((err)=>{
           console.log(err);

@@ -136,7 +136,6 @@ const getObjectFromRecivedId = ()=>{
     let subjectId;
     Api_Dashboard.get(`questions/${id}`).then((response)=>{
         console.log(response.data.question);
-
           SetdataToEdit({
             name: response.data.question.name ,
             point:response.data.question.point,
@@ -150,7 +149,7 @@ const getObjectFromRecivedId = ()=>{
             for: response.data.question.for[0],
             has_branch: response.data.question.has_branch,
             is_choose: response.data.question.is_choose,
-            image: response.data.question?.image,
+            // image: response.data.question.media?.name,
             options:response.data.question.options,
             status:response.data.question.status[0]
         })
@@ -199,69 +198,10 @@ const getObjectFromRecivedId = ()=>{
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (file) {
-          SetallDataFromAllSelection({ ...allDataFromAllSelection, image: file });
+          SetdataToEdit({ ...dataToEdit, image: file });
         }
       }
 
-     
-
-// i get from change and call api 
-    // const getAllSelection = async (e) => {
-    //     const data = { ...allDataFromAllSelection }
-    //     data[e.target.name] = e.target.value
-    //     // data.image=e.target.files[0]
-        
-    //     // SetallDataFromAllSelection(data)
-    //     // let idOfGroup = props.dataEdit.subject.id
-
-      
-    // //     let forId = data.for
-    // //     // console.log(forId);
-    // //     if (true) {
-    // //   await  getSubjectDependOnGroupId(idOfGroup)
-    // //     }
-
-    //     let subJectId = data.subject_id
-    //     if (data.subject_id) {
-    //         await getAllUnitsDependOnSubject(subJectId)
-    //     }
-
-    //     let unitId = data.unit_id
-    //     if (data.unit_id) {
-    //         await getAllLessonsDependOnUnit(unitId)
-    //     }
-    // }
-
-    // const getAllSelection = async (e) => {
-    //     const data = { ...dataToEdit }
-    //     data[e.target.name] = e.target.value
-    //     // data.image=e.target.files[0]
-        
-    //     SetdataToEdit(data)
-    //     let idOfGroup = data.group_id
-    //     // let level=data.level
-    //     // console.log(level);
-    //     let forId = data.for
-    //     // console.log(forId);
-    //     if (data.group_id) {
-    //         await getSubjectDependOnGroupId(idOfGroup)
-    //     }
-
-    //     let subJectId = data.subject_id
-    //     if (data.subject_id) {
-    //         await getAllUnitsDependOnSubject(subJectId)
-    //     }
-
-    //     let unitId = data.unit_id
-    //     if (data.unit_id) {
-    //         await getAllLessonsDependOnUnit(unitId)
-    //     }
-
-    //     let questionsIdType = data.question_type_id
-    //     if(data.question_type_id){
-    //       await  getAllshowQuistitionById(questionsIdType)
-    //     }
-    // }
 
     const getAllSelection = (e) => {
         const data = { ...dataToEdit };
@@ -319,11 +259,6 @@ const [allLesson,SetallLesson]=useState([])
             console.log(err);
         })
     }
-
-
-
-
-
 
 
     const [typeOfQuistition, SettypeOfQuistition] = useState([])
@@ -443,14 +378,16 @@ const [allLesson,SetallLesson]=useState([])
 // ------------------------------------------------
         await Api_Dashboard.post(`/questions/${id}`,payload,{
             headers: {
-              'Content-Type': 'multipart/form-data'
-            }
+                'Content-Type': 'multipart/form-data'
+              }
           }).then((response)=>{
             Notify(response.data.Message)
+            console.log(response);
+            
             resetForm();  
-            setTimeout(()=>{
-                navigate("/dashboard/qbank_details")  
-            },4000)
+            // setTimeout(()=>{
+            //     navigate("/dashboard/qbank_details")  
+            // },4000)
 
           }).catch((err)=>{
             console.log(err);
@@ -725,7 +662,7 @@ const [allLesson,SetallLesson]=useState([])
 
                             <div className='mt-2'>
                                 <label htmlFor=" ">اضافه صوره سؤال</label>
-                                <input onChange={handleImageChange} name='image' type="file"  className="form-control" placeholder=""       value={dataToEdit.image} />
+                                <input onChange={handleImageChange} name='image' type="file"  className="form-control" placeholder="" />
                             </div>
 
 

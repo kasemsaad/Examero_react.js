@@ -4,6 +4,7 @@ import OpenEmis from '../openEmis'
 import image from "./../../../assets/image/High Importance.svg"
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import { NotifyError } from '../../Alert/alertToast'
 
 
 export default function FinishedEmis() {
@@ -78,6 +79,7 @@ export default function FinishedEmis() {
         await Api_Dashboard.put('open-emis',{
          ids: selectedItems
         }).then((response)=>{
+          NotifyError("تم الحذف بنجاح")
           waitingEmisAllData()
 
         }).catch((err)=>{

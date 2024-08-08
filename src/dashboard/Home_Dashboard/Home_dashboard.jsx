@@ -29,6 +29,7 @@ import Calender from './Calender/calender'
 import { Link } from 'react-router-dom'
 import Api_Dashboard from '../interceptor/interceptorDashboard'
 import { useForm } from 'react-hook-form'
+import { NotifyError } from '../Alert/alertToast'
 
 
 
@@ -341,6 +342,7 @@ export default function Home_dashboard() {
   const deleteNote = (id) => {
     Api_Dashboard.delete(`/notes/${id}`)
       .then(response => {
+        NotifyError("تم الحذف بنجاح")
         console.log('Note deleted successfully');
         getAllNotes()
       })

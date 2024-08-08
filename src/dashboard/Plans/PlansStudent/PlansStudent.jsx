@@ -154,6 +154,7 @@ export default function PlansStudent() {
 // delete api _________________________
     const deleteConnect=async()=>{
       await Api_Dashboard.delete(`/plans/${deleteId}`).then((response)=>{
+        NotifyError("تم الحذف بنجاح")
         getAllTeacherPlan()
       }).catch((err)=>{
         console.log(err);

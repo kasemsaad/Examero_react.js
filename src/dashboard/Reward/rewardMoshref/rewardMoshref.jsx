@@ -3,6 +3,7 @@ import Reward from '../reward'
 import Api_Dashboard from '../../interceptor/interceptorDashboard'
 import image from "./../../../assets/image/High Importance.svg"
 import EmptyTable from '../../EmptyTable/EmptyTable'
+import { NotifyError } from '../../Alert/alertToast'
 
 
 export default function RewardMoshref() {
@@ -70,7 +71,8 @@ export default function RewardMoshref() {
         await Api_Dashboard.put('/points',{
             adminIds: selectedItems
         }).then((response)=>{
-          getALLdataOfSuperVisor()
+            NotifyError("تم الحذف بنجاح")
+            getALLdataOfSuperVisor()
 
         }).catch((err)=>{
           console.log(err);

@@ -211,15 +211,15 @@ function CertificateGenerator() {
         doc.setFont('Amiri');
 
         if (logoSchool) {
-            doc.addImage(logoSchool, 'PNG', 150, 30, 40, 50);  
+            doc.addImage(logoSchool, 'PNG', 538, 70, 80, 70);  
         }
 
-        doc.setFontSize(20);
+        doc.setFontSize(27);
         doc.text(user.firstName, 505, 229, { align: 'right' }); 
-        doc.setFontSize(20);
+        doc.setFontSize(27);
         doc.text(user.teacher_name, 320, 227, { align: 'right' }); 
 
-        doc.setFontSize(20);
+        doc.setFontSize(27);
         doc.text(user.manger_school, 500, 400, { align: 'right' });
 
         doc.setFontSize(20);

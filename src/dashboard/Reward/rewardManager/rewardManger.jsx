@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Reward from '../reward'
 import Api_Dashboard from '../../interceptor/interceptorDashboard'
 import image from "./../../../assets/image/High Importance.svg"
+import { NotifyError } from '../../Alert/alertToast'
 
 
 export default function RewardManger() {
@@ -69,7 +70,8 @@ export default function RewardManger() {
         await Api_Dashboard.put('/points',{
             adminIds: selectedItems
         }).then((response)=>{
-          getAllDataOfManger()
+            NotifyError("تم الحذف بنجاح")
+            getAllDataOfManger()
 
         }).catch((err)=>{
           console.log(err);

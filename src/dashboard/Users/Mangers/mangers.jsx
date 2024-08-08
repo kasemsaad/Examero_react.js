@@ -19,7 +19,7 @@ const Mangers = () => {
   console.log(role);
 
   const acccessDenied = ()=>{
-      if (role != "owner"){
+      if (role !== "owner"){
 {       
   role == "supervisor" ?  navigate('/dashboard/accessDenied') : navigate('/dashboard/accessDenied',{state:{id:1}})
 }      }

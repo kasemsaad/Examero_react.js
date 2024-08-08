@@ -8,6 +8,7 @@ import Api_Dashboard from '../interceptor/interceptorDashboard'
 import image from "./../../assets/image/High Importance.svg"
 import QbankEditing from './QbankEditing/qbankEditing'
 import SearchAndAddUsers from '../components/UsersPages/searchInputAndAddButton/handelSearch&AddUsers'
+import { NotifyError } from '../Alert/alertToast'
 
 
 
@@ -72,6 +73,7 @@ export default function QbankDetails() {
     const deleteQbank = async () => {
         await Api_Dashboard.delete(`/questions/${deleteId}`).then((response) => {
             console.log(response);
+            NotifyError("تم الحذف بنجاح")
             getAllQuistionData()
         }).catch((err) => {
             console.log(err);

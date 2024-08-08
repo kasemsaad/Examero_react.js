@@ -18,7 +18,7 @@ export const Notify = (AlertPointSuccess) => {
 export const NotifyError = (AlertPointSuccess) => {
     toast.error(AlertPointSuccess, {
         position: "top-center",
-        autoClose: 2000,
+        autoClose: 1000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,

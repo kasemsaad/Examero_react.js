@@ -222,80 +222,12 @@ export default function Qbank() {
         }
     }
     
-
-
-
-
-    // const getAllSelection = async (e) => {
-    //     const data = { ...allDataFromAllSelection };
-    //     data[e.target.name] = e.target.value;
-    //     SetallDataFromAllSelection(data);
-    
-    //     if (data.group_id && data.group_id !== idOfGroup) {
-    //         // setidOfGroup(data.group_id);
-    //         await getSubjectDependOnGroupId(data.group_id);
-    //     }
-    
-    //     if (data.subject_id && data.subject_id !== subjectId) {
-    //         // setSubjectId(data.subject_id);
-    //         await getAllUnitsDependOnSubject(data.subject_id);
-    //     }
-    
-    //     if (data.unit_id && data.unit_id !== unitId) {
-    //         // setUnitId(data.unit_id);
-    //         await getAllLessonsDependOnUnit(data.unit_id);
-    //     }
-    
-    //     if (data.question_type_id && data.question_type_id !== questionTypeId) {
-    //         // setQuestionTypeId(data.question_type_id);
-    //         await getAllshowQuistitionById(data.question_type_id);
-    //     }
-    // };
-    
-
-//  let timeout;
-// const getAllSelection = async (e) => {
-//     clearTimeout(timeout); 
-//         const data = { ...allDataFromAllSelection }
-//         data[e.target.name] = e.target.value;
-//         SetallDataFromAllSelection(data)
-//         timeout = setTimeout(async () => {
-//         let idOfGroup = data.group_id;
-    
-//         if (data.group_id) {
-//             await getSubjectDependOnGroupId(idOfGroup);
-//         }
-
-//         let subJectId = data.subject_id;
-//         if (data.subject_id) {
-//             await getAllUnitsDependOnSubject(subJectId);
-//         }
-
-//         let unitId = data.unit_id;
-//         if (data.unit_id) {
-//             await getAllLessonsDependOnUnit(unitId);
-//         }
-
-//         let questionsIdType = data.question_type_id;
-//         if (data.question_type_id) {
-//             await getAllshowQuistitionById(questionsIdType);
-//         }
-//     }, 500); // Delay of 500ms (adjust as needed)
-// }
-
-
-
-
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (file) {
           SetallDataFromAllSelection({ ...allDataFromAllSelection, image: file });
         }
       }
-
-
-
-
 
 
     const [unitAllData, SetunitAllData] = useState([])
@@ -350,15 +282,6 @@ const [allLesson,SetallLesson]=useState([])
 
     }, [])
     const [isLoading, setIsLoading] = useState(false);
-
-    // const startLoadingAndSubmit = (event) => {
-    //     event.preventDefault(); // منع الإرسال الافتراضي للنموذج
-    //     setIsLoading(true); // تعيين حالة التحميل على true
-    //     setTimeout(() => {
-    //         handlaeSubmit(); // استدعاء دالة handlaeSubmit بعد التأخير
-    //         setIsLoading(false); // تعيين حالة التحميل على false بعد استدعاء الدالة
-    //     }, 5000); // التأخير لمدة 10 ثوانٍ
-    // };
 
 
     const handlaeSubmit = async (event)=>{
@@ -709,7 +632,7 @@ const [allLesson,SetallLesson]=useState([])
 
                             <div className='mt-2'>
                                 <label htmlFor=" "> درجه السؤال </label>
-                                <input onChange={getAllSelection} name='point' type="number" className="form-control" placeholder="درجه السؤال" required value={allDataFromAllSelection.point}
+                                <input min={1} onChange={getAllSelection} name='point' type="number" className="form-control" placeholder="درجه السؤال" required value={allDataFromAllSelection.point}
  />
                             </div>
 

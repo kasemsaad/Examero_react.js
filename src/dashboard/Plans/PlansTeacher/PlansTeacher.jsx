@@ -5,6 +5,7 @@ import image from "./../../../assets/image/High Importance.svg"
 import './PlansTeacher.css'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { NotifyError } from '../../Alert/alertToast'
 
 export default function PlansTeacher() {
     const [allTeacherPlanData,SetallTeacherPlanData]=useState([])
@@ -189,6 +190,7 @@ setTimeout((()=>{
     const deleteConnect=async()=>{
       await Api_Dashboard.delete(`/plans/${deleteId}`).then((response)=>{
         console.log(response);
+        NotifyError("تم الحذف بنجاح")
         getAllTeacherPlan()
       }).catch((err)=>{
         console.log(err);
