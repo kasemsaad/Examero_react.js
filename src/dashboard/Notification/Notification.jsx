@@ -8,6 +8,8 @@ import Api_Dashboard from "../interceptor/interceptorDashboard.jsx";
 import PaginationForPuttingQ from "../PuttingQussions/paginationForPutingQ/paginationForPatingQ.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { setNot } from "../../redux/reducer/notification.jsx";
+import { toast } from "react-toastify";
+import { ToastContainer } from "react-bootstrap";
 
 const Notification = ({ api, man, all }) => {
   const [isCheckedAll, setIsCheckedAll] = useState(false);
@@ -17,6 +19,33 @@ const Notification = ({ api, man, all }) => {
   const [notify, setNotifiy] = useState([]);
   const totalPages = metaFPagination.last_page;
   const dispatch = useDispatch();
+  const notif = (AlertPointSuccess) => {
+    toast.success(AlertPointSuccess, {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
+
+  const Errornotify = (AlertPoint) => {
+    toast.error(AlertPoint, {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
+
+  const [AlertPoint, SetAlertPoint] = useState("");
   // const [myActivityIds,setMyActivityIds]=useState({
   //   activityIds:isChecked
   // })
@@ -59,6 +88,7 @@ const Notification = ({ api, man, all }) => {
       .then((response) => {
         setIsChecked([]);
         fetchAllNotfiy();
+        notif("تم الحذف بنجاح ");
       })
       .catch((err) => {
         console.log(err);
@@ -89,6 +119,8 @@ const Notification = ({ api, man, all }) => {
 
   return (
     <>
+      <ToastContainer position="top-center" />
+
       <div className="notification min-vh-100">
         <HeaderNotificaion content={"الإشعارات"} />
 

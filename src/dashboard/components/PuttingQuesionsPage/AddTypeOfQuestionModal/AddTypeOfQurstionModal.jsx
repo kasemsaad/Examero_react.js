@@ -36,6 +36,9 @@ const AddTOfQuestion = ({ fetchAllData }) => {
   const [selctedQ, setSelectedQ] = useState({
     name: "",
   });
+  const reset = () => {
+    setSelectedQ({ name: "" });
+  };
   const handelChange = (e) => {
     console.log(e.target.value);
     setErrors({});
@@ -50,11 +53,10 @@ const AddTOfQuestion = ({ fetchAllData }) => {
     e.preventDefault();
 
     const handelEdit = async (selctedQ) => {
-      console.log(selctedQ);
       if (selctedQ) {
         await Api_Dashboard.post("questions-type", selctedQ)
           .then((response) => {
-            console.log(response);
+            reset();
             let x = response.data.message;
             element.style.display = "none";
             notify("تم اضافة نوع السؤال بنجاح ");

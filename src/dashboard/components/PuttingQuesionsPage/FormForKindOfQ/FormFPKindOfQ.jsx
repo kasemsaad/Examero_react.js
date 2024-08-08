@@ -40,7 +40,9 @@ const FormFPkindOfQ = ({ fetchAllKQuestons }) => {
     name: "",
   });
   const navigate = useNavigate();
-
+const reset=()=>{
+  setSelectedQ({name:""})
+}
   const handelChange = (e) => {
     console.log(e.target.value);
     setErrors({});

@@ -45,7 +45,13 @@ const PaginationForPuttingQ = ({
           }}
           stylep={{ margin: "0", color: "white" }}
         />
-        <div style={{ display: "flex", flexDirection: "row-reverse" }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row-reverse",
+            overflow: "auto",
+          }}
+        >
           {Array.from({ length: totalPages }, (_, i) => (
             <div
               key={i}
