@@ -39,7 +39,7 @@ function DataStudentExam(props) {
                 console.error("Error fetching exam data:", error);
             })
             .finally(() => {
-                setLoading(false); // Set loading to false after data is fetched
+                setLoading(false); 
             });
     }
 
@@ -74,51 +74,47 @@ function DataStudentExam(props) {
                             إضافة امتحان
                         </Link>
                     </div>
+                    {loading ? (
+    <div colSpan="" className='text-center ' style={{ width: "100%" ,color: layoutBackground === "#0E0A43" ? "white" : "black"}} >لا يوجد إمتحانات</div>
+) : data.length > 0 ? (
+    <table className='tabelstudent' style={{ width: "100%" }}>
+        <thead>
+            <tr style={{
+                color: layoutBackground === "#0E0A43" ? "#FE4F60" : "black",
+            }}>
+                <th>#</th>
+                <th>الفصل الدراسي</th>
+                <th>اسم الصف</th>
+                <th>اسم المبحث</th>
+                <th>نتيجة الامتحان</th>
+                <th>مراجعة الامتحان</th>
+            </tr>
+        </thead>
+        <tbody style={{color: layoutBackground === "#0E0A43" ? "white" : "black"}}>
+            {data.map(({ id, semster, group, status, subject }, index) => (
+                <tr key={index} style={{
+                    backgroundColor: index % 2 === 0 ? (layoutBackground === "#0E0A43" ? "#1d195d" : "#FCFCFC") : (layoutBackground === "#0E0A43" ? "#090631" : "#DADADA")
+                }}>
+                    <td>{index + 1}</td>
+                    <td>{semster[1]}</td>
+                    <td>{group.name}</td>
+                    <td>{subject.name}</td>
+                    <td style={{ color: status === "راسب" ? "#FF3A3A" : "#24FF00" }}>
+                        {status}
+                    </td>
+                    <td>
+                        <Link to={`/student/CorrectAnswerfrom/${id}`}><i className='fas fa-pen-to-square' style={{ color: "#C01F59" }}></i></Link>
+                    </td>
+                </tr>
+            ))}
+        </tbody>
+    </table>
+) : (
+    <div colSpan="" className='text-center' style={{ width: "100%" }}>لا يوجد إمتحانات</div>
+)}
 
-                    <table className='tabelstudent' style={{ width: "100%" }}>
-                        <thead>
-                            <tr style={{
-                                color: layoutBackground === "#0E0A43" ? "#FE4F60" : "black",
-                            }}>
-                                <th>#</th>
-                                <th>الفصل الدراسي</th>
-                                <th>اسم الصف</th>
-                                <th>اسم المبحث</th>
-                                <th>نتيجة الامتحان</th>
-                                <th>مراجعة الامتحان</th>
-                            </tr>
-                        </thead>
-                        <tbody style={{
-                            color: layoutBackground === "#0E0A43" ? "white" : "black"
-                        }}>
-                            {loading ? (
-                                <tr>
-                                    {/* <td colSpan="5" className=''>Loading data...</td> */}
-                                </tr>
-                            ) : data.length > 0 ? (
-                                data.map(({ id, semster, group, status, subject }, index) => (
-                                    <tr key={index} style={{
-                                        backgroundColor: index % 2 === 0 ? (layoutBackground === "#0E0A43" ? "#1d195d" : "#FCFCFC") : (layoutBackground === "#0E0A43" ? "#090631" : "#DADADA")
-                                    }}>
-                                        <td>{index + 1}</td>
-                                        <td>{semster[1]}</td>
-                                        <td>{group.name}</td>
-                                        <td>{subject.name}</td>
-                                        <td style={{ color: status === "راسب" ? "#FF3A3A" : "#24FF00" }}>
-                                            {status}
-                                        </td>
-                                        <td>
-                                        <Link to={`/student/CorrectAnswerfrom/${id}`}><i className='fas fa-pen-to-square' style={{color:"#C01F59"}}></i></Link>
-                                        </td>
-                                    </tr>
-                                ))
-                            ) : (
-                                ""
-                            )}
-                        </tbody>
-                    </table>
 
-                    <div className="d-flex justify-content-end mt-3">
+                    <div className="d-flex pb-4 justify-content-end mt-3">
                         <button
                             className='btn btn-outline-light mx-2'
                             style={{ backgroundColor: "#4941A6" }}

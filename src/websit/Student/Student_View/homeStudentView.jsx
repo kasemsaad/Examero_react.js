@@ -87,9 +87,10 @@ function HomeStudentview(props) {
       setAddressValidationMessage('لا يجب ان يكون فارغ');
     } else if (value.length > 20) {
       setAddressValidationMessage('العنوان لايزيد عن 20 حرف');
-    } else if (!/^[\u0621-\u064Aa-zA-Z_ ]*$/.test(value)) {
-      setAddressValidationMessage('يجب ان يكون نص');
-    } else {
+    // } else if (!/^[\u0621-\u064Aa-zA-Z_ ]*$/.test(value)) {
+    //   setAddressValidationMessage('يجب ان يكون نص');
+    }
+     else {
       setAddressValidationMessage('');
       setAddress(value);
 
@@ -104,9 +105,10 @@ function HomeStudentview(props) {
       setNoteValidationMessage('لا يجب ان يكون فارغ');
     } else if (value.length > 50) { // Example max length for note
       setNoteValidationMessage('الملحوظه لاتزيد عن 50 حرف');
-    } else if (!/^[\u0621-\u064Aa-zA-Z_ ]*$/.test(value)) {
-      setNoteValidationMessage('يجب ان يكون نص');
-    } else {
+    // } else if (!/^[\u0621-\u064Aa-zA-Z_ ]*$/.test(value)) {
+    //   setNoteValidationMessage('يجب ان يكون نص');
+    }
+     else {
       setNoteValidationMessage('');
       setNote(value);
     }
@@ -172,8 +174,8 @@ function HomeStudentview(props) {
       return 'لا يجب ان يكون فارغ'; // "Should not be empty"
     } else if (address.length > 15) {
       return 'الملحوظه لاتزيد عن 15 حرف'; // "Note should not exceed 50 characters"
-    } else if (!/^[\u0600-\u06FF\sA-Za-z]+$/.test(address)) {
-      return 'يجب ان يكون نص'; // "Must be text"
+    // } else if (!/^[\u0600-\u06FF\sA-Za-z]+$/.test(address)) {
+    //   return 'يجب ان يكون نص'; // "Must be text"
     } else {
       return '';
     }
@@ -193,8 +195,8 @@ function HomeStudentview(props) {
       return 'لا يجب ان يكون فارغ'; // "Should not be empty"
     } else if (note.length > 50) {
       return 'الملحوظه لاتزيد عن 50 حرف'; // "Note should not exceed 50 characters"
-    } else if (!/^[\u0600-\u06FF\sA-Za-z]+$/.test(note)) {
-      return 'يجب ان يكون نص'; // "Must be text"
+    // } else if (!/^[\u0600-\u06FF\sA-Za-z]+$/.test(note)) {
+    //   return 'يجب ان يكون نص'; // "Must be text"
     } else {
       return '';
     }
@@ -400,7 +402,7 @@ function HomeStudentview(props) {
 
             <div className="row child pt-4 p-0 m-0 rounded-4" style={{ width: "100%" }}>
 
-              <div className="new-feature-section" style={{ padding: "10px", marginBottom: "15px", marginTop: "5px", borderRadius: "8px", border: "2px solid #A6A0F4 " }}>
+              <div className="new-feature-section" style={{ backgroundColor:"#4941A6", padding: "10px", marginBottom: "15px", marginTop: "5px", borderRadius: "8px", border: "2px solid #A6A0F4 " }}>
                 <div className="d-flex justify-content-between align-items-center">
                   <span style={{ fontSize: "15px", fontWeight: "bold", color: '#A6A0F4' }}>كيف أنضم للوحة الشرف ؟ </span>
                   <button onClick={handleToggle} style={{ color: 'white', background: "none", border: "none", cursor: "pointer" }}>

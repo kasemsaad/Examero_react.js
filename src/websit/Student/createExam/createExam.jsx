@@ -43,6 +43,8 @@ function CreateExam(props) {
 
   // Handle the countdown logic using useEffect
   useEffect(() => {
+    document.body.style.removeProperty('overflow');
+
     let interval = null;
     if (isActive && timeLeft > 0) {
       interval = setInterval(() => {
@@ -56,13 +58,15 @@ function CreateExam(props) {
         modalElementExams.style.display = "none"
         const modalElementFinishTimer = document.getElementById('FinishTimer');
         modalElementFinishTimer.style.display = "block"
+        
         setData("")
         setSelectedOptions("")
       }, 9000);
       setIsActive(false);
     }
 
-    return () => clearInterval(interval);
+    // return () => clearInterval(interval);
+    return () => clearTimeout(interval);
   }, [isActive, timeLeft]);
 
 
@@ -319,6 +323,7 @@ function CreateExam(props) {
         console.log('submit exam');
         const modalElementSubit = document.getElementById('FinishExam');
         modalElementSubit.style.display = "block"
+        document.body.classList.add('no-click');
         const modalElementExam = document.getElementById('Exam');
         modalElementExam.style.display = "none"
         setResult(response.data.data)
@@ -326,6 +331,7 @@ function CreateExam(props) {
         setTimeout(() => {
           const modalElementSubit = document.getElementById('FinishExam');
           modalElementSubit.style.display = "none"
+          document.body.classList.remove('no-click');
           setData("")
           setSelectedOptions("")
         }, 3500);
@@ -423,7 +429,7 @@ function CreateExam(props) {
     <>
       <ToastContainer position='top-center' />
 
-      <div className="container py-5 d-flex align-items-center justify-content-center flex-column">
+      <div className="container  py-5 d-flex align-items-center justify-content-center flex-column">
         <div className=" " style={{ width: "85%", paddingTop: "4.25px" }}  >
           <img className="" src={CreateExamIcon} alt="HomeIcon" style={{ backgroundColor: "transparent" }} />
           <Link

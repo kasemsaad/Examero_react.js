@@ -220,7 +220,7 @@ function SidebarFullscreen() {
                     </Link>
                   </li>
                   <li className={`Icon  ${id === "10" ? "bgIcon" : " "}`}>
-                    <Link to="student/datastudentexam" onClick={() => setId(10)}>
+                    <Link to="datastudentexam" onClick={() => setId(10)}>
                       <img style={{ width: 18, height: 18 }} src={create_new} alt="إنشاء الامتحان" />
                     </Link>
                   </li>

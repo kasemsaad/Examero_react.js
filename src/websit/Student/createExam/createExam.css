@@ -25,7 +25,9 @@ top: 50%;
         font-weight: bold;
 }
 /* /////////////////////////////////////// */
-
+.no-click {
+    pointer-events: none;
+  }
 .drocontainer {
     width: 200px;
     background-color: #fff;

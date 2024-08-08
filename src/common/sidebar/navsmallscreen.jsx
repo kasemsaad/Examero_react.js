@@ -25,6 +25,8 @@ import Api_Dashboard from "../../dashboard/interceptor/interceptorDashboard";
 import Api_dashboard from "../../utlis/axios_utils_dashboard";
 import ModalLogOut from "../../dashboard/modal/modalLogOut";
 import { ToastContainer } from "react-toastify";
+import sora2 from '../header/man 2.png';
+
 function Navsmallscreen() {
   const navigate = useNavigate()
   const location = useLocation()
@@ -416,19 +418,26 @@ useEffect(() => {
 
             }
           </div>
-          <div className="personal_images" style={{ position: 'relative', width: '80%', margin: 'auto', height: '10px' }}>
-            <div id="svg_header" style={{ width: '55px', height: '55px', borderRadius: '50%', backgroundColor: 'blue', overflow: 'hidden', position: 'absolute' }}>
-              <img style={{ objectFit: 'cover' }}
+          <div className="personal_images mb-2" style={{ position: 'relative', width: '80%', margin: 'auto', height: '10px' }}>
+            <div id="svg_header" style={{ width: '55px', height: '55px', borderRadius: '50%', backgroundColor: '#4941A6', overflow: 'hidden', position: 'absolute' }}>
+            <img
+            style={{ objectFit: "cover" }}
 
-                src={
+            src={
+              (personalDashboard || personalStudent || personalTeacher) == "" ?
+                sora2
+                :
+                location.pathname.startsWith('/dashboard') ? `${Api_dashboard.defaults.baseURL}/assets/Admin/${personalDashboard}` :
+                  location.pathname.startsWith('/student') ? `${Api_dashboard.defaults.baseURL}/assets/Student/${personalStudent}` :
+                    location.pathname.startsWith('/teacher') ? `${Api_dashboard.defaults.baseURL}/assets/Teacher/${personalTeacher}` :
+                    sora2
+            }
 
-                  location.pathname.startsWith('/dashboard') ? `${Api_dashboard.defaults.baseURL}/assets/Admin/${personalDashboard}` :
-                    location.pathname.startsWith('/student') ? `${Api_dashboard.defaults.baseURL}/assets/Student/${personalStudent}` :
-                      location.pathname.startsWith('/teacher')? `${Api_dashboard.defaults.baseURL}/assets/Teacher/${personalTeacher}`:
-                      ""
-                }
+            width="100%"
+            height="100%"
+            alt={""}
 
-                width="100%" height="100%" alt="Personal" />
+          />
             </div>
           </div>
         </div>

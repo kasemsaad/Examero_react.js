@@ -115,7 +115,7 @@ function ExamPdf() {
             <img  hidden={!headerData3.showJordanianLogo} src={leftLogo} alt="logo" />
             </div>
             <div className="exam-title">
-              ترويسة الامتحان باللغه العربية <br />
+            Exam header in English <br />
               <div className="exam-logo">
                 <img src={homeLogo} alt="logo" />
               </div>

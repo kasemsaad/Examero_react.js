@@ -35,10 +35,13 @@ function Header() {
 
   const linksProfile = () => {
     if (location.pathname.startsWith("/dashboard")) {
+      localStorage.setItem("sidbarId", JSON.stringify(""));
       navigate("/dashboard/b");
     } else if (location.pathname.startsWith("/student")) {
+      localStorage.setItem("sidbarId", JSON.stringify(""));
       navigate("/student/editStudentProfaile");
     } else if (location.pathname.startsWith("/teacher")) {
+      localStorage.setItem("sidbarId", JSON.stringify("")); 
       navigate("/teacher/TeacherProfile");
     } else {
       navigate("/");
@@ -244,7 +247,7 @@ function Header() {
             linksProfile();
           }}
         >
-{console.log(personalStudent)}
+{/* {console.log(personalStudent)} */}
           <img
             style={{ objectFit: "cover" }}
 
