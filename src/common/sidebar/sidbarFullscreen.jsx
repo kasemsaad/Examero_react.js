@@ -200,7 +200,7 @@ function SidebarFullscreen() {
             <Link to="/dashboard/specify" onClick={() => setId(9)} className={`Icon  ${id === "9" ? "Id":" "}`}>جدول المواصفات</Link>
             </li>:""}
             <li className="sidbarli">
-            <Link to="/dashboard/putting/questions/levels=1" onClick={() => setId(10)} className={`Icon  ${id === "10" ? "Id":" "}`}>إنشاء الامتحان</Link>
+            <Link to="/dashboard/putting/questions/levels=1" onClick={() => setId(10)} className={`Icon  ${id === "10" ? "Id":" "}`}> وضع الاسئلة</Link>
             </li>
             <li className="sidbarli">
             <Link data-bs-toggle="modal" data-bs-target="#log_out_dashboard" onClick={() => setId(11)} className={`Icon  ${id === "11" ? "Id":" "}`}>تسجيل الخروج</Link>

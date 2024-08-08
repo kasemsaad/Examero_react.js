@@ -1,7 +1,7 @@
 import React from 'react'
 import errorr from './../../assets/image/Group 339.svg'
 
-export default function ErrorPage() {
+export default function ErrorPage(props) {
   return (
     <>
 
@@ -14,8 +14,10 @@ export default function ErrorPage() {
 
 <div style={{textAlign:"center"}}>
   <p style={{color:"#FF828E"}}>الصفحة غير موجودة !</p>
-  <p  style={{color:"#ffff"}}>نأسف، الصفحة التي تبحث عنها غير متوفرة. قد يكون الرابط الذي اتبعته غير صحيح أو أن الصفحة قد تم حذفها.</p>
-</div>
+{ props.content? <p  style={{color:"#ffff"}}>نأسف، ليس لديك الصلاحيه لهذه الصفحه</p>:
+ 
+ <p  style={{color:"#ffff"}}>نأسف، الصفحة التي تبحث عنها غير متوفرة. قد يكون الرابط الذي اتبعته غير صحيح أو أن الصفحة قد تم حذفها.</p>
+}</div>
 
 
 

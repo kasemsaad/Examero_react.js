@@ -16,14 +16,19 @@ import { useSelector } from "react-redux";
 const Mangers = () => {
   const navigate = useNavigate()
   const role = useSelector((state) => state.RoleAccess.role); 
+  console.log(role);
+
   const acccessDenied = ()=>{
-      if (role === "manager"){
-          navigate('/dashboard/accessDenied')
-      }
+      if (role != "owner"){
+{       
+  role == "supervisor" ?  navigate('/dashboard/accessDenied') : navigate('/dashboard/accessDenied',{state:{id:1}})
+}      }
   }
-  useEffect(()=>{
-      acccessDenied()
-  },[])
+  useEffect(() => {
+    if (role) {
+      acccessDenied();
+    }
+  }, [role]);
   // header of the table
   let header = {
     name1: "اسم المدير",

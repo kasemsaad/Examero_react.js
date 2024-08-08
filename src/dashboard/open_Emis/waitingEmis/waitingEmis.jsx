@@ -125,13 +125,22 @@ export default function WaitingEmis() {
   
     
 
-    useEffect(()=>{
-        waitingEmisAllData()
-        acccessDenied()
-    },[current_page])
+    // useEffect(()=>{
+    //     waitingEmisAllData()
+    //     acccessDenied()
+    // },[current_page])
+
+    useEffect(() => {
+      waitingEmisAllData()
+      if (role) {
+        acccessDenied();
+      }
+    }, [current_page,role]);
     // getting ALL DATA OF WAIITING_OPENING_EMIS
     const waitingEmisAllData = async ()=>{
         await Api_Dashboard.get(`/open-emis?status=1&page=${current_page}`).then((response)=>{
+          console.log(response);
+          
             SetopenEmisAllData(response.data.data)
            Setpagination(response.data.meta.pagination);
         }).catch((err)=>{

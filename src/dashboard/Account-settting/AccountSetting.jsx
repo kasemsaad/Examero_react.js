@@ -283,7 +283,7 @@ const getInputPasswor=(e)=>{
                     <label htmlFor="birthDate">تاريخ الميلاد</label>
                   </div>
                   <div className="input_size">
-                    <input onChange={(e)=>getUsersFromInput(e)} type="text" className="form-control" required placeholder='21/2/1800' name='date_of_birth' value={inputUser.date_of_birth}/>
+                    <input onChange={(e)=>getUsersFromInput(e)} type="date" className="form-control" required placeholder='21/2/1800' name='date_of_birth' value={inputUser.date_of_birth} />
                   </div>
                 </div>
                 <div className="col-md-12 mt-3 button_wraper " style={{ direction: "ltr", marginLeft: "10px" }}>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Reward from '../reward'
 import Api_Dashboard from '../../interceptor/interceptorDashboard'
 import image from "./../../../assets/image/High Importance.svg"
+import EmptyTable from '../../EmptyTable/EmptyTable'
 
 
 export default function RewardMoshref() {
@@ -76,16 +77,19 @@ export default function RewardMoshref() {
         })
       }
   
+      console.log(superVisor);
+      
+      const [tt ,setTT]=useState("")
 
 
     return (
         <>
         {/* <div id='rewardSuperVisor'> */}
 
-   
 
-
-            <Reward
+       
+         
+         <Reward
             current_page={current_page}
             totalPages={totalPages}
 
@@ -104,7 +108,6 @@ export default function RewardMoshref() {
                 TittleName={"اسم المشرف"}
 
             />
-
 
 
 
@@ -140,7 +143,7 @@ export default function RewardMoshref() {
                     </div>
                 </div>
             </div>
-
+ 
 
 
             {/* </div> */}

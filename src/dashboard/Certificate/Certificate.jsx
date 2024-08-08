@@ -10,7 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import chains from '../font/chain.js'; 
 import image_ from './../../assets/image/02-01 1 (1).png';
 import image_2 from './../../assets/image/04-01 1.png';
-import image_3 from './../../assets/image/05-01 1.png';
+import image_3 from './../../assets/image/05-01 2.png';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -147,11 +147,14 @@ function CertificateGenerator() {
         SetidOfPointSelected(selectedValue);
     }
 
+
+
     useEffect(() => {
         getTeacher();
-        acccessDenied()
-
-    }, [])
+        if (role) {
+          acccessDenied();
+        }
+      }, [role]);
 
     const x = image_3;
     console.log(x);
@@ -171,9 +174,37 @@ function CertificateGenerator() {
         let x = "";
 
     
-        const doc = new jsPDF();
+        // const doc = new jsPDF();
+        const doc = new jsPDF({
+            orientation: 'landscape', // or 'portrait', depending on your certificate orientation
+            unit: 'px',
+            format: [690, 504] // Use the image's width and height in pixels
+        });
+        const img = new Image();
+        const originalWidth = 690;  // Original image width
+    const originalHeight = 504; // Original image height
+
+    // Calculate the aspect ratio
+    const aspectRatio = originalHeight / originalWidth;
+
+    // Determine the PDF page width and height
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
+
+    // Calculate the new height based on the page width while maintaining the aspect ratio
+    const newHeight = pageWidth * aspectRatio;
+
+    let finalWidth = pageWidth;
+    let finalHeight = newHeight;
+    if (newHeight > pageHeight) {
+        finalHeight = pageHeight;
+        finalWidth = pageHeight / aspectRatio;
+    }
+
+
         // Add background image مهمه 
-        doc.addImage(c, 'PNG', 0, 0, doc.internal.pageSize.getWidth(), doc.internal.pageSize.getHeight());
+        // doc.addImage(c, 'PNG', 0, 0, doc.internal.pageSize.getWidth(), doc.internal.pageSize.getHeight());
+        doc.addImage(c, 'PNG', 0, 0, finalWidth, finalHeight);
 
         doc.addFileToVFS('Amiri-Regular.ttf', chains);
         doc.addFont('Amiri-Regular.ttf', 'Amiri', 'normal');
@@ -184,12 +215,12 @@ function CertificateGenerator() {
         }
 
         doc.setFontSize(20);
-        doc.text(user.firstName, 97, 135, { align: 'right' }); 
+        doc.text(user.firstName, 505, 229, { align: 'right' }); 
         doc.setFontSize(20);
-        doc.text(user.teacher_name, 153, 135, { align: 'right' }); 
+        doc.text(user.teacher_name, 320, 227, { align: 'right' }); 
 
         doc.setFontSize(20);
-        doc.text(user.manger_school, 156, 233, { align: 'right' });
+        doc.text(user.manger_school, 500, 400, { align: 'right' });
 
         doc.setFontSize(20);
         doc.text(x, 68, 233, { align: 'right' }); 
@@ -293,7 +324,7 @@ function CertificateGenerator() {
                             <img src={image_2} alt="" width={"100%"} onClick={()=>onImg("/static/media/04-01 1.1dc51bbe2d441071e5d1.png")} />
                         </div>
                          <div style={{width:"200px",height:"200px"}}>
-                            <img src={image_3} alt="" width={"100%"} onClick={()=>onImg("/static/media/05-01 1.5b4235e1d15175fbd180.png")} />
+                            <img src={image_3} alt="" width={"100%"} onClick={()=>onImg("/static/media/05-01 2.d2bb0e7989fa79279762.png")} />
                         </div>  
 
                     </div>

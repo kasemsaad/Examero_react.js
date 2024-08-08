@@ -27,9 +27,11 @@ export default function Specification() {
             navigate('/dashboard/accessDenied')
         }
     }
-    useEffect(()=>{
-        acccessDenied()
-    },[])
+    useEffect(() => {
+        if (role) {
+          acccessDenied();
+        }
+      }, [role]);
 
    
 

@@ -4,6 +4,7 @@ import MyButton from "../../Button/Button";
 import image from "../../../assets/icons/MyTable/trash.svg";
 import { Link } from "react-router-dom";
 import './tableOpenEmis.css'
+import Api_dashboard from "../../../utlis/axios_utils_dashboard";
 function TableOpenEmis({
   header,
   body,
@@ -77,7 +78,9 @@ function TableOpenEmis({
             </td> */}
 
             <td>
-              {row.ImagePath === null ? <p style={{margin:"0",padding:"0"}}>لا يوجد مستند</p>: row.ImagePath}
+              {/* {row.ImagePath === null ? <p style={{margin:"0",padding:"0"}}>لا يوجد مستند</p>: row.ImagePath} */}
+              {row.ImagePath === null ? <p style={{margin:"0",padding:"0"}}>لا يوجد مستند</p>:  <a href={`${Api_dashboard.defaults.baseURL}${row.ImagePath}${row.media.name}`} target="_blank" rel="noopener noreferrer" >مستند</a> }
+
             </td>
 
             {toggle && (

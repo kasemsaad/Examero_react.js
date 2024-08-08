@@ -294,7 +294,6 @@ const getObjectFromRecivedId = ()=>{
     const [unitAllData, SetunitAllData] = useState([])
     const getAllUnitsDependOnSubject = async (idOfSubject) => {
         await Api_Dashboard.get(`units/selection/${idOfSubject}`).then((response) => {
-            // console.log(response);
             SetunitAllData(response.data.data)
         }).catch((err) => {
             console.log(err);
@@ -365,8 +364,6 @@ const [allLesson,SetallLesson]=useState([])
 
     }, [props.dataEdit])
     const navigate = useNavigate()
-
-
     const handlaeSubmit = async (event)=>{
         event.preventDefault();
         const payload ={

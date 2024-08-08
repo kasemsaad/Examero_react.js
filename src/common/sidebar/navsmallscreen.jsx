@@ -270,7 +270,7 @@ useEffect(() => {
                     </Link>
                   </li>:""}
                   <li className="nav-item">
-                    <Link className="nav-link" to="/dashboard/putting/questions/levels=1" onClick={() => setId(15)}>  انشاء الامتحان
+                    <Link className="nav-link" to="/dashboard/putting/questions/levels=1" onClick={() => setId(15)}>  وضع الاسئلة 
                       <img style={{ width: 18, height: 18 }} src={create_new} alt="انشاء الاسئله" />
                     </Link>
                   </li>
